@@ -12,7 +12,10 @@
 		<link rel="canonical" href="https://www.zhyd.me/about">
 		<link href="./img/favicon.ico" rel="shortcut icon" type="image/x-icon">
 		<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-		<link href="./css/zhyd.plugin.min.css" rel="stylesheet" type="text/css">
+		<link href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://cdn.bootcss.com/jquery-confirm/2.5.1/jquery-confirm.min.css" rel="stylesheet">
+		<link href="https://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+		<link href="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.1/css/bootstrapValidator.min.css" rel="stylesheet">
 		<link href="./css/zhyd.core.css" rel="stylesheet" type="text/css">
 		<link href="./css/zhyd.comment.css" rel="stylesheet" type="text/css">
 	</head>
@@ -215,15 +218,15 @@
 						<div class="rewardType" align="center">
 							<ul class="list-unstyle list-inline">
 								<li style="margin-right: 20px;">
-									<div class="iradio_square-green checked" style="position: relative;"><input type="radio" name="type" id="alipay" onclick="PaymentUtils.change(0)" data-index="0" checked="checked" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div><span style="margin-left: 5px;">支付宝</span>
+									<input type="radio" name="type" id="alipay" onclick="PaymentUtils.change(0)" data-index="0" checked="checked"><span style="margin-left: 5px;">支付宝</span>
 								</li>
 								<li style="margin-right: 20px;">
-									<div class="iradio_square-green" style="position: relative;"><input type="radio" name="type" id="wechat" onclick="PaymentUtils.change(1)" data-index="1" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div><span style="margin-left: 5px;">微信</span>
+									<input type="radio" name="type" id="wechat" onclick="PaymentUtils.change(1)" data-index="1"><span style="margin-left: 5px;">微信</span>
 								</li>
 							</ul>
 						</div>
 						<div id="qrcode-container" align="center" style="margin-top: 10px;"></div>
-						<div style="width: 100%;color: #a3a3a3;font-size: 16px;font-family: &#39;Microsoft YaHei&#39;;text-align: center;">
+						<div style="width: 100%;color: #a3a3a3;font-size: 16px;font-family: 'Microsoft YaHei';text-align: center;">
 							转账时请备注“<strong>博客赞助</strong>”
 						</div>
 					</div>
@@ -312,36 +315,21 @@
 		<a class="to-top" title="" data-toggle="tooltip" data-placement="bottom" style="position: fixed; right: 25px; bottom: 50px; cursor: pointer;" data-original-title="点击返回顶部"></a>
 		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script><script src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-confirm/2.5.1/jquery-confirm.min.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.1/js/bootstrapValidator.min.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/js-xss/0.3.3/xss.min.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
 		<script type="text/javascript">
-			var appConfig = {
-				wwwPath: 'https://www.zhyd.me',
-				staticPath: 'https://static.zhyd.me/static'
-			}
+            var appConfig = {
+                wwwPath: 'https://www.zhyd.me',
+                staticPath: 'https://static.zhyd.me/static'
+            }
 		</script>
-		<script type="text/javascript" src="./js/zhyd.plugin.min.js"></script>
 		<script type="text/javascript" src="./js/zhyd.core.js"></script>
 		<script type="text/javascript" src="./js/zhyd.js"></script>
 		<script type="text/javascript" src="./js/zhyd.comment.js"></script>
-		<script type="text/javascript">
-			(function() {
-				var hm = document.createElement("script");
-				hm.src = "https://hm.baidu.com/hm.js?efa8a312aef0c2214fd566b50ef6ff7a";
-				var s = document.getElementsByTagName("script")[0];
-				s.parentNode.insertBefore(hm, s);
-			})();
-			(function() {
-				var bp = document.createElement('script');
-				var curProtocol = window.location.protocol.split(':')[0];
-				if(curProtocol === 'https') {
-					bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-				} else {
-					bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-				}
-				var s = document.getElementsByTagName("script")[0];
-				s.parentNode.insertBefore(bp, s);
-			})();
-		</script>
 		<script src="https://v1.hitokoto.cn/?encode=js&c=d&select=%23hitokoto" defer></script>
 	</body>
 </html>

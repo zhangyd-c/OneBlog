@@ -299,13 +299,11 @@ $.extend({
                                 }
                             });
                             $nextImg.attr('src', data.avatar);
-                            // $this.next('span').addClass('hide');
                             $nextImg.removeClass('hide');
                         },
                         error: $.tool.ajaxError
                     });
                 }else{
-                    // $this.next('span').removeClass('hide');
                     $nextImg.addClass('hide');
                 }
 
@@ -340,7 +338,6 @@ $.extend({
                         }, 1000);
                     },
                     error: function (data) {
-                        // console.log(data);
                         $.tool.ajaxError();
                         $this.button('reset');
                     }
@@ -348,10 +345,8 @@ $.extend({
             }
         },
         reply: function (pid, target) {
-            // console.log(pid);
             this._commentPid.val(pid);
             this._cancelReply.show();
-            // this._commentReply.show();
             this._commentPost.find('h5 i').addClass("shake");
             $(target).hide();
             $(target).parents('.comment-body').append(this._commentPost);
@@ -417,4 +412,21 @@ $(function () {
     $("#comment-form-btn").click(function () {
         $.comment.submit($(this));
     });
+
+    window.wangEditor.fullscreen = {
+        init: function (editorSelector) {
+            $(editorSelector + " .w-e-toolbar").append('<div class="w-e-menu"><a class="_wangEditor_btn_fullscreen" href="###" onclick="window.wangEditor.fullscreen.toggleFullscreen(\'' + editorSelector + '\')" data-toggle="tooltip" data-placement="bottom" title data-original-title="全屏编辑"><i class="fa fa-expand"></i></a></div>')
+        }, toggleFullscreen: function (editorSelector) {
+            $(editorSelector).toggleClass('fullscreen-editor');
+            var $a = $(editorSelector + ' ._wangEditor_btn_fullscreen');
+            var $i = $a.find("i:first-child");
+            if ($i.hasClass("fa-expand")) {
+                $a.attr("data-original-title", "退出全屏");
+                $i.removeClass("fa-expand").addClass("fa-compress")
+            } else {
+                $a.attr("data-original-title", "全屏编辑");
+                $i.removeClass("fa-compress").addClass("fa-expand")
+            }
+        }
+    };
 });

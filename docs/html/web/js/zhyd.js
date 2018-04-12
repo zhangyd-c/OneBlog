@@ -25,9 +25,10 @@ function initNavbar() {
         }
         $this.find("a").each(function () {
             var $this = $(this);
-            $this.parent().removeClass("active");
+            var $parent = $this.parent();
+            $parent.removeClass("active");
             if ($this.attr("href") === $.tool.currentPath()) {
-                $this.parent().toggleClass("active");
+                $parent.toggleClass("active");
             }
         });
     });
@@ -135,11 +136,6 @@ var PaymentUtils = window.payment || {
 
 };
 $(function () {
-    $('input').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
-    });
     initNavbar();
     initArticeMenu();
     initScrollMenu();
