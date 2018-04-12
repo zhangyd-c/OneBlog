@@ -2151,12 +2151,12 @@ nav a:first-child .meta-nav {
     display: block
 }
 
-#feed_widget ul {
+#feed_widget ul.widget-icon {
     margin: 0 10px;
     overflow: hidden
 }
 
-#feed_widget li {
+#feed_widget .widget-icon li {
     float: left;
     width: 25%;
     height: 40px;
