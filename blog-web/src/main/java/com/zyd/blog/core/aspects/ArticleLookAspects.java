@@ -60,6 +60,7 @@ public class ArticleLookAspects {
 
     @Pointcut("execution(* com.zyd.blog.controller.RenderController.article(..))")
     public void pointcut() {
+        // 切面切入点
     }
 
     @Before("pointcut()")

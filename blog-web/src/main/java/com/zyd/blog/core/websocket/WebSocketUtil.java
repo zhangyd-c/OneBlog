@@ -39,6 +39,10 @@ public class WebSocketUtil {
 
     private static final Logger LOG = LoggerFactory.getLogger(WebSocketUtil.class);
 
+    private WebSocketUtil() {
+        // 私有化构造方法，禁止new
+    }
+
     /**
      * 向客户端发送消息
      *
