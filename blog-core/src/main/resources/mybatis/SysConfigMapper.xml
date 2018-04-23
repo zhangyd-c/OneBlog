@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zyd.blog.persistence.mapper.SysConfigMapper">
+    <resultMap id="rm" type="com.zyd.blog.persistence.beans.SysConfig">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="homeDesc" jdbcType="VARCHAR" column="home_desc"/>
+        <result property="homeKeywords" jdbcType="VARCHAR" column="home_keywords"/>
+		<result property="domain" jdbcType="VARCHAR" column="domain"/>
+        <result property="siteUrl" jdbcType="VARCHAR" column="site_url"/>
+        <result property="siteName" jdbcType="VARCHAR" column="site_name"/>
+        <result property="siteDesc" jdbcType="VARCHAR" column="site_desc"/>
+        <result property="siteFavicon" jdbcType="VARCHAR" column="site_favicon"/>
+        <result property="staticWebSite" jdbcType="VARCHAR" column="static_web_site"/>
+        <result property="authorName" jdbcType="VARCHAR" column="author_name"/>
+        <result property="authorEmail" jdbcType="VARCHAR" column="author_email"/>
+        <result property="wxCode" jdbcType="VARCHAR" column="wx_code"/>
+        <result property="qq" jdbcType="VARCHAR" column="qq"/>
+        <result property="weibo" jdbcType="VARCHAR" column="weibo"/>
+        <result property="github" jdbcType="VARCHAR" column="github"/>
+        <result property="maintenance" jdbcType="BIT" column="maintenance"/>
+        <result property="maintenanceData" jdbcType="TIMESTAMP" column="maintenance_data"/>
+        <result property="comment" jdbcType="BIT" column="comment"/>
+        <result property="qiuniuBasePath" jdbcType="VARCHAR" column="qiuniu_base_path"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+		id,
+		home_desc,
+		home_keywords,
+		site_url,
+		site_name,
+		site_desc,
+		site_favicon,
+		static_web_site,
+		author_name,
+		author_email,
+		wx_code,
+		qq,
+		weibo,
+		github,
+		maintenance,
+		maintenance_data,
+		comment,
+		qiuniu_base_path,
+		create_time,
+		update_time
+	</sql>
+
+    <select id="get" resultMap="rm">
+		SELECT
+			t.*
+		FROM
+			sys_config t
+		WHERE
+			1 = 1
+	</select>
+
+    <select id="getSiteInfo" resultType="map">
+		SELECT
+			a.article_count AS articleCount,
+			t.tag_count AS tagCount,
+			type.type_count AS typeCount,
+			c.comment_count AS commentCount,
+			u.recorde_time AS recordeTime
+		FROM
+			(
+				SELECT
+					COUNT(1) AS article_count
+				FROM
+					biz_article
+				WHERE `status` = 1
+			) a,
+			(
+				SELECT
+					COUNT(1) AS tag_count
+				FROM
+					biz_tags
+			) t,
+			(
+				SELECT
+					COUNT(1) AS type_count
+				FROM
+					biz_type
+				WHERE available = 1
+			) type,
+			(
+				SELECT
+					COUNT(1) AS comment_count
+				FROM
+					biz_comment
+				WHERE `status` = 'APPROVED'
+			) c,
+			(
+				SELECT
+					recorde_time
+				FROM
+					sys_update_recorde
+				ORDER BY
+					create_time DESC
+				LIMIT 1
+			) u
+	</select>
+</mapper>
+

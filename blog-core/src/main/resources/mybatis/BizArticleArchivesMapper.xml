@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zyd.blog.persistence.mapper.BizArticleArchivesMapper">
+    <resultMap id="rm" type="com.zyd.blog.persistence.beans.BizArticleArchives">
+        <result property="id" jdbcType="BIGINT" column="id"/>
+        <result property="title" jdbcType="VARCHAR" column="title"/>
+        <result property="original" jdbcType="BIT" column="original"/>
+        <result property="datetime" jdbcType="VARCHAR" column="datetime"/>
+    </resultMap>
+
+    <select id="listArchives" resultMap="rm">
+		SELECT
+			a.id,
+			a.title,
+			a.original,
+			DATE_FORMAT( a.create_time, '%Y-%m-%d' ) AS 'datetime'
+		FROM
+			biz_article a
+		WHERE
+			a.`status` = 1
+		ORDER BY
+			a.create_time DESC
+	</select>
+</mapper>
+

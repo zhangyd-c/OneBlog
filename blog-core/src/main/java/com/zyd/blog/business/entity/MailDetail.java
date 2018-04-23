@@ -1,0 +1,105 @@
+/**
+ * MIT License
+ * Copyright (c) 2018 yadong.zhang
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package com.zyd.blog.business.entity;
+
+import lombok.Data;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
+
+import java.util.List;
+
+/**
+ * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
+ * @website https://www.zhyd.me
+ * @version 1.0
+ * @date 2018/4/16 16:26
+ * @since 1.0
+ */
+@Data
+public class MailDetail {
+
+    /**
+     * 邮件标题
+     */
+    private String subject;
+    /**
+     * 收件人地址
+     */
+    private String toMailAddress;
+    /**
+     * 收件人姓名
+     */
+    private String toUsername;
+    /**
+     * 抄送人
+     */
+    private String[] cc;
+    /**
+     * 邮件内容
+     */
+    private String content;
+    /**
+     * 附件列表
+     */
+    private List<String> filePaths;
+    private boolean html = true;
+
+    public MailDetail(String title, String toMailAddress, String toUsername, String content) {
+        this.subject = title;
+        this.toMailAddress = toMailAddress;
+        this.toUsername = toUsername;
+        this.content = content;
+        this.filePaths = null;
+    }
+
+    public boolean isExitFile() {
+        return getFilePaths() != null && getFilePaths().size() > 0;
+    }
+
+    public String[] getFilePathArr() {
+        if (!CollectionUtils.isEmpty(getFilePaths())) {
+            return filePaths.toArray(new String[filePaths.size()]);
+        }
+        return null;
+    }
+
+    public String[] getCc() {
+        return cc;
+    }
+
+    public MailDetail setCc(String[] cc) {
+        this.cc = cc;
+        return this;
+    }
+
+    public MailDetail setCc(String cc) {
+        if (!StringUtils.isEmpty(cc)) {
+            this.cc = new String[]{cc};
+        }
+        return this;
+    }
+
+    public MailDetail setCc(List<String> cc) {
+        if (!CollectionUtils.isEmpty(cc)) {
+            this.cc = cc.toArray(new String[cc.size()]);
+        }
+        return this;
+    }
+}

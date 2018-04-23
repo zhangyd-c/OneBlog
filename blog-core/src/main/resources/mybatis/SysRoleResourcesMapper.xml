@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyd.blog.persistence.mapper.SysRoleResourcesMapper">
+    <resultMap id="rm" type="com.zyd.blog.persistence.beans.SysRoleResources">
+        <result property="id" jdbcType="BIGINT" column="id"/>
+        <result property="roleId" jdbcType="BIGINT" column="role_id"/>
+        <result property="resourcesId" jdbcType="BIGINT" column="resources_id"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+    </resultMap>
+</mapper>

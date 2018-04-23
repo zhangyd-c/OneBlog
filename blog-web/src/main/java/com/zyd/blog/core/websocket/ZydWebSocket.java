@@ -1,0 +1,100 @@
+/**
+ * MIT License
+ * Copyright (c) 2018 yadong.zhang
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package com.zyd.blog.core.websocket;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+import javax.websocket.OnClose;
+import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.atomic.AtomicInteger;
+
+/**
+ * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
+ * @version 1.0
+ * @website https://www.zhyd.me
+ * @date 2018/4/18 11:48
+ * @since 1.0
+ */
+@ServerEndpoint(value = "/websocket")
+@Component
+public class ZydWebSocket {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ZydWebSocket.class);
+    /**
+     * 初始在线人数
+     */
+    private static AtomicInteger onlineCount = new AtomicInteger(0);
+    /**
+     * 线程安全的socket集合
+     */
+    private static CopyOnWriteArraySet<Session> webSocketSet = new CopyOnWriteArraySet<Session>();
+    /**
+     * 与某个客户端的连接会话，需要通过它来给客户端发送数据
+     */
+    private Session session;
+
+    /**
+     * 连接建立成功调用的方法
+     */
+    @OnOpen
+    public void onOpen(Session session) {
+        webSocketSet.add(session);
+        onlineCount.incrementAndGet();
+        System.out.println("有链接加入，当前在线人数为:" + getOnlineCount());
+        WebSocketUtil.broadcast(getOnlineCount() + "", webSocketSet);
+    }
+
+    /**
+     * 连接关闭调用的方法
+     */
+    @OnClose
+    public void onClose() {
+        onlineCount.decrementAndGet();
+        System.out.println("有链接关闭,当前在线人数为:" + getOnlineCount());
+        WebSocketUtil.broadcast(getOnlineCount() + "", webSocketSet);
+    }
+
+    /**
+     * 收到客户端消息后调用的方法
+     *
+     * @param message
+     *         客户端发送过来的消息
+     */
+    @OnMessage
+    public void onMessage(String message, Session session) {
+        LOGGER.info("{}来自客户端的消息:{}", session.getId(), message);
+        try {
+            WebSocketUtil.sendMessage(message, session);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int getOnlineCount() {
+        return onlineCount.get();
+    }
+}

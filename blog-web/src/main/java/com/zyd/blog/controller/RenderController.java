@@ -1,0 +1,300 @@
+/**
+ * MIT License
+ * Copyright (c) 2018 yadong.zhang
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package com.zyd.blog.controller;
+
+import com.github.pagehelper.PageInfo;
+import com.zyd.blog.business.entity.Article;
+import com.zyd.blog.business.enums.ArticleStatusEnum;
+import com.zyd.blog.business.service.BizArticleArchivesService;
+import com.zyd.blog.business.service.BizArticleService;
+import com.zyd.blog.business.service.SysLinkService;
+import com.zyd.blog.business.service.SysUpdateRecordeService;
+import com.zyd.blog.business.vo.ArticleConditionVO;
+import com.zyd.blog.util.ResultUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 页面跳转类
+ *
+ * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
+ * @version 1.0
+ * @website https://www.zhyd.me
+ * @date 2018/4/18 11:48
+ * @since 1.0
+ */
+@Controller
+public class RenderController {
+    /**
+     * sidebar部分的推荐、近期和随机tab页中显示的文章数
+     */
+    private static final int SIDEBAR_ARTICLE_SIZE = 8;
+
+    @Autowired
+    private BizArticleService bizArticleService;
+    @Autowired
+    private BizArticleArchivesService bizArticleArchivesService;
+    @Autowired
+    private SysLinkService sysLinkService;
+    @Autowired
+    private SysUpdateRecordeService updateRecordeService;
+
+    /**
+     * 加载首页的数据
+     *
+     * @param vo
+     * @param model
+     * @return
+     */
+    private void loadIndexPage(ArticleConditionVO vo, Model model) {
+        vo.setStatus(ArticleStatusEnum.PUBLISHED.getCode());
+        PageInfo<Article> pageInfo = bizArticleService.findPageBreakByCondition(vo);
+        model.addAttribute("page", pageInfo);
+        model.addAttribute("model", vo);
+        model.addAttribute("indexLinkList", sysLinkService.listOfIndex());
+    }
+
+    /**
+     * 首页
+     *
+     * @param vo
+     * @param model
+     * @return
+     */
+    @RequestMapping("/")
+    public ModelAndView home(ArticleConditionVO vo, Model model) {
+        model.addAttribute("url", "index");
+        loadIndexPage(vo, model);
+
+        return ResultUtil.view("index");
+    }
+
+    /**
+     * 首页（分页）
+     *
+     * @param pageNumber
+     * @param vo
+     * @param model
+     * @return
+     */
+    @RequestMapping("/index/{pageNumber}")
+    public ModelAndView type(@PathVariable("pageNumber") Integer pageNumber, ArticleConditionVO vo, Model model) {
+        vo.setPageNumber(pageNumber);
+        model.addAttribute("url", "index");
+        loadIndexPage(vo, model);
+
+        return ResultUtil.view("index");
+    }
+
+    /**
+     * 分类列表
+     *
+     * @param typeId
+     * @param model
+     * @return
+     */
+    @GetMapping("/type/{typeId}")
+    public ModelAndView type(@PathVariable("typeId") Long typeId, Model model) {
+        ArticleConditionVO vo = new ArticleConditionVO();
+        vo.setTypeId(typeId);
+        model.addAttribute("url", "type/" + typeId);
+        loadIndexPage(vo, model);
+
+        return ResultUtil.view("index");
+    }
+
+    /**
+     * 分类列表（分页）
+     *
+     * @param typeId
+     * @param pageNumber
+     * @param model
+     * @return
+     */
+    @GetMapping("/type/{typeId}/{pageNumber}")
+    public ModelAndView type(@PathVariable("typeId") Long typeId, @PathVariable("pageNumber") Integer pageNumber, Model model) {
+        ArticleConditionVO vo = new ArticleConditionVO();
+        vo.setTypeId(typeId);
+        vo.setPageNumber(pageNumber);
+        model.addAttribute("url", "type/" + typeId);
+        loadIndexPage(vo, model);
+
+        return ResultUtil.view("index");
+    }
+
+    /**
+     * 标签列表
+     *
+     * @param tagId
+     * @param model
+     * @return
+     */
+    @GetMapping("/tag/{tagId}")
+    public ModelAndView tag(@PathVariable("tagId") Long tagId, Model model) {
+        ArticleConditionVO vo = new ArticleConditionVO();
+        vo.setTagId(tagId);
+        model.addAttribute("url", "tag/" + tagId);
+        loadIndexPage(vo, model);
+
+        return ResultUtil.view("index");
+    }
+
+    /**
+     * 标签列表（分页）
+     *
+     * @param tagId
+     * @param pageNumber
+     * @param model
+     * @return
+     */
+    @GetMapping("/tag/{tagId}/{pageNumber}")
+    public ModelAndView tag(@PathVariable("tagId") Long tagId, @PathVariable("pageNumber") Integer pageNumber, Model model) {
+        ArticleConditionVO vo = new ArticleConditionVO();
+        vo.setTagId(tagId);
+        vo.setPageNumber(pageNumber);
+        model.addAttribute("url", "tag/" + tagId);
+        loadIndexPage(vo, model);
+
+        return ResultUtil.view("index");
+    }
+
+    /**
+     * 文章详情
+     *
+     * @param model
+     * @param articleId
+     * @return
+     */
+    @GetMapping("/article/{articleId}")
+    public ModelAndView article(Model model, @PathVariable("articleId") Long articleId) {
+        Article article = bizArticleService.getByPrimaryKey(articleId);
+        if (article == null || ArticleStatusEnum.UNPUBLISHED.getCode() == article.getStatusEnum().getCode()) {
+            return ResultUtil.redirect("/error/404");
+        }
+        model.addAttribute("article", article);
+        // 上一篇下一篇
+        model.addAttribute("other", bizArticleService.getPrevAndNextArticles(article.getCreateTime()));
+        // 相关文章
+        model.addAttribute("relatedList", bizArticleService.listRelatedArticle(SIDEBAR_ARTICLE_SIZE, article));
+        model.addAttribute("articleDetail", true);
+        return ResultUtil.view("article");
+    }
+
+    /**
+     * 关于
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping("/about")
+    public ModelAndView about(Model model) {
+        return ResultUtil.view("about");
+    }
+
+    /**
+     * 友情链接
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping("/links")
+    public ModelAndView links(Model model) {
+        model.addAttribute("link", sysLinkService.listAllByGroup());
+        return ResultUtil.view("links");
+    }
+
+    /**
+     * 留言板
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping("/guestbook")
+    public ModelAndView guestbook(Model model) {
+        return ResultUtil.view("guestbook");
+    }
+
+    /**
+     * 归档目录
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping("/archives")
+    public ModelAndView archives(Model model) {
+        Map<String, List> map = bizArticleArchivesService.listArchives();
+        model.addAttribute("archives", map);
+        return ResultUtil.view("archives");
+    }
+
+    /**
+     * 免责声明
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping("/disclaimer")
+    public ModelAndView disclaimer(Model model) {
+        return ResultUtil.view("disclaimer");
+    }
+
+    /**
+     * 站长推荐
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping("/recommended")
+    public ModelAndView recommended(Model model) {
+        model.addAttribute("list", bizArticleService.listRecommended(100));
+        return ResultUtil.view("recommended");
+    }
+
+    /**
+     * 更新日志
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping("/updateLog")
+    public ModelAndView updateLog(Model model) {
+        model.addAttribute("list", updateRecordeService.listAll());
+        return ResultUtil.view("updateLog");
+    }
+
+    /**
+     * 测试websocket
+     *
+     * @return
+     */
+    @GetMapping("/testWebsocket")
+    public ModelAndView testWebsocket() {
+        return new ModelAndView("testWebsocket");
+    }
+
+}

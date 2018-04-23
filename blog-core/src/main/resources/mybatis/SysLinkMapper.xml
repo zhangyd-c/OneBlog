@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zyd.blog.persistence.mapper.SysLinkMapper">
+	<resultMap id="rm" type="com.zyd.blog.persistence.beans.SysLink">
+		<result property="id" jdbcType="BIGINT" column="id"/>
+		<result property="url" jdbcType="VARCHAR" column="url"/>
+		<result property="name" jdbcType="VARCHAR" column="name"/>
+		<result property="description" jdbcType="VARCHAR" column="description"/>
+		<result property="email" jdbcType="VARCHAR" column="email"/>
+		<result property="qq" jdbcType="VARCHAR" column="qq"/>
+		<result property="favicon" jdbcType="VARCHAR" column="favicon"/>
+		<result property="status" jdbcType="BIT" column="status"/>
+		<result property="homePageDisplay" jdbcType="BIT" column="home_page_display"/>
+		<result property="remark" jdbcType="VARCHAR" column="remark"/>
+		<result property="source" jdbcType="VARCHAR" column="source"/>
+		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,
+		url,
+		name,
+		description,
+		email,
+		qq,
+		favicon,
+		status,
+		home_page_display,
+		remark,
+		source,
+		create_time,
+		update_time
+	</sql>
+
+	<!-- 按照状态分段排序，已经禁用的记录显示在列表最后，未被禁用的显示在列表顶部 -->
+	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.LinkConditionVO" resultMap="rm">
+		SELECT
+			t.*
+		FROM
+			sys_link t
+		WHERE
+			2 = 2
+		<if test="status != null">
+			AND  t.`status` = #{status}
+		</if>
+		<if test="homePageDisplay != null">
+			AND  t.home_page_display = #{homePageDisplay}
+		</if>
+		ORDER BY
+			(t. STATUS > 0) DESC, t. STATUS ASC
+	</select>
+</mapper>
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zyd.blog.persistence.mapper.BizArticleLoveMapper">
+	<resultMap id="rm" type="com.zyd.blog.persistence.beans.BizArticleLove">
+		<result property="id" jdbcType="BIGINT" column="id"/>
+		<result property="articleId" jdbcType="BIGINT" column="article_id"/>
+		<result property="userId" jdbcType="BIGINT" column="user_id"/>
+		<result property="userIp" jdbcType="VARCHAR" column="user_ip"/>
+		<result property="loveTime" jdbcType="TIMESTAMP" column="love_time"/>
+		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,
+		article_id,
+		user_id,
+		user_ip,
+		love_time,
+		create_time,
+		update_time
+	</sql>
+
+	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.ArticleLoveConditionVO" resultMap="rm">
+		SELECT
+			t.*
+		FROM
+			biz_article_love t
+		WHERE
+			1 = 1
+	</select>
+</mapper>
+

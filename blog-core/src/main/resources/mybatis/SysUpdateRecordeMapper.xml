@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zyd.blog.persistence.mapper.SysUpdateRecordeMapper">
+	<resultMap id="rm" type="com.zyd.blog.persistence.beans.SysUpdateRecorde">
+		<result property="id" jdbcType="BIGINT" column="id"/>
+		<result property="version" jdbcType="VARCHAR" column="version"/>
+		<result property="description" jdbcType="VARCHAR" column="description"/>
+		<result property="recordeTime" jdbcType="TIMESTAMP" column="recorde_time"/>
+		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,
+		version,
+		description,
+		recorde_time,
+		create_time,
+		update_time
+	</sql>
+
+	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.UpdateRecordeConditionVO" resultMap="rm">
+		SELECT
+			t.*
+		FROM
+			sys_update_recorde t
+		WHERE
+			1 = 1
+	</select>
+</mapper>
+

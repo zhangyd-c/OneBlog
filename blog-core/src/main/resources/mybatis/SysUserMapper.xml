@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zyd.blog.persistence.mapper.SysUserMapper">
+	<resultMap id="rm" type="com.zyd.blog.persistence.beans.SysUser">
+		<result property="id" jdbcType="BIGINT" column="id"/>
+		<result property="username" jdbcType="VARCHAR" column="username"/>
+		<result property="password" jdbcType="VARCHAR" column="password"/>
+		<result property="nickname" jdbcType="VARCHAR" column="nickname"/>
+		<result property="mobile" jdbcType="VARCHAR" column="mobile"/>
+		<result property="email" jdbcType="VARCHAR" column="email"/>
+		<result property="qq" jdbcType="VARCHAR" column="qq"/>
+		<result property="birthday" jdbcType="DATE" column="birthday"/>
+		<result property="gender" jdbcType="TINYINT" column="gender"/>
+		<result property="avatar" jdbcType="VARCHAR" column="avatar"/>
+		<result property="userType" jdbcType="CHAR" column="user_type"/>
+		<result property="company" jdbcType="VARCHAR" column="company"/>
+		<result property="blog" jdbcType="VARCHAR" column="blog"/>
+		<result property="location" jdbcType="VARCHAR" column="location"/>
+		<result property="source" jdbcType="VARCHAR" column="source"/>
+		<result property="privacy" jdbcType="INTEGER" column="privacy"/>
+		<result property="notification" jdbcType="INTEGER" column="notification"/>
+		<result property="score" jdbcType="INTEGER" column="score"/>
+		<result property="experience" jdbcType="INTEGER" column="experience"/>
+		<result property="regIp" jdbcType="VARCHAR" column="reg_ip"/>
+		<result property="lastLoginIp" jdbcType="VARCHAR" column="last_login_ip"/>
+		<result property="lastLoginTime" jdbcType="TIMESTAMP" column="last_login_time"/>
+		<result property="loginCount" jdbcType="INTEGER" column="login_count"/>
+		<result property="remark" jdbcType="VARCHAR" column="remark"/>
+		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+	</resultMap>
+
+	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.UserConditionVO" resultMap="rm">
+		SELECT
+			s.*
+		FROM
+			sys_user s
+		WHERE
+			1 = 1
+		<if test="keywords != null and keywords != '' ">
+			AND
+			(
+			s.nickname LIKE CONCAT('%',#{keywords , jdbcType=VARCHAR},'%') or
+			s.mobile  LIKE CONCAT('%',#{keywords , jdbcType=VARCHAR},'%') or
+			s.username LIKE CONCAT('%',#{keywords , jdbcType=VARCHAR},'%') or
+			s.password LIKE CONCAT('%',#{keywords , jdbcType=VARCHAR},'%') or
+			s.email LIKE CONCAT('%',#{keywords , jdbcType=VARCHAR},'%') or
+			s.qq LIKE CONCAT('%',#{keywords , jdbcType=VARCHAR},'%') or
+			s.remark LIKE CONCAT('%',#{keywords , jdbcType=VARCHAR},'%') or
+			)
+		</if>
+		<!-- 查询用户信息 -->
+		<if test="user != null">
+			<if test="user.id!=null">
+				AND s.id = #{user.id}
+			</if>
+			<if test="user.gender!=null">
+				AND s.gender = #{user.gender}
+			</if>
+			<if test="user.userType!=null">
+				AND s.user_type = #{user.userType}
+			</if>
+			<if test="user.username!=null">
+				AND s.username = #{user.username}
+			</if>
+			<if test="user.password!=null">
+				AND s.password = #{user.password}
+			</if>
+			<if test="user.lastLoginIp!=null">
+				AND s.last_login_ip = #{user.lastLoginIp}
+			</if>
+			<if test="user.lastLoginTime!=null">
+				AND s.last_login_time = #{user.lastLoginTime}
+			</if>
+		</if>
+		GROUP BY
+			s.id
+		ORDER BY
+			s.create_time DESC
+	</select>
+
+</mapper>
+

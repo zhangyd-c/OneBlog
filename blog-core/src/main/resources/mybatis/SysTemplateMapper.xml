@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zyd.blog.persistence.mapper.SysTemplateMapper">
+	<resultMap id="rm" type="com.zyd.blog.persistence.beans.SysTemplate">
+		<result property="id" jdbcType="BIGINT" column="id"/>
+		<result property="refKey" jdbcType="VARCHAR" column="ref_key"/>
+		<result property="refValue" jdbcType="VARCHAR" column="ref_value"/>
+		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,
+		ref_key,
+		ref_value,
+		create_time,
+		update_time
+	</sql>
+
+	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.TemplateConditionVO" resultMap="rm">
+		SELECT
+			t.*
+		FROM
+			sys_template t
+		WHERE
+			1 = 1
+	</select>
+</mapper>
+

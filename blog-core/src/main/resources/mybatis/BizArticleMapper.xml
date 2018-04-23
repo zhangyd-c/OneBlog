@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zyd.blog.persistence.mapper.BizArticleMapper">
+	<resultMap id="rm" type="com.zyd.blog.persistence.beans.BizArticle">
+		<result property="id" jdbcType="BIGINT" column="id"/>
+		<result property="title" jdbcType="VARCHAR" column="title"/>
+		<result property="userId" jdbcType="BIGINT" column="user_id"/>
+		<result property="coverImage" jdbcType="VARCHAR" column="cover_image"/>
+		<result property="qrcodePath" jdbcType="VARCHAR" column="qrcode_path"/>
+		<result property="content" jdbcType="VARCHAR" column="content"/>
+		<result property="typeId" jdbcType="BIGINT" column="type_id"/>
+		<result property="status" jdbcType="INTEGER" column="status"/>
+		<result property="top" jdbcType="BIT" column="top"/>
+		<result property="recommended" jdbcType="BIT" column="recommended"/>
+		<result property="original" jdbcType="BIT" column="original"/>
+		<result property="description" jdbcType="VARCHAR" column="description"/>
+		<result property="keywords" jdbcType="VARCHAR" column="keywords"/>
+		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+
+		<result property="lookCount" jdbcType="INTEGER" column="look_count"/>
+		<result property="commentCount" jdbcType="INTEGER" column="comment_count"/>
+		<result property="loveCount" jdbcType="INTEGER" column="love_count"/>
+		<association property="bizType" javaType="com.zyd.blog.persistence.beans.BizType">
+			<result property="id" jdbcType="BIGINT" column="btype_id"/>
+			<result property="name" jdbcType="VARCHAR" column="btype_name"/>
+			<result property="description" jdbcType="VARCHAR" column="btype_description"/>
+		</association>
+		<collection property="tags" column="tag_id" javaType="ArrayList" ofType="com.zyd.blog.persistence.beans.BizTags">
+			<result property="id" jdbcType="BIGINT" column="tag_id"/>
+			<result property="name" jdbcType="VARCHAR" column="tag_name"/>
+			<result property="description" jdbcType="VARCHAR" column="tag_description"/>
+		</collection>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,
+		title,
+		user_id,
+		cover_image,
+		qrcode_path,
+		content,
+		top,
+		type_id,
+		status,
+		recommended,
+		original,
+		description,
+		keywords,
+		create_time,
+		update_time
+	</sql>
+
+	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.ArticleConditionVO" resultMap="rm">
+		SELECT
+			a.*,
+			btype.id AS btype_id,
+			btype.`name` AS btype_name,
+			btype.description AS btype_description,
+			l.lookCount AS look_count,
+			c.commentCount AS comment_count,
+			love.loveCount AS love_count
+		FROM
+            biz_article a
+		INNER JOIN biz_type btype ON a.type_id = btype.id
+		INNER JOIN biz_article_tags atag ON a.id = atag.article_id
+		LEFT JOIN (
+			SELECT
+				l.article_id,
+				IFNULL(count(1), 0) AS lookCount
+			FROM
+				biz_article_look l
+			GROUP BY
+				l.article_id
+		) l ON a.id = l.article_id
+		LEFT JOIN (
+			SELECT
+				sid,
+				IFNULL(count(1), 0) AS commentCount
+			FROM
+				biz_comment c
+			GROUP BY
+				sid
+		) c ON a.id = c.sid
+		LEFT JOIN (
+			SELECT
+				l.article_id,
+				IFNULL(count(1), 0) AS loveCount
+			FROM
+				biz_article_love l
+			GROUP BY
+				l.article_id
+		) love ON a.id = love.article_id
+		WHERE 1 = 1
+        <if test="typeId != null">
+            AND	a.type_id = #{typeId}
+        </if>
+		<choose>
+			<when test="tagIds != null">
+				AND atag.tag_id IN (
+					<foreach collection="tagIds" item="tagId" separator=",">
+						#{tagId}
+					</foreach>
+				)
+			</when>
+			<otherwise>
+				<if test="tagId != null">
+					AND	atag.tag_id = #{tagId}
+				</if>
+			</otherwise>
+		</choose>
+		<if test="top != null">
+			AND	a.top = #{top}
+		</if>
+		<if test="status != null">
+			AND	a.status = #{status}
+		</if>
+		<if test="recommended != null">
+			AND	a.recommended = #{recommended}
+		</if>
+		<if test="keywords != null and keywords != '' ">
+			AND
+			(
+				a.content LIKE CONCAT('%',#{keywords , jdbcType=VARCHAR},'%') OR
+				a.description LIKE CONCAT('%',#{keywords , jdbcType=VARCHAR},'%') OR
+				a.keywords LIKE CONCAT('%',#{keywords , jdbcType=VARCHAR},'%')
+			)
+		</if>
+        GROUP BY a.id
+		<choose>
+			<when test="random != null">
+				ORDER BY RAND()
+			</when>
+			<otherwise>
+				ORDER BY
+				a.top DESC,
+				a.recommended DESC,
+				a.create_time DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="listTagsByArticleId" parameterType="List" resultMap="rm">
+		SELECT
+            a.*,
+            t.id AS tag_id,
+            t.`name` AS tag_name,
+            t.description AS tag_description
+        FROM
+            biz_article a
+        INNER JOIN biz_article_tags atag ON a.id = atag.article_id
+        INNER JOIN biz_tags t ON atag.tag_id = t.id
+        WHERE
+            a.id IN (
+                <foreach collection="list" item="id" separator=",">
+                    #{id}
+                </foreach>
+            )
+	</select>
+
+	<select id="get" parameterType="Long" resultMap="rm">
+		SELECT
+			a.*,
+			btype.id AS btype_id,
+			btype.`name` AS btype_name,
+			btype.description AS btype_description,
+			t.id AS tag_id,
+			t.`name` AS tag_name,
+			t.description AS tag_description,
+			l.lookCount AS look_count,
+			c.commentCount AS comment_count,
+			love.loveCount AS love_count
+		FROM
+			biz_article a
+		INNER JOIN biz_type btype ON a.type_id = btype.id
+		INNER JOIN biz_article_tags atag ON a.id = atag.article_id
+		INNER JOIN biz_tags t ON atag.tag_id = t.id
+		LEFT JOIN (
+			SELECT
+				l.article_id,
+				IFNULL(count(1), 0) AS lookCount
+			FROM
+				biz_article_look l
+			GROUP BY
+				l.article_id
+		) l ON a.id = l.article_id
+		LEFT JOIN (
+			SELECT
+				sid,
+				IFNULL(count(1), 0) AS commentCount
+			FROM
+				biz_comment c
+			GROUP BY
+				sid
+		) c ON a.id = c.sid
+		LEFT JOIN (
+			SELECT
+				l.article_id,
+				IFNULL(count(1), 0) AS loveCount
+			FROM
+				biz_article_love l
+			GROUP BY
+				l.article_id
+		) love ON a.id = love.article_id
+		WHERE
+			a.id = #{id}
+	</select>
+
+	<!-- 获取上一篇和下一篇文章 -->
+	<select id="getPrevAndNextArticles"  parameterType="Date" resultMap="rm">
+		(
+			SELECT
+				a.id,
+				a.title,
+				a.create_time
+			FROM
+				biz_article a
+			WHERE
+				a.create_time &lt; #{insertTime} AND  a.status = 1
+			ORDER BY
+				a.create_time DESC
+			LIMIT 1
+		)
+		UNION ALL
+		(
+			SELECT
+				a.id,
+				a.title,
+				a.create_time
+			FROM
+				biz_article a
+			WHERE
+				a.create_time &gt; #{insertTime} AND  a.status = 1
+			ORDER BY
+				a.create_time
+			LIMIT 1
+		)
+	</select>
+
+	<!-- 获取热门文章 -->
+	<select id="listHotArticle" resultMap="rm">
+		SELECT
+			a.*, l.lookCount AS look_count
+		FROM
+			biz_article a
+		LEFT JOIN (
+			SELECT
+				l.article_id,
+				IFNULL(count(1), 0) AS lookCount
+			FROM
+				biz_article_look l
+			GROUP BY
+				l.article_id
+		) l ON a.id = l.article_id
+		WHERE a.status = 1
+		ORDER BY
+			l.lookCount DESC
+	</select>
+	
+	<select id="isExist" parameterType="Long" resultType="Integer">
+		SELECT
+			COUNT(a.id)
+		FROM
+			biz_article a
+		WHERE
+			a.id = #{id}
+	</select>
+
+	<select id="listMaterial" resultType="String">
+		SELECT
+			a.cover_image
+		FROM
+			biz_article a
+		GROUP BY
+			a.cover_image
+	</select>
+</mapper>
+

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zyd.blog.persistence.mapper.BizCommentMapper">
+	<resultMap id="rm" type="com.zyd.blog.persistence.beans.BizComment">
+		<result property="id" jdbcType="BIGINT" column="id"/>
+		<result property="sid" jdbcType="BIGINT" column="sid"/>
+		<result property="userId" jdbcType="BIGINT" column="user_id"/>
+		<result property="pid" jdbcType="BIGINT" column="pid"/>
+		<result property="qq" jdbcType="VARCHAR" column="qq"/>
+		<result property="nickname" jdbcType="VARCHAR" column="nickname"/>
+		<result property="avatar" jdbcType="VARCHAR" column="avatar"/>
+		<result property="email" jdbcType="VARCHAR" column="email"/>
+		<result property="url" jdbcType="VARCHAR" column="url"/>
+		<result property="status" jdbcType="VARCHAR" column="status"/>
+		<result property="ip" jdbcType="VARCHAR" column="ip"/>
+		<result property="lng" jdbcType="VARCHAR" column="lng"/>
+		<result property="lat" jdbcType="VARCHAR" column="lat"/>
+		<result property="address" jdbcType="VARCHAR" column="address"/>
+		<result property="os" jdbcType="VARCHAR" column="os"/>
+		<result property="osShortName" jdbcType="VARCHAR" column="os_short_name"/>
+		<result property="browser" jdbcType="VARCHAR" column="browser"/>
+		<result property="browserShortName" jdbcType="VARCHAR" column="browser_short_name"/>
+		<result property="content" jdbcType="VARCHAR" column="content"/>
+		<result property="remark" jdbcType="VARCHAR" column="remark"/>
+		<result property="support" jdbcType="INTEGER" column="support"/>
+		<result property="oppose" jdbcType="INTEGER" column="oppose"/>
+		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+		<association property="parent" javaType="com.zyd.blog.persistence.beans.BizComment">
+			<result property="id" jdbcType="BIGINT" column="parent_id"/>
+			<result property="nickname" jdbcType="VARCHAR" column="parent_nickname"/>
+			<result property="content" jdbcType="VARCHAR" column="parent_content"/>
+		</association>
+		<association property="article" javaType="com.zyd.blog.persistence.beans.BizArticle">
+			<result property="id" jdbcType="BIGINT" column="article_id"/>
+			<result property="title" jdbcType="VARCHAR" column="article_title"/>
+		</association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,
+		sid,
+		user_id,
+		pid,
+		qq,
+		nickname,
+		avatar,
+		email,
+		url,
+		status,
+		ip,
+		lng,
+		lat,
+		address,
+		os,
+		os_short_name,
+		browser,
+		browser_short_name,
+		content,
+		remark,
+		support,
+		oppose,
+		create_time,
+		update_time
+	</sql>
+
+	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.CommentConditionVO" resultMap="rm">
+		SELECT
+			t.*,
+			f.id AS parent_id,
+			f.nickname AS parent_nickname,
+			f.content AS parent_content,
+			a.id AS article_id,
+			a.title AS article_title
+		FROM
+			biz_comment t
+		LEFT JOIN biz_comment f ON t.pid = f.id
+		LEFT JOIN biz_article a ON a.id = t.sid
+		WHERE
+			1 = 1
+			<if test="userId != null">
+				AND t.user_id = #{userId}
+			</if>
+			<if test="sid != null">
+				AND t.sid = #{sid}
+			</if>
+			<if test="pid != null">
+				AND t.pid = #{pid}
+			</if>
+			<if test="qq != null">
+				AND t.qq = #{qq}
+			</if>
+			<if test="status != null">
+				AND t.status = #{status}
+			</if>
+		ORDER BY
+		CASE
+			t.`status`
+		WHEN 'VERIFYING' THEN 1
+		WHEN 'APPROVED' THEN 2
+		WHEN 'REJECT' THEN 3
+		WHEN 'DELETED' THEN 4
+		END ASC,
+		t.create_time DESC
+	</select>
+
+	<select id="getById" parameterType="Long" resultMap="rm">
+		SELECT
+			t.*,
+			f.id AS parent_id,
+			f.nickname AS parent_nickname,
+			f.content AS parent_content,
+			a.id AS article_id,
+			a.title AS article_title
+		FROM
+			biz_comment t
+		LEFT JOIN biz_comment f ON t.pid = f.id
+		LEFT JOIN biz_article a ON a.id = t.sid
+		WHERE t.id = #{id}
+	</select>
+
+	<update id="doSupport" parameterType="Long">
+		UPDATE `biz_comment` SET support = support + 1 WHERE `id`=#{id}
+	</update>
+	<update id="doOppose" parameterType="Long">
+		UPDATE `biz_comment` SET oppose = oppose + 1 WHERE `id`=#{id}
+	</update>
+</mapper>
+
