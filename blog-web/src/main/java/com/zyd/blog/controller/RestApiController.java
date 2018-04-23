@@ -107,7 +107,6 @@ public class RestApiController {
                 JSONArray array = object.getJSONArray(qq);
                 nickname = array.getString(6);
             } catch (Exception e) {
-                e.printStackTrace();
                 LOG.error("通过QQ号获取用户昵称发生异常", e);
             }
         }
@@ -147,6 +146,7 @@ public class RestApiController {
         try {
             commentService.doSupport(id);
         } catch (ZhydCommentException e) {
+            LOG.error("评论点赞发生异常", e);
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("");
@@ -157,6 +157,7 @@ public class RestApiController {
         try {
             commentService.doOppose(id);
         } catch (ZhydCommentException e) {
+            LOG.error("评论点踩发生异常", e);
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("");
@@ -167,6 +168,7 @@ public class RestApiController {
         try {
             articleService.doPraise(id);
         } catch (ZhydArticleException e) {
+            LOG.error("文章点赞发生异常", e);
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("");
