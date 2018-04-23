@@ -92,7 +92,7 @@ public class RenderController {
         model.addAttribute("url", INDEX_URL);
         loadIndexPage(vo, model);
 
-        return ResultUtil.view("index");
+        return ResultUtil.view(INDEX_URL);
     }
 
     /**
@@ -109,7 +109,7 @@ public class RenderController {
         model.addAttribute("url", INDEX_URL);
         loadIndexPage(vo, model);
 
-        return ResultUtil.view("index");
+        return ResultUtil.view(INDEX_URL);
     }
 
     /**
@@ -126,7 +126,7 @@ public class RenderController {
         model.addAttribute("url", "type/" + typeId);
         loadIndexPage(vo, model);
 
-        return ResultUtil.view("index");
+        return ResultUtil.view(INDEX_URL);
     }
 
     /**
@@ -145,7 +145,7 @@ public class RenderController {
         model.addAttribute("url", "type/" + typeId);
         loadIndexPage(vo, model);
 
-        return ResultUtil.view("index");
+        return ResultUtil.view(INDEX_URL);
     }
 
     /**
@@ -162,7 +162,7 @@ public class RenderController {
         model.addAttribute("url", "tag/" + tagId);
         loadIndexPage(vo, model);
 
-        return ResultUtil.view("index");
+        return ResultUtil.view(INDEX_URL);
     }
 
     /**
@@ -181,7 +181,7 @@ public class RenderController {
         model.addAttribute("url", "tag/" + tagId);
         loadIndexPage(vo, model);
 
-        return ResultUtil.view("index");
+        return ResultUtil.view(INDEX_URL);
     }
 
     /**
