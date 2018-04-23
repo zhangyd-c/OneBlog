@@ -28,7 +28,6 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
-import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -43,7 +42,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Component
 public class ZydWebSocket {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ZydWebSocket.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ZydWebSocket.class);
     /**
      * 初始在线人数
      */
@@ -51,7 +50,7 @@ public class ZydWebSocket {
     /**
      * 线程安全的socket集合
      */
-    private static CopyOnWriteArraySet<Session> webSocketSet = new CopyOnWriteArraySet<Session>();
+    private static CopyOnWriteArraySet<Session> webSocketSet = new CopyOnWriteArraySet<>();
     /**
      * 与某个客户端的连接会话，需要通过它来给客户端发送数据
      */
@@ -64,8 +63,8 @@ public class ZydWebSocket {
     public void onOpen(Session session) {
         webSocketSet.add(session);
         onlineCount.incrementAndGet();
-        System.out.println("有链接加入，当前在线人数为:" + getOnlineCount());
-        WebSocketUtil.broadcast(getOnlineCount() + "", webSocketSet);
+        LOG.info("有链接加入，当前在线人数为: {}", getOnlineCount());
+        WebSocketUtil.broadcast(getOnlineCount(), webSocketSet);
     }
 
     /**
@@ -74,8 +73,8 @@ public class ZydWebSocket {
     @OnClose
     public void onClose() {
         onlineCount.decrementAndGet();
-        System.out.println("有链接关闭,当前在线人数为:" + getOnlineCount());
-        WebSocketUtil.broadcast(getOnlineCount() + "", webSocketSet);
+        LOG.info("有链接关闭,当前在线人数为: {}", getOnlineCount());
+        WebSocketUtil.broadcast(getOnlineCount(), webSocketSet);
     }
 
     /**
@@ -86,15 +85,11 @@ public class ZydWebSocket {
      */
     @OnMessage
     public void onMessage(String message, Session session) {
-        LOGGER.info("{}来自客户端的消息:{}", session.getId(), message);
-        try {
-            WebSocketUtil.sendMessage(message, session);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        LOG.info("{}来自客户端的消息:{}", session.getId(), message);
+        WebSocketUtil.sendMessage(message, session);
     }
 
-    private int getOnlineCount() {
-        return onlineCount.get();
+    private String getOnlineCount() {
+        return Integer.toString(onlineCount.get());
     }
 }

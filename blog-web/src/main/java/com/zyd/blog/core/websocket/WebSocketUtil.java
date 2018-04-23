@@ -19,10 +19,12 @@
  */
 package com.zyd.blog.core.websocket;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.websocket.Session;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.Set;
 
 /**
  * websocket工具类，支持单条发送和批量发送
@@ -35,6 +37,8 @@ import java.util.concurrent.CopyOnWriteArraySet;
  */
 public class WebSocketUtil {
 
+    private static final Logger LOG = LoggerFactory.getLogger(WebSocketUtil.class);
+
     /**
      * 向客户端发送消息
      *
@@ -44,8 +48,12 @@ public class WebSocketUtil {
      *         客户端session
      * @throws IOException
      */
-    public static void sendMessage(String message, Session session) throws IOException {
-        session.getAsyncRemote().sendText(message);
+    public static void sendMessage(String message, Session session) {
+        try {
+            session.getAsyncRemote().sendText(message);
+        } catch (Exception e) {
+            LOG.error("websocket-->向客户端发送数据发生异常", e);
+        }
     }
 
     /**
@@ -57,17 +65,11 @@ public class WebSocketUtil {
      *         客户端session列表
      * @throws IOException
      */
-    public static void broadcast(String message, CopyOnWriteArraySet<Session> sessionSet) {
-        Iterator<Session> it = sessionSet.iterator();
+    public static void broadcast(String message, Set<Session> sessionSet) {
         // 多线程群发
-        while (it.hasNext()) {
-            Session entry = it.next();
+        for (Session entry : sessionSet) {
             if (entry.isOpen()) {
-                try {
-                    sendMessage(message, entry);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                sendMessage(message, entry);
             } else {
                 sessionSet.remove(entry);
             }

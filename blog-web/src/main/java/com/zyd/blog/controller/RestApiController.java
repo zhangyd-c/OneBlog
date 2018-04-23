@@ -34,6 +34,8 @@ import com.zyd.blog.framework.exception.ZhydLinkException;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.RestClientUtil;
 import com.zyd.blog.util.ResultUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -59,6 +61,8 @@ import java.util.Map;
 @RequestMapping("/api")
 public class RestApiController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(RestApiController.class);
+
     @Autowired
     private SysLinkService sysLinkService;
     @Autowired
@@ -72,14 +76,15 @@ public class RestApiController {
 
     @PostMapping("/autoLink")
     public ResponseVO autoLink(@Validated Link link, BindingResult bindingResult) {
-        System.out.println("申请友情链接......");
-        System.out.println(JSON.toJSONString(link));
+        LOG.info("申请友情链接......");
+        LOG.info(JSON.toJSONString(link));
         if (bindingResult.hasErrors()) {
             return ResultUtil.error(bindingResult.getFieldError().getDefaultMessage());
         }
         try {
             sysLinkService.autoLink(link);
         } catch (ZhydLinkException e) {
+            LOG.error("客户端自助申请友链发生异常", e);
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("已成功添加友链，祝您生活愉快！");
@@ -97,12 +102,13 @@ public class RestApiController {
             try {
                 json = json.replaceAll("portraitCallBack|\\\\s*|\\t|\\r|\\n", "");
                 json = json.substring(1, json.length() - 1);
-                System.out.println(json);
+                LOG.info(json);
                 JSONObject object = JSONObject.parseObject(json);
                 JSONArray array = object.getJSONArray(qq);
                 nickname = array.getString(6);
             } catch (Exception e) {
                 e.printStackTrace();
+                LOG.error("通过QQ号获取用户昵称发生异常", e);
             }
         }
         resultMap.put("avatar", "https://q1.qlogo.cn/g?b=qq&nk=" + qq + "&s=40");
@@ -130,6 +136,7 @@ public class RestApiController {
                 mailService.sendToAdmin(comment);
             }
         } catch (ZhydCommentException e) {
+            LOG.error("评论发生异常", e);
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("评论发表成功，系统正在审核，请稍后刷新页面查看！");
@@ -166,7 +173,7 @@ public class RestApiController {
     }
 
     @PostMapping("/listNotice")
-    public ResponseVO listNotice(String token) {
+    public ResponseVO listNotice() {
         return ResultUtil.success("", noticeService.listRelease());
     }
 

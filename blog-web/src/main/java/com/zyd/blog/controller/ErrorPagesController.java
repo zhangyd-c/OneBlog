@@ -1,18 +1,14 @@
 /**
  * MIT License
- *
  * Copyright (c) 2018 yadong.zhang
- *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,6 +19,8 @@
  */
 package com.zyd.blog.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.boot.autoconfigure.web.ErrorController;
@@ -62,6 +60,7 @@ import java.util.Map;
 @RequestMapping("/error")
 @EnableConfigurationProperties({ServerProperties.class})
 public class ErrorPagesController implements ErrorController {
+    private static final Logger LOG = LoggerFactory.getLogger(ErrorPagesController.class);
 
     private ErrorAttributes errorAttributes;
 
@@ -92,7 +91,7 @@ public class ErrorPagesController implements ErrorController {
         response.setStatus(HttpStatus.FORBIDDEN.value());
         // 404拦截规则，如果是静态文件发生的404则不记录到DB
         Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
-        if (String.valueOf(model.get("path")).indexOf(".") == -1) {
+        if (!String.valueOf(model.get("path")).contains(".")) {
             model.put("status", HttpStatus.FORBIDDEN.value());
         }
         return new ModelAndView("error/403", model);
@@ -134,10 +133,7 @@ public class ErrorPagesController implements ErrorController {
         if (include == ErrorProperties.IncludeStacktrace.ALWAYS) {
             return true;
         }
-        if (include == ErrorProperties.IncludeStacktrace.ON_TRACE_PARAM) {
-            return getTraceParameter(request);
-        }
-        return false;
+        return include == ErrorProperties.IncludeStacktrace.ON_TRACE_PARAM && getTraceParameter(request);
     }
 
 
@@ -163,10 +159,7 @@ public class ErrorPagesController implements ErrorController {
      */
     private boolean getTraceParameter(HttpServletRequest request) {
         String parameter = request.getParameter("trace");
-        if (parameter == null) {
-            return false;
-        }
-        return !"false".equals(parameter.toLowerCase());
+        return parameter != null && !"false".equals(parameter.toLowerCase());
     }
 
     /**
@@ -184,6 +177,7 @@ public class ErrorPagesController implements ErrorController {
         try {
             return HttpStatus.valueOf(statusCode);
         } catch (Exception ex) {
+            LOG.error("获取当前HttpStatus发生异常", ex);
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
     }

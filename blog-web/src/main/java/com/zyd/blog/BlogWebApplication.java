@@ -19,12 +19,16 @@
  */
 package com.zyd.blog;
 
+import com.zyd.blog.business.consts.DateConst;
+import com.zyd.blog.util.DateUtil;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import java.util.Date;
 
 /**
  * 程序启动类
@@ -46,6 +50,6 @@ public class BlogWebApplication implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments applicationArguments) throws Exception {
-		System.out.println("启动完成");
+		System.out.println("博客部署完成，当前时间：" + DateUtil.date2Str(new Date(), DateConst.YYYY_MM_DD_HH_MM_SS_EN));
 	}
 }

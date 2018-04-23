@@ -54,6 +54,7 @@ public class RenderController {
      * sidebar部分的推荐、近期和随机tab页中显示的文章数
      */
     private static final int SIDEBAR_ARTICLE_SIZE = 8;
+    private static final String INDEX_URL = "index";
 
     @Autowired
     private BizArticleService bizArticleService;
@@ -88,7 +89,7 @@ public class RenderController {
      */
     @RequestMapping("/")
     public ModelAndView home(ArticleConditionVO vo, Model model) {
-        model.addAttribute("url", "index");
+        model.addAttribute("url", INDEX_URL);
         loadIndexPage(vo, model);
 
         return ResultUtil.view("index");
@@ -105,7 +106,7 @@ public class RenderController {
     @RequestMapping("/index/{pageNumber}")
     public ModelAndView type(@PathVariable("pageNumber") Integer pageNumber, ArticleConditionVO vo, Model model) {
         vo.setPageNumber(pageNumber);
-        model.addAttribute("url", "index");
+        model.addAttribute("url", INDEX_URL);
         loadIndexPage(vo, model);
 
         return ResultUtil.view("index");
@@ -208,11 +209,10 @@ public class RenderController {
     /**
      * 关于
      *
-     * @param model
      * @return
      */
     @GetMapping("/about")
-    public ModelAndView about(Model model) {
+    public ModelAndView about() {
         return ResultUtil.view("about");
     }
 
@@ -231,11 +231,10 @@ public class RenderController {
     /**
      * 留言板
      *
-     * @param model
      * @return
      */
     @GetMapping("/guestbook")
-    public ModelAndView guestbook(Model model) {
+    public ModelAndView guestbook() {
         return ResultUtil.view("guestbook");
     }
 
@@ -255,11 +254,10 @@ public class RenderController {
     /**
      * 免责声明
      *
-     * @param model
      * @return
      */
     @GetMapping("/disclaimer")
-    public ModelAndView disclaimer(Model model) {
+    public ModelAndView disclaimer() {
         return ResultUtil.view("disclaimer");
     }
 
