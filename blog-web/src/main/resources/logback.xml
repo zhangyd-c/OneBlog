@@ -34,6 +34,7 @@
     <logger name="java.sql.ResultSet" level="DEBUG" />
     <logger name="backend" level="DEBUG"/>-->
     <logger name="org.springframework.core.env" level="ERROR"/>
+    <logger name="com.zyd.blog.BlogWebApplication" level="INFO"/>
 
     <!--&lt;!&ndash;日志打印的包的范围，及分类日志文件存储 &ndash;&gt;-->
     <!--<logger name="com.blog" additivity="false">-->
@@ -43,7 +44,7 @@
     <!--</logger>-->
 
     <!--控制台打印资源加载信息 -->
-    <root level="DEBUG">
+    <root level="ERROR">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="ERROR_OUT"/>
     </root>

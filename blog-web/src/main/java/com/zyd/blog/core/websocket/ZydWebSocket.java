@@ -51,10 +51,6 @@ public class ZydWebSocket {
      * 线程安全的socket集合
      */
     private static CopyOnWriteArraySet<Session> webSocketSet = new CopyOnWriteArraySet<>();
-    /**
-     * 与某个客户端的连接会话，需要通过它来给客户端发送数据
-     */
-    private Session session;
 
     /**
      * 连接建立成功调用的方法
