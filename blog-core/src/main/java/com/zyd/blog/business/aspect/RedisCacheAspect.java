@@ -20,6 +20,7 @@
 package com.zyd.blog.business.aspect;
 
 import com.zyd.blog.business.annotation.RedisCache;
+import com.zyd.blog.framework.config.AppPropertiesConfig;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
@@ -55,6 +56,8 @@ public class RedisCacheAspect {
 
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private AppPropertiesConfig propertiesConfig;
 
     @Pointcut(value = "@annotation(com.zyd.blog.business.annotation.RedisCache)")
     public void pointcut() {
@@ -62,6 +65,10 @@ public class RedisCacheAspect {
 
     @Around("pointcut()")
     public Object handle(ProceedingJoinPoint point) throws Throwable {
+        if(!propertiesConfig.getEnableRedis()){
+            LOGGER.info("未启用Redis");
+            return point.proceed();
+        }
         // 获取拦截的方法名
         Signature sig = point.getSignature();
         MethodSignature msig = null;

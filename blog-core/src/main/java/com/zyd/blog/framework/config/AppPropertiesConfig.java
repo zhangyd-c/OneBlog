@@ -42,6 +42,12 @@ import java.util.Map;
 @Data
 public class AppPropertiesConfig {
 
+    public Boolean enableRedis;
+
+    public boolean getEnableRedis() {
+        return null == enableRedis ? false : enableRedis;
+    }
+
     public Map<String, String> qiniu = new HashMap<>();
 
     public String getQiniuAccessKey() {
