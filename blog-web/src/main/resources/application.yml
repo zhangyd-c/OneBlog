@@ -133,7 +133,7 @@ banner:
 ####################################自定义配置##########################################
 app:
     # 是否启用redis
-    enableRedis: false
+    enableRedis: true
     qiniu:
         # 七牛ACCESS_KEY
         accessKey: ACCESS_KEY
