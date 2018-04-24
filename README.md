@@ -83,7 +83,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 ### 问题记录
 
-1.实体类没有setter、getter方法。解决办法：安装lombok（自行百度）
+1.实体类没有setter、getter方法。解决办法：[安装lombok](https://www.zhyd.me/article/61)
 
 
 你能看到这儿已经很不容易了，剩下的自己先摸索摸索吧，实在不行，加QQ群[190886500](http://shang.qq.com/wpa/qunwpa?idkey=9f986e9b33b1de953e1ef9a96cdeec990affd0ac7855e00ff103514de2027b60)，进群可以选择性的备注：`欧巴群主我爱你`
