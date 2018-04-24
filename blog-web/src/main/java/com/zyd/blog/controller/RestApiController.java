@@ -95,7 +95,7 @@ public class RestApiController {
         if (StringUtils.isEmpty(qq)) {
             return ResultUtil.error("");
         }
-        Map<String, String> resultMap = new HashMap<>();
+        Map<String, String> resultMap = new HashMap<>(4);
         String nickname = "匿名";
         String json = RestClientUtil.get("http://users.qzone.qq.com/fcg-bin/cgi_get_portrait.fcg?uins=" + qq, "GBK");
         if (!StringUtils.isEmpty(json)) {
