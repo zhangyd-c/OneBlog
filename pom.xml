@@ -7,6 +7,10 @@
 	<artifactId>blog</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	<modules>
+		<module>blog-core</module>
+		<module>blog-web</module>
+	</modules>
 
 	<name>blog</name>
 	<description>DBlog for Spring Boot</description>
