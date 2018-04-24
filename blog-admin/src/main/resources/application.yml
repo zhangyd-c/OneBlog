@@ -135,9 +135,9 @@ app:
     enableKaptcha: false
     qiniu:
         # 七牛ACCESS_KEY
-        accessKey: B4CCcQvTgmuwnWQzY3Kcb9aYJ-DJsqcHVdH_lkqK
+        accessKey: ACCESS_KEY
         # 七牛SECRET_KEY
-        secretKey: 0lgXYKl2P-oW3tFjGSQQhto-q5BQXxUrKgHGJgh3
+        secretKey: SECRET_KEY
         # 七牛BUCKET_NAME
-        bucketName: zhyd-test
+        bucketName: BUCKET_NAME
 ####################################自定义配置##########################################
