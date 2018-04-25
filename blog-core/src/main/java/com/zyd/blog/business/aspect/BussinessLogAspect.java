@@ -1,18 +1,14 @@
 /**
  * MIT License
- *
  * Copyright (c) 2018 yadong.zhang
- *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,8 +22,10 @@ package com.zyd.blog.business.aspect;
 import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.framework.holder.RequestHolder;
 import com.zyd.blog.util.IpUtil;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -73,6 +71,11 @@ public class BussinessLogAspect {
         }
 
         return result;
+    }
+
+    @AfterThrowing(pointcut = "pointcut()", throwing = "ex")
+    public void afterThrowing(JoinPoint joinPoint, Throwable ex) throws Throwable {
+        LOGGER.error("捕获到了异常...", ex);
     }
 
     private void handle(ProceedingJoinPoint point) throws Exception {
