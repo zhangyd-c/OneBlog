@@ -28,6 +28,7 @@ import com.zyd.blog.business.enums.UserStatusEnum;
 import com.zyd.blog.business.service.SysRoleService;
 import com.zyd.blog.business.service.SysUserService;
 import com.zyd.blog.business.vo.UserConditionVO;
+import com.zyd.blog.framework.exception.ZhydCommentException;
 import com.zyd.blog.framework.holder.RequestHolder;
 import com.zyd.blog.persistence.beans.SysUser;
 import com.zyd.blog.persistence.mapper.SysUserMapper;
@@ -118,8 +119,7 @@ public class SysUserServiceImpl implements SysUserService {
             try {
                 user.setPassword(PasswordUtil.encrypt(user.getPassword(), user.getUsername()));
             } catch (Exception e) {
-                e.printStackTrace();
-                throw new RuntimeException("密码加密失败");
+                throw new ZhydCommentException("密码加密失败");
             }
         }
         return sysUserMapper.updateByPrimaryKey(user.getSysUser()) > 0;
@@ -135,7 +135,7 @@ public class SysUserServiceImpl implements SysUserService {
                 user.setPassword(PasswordUtil.encrypt(user.getPassword(), user.getUsername()));
             } catch (Exception e) {
                 e.printStackTrace();
-                throw new RuntimeException("密码加密失败");
+                throw new ZhydCommentException("密码加密失败");
             }
         } else {
             user.setPassword(null);

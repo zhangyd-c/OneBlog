@@ -51,7 +51,7 @@ import java.util.Date;
  */
 public class QiniuApi {
     private static final Logger LOG = LoggerFactory.getLogger(QiniuApi.class);
-    private static final String LOCK = "LOCK";
+    private static final Object LOCK = new Object();
     private AppPropertiesConfig config;
     private String key;
     private Auth auth;
@@ -129,8 +129,8 @@ public class QiniuApi {
         FileInfo info = null;
         try {
             info = bucketManager.stat(config.getQiniuBucketName(), fileName);
-            System.out.println(info.hash);
-            System.out.println(info.key);
+            LOG.info(info.hash);
+            LOG.info(info.key);
         } catch (QiniuException e) {
             Response r = e.response;
             LOG.error(r.toString(), e);

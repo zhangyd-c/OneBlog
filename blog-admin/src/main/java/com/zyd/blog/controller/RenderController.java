@@ -134,12 +134,6 @@ public class RenderController {
         return ResultUtil.view("notice/list");
     }
 
-    @BussinessLog("进入管理员个人资料页")
-    @GetMapping("/profile")
-    public ModelAndView profile() {
-        return ResultUtil.view("profile");
-    }
-
     @BussinessLog("进入系统配置页")
     @GetMapping("/config")
     public ModelAndView config() {

@@ -61,7 +61,7 @@ public class RestClientUtil {
     }
 
     public static String get(String urlString, String encode, Map<String, String> requestHeader) {
-        return request("GET", urlString, null, encode, null);
+        return request("GET", urlString, null, encode, requestHeader);
     }
 
     /**
@@ -139,7 +139,7 @@ public class RestClientUtil {
                 content.append(line);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("数据读取失败", e);
         }
         return content.toString();
     }

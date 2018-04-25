@@ -93,7 +93,7 @@ public class MailServiceImpl implements MailService {
             Config config = configService.get();
             Template template = templateService.getTemplate(keyEnum);
             String temXml = template.getRefValue();
-            Map<String, Object> map = new HashMap<String, Object>();
+            Map<String, Object> map = new HashMap<>(2);
             map.put("link", link);
             map.put("config", config);
             String mailContext = FreeMarkerUtil.template2String(temXml, map, true);
@@ -122,7 +122,7 @@ public class MailServiceImpl implements MailService {
         Config config = configService.get();
         Template template = templateService.getTemplate(keyEnum);
         String temXml = template.getRefValue();
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>(2);
         map.put("comment", comment);
         map.put("config", config);
         String mailContext = FreeMarkerUtil.template2String(temXml, map, true);
@@ -148,7 +148,7 @@ public class MailServiceImpl implements MailService {
         Config config = configService.get();
         Template template = templateService.getTemplate(TemplateKeyEnum.TM_LINKS_TO_ADMIN);
         String temXml = template.getRefValue();
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>(1);
         map.put("link", link);
         String mailContext = FreeMarkerUtil.template2String(temXml, map, true);
         String adminEmail = config.getAuthorEmail();
@@ -167,7 +167,7 @@ public class MailServiceImpl implements MailService {
         Config config = configService.get();
         Template template = templateService.getTemplate(TemplateKeyEnum.TM_NEW_COMMENT);
         String temXml = template.getRefValue();
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>(2);
         map.put("comment", comment);
         map.put("config", config);
         String mailContext = FreeMarkerUtil.template2String(temXml, map, true);
@@ -210,13 +210,12 @@ public class MailServiceImpl implements MailService {
                         helper.addAttachment("图片.jpg", file);
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    LOGGER.error("添加附件发生异常", e);
                 }
             }
             javaMailSender.send(message);
             return true;
         } catch (MessagingException | UnsupportedEncodingException e) {
-            e.printStackTrace();
             LOGGER.error("Failed to send E-mail. e [{}]", e.getMessage());
         }
         return false;
