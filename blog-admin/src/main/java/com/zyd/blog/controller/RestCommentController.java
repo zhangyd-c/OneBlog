@@ -81,9 +81,6 @@ public class RestCommentController {
             comment.setUserId(user.getId());
             comment.setStatus(CommentStatusEnum.APPROVED.toString());
             commentService.comment(comment);
-            // 给被评论的用户发送通知
-            Comment commentDB = commentService.getByPrimaryKey(comment.getPid());
-            mailService.send(commentDB, TemplateKeyEnum.TM_COMMENT_REPLY, false);
         } catch (ZhydCommentException e) {
             return ResultUtil.error(e.getMessage());
         }

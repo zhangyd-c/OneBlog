@@ -25,7 +25,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.zyd.blog.business.entity.Comment;
 import com.zyd.blog.business.entity.Link;
 import com.zyd.blog.business.enums.CommentStatusEnum;
-import com.zyd.blog.business.enums.TemplateKeyEnum;
 import com.zyd.blog.business.service.*;
 import com.zyd.blog.business.vo.CommentConditionVO;
 import com.zyd.blog.framework.exception.ZhydArticleException;
@@ -69,8 +68,6 @@ public class RestApiController {
     private BizCommentService commentService;
     @Autowired
     private BizArticleService articleService;
-    @Autowired
-    private MailService mailService;
     @Autowired
     private SysNoticeService noticeService;
 
@@ -127,13 +124,6 @@ public class RestApiController {
     public ResponseVO comment(Comment comment) {
         try {
             commentService.comment(comment);
-            if (null != comment.getPid() && 0 != comment.getPid()) {
-                // 给被评论的用户发送通知
-                Comment commentDB = commentService.getByPrimaryKey(comment.getPid());
-                mailService.send(commentDB, TemplateKeyEnum.TM_COMMENT_REPLY, false);
-            } else {
-                mailService.sendToAdmin(comment);
-            }
         } catch (ZhydCommentException e) {
             LOG.error("评论发生异常", e);
             return ResultUtil.error(e.getMessage());

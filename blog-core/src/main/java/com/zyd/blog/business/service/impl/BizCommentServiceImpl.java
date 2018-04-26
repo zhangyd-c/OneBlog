@@ -26,7 +26,9 @@ import com.zyd.blog.business.annotation.RedisCache;
 import com.zyd.blog.business.dto.BizCommentDTO;
 import com.zyd.blog.business.entity.Comment;
 import com.zyd.blog.business.enums.CommentStatusEnum;
+import com.zyd.blog.business.enums.TemplateKeyEnum;
 import com.zyd.blog.business.service.BizCommentService;
+import com.zyd.blog.business.service.MailService;
 import com.zyd.blog.business.vo.CommentConditionVO;
 import com.zyd.blog.framework.exception.ZhydCommentException;
 import com.zyd.blog.framework.holder.RequestHolder;
@@ -37,7 +39,8 @@ import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
 import eu.bitwalker.useragentutils.Version;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -63,11 +66,16 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class BizCommentServiceImpl implements BizCommentService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(BizCommentServiceImpl.class);
+
     @Autowired
     private BizCommentMapper bizCommentMapper;
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private MailService mailService;
 
     /**
      * 分页查询
@@ -143,7 +151,6 @@ public class BizCommentServiceImpl implements BizCommentService {
         if (content.endsWith("<p><br></p>")) {
             comment.setContent(content.substring(0, content.length() - "<p><br></p>".length()));
         }
-        comment.setContent(StringEscapeUtils.escapeHtml(comment.getContent()));
         comment.setNickname(HtmlUtil.html2Text(comment.getNickname()));
         comment.setQq(HtmlUtil.html2Text(comment.getQq()));
         comment.setAvatar(HtmlUtil.html2Text(comment.getAvatar()));
@@ -210,6 +217,19 @@ public class BizCommentServiceImpl implements BizCommentService {
             comment.setStatus(CommentStatusEnum.VERIFYING.toString());
         }
         this.insert(comment);
+        // 发送邮件通知，此处如发生异常不应阻塞当前的业务流程
+        // 可以进行日志记录等操作
+        try {
+            if (null != comment.getPid() && 0 != comment.getPid()) {
+                // 给被评论的用户发送通知
+                Comment commentDB = this.getByPrimaryKey(comment.getPid());
+                mailService.send(commentDB, TemplateKeyEnum.TM_COMMENT_REPLY, false);
+            } else {
+                mailService.sendToAdmin(comment);
+            }
+        } catch (Exception e) {
+            LOG.error("发送评论通知邮件时发生异常", e);
+        }
         return comment;
     }
 

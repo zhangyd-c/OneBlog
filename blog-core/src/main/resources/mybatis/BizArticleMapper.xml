@@ -191,6 +191,7 @@
 				IFNULL(count(1), 0) AS commentCount
 			FROM
 				biz_comment c
+			WHERE c.status = 'APPROVED'
 			GROUP BY
 				sid
 		) c ON a.id = c.sid
