@@ -161,6 +161,14 @@ var PaymentUtils = window.payment || {
 
 };
 $(function () {
+
+    $(document).ready(function () {
+        NProgress.start();
+    });
+    $(window).load(function () {
+        NProgress.done();
+    });
+
     initNavbar();
     initArticeMenu();
     initScrollMenu();
@@ -187,9 +195,9 @@ $(function () {
     $(".showImage").fancybox();
 
     $(document).ajaxStart(function () {
-        $("#loading").show();
+        NProgress.start();
     }).ajaxStop(function () {
-        $("#loading").hide();
+        NProgress.done();
     });
 
     if ($("#scrolldiv")) {

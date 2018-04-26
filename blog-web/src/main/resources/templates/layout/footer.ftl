@@ -95,13 +95,6 @@
     </div>
     <small class="font-bold"> </small>
 </div>
-<div id="loading">
-    <div class="filter"></div>
-    <div class="loader">
-        <div class="loading-1"></div>
-        <div class="loading-2">Loading...</div>
-    </div>
-</div>
 <div class="clear blog-footer">
     <div class="container">
         <div class="col-xs-12 col-sm-4 col-md-4 text-left fade-in">
@@ -154,7 +147,8 @@
 <script type="text/javascript" src="https://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js"></script>
 <script type="text/javascript" src="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.1/js/bootstrapValidator.min.js"></script>
 <script type="text/javascript" src="https://cdn.bootcss.com/js-xss/0.3.3/xss.min.js"></script>
-<script src="https://cdn.bootcss.com/mustache.js/2.3.0/mustache.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/mustache.js/2.3.0/mustache.min.js"></script>
 <script type="text/javascript">
     var appConfig = {
         wwwPath: '${config.siteUrl}',
