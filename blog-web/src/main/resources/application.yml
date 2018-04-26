@@ -133,7 +133,9 @@ banner:
 ####################################自定义配置##########################################
 app:
     # 是否启用redis
-    enableRedis: false
+    enableRedis: true
+    # 是否启用kaptcha验证码
+    enableKaptcha: false
     qiniu:
         # 七牛ACCESS_KEY
         accessKey: ACCESS_KEY

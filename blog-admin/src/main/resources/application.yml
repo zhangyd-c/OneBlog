@@ -131,6 +131,8 @@ banner:
     charset: UTF-8
 ####################################自定义配置##########################################
 app:
+    # 是否启用redis
+    enableRedis: true
     # 是否启用kaptcha验证码
     enableKaptcha: false
     qiniu:
