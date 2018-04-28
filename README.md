@@ -60,7 +60,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
    1. 数据库链接属性(可搜索`datasource`或定位到L.19) 
    2. redis配置(可搜索`redis`或定位到L.69)
    3. mail配置(可搜索`mail`或定位到L.89)
-   4. 七牛云配置(可搜索`qiniu`或定位到L.135)
+   4. 【[七牛云](http://qiniu.com)】配置(可搜索`qiniu`或定位到L.135)
 5. 运行项目(三种方式)
    1. 项目根目录下执行`mvn -X clean package -Dmaven.test.skip=true`编译打包，然后执行`java -jar target/blog-web.jar`
    2. 项目根目录下执行`mvn springboot:run`
