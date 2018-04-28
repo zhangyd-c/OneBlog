@@ -95,6 +95,13 @@
     </div>
     <small class="font-bold"> </small>
 </div>
+<div id="loading">
+    <div class="filter"></div>
+    <div class="loader">
+        <div class="loading-1"></div>
+        <div class="loading-2">Loading...</div>
+    </div>
+</div>
 <div class="clear blog-footer">
     <div class="container">
         <div class="col-xs-12 col-sm-4 col-md-4 text-left fade-in">

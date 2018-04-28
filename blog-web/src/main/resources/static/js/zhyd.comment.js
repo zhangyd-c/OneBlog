@@ -355,11 +355,13 @@ $(function(){
                 });
 
                 function submitForm(data) {
+                    $.comment._detailFormBtn.button('loading');
                     $.ajax({
                         type: "post",
                         url: "/api/comment",
                         data: data + '&sid=' + $.comment.sid,
                         success: function (json) {
+                            $.comment._detailFormBtn.button('reset');
                             $.tool.ajaxSuccess(json);
                             $.comment._commentDetailModal.modal('hide');
 

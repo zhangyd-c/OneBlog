@@ -40,7 +40,7 @@ import org.springframework.stereotype.Component;
  * @since 1.0
  */
 @Component
-public class AppErrorPagesConfig {
+public class ErrorPagesConfig {
 
     /**
      * 自定义异常处理路径

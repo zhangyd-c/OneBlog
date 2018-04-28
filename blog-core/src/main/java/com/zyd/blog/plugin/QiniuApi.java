@@ -29,7 +29,7 @@ import com.qiniu.util.StringMap;
 import com.zyd.blog.business.consts.CommonConst;
 import com.zyd.blog.business.consts.DateConst;
 import com.zyd.blog.business.enums.QiniuUploadType;
-import com.zyd.blog.framework.config.AppPropertiesConfig;
+import com.zyd.blog.framework.property.AppProperties;
 import com.zyd.blog.framework.holder.SpringContextHolder;
 import com.zyd.blog.util.DateUtil;
 import com.zyd.blog.util.FileUtil;
@@ -52,13 +52,13 @@ import java.util.Date;
 public class QiniuApi {
     private static final Logger LOG = LoggerFactory.getLogger(QiniuApi.class);
     private static final Object LOCK = new Object();
-    private AppPropertiesConfig config;
+    private AppProperties config;
     private String key;
     private Auth auth;
     private UploadManager uploadManager;
 
     private QiniuApi() {
-        this.config = SpringContextHolder.getBean(AppPropertiesConfig.class);
+        this.config = SpringContextHolder.getBean(AppProperties.class);
         auth = Auth.create(config.getQiniuAccessKey(), config.getQiniuSecretKey());
         uploadManager = new UploadManager();
     }

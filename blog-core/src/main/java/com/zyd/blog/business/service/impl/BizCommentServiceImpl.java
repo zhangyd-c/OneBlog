@@ -217,6 +217,12 @@ public class BizCommentServiceImpl implements BizCommentService {
             comment.setStatus(CommentStatusEnum.VERIFYING.toString());
         }
         this.insert(comment);
+        this.sendEmail(comment);
+        return comment;
+    }
+
+
+    private void sendEmail(Comment comment){
         // 发送邮件通知，此处如发生异常不应阻塞当前的业务流程
         // 可以进行日志记录等操作
         try {
@@ -230,7 +236,6 @@ public class BizCommentServiceImpl implements BizCommentService {
         } catch (Exception e) {
             LOG.error("发送评论通知邮件时发生异常", e);
         }
-        return comment;
     }
 
     /**

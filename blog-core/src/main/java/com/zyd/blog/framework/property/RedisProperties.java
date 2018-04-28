@@ -21,45 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.zyd.blog.framework.config;
+package com.zyd.blog.framework.property;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 
 /**
+ * redis属性配置文件
+ *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
  * @website https://www.zhyd.me
  * @date 2018/4/16 16:26
  * @since 1.0
  */
-@Component
-@ConfigurationProperties(prefix = "app")
+@Configuration
+@ConfigurationProperties(prefix = "spring.redis")
 @Data
-public class AppPropertiesConfig {
-
-    public Boolean enableKaptcha;
-
-    public boolean getEnableKaptcha() {
-        return null == enableKaptcha ? false : enableKaptcha;
-    }
-
-    public Map<String, String> qiniu = new HashMap<>();
-
-    public String getQiniuAccessKey() {
-        return this.qiniu.get("accessKey");
-    }
-
-    public String getQiniuSecretKey() {
-        return this.qiniu.get("secretKey");
-    }
-
-    public String getQiniuBucketName() {
-        return this.qiniu.get("bucketName");
-    }
+@EqualsAndHashCode(callSuper = false)
+@Order(-1)
+public class RedisProperties {
+    private String host;
+    private Integer port;
+    private String password;
+    private Integer timeout;
 
 }

@@ -20,7 +20,7 @@
 package com.zyd.blog.controller;
 
 import com.zyd.blog.business.annotation.BussinessLog;
-import com.zyd.blog.framework.config.AppPropertiesConfig;
+import com.zyd.blog.framework.property.AppProperties;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
 import com.zyd.blog.util.SessionUtil;
@@ -55,7 +55,7 @@ public class PassportController {
     private static final Logger logger = LoggerFactory.getLogger(PassportController.class);
 
     @Autowired
-    private AppPropertiesConfig config;
+    private AppProperties config;
 
     @BussinessLog("进入登录页面")
     @GetMapping("/login")

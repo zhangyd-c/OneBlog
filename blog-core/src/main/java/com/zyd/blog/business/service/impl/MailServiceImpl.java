@@ -32,6 +32,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -76,8 +77,9 @@ public class MailServiceImpl implements MailService {
      * @return
      */
     @Override
-    public boolean send(MailDetail mailDetail) {
-        return sendMessage(mailDetail, from);
+    @Async
+    public void send(MailDetail mailDetail) {
+        sendMessage(mailDetail, from);
     }
 
     /**
@@ -88,7 +90,8 @@ public class MailServiceImpl implements MailService {
      * @return
      */
     @Override
-    public boolean send(Link link, TemplateKeyEnum keyEnum) {
+    @Async
+    public void send(Link link, TemplateKeyEnum keyEnum) {
         if (!StringUtils.isEmpty(link.getEmail())) {
             Config config = configService.get();
             Template template = templateService.getTemplate(keyEnum);
@@ -102,7 +105,6 @@ public class MailServiceImpl implements MailService {
             send(mailDetail);
         }
         this.sendToAdmin(link);
-        return true;
     }
 
     /**
@@ -114,10 +116,11 @@ public class MailServiceImpl implements MailService {
      * @return
      */
     @Override
-    public boolean send(Comment comment, TemplateKeyEnum keyEnum, boolean audit) {
+    @Async
+    public void send(Comment comment, TemplateKeyEnum keyEnum, boolean audit) {
         if (comment == null || StringUtils.isEmpty(comment.getEmail())) {
             this.sendToAdmin(comment);
-            return false;
+            return;
         }
         Config config = configService.get();
         Template template = templateService.getTemplate(keyEnum);
@@ -135,7 +138,6 @@ public class MailServiceImpl implements MailService {
         if (!audit) {
             this.sendToAdmin(comment);
         }
-        return true;
     }
 
     /**
@@ -144,6 +146,7 @@ public class MailServiceImpl implements MailService {
      * @param link
      */
     @Override
+    @Async
     public void sendToAdmin(Link link) {
         Config config = configService.get();
         Template template = templateService.getTemplate(TemplateKeyEnum.TM_LINKS_TO_ADMIN);
@@ -163,6 +166,7 @@ public class MailServiceImpl implements MailService {
      * @param comment
      */
     @Override
+    @Async
     public void sendToAdmin(Comment comment) {
         Config config = configService.get();
         Template template = templateService.getTemplate(TemplateKeyEnum.TM_NEW_COMMENT);

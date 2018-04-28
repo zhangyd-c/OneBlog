@@ -22,7 +22,7 @@ package com.zyd.blog.core.config;
 import com.zyd.blog.core.shiro.ShiroService;
 import com.zyd.blog.core.shiro.credentials.RetryLimitCredentialsMatcher;
 import com.zyd.blog.core.shiro.realm.ShiroRealm;
-import com.zyd.blog.framework.config.RedisPropertiesConfig;
+import com.zyd.blog.framework.property.RedisProperties;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -61,7 +61,7 @@ public class ShiroConfig {
     @Autowired
     private ShiroService shiroService;
     @Autowired
-    private RedisPropertiesConfig redisPropertiesConfig;
+    private RedisProperties redisProperties;
 
     @Bean(name = "lifecycleBeanPostProcessor")
     public static LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
@@ -158,11 +158,11 @@ public class ShiroConfig {
      */
     public RedisManager redisManager() {
         RedisManager redisManager = new RedisManager();
-        redisManager.setHost(redisPropertiesConfig.getHost());
-        redisManager.setPort(redisPropertiesConfig.getPort());
+        redisManager.setHost(redisProperties.getHost());
+        redisManager.setPort(redisProperties.getPort());
         redisManager.setExpire(1800);
-        redisManager.setTimeout(redisPropertiesConfig.getTimeout());
-        redisManager.setPassword(redisPropertiesConfig.getPassword());
+        redisManager.setTimeout(redisProperties.getTimeout());
+        redisManager.setPassword(redisProperties.getPassword());
         return redisManager;
     }
 
