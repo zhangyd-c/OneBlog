@@ -42,12 +42,7 @@ import java.util.Map;
 @Data
 public class AppPropertiesConfig {
 
-    public Boolean enableRedis;
     public Boolean enableKaptcha;
-
-    public boolean getEnableRedis() {
-        return null == enableRedis ? false : enableRedis;
-    }
 
     public boolean getEnableKaptcha() {
         return null == enableKaptcha ? false : enableKaptcha;

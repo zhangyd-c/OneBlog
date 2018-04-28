@@ -19,7 +19,7 @@ spring:
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/dblog
+        url: jdbc:mysql://localhost:3306/dblog?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false
         username: root
         password: root
     application:
@@ -131,8 +131,6 @@ banner:
     charset: UTF-8
 ####################################自定义配置##########################################
 app:
-    # 是否启用redis
-    enableRedis: true
     # 是否启用kaptcha验证码
     enableKaptcha: false
     qiniu:

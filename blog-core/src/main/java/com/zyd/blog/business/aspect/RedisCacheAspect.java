@@ -65,10 +65,6 @@ public class RedisCacheAspect {
 
     @Around("pointcut()")
     public Object handle(ProceedingJoinPoint point) throws Throwable {
-        if(!propertiesConfig.getEnableRedis()){
-            LOGGER.info("未启用Redis");
-            return point.proceed();
-        }
         // 获取拦截的方法名
         Signature sig = point.getSignature();
         MethodSignature msig = null;
