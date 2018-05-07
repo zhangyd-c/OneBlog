@@ -22,8 +22,8 @@ package com.zyd.blog.util;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
@@ -44,6 +44,8 @@ import java.util.Set;
  */
 public class FreeMarkerUtil {
 
+    private static final Logger LOG = LoggerFactory.getLogger(FreeMarkerUtil.class);
+
     private static final String LT = "<";
     private static final String LT_CHAR = "&lt;";
     private static final String GT = ">";
@@ -54,7 +56,6 @@ public class FreeMarkerUtil {
     private static final String APOS_CHAR = "&apos;";
     private static final String QUOT = "&quot;";
     private static final String QUOT_CHAR = "\"";
-    private static Log log = LogFactory.getLog(FreeMarkerUtil.class);
 
     /**
      * Template to String Method Note
@@ -71,12 +72,12 @@ public class FreeMarkerUtil {
             return null;
         }
         if (map == null) {
-            map = new HashMap<String, Object>();
+            map = new HashMap<>();
         }
-        Map<String, Object> newMap = new HashMap<String, Object>();
+        Map<String, Object> newMap = new HashMap<>(1);
 
         Set<String> keySet = map.keySet();
-        if (keySet != null && keySet.size() > 0) {
+        if (keySet.size() > 0) {
             for (String key : keySet) {
                 Object o = map.get(key);
                 if (o != null) {
@@ -86,8 +87,6 @@ public class FreeMarkerUtil {
                             value = value.trim();
                         }
                         if (isNeedFilter) {
-                            // value = HtmlUtils.htmlEscape(value);
-                            // value = StringEscapeUtils.escapeXml(value);
                             value = filterXmlString(value);
                         }
                         newMap.put(key, value);
@@ -104,11 +103,9 @@ public class FreeMarkerUtil {
             t.process(newMap, writer);
             return writer.toString();
         } catch (IOException e) {
-            log.error("TemplateUtil -> template2String IOException.");
-            e.printStackTrace();
+            LOG.error("TemplateUtil -> template2String IOException.", e);
         } catch (TemplateException e) {
-            log.error("TemplateUtil -> template2String TemplateException.");
-            e.printStackTrace();
+            LOG.error("TemplateUtil -> template2String TemplateException.", e);
         } finally {
             if (newMap != null) {
                 newMap.clear();

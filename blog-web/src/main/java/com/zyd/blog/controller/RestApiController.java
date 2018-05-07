@@ -25,7 +25,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.zyd.blog.business.entity.Comment;
 import com.zyd.blog.business.entity.Link;
 import com.zyd.blog.business.enums.CommentStatusEnum;
-import com.zyd.blog.business.enums.TemplateKeyEnum;
 import com.zyd.blog.business.service.*;
 import com.zyd.blog.business.vo.CommentConditionVO;
 import com.zyd.blog.framework.exception.ZhydArticleException;
@@ -70,8 +69,6 @@ public class RestApiController {
     @Autowired
     private BizArticleService articleService;
     @Autowired
-    private MailService mailService;
-    @Autowired
     private SysNoticeService noticeService;
 
     @PostMapping("/autoLink")
@@ -95,7 +92,7 @@ public class RestApiController {
         if (StringUtils.isEmpty(qq)) {
             return ResultUtil.error("");
         }
-        Map<String, String> resultMap = new HashMap<>();
+        Map<String, String> resultMap = new HashMap<>(4);
         String nickname = "匿名";
         String json = RestClientUtil.get("http://users.qzone.qq.com/fcg-bin/cgi_get_portrait.fcg?uins=" + qq, "GBK");
         if (!StringUtils.isEmpty(json)) {
@@ -127,13 +124,6 @@ public class RestApiController {
     public ResponseVO comment(Comment comment) {
         try {
             commentService.comment(comment);
-            if (null != comment.getPid() && 0 != comment.getPid()) {
-                // 给被评论的用户发送通知
-                Comment commentDB = commentService.getByPrimaryKey(comment.getPid());
-                mailService.send(commentDB, TemplateKeyEnum.TM_COMMENT_REPLY, false);
-            } else {
-                mailService.sendToAdmin(comment);
-            }
         } catch (ZhydCommentException e) {
             LOG.error("评论发生异常", e);
             return ResultUtil.error(e.getMessage());

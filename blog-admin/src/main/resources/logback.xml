@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 控制台 appender -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%class:%line] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- 出错日志 appender -->
+    <appender name="ERROR_OUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>/home/logs/admin/zhyd/error.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按天回滚 daily -->
+            <!-- log.dir 在maven profile里配置 -->
+            <fileNamePattern>/home/logs/www/zhyd/error-%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <!-- 日志最大的历史 7天 -->
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%class:%line] %-5level %logger - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!--<logger name="org.mybatis" level="DEBUG" />
+    <logger name="java.sql.Connection" level="DEBUG" />
+    <logger name="java.sql.Statement" level="DEBUG" />
+    <logger name="java.sql.PreparedStatement" level="DEBUG" />
+    <logger name="java.sql.ResultSet" level="DEBUG" />
+    <logger name="backend" level="DEBUG"/>-->
+    <logger name="org.springframework.core.env" level="ERROR"/>
+    <logger name="com.zyd.blog" level="INFO"/>
+
+    <!--&lt;!&ndash;日志打印的包的范围，及分类日志文件存储 &ndash;&gt;-->
+    <!--<logger name="com.blog" additivity="false">-->
+        <!--<level value="ERROR"/>-->
+        <!--<appender-ref ref="STDOUT"/>-->
+        <!--<appender-ref ref="ERROR"/>-->
+    <!--</logger>-->
+
+    <!--控制台打印资源加载信息 -->
+    <root level="ERROR">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="ERROR_OUT"/>
+    </root>
+</configuration>  

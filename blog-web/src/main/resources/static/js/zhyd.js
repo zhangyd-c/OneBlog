@@ -161,6 +161,14 @@ var PaymentUtils = window.payment || {
 
 };
 $(function () {
+
+    $(document).ready(function () {
+        NProgress.start();
+    });
+    $(window).load(function () {
+        NProgress.done();
+    });
+
     initNavbar();
     initArticeMenu();
     initScrollMenu();
@@ -186,11 +194,18 @@ $(function () {
     // 图片预览
     $(".showImage").fancybox();
 
+    // # NProgress页面顶部进度条
     $(document).ajaxStart(function () {
-        $("#loading").show();
+        NProgress.start();
     }).ajaxStop(function () {
-        $("#loading").hide();
+        NProgress.done();
     });
+    // Loading弹窗
+    // $(document).ajaxStart(function () {
+    //     $("#loading").show();
+    // }).ajaxStop(function () {
+    //     $("#loading").hide();
+    // });
 
     if ($("#scrolldiv")) {
         $("#scrolldiv").textSlider({line: 1, speed: 300, timer: 5000});

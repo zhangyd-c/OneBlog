@@ -1,6 +1,8 @@
 # DBlog简介
 DBlog是一款简洁美观、自适应的Java博客系统。使用springboot开发，前端使用Bootstrap。支持移动端自适应，配有完备的前台和后台管理功能。  
 网站预览    [https://www.zhyd.me](https://www.zhyd.me)
+Gitee开源地址    [https://gitee.com/yadong.zhang/DBlog](https://gitee.com/yadong.zhang/DBlog)
+Github开原地址    [https://github.com/zhangyd-c/DBlog](https://github.com/zhangyd-c/DBlog)
 
 ## 写在前面的话
 ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇洒的离开，并且只有等到下次**突然想到**“我天~~我得去看看DBlog这烂项目更新新功能了吗”的时候才会重新来到这儿，即使你重新来过，我估计你也只有两个选择：    
@@ -21,6 +23,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 | JDK   | 1.7+                 |
 | IDE   | IntelliJ IDEA 2017.3 |
 | Maven | 3.3.1                |
+| MySQL | 5.6.4                |
 
 ### 模块划分
 
@@ -59,7 +62,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
    1. 数据库链接属性(可搜索`datasource`或定位到L.19) 
    2. redis配置(可搜索`redis`或定位到L.69)
    3. mail配置(可搜索`mail`或定位到L.89)
-   4. 七牛云配置(可搜索`qiniu`或定位到L.135)
+   4. 【[七牛云](http://qiniu.com)】配置(可搜索`qiniu`或定位到L.135)
 5. 运行项目(三种方式)
    1. 项目根目录下执行`mvn -X clean package -Dmaven.test.skip=true`编译打包，然后执行`java -jar target/blog-web.jar`
    2. 项目根目录下执行`mvn springboot:run`
@@ -67,25 +70,16 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 6. 浏览器访问`http://127.0.0.1:8443`
 
 
-**后台模板**
+**后台用户**
 
-账号（超级管理员）：root 
+_超级管理员_： 账号：root  密码：123456  （本地测试使用这个账号，admin没设置权限）
 
-密码：123456
+_普通管理员_： 账号：admin  密码：123456
 
-账号（普通管理员）：admin
-
-密码：123456
-
-待续...
+更多详情，请参考【[Wiki](https://gitee.com/yadong.zhang/DBlog/wikis)】
 
 
-### 问题记录
-
-1.实体类没有setter、getter方法。解决办法：安装lombok（自行百度）
-
-
-你能看到这儿已经很不容易了，剩下的自己先摸索摸索吧，实在不行，加QQ群[190886500](http://shang.qq.com/wpa/qunwpa?idkey=9f986e9b33b1de953e1ef9a96cdeec990affd0ac7855e00ff103514de2027b60)，进群可以选择性的备注：`欧巴群主我爱你`
+你能看到这儿已经很不容易了，剩下的自己先摸索摸索吧，实在不行，加QQ群[190886500](http://shang.qq.com/wpa/qunwpa?idkey=9f986e9b33b1de953e1ef9a96cdeec990affd0ac7855e00ff103514de2027b60)，进群可以选择性的备注：~~欧巴群主我爱你~~(咳咳，鉴于部分群友的抗议，该备注就不用了)，麻烦大家换成：`我猜群主一定很帅`
 
 ### 图片预览
 

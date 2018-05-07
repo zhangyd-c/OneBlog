@@ -32,6 +32,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -76,8 +77,9 @@ public class MailServiceImpl implements MailService {
      * @return
      */
     @Override
-    public boolean send(MailDetail mailDetail) {
-        return sendMessage(mailDetail, from);
+    @Async
+    public void send(MailDetail mailDetail) {
+        sendMessage(mailDetail, from);
     }
 
     /**
@@ -88,12 +90,13 @@ public class MailServiceImpl implements MailService {
      * @return
      */
     @Override
-    public boolean send(Link link, TemplateKeyEnum keyEnum) {
+    @Async
+    public void send(Link link, TemplateKeyEnum keyEnum) {
         if (!StringUtils.isEmpty(link.getEmail())) {
             Config config = configService.get();
             Template template = templateService.getTemplate(keyEnum);
             String temXml = template.getRefValue();
-            Map<String, Object> map = new HashMap<String, Object>();
+            Map<String, Object> map = new HashMap<>(2);
             map.put("link", link);
             map.put("config", config);
             String mailContext = FreeMarkerUtil.template2String(temXml, map, true);
@@ -102,7 +105,6 @@ public class MailServiceImpl implements MailService {
             send(mailDetail);
         }
         this.sendToAdmin(link);
-        return true;
     }
 
     /**
@@ -114,15 +116,16 @@ public class MailServiceImpl implements MailService {
      * @return
      */
     @Override
-    public boolean send(Comment comment, TemplateKeyEnum keyEnum, boolean audit) {
+    @Async
+    public void send(Comment comment, TemplateKeyEnum keyEnum, boolean audit) {
         if (comment == null || StringUtils.isEmpty(comment.getEmail())) {
             this.sendToAdmin(comment);
-            return false;
+            return;
         }
         Config config = configService.get();
         Template template = templateService.getTemplate(keyEnum);
         String temXml = template.getRefValue();
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>(2);
         map.put("comment", comment);
         map.put("config", config);
         String mailContext = FreeMarkerUtil.template2String(temXml, map, true);
@@ -135,7 +138,6 @@ public class MailServiceImpl implements MailService {
         if (!audit) {
             this.sendToAdmin(comment);
         }
-        return true;
     }
 
     /**
@@ -144,11 +146,12 @@ public class MailServiceImpl implements MailService {
      * @param link
      */
     @Override
+    @Async
     public void sendToAdmin(Link link) {
         Config config = configService.get();
         Template template = templateService.getTemplate(TemplateKeyEnum.TM_LINKS_TO_ADMIN);
         String temXml = template.getRefValue();
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>(1);
         map.put("link", link);
         String mailContext = FreeMarkerUtil.template2String(temXml, map, true);
         String adminEmail = config.getAuthorEmail();
@@ -163,11 +166,12 @@ public class MailServiceImpl implements MailService {
      * @param comment
      */
     @Override
+    @Async
     public void sendToAdmin(Comment comment) {
         Config config = configService.get();
         Template template = templateService.getTemplate(TemplateKeyEnum.TM_NEW_COMMENT);
         String temXml = template.getRefValue();
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>(2);
         map.put("comment", comment);
         map.put("config", config);
         String mailContext = FreeMarkerUtil.template2String(temXml, map, true);
@@ -210,13 +214,12 @@ public class MailServiceImpl implements MailService {
                         helper.addAttachment("图片.jpg", file);
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    LOGGER.error("添加附件发生异常", e);
                 }
             }
             javaMailSender.send(message);
             return true;
         } catch (MessagingException | UnsupportedEncodingException e) {
-            e.printStackTrace();
             LOGGER.error("Failed to send E-mail. e [{}]", e.getMessage());
         }
         return false;

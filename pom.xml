@@ -10,6 +10,7 @@
 	<modules>
 		<module>blog-core</module>
 		<module>blog-web</module>
+		<module>blog-admin</module>
 	</modules>
 
 	<name>blog</name>

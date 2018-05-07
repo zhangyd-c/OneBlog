@@ -80,8 +80,6 @@ public class RestWebSiteController {
         map.put("articleTagsList", tagsService.listAll());
         map.put("articleList", articleService.listAll());
         map.put("config", configService.get());
-
-
         return FreeMarkerUtil.template2String(template.getRefValue(), map, true);
     }
 }

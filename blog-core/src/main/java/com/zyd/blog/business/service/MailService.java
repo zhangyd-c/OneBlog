@@ -41,7 +41,7 @@ public interface MailService {
      * @param mailDetail
      * @return
      */
-    boolean send(MailDetail mailDetail);
+    void send(MailDetail mailDetail);
 
     /**
      * 发送友情链接邮件通知
@@ -50,7 +50,7 @@ public interface MailService {
      * @param keyEnum
      * @return
      */
-    boolean send(Link link, TemplateKeyEnum keyEnum);
+    void send(Link link, TemplateKeyEnum keyEnum);
 
     /**
      * 发送评论邮件通知
@@ -60,7 +60,7 @@ public interface MailService {
      * @param audit
      * @return
      */
-    boolean send(Comment comment, TemplateKeyEnum keyEnum, boolean audit);
+    void send(Comment comment, TemplateKeyEnum keyEnum, boolean audit);
 
     /**
      * 发送到管理员的友链操作通知

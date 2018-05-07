@@ -19,6 +19,7 @@
  */
 package com.zyd.blog.framework.config;
 
+import com.jagregory.shiro.freemarker.ShiroTags;
 import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.framework.tag.ArticleTagDirective;
 import com.zyd.blog.framework.tag.CustomTagDirective;
@@ -57,6 +58,8 @@ public class FreeMarkerConfig {
         configuration.setSharedVariable("articleTag", articleTagDirective);
         try {
             configuration.setSharedVariable("config", configService.get());
+            //shiro标签
+            configuration.setSharedVariable("shiro", new ShiroTags());
         } catch (TemplateModelException e) {
             e.printStackTrace();
         }

@@ -24,14 +24,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.KeyStore;
-import java.security.SecureRandom;
 import java.util.Map;
 import java.util.Set;
 
@@ -47,41 +42,26 @@ import java.util.Set;
 public class RestClientUtil {
     protected static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.10 Safari/537.36";
     private static final Logger LOGGER = LoggerFactory.getLogger(RestClientUtil.class);
+    private static final String DEFAULT_ENCODE = "UTF-8";
 
     public static String post(String urlString, Map<String, Object> params, Map<String, String> requestHeader) {
-        return post(urlString, null, null, params, requestHeader);
-    }
-
-    public static String post(String urlString, String certPath, String certPassword, Map<String, Object> params, Map<String, String> requestHeader) {
-        return request("POST", urlString, certPath, certPassword, params, "UTF-8", requestHeader);
+        return request("POST", urlString, params, DEFAULT_ENCODE, requestHeader);
     }
 
     public static String get(String urlString) {
-        return get(urlString, null, null, "UTF-8", null);
+        return get(urlString, DEFAULT_ENCODE, null);
     }
 
     public static String get(String urlString, Map<String, String> requestHeader) {
-        return get(urlString, null, null, "UTF-8", requestHeader);
+        return get(urlString, DEFAULT_ENCODE, requestHeader);
     }
 
     public static String get(String urlString, String encode) {
-        return get(urlString, null, null, encode, null);
+        return get(urlString, encode, null);
     }
 
-    public static String get(String urlString, String certPath, String certPassword, String encode, Map<String, String> requestHeader) {
-        return request("GET", urlString, certPath, certPassword, null, encode, null);
-    }
-
-    public static String put(String urlString) {
-        return get(urlString, null, null, "UTF-8", null);
-    }
-
-    public static String put(String urlString, String encode) {
-        return get(urlString, null, null, "UTF-8", null);
-    }
-
-    public static String put(String urlString, String certPath, String certPassword) {
-        return request("PUT", urlString, certPath, certPassword, null, "UTF-8", null);
+    public static String get(String urlString, String encode, Map<String, String> requestHeader) {
+        return request("GET", urlString, null, encode, requestHeader);
     }
 
     /**
@@ -89,24 +69,15 @@ public class RestClientUtil {
      *         GET/PUT/POST default GET
      * @param urlString:
      *         requried
-     * @param certPath:
-     *         if not null secure request
-     * @param certPassword:
      * @param params:
      *         default null
      */
-    public static String request(String method, String urlString, String certPath, String certPassword, Map<String, Object> params, String encode, Map<String, String> requestHeader) {
+    public static String request(String method, String urlString, Map<String, Object> params, String encode, Map<String, String> requestHeader) {
         // 解决因jdk版本问题造成的SSL请求失败的问题
         java.lang.System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
         final HttpURLConnection connection;
         try {
-            if (certPath != null && certPath.length() > 0) {
-                System.setProperty("sun.security.ssl.allowUnsafeRenegotiation", "true");
-                connection = openSecureConnection(urlString, certPath, certPassword);
-            } else {
-                connection = openConnection(urlString);
-            }
-
+            connection = openConnection(urlString);
             connection.setRequestMethod(method);
             if (null != requestHeader) {
                 Set<Map.Entry<String, String>> entrySet = requestHeader.entrySet();
@@ -145,28 +116,6 @@ public class RestClientUtil {
         return null;
     }
 
-
-    private static HttpsURLConnection openSecureConnection(final String urlString, final String certPath, final String certPassword) throws Exception {
-
-        final URL url = new URL(urlString);
-
-        final KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance("SunX509");
-        final KeyStore keyStore = KeyStore.getInstance("PKCS12");
-
-        final InputStream keyInput = new FileInputStream(certPath);
-        keyStore.load(keyInput, certPassword.toCharArray());
-        keyInput.close();
-
-        keyManagerFactory.init(keyStore, certPassword.toCharArray());
-        final SSLContext context = SSLContext.getInstance("TLS");
-        context.init(keyManagerFactory.getKeyManagers(), null, new SecureRandom());
-        final SSLSocketFactory socketFactory = context.getSocketFactory();
-
-        final HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-        connection.setSSLSocketFactory(socketFactory);
-        return connection;
-    }
-
     protected static HttpURLConnection openConnection(final String urlString) throws Exception {
         final URL url = new URL(urlString);
         return (HttpURLConnection) url.openConnection();
@@ -190,7 +139,7 @@ public class RestClientUtil {
                 content.append(line);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("数据读取失败", e);
         }
         return content.toString();
     }
