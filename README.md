@@ -2,7 +2,7 @@
 DBlog是一款简洁美观、自适应的Java博客系统。使用springboot开发，前端使用Bootstrap。支持移动端自适应，配有完备的前台和后台管理功能。  
 网站预览    [https://www.zhyd.me](https://www.zhyd.me)    
 Gitee开源地址    [https://gitee.com/yadong.zhang/DBlog](https://gitee.com/yadong.zhang/DBlog)    
-Github开原地址    [https://github.com/zhangyd-c/DBlog](https://github.com/zhangyd-c/DBlog)    
+Github开源地址    [https://github.com/zhangyd-c/DBlog](https://github.com/zhangyd-c/DBlog)    
 
 ## 写在前面的话
 ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇洒的离开，并且只有等到下次**突然想到**“我天~~我得去看看DBlog这烂项目更新新功能了吗”的时候才会重新来到这儿，即使你重新来过，我估计你也只有两个选择：    
