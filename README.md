@@ -82,16 +82,16 @@ _普通管理员_： 账号：admin  密码：123456
 ### 图片预览
 
 **前台页面**
-![PC-首页](http://cdn.zhyd.me/pc-index.png?v=1.0)
-![PC-文章详情页](http://cdn.zhyd.me/pc-detail.png?v=1.0)
-![手机](http://cdn.zhyd.me/m.png?v=1.0)
+![PC-首页](https://gitee.com/yadong.zhang/DBlog/raw/master/docs/img/pc-index.png?v=1.0)
+![PC-文章详情页](https://gitee.com/yadong.zhang/DBlog/raw/master/docs/img/pc-detail.png?v=1.0)
+![手机](https://gitee.com/yadong.zhang/DBlog/raw/master/docs/img/m.png?v=1.0)
 **后台页面**
-![首页](http://cdn.zhyd.me/admin-index.png)
-![菜单](http://cdn.zhyd.me/admin-menu.png)
-![文章列表](http://cdn.zhyd.me/admin-articles.png)
-![发表文章](http://cdn.zhyd.me/admin-article2.png)
-![角色列表](http://cdn.zhyd.me/admin-role.png)
-![角色分配](http://cdn.zhyd.me/admin-role2.png)
+![首页](https://gitee.com/yadong.zhang/DBlog/raw/master/docs/img/admin-index.png)
+![菜单](https://gitee.com/yadong.zhang/DBlog/raw/master/docs/img/admin-menu.png)
+![文章列表](https://gitee.com/yadong.zhang/DBlog/raw/master/docs/img/admin-articles.png)
+![发表文章](https://gitee.com/yadong.zhang/DBlog/raw/master/docs/img/admin-article2.png)
+![角色列表](https://gitee.com/yadong.zhang/DBlog/raw/master/docs/img/admin-role.png)
+![角色分配](https://gitee.com/yadong.zhang/DBlog/raw/master/docs/img/admin-role2.png)
 
 
  ### 生命不息，折腾不止！ 更多信息，请关注：
