@@ -330,4 +330,24 @@ $(function () {
             window.location.href = action;
         }
     });
+
+    /* 首页通知 */
+    if($('#notice-box') && $('#notice-box')[0]){
+        $.ajax({
+            type: "post",
+            url: "/api/listNotice",
+            success: function (json) {
+                if(json.status == 200 && json.data && json.data.length > 0){
+                    var tpl = '{{#data}}<li class="scrolltext-title">'
+                            + '<a href="javascript:void(0)" rel="bookmark">{{&content}}</a>'
+                            + '</li>{{/data}}';
+                    var html = Mustache.render(tpl, json);
+                    $("#notice-box").html(html);
+                }
+            },
+            error: function () {
+                $.tool.ajaxError();
+            }
+        });
+    }
 });
