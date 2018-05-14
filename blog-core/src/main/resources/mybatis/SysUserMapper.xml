@@ -80,5 +80,17 @@
 			s.create_time DESC
 	</select>
 
+	<select id="listByRoleId" parameterType="Long" resultMap="rm">
+		SELECT
+			s.id,
+			s.username,
+			s.nickname
+		FROM
+			sys_user s
+		INNER JOIN sys_user_role sur ON  sur.user_id = s.id
+		WHERE
+			sur.role_id = #{roleId}
+	</select>
+
 </mapper>
 

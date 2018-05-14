@@ -26,6 +26,7 @@ import com.zyd.blog.business.enums.ResponseStatus;
 import com.zyd.blog.business.service.SysRoleResourcesService;
 import com.zyd.blog.business.service.SysRoleService;
 import com.zyd.blog.business.vo.RoleConditionVO;
+import com.zyd.blog.core.shiro.ShiroService;
 import com.zyd.blog.framework.object.PageResult;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
@@ -54,6 +55,8 @@ public class RestRoleController {
     private SysRoleService roleService;
     @Autowired
     private SysRoleResourcesService roleResourcesService;
+    @Autowired
+    private ShiroService shiroService;
 
     @PostMapping("/list")
     public PageResult getAll(RoleConditionVO vo) {
@@ -67,13 +70,14 @@ public class RestRoleController {
         return ResultUtil.success(null, roleService.queryRoleListWithSelected(uid));
     }
 
-    //分配角色
     @PostMapping("/saveRoleResources")
     public ResponseVO saveRoleResources(Long roleId, String resourcesId) {
         if (StringUtils.isEmpty(roleId)) {
             return ResultUtil.error("error");
         }
         roleResourcesService.addRoleResources(roleId, resourcesId);
+        // 重新加载所有拥有roleId的用户的权限信息
+        shiroService.reloadAuthorizingByRoleId(roleId);
         return ResultUtil.success("成功");
     }
 

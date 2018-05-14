@@ -205,31 +205,7 @@ $.fn.popover.Constructor.prototype.leave = function (a) {
     // zhyd.initSidebar();
     zhyd.initDaterangepicker();
     zhyd.initValidator();
-    var menuHtml = localStorage.getItem("menu");
-    if (menuHtml) {
-        $(".side-menu").append(menuHtml);
-        zhyd.initSidebar();
-    } else {
-        $.ajax({
-            cache: true,
-            type: "POST",
-            url: '/resources/loadMenu',
-            dataType: "json",
-            success: function (data) {
-                var html = "";
-                $.each(data, function (index) {
-                    console.log(this);
-                    this.hasNodes = this.nodes && this.nodes.length > 0;
-                    var tpl = '{{#hasNodes}}<li><a><i class="{{icon}}"></i> {{name}}<span class="fa fa-chevron-down"></span></a><ul class="nav child_menu">{{#nodes}}<li><a href="{{url}}"><i class="{{icon}}"></i>{{name}}</a></li>{{/nodes}}</ul></li>{{/hasNodes}}';
-                    tpl += '{{^hasNodes}}<li><a href="{{url}}"><i class="{{icon}}"></i> {{name}}</a></li>{{/hasNodes}}';
-                    html += Mustache.render(tpl, this);
-                });
-                localStorage.setItem("menu", html);
-                $(".side-menu").append(html);
-                zhyd.initSidebar();
-            }
-        });
-    }
+    zhyd.initSidebar();
 
     $.ajax({
         cache: false,

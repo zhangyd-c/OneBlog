@@ -33,6 +33,7 @@ import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.FileUtil;
 import com.zyd.blog.util.ResultUtil;
 import com.zyd.blog.util.SessionUtil;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,6 +59,7 @@ public class RestArticleController {
     @Autowired
     private BizArticleTagsService articleTagsService;
 
+    @RequiresPermissions("articles")
     @PostMapping("/list")
     public PageResult list(ArticleConditionVO vo) {
         PageHelper.startPage(vo.getPageNumber() - 1, vo.getPageSize());

@@ -250,4 +250,23 @@ public class SysUserServiceImpl implements SysUserService {
         return getOneByEntity(user);
     }
 
+    /**
+     * 通过角色Id获取用户列表
+     *
+     * @param roleId
+     * @return
+     */
+    @Override
+    public List<User> listByRoleId(Long roleId) {
+        List<SysUser> sysUsers = sysUserMapper.listByRoleId(roleId);
+        if (CollectionUtils.isEmpty(sysUsers)) {
+            return null;
+        }
+        List<User> users = new ArrayList<>();
+        for (SysUser su : sysUsers) {
+            users.add(new User(su));
+        }
+        return users;
+    }
+
 }

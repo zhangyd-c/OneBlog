@@ -58,7 +58,6 @@ public class ShiroRealm extends AuthorizingRealm {
 
     /**
      * 提供账户信息返回认证信息（用户的角色信息集合）
-     *
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
@@ -72,13 +71,13 @@ public class ShiroRealm extends AuthorizingRealm {
             throw new LockedAccountException("帐号已被锁定，禁止登录！");
         }
 
-        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                user,
+        // principal参数使用用户Id，方便动态刷新用户权限
+        return new SimpleAuthenticationInfo(
+                user.getId(),
                 user.getPassword(),
                 ByteSource.Util.bytes(username),
                 getName()
         );
-        return authenticationInfo;
     }
 
     /**
@@ -86,9 +85,9 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        Long userId = (Long) SecurityUtils.getSubject().getPrincipal();
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("userId", user.getId());
+        map.put("userId", userId);
         List<Resources> resourcesList = resourcesService.listUserResources(map);
         // 权限信息对象info,用来存放查出的用户的所有的角色（role）及权限（permission）
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
@@ -111,14 +110,4 @@ public class ShiroRealm extends AuthorizingRealm {
         return info;
     }
 
-    /**
-     * 指定principalCollection 清除
-     */
-  /*  public void clearCachedAuthorizationInfo(PrincipalCollection principalCollection) {
-
-        SimplePrincipalCollection principals = new SimplePrincipalCollection(
-                principalCollection, getName());
-        super.clearCachedAuthorizationInfo(principals);
-    }
-*/
 }

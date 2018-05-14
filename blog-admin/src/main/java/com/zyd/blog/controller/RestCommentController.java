@@ -36,6 +36,7 @@ import com.zyd.blog.framework.object.PageResult;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
 import com.zyd.blog.util.SessionUtil;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,6 +62,7 @@ public class RestCommentController {
     @Autowired
     private MailService mailService;
 
+    @RequiresPermissions("comments")
     @PostMapping("/list")
     public PageResult list(CommentConditionVO vo) {
         PageHelper.startPage(vo.getPageNumber() - 1, vo.getPageSize());

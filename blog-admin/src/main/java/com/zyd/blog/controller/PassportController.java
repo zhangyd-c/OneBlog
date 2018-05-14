@@ -20,8 +20,8 @@
 package com.zyd.blog.controller;
 
 import com.zyd.blog.business.annotation.BussinessLog;
-import com.zyd.blog.framework.property.AppProperties;
 import com.zyd.blog.framework.object.ResponseVO;
+import com.zyd.blog.framework.property.AppProperties;
 import com.zyd.blog.util.ResultUtil;
 import com.zyd.blog.util.SessionUtil;
 import org.apache.shiro.SecurityUtils;
@@ -60,6 +60,10 @@ public class PassportController {
     @BussinessLog("进入登录页面")
     @GetMapping("/login")
     public ModelAndView login(Model model) {
+        Subject subject = SecurityUtils.getSubject();
+        if (subject.isAuthenticated()||subject.isRemembered()){
+            return ResultUtil.redirect("/index");
+        }
         model.addAttribute("enableKaptcha", config.getEnableKaptcha());
         return ResultUtil.view("/login");
     }

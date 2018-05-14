@@ -121,11 +121,10 @@ public class SysRoleServiceImpl implements SysRoleService {
     public void insertList(List<Role> entities) {
         Assert.notNull(entities, "entities不可为空！");
         List<SysRole> sysRole = new ArrayList<>();
-        String regIp = IpUtil.getRealIp(RequestHolder.getRequest());
-        for (Role Role : entities) {
-            Role.setUpdateTime(new Date());
-            Role.setCreateTime(new Date());
-            sysRole.add(Role.getSysRole());
+        for (Role role : entities) {
+            role.setUpdateTime(new Date());
+            role.setCreateTime(new Date());
+            sysRole.add(role.getSysRole());
         }
         roleMapper.insertList(sysRole);
     }
