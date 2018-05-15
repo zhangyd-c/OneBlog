@@ -10,7 +10,9 @@
                                 <a><i class="${item.icon?if_exists}"></i> ${item.name?if_exists}<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <#list item.nodes as node>
+                                        <@shiro.hasPermission name="${node.permission?if_exists}">
                                         <li><a href="${node.url?if_exists}"><i class="${node.icon?if_exists}"></i>${node.name?if_exists}</a></li>
+                                        </@shiro.hasPermission>
                                     </#list>
                                 </ul>
                             </li>

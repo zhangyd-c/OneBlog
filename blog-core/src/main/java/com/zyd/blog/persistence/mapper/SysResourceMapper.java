@@ -56,4 +56,6 @@ public interface SysResourceMapper extends BaseMapper<SysResources> {
     List<SysResources> listUrlAndPermission();
 
     List<SysResources> listAllParentResource();
+
+    List<SysResources> listByUserId(Long userId);
 }

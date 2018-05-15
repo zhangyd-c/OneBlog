@@ -190,7 +190,7 @@ public class RenderController {
         List<Map<String, Object>> mapList = new ArrayList<Map<String, Object>>();
         Map<String, Object> map = null;
         for (int i = 0; i < 20; i++) {
-            map = new HashMap<>();
+            map = new HashMap<>(4);
             map.put("id", i);
             map.put("pId", (i % 3 > 0 ? i - 1 : 0));
             map.put("checked", (i % 3 > 0 ? i - 1 : 0) != 0);
@@ -198,5 +198,10 @@ public class RenderController {
             mapList.add(map);
         }
         return mapList;
+    }
+
+    @GetMapping("/shiro")
+    public ModelAndView shiro(Model model) {
+        return ResultUtil.view("shiro");
     }
 }

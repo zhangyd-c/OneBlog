@@ -49,4 +49,6 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
     List<SysRole> findPageBreakByCondition(RoleConditionVO vo);
 
     List<SysRole> queryRoleListWithSelected(Integer userId);
+
+    List<SysRole> listRolesByUserId(Long userId);
 }

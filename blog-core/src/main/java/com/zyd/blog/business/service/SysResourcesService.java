@@ -75,4 +75,12 @@ public interface SysResourcesService extends AbstractService<Resources, Long> {
      * @return
      */
     List<Resources> listAllParentResource();
+
+    /**
+     * 获取用户关联的所有资源
+     *
+     * @param userId
+     * @return
+     */
+    List<Resources> listByUserId(Long userId);
 }

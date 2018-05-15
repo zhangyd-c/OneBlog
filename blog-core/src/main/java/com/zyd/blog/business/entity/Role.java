@@ -55,6 +55,15 @@ public class Role {
         this.sysRole.setId(id);
     }
 
+    public String getName() {
+        return this.sysRole.getName();
+    }
+
+    public void setName(String name) {
+        this.sysRole.setName(name);
+    }
+
+
     public String getDescription() {
         return this.sysRole.getDescription();
     }

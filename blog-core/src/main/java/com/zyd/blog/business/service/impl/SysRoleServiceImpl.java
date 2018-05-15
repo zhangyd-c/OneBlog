@@ -24,10 +24,8 @@ import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.Role;
 import com.zyd.blog.business.service.SysRoleService;
 import com.zyd.blog.business.vo.RoleConditionVO;
-import com.zyd.blog.framework.holder.RequestHolder;
 import com.zyd.blog.persistence.beans.SysRole;
 import com.zyd.blog.persistence.mapper.SysRoleMapper;
-import com.zyd.blog.util.IpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -53,7 +51,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     /**
      * 获取ztree使用的角色列表
      *
-     * @param uid
+     * @param userId
      * @return
      */
     @Override
@@ -68,7 +66,7 @@ public class SysRoleServiceImpl implements SysRoleService {
             map = new HashMap<String, Object>(3);
             map.put("id", role.getId());
             map.put("pId", 0);
-            map.put("checked", (role.getSelected() != null && role.getSelected() == 1) ? true : false);
+            map.put("checked", role.getSelected() != null && role.getSelected() == 1);
             map.put("name", role.getDescription());
             mapList.add(map);
         }
@@ -95,6 +93,25 @@ public class SysRoleServiceImpl implements SysRoleService {
         PageInfo bean = new PageInfo<SysRole>(sysRoles);
         bean.setList(roles);
         return bean;
+    }
+
+    /**
+     * 获取用户的角色
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Role> listRolesByUserId(Long userId) {
+        List<SysRole> sysRoles = roleMapper.listRolesByUserId(userId);
+        if (CollectionUtils.isEmpty(sysRoles)) {
+            return null;
+        }
+        List<Role> roles = new ArrayList<>();
+        for (SysRole r : sysRoles) {
+            roles.add(new Role(r));
+        }
+        return roles;
     }
 
     /**

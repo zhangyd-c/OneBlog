@@ -139,6 +139,18 @@ public class SysResourcesServiceImpl implements SysResourcesService {
     }
 
     /**
+     * 获取用户关联的所有资源
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Resources> listByUserId(Long userId) {
+        List<SysResources> sysResources = resourceMapper.listByUserId(userId);
+        return getResources(sysResources);
+    }
+
+    /**
      * 保存一个实体，null的属性不会保存，会使用数据库默认值
      *
      * @param entity
