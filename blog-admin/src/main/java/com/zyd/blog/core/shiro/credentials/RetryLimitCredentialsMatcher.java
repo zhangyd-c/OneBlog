@@ -27,8 +27,6 @@ import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -45,8 +43,6 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0
  */
 public class RetryLimitCredentialsMatcher extends CredentialsMatcher {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(RetryLimitCredentialsMatcher.class);
 
     /**
      * 用户登录次数计数  redisKey 前缀

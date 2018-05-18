@@ -19,8 +19,7 @@
  */
 package com.zyd.blog.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
 import java.io.UnsupportedEncodingException;
@@ -36,9 +35,9 @@ import java.net.URLEncoder;
  * @date 2018/4/18 11:48
  * @since 1.0
  */
+@Slf4j
 public class UrlCodeUtil {
 
-    private static final Logger LOG = LoggerFactory.getLogger(UrlCodeUtil.class);
     private static final String URL_ENCODE = "UTF-8";
 
     private UrlCodeUtil() {
@@ -54,7 +53,7 @@ public class UrlCodeUtil {
             try {
                 result = URLEncoder.encode(param, encode);
             } catch (UnsupportedEncodingException e) {
-                LOG.error("url编码发生异常", e);
+                log.error("url编码发生异常", e);
             }
         }
         return result;
@@ -70,7 +69,7 @@ public class UrlCodeUtil {
             try {
                 result = URLDecoder.decode(param, encode);
             } catch (UnsupportedEncodingException e) {
-                LOG.error("url编码发生异常", e);
+                log.error("url编码发生异常", e);
             }
         }
         return result;

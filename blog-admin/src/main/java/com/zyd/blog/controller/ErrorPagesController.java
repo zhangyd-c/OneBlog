@@ -19,8 +19,7 @@
  */
 package com.zyd.blog.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.boot.autoconfigure.web.ErrorController;
@@ -56,11 +55,11 @@ import java.util.Map;
  * @date 2018/4/16 16:26
  * @since 1.0
  */
+@Slf4j
 @Controller
 @RequestMapping("/error")
 @EnableConfigurationProperties({ServerProperties.class})
 public class ErrorPagesController implements ErrorController {
-    private static final Logger LOG = LoggerFactory.getLogger(ErrorPagesController.class);
 
     private ErrorAttributes errorAttributes;
 
@@ -177,7 +176,7 @@ public class ErrorPagesController implements ErrorController {
         try {
             return HttpStatus.valueOf(statusCode);
         } catch (Exception ex) {
-            LOG.error("获取当前HttpStatus发生异常", ex);
+            log.error("获取当前HttpStatus发生异常", ex);
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
     }

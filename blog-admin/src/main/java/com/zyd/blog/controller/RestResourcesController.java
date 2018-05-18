@@ -30,7 +30,6 @@ import com.zyd.blog.framework.object.PageResult;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,12 +67,6 @@ public class RestResourcesController {
         return ResultUtil.success(null, resourcesService.queryResourcesListWithSelected(rid));
     }
 
-    @PostMapping("/listParents")
-    public List<Resources> listParents() {
-        return resourcesService.listAllParentResource();
-    }
-
-    @CacheEvict(cacheNames = "resources", allEntries = true)
     @PostMapping(value = "/add")
     public ResponseVO add(Resources resources) {
         resourcesService.insert(resources);
@@ -82,7 +75,6 @@ public class RestResourcesController {
         return ResultUtil.success("成功");
     }
 
-    @CacheEvict(cacheNames = "resources", allEntries = true)
     @PostMapping(value = "/remove")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {

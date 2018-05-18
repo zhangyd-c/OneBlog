@@ -21,8 +21,7 @@ package com.zyd.blog;
 
 import com.zyd.blog.business.consts.DateConst;
 import com.zyd.blog.util.DateUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -41,12 +40,11 @@ import java.util.Date;
  * @date 2018/4/18 11:48
  * @since 1.0
  */
+@Slf4j
 @SpringBootApplication
 @ServletComponentScan
 @EnableTransactionManagement
 public class BlogWebApplication implements ApplicationRunner {
-
-	private static final Logger LOG = LoggerFactory.getLogger(BlogWebApplication.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(BlogWebApplication.class, args);
@@ -54,6 +52,6 @@ public class BlogWebApplication implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments applicationArguments) {
-		LOG.info("博客部署完成，当前时间：" + DateUtil.date2Str(new Date(), DateConst.YYYY_MM_DD_HH_MM_SS_EN));
+		log.info("博客部署完成，当前时间：" + DateUtil.date2Str(new Date(), DateConst.YYYY_MM_DD_HH_MM_SS_EN));
 	}
 }

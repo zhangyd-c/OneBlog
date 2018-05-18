@@ -131,7 +131,7 @@ $.extend({
                 url: "/api/comments",
                 data: {sid: sid, pageNumber: pageNumber || 1},
                 success: function (json) {
-                    $.tool.ajaxSuccess(json);
+                    $.alert.ajaxSuccess(json);
                     // 加载 评论列表 start
                     var commentList = json.data.commentList;
                     var commentListBox  = '';
@@ -211,7 +211,7 @@ $.extend({
                         });
                     }
                 },
-                error: $.tool.ajaxError
+                error: $.alert.ajaxError
             });
         },
         initValidatorPlugin: function () {
@@ -289,7 +289,7 @@ $.extend({
                         type: "post",
                         url: "/api/qq/" + qq,
                         success: function (json) {
-                            $.tool.ajaxSuccess(json);
+                            $.alert.ajaxSuccess(json);
                             var data = json.data;
                             $.comment._detailForm.find("input").each(function () {
                                 var $this = $(this);
@@ -301,7 +301,7 @@ $.extend({
                             $nextImg.attr('src', data.avatar);
                             $nextImg.removeClass('hide');
                         },
-                        error: $.tool.ajaxError
+                        error: $.alert.ajaxError
                     });
                 }else{
                     $nextImg.addClass('hide');
@@ -326,7 +326,7 @@ $.extend({
                     url: "/api/comment",
                     data: data + '&sid=' + $.comment.sid,
                     success: function (json) {
-                        $.tool.ajaxSuccess(json);
+                        $.alert.ajaxSuccess(json);
                         $.comment._commentDetailModal.modal('hide');
 
                         setTimeout(function () {
@@ -338,7 +338,7 @@ $.extend({
                         }, 1000);
                     },
                     error: function (data) {
-                        $.tool.ajaxError();
+                        $.alert.ajaxError();
                         $this.button('reset');
                     }
                 });
@@ -365,7 +365,7 @@ $.extend({
                 type: "post",
                 url: "/api/doSupport/" + pid,
                 success: function (json) {
-                    $.tool.ajaxSuccess(json);
+                    $.alert.ajaxSuccess(json);
                     if(json.status == 200){
                         $(target).effectBubble({y:-80, className:'thumb-bubble', fontSize: 1, content: '<i class="fa fa-smile-o"></i>+1'});
                         var oldCount = $(target).find('span.count').text();
@@ -374,7 +374,7 @@ $.extend({
                     $.bubble.init();
                 },
                 error: function () {
-                    $.tool.ajaxError();
+                    $.alert.ajaxError();
                     $.bubble.init();
                 }
             });
@@ -386,7 +386,7 @@ $.extend({
                 type: "post",
                 url: "/api/doOppose/" + pid,
                 success: function (json) {
-                    $.tool.ajaxSuccess(json);
+                    $.alert.ajaxSuccess(json);
                     if(json.status == 200){
                         $(target).effectBubble({y:-80, className:'thumb-bubble', fontSize: 1, content: '<i class="fa fa-meh-o"></i>+1'});
                         var oldCount = $(target).find('span.count').text();
@@ -395,7 +395,7 @@ $.extend({
                     $.bubble.init();
                 },
                 error: function () {
-                    $.tool.ajaxError();
+                    $.alert.ajaxError();
                     $.bubble.init();
                 }
             });

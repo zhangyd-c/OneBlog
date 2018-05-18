@@ -101,8 +101,8 @@ public class ShiroRealm extends AuthorizingRealm {
         List<Resources> resourcesList = resourcesService.listByUserId(userId);
         if (!CollectionUtils.isEmpty(resourcesList)) {
             for (Resources resources : resourcesList) {
-                if (!StringUtils.isEmpty(resources.getUrl()) && !StringUtils.isEmpty(resources.getPermission())) {
-                    String permission = resources.getPermission();
+                String permission = null;
+                if (!StringUtils.isEmpty(permission = resources.getPermission())) {
                     info.addStringPermission(permission);
                 }
             }

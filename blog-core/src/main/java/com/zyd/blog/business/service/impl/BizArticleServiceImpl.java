@@ -25,7 +25,9 @@ import com.zyd.blog.business.annotation.RedisCache;
 import com.zyd.blog.business.entity.Article;
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.ArticleStatusEnum;
+import com.zyd.blog.business.enums.QiniuUploadType;
 import com.zyd.blog.business.service.BizArticleService;
+import com.zyd.blog.business.service.BizArticleTagsService;
 import com.zyd.blog.business.vo.ArticleConditionVO;
 import com.zyd.blog.framework.exception.ZhydArticleException;
 import com.zyd.blog.framework.holder.RequestHolder;
@@ -37,6 +39,7 @@ import com.zyd.blog.persistence.mapper.BizArticleLookMapper;
 import com.zyd.blog.persistence.mapper.BizArticleLoveMapper;
 import com.zyd.blog.persistence.mapper.BizArticleMapper;
 import com.zyd.blog.persistence.mapper.BizArticleTagsMapper;
+import com.zyd.blog.util.FileUtil;
 import com.zyd.blog.util.IpUtil;
 import com.zyd.blog.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +49,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.*;
@@ -73,6 +77,8 @@ public class BizArticleServiceImpl implements BizArticleService {
     private BizArticleTagsMapper bizArticleTagsMapper;
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private BizArticleTagsService articleTagsService;
 
     /**
      * 分页查询
@@ -256,6 +262,60 @@ public class BizArticleServiceImpl implements BizArticleService {
     @Override
     public List<String> listMaterial() {
         return bizArticleMapper.listMaterial();
+    }
+
+    /**
+     * 发布文章
+     *
+     * @param article
+     * @param tags
+     * @param file
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean publish(Article article, Long[] tags, MultipartFile file) {
+        if (null == tags || tags.length <= 0) {
+            throw new ZhydArticleException("请至少选择一个标签");
+        }
+        if (null != file) {
+            String filePath = FileUtil.uploadToQiniu(file, QiniuUploadType.COVER_IMAGE, true);
+            // 保存封面图片
+            article.setCoverImage(filePath);
+        }
+        Long articleId = null;
+        if ((articleId = article.getId()) != null) {
+            this.updateSelective(article);
+        } else {
+            article.setUserId(SessionUtil.getUser().getId());
+            articleId = this.insert(article).getId();
+        }
+        if (articleId != null) {
+            articleTagsService.removeByArticleId(articleId);
+            articleTagsService.insertList(tags, articleId);
+        }
+        return true;
+    }
+
+    /**
+     * 修改置顶、推荐
+     *
+     * @param type
+     * @param id
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateTopOrRecommendedById(String type, Long id) {
+        BizArticle article = bizArticleMapper.selectByPrimaryKey(id);
+        article.setId(id);
+        if ("top".equals(type)) {
+            article.setTop(!article.getTop());
+        } else {
+            article.setRecommended(!article.getRecommended());
+        }
+        article.setUpdateTime(new Date());
+        return bizArticleMapper.updateByPrimaryKeySelective(article) > 0;
     }
 
     /**

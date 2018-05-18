@@ -133,11 +133,4 @@ banner:
 app:
     # 是否启用kaptcha验证码
     enableKaptcha: false
-    qiniu:
-        # 七牛ACCESS_KEY
-        accessKey: ACCESS_KEY
-        # 七牛SECRET_KEY
-        secretKey: SECRET_KEY
-        # 七牛BUCKET_NAME
-        bucketName: BUCKET_NAME
 ####################################自定义配置##########################################

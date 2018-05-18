@@ -23,6 +23,7 @@
  */
 package com.zyd.blog.framework.holder;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.RequestAttributes;
@@ -41,9 +42,8 @@ import javax.servlet.http.HttpSession;
  * @date 2018/4/16 16:26
  * @since 1.0
  */
+@Slf4j
 public class RequestHolder {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(RequestHolder.class);
 
     /**
      * 获取request
@@ -51,7 +51,7 @@ public class RequestHolder {
      * @return HttpServletRequest
      */
     public static HttpServletRequest getRequest() {
-        LOGGER.debug("getRequest -- Thread id :{}, name : {}", Thread.currentThread().getId(), Thread.currentThread().getName());
+        log.debug("getRequest -- Thread id :{}, name : {}", Thread.currentThread().getId(), Thread.currentThread().getName());
         return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
     }
 
@@ -61,7 +61,7 @@ public class RequestHolder {
      * @return HttpServletRequest
      */
     public static HttpServletResponse getResponse() {
-        LOGGER.debug("getResponse -- Thread id :{}, name : {}", Thread.currentThread().getId(), Thread.currentThread().getName());
+        log.debug("getResponse -- Thread id :{}, name : {}", Thread.currentThread().getId(), Thread.currentThread().getName());
         return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
     }
 
@@ -71,7 +71,7 @@ public class RequestHolder {
      * @return HttpSession
      */
     public static HttpSession getSession() {
-        LOGGER.debug("getSession -- Thread id :{}, name : {}", Thread.currentThread().getId(), Thread.currentThread().getName());
+        log.debug("getSession -- Thread id :{}, name : {}", Thread.currentThread().getId(), Thread.currentThread().getName());
         return getRequest().getSession();
     }
 
@@ -83,7 +83,7 @@ public class RequestHolder {
      * @return Object
      */
     public static Object getSession(String name) {
-        LOGGER.debug("getSession -- Thread id :{}, name : {}", Thread.currentThread().getId(), Thread.currentThread().getName());
+        log.debug("getSession -- Thread id :{}, name : {}", Thread.currentThread().getId(), Thread.currentThread().getName());
         return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getAttribute(name, RequestAttributes.SCOPE_SESSION);
     }
 
@@ -94,7 +94,7 @@ public class RequestHolder {
      * @param value
      */
     public static void setSession(String name, Object value) {
-        LOGGER.debug("setSession -- Thread id :{}, name : {}", Thread.currentThread().getId(), Thread.currentThread().getName());
+        log.debug("setSession -- Thread id :{}, name : {}", Thread.currentThread().getId(), Thread.currentThread().getName());
         ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).setAttribute(name, value, RequestAttributes.SCOPE_SESSION);
     }
 
@@ -105,7 +105,7 @@ public class RequestHolder {
      * @return void
      */
     public static void removeSession(String name) {
-        LOGGER.debug("removeSession -- Thread id :{}, name : {}", Thread.currentThread().getId(), Thread.currentThread().getName());
+        log.debug("removeSession -- Thread id :{}, name : {}", Thread.currentThread().getId(), Thread.currentThread().getName());
         ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).removeAttribute(name, RequestAttributes.SCOPE_SESSION);
     }
 
@@ -115,7 +115,7 @@ public class RequestHolder {
      * @return String[]
      */
     public static String[] getSessionKeys() {
-        LOGGER.debug("getSessionKeys -- Thread id :{}, name : {}", Thread.currentThread().getId(), Thread.currentThread().getName());
+        log.debug("getSessionKeys -- Thread id :{}, name : {}", Thread.currentThread().getId(), Thread.currentThread().getName());
         return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getAttributeNames(RequestAttributes.SCOPE_SESSION);
     }
 }

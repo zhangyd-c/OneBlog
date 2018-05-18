@@ -141,7 +141,7 @@ function initScrollMenu() {
     }
 }
 var PaymentUtils = window.payment || {
-    config: [{url: appConfig.staticPath + '/img/alipay_nb.jpg', desc: '支付宝转账'},{url: appConfig.staticPath + '/img/wechat_nb.jpg', desc: '微信转账'}],
+    config: [{url: appConfig.qiuniuBasePath + appConfig.zfbPraiseCode, desc: '支付宝转账'},{url: appConfig.qiuniuBasePath + appConfig.wxPraiseCode, desc: '微信转账'}],
     show : function () {
         $("#reward").modal('show');
         this.change(0);
@@ -156,7 +156,7 @@ var PaymentUtils = window.payment || {
     change: function (index) {
         var config = this.config[index];
         $("#qrcode-container").empty();
-        $('<img  src="' + config.url + '" style="width: 250px;height: 250px;" alt="'+config.desc+'">').appendTo($("#qrcode-container"));
+        $('<img  src="' + config.url + '" style="width: 250px;height: auto;" alt="'+config.desc+'">').appendTo($("#qrcode-container"));
     }
 
 };
@@ -278,7 +278,7 @@ $(function () {
             type: "post",
             url: "/api/doPraise/" + id,
             success: function (json) {
-                $.tool.ajaxSuccess(json);
+                $.alert.ajaxSuccess(json);
                 if(json.status === 200){
                     $this.effectBubble({y:-80, className:'thumb-bubble', fontSize: 1, content: '<i class="fa fa-smile-o"></i>+1'});
                     $count.text(parseInt($count.text()) + 1);
@@ -286,7 +286,7 @@ $(function () {
                 $.bubble.init();
             },
             error: function () {
-                $.tool.ajaxError();
+                $.alert.ajaxError();
                 $.bubble.init();
             }
         });
@@ -346,7 +346,7 @@ $(function () {
                 }
             },
             error: function () {
-                $.tool.ajaxError();
+                $.alert.ajaxError();
             }
         });
     }

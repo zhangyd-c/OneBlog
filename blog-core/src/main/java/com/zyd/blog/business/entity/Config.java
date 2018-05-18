@@ -222,5 +222,61 @@ public class Config {
         this.sysConfig.setQiuniuBasePath(qiuniuBasePath);
     }
 
+    public String getQiniuAccessKey() {
+        return this.sysConfig.getQiniuAccessKey();
+    }
+
+    public void setQiniuAccessKey(String qiniuAccessKey) {
+        this.sysConfig.setQiniuAccessKey(qiniuAccessKey);
+    }
+
+    public String getQiniuSecretKey() {
+        return this.sysConfig.getQiniuSecretKey();
+    }
+
+    public void setQiniuSecretKey(String qiniuSecretKey) {
+        this.sysConfig.setQiniuSecretKey(qiniuSecretKey);
+    }
+
+    public String getQiniuBucketName() {
+        return this.sysConfig.getQiniuBucketName();
+    }
+
+    public void setQiniuBucketName(String qiniuBucketName) {
+        this.sysConfig.setQiniuBucketName(qiniuBucketName);
+    }
+
+    public String getBaiduPushToken(){
+        return this.sysConfig.getBaiduPushToken();
+    }
+
+    public void setBaiduPushToken(String baiduPushToken){
+        this.sysConfig.setBaiduPushToken(baiduPushToken);
+    }
+
+    public String getWxPraiseCode(){
+        return this.sysConfig.getWxPraiseCode();
+    }
+
+    public void setWxPraiseCode(String wxPraiseCode){
+        this.sysConfig.setWxPraiseCode(wxPraiseCode);
+    }
+
+    public String getZfbPraiseCode(){
+        return this.sysConfig.getZfbPraiseCode();
+    }
+
+    public void setZfbPraiseCode(String zfbPraiseCode){
+        this.sysConfig.setZfbPraiseCode(zfbPraiseCode);
+    }
+
+    public String getBaiduApiAk(){
+        return this.sysConfig.getBaiduApiAk();
+    }
+
+    public void setBaiduApiAk(String baiduApiAk){
+        this.sysConfig.setBaiduApiAk(baiduApiAk);
+    }
+
 }
 

@@ -11,13 +11,13 @@
                                 <ul class="nav child_menu">
                                     <#list item.nodes as node>
                                         <@shiro.hasPermission name="${node.permission?if_exists}">
-                                        <li><a href="${node.url?if_exists}"><i class="${node.icon?if_exists}"></i>${node.name?if_exists}</a></li>
+                                        <li><a href="${node.url?if_exists}" ${(item.external?exists && item.external)?string('target="_blank"','')}><i class="${node.icon?if_exists}"></i>${node.name?if_exists}</a></li>
                                         </@shiro.hasPermission>
                                     </#list>
                                 </ul>
                             </li>
                         <#else>
-                            <li><a href="${item.url?if_exists}"><i class="${item.icon?if_exists}"></i>${item.name?if_exists}</a></li>
+                            <li><a href="${item.url?if_exists}" ${(item.external?exists && item.external)?string('target="_blank"','')}><i class="${item.icon?if_exists}"></i>${item.name?if_exists}</a></li>
                         </#if>
                     </#list>
                 </#if>

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>登录 | 博客后台管理系统</title>
+    <title>登录 | DBlog博客后台管理系统</title>
     <link href="/assets/images/favicon.ico" rel="icon">
     <link href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -54,10 +54,9 @@
                                 <div class="clearfix"></div>
 
                                 <div class="separator">
-                                    <p class="change_link">没有账号? <a href="#signup" class="to_register"> 注册账号 </a></p>
                                     <div class="clearfix"></div>
                                     <div>
-                                        <h1><i class="fa fa-coffee"></i> 博客后台管理系统</h1>
+                                        <h1><i class="fa fa-coffee"></i> DBlog博客后台管理系统</h1>
                                         <p>Copyright © 2018 zhyd.me. All Rights Reserved. </p>
                                     </div>
                                 </div>
@@ -84,10 +83,10 @@
             data: $("#login-form").serialize(),
             dataType: "json",
             success: function (json) {
-                $.tool.ajaxSuccess(json);
                 if (json.status === 200) {
                     window.location.href = "/";
                 }else{
+                    $.alert.ajaxSuccess(json);
                     $("#img-kaptcha").attr("src", '/getKaptcha?time=' + new Date().getTime());
                 }
             }

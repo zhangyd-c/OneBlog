@@ -19,6 +19,7 @@
  */
 package com.zyd.blog.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,9 +34,8 @@ import java.security.MessageDigest;
  * @date 2018/4/18 11:48
  * @since 1.0
  */
+@Slf4j
 public class Md5Util {
-    private static final Logger LOG = LoggerFactory.getLogger(Md5Util.class);
-
     /**
      * 通过盐值对字符串进行MD5加密
      *
@@ -72,7 +72,7 @@ public class Md5Util {
             }
             return new String(str);
         } catch (Exception e) {
-            LOG.error("MD5生成失败", e);
+            log.error("MD5生成失败", e);
             return null;
         }
     }

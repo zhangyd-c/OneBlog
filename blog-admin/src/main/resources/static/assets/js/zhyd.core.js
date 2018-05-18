@@ -202,7 +202,6 @@ $.fn.popover.Constructor.prototype.leave = function (a) {
             a.removeAttr("style")
         }) : (c.slideToggle(200), a.css("height", "auto")), b.toggleClass("fa-angle-double-up fa-angle-double-down")
     });
-    // zhyd.initSidebar();
     zhyd.initDaterangepicker();
     zhyd.initValidator();
     zhyd.initSidebar();
@@ -212,7 +211,7 @@ $.fn.popover.Constructor.prototype.leave = function (a) {
         type: "post",
         url: "/comment/listVerifying",
         success: function (json) {
-            $.tool.ajaxSuccess(json);
+            $.alert.ajaxSuccess(json);
             var $box = $(".msg_list > li:last-child");
             if (!json.data) {
                 var html = '<li><a><span class="image"><img src="/assets/images/loading.gif" alt="user avatar"></span> <span><span>系统管理员</span> <span class="time">3 mins ago</span></span> <span class="message">暂无消息</span></a></li>';
@@ -224,7 +223,7 @@ $.fn.popover.Constructor.prototype.leave = function (a) {
             $box.before(html);
             $(".noticeNum").text(json.data.length);
         },
-        error: $.tool.ajaxError
+        error: $.alert.ajaxError
     });
 
     $("img.lazy-img").lazyload({
@@ -237,4 +236,13 @@ $.fn.popover.Constructor.prototype.leave = function (a) {
             $("img.lazy-img").trigger("sporty");
         }, 3000);
     });
+
+    /**
+     * 图片预览
+     * 必须指定预览图片的容器，格式：data-preview-container = "#containerID"
+     */
+    $(".uploadPreview").each(function () {
+        var $this = $(this);
+        $this.uploadPreview({ imgContainer: $this.data("preview-container") });
+    })
 });

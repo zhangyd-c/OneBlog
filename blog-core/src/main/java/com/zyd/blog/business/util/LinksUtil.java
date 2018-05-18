@@ -22,12 +22,11 @@ package com.zyd.blog.business.util;
 import com.zyd.blog.business.consts.HttpConsts;
 import com.zyd.blog.util.HtmlUtil;
 import com.zyd.blog.util.RestClientUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.util.StringUtils;
 
@@ -48,9 +47,8 @@ import java.util.regex.Pattern;
  * @date 2018/4/16 16:26
  * @since 1.0
  */
+@Slf4j
 public class LinksUtil {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LinksUtil.class);
-
     /**
      * 单位b，1kb = 1024b
      */
@@ -117,16 +115,16 @@ public class LinksUtil {
             // 必须设置false，否则会自动redirect到Location的地址
             connection.setInstanceFollowRedirects(false);
             contentLength = connection.getContentLength();
-            LOGGER.debug("Favicon size : {}", contentLength);
+            log.debug("Favicon size : {}", contentLength);
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            LOGGER.error("请求地址不对", e);
+            log.error("请求地址不对", e);
         } catch (ProtocolException e) {
             e.printStackTrace();
-            LOGGER.error("请求地址协议异常", e);
+            log.error("请求地址协议异常", e);
         } catch (IOException e) {
             e.printStackTrace();
-            LOGGER.error("数据传输异常", e);
+            log.error("数据传输异常", e);
         }
         return contentLength;
     }
@@ -194,7 +192,7 @@ public class LinksUtil {
                 }
             }
         } catch (Exception e) {
-            LOGGER.error("访问Chinaz网站失败！", e);
+            log.error("访问Chinaz网站失败！", e);
         }
         return false;
     }

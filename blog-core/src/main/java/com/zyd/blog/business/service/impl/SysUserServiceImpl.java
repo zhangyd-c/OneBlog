@@ -25,7 +25,6 @@ import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.UserNotificationEnum;
 import com.zyd.blog.business.enums.UserPrivacyEnum;
 import com.zyd.blog.business.enums.UserStatusEnum;
-import com.zyd.blog.business.service.SysRoleService;
 import com.zyd.blog.business.service.SysUserService;
 import com.zyd.blog.business.vo.UserConditionVO;
 import com.zyd.blog.framework.exception.ZhydCommentException;
@@ -34,8 +33,6 @@ import com.zyd.blog.persistence.beans.SysUser;
 import com.zyd.blog.persistence.mapper.SysUserMapper;
 import com.zyd.blog.util.IpUtil;
 import com.zyd.blog.util.PasswordUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,13 +56,8 @@ import java.util.List;
 @Service
 public class SysUserServiceImpl implements SysUserService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SysUserServiceImpl.class);
-
     @Autowired
     private SysUserMapper sysUserMapper;
-
-    @Autowired
-    private SysRoleService roleService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)

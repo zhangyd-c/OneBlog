@@ -19,8 +19,7 @@
  */
 package com.zyd.blog.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -39,9 +38,9 @@ import java.util.Set;
  * @date 2018/4/18 11:48
  * @since 1.0
  */
+@Slf4j
 public class RestClientUtil {
     protected static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.10 Safari/537.36";
-    private static final Logger LOGGER = LoggerFactory.getLogger(RestClientUtil.class);
     private static final String DEFAULT_ENCODE = "UTF-8";
 
     public static String post(String urlString, Map<String, Object> params, Map<String, String> requestHeader) {
@@ -103,7 +102,7 @@ public class RestClientUtil {
                 outputStream.close();
             }
 
-            LOGGER.info("RestClientUtil url: {}, response: {} : {}", urlString, connection.getResponseCode(), connection.getResponseMessage());
+            log.info("RestClientUtil url: {}, response: {} : {}", urlString, connection.getResponseCode(), connection.getResponseMessage());
 
             if (connection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
                 return readInput(connection.getInputStream(), encode);
@@ -111,7 +110,7 @@ public class RestClientUtil {
                 return readInput(connection.getErrorStream(), encode);
             }
         } catch (Exception e) {
-            LOGGER.error("Http请求失败{}", urlString, e);
+            log.error("Http请求失败{}", urlString, e);
         }
         return null;
     }
@@ -132,6 +131,9 @@ public class RestClientUtil {
     }
 
     protected static String readInput(final InputStream is, String encode) {
+        if (null == is) {
+            return null;
+        }
         StringBuilder content = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, encode));) {
             String line = "";
@@ -139,7 +141,7 @@ public class RestClientUtil {
                 content.append(line);
             }
         } catch (Exception e) {
-            LOGGER.error("数据读取失败", e);
+            log.error("数据读取失败", e);
         }
         return content.toString();
     }

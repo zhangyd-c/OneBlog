@@ -158,15 +158,15 @@
         $('#tablelist').on('click', '.btn-release', function () {
             var $this = $(this);
             var id = $this.data("id");
-            $.tool.confirm("确定发布该条通知？发布后将对用户可见！", function () {
+            $.alert.confirm("确定发布该条通知？发布后将对用户可见！", function () {
                 $.ajax({
                     type: "post",
                     url: "/notice/release/" + id,
                     success: function (json) {
-                        $.tool.ajaxSuccess(json);
+                        $.alert.ajaxSuccess(json);
                         $.tableUtil.refresh();
                     },
-                    error: $.tool.ajaxError
+                    error: $.alert.ajaxError
                 });
             }, function () {
 
@@ -176,15 +176,15 @@
         $('#tablelist').on('click', '.btn-withdraw', function () {
             var $this = $(this);
             var id = $this.data("id");
-            $.tool.confirm("确定撤回该条通知？撤回后将对用户不可见！", function () {
+            $.alert.confirm("确定撤回该条通知？撤回后将对用户不可见！", function () {
                 $.ajax({
                     type: "post",
                     url: "/notice/withdraw/" + id,
                     success: function (json) {
-                        $.tool.ajaxSuccess(json);
+                        $.alert.ajaxSuccess(json);
                         $.tableUtil.refresh();
                     },
-                    error: $.tool.ajaxError
+                    error: $.alert.ajaxError
                 });
             }, function () {
 

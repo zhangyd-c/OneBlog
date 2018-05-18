@@ -22,31 +22,16 @@
         <result property="maintenanceData" jdbcType="TIMESTAMP" column="maintenance_data"/>
         <result property="comment" jdbcType="BIT" column="comment"/>
         <result property="qiuniuBasePath" jdbcType="VARCHAR" column="qiuniu_base_path"/>
+        <result property="qiniuAccessKey" jdbcType="VARCHAR" column="qiniu_access_key"/>
+        <result property="qiniuSecretKey" jdbcType="VARCHAR" column="qiniu_secret_key"/>
+        <result property="qiniuBucketName" jdbcType="VARCHAR" column="qiniu_bucket_name"/>
+        <result property="baiduPushToken" jdbcType="VARCHAR" column="baidu_push_token"/>
+        <result property="wxPraiseCode" jdbcType="VARCHAR" column="wx_praise_code"/>
+        <result property="zfbPraiseCode" jdbcType="VARCHAR" column="zfb_praise_code"/>
+        <result property="baiduApiAk" jdbcType="VARCHAR" column="baidu_api_ak"/>
         <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
         <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
     </resultMap>
-    <sql id="Base_Column_List">
-		id,
-		home_desc,
-		home_keywords,
-		site_url,
-		site_name,
-		site_desc,
-		site_favicon,
-		static_web_site,
-		author_name,
-		author_email,
-		wx_code,
-		qq,
-		weibo,
-		github,
-		maintenance,
-		maintenance_data,
-		comment,
-		qiuniu_base_path,
-		create_time,
-		update_time
-	</sql>
 
     <select id="get" resultMap="rm">
 		SELECT

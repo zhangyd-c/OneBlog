@@ -19,6 +19,7 @@
  */
 package com.zyd.blog.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,8 +36,8 @@ import java.util.Date;
  * @date 2018/4/18 11:48
  * @since 1.0
  */
+@Slf4j
 public class DateUtil {
-    private static final Logger LOG = LoggerFactory.getLogger(DateUtil.class);
 
     /**
      * 字符串日期转换为Date日期
@@ -54,7 +55,7 @@ public class DateUtil {
             try {
                 resultDate = sdf.parse(dateStr);
             } catch (ParseException e) {
-                LOG.error("日期转换异常", e);
+                log.error("日期转换异常", e);
             }
         }
         return resultDate;

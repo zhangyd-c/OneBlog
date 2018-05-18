@@ -26,7 +26,6 @@ import com.zyd.blog.persistence.beans.SysRoleResources;
 import com.zyd.blog.persistence.mapper.SysRoleResourcesMapper;
 import com.zyd.blog.util.IpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -191,7 +190,6 @@ public class SysRoleResourcesServiceImpl implements SysRoleResourcesService {
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = {Exception.class})
-    @CacheEvict(cacheNames = "resources", allEntries = true)
     public void addRoleResources(Long roleId, String resourcesId) {
         //删除
         removeByRoleId(roleId);
@@ -204,6 +202,8 @@ public class SysRoleResourcesServiceImpl implements SysRoleResourcesService {
                 r = new SysRoleResources();
                 r.setRoleId(roleId);
                 r.setResourcesId(Long.parseLong(ri));
+                r.setCreateTime(new Date());
+                r.setUpdateTime(new Date());
                 roleResources.add(r);
 
             }

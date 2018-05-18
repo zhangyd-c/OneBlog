@@ -25,8 +25,7 @@ package com.zyd.blog.business.util;
 
 import com.zyd.blog.framework.exception.ZhydCommentException;
 import com.zyd.blog.util.RestClientUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -43,9 +42,8 @@ import java.util.Date;
  * @date 2018/4/16 16:26
  * @since 1.0
  */
+@Slf4j
 public class BaiduPushUtil extends RestClientUtil {
-    private static final Logger LOGGER = LoggerFactory.getLogger(BaiduPushUtil.class);
-
     /**
      * 自行登录百度站长平台后获取响应的cookie
      */
@@ -64,7 +62,7 @@ public class BaiduPushUtil extends RestClientUtil {
         if (StringUtils.isEmpty(COOKIE)) {
             throw new ZhydCommentException("尚未设置百度站长平台的Cookie信息，该功能不可用！");
         }
-        LOGGER.debug("{} REST url: {}", new Date(), urlString);
+        log.info("{} REST url: {}", new Date(), urlString);
         HttpURLConnection connection = null;
         try {
             connection = openConnection(urlString);
@@ -88,15 +86,15 @@ public class BaiduPushUtil extends RestClientUtil {
                 writeOutput(outputStream, params);
                 outputStream.close();
             }
-            LOGGER.debug("RestClientUtil response: {} : {}", connection.getResponseCode(), connection.getResponseMessage());
+            log.info("RestClientUtil response: {} : {}", connection.getResponseCode(), connection.getResponseMessage());
             if (connection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
                 return readInput(connection.getInputStream(), "UTF-8");
             } else {
                 return readInput(connection.getErrorStream(), "UTF-8");
             }
         } catch (Exception e) {
-            LOGGER.error("推送到百度站长平台发生异常！", e);
-            return null;
+            log.error("推送到百度站长平台发生异常！", e);
+            return "";
         } finally {
             if (null != connection) {
                 connection.disconnect();

@@ -200,11 +200,15 @@
     });
 })(jQuery);
 (function ($) {
+    // 覆盖jquery-confirm中的函数
+    $.jqAlert = $.alert;
+    $.jqConfirm = $.confirm;
+
     $.extend({
-        tool: {
-            alert: function (content, callback, delayTime) {
+        alert: {
+            info: function (content, delayTime, callback) {
                 delayTime = delayTime ? "confirm|" + delayTime : "confirm|3000";
-                $.alert({
+                $.jqAlert({
                     title: '友情提示',
                     content: content,
                     confirmButton: '关闭',
@@ -212,9 +216,9 @@
                     confirm: callback
                 });
             },
-            alertError: function (content, callback, delayTime) {
+            error: function (content, delayTime, callback) {
                 delayTime = delayTime ? "confirm|" + delayTime : "confirm|3000";
-                $.alert({
+                $.jqAlert({
                     title: '警告',
                     content: content,
                     confirmButton: '关闭',
@@ -224,7 +228,7 @@
             },
             confirm: function (content, confirmCallback, cancelCallback, delayTime) {
                 delayTime = delayTime ? "cancel|" + delayTime : "cancel|5000";
-                $.confirm({
+                $.jqConfirm({
                     confirmButtonClass: 'btn-success',
                     cancelButtonClass: 'btn-default',
                     title: '友情提示',
@@ -236,20 +240,35 @@
                     cancel: cancelCallback
                 });
             },
-            ajaxSuccess: function (json) {
+            ajaxSuccessConfirm: function (json, callback) {
                 if (json.status == 200) {
-                    if (json.message) {
-                        $.tool.alert(json.message);
+                    if(json.message){
+                        $.alert.confirm(json.message, callback);
                     }
                 } else {
-                    if (json.message) {
-                        $.tool.alertError(json.message);
+                    if(json.message){
+                        $.alert.error(json.message);
+                    }
+                }
+            },
+            ajaxSuccess: function (json) {
+                if (json.status == 200) {
+                    if(json.message){
+                        $.alert.info(json.message);
+                    }
+                } else {
+                    if(json.message){
+                        $.alert.error(json.message);
                     }
                 }
             },
             ajaxError: function () {
-                $.tool.alertError("网络超时！");
-            },
+                $.alert.error("网络超时！");
+            }
+        }
+    });
+    $.extend({
+        tool: {
             isEmpty: function (value) {
                 return value == null || this.trim(value) == "";
             },

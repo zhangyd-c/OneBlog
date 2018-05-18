@@ -52,6 +52,8 @@ jQuery.fn.extend({
                 _this = $(this);
         opts = jQuery.extend({
             imgContainer: "",
+            width: 100,
+            height: 100,
             suffix: ["gif", "jpeg", "jpg", "bmp", "png"],
             callback: function () {
             }
@@ -77,7 +79,7 @@ jQuery.fn.extend({
             $container.html('<i class="fa fa-spinner fa-pulse"></i>');
             if ($this.value) {
                 if (!RegExp("\.(" + opts.suffix.join("|") + ")$", "i").test($this.value.toLowerCase())) {
-                    $.tool.alertError("只支持以下几种文件格式：[" + opts.suffix.join("，") + "]");
+                    $.alert.error("只支持以下几种文件格式：[" + opts.suffix.join("，") + "]");
                     $this.value = "";
                     $container.html('');
                     return false
@@ -87,10 +89,11 @@ jQuery.fn.extend({
                     setTimeout(function () {
                         $container.html('');
                         $img.attr('src', _self.getObjectURL($this.files[0]));
+                        $img.addClass("img-responsive img-rounded auto-shake");
                         $img.appendTo($container);
                     }, 1500);
                 } catch (e) {
-                    $.tool.alertError("当前浏览器不支持图片预览！");
+                    $.alert.error("当前浏览器不支持图片预览！");
                 }
                 opts.callback()
             } else {

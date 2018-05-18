@@ -22,6 +22,7 @@ package com.zyd.blog.util;
 import com.zyd.blog.business.enums.QiniuUploadType;
 import com.zyd.blog.framework.exception.ZhydFileException;
 import com.zyd.blog.plugin.QiniuApi;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,6 +38,7 @@ import java.util.Arrays;
  * @date 2018/01/09 17:40
  * @since 1.0
  */
+@Slf4j
 public class FileUtil {
     private static final String[] PICTURE_SUFFIXS = {".jpg", ".jpeg", ".png", ".gif", ".bmp"};
 
@@ -130,33 +132,44 @@ public class FileUtil {
                 filePath = QiniuApi.getInstance()
                         .withFileName(file.getOriginalFilename(), uploadType)
                         .upload(file.getBytes());
-                return UrlCodeUtil.encode(filePath);
+//                return UrlCodeUtil.encode(filePath);
+                return filePath;
             } else {
                 throw new ZhydFileException("只支持图片");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ZhydFileException("上传图片到七牛云发生异常", e);
+            throw new ZhydFileException("上传图片到七牛云发生异常，请检查七牛配置是否正常", e);
         }
     }
 
     /**
      * 删除七牛上的文件
      *
-     * @param key
-     *         上传成功是返回的文件路径
+     * @param keys
+     *         七牛云文件的key（上传成功时返回的文件路径）
      * @return
      */
-    public static boolean removeQiniu(String key) {
-        // 不可为空并且file为空，抛出异常
-        if (StringUtils.isEmpty(key)) {
-            throw new ZhydFileException("删除七牛文件失败:文件key为空");
+    public static int removeQiniu(String... keys) {
+        if (null == keys || keys.length == 0) {
+            return 0;
         }
-        try {
-            return QiniuApi.getInstance().delete(key);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ZhydFileException("删除七牛云文件发生异常", e);
+        int count = 0;
+        for (String key : keys) {
+            // 不可为空并且file为空，抛出异常
+            if (StringUtils.isEmpty(key)) {
+                log.error("删除七牛文件失败:文件key为空");
+                continue;
+            }
+            try {
+                boolean result = QiniuApi.getInstance().delete(key);
+                if (result) {
+                    count++;
+                }
+            } catch (Exception e) {
+                log.error("删除七牛云文件发生异常", e);
+            }
         }
+        return count;
     }
 }

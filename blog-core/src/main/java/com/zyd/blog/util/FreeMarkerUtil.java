@@ -22,8 +22,7 @@ package com.zyd.blog.util;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
@@ -42,9 +41,8 @@ import java.util.Set;
  * @date 2018/4/18 11:48
  * @since 1.0
  */
+@Slf4j
 public class FreeMarkerUtil {
-
-    private static final Logger LOG = LoggerFactory.getLogger(FreeMarkerUtil.class);
 
     private static final String LT = "<";
     private static final String LT_CHAR = "&lt;";
@@ -103,9 +101,9 @@ public class FreeMarkerUtil {
             t.process(newMap, writer);
             return writer.toString();
         } catch (IOException e) {
-            LOG.error("TemplateUtil -> template2String IOException.", e);
+            log.error("TemplateUtil -> template2String IOException.", e);
         } catch (TemplateException e) {
-            LOG.error("TemplateUtil -> template2String TemplateException.", e);
+            log.error("TemplateUtil -> template2String TemplateException.", e);
         } finally {
             if (newMap != null) {
                 newMap.clear();

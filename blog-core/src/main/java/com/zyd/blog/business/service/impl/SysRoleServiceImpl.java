@@ -237,10 +237,10 @@ public class SysRoleServiceImpl implements SysRoleService {
         if (CollectionUtils.isEmpty(sysRole)) {
             return null;
         }
-        List<Role> Role = new ArrayList<>();
+        List<Role> role = new ArrayList<>();
         for (SysRole r : sysRole) {
-            Role.add(new Role(r));
+            role.add(new Role(r));
         }
-        return Role;
+        return role;
     }
 }

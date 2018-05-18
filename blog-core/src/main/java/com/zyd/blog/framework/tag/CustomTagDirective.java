@@ -75,9 +75,9 @@ public class CustomTagDirective implements TemplateDirectiveModel {
                     // 所有标签
                     environment.setVariable("tagsList", builder.build().wrap(bizTagsService.listAll()));
                     break;
-                case "parentResources":
-                    // 所有父级资源
-                    environment.setVariable("parentResources", builder.build().wrap(resourcesService.listAllParentResource()));
+                case "availableMenus":
+                    // 所有可用的菜单资源
+                    environment.setVariable("availableMenus", builder.build().wrap(resourcesService.listAllAvailableMenu()));
                     break;
                 case "recentComments":
                     // 近期评论

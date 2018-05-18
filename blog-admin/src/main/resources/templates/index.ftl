@@ -4,7 +4,7 @@
         <div class="x_panel">
             <div class="x_title">
                 <h2>欢迎光临
-                    <small>${config.siteName}后台</small>
+                    <small>DBlog${config.siteName}后台</small>
                 </h2>
                 <div class="clearfix"></div>
             </div>

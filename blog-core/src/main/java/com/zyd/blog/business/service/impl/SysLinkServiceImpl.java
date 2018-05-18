@@ -35,8 +35,7 @@ import com.zyd.blog.framework.exception.ZhydLinkException;
 import com.zyd.blog.persistence.beans.SysLink;
 import com.zyd.blog.persistence.mapper.SysLinkMapper;
 import com.zyd.blog.util.HtmlUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,10 +54,9 @@ import java.util.*;
  * @date 2018/4/16 16:26
  * @since 1.0
  */
+@Slf4j
 @Service
 public class SysLinkServiceImpl implements SysLinkService {
-
-    private static final Logger LOG = LoggerFactory.getLogger(SysLinkServiceImpl.class);
 
     @Autowired
     private SysLinkMapper sysLinkMapper;
@@ -161,6 +159,7 @@ public class SysLinkServiceImpl implements SysLinkService {
      * @return
      */
     @Override
+    @RedisCache(flush = true)
     public boolean autoLink(Link link) throws ZhydLinkException {
         String url = link.getUrl();
         Link bo = getOneByUrl(url);
@@ -196,7 +195,7 @@ public class SysLinkServiceImpl implements SysLinkService {
             link.setDescription(HtmlUtil.html2Text(link.getDescription()));
         }
         this.insert(link);
-        LOG.info("友联自动申请成功,开始发送邮件通知...");
+        log.info("友联自动申请成功,开始发送邮件通知...");
         mailService.send(link, TemplateKeyEnum.TM_LINKS);
         return true;
     }

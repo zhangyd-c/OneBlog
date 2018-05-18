@@ -1,9 +1,11 @@
 # DBlog简介
-DBlog是一款简洁美观、自适应的Java博客系统。使用springboot开发，前端使用Bootstrap。支持移动端自适应，配有完备的前台和后台管理功能。  
- **网站预览**     
+DBlog是一款简洁美观、自适应的Java博客系统。使用springboot开发，前端使用Bootstrap。支持移动端自适应，配有完备的前台和后台管理功能。
+  
+**网站预览**    
+ 
 [https://www.zhyd.me](https://www.zhyd.me)  
 
- **开源地址**   
+**开源地址**   
 1. [Gitee](https://gitee.com/yadong.zhang/DBlog)    
 2. [Github](https://github.com/zhangyd-c/DBlog)    
 
@@ -81,6 +83,23 @@ _普通管理员_： 账号：admin  密码：123456
 
 更多详情，请参考【[Wiki](https://gitee.com/yadong.zhang/DBlog/wikis)】
 
+### 更新日志
+
+2018-05-18
+
+**修复bug：**
+
+1. web端自动申请友链后不显示的问题
+2. config表修改后不能实时刷新的问题
+	
+**增加功能：**
+1. 网站赞赏码
+2. 百度推送功能(链接提交到百度站长平台)
+	
+**修改功能：**
+1. 百度api的ak和百度推送的token以及七牛云的配置改为通过config表管理
+3. admin模块菜单通过标签实时获取
+3. 弹窗工具类js结构调整
 
 你能看到这儿已经很不容易了，剩下的自己先摸索摸索吧，实在不行，加QQ群[190886500](http://shang.qq.com/wpa/qunwpa?idkey=9f986e9b33b1de953e1ef9a96cdeec990affd0ac7855e00ff103514de2027b60)，进群可以选择性的备注：~~欧巴群主我爱你~~(咳咳，鉴于部分群友的抗议，该备注就不用了)，麻烦大家换成：`我猜群主一定很帅`
 

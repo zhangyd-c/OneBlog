@@ -70,11 +70,11 @@ public interface SysResourcesService extends AbstractService<Resources, Long> {
     List<Resources> listUrlAndPermission();
 
     /**
-     * 获取所有父级资源
+     * 获取所有可用的菜单资源
      *
      * @return
      */
-    List<Resources> listAllParentResource();
+    List<Resources> listAllAvailableMenu();
 
     /**
      * 获取用户关联的所有资源

@@ -25,8 +25,7 @@ import com.zyd.blog.business.service.MailService;
 import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.business.service.SysTemplateService;
 import com.zyd.blog.util.FreeMarkerUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -55,10 +54,9 @@ import java.util.Map;
  * @date 2018/4/16 16:26
  * @since 1.0
  */
+@Slf4j
 @Service
 public class MailServiceImpl implements MailService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(MailServiceImpl.class);
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -184,9 +182,9 @@ public class MailServiceImpl implements MailService {
 
 
     private boolean sendMessage(MailDetail detail, String from) {
-        LOGGER.info("Start to send html email for [{}({})]", detail.getToUsername(), detail.getToMailAddress());
+        log.info("Start to send html email for [{}({})]", detail.getToUsername(), detail.getToMailAddress());
         if (StringUtils.isEmpty(detail.getToMailAddress())) {
-            LOGGER.warn("邮件接收者为空！");
+            log.warn("邮件接收者为空！");
             return false;
         }
         MimeMessage message = null;
@@ -214,13 +212,13 @@ public class MailServiceImpl implements MailService {
                         helper.addAttachment("图片.jpg", file);
                     }
                 } catch (Exception e) {
-                    LOGGER.error("添加附件发生异常", e);
+                    log.error("添加附件发生异常", e);
                 }
             }
             javaMailSender.send(message);
             return true;
         } catch (MessagingException | UnsupportedEncodingException e) {
-            LOGGER.error("Failed to send E-mail. e [{}]", e.getMessage());
+            log.error("Failed to send E-mail. e [{}]", e.getMessage());
         }
         return false;
     }

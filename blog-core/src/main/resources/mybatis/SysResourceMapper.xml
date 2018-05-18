@@ -91,9 +91,10 @@
             sys_resources re
         LEFT JOIN sys_role_resources rr ON re.id = rr.resources_id
         LEFT JOIN sys_user_role ur ON rr.role_id = ur.role_id
-        LEFT JOIN sys_resources node ON node.parent_id = re.id
+        LEFT JOIN sys_resources node ON node.parent_id = re.id AND node.available = 1
         WHERE
             (re.parent_id = 0 OR re.parent_id IS NULL )
+        AND re.available = 1
         AND ur.user_id = #{userId}
         <if test="type != null">
             AND re.type= #{type}
@@ -134,15 +135,28 @@
             re.sort ASC
 	</select>
 
-    <select id="listAllParentResource" resultMap="rm">
+    <select id="listAllAvailableMenu" resultMap="rm">
 		SELECT
-            re.id,
-            re.`name`
+            r.id,
+            r.`name`,
+            node.id AS node_id,
+            node.`name` AS node_name,
+            node.parent_id
         FROM
-            sys_resources re
-        WHERE re.parent_id = 0 OR re.parent_id IS NULL
+            sys_resources r
+        LEFT JOIN sys_resources node ON (
+            node.parent_id = r.id
+            AND node.available = 1
+            AND node.type = 'menu'
+        )
+        WHERE
+            r.available = 1
+        AND r.type = 'menu'
+        AND (r.url IS NULL OR r.url = '')
+        AND (r.permission IS NULL OR r.permission = '')
         ORDER BY
-            re.sort ASC
+            r.sort ASC,
+            node.sort ASC
 	</select>
 
     <select id="listByUserId" parameterType="Long" resultMap="rm">
@@ -160,6 +174,7 @@
         INNER JOIN sys_user_role ur ON rr.role_id = ur.role_id
         WHERE
             ur.user_id = #{userId}
+        AND re.available = 1
         ORDER BY
             re.parent_id ASC,
             re.sort ASC
