@@ -35,6 +35,7 @@ import javax.persistence.Transient;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class SysRole extends AbstractDO {
+    private String name;
     private String description;
     private Boolean available;
 

@@ -24,6 +24,7 @@ import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.Article;
 import com.zyd.blog.business.vo.ArticleConditionVO;
 import com.zyd.blog.framework.object.AbstractService;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -115,5 +116,22 @@ public interface BizArticleService extends AbstractService<Article, Long> {
      * @return
      */
     List<String> listMaterial();
+
+    /**
+     * 发布文章
+     *a
+     * @param article
+     * @param tags
+     * @param file
+     * @return
+     */
+    boolean publish(Article article, Long[] tags, MultipartFile file);
+
+    /**
+     * 修改置顶、推荐
+     *
+     * @return
+     */
+    boolean updateTopOrRecommendedById(String type, Long id);
 
 }

@@ -20,11 +20,12 @@
 package com.zyd.blog.core.shiro.realm;
 
 import com.zyd.blog.business.entity.Resources;
+import com.zyd.blog.business.entity.Role;
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.UserStatusEnum;
 import com.zyd.blog.business.service.SysResourcesService;
+import com.zyd.blog.business.service.SysRoleService;
 import com.zyd.blog.business.service.SysUserService;
-import com.zyd.blog.persistence.beans.SysResources;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -36,9 +37,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Shiro-密码输入错误的状态下重试次数的匹配管理
@@ -55,10 +54,11 @@ public class ShiroRealm extends AuthorizingRealm {
     private SysUserService userService;
     @Resource
     private SysResourcesService resourcesService;
+    @Resource
+    private SysRoleService roleService;
 
     /**
      * 提供账户信息返回认证信息（用户的角色信息集合）
-     *
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
@@ -72,13 +72,13 @@ public class ShiroRealm extends AuthorizingRealm {
             throw new LockedAccountException("帐号已被锁定，禁止登录！");
         }
 
-        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                user,
+        // principal参数使用用户Id，方便动态刷新用户权限
+        return new SimpleAuthenticationInfo(
+                user.getId(),
                 user.getPassword(),
                 ByteSource.Util.bytes(username),
                 getName()
         );
-        return authenticationInfo;
     }
 
     /**
@@ -86,39 +86,28 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("userId", user.getId());
-        List<Resources> resourcesList = resourcesService.listUserResources(map);
         // 权限信息对象info,用来存放查出的用户的所有的角色（role）及权限（permission）
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+
+        Long userId = (Long) SecurityUtils.getSubject().getPrincipal();
+
+        // 赋予角色
+        List<Role> roleList = roleService.listRolesByUserId(userId);
+        for (Role role : roleList) {
+            info.addRole(role.getName());
+        }
+
+        // 赋予权限
+        List<Resources> resourcesList = resourcesService.listByUserId(userId);
         if (!CollectionUtils.isEmpty(resourcesList)) {
             for (Resources resources : resourcesList) {
-                if (!StringUtils.isEmpty(resources.getUrl()) && !StringUtils.isEmpty(resources.getPermission())) {
-                    String permission = resources.getPermission();
+                String permission = null;
+                if (!StringUtils.isEmpty(permission = resources.getPermission())) {
                     info.addStringPermission(permission);
-                    continue;
-                }
-                List<SysResources> nodes = resources.getNodes();
-                if (CollectionUtils.isEmpty(nodes)) {
-                    continue;
-                }
-                for (SysResources node : nodes) {
-                    info.addStringPermission(node.getPermission());
                 }
             }
         }
         return info;
     }
 
-    /**
-     * 指定principalCollection 清除
-     */
-  /*  public void clearCachedAuthorizationInfo(PrincipalCollection principalCollection) {
-
-        SimplePrincipalCollection principals = new SimplePrincipalCollection(
-                principalCollection, getName());
-        super.clearCachedAuthorizationInfo(principals);
-    }
-*/
 }

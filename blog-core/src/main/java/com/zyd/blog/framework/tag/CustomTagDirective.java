@@ -28,8 +28,10 @@ import freemarker.core.Environment;
 import freemarker.template.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -73,9 +75,9 @@ public class CustomTagDirective implements TemplateDirectiveModel {
                     // 所有标签
                     environment.setVariable("tagsList", builder.build().wrap(bizTagsService.listAll()));
                     break;
-                case "parentResources":
-                    // 所有父级资源
-                    environment.setVariable("parentResources", builder.build().wrap(resourcesService.listAllParentResource()));
+                case "availableMenus":
+                    // 所有可用的菜单资源
+                    environment.setVariable("availableMenus", builder.build().wrap(resourcesService.listAllAvailableMenu()));
                     break;
                 case "recentComments":
                     // 近期评论
@@ -84,6 +86,20 @@ public class CustomTagDirective implements TemplateDirectiveModel {
                 case "siteInfo":
                     // 站点属性
                     environment.setVariable("siteInfo", builder.build().wrap(configService.getSiteInfo()));
+                    break;
+                case "menus":
+                    Integer userId = null;
+                    if (map.containsKey("userId")) {
+                        String userIdStr = map.get("userId").toString();
+                        if(StringUtils.isEmpty(userIdStr)){
+                            return;
+                        }
+                        userId = Integer.parseInt(userIdStr);
+                    }
+                    Map<String, Object> params = new HashMap<>(2);
+                    params.put("type", "menu");
+                    params.put("userId", userId);
+                    environment.setVariable("menus", builder.build().wrap(resourcesService.listUserResources(params)));
                     break;
                 default:
                     break;

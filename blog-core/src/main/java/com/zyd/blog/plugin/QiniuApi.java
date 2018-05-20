@@ -28,13 +28,13 @@ import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
 import com.zyd.blog.business.consts.CommonConst;
 import com.zyd.blog.business.consts.DateConst;
+import com.zyd.blog.business.entity.Config;
 import com.zyd.blog.business.enums.QiniuUploadType;
-import com.zyd.blog.framework.property.AppProperties;
+import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.framework.holder.SpringContextHolder;
 import com.zyd.blog.util.DateUtil;
 import com.zyd.blog.util.FileUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,16 +49,17 @@ import java.util.Date;
  * @date 2018/4/16 16:26
  * @since 1.0
  */
+@Slf4j
 public class QiniuApi {
-    private static final Logger LOG = LoggerFactory.getLogger(QiniuApi.class);
     private static final Object LOCK = new Object();
-    private AppProperties config;
+    private Config config;
     private String key;
     private Auth auth;
     private UploadManager uploadManager;
 
     private QiniuApi() {
-        this.config = SpringContextHolder.getBean(AppProperties.class);
+        SysConfigService configService = SpringContextHolder.getBean(SysConfigService.class);
+        this.config = configService.get();
         auth = Auth.create(config.getQiniuAccessKey(), config.getQiniuSecretKey());
         uploadManager = new UploadManager();
     }
@@ -106,7 +107,7 @@ public class QiniuApi {
             }
         } catch (QiniuException e) {
             Response r = e.response;
-            LOG.error(r.toString(), e);
+            log.error(r.toString(), e);
         }
         return null;
     }
@@ -118,7 +119,7 @@ public class QiniuApi {
             return true;
         } catch (QiniuException e) {
             Response r = e.response;
-            LOG.error(r.toString(), e);
+            log.error(r.toString(), e);
         }
         return false;
     }
@@ -129,11 +130,11 @@ public class QiniuApi {
         FileInfo info = null;
         try {
             info = bucketManager.stat(config.getQiniuBucketName(), fileName);
-            LOG.info(info.hash);
-            LOG.info(info.key);
+            log.info(info.hash);
+            log.info(info.key);
         } catch (QiniuException e) {
             Response r = e.response;
-            LOG.error(r.toString(), e);
+            log.error(r.toString(), e);
         }
         return info;
     }

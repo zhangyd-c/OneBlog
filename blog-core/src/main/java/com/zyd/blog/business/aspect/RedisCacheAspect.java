@@ -21,14 +21,13 @@ package com.zyd.blog.business.aspect;
 
 import com.zyd.blog.business.annotation.RedisCache;
 import com.zyd.blog.framework.property.AppProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -48,11 +47,10 @@ import java.util.concurrent.TimeUnit;
  * @date 2018/4/16 16:26
  * @since 1.0
  */
+@Slf4j
 @Aspect
 @Component
 public class RedisCacheAspect {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(RedisCacheAspect.class);
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -87,12 +85,12 @@ public class RedisCacheAspect {
         //类名 + 方法名
         key.append(className).append(".").append(methodName);
         if (flush) {
-            LOGGER.info("{}-清空缓存", key.toString());
+            log.info("{}-清空缓存", key.toString());
             Set<String> keys = redisTemplate.keys(className + "*");
             if (!CollectionUtils.isEmpty(keys)) {
                 redisTemplate.delete(keys);
             }
-            LOGGER.info("Clear all the cached query result from redis");
+            log.info("Clear all the cached query result from redis");
             return point.proceed();
         }
         long expire = cache.expire();
@@ -111,18 +109,18 @@ public class RedisCacheAspect {
         boolean hasKey = redisTemplate.hasKey(key.toString());
         if (hasKey) {
             try {
-                LOGGER.info("{}从缓存中获取数据", key.toString());
+                log.info("{}从缓存中获取数据", key.toString());
                 return redisTemplate.opsForValue().get(key);
             } catch (Exception e) {
-                LOGGER.error("从缓存中获取数据失败！", e);
+                log.error("从缓存中获取数据失败！", e);
             }
         }
         // 先执行业务
         Object result = point.proceed();
         // 向Redis中添加数据，有效时间是30天
         redisTemplate.opsForValue().set(key.toString(), result, expire, unit);
-        LOGGER.info("Put query result to redis");
-        LOGGER.info("{}从数据库中获取数据", key.toString());
+        log.info("Put query result to redis");
+        log.info("{}从数据库中获取数据", key.toString());
         return result;
     }
 }

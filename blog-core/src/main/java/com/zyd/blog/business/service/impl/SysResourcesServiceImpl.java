@@ -128,13 +128,25 @@ public class SysResourcesServiceImpl implements SysResourcesService {
     }
 
     /**
-     * 获取所有父级资源
+     * 获取所有可用的菜单资源
      *
      * @return
      */
     @Override
-    public List<Resources> listAllParentResource() {
-        List<SysResources> sysResources = resourceMapper.listAllParentResource();
+    public List<Resources> listAllAvailableMenu() {
+        List<SysResources> sysResources = resourceMapper.listAllAvailableMenu();
+        return getResources(sysResources);
+    }
+
+    /**
+     * 获取用户关联的所有资源
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Resources> listByUserId(Long userId) {
+        List<SysResources> sysResources = resourceMapper.listByUserId(userId);
         return getResources(sysResources);
     }
 

@@ -19,8 +19,7 @@
  */
 package com.zyd.blog.core.websocket;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.websocket.Session;
 import java.io.IOException;
@@ -35,9 +34,8 @@ import java.util.Set;
  * @date 2018/4/18 11:48
  * @since 1.0
  */
+@Slf4j
 public class WebSocketUtil {
-
-    private static final Logger LOG = LoggerFactory.getLogger(WebSocketUtil.class);
 
     private WebSocketUtil() {
         // 私有化构造方法，禁止new
@@ -56,7 +54,7 @@ public class WebSocketUtil {
         try {
             session.getAsyncRemote().sendText(message);
         } catch (Exception e) {
-            LOG.error("websocket-->向客户端发送数据发生异常", e);
+            log.error("websocket-->向客户端发送数据发生异常", e);
         }
     }
 

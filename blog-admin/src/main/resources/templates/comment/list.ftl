@@ -222,11 +222,11 @@
                         url: "/comment/reply",
                         data: $("#replyForm").serialize(),
                         success: function (json) {
-                            $.tool.ajaxSuccess(json);
+                            $.alert.ajaxSuccess(json);
                             $("#replyModal").modal('hide');
                             $.tableUtil.refresh();
                         },
-                        error: $.tool.ajaxError
+                        error: $.alert.ajaxError
                     });
                 }
             })
@@ -252,11 +252,11 @@
                         url: "/comment/audit",
                         data: $("#auditForm").serialize(),
                         success: function (json) {
-                            $.tool.ajaxSuccess(json);
+                            $.alert.ajaxSuccess(json);
                             $("#auditModal").modal('hide');
                             $.tableUtil.refresh();
                         },
-                        error: $.tool.ajaxError
+                        error: $.alert.ajaxError
                     });
                 }
             })

@@ -19,8 +19,7 @@
  */
 package com.zyd.blog.core.websocket;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.OnClose;
@@ -38,11 +37,11 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @date 2018/4/18 11:48
  * @since 1.0
  */
+@Slf4j
 @ServerEndpoint(value = "/websocket")
 @Component
 public class ZydWebSocket {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ZydWebSocket.class);
     /**
      * 初始在线人数
      */
@@ -59,7 +58,7 @@ public class ZydWebSocket {
     public void onOpen(Session session) {
         webSocketSet.add(session);
         onlineCount.incrementAndGet();
-        LOG.info("有链接加入，当前在线人数为: {}", getOnlineCount());
+        log.info("有链接加入，当前在线人数为: {}", getOnlineCount());
         WebSocketUtil.broadcast(getOnlineCount(), webSocketSet);
     }
 
@@ -69,7 +68,7 @@ public class ZydWebSocket {
     @OnClose
     public void onClose() {
         onlineCount.decrementAndGet();
-        LOG.info("有链接关闭,当前在线人数为: {}", getOnlineCount());
+        log.info("有链接关闭,当前在线人数为: {}", getOnlineCount());
         WebSocketUtil.broadcast(getOnlineCount(), webSocketSet);
     }
 
@@ -81,7 +80,7 @@ public class ZydWebSocket {
      */
     @OnMessage
     public void onMessage(String message, Session session) {
-        LOG.info("{}来自客户端的消息:{}", session.getId(), message);
+        log.info("{}来自客户端的消息:{}", session.getId(), message);
         WebSocketUtil.sendMessage(message, session);
     }
 

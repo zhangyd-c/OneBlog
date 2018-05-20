@@ -29,17 +29,13 @@ import com.zyd.blog.core.shiro.ShiroService;
 import com.zyd.blog.framework.object.PageResult;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
-import com.zyd.blog.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 系统资源管理
@@ -71,21 +67,6 @@ public class RestResourcesController {
         return ResultUtil.success(null, resourcesService.queryResourcesListWithSelected(rid));
     }
 
-    @PostMapping("/loadMenu")
-    public List<Resources> loadMenu() {
-        Map<String, Object> map = new HashMap<>();
-        Long userId = SessionUtil.getUser().getId();
-        map.put("type", "menu");
-        map.put("userId", userId);
-        return resourcesService.listUserResources(map);
-    }
-
-    @PostMapping("/listParents")
-    public List<Resources> listParents() {
-        return resourcesService.listAllParentResource();
-    }
-
-    @CacheEvict(cacheNames = "resources", allEntries = true)
     @PostMapping(value = "/add")
     public ResponseVO add(Resources resources) {
         resourcesService.insert(resources);
@@ -94,7 +75,6 @@ public class RestResourcesController {
         return ResultUtil.success("成功");
     }
 
-    @CacheEvict(cacheNames = "resources", allEntries = true)
     @PostMapping(value = "/remove")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {

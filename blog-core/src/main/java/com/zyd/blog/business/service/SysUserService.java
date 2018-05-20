@@ -25,6 +25,8 @@ import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.vo.UserConditionVO;
 import com.zyd.blog.framework.object.AbstractService;
 
+import java.util.List;
+
 /**
  * 用户
  *
@@ -59,5 +61,13 @@ public interface SysUserService extends AbstractService<User, Long> {
      * @return
      */
     User getByUserName(String userName);
+
+    /**
+     * 通过角色Id获取用户列表
+     *
+     * @param roleId
+     * @return
+     */
+    List<User> listByRoleId(Long roleId);
 
 }

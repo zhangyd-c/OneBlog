@@ -19,7 +19,6 @@
  */
 package com.zyd.blog.core.shiro.credentials;
 
-import com.alibaba.fastjson.JSONObject;
 import com.zyd.blog.business.consts.SessionConst;
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.service.SysUserService;
@@ -28,13 +27,10 @@ import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
-import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -48,8 +44,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class RetryLimitCredentialsMatcher extends CredentialsMatcher {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RetryLimitCredentialsMatcher.class);
-
     /**
      * 用户登录次数计数  redisKey 前缀
      */
@@ -59,14 +53,14 @@ public class RetryLimitCredentialsMatcher extends CredentialsMatcher {
      */
     private static final String SHIRO_IS_LOCK = "shiro_is_lock_";
     @Autowired
-    RedisTemplate redisTemplate;
-    @Resource
+    private RedisTemplate redisTemplate;
+    @Autowired
     private SysUserService userService;
 
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
-        User user = (User) info.getPrincipals().getPrimaryPrincipal();
-        LOGGER.info("== 验证用户：{}", JSONObject.toJSONString(user));
+        Long userId = (Long) info.getPrincipals().getPrimaryPrincipal();
+        User user = userService.getByPrimaryKey(userId);
         String username = user.getUsername();
         // 访问一次，计数一次
         ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();
@@ -104,6 +98,6 @@ public class RetryLimitCredentialsMatcher extends CredentialsMatcher {
         // 当验证都通过后，把用户信息放在session里
         // 注：User必须实现序列化
         SecurityUtils.getSubject().getSession().setAttribute(SessionConst.USER_SESSION_KEY, user);
-        return matches;
+        return true;
     }
 }

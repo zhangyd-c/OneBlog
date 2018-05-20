@@ -22,6 +22,7 @@ package com.zyd.blog.business.aspect;
 import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.framework.holder.RequestHolder;
 import com.zyd.blog.util.IpUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -30,8 +31,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,13 +45,12 @@ import java.lang.reflect.Method;
  * @date 2018/4/16 16:26
  * @since 1.0
  */
+@Slf4j
 @Aspect
 @Component
 public class BussinessLogAspect {
 
     private static final String PARAM_SEPARTOR = " & ";
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(BussinessLogAspect.class);
 
     @Pointcut(value = "@annotation(com.zyd.blog.business.annotation.BussinessLog)")
     public void pointcut() {
@@ -67,7 +65,7 @@ public class BussinessLogAspect {
         try {
             handle(point);
         } catch (Exception e) {
-            LOGGER.error("日志记录出错!", e);
+            log.error("日志记录出错!", e);
         }
 
         return result;
@@ -75,7 +73,7 @@ public class BussinessLogAspect {
 
     @AfterThrowing(pointcut = "pointcut()", throwing = "ex")
     public void afterThrowing(JoinPoint joinPoint, Throwable ex) throws Throwable {
-        LOGGER.error("捕获到了异常...", ex);
+        log.error("捕获到了异常...", ex);
     }
 
     private void handle(ProceedingJoinPoint point) throws Exception {
@@ -94,7 +92,7 @@ public class BussinessLogAspect {
         //获取操作名称
         BussinessLog annotation = currentMethod.getAnnotation(BussinessLog.class);
         String bussinessName = annotation.value();
-        LOGGER.info("{}-{}-{}", bussinessName, className, methodName);
+        log.info("{}-{}-{}", bussinessName, className, methodName);
         Object[] params = point.getArgs();
         StringBuilder sb = new StringBuilder();
         for (Object param : params) {
@@ -106,8 +104,8 @@ public class BussinessLogAspect {
         }
         // 记录请求的内容
         HttpServletRequest request = RequestHolder.getRequest();
-        LOGGER.info("IP: {}, Method: {}, Request URL: {}", IpUtil.getRealIp(request), request.getMethod(), request.getRequestURL().toString());
-        LOGGER.info("User-Agent: " + request.getHeader("User-Agent"));
-        LOGGER.info("请求参数:{}", sb.toString());
+        log.info("IP: {}, Method: {}, Request URL: {}", IpUtil.getRealIp(request), request.getMethod(), request.getRequestURL().toString());
+        log.info("User-Agent: " + request.getHeader("User-Agent"));
+        log.info("请求参数:{}", sb.toString());
     }
 }

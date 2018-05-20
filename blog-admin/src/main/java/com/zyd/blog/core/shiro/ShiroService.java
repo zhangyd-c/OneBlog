@@ -20,14 +20,23 @@
 package com.zyd.blog.core.shiro;
 
 import com.zyd.blog.business.entity.Resources;
+import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.service.SysResourcesService;
+import com.zyd.blog.business.service.SysUserService;
+import com.zyd.blog.core.shiro.realm.ShiroRealm;
 import com.zyd.blog.framework.holder.SpringContextHolder;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.subject.SimplePrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.mgt.DefaultFilterChainManager;
 import org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver;
 import org.apache.shiro.web.servlet.AbstractShiroFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.LinkedHashMap;
@@ -43,10 +52,14 @@ import java.util.Map;
  * @date 2018/4/25 14:37
  * @since 1.0
  */
+@Slf4j
 @Service
 public class ShiroService {
+
     @Autowired
     private SysResourcesService resourcesService;
+    @Autowired
+    private SysUserService userService;
 
     /**
      * 初始化权限
@@ -109,44 +122,41 @@ public class ShiroService {
                 String chainDefinition = entry.getValue().trim().replace(" ", "");
                 manager.createChain(url, chainDefinition);
             }
-
-            System.out.println("更新权限成功！！");
         }
     }
 
     /**
-     * 根据userId 清除当前session存在的用户的权限缓存
-     * @param userIds 已经修改了权限的userId
+     * 重新加载用户权限
+     *
+     * @param user
      */
-   /* public void clearUserAuthByUserId(List<Integer> userIds){
-        if(null == userIds || userIds.size() == 0)	return ;
-        //获取所有session
-        Collection<Session> sessions = redisSessionDAO.getActiveSessions();
-        //定义返回
-        List<SimplePrincipalCollection> list = new ArrayList<SimplePrincipalCollection>();
-        for (Session session:sessions){
-            //获取session登录信息。
-            Object obj = session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
-            if(null != obj && obj instanceof SimplePrincipalCollection){
-                //强转
-                SimplePrincipalCollection spc = (SimplePrincipalCollection)obj;
-                //判断用户，匹配用户ID。
-                obj = spc.getPrimaryPrincipal();
-                if(null != obj && obj instanceof User){
-                    User user = (User) obj;
-                    System.out.println("user:"+user);
-                    //比较用户ID，符合即加入集合
-                    if(null != user && userIds.contains(user.getId())){
-                        list.add(spc);
-                    }
-                }
-            }
+    public void reloadAuthorizingByUserId(User user) {
+        RealmSecurityManager rsm = (RealmSecurityManager) SecurityUtils.getSecurityManager();
+        ShiroRealm shiroRealm = (ShiroRealm) rsm.getRealms().iterator().next();
+        Subject subject = SecurityUtils.getSubject();
+        String realmName = subject.getPrincipals().getRealmNames().iterator().next();
+        SimplePrincipalCollection principals = new SimplePrincipalCollection(user.getId(), realmName);
+        subject.runAs(principals);
+        shiroRealm.getAuthorizationCache().remove(subject.getPrincipals());
+        subject.releaseRunAs();
+
+        log.info("用户[{}]的权限更新成功！！", user.getUsername());
+
+    }
+
+    /**
+     * 重新加载所有拥有roleId角色的用户的权限
+     *
+     * @param roleId
+     */
+    public void reloadAuthorizingByRoleId(Long roleId) {
+        List<User> userList = userService.listByRoleId(roleId);
+        if (CollectionUtils.isEmpty(userList)) {
+            return;
         }
-        RealmSecurityManager securityManager =
-                (RealmSecurityManager) SecurityUtils.getSecurityManager();
-        MyShiroRealm realm = (MyShiroRealm)securityManager.getRealms().iterator().next();
-        for (SimplePrincipalCollection simplePrincipalCollection : list) {
-            realm.clearCachedAuthorizationInfo(simplePrincipalCollection);
+        for (User user : userList) {
+            reloadAuthorizingByUserId(user);
         }
-    }*/
+    }
+
 }

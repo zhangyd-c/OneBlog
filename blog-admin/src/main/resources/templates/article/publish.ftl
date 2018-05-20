@@ -230,14 +230,14 @@
         editor.customConfig.uploadImgMaxSize = 5 * 1024 * 1024;
         editor.customConfig.customAlert = function (info) {
             // info 是需要提示的内容
-            $.tool.alertError(info);
+            $.alert.error(info);
         }
         editor.customConfig.uploadImgHooks = {
             error: function (xhr, editor) {
-                $.tool.alertError("图片上传出错");
+                $.alert.error("图片上传出错");
             },
             timeout: function (xhr, editor) {
-                $.tool.alertError("请求超时");
+                $.alert.error("请求超时");
             },
             customInsert: function (insertImg, result, editor) {
                 // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
@@ -249,7 +249,7 @@
                     // editor.txt.append(' <a href="' + imgFullPath + '" class="showImage" title="" rel="external nofollow"><img src="' + imgFullPath + '" class="img-responsive  img-rounded" alt="" style="width: 95%;"/></a>');
                     editor.txt.append('<img src="' + imgFullPath + '" alt="" style="width: 95%;max-width: 100%;height: auto;border-radius: 6px;"/>');
                 } else {
-                    $.tool.alertError(result.message);
+                    $.alert.error(result.message);
                 }
             }
         };
@@ -263,7 +263,7 @@
                 type: "post",
                 url: "/type/listAll",
                 success: function (json) {
-                    $.tool.ajaxSuccess(json);
+                    $.alert.ajaxSuccess(json);
                     var data = '';
                     if(data = json.data){
                         var typeOptions = '';
@@ -274,9 +274,9 @@
                         $("select#typeId").html(typeOptions);
                     }
                     $("#refressType").removeClass("fa-spin");
-                    $.tool.showSuccessMessage("分类加载完成！");
+                    $.alert.showSuccessMessage("分类加载完成！");
                 },
-                error: $.tool.ajaxError
+                error: $.alert.ajaxError
             });
         }
 
@@ -286,7 +286,7 @@
                 type: "post",
                 url: "/tag/listAll",
                 success: function (json) {
-                    $.tool.ajaxSuccess(json);
+                    $.alert.ajaxSuccess(json);
                     var data = '';
                     if (data = json.data) {
                         var tagHtml = '';
@@ -308,9 +308,9 @@
                         });
                     }
                     $("#refressTag").removeClass("fa-spin");
-                    $.tool.showSuccessMessage("标签加载完成！");
+                    $.alert.showSuccessMessage("标签加载完成！");
                 },
-                error: $.tool.ajaxError
+                error: $.alert.ajaxError
             });
         }
         $("#refressType").click(function () {
@@ -331,7 +331,7 @@
                     type: "post",
                     url: "/article/get/" + articleId,
                     success: function (json) {
-                        $.tool.ajaxSuccess(json);
+                        $.alert.ajaxSuccess(json);
                         var info = json.data;
                         // 标签
                         var tags = info.tags;
@@ -359,25 +359,16 @@
                                 editor.txt.html(thisValue);
                                 return;
                             }
-                            if(type == 'radio'){
-                                if((thisValue || thisValue == 1)){
-                                    if($this.val() == 1){
-                                        $this.iCheck('check');
-                                    }
-                                }else{
-                                    if($this.val() == 0){
-                                        $this.iCheck('check');
-                                    }
-                                }
-                                return;
-                            }else{
+                            if (type == 'radio') {
+                                $this.iCheck(((thisValue && 1 == $this.val()) || (!thisValue && 0 == $this.val())) ? 'check' : 'uncheck')
+                            } else {
                                 if (thisValue && thisName != 'password') {
                                     $this.val(thisValue);
                                 }
                             }
                         });
                     },
-                    error: $.tool.ajaxError
+                    error: $.alert.ajaxError
                 });
             }, 100);
         }
@@ -388,11 +379,11 @@
                     type: "post",
                     url: "/article/save",
                     success: function (json) {
-                        $.tool.ajaxSuccessConfirm(json, function () {
+                        $.alert.ajaxSuccessConfirm(json, function () {
                             window.location.href = '/articles';
                         });
                     },
-                    error: $.tool.ajaxError
+                    error: $.alert.ajaxError
                 });
             }
         });
@@ -407,7 +398,7 @@
                     type: "post",
                     url: "/api/material",
                     success: function (json) {
-                        $.tool.ajaxSuccess(json);
+                        $.alert.ajaxSuccess(json);
                         loadImg = true;
                         json.qiniuPath = appConfig.qiniuPath;
                         var $box = $(".list-material");
@@ -434,7 +425,7 @@
                         });
                         $("img.lazy-img").trigger("sporty");
                     },
-                    error: $.tool.ajaxError
+                    error: $.alert.ajaxError
                 });
             }
         });

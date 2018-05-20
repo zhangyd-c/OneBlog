@@ -25,7 +25,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.zyd.blog.business.entity.Comment;
 import com.zyd.blog.business.entity.Link;
 import com.zyd.blog.business.enums.CommentStatusEnum;
-import com.zyd.blog.business.service.*;
+import com.zyd.blog.business.service.BizArticleService;
+import com.zyd.blog.business.service.BizCommentService;
+import com.zyd.blog.business.service.SysLinkService;
+import com.zyd.blog.business.service.SysNoticeService;
 import com.zyd.blog.business.vo.CommentConditionVO;
 import com.zyd.blog.framework.exception.ZhydArticleException;
 import com.zyd.blog.framework.exception.ZhydCommentException;
@@ -33,8 +36,7 @@ import com.zyd.blog.framework.exception.ZhydLinkException;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.RestClientUtil;
 import com.zyd.blog.util.ResultUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -56,11 +58,10 @@ import java.util.Map;
  * @date 2018/4/18 11:48
  * @since 1.0
  */
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class RestApiController {
-
-    private static final Logger LOG = LoggerFactory.getLogger(RestApiController.class);
 
     @Autowired
     private SysLinkService sysLinkService;
@@ -73,15 +74,15 @@ public class RestApiController {
 
     @PostMapping("/autoLink")
     public ResponseVO autoLink(@Validated Link link, BindingResult bindingResult) {
-        LOG.info("申请友情链接......");
-        LOG.info(JSON.toJSONString(link));
+        log.info("申请友情链接......");
+        log.info(JSON.toJSONString(link));
         if (bindingResult.hasErrors()) {
             return ResultUtil.error(bindingResult.getFieldError().getDefaultMessage());
         }
         try {
             sysLinkService.autoLink(link);
         } catch (ZhydLinkException e) {
-            LOG.error("客户端自助申请友链发生异常", e);
+            log.error("客户端自助申请友链发生异常", e);
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("已成功添加友链，祝您生活愉快！");
@@ -99,12 +100,12 @@ public class RestApiController {
             try {
                 json = json.replaceAll("portraitCallBack|\\\\s*|\\t|\\r|\\n", "");
                 json = json.substring(1, json.length() - 1);
-                LOG.info(json);
+                log.info(json);
                 JSONObject object = JSONObject.parseObject(json);
                 JSONArray array = object.getJSONArray(qq);
                 nickname = array.getString(6);
             } catch (Exception e) {
-                LOG.error("通过QQ号获取用户昵称发生异常", e);
+                log.error("通过QQ号获取用户昵称发生异常", e);
             }
         }
         resultMap.put("avatar", "https://q1.qlogo.cn/g?b=qq&nk=" + qq + "&s=40");
@@ -125,7 +126,7 @@ public class RestApiController {
         try {
             commentService.comment(comment);
         } catch (ZhydCommentException e) {
-            LOG.error("评论发生异常", e);
+            log.error("评论发生异常", e);
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("评论发表成功，系统正在审核，请稍后刷新页面查看！");
@@ -136,7 +137,7 @@ public class RestApiController {
         try {
             commentService.doSupport(id);
         } catch (ZhydCommentException e) {
-            LOG.error("评论点赞发生异常", e);
+            log.error("评论点赞发生异常", e);
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("");
@@ -147,7 +148,7 @@ public class RestApiController {
         try {
             commentService.doOppose(id);
         } catch (ZhydCommentException e) {
-            LOG.error("评论点踩发生异常", e);
+            log.error("评论点踩发生异常", e);
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("");
@@ -158,7 +159,7 @@ public class RestApiController {
         try {
             articleService.doPraise(id);
         } catch (ZhydArticleException e) {
-            LOG.error("文章点赞发生异常", e);
+            log.error("文章点赞发生异常", e);
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("");

@@ -25,10 +25,12 @@ import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.annotation.RedisCache;
 import com.zyd.blog.business.dto.BizCommentDTO;
 import com.zyd.blog.business.entity.Comment;
+import com.zyd.blog.business.entity.Config;
 import com.zyd.blog.business.enums.CommentStatusEnum;
 import com.zyd.blog.business.enums.TemplateKeyEnum;
 import com.zyd.blog.business.service.BizCommentService;
 import com.zyd.blog.business.service.MailService;
+import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.business.vo.CommentConditionVO;
 import com.zyd.blog.framework.exception.ZhydCommentException;
 import com.zyd.blog.framework.holder.RequestHolder;
@@ -39,8 +41,7 @@ import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
 import eu.bitwalker.useragentutils.Version;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -63,10 +64,9 @@ import java.util.concurrent.TimeUnit;
  * @date 2018/4/16 16:26
  * @since 1.0
  */
+@Slf4j
 @Service
 public class BizCommentServiceImpl implements BizCommentService {
-
-    private static final Logger LOG = LoggerFactory.getLogger(BizCommentServiceImpl.class);
 
     @Autowired
     private BizCommentMapper bizCommentMapper;
@@ -76,6 +76,9 @@ public class BizCommentServiceImpl implements BizCommentService {
 
     @Autowired
     private MailService mailService;
+
+    @Autowired
+    private SysConfigService configService;
 
     /**
      * 分页查询
@@ -175,8 +178,9 @@ public class BizCommentServiceImpl implements BizCommentService {
 //        comment.setOsShortName(os.getShortName());// 此处需开发者自己处理
         comment.setIp(IpUtil.getRealIp(request));
         String address = "定位失败";
+        Config config = configService.get();
         try {
-            String locationJson = RestClientUtil.get(UrlBuildUtil.getLocationByIp(comment.getIp()));
+            String locationJson = RestClientUtil.get(UrlBuildUtil.getLocationByIp(comment.getIp(), config.getBaiduApiAk()));
             JSONObject localtionContent = JSONObject.parseObject(locationJson).getJSONObject("content");
             // 地址详情
             JSONObject addressDetail = localtionContent.getJSONObject("address_detail");
@@ -234,7 +238,7 @@ public class BizCommentServiceImpl implements BizCommentService {
                 mailService.sendToAdmin(comment);
             }
         } catch (Exception e) {
-            LOG.error("发送评论通知邮件时发生异常", e);
+            log.error("发送评论通知邮件时发生异常", e);
         }
     }
 

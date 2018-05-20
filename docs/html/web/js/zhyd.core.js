@@ -212,16 +212,16 @@
             ajaxSuccess: function (json) {
                 if (json.status == 200) {
                     if (json.message) {
-                        $.tool.alert(json.message);
+                        $.alert.info(json.message);
                     }
                 } else {
                     if (json.message) {
-                        $.tool.alertError(json.message);
+                        $.alert.error(json.message);
                     }
                 }
             },
             ajaxError: function () {
-                $.tool.alertError("网络超时！");
+                $.alert.error("网络超时！");
             },
             isEmpty: function (value) {
                 return value == null || this.trim(value) == "";

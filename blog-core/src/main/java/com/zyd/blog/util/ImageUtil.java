@@ -21,8 +21,7 @@ package com.zyd.blog.util;
 
 import com.zyd.blog.business.entity.ImageFileInfo;
 import com.zyd.blog.framework.exception.ZhydFileException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -38,9 +37,8 @@ import java.io.*;
  * @date 2018/4/18 11:48
  * @since 1.0
  */
+@Slf4j
 public class ImageUtil {
-
-    private static final Logger LOG = LoggerFactory.getLogger(ImageUtil.class);
 
     /**
      * 获取图片信息
@@ -97,7 +95,7 @@ public class ImageUtil {
             //获取默认图像的高度，宽度
             return new ImageFileInfo(bi.getWidth(null), bi.getHeight(null));
         } catch (Exception e) {
-            LOG.error("获取图片信息失败", e);
+            log.error("获取图片信息失败", e);
         }
         return new ImageFileInfo();
     }

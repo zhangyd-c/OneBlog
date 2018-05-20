@@ -141,7 +141,7 @@ function initScrollMenu() {
     }
 }
 var PaymentUtils = window.payment || {
-    config: [{url: appConfig.staticPath + '/img/alipay_nb.jpg', desc: '支付宝转账'},{url: appConfig.staticPath + '/img/wechat_nb.jpg', desc: '微信转账'}],
+    config: [{url: appConfig.qiuniuBasePath + appConfig.zfbPraiseCode, desc: '支付宝转账'},{url: appConfig.qiuniuBasePath + appConfig.wxPraiseCode, desc: '微信转账'}],
     show : function () {
         $("#reward").modal('show');
         this.change(0);
@@ -156,7 +156,7 @@ var PaymentUtils = window.payment || {
     change: function (index) {
         var config = this.config[index];
         $("#qrcode-container").empty();
-        $('<img  src="' + config.url + '" style="width: 250px;height: 250px;" alt="'+config.desc+'">').appendTo($("#qrcode-container"));
+        $('<img  src="' + config.url + '" style="width: 250px;height: auto;" alt="'+config.desc+'">').appendTo($("#qrcode-container"));
     }
 
 };
@@ -268,6 +268,30 @@ $(function () {
         });
     }
 
+    $("#social .like").click(function () {
+        var $this = $(this);
+        var $a = $(this).find("a");
+        var $count = $a.find("i.count");
+        var id = $a.data("id");
+        $.bubble.unbind();
+        $.ajax({
+            type: "post",
+            url: "/api/doPraise/" + id,
+            success: function (json) {
+                $.alert.ajaxSuccess(json);
+                if(json.status === 200){
+                    $this.effectBubble({y:-80, className:'thumb-bubble', fontSize: 1, content: '<i class="fa fa-smile-o"></i>+1'});
+                    $count.text(parseInt($count.text()) + 1);
+                }
+                $.bubble.init();
+            },
+            error: function () {
+                $.alert.ajaxError();
+                $.bubble.init();
+            }
+        });
+    });
+
     $("img.lazy-img").lazyload({
         placeholder : appConfig.staticPath + "/img/loading.gif",
         effect: "fadeIn",
@@ -306,4 +330,24 @@ $(function () {
             window.location.href = action;
         }
     });
+
+    /* 首页通知 */
+    if($('#notice-box') && $('#notice-box')[0]){
+        $.ajax({
+            type: "post",
+            url: "/api/listNotice",
+            success: function (json) {
+                if(json.status == 200 && json.data && json.data.length > 0){
+                    var tpl = '{{#data}}<li class="scrolltext-title">'
+                            + '<a href="javascript:void(0)" rel="bookmark">{{&content}}</a>'
+                            + '</li>{{/data}}';
+                    var html = Mustache.render(tpl, json);
+                    $("#notice-box").html(html);
+                }
+            },
+            error: function () {
+                $.alert.ajaxError();
+            }
+        });
+    }
 });

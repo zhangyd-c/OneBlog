@@ -27,9 +27,6 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
@@ -46,20 +43,6 @@ public class AppProperties {
 
     public boolean getEnableKaptcha() {
         return null == enableKaptcha ? false : enableKaptcha;
-    }
-
-    public Map<String, String> qiniu = new HashMap<>();
-
-    public String getQiniuAccessKey() {
-        return this.qiniu.get("accessKey");
-    }
-
-    public String getQiniuSecretKey() {
-        return this.qiniu.get("secretKey");
-    }
-
-    public String getQiniuBucketName() {
-        return this.qiniu.get("bucketName");
     }
 
 }

@@ -16,9 +16,6 @@
                         <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
                             <i class="fa fa-trash-o"></i> 批量删除
                         </button>
-                        <button id="btn_clear_cache" type="button" class="btn btn-default" title="刷新缓存">
-                            <i class="fa fa-refresh"></i> 刷新缓存
-                        </button>
                     </div>
                     <table id="tablelist">
                     </table>
@@ -58,11 +55,16 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">父级资源: <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <select name="parentId" id="parentId" required="required" class="form-control col-md-7 col-xs-12">
-                                <@zhydTag method="parentResources">
-                                    <#if parentResources?? && parentResources?size gt 0>
-                                        <option value="">请选择</option>
-                                        <#list parentResources as item>
+                                <option value="">请选择</option>
+                                <@zhydTag method="availableMenus">
+                                    <#if availableMenus?? && availableMenus?size gt 0>
+                                        <#list availableMenus as item>
                                             <option value="${item.id?c}">${item.name}</option>
+                                            <#if item.nodes?? && item.nodes?size gt 0>
+                                                <#list item.nodes as node>
+                                                    <option value="${node.id?c}">&nbsp;&nbsp;|-${node.name}</option>
+                                                </#list>
+                                            </#if>
                                         </#list>
                                     <#else>
                                         <option value="">无</option>
@@ -223,12 +225,5 @@
         $.tableUtil.init(options);
         //2.初始化Button的点击事件
         $.buttonUtil.init(options);
-        
-        $("#btn_clear_cache").click(function () {
-            localStorage.removeItem("menu");
-            $.tool.alert("资源缓存已刷新", 3000, function () {
-                window.location.reload();
-            })
-        });
     });
 </script>

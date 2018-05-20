@@ -54,4 +54,12 @@ public interface SysRoleService extends AbstractService<Role, Long> {
      * @return
      */
     PageInfo<Role> findPageBreakByCondition(RoleConditionVO vo);
+
+    /**
+     * 获取用户的角色
+     *
+     * @param userId
+     * @return
+     */
+    List<Role> listRolesByUserId(Long userId);
 }

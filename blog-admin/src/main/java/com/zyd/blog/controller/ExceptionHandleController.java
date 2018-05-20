@@ -27,8 +27,7 @@ import com.zyd.blog.framework.exception.ZhydFileException;
 import com.zyd.blog.framework.exception.ZhydLinkException;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -45,9 +44,9 @@ import java.lang.reflect.UndeclaredThrowableException;
  * @date 2018/4/24 14:37
  * @since 1.0
  */
+@Slf4j
 @ControllerAdvice
 public class ExceptionHandleController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionHandleController.class);
 
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
@@ -63,7 +62,7 @@ public class ExceptionHandleController {
         }
         ResponseStatus responseStatus = ResponseStatus.getResponseStatus(e.getMessage());
         if (responseStatus != null) {
-            LOGGER.error(responseStatus.getMessage());
+            log.error(responseStatus.getMessage());
             return ResultUtil.error(responseStatus.getCode(), responseStatus.getMessage());
         }
         e.printStackTrace(); // 打印异常栈

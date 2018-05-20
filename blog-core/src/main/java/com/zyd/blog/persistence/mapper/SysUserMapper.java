@@ -42,4 +42,6 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     List<SysUser> findPageBreakByCondition(UserConditionVO vo);
 
+    List<SysUser> listByRoleId(Long roleId);
+
 }

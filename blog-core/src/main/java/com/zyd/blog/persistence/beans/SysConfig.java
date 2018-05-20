@@ -54,5 +54,22 @@ public class SysConfig extends AbstractDO {
     private Boolean maintenance;
     private Date maintenanceData;
     private Boolean comment;
+
     private String qiuniuBasePath;
+    private String qiniuAccessKey;
+    private String qiniuSecretKey;
+    private String qiniuBucketName;
+
+
+    private String baiduPushToken;
+    /**
+     * 赞赏码
+     */
+    private String wxPraiseCode;
+    private String zfbPraiseCode;
+    /**
+     * 百度api授权AK(获取地址：http://lbsyun.baidu.com/apiconsole/key)
+     * 调用百度的api时必须
+     */
+    private String baiduApiAk;
 }

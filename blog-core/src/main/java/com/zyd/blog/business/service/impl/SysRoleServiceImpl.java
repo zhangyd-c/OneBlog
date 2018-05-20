@@ -24,10 +24,8 @@ import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.Role;
 import com.zyd.blog.business.service.SysRoleService;
 import com.zyd.blog.business.vo.RoleConditionVO;
-import com.zyd.blog.framework.holder.RequestHolder;
 import com.zyd.blog.persistence.beans.SysRole;
 import com.zyd.blog.persistence.mapper.SysRoleMapper;
-import com.zyd.blog.util.IpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -53,7 +51,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     /**
      * 获取ztree使用的角色列表
      *
-     * @param uid
+     * @param userId
      * @return
      */
     @Override
@@ -68,7 +66,7 @@ public class SysRoleServiceImpl implements SysRoleService {
             map = new HashMap<String, Object>(3);
             map.put("id", role.getId());
             map.put("pId", 0);
-            map.put("checked", (role.getSelected() != null && role.getSelected() == 1) ? true : false);
+            map.put("checked", role.getSelected() != null && role.getSelected() == 1);
             map.put("name", role.getDescription());
             mapList.add(map);
         }
@@ -98,6 +96,25 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     /**
+     * 获取用户的角色
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Role> listRolesByUserId(Long userId) {
+        List<SysRole> sysRoles = roleMapper.listRolesByUserId(userId);
+        if (CollectionUtils.isEmpty(sysRoles)) {
+            return null;
+        }
+        List<Role> roles = new ArrayList<>();
+        for (SysRole r : sysRoles) {
+            roles.add(new Role(r));
+        }
+        return roles;
+    }
+
+    /**
      * 保存一个实体，null的属性不会保存，会使用数据库默认值
      *
      * @param entity
@@ -121,11 +138,10 @@ public class SysRoleServiceImpl implements SysRoleService {
     public void insertList(List<Role> entities) {
         Assert.notNull(entities, "entities不可为空！");
         List<SysRole> sysRole = new ArrayList<>();
-        String regIp = IpUtil.getRealIp(RequestHolder.getRequest());
-        for (Role Role : entities) {
-            Role.setUpdateTime(new Date());
-            Role.setCreateTime(new Date());
-            sysRole.add(Role.getSysRole());
+        for (Role role : entities) {
+            role.setUpdateTime(new Date());
+            role.setCreateTime(new Date());
+            sysRole.add(role.getSysRole());
         }
         roleMapper.insertList(sysRole);
     }
@@ -221,10 +237,10 @@ public class SysRoleServiceImpl implements SysRoleService {
         if (CollectionUtils.isEmpty(sysRole)) {
             return null;
         }
-        List<Role> Role = new ArrayList<>();
+        List<Role> role = new ArrayList<>();
         for (SysRole r : sysRole) {
-            Role.add(new Role(r));
+            role.add(new Role(r));
         }
-        return Role;
+        return role;
     }
 }

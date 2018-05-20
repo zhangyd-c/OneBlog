@@ -74,18 +74,18 @@
                                 data: {strJson: JSON.stringify(row)},
                                 success: function (json) {
                                     if (json.status == 200) {
-                                        $.tool.alert(json.message);
+                                        $.alert.info(json.message);
                                     } else {
-                                        $.tool.alertError(json.message);
+                                        $.alert.error(json.message);
                                     }
                                 },
                                 error: function () {
-                                    $.tool.alertError("网络超时！");
+                                    $.alert.error("网络超时！");
                                 }
                             });
                         } else {
-                            $.tool.alertError("无效的请求地址！");
-                            return;
+                            $.alert.error("无效的请求地址！");
+                            return false;
                         }
                     },
                     rowStyle: options.rowStyle || function (row, index){return {};},
@@ -140,23 +140,23 @@
                             bindSaveInfoEvent(options.updateUrl);
 
                         },
-                        error: $.tool.ajaxError
+                        error: $.alert.ajaxError
                     });
                 });
 
                 /* 删除 */
                 function remove(ids) {
-                    $.tool.confirm("确定删除该" + options.modalName + "信息？", function () {
+                    $.alert.confirm("确定删除该" + options.modalName + "信息？", function () {
                         $.ajax({
                             type: "post",
                             url: options.removeUrl,
                             traditional: true,
                             data: {'ids': ids},
                             success: function (json) {
-                                $.tool.ajaxSuccess(json);
+                                $.alert.ajaxSuccess(json);
                                 $.tableUtil.refresh();
                             },
-                            error: $.tool.ajaxError
+                            error: $.alert.ajaxError
                         });
                     }, function () {
 
@@ -167,7 +167,7 @@
                 $("#btn_delete_ids").click(function () {
                     var selectedId = getSelectedId();
                     if (!selectedId || selectedId == '[]' || selectedId.length == 0) {
-                        $.tool.alertError("请至少选择一条记录");
+                        $.alert.error("请至少选择一条记录");
                         return;
                     }
                     remove(selectedId);
@@ -193,11 +193,11 @@ function bindSaveInfoEvent(url) {
                 url: url,
                 data: $("#addOrUpdateForm").serialize(),
                 success: function (json) {
-                    $.tool.ajaxSuccess(json);
+                    $.alert.ajaxSuccess(json);
                     $("#addOrUpdateModal").modal('hide');
                     $.tableUtil.refresh();
                 },
-                error: $.tool.ajaxError
+                error: $.alert.ajaxError
             });
         }
     })
@@ -212,33 +212,24 @@ function resetForm(info) {
 
 function clearText($this, type, info){
     var $div = $this.parents(".item");
-    if ($div.hasClass("bad")) {
-        $div.toggleClass("bad");
+    if ($div && $div.hasClass("bad")) {
+        $div.removeClass("bad");
         $div.find("div.alert").remove();
     }
     if (info) {
         var thisName = $this.attr("name");
         var thisValue = info[thisName];
         if (type == 'radio') {
-            if ((thisValue && thisValue == $this.val())) {
-                $this.iCheck('check');
-            } else {
-                $this.iCheck('uncheck');
-            }
-            return;
+            $this.iCheck(((thisValue && 1 == $this.val()) || (!thisValue && 0 == $this.val())) ? 'check' : 'uncheck')
         } else if (type == 'checkbox') {
-            if ((thisValue || thisValue == 1)) {
-                $this.iCheck('check');
-            }else{
-                $this.iCheck('uncheck');
-            }
+            $this.iCheck((thisValue || thisValue == 1) ? 'check' : 'uncheck');
         } else {
             if (thisValue && thisName != 'password') {
                 $this.val(thisValue);
             }
         }
     } else {
-        if (type == 'radio' || type == 'checkbox') {
+        if (type === 'radio' || type === 'checkbox') {
             $this.iCheck('uncheck');
         }else{
             $this.val('');

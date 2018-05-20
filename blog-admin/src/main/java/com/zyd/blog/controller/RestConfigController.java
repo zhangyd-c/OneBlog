@@ -20,13 +20,17 @@
 package com.zyd.blog.controller;
 
 import com.zyd.blog.business.entity.Config;
+import com.zyd.blog.business.enums.QiniuUploadType;
 import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.framework.object.ResponseVO;
+import com.zyd.blog.util.FileUtil;
 import com.zyd.blog.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 系统配置
@@ -49,7 +53,15 @@ public class RestConfigController {
     }
 
     @PostMapping("/edit")
-    public ResponseVO edit(Config config) {
+    public ResponseVO edit(Config config,
+                           @RequestParam(required = false) MultipartFile wxPraiseCodeFile,
+                           @RequestParam(required = false) MultipartFile zfbPraiseCodeFile) {
+        config.setWxPraiseCode(FileUtil.uploadToQiniu(wxPraiseCodeFile, QiniuUploadType.QRCODE, true));
+        config.setZfbPraiseCode(FileUtil.uploadToQiniu(zfbPraiseCodeFile, QiniuUploadType.QRCODE, true));
+        if(null != wxPraiseCodeFile || null != zfbPraiseCodeFile){
+            Config configDB = sysConfigService.get();
+            FileUtil.removeQiniu(configDB.getWxPraiseCode(), configDB.getZfbPraiseCode());
+        }
         try {
             sysConfigService.update(config);
         } catch (Exception e) {

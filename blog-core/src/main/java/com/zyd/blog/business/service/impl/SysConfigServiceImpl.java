@@ -19,6 +19,7 @@
  */
 package com.zyd.blog.business.service.impl;
 
+import com.zyd.blog.business.annotation.RedisCache;
 import com.zyd.blog.business.consts.DateConst;
 import com.zyd.blog.business.entity.Config;
 import com.zyd.blog.business.service.SysConfigService;
@@ -54,6 +55,7 @@ public class SysConfigServiceImpl implements SysConfigService {
      * @return
      */
     @Override
+    @RedisCache
     public Config get() {
         SysConfig config = sysConfigMapper.get();
         return null == config ? null : new Config(config);
@@ -66,6 +68,7 @@ public class SysConfigServiceImpl implements SysConfigService {
      * @return
      */
     @Override
+    @RedisCache(flush = true)
     public Config insert(Config config) {
         config.setCreateTime(new Date());
         config.setUpdateTime(new Date());
@@ -79,6 +82,7 @@ public class SysConfigServiceImpl implements SysConfigService {
      * @param id
      */
     @Override
+    @RedisCache(flush = true)
     public void remove(Long id) {
         sysConfigMapper.deleteByPrimaryKey(id);
     }
@@ -89,10 +93,10 @@ public class SysConfigServiceImpl implements SysConfigService {
      * @param config
      */
     @Override
+    @RedisCache(flush = true)
     public void update(Config config) {
         config.setUpdateTime(new Date());
         sysConfigMapper.updateByPrimaryKeySelective(config.getSysConfig());
-        this.get();// 重置缓存
     }
 
     /**

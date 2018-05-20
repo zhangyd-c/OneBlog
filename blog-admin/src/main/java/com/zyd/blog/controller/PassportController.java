@@ -20,10 +20,11 @@
 package com.zyd.blog.controller;
 
 import com.zyd.blog.business.annotation.BussinessLog;
-import com.zyd.blog.framework.property.AppProperties;
 import com.zyd.blog.framework.object.ResponseVO;
+import com.zyd.blog.framework.property.AppProperties;
 import com.zyd.blog.util.ResultUtil;
 import com.zyd.blog.util.SessionUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -49,10 +50,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @date 2018/4/24 14:37
  * @since 1.0
  */
+@Slf4j
 @Controller
 @RequestMapping(value = "/passport")
 public class PassportController {
-    private static final Logger logger = LoggerFactory.getLogger(PassportController.class);
 
     @Autowired
     private AppProperties config;
@@ -60,6 +61,10 @@ public class PassportController {
     @BussinessLog("进入登录页面")
     @GetMapping("/login")
     public ModelAndView login(Model model) {
+        Subject subject = SecurityUtils.getSubject();
+        if (subject.isAuthenticated()||subject.isRemembered()){
+            return ResultUtil.redirect("/index");
+        }
         model.addAttribute("enableKaptcha", config.getEnableKaptcha());
         return ResultUtil.view("/login");
     }
@@ -90,7 +95,7 @@ public class PassportController {
             currentUser.login(token);
             return ResultUtil.success("登录成功！");
         } catch (Exception e) {
-            logger.error("登录失败，用户名[{}]", username, e);
+            log.error("登录失败，用户名[{}]", username, e);
             token.clear();
             return ResultUtil.error(e.getMessage());
         }
