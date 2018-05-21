@@ -89,7 +89,8 @@ public class ArticleTagDirective implements TemplateDirectiveModel {
                     // 按文章分类查询
                     ArticleConditionVO vo = new ArticleConditionVO();
                     vo.setTypeId(typeId);
-                    vo.setStatus(ArticleStatusEnum.PUBLISHED.getCode());// 已发布状态
+                    // 已发布状态
+                    vo.setStatus(ArticleStatusEnum.PUBLISHED.getCode());
                     vo.setPageSize(pageSize);
                     PageInfo<Article> pageInfo = articleService.findPageBreakByCondition(vo);
                     environment.setVariable("typeList", builder.build().wrap(null == pageInfo ? null : pageInfo.getList()));

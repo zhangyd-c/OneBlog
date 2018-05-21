@@ -120,7 +120,7 @@
         ];
         if (currentUserId != trUserId) {
             operateBtn.push('<a class="btn btn-xs btn-danger btn-remove" data-id="' + trUserId + '"><i class="fa fa-trash-o"></i>删除</a>');
-            operateBtn.push('<a class="btn btn-xs btn-info btn-allot" data-id="' + trUserId + '"><i class="fa fa-circle-thin"></i>分配权限</a>')
+            operateBtn.push('<a class="btn btn-xs btn-info btn-allot" data-id="' + trUserId + '"><i class="fa fa-circle-thin"></i>分配角色</a>')
         }
         return operateBtn.join('');
     }
