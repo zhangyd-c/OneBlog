@@ -216,6 +216,7 @@ public class BizCommentServiceImpl implements BizCommentService {
             comment.setAddress(address);
         } catch (Exception e) {
             comment.setAddress("未知");
+            log.error("获取地址失败", e);
         }
         if (StringUtils.isEmpty(comment.getStatus())) {
             comment.setStatus(CommentStatusEnum.VERIFYING.toString());

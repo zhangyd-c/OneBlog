@@ -11,16 +11,17 @@
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
-                        <#--<li><a href="/profile"> 个人资料</a></li>-->
+                        <@shiro.hasRole name="role:root">
                         <li>
                             <a href="/config">
-                                <#--<span class="badge bg-red pull-right">50%</span>-->
                                 <span>系统配置</span>
                             </a>
                         </li>
+                        </@shiro.hasRole>
                         <li><a href="/passport/logout"><i class="fa fa-sign-out pull-right"></i> 退出系统</a></li>
                     </ul>
                 </li>
+                <@shiro.hasPermission name="comments">
                 <li role="presentation" class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-envelope-o"></i>
@@ -37,6 +38,7 @@
                         </li>
                     </ul>
                 </li>
+                </@shiro.hasPermission>
             </ul>
         </nav>
     </div>

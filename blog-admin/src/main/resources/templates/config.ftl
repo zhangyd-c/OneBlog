@@ -116,6 +116,7 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                                         <div class="col-md-6 col-sm-7 col-xs-12"><small>获取地址：<a href="https://ziyuan.baidu.com/linksubmit/index" target="_blank">点击获取百度推送Token</a></small></div>
                                     </div>
+                                    <div class="clearfix"></div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
                                         <div class="col-md-6 col-sm-7 col-xs-12">
@@ -133,9 +134,7 @@
                                             <input type="file" class="form-control col-md-7 col-xs-12 uploadPreview" data-preview-container="#wxPraiseCodeFilePreview" name="wxPraiseCodeFile" id="wxPraiseCodeFile"/>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <div id="wxPraiseCodeFilePreview" style="width: 200px;height: auto">
-                                                <img src="" alt="微信赞赏码" class="img-responsive img-rounded auto-shake">
-                                            </div>
+                                            <div id="wxPraiseCodeFilePreview" style="width: 200px;height: auto"></div>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -144,9 +143,7 @@
                                             <input type="file" class="form-control col-md-7 col-xs-12 uploadPreview" data-preview-container="#zfbPraiseCodeFilePreview" id="zfbPraiseCodeFile" name="zfbPraiseCodeFile"/>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <div id="zfbPraiseCodeFilePreview" style="width: 200px;height: auto">
-                                                <img src="" alt="支付宝赞赏码" class="img-responsive img-rounded auto-shake">
-                                            </div>
+                                            <div id="zfbPraiseCodeFilePreview" style="width: 200px;height: auto"></div>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -339,12 +336,13 @@
             type: 'POST',
             success: function (json) {
                 var data = json.data;
+                console.log(data);
                 $("#myTabContent").find("input, select, textarea").each(function () {
                     clearText($(this), this.type, data);
                 });
 
-                $("#zfbPraiseCodeFilePreview").find("img").attr('src', data.qiuniuBasePath + data.zfbPraiseCode);
-                $("#wxPraiseCodeFilePreview").find("img").attr('src', data.qiuniuBasePath + data.wxPraiseCode);
+                data.zfbPraiseCode && $("#zfbPraiseCodeFilePreview").html('<img src="' + data.qiuniuBasePath + data.zfbPraiseCode + '" alt="支付宝赞赏码" class="img-responsive img-rounded auto-shake">');
+                data.wxPraiseCode && $("#wxPraiseCodeFilePreview").html('<img src="' + data.qiuniuBasePath + data.wxPraiseCode + '" alt="微信赞赏码" class="img-responsive img-rounded auto-shake">');
             }
         });
 

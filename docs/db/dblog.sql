@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2018-04-23 10:38:58
+Date: 2018-05-22 11:53:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -41,10 +41,8 @@ CREATE TABLE `biz_article` (
 -- ----------------------------
 -- Records of biz_article
 -- ----------------------------
-INSERT INTO `biz_article` VALUES ('1', 'chromedriver与chrome版本映射表(更新至v2.25)', '1', 'flyat/article/20180331122259.png', null, '<p>转载自 ：<a href=\"http://blog.csdn.net/huilan_same/article/details/51896672\" target=\"_blank\">selenium之 chromedriver与chrome版本映射表(更新至v2.25)</a>&nbsp; 。感谢原作者！</p><p>看到网上基本没有最新的chromedriver与chrome的对应关系表，便兴起整理了一份如下，希望对大家有用：</p><table><thead><tr><th>chromedriver版本</th><th>支持的Chrome版本</th></tr></thead><tbody><tr><td>v2.25</td><td>v53-55</td></tr><tr><td>v2.24</td><td>v52-54</td></tr><tr><td>v2.23</td><td>v51-53</td></tr><tr><td>v2.22</td><td>v49-52</td></tr><tr><td>v2.21</td><td>v46-50</td></tr><tr><td>v2.20</td><td>v43-48</td></tr><tr><td>v2.19</td><td>v43-47</td></tr><tr><td>v2.18</td><td>v43-46</td></tr><tr><td>v2.17</td><td>v42-43</td></tr><tr><td>v2.13</td><td>v42-45</td></tr><tr><td>v2.15</td><td>v40-43</td></tr><tr><td>v2.14</td><td>v39-42</td></tr><tr><td>v2.13</td><td>v38-41</td></tr><tr><td>v2.12</td><td>v36-40</td></tr><tr><td>v2.11</td><td>v36-40</td></tr><tr><td>v2.10</td><td>v33-36</td></tr><tr><td>v2.9</td><td>v31-34</td></tr><tr><td>v2.8</td><td>v30-33</td></tr><tr><td>v2.7</td><td>v30-33</td></tr><tr><td>v2.6</td><td>v29-32</td></tr><tr><td>v2.5</td><td>v29-32</td></tr><tr><td>v2.4</td><td>v29-32</td></tr></tbody></table>\n                                <p><strong>附：</strong>&nbsp;<br>所有chromedriver均可在下面链接中下载到：<a href=\"http://chromedriver.storage.googleapis.com/index.html\" target=\"_blank\" style=\"background-color: rgb(255, 255, 255);\">http://chromedriver.storage.googleapis.com/index.html</a></p><p><br></p>', '0', '3', '1', '1', null, 'java.lang.ClassNotFoundException: net.sf.ezmorph.Morpher \r\nCould not initialize class  net.sf.json.util.JSONUtils ', 'chromedriver', '2016-11-09 17:28:36', '2016-11-09 17:28:36');
-INSERT INTO `biz_article` VALUES ('2', 'linux系统下解压war包', '1', 'flyat/article/20180331122637.png', null, '<p>网上很多人说用jar包解压，但jar命令解压时不能指定目录，推荐使用unzip解压war包。</p>\n                                <p>Linux系统中先检查是否可用unzip命令</p><pre style=\"max-width: 100%;\"><code class=\"java hljs\" codemark=\"1\">[root<span class=\"hljs-meta\">@VM</span>_83_104_centos ~]# unzip --help\n-bash: unzip: command not found</code></pre><p>需要先自行下载：<span style=\"font-size: inherit; background-color: rgb(248, 248, 248); color: rgb(51, 51, 51); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; white-space: pre-wrap;\">yum install zip unzip</span></p><pre style=\"max-width: 100%;\"><code class=\"java hljs\" codemark=\"1\">[root<span class=\"hljs-meta\">@VM</span>_83_104_centos ~]# yum install zip unzip\nLoaded plugins: fastestmirror, langpacks\nepel                                                                                                                                                                    | <span class=\"hljs-number\">4.3</span> kB  <span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>\nextras                                                                                                                                                                  | <span class=\"hljs-number\">3.4</span> kB  <span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>\nmysql-connectors-community                                                                                                                                              | <span class=\"hljs-number\">2.5</span> kB  <span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>\nmysql-tools-community                                                                                                                                                   | <span class=\"hljs-number\">2.5</span> kB  <span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>\nmysql56-community                                                                                                                                                       | <span class=\"hljs-number\">2.5</span> kB  <span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>\nos                                                                                                                                                                      | <span class=\"hljs-number\">3.6</span> kB  <span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>\nupdates                                                                                                                                                                 | <span class=\"hljs-number\">3.4</span> kB  <span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>\n(<span class=\"hljs-number\">1</span>/<span class=\"hljs-number\">3</span>): epel/<span class=\"hljs-number\">7</span>/x86_64/group_gz                                                                                                                                           | <span class=\"hljs-number\">170</span> kB  <span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>\n(<span class=\"hljs-number\">2</span>/<span class=\"hljs-number\">3</span>): epel/<span class=\"hljs-number\">7</span>/x86_64/updateinfo                                                                                                                                         | <span class=\"hljs-number\">673</span> kB  <span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>\n(<span class=\"hljs-number\">3</span>/<span class=\"hljs-number\">3</span>): epel/<span class=\"hljs-number\">7</span>/x86_64/primary_db                                                                                                                                         | <span class=\"hljs-number\">4.3</span> MB  <span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>:<span class=\"hljs-number\">00</span>\nLoading mirror speeds from cached hostfile\nPackage zip-<span class=\"hljs-number\">3.0</span>-<span class=\"hljs-number\">10</span>.el7.x86_64 already installed and latest version\nPackage unzip-<span class=\"hljs-number\">6.0</span>-<span class=\"hljs-number\">15</span>.el7.x86_64 already installed and latest version\nNothing to do</code></pre><p>查看unzip命令的帮助</p><pre style=\"max-width: 100%;\"><code class=\"java hljs\" codemark=\"1\">[root<span class=\"hljs-meta\">@VM</span>_83_104_centos ~]# unzip --help\nUnZip <span class=\"hljs-number\">6.00</span> of <span class=\"hljs-number\">20</span> April <span class=\"hljs-number\">2009</span>, by Info-ZIP.  Maintained by C. Spieler.  Send\nbug reports using http:<span class=\"hljs-comment\">//www.info-zip.org/zip-bug.html; see README for details.</span>\n\nUsage: unzip [-Z] [-opts[modifiers]] file[.zip] [list] [-x xlist] [-d exdir]\n  Default action is to extract files in list, except those in xlist, to exdir;\n  file[.zip] may be a wildcard.  -Z =&gt; <span class=\"hljs-function\">ZipInfo <span class=\"hljs-title\">mode</span> <span class=\"hljs-params\">(<span class=\"hljs-string\">\"unzip -Z\"</span> <span class=\"hljs-keyword\">for</span> usage)</span>.\n\n  -p  extract files to pipe, no messages     -l  list <span class=\"hljs-title\">files</span> <span class=\"hljs-params\">(<span class=\"hljs-keyword\">short</span> format)</span>\n  -f  freshen existing files, create none    -t  test compressed archive data\n  -u  update files, create <span class=\"hljs-keyword\">if</span> necessary      -z  display archive comment only\n  -v  list verbosely/show version info       -T  timestamp archive to latest\n  -x  exclude files that <span class=\"hljs-title\">follow</span> <span class=\"hljs-params\">(in xlist)</span>   -d  extract files into exdir\nmodifiers:\n  -n  never overwrite existing files         -q  quiet <span class=\"hljs-title\">mode</span> <span class=\"hljs-params\">(-qq =&gt; quieter)</span>\n  -o  overwrite files WITHOUT prompting      -a  auto-convert any text files\n  -j  junk <span class=\"hljs-title\">paths</span> <span class=\"hljs-params\">(do not make directories)</span>   -aa treat ALL files as text\n  -U  use escapes <span class=\"hljs-keyword\">for</span> all non-ASCII Unicode  -UU ignore any Unicode fields\n  -C  match filenames <span class=\"hljs-keyword\">case</span>-insensitively     -L  <span class=\"hljs-title\">make</span> <span class=\"hljs-params\">(some)</span> names lowercase\n  -X  restore UID/GID info                   -V  retain VMS version numbers\n  -K  keep setuid/setgid/tacky permissions   -M  pipe through \"more\" pager\nSee \"unzip -hh\" or unzip.txt <span class=\"hljs-keyword\">for</span> more help.  Examples:\n  unzip data1 -x joe   </span>=&gt; extract all files except joe from zipfile data1.zip\n  unzip -p foo | more  =&gt; send contents of foo.zip via pipe into program more\n  unzip -fo foo ReadMe =&gt; quietly replace existing ReadMe <span class=\"hljs-keyword\">if</span> archive file newer\n[root<span class=\"hljs-meta\">@VM</span>_83_104_centos ~]#</code></pre><p>需要用到的指令：-o: -q:</p><blockquote><p>-o overwrite files WITHOUT prompting：不必先询问用户，unzip执&nbsp;行后覆盖原有文件。</p><p>-q quiet mode (-qq =&gt; quieter)：执行时不显示任何信息（静默）。</p><p>-d&nbsp;&nbsp;extract&nbsp;files&nbsp;into&nbsp;exdir：把压缩文件解压到指定目录下</p></blockquote><p>解压war文件到指定目录：将test.war文件解压到test目录下=<span style=\"font-size: inherit; background-color: rgb(248, 248, 248); color: rgb(51, 51, 51); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; white-space: pre-wrap;\">unzip -oq test.war -d test</span></p><p>最后附上一个通过jar命令操作war包的方式：</p><p>压缩war包，把当前目录下的所有文件打包到xxx.war：<span style=\"font-size: inherit; background-color: rgb(248, 248, 248); color: rgb(51, 51, 51); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; white-space: pre-wrap;\">jar -cvfM0 xxx.war ./</span></p><pre style=\"max-width: 100%;\"><code class=\"java hljs\" codemark=\"1\">-c   创建war包\n-v   显示过程信息\n-f    \n-M\n-<span class=\"hljs-number\">0</span>   这个是阿拉伯数字，只打包不压缩的意思</code></pre><p>解压war包，解压xxx.war到当前目录：<span style=\"background-color: rgb(248, 248, 248); color: rgb(51, 51, 51); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: inherit; white-space: pre-wrap;\">jar -xvf game.war</span></p>', '0', '3', '1', '1', '1', '1.通过$.post(url,param,callback,dataType);发送Ajax请求时，如果不指定dataType，\r\n\r\n前台页面中要使用eval将返回数据转换成json格式eval(\"(\" + data + \")\");//以json格式获取数据\r\n\r\n但是在火狐浏览器中会返回的data为[object XMLDocument]', '解压war包，linux，uzip命令', '2016-11-09 22:24:45', '2016-11-09 22:24:45');
-INSERT INTO `biz_article` VALUES ('3', '关于ajax请求 的处理方式', '1', 'flyat/article/20180331145644.png', null, '<p>1.通过<span style=\"background-color: rgb(248, 248, 248); color: rgb(51, 51, 51); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: inherit; white-space: pre-wrap;\">$.post(url,param,callback,dataType);</span>发送Ajax请求时，如果不指定dataType，</p><p>前台页面中要使用eval将返回数据转换成json格式<span style=\"background-color: rgb(248, 248, 248); color: rgb(51, 51, 51); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: inherit; white-space: pre-wrap;\">eval(\"(\" + data + \")\");//以json格式获取数据</span></p><p>但是在火狐浏览器中会返回的data为<b>[object&nbsp;XMLDocument]</b>，\r\n</p><p><b>处理办法：</b>在服务器端的getWriter.print()；前面加上一行代码</p><pre class=\"pre-scrollable\" style=\"max-width: 100%;\"><code class=\"java hljs\" codemark=\"1\">ServletActionContext.getResponse().setContentType(<span class=\"hljs-string\">\"text/html;charset=UTF-8\"</span>);</code></pre><p>指定其相应格式，\r\n</p><p>但是如果在每个服务器端的Ajax请求方法中都手动指定相应格式，不说代码冗余，影响系统系统，单纯从规范来说，也是不可取的，\r\n</p><p>那么，就有了第二种方法：\r\n</p><p>2.指定jsp页面请求Ajax时指定其数据类型：dataType为json\r\n</p><p>&nbsp;&nbsp;&nbsp;&nbsp;例：</p><pre class=\"pre-scrollable\" style=\"max-width: 100%;\"><code class=\"javascript hljs\" codemark=\"1\">$.post(url,param,<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">data</span>)</span>{ },<span class=\"hljs-string\">\"json\"</span>);</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;这样处理后，服务器端就不需要再指定其<span style=\"background-color: rgb(248, 248, 248); color: rgb(51, 51, 51); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: inherit; white-space: pre-wrap;\">ServletActionContext.getResponse()</br>.setContentType(\"text/html;charset=UTF-8\");</span></p><p>3.也可以通过&nbsp;&nbsp;&nbsp;&nbsp;Ajax的“完整版”指定数据类型\r\n</p><pre class=\"pre-scrollable\" style=\"max-width: 100%;\"><code class=\"javascript hljs\" codemark=\"1\">$.ajax({\r\n    url: <span class=\"hljs-string\">\"\"</span> \r\n    dataType:<span class=\"hljs-string\">\"\"</span>\r\n    callback:\r\n});</code></pre>\r\n                                <p><br></p>', '0', '1', '1', '1', '1', '网上很多人说用jar包解压，但jar命令解压时不能指定目录，推荐使用unzip解压war包。\r\n\r\nLinux系统中先检查是否可用unzip命令', 'ajax请求', '2016-11-19 13:47:52', '2016-11-19 13:47:52');
-INSERT INTO `biz_article` VALUES ('4', 'java.lang.ClassNotFoundException: net.sf.ezmorph.Morpher 异常', '1', 'flyat/cover/20180331122440.png', null, '<pre class=\"pre-scrollable\" style=\"max-width: 100%;\"><code class=\"html hljs xml\" codemark=\"1\">java.lang.ClassNotFoundException: net.sf.ezmorph.Morpher \nCould not initialize class  net.sf.json.util.JSONUtils </code></pre><p>出现以上等异常，可能是使用Json缺少以下几个包中的一个：&nbsp;<br><br>ezmorph-1.0.6.jar&nbsp;<br>commons-lang 2.4&nbsp;<br>commons-beanutils 1.7.0&nbsp;<br>commons-collections 3.2&nbsp;<br>commons-logging 1.1.1</p><p><br></p>', '0', '2', '1', '1', '1', '看到网上基本没有最新的chromedriver与chrome的对应关系表，便兴起整理了一份如下，希望对大家有用', 'ClassNotFoundException: net.sf.ezmorph.Morpher', '2016-11-19 13:49:16', '2016-11-19 13:49:16');
+INSERT INTO `biz_article` VALUES ('1', '测试文章1', '1', 'flyat/article/20180331122637.png', null, '测试文章的内容', '0', '3', '1', '1', '1', '测试文章的简介', '测试文章的关键词', '2016-11-09 22:24:45', '2016-11-09 22:24:45');
+INSERT INTO `biz_article` VALUES ('2', '测试文章2', '1', 'flyat/article/20180331122637.png', null, '测试文章的内容', '0', '3', '1', '1', '1', '测试文章的简介', '测试文章的关键词', '2016-11-09 22:24:45', '2016-11-09 22:24:45');
 
 -- ----------------------------
 -- Table structure for biz_article_look
@@ -73,6 +71,8 @@ INSERT INTO `biz_article_look` VALUES ('6', '3', null, '0:0:0:0:0:0:0:1', '2018-
 INSERT INTO `biz_article_look` VALUES ('7', '3', null, '0:0:0:0:0:0:0:1', '2018-04-23 10:18:17', '2018-04-23 10:18:17', '2018-04-23 10:18:17');
 INSERT INTO `biz_article_look` VALUES ('8', '3', null, '0:0:0:0:0:0:0:1', '2018-04-23 10:19:39', '2018-04-23 10:19:39', '2018-04-23 10:19:39');
 INSERT INTO `biz_article_look` VALUES ('9', '3', null, '0:0:0:0:0:0:0:1', '2018-04-23 10:19:45', '2018-04-23 10:19:45', '2018-04-23 10:19:45');
+INSERT INTO `biz_article_look` VALUES ('10', '1', null, '0:0:0:0:0:0:0:1', '2018-05-22 11:50:14', '2018-05-22 11:50:14', '2018-05-22 11:50:14');
+INSERT INTO `biz_article_look` VALUES ('11', '1', null, '0:0:0:0:0:0:0:1', '2018-05-22 11:50:44', '2018-05-22 11:50:44', '2018-05-22 11:50:44');
 
 -- ----------------------------
 -- Table structure for biz_article_love
@@ -144,11 +144,12 @@ CREATE TABLE `biz_comment` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of biz_comment
 -- ----------------------------
+INSERT INTO `biz_comment` VALUES ('1', '1', null, '0', '843977358', '七彩狼', 'https://q1.qlogo.cn/g?b=qq&nk=843977358&s=40', '843977358@qq.com', 'https://www.zhyd.me', 'VERIFYING', '0:0:0:0:0:0:0:1', null, null, '未知', 'Windows 7', null, 'Chrome 65.0.3325.146', null, '<p>测试评论</p>', null, '0', '0', '2018-05-22 11:50:40', '2018-05-22 11:50:40');
 
 -- ----------------------------
 -- Table structure for biz_tags
@@ -220,13 +221,13 @@ CREATE TABLE `sys_config` (
   `maintenance_data` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '系统维护时间',
   `comment` tinyint(1) unsigned DEFAULT NULL COMMENT '是否开启评论',
   `qiuniu_base_path` varchar(255) DEFAULT NULL COMMENT '七牛路径',
-  `baidu_push_token`  varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '百度推送的token',
-  `wx_praise_code`  varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '微信赞赏码',
-  `zfb_praise_code`  varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '支付宝赞赏码',
-  `baidu_api_ak`  varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '百度api授权AK(获取地址：http://lbsyun.baidu.com/apiconsole/key)',
-  `qiniu_access_key`  varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '七牛ACCESS_KEY',
-  `qiniu_secret_key`  varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '七牛SECRET_KEY',
-  `qiniu_bucket_name`  varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '七牛BUCKET_NAME'
+  `qiniu_access_key` varchar(100) DEFAULT NULL COMMENT '七牛ACCESS_KEY',
+  `qiniu_secret_key` varchar(100) DEFAULT NULL COMMENT '七牛SECRET_KEY',
+  `qiniu_bucket_name` varchar(100) DEFAULT NULL COMMENT '七牛BUCKET_NAME',
+  `baidu_push_token` varchar(100) DEFAULT NULL COMMENT '百度推送的token',
+  `wx_praise_code` varchar(200) DEFAULT NULL COMMENT '微信赞赏码',
+  `zfb_praise_code` varchar(200) DEFAULT NULL COMMENT '支付宝赞赏码',
+  `baidu_api_ak` varchar(100) DEFAULT NULL COMMENT '百度api授权AK(获取地址：http://lbsyun.baidu.com/apiconsole/key)',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -235,7 +236,7 @@ CREATE TABLE `sys_config` (
 -- ----------------------------
 -- Records of sys_config
 -- ----------------------------
-INSERT INTO `sys_config` VALUES ('1', '张亚东博客是一个程序员的个人技术博客(微博ID:@七彩狼丿)，旨在分享工作和学习中用到的技术、遇到的疑难知识点，也为了备战自己的人生。心之所向，无所不能。', '张亚东博客,程序猿,程序员,后端开发,软件开发,WEB开发,Java攻城狮,全栈工程师,原创博客,个人原创网站,个人技术博客', 'zhyd.me', 'http://localhost:8443', '博客', '一个程序员的个人博客，心之所向，无所不能', 'https://static.zhyd.me/static/img/favicon.ico', 'http://localhost:8443', '张亚东', 'yadong.zhang0415#gmail.com', '', '843977358', 'http://weibo.com/211230415', 'https://github.com/zhangyd-c', '0', '2018-01-21 23:07:52', '1', 'http://p6fs0hjph.bkt.clouddn.com/', '2018-01-19 23:07:52', '2018-02-25 18:40:48');
+INSERT INTO `sys_config` VALUES ('1', '张亚东博客是一个程序员的个人技术博客(微博ID:@七彩狼丿)，旨在分享工作和学习中用到的技术、遇到的疑难知识点，也为了备战自己的人生。心之所向，无所不能。', '张亚东博客,程序猿,程序员,后端开发,软件开发,WEB开发,Java攻城狮,全栈工程师,原创博客,个人原创网站,个人技术博客', 'zhyd.me', 'http://localhost:8443', '博客', '一个程序员的个人博客，心之所向，无所不能', 'https://static.zhyd.me/static/img/favicon.ico', 'http://localhost:8443', '张亚东', 'yadong.zhang0415#gmail.com', '', '843977358', 'http://weibo.com/211230415', 'https://github.com/zhangyd-c', '0', '2018-12-19 23:07:52', '1', null, null, null, null, null, null, null, null, '2018-01-19 23:07:52', '2018-05-21 17:34:46');
 
 -- ----------------------------
 -- Table structure for sys_link
@@ -278,11 +279,12 @@ CREATE TABLE `sys_notice` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of sys_notice
 -- ----------------------------
+INSERT INTO `sys_notice` VALUES ('1', '1', 'RELEASE', 'asd', 'asd', '2018-05-22 10:26:26', '2018-05-22 10:26:34');
 
 -- ----------------------------
 -- Table structure for sys_resources
@@ -308,27 +310,76 @@ CREATE TABLE `sys_resources` (
 -- ----------------------------
 -- Records of sys_resources
 -- ----------------------------
-INSERT INTO `sys_resources` VALUES ('1', '首页', 'menu', '/index', 'index', '0', '0', '0', '1', 'fa fa-home', '2017-12-20 16:40:06', '2018-01-14 21:02:05');
-INSERT INTO `sys_resources` VALUES ('2', '用户管理', 'menu', '/users', 'users', '0', '1', null, '1', 'fa fa-users', '2017-12-22 13:56:15', '2017-12-22 13:56:15');
-INSERT INTO `sys_resources` VALUES ('3', '系统配置', 'menu', null, null, '0', '7', null, '1', 'fa fa-cogs', '2017-12-20 16:40:06', '2017-12-20 16:40:08');
-INSERT INTO `sys_resources` VALUES ('4', '资源管理', 'menu', '/resources', 'resources', '3', '1', null, '1', null, '2017-12-22 15:31:05', '2017-12-22 15:31:05');
-INSERT INTO `sys_resources` VALUES ('5', '角色管理', 'menu', '/roles', 'roles', '3', '2', null, '1', null, '2017-12-22 15:31:27', '2017-12-22 15:31:27');
-INSERT INTO `sys_resources` VALUES ('6', '测试页面', 'menu', null, null, '0', '100', null, '1', 'fa fa-desktop', '2017-12-22 15:31:27', '2017-12-22 15:31:27');
-INSERT INTO `sys_resources` VALUES ('7', 'list', 'menu', '/list', 'anon', '6', '1', null, '1', null, '2017-12-22 15:31:27', '2017-12-22 15:31:27');
-INSERT INTO `sys_resources` VALUES ('8', 'detail', 'menu', '/details', 'anon', '6', '2', null, '1', null, '2017-12-22 15:31:27', '2017-12-22 15:31:27');
-INSERT INTO `sys_resources` VALUES ('9', 'ztree', 'menu', '/ztree', 'anon', '6', '3', null, '1', null, '2017-12-22 15:31:27', '2017-12-22 15:31:27');
-INSERT INTO `sys_resources` VALUES ('10', 'icons', 'menu', '/icons', 'anon', '6', '4', null, '1', null, '2018-01-02 15:05:57', '2018-01-02 15:05:57');
-INSERT INTO `sys_resources` VALUES ('11', '文章管理', 'menu', '', '', '0', '2', '0', '1', 'fa fa-list', '2018-01-13 21:23:00', '2018-01-13 21:23:00');
-INSERT INTO `sys_resources` VALUES ('12', '文章列表', 'menu', '/articles', 'articles', '11', '1', '0', '1', '', '2018-01-13 21:45:50', '2018-01-13 21:51:47');
-INSERT INTO `sys_resources` VALUES ('13', '发表文章', 'menu', '/article/publish', 'article:publish', '11', '2', '0', '1', '', '2018-01-13 21:48:36', '2018-01-13 21:51:53');
-INSERT INTO `sys_resources` VALUES ('14', '分类列表', 'menu', '/article/types', 'article:types', '11', '3', '0', '1', '', '2018-01-13 21:49:36', '2018-01-13 21:51:58');
-INSERT INTO `sys_resources` VALUES ('15', '标签列表', 'menu', '/article/tags', 'article:tags', '11', '4', '0', '1', '', '2018-01-13 21:50:10', '2018-01-13 21:51:41');
-INSERT INTO `sys_resources` VALUES ('16', '友情链接', 'menu', '/links', 'links', '21', '3', '0', '1', null, '2018-01-13 21:54:21', '2018-01-13 21:54:21');
-INSERT INTO `sys_resources` VALUES ('17', '评论管理', 'menu', '/comments', 'comments', '21', '4', '0', '1', null, '2018-01-14 20:25:29', '2018-01-14 20:29:56');
-INSERT INTO `sys_resources` VALUES ('18', '模板管理', 'menu', '/templates', 'templates', '21', '3', '0', '1', null, '2018-01-14 20:26:28', '2018-01-14 20:28:10');
-INSERT INTO `sys_resources` VALUES ('19', '更新记录', 'menu', '/updates', 'updates', '21', '5', '0', '1', null, '2018-01-15 17:46:23', '2018-01-15 17:49:46');
-INSERT INTO `sys_resources` VALUES ('20', '公告管理', 'menu', '/notices', 'notices', '21', '6', '0', '1', null, '2018-01-15 17:54:14', '2018-01-15 17:54:14');
-INSERT INTO `sys_resources` VALUES ('21', '网站管理', 'menu', '', null, '0', '2', '0', '1', 'fa fa-globe', '2018-01-31 11:25:13', '2018-01-31 11:25:13');
+INSERT INTO `sys_resources` VALUES ('1', '用户管理', 'menu', null, null, '0', '1', '0', '1', 'fa fa-users', '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('2', '用户列表', 'menu', '/users', 'users', '1', '1', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('3', '新增用户', 'button', null, 'user:add', '2', '2', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('4', '批量删除用户', 'button', null, 'user:batchDelete', '2', '3', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('5', '编辑用户', 'button', null, 'user:edit', '2', '4', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('6', '删除用户', 'button', null, 'user:delete', '2', '5', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('7', '分配用户角色', 'button', null, 'user:allotRole', '2', '6', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('8', '系统配置', 'menu', null, null, '0', '2', '0', '1', 'fa fa-cogs', '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('9', '资源管理', 'menu', '/resources', 'resources', '8', '1', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('10', '新增资源', 'button', null, 'resource:add', '9', '2', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('11', '批量删除资源', 'button', null, 'resource:batchDelete', '9', '3', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('12', '编辑资源', 'button', null, 'resource:edit', '9', '4', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('13', '删除资源', 'button', null, 'resource:delete', '9', '5', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('14', '角色管理', 'menu', '/roles', 'roles', '8', '2', '0', '1', '', '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('15', '新增角色', 'button', null, 'role:add', '14', '2', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('16', '批量删除角色', 'button', null, 'role:batchDelete', '14', '3', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('17', '编辑角色', 'button', null, 'role:edit', '14', '4', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('18', '删除角色', 'button', null, 'role:delete', '14', '5', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('19', '分配角色资源', 'button', null, 'role:allotResource', '14', '6', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('20', '文章管理', 'menu', null, null, '0', '3', '0', '1', 'fa fa-list', '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('21', '文章列表', 'menu', '/articles', 'articles', '20', '1', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('22', '发表文章', 'button', null, 'article:publish', '21', '2', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('23', '批量删除文章', 'button', null, 'article:batchDelete', '21', '3', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('24', '批量推送文章', 'button', null, 'article:batchPush', '21', '4', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('25', '推送文章', 'button', null, 'article:push', '21', '5', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('26', '置顶文章', 'button', null, 'article:top', '21', '6', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('27', '推荐文章', 'button', null, 'article:recommend', '21', '7', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('28', '编辑文章', 'button', null, 'article:edit', '21', '8', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('29', '删除文章', 'button', null, 'article:delete', '21', '9', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('30', '分类列表', 'menu', '/article/types', 'types', '20', '2', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('31', '添加分类', 'button', null, 'type:add', '30', '2', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('32', '批量删除分类', 'button', null, 'type:batchDelete', '30', '3', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('33', '编辑分类', 'button', null, 'type:edit', '30', '4', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('34', '删除分类', 'button', null, 'type:delete', '30', '5', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('35', '标签列表', 'menu', '/article/tags', 'tags', '20', '2', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('36', '添加标签', 'button', null, 'tag:add', '35', '2', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('37', '批量删除标签', 'button', null, 'tag:batchDelete', '35', '3', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('38', '编辑标签', 'button', null, 'tag:edit', '35', '4', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('39', '删除标签', 'button', null, 'tag:delete', '35', '5', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('40', '网站管理', 'menu', null, null, '0', '4', '0', '1', 'fa fa-globe', '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('41', '友情链接', 'menu', '/links', 'links', '40', '2', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('42', '添加友情链接', 'button', null, 'link:add', '41', '2', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('43', '批量删除友情链接', 'button', null, 'link:batchDelete', '41', '3', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('44', '编辑友情链接', 'button', null, 'link:edit', '41', '4', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('45', '删除友情链接', 'button', null, 'link:delete', '41', '5', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('46', '评论管理', 'menu', '/comments', 'comments', '40', '2', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('47', '批量删除评论', 'button', null, 'comment:batchDelete', '46', '2', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('48', '回复评论', 'button', null, 'comment:reply', '46', '3', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('49', '审核评论', 'button', null, 'comment:audit', '46', '4', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('50', '删除评论', 'button', null, 'comment:delete', '46', '5', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('51', '模板管理', 'menu', '/templates', 'templates', '40', '3', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('52', '添加模板', 'button', null, 'template:add', '51', '2', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('53', '批量删除模板', 'button', null, 'template:batchDelete', '51', '3', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('54', '编辑模板', 'button', null, 'template:edit', '51', '4', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('55', '删除模板', 'button', null, 'template:delete', '51', '5', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('56', '更新日志', 'menu', '/updates', 'updateLogs', '40', '4', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('57', '添加更新日志', 'button', null, 'updateLog:add', '51', '2', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('58', '批量删除更新日志', 'button', null, 'updateLog:batchDelete', '51', '3', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('59', '编辑更新日志', 'button', null, 'updateLog:edit', '51', '4', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('60', '删除更新日志', 'button', null, 'updateLog:delete', '51', '5', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('61', '公告管理', 'menu', '/notices', 'notices', '40', '5', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('62', '添加公告', 'button', null, 'notice:add', '61', '2', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('63', '批量删除公告', 'button', null, 'notice:batchDelete', '61', '3', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('64', '编辑公告', 'button', null, 'notice:edit', '61', '4', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('65', '删除公告', 'button', null, 'notice:delete', '61', '5', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('66', '发布公告', 'button', null, 'notice:release', '61', '6', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('67', '撤回公告', 'button', null, 'notice:withdraw', '61', '7', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('68', '测试页面', 'menu', null, null, '0', '5', '0', '1', 'fa fa-desktop', '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('69', 'icons图标', 'menu', '/icons', 'icons', '68', '2', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('70', 'shiro测试', 'menu', '/shiro', 'shiro', '68', '3', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -336,7 +387,7 @@ INSERT INTO `sys_resources` VALUES ('21', '网站管理', 'menu', '', null, '0',
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name`  varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '角色名',
+  `name` varchar(100) DEFAULT NULL COMMENT '角色名',
   `description` varchar(100) DEFAULT NULL,
   `available` tinyint(1) DEFAULT '0',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
@@ -349,6 +400,7 @@ CREATE TABLE `sys_role` (
 -- ----------------------------
 INSERT INTO `sys_role` VALUES ('1', 'role:root', '超级管理员', '1', '2017-12-20 16:40:24', '2017-12-20 16:40:26');
 INSERT INTO `sys_role` VALUES ('2', 'role:admin', '管理员', '1', '2017-12-22 13:56:39', '2017-12-22 13:56:39');
+INSERT INTO `sys_role` VALUES ('3', 'role:comment', '评论审核管理员', '1', '2018-05-22 11:37:37', '2018-05-22 11:37:37');
 
 -- ----------------------------
 -- Table structure for sys_role_resources
@@ -366,27 +418,84 @@ CREATE TABLE `sys_role_resources` (
 -- ----------------------------
 -- Records of sys_role_resources
 -- ----------------------------
-INSERT INTO `sys_role_resources` VALUES ('57', '1', '1', null, null);
-INSERT INTO `sys_role_resources` VALUES ('58', '1', '2', null, null);
-INSERT INTO `sys_role_resources` VALUES ('59', '1', '11', null, null);
-INSERT INTO `sys_role_resources` VALUES ('60', '1', '12', null, null);
-INSERT INTO `sys_role_resources` VALUES ('61', '1', '13', null, null);
-INSERT INTO `sys_role_resources` VALUES ('62', '1', '14', null, null);
-INSERT INTO `sys_role_resources` VALUES ('63', '1', '15', null, null);
-INSERT INTO `sys_role_resources` VALUES ('64', '1', '21', null, null);
-INSERT INTO `sys_role_resources` VALUES ('65', '1', '16', null, null);
-INSERT INTO `sys_role_resources` VALUES ('66', '1', '18', null, null);
-INSERT INTO `sys_role_resources` VALUES ('67', '1', '17', null, null);
-INSERT INTO `sys_role_resources` VALUES ('68', '1', '19', null, null);
-INSERT INTO `sys_role_resources` VALUES ('69', '1', '20', null, null);
-INSERT INTO `sys_role_resources` VALUES ('70', '1', '3', null, null);
-INSERT INTO `sys_role_resources` VALUES ('71', '1', '4', null, null);
-INSERT INTO `sys_role_resources` VALUES ('72', '1', '5', null, null);
-INSERT INTO `sys_role_resources` VALUES ('73', '1', '6', null, null);
-INSERT INTO `sys_role_resources` VALUES ('74', '1', '7', null, null);
-INSERT INTO `sys_role_resources` VALUES ('75', '1', '8', null, null);
-INSERT INTO `sys_role_resources` VALUES ('76', '1', '9', null, null);
-INSERT INTO `sys_role_resources` VALUES ('77', '1', '10', null, null);
+INSERT INTO `sys_role_resources` VALUES ('1', '1', '1', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('2', '1', '2', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('3', '1', '3', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('4', '1', '4', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('5', '1', '5', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('6', '1', '6', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('7', '1', '7', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('8', '1', '8', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('9', '1', '9', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('10', '1', '10', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('11', '1', '11', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('12', '1', '12', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('13', '1', '13', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('14', '1', '14', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('15', '1', '15', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('16', '1', '16', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('17', '1', '17', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('18', '1', '18', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('19', '1', '19', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('20', '1', '20', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('21', '1', '21', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('22', '1', '22', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('23', '1', '23', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('24', '1', '24', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('25', '1', '25', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('26', '1', '26', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('27', '1', '27', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('28', '1', '28', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('29', '1', '29', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('30', '1', '30', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('31', '1', '31', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('32', '1', '32', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('33', '1', '33', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('34', '1', '34', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('35', '1', '35', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('36', '1', '36', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('37', '1', '37', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('38', '1', '38', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('39', '1', '39', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('40', '1', '40', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('41', '1', '41', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('42', '1', '42', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('43', '1', '43', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('44', '1', '44', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('45', '1', '45', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('46', '1', '46', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('47', '1', '47', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('48', '1', '48', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('49', '1', '49', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('50', '1', '50', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('51', '1', '51', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('52', '1', '52', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('53', '1', '57', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('54', '1', '53', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('55', '1', '58', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('56', '1', '54', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('57', '1', '59', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('58', '1', '55', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('59', '1', '60', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('60', '1', '56', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('61', '1', '61', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('62', '1', '62', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('63', '1', '63', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('64', '1', '64', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('65', '1', '65', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('66', '1', '66', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('67', '1', '67', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('68', '1', '68', '2018-05-22 09:28:07', '2018-05-22 09:28:07');
+INSERT INTO `sys_role_resources` VALUES ('84', '2', '20', '2018-05-22 10:13:40', '2018-05-22 10:13:40');
+INSERT INTO `sys_role_resources` VALUES ('85', '2', '21', '2018-05-22 10:13:40', '2018-05-22 10:13:40');
+INSERT INTO `sys_role_resources` VALUES ('86', '2', '24', '2018-05-22 10:13:40', '2018-05-22 10:13:40');
+INSERT INTO `sys_role_resources` VALUES ('87', '2', '25', '2018-05-22 10:13:40', '2018-05-22 10:13:40');
+INSERT INTO `sys_role_resources` VALUES ('88', '2', '26', '2018-05-22 10:13:40', '2018-05-22 10:13:40');
+INSERT INTO `sys_role_resources` VALUES ('89', '2', '27', '2018-05-22 10:13:40', '2018-05-22 10:13:40');
+INSERT INTO `sys_role_resources` VALUES ('93', '3', '40', '2018-05-22 11:37:48', '2018-05-22 11:37:48');
+INSERT INTO `sys_role_resources` VALUES ('94', '3', '46', '2018-05-22 11:37:48', '2018-05-22 11:37:48');
+INSERT INTO `sys_role_resources` VALUES ('95', '3', '48', '2018-05-22 11:37:48', '2018-05-22 11:37:48');
+INSERT INTO `sys_role_resources` VALUES ('96', '3', '49', '2018-05-22 11:37:48', '2018-05-22 11:37:48');
 
 -- ----------------------------
 -- Table structure for sys_template
@@ -471,8 +580,9 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', 'root', 'CGUx1FN++xS+4wNDFeN6DA==', '超级管理员', '15151551516', '843977358@qq.com', '843977358', null, null, 'https://static.zhyd.me/static/img/favicon.ico', 'ROOT', null, null, null, 'ZHYD', null, null, '0', '0', null, null, '2018-04-10 15:26:23', '159', null, '1', '2018-01-02 09:32:15', '2018-04-10 15:26:23');
-INSERT INTO `sys_user` VALUES ('2', 'admin', 'gXp2EbyZ+sB/A6QUMhiUJQ==', '管理员', '15151551516', '843977358@qq.com', '843977358', null, null, null, 'ADMIN', null, null, null, 'ZHYD', '1', '1', '0', '0', '0:0:0:0:0:0:0:1', null, null, '0', null, '1', '2018-01-02 15:56:34', '2018-01-05 18:18:05');
+INSERT INTO `sys_user` VALUES ('1', 'root', 'CGUx1FN++xS+4wNDFeN6DA==', '超级管理员', '15151551516', '843977358@qq.com', '843977358', null, null, 'https://static.zhyd.me/static/img/favicon.ico', 'ROOT', null, null, null, 'ZHYD', null, null, '0', '0', null, '0:0:0:0:0:0:0:1', '2018-05-22 11:14:19', '177', null, '1', '2018-01-02 09:32:15', '2018-05-22 11:14:19');
+INSERT INTO `sys_user` VALUES ('2', 'admin', 'gXp2EbyZ+sB/A6QUMhiUJQ==', '管理员', '15151551516', '843977358@qq.com', '843977358', null, null, null, 'ADMIN', null, null, null, 'ZHYD', '1', '1', '0', '0', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', '2018-05-22 10:54:18', '2', null, '1', '2018-01-02 15:56:34', '2018-05-22 10:54:18');
+INSERT INTO `sys_user` VALUES ('3', 'comment-admin', 'x9qCx3yP05yWfIE5wXbCsg==', '评论审核管理员', '', '', '', null, null, null, 'ADMIN', null, null, null, 'ZHYD', '1', '1', '0', '0', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', '2018-05-22 11:43:45', '1', null, '1', '2018-05-22 11:43:22', '2018-05-22 11:43:45');
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -492,3 +602,4 @@ CREATE TABLE `sys_user_role` (
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES ('1', '1', '1', '2018-01-02 10:47:27', '2018-01-02 10:47:27');
 INSERT INTO `sys_user_role` VALUES ('2', '2', '2', '2018-01-05 18:21:02', '2018-01-05 18:21:02');
+INSERT INTO `sys_user_role` VALUES ('3', '3', '3', '2018-05-22 11:43:31', '2018-05-22 11:43:31');

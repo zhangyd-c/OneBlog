@@ -1,5 +1,5 @@
 <#include "include/macros.ftl">
-<@header title="${config.siteName} | 一个程序员的个人博客"
+<@header title="${config.siteName?if_exists} | 一个程序员的个人博客"
     keywords="${config.homeKeywords?if_exists}"
     description="${config.homeDesc?if_exists}"
     canonical="/${url?if_exists}">
