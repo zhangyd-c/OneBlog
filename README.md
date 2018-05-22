@@ -67,7 +67,8 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
    1. 数据库链接属性(可搜索`datasource`或定位到L.19) 
    2. redis配置(可搜索`redis`或定位到L.69)
    3. mail配置(可搜索`mail`或定位到L.89)
-   4. 【[七牛云](http://qiniu.com)】配置(可搜索`qiniu`或定位到L.135)
+   4. 【[七牛云](http://qiniu.com)】配置(见sys_config表中qiniu_*开头的字段)    
+   注：因为系统存在redis缓存，如果是第一次使用，可以直接修改sys_config表内容，如果不是第一次用，建议使用admin项目中的`系统配置`页面修改相关配置内容
 5. 运行项目(三种方式)
    1. 项目根目录下执行`mvn -X clean package -Dmaven.test.skip=true`编译打包，然后执行`java -jar target/blog-web.jar`
    2. 项目根目录下执行`mvn springboot:run`
@@ -81,9 +82,20 @@ _超级管理员_： 账号：root  密码：123456  （本地测试使用这个
 
 _普通管理员_： 账号：admin  密码：123456
 
+_评论审核管理员_： 账号：comment-admin  密码：123456
+
+注：后台用户的创建，尽可能做到**权限最小化**
+
 更多详情，请参考【[Wiki](https://gitee.com/yadong.zhang/DBlog/wikis)】
 
 ### 更新日志
+
+2018-05-22
+
+**修改功能：**
+
+1. 完善shiro权限（数据库、页面）。注：需要重新执行下`sys_resources`和`sys_role_resources`两张表的`insert`语句
+2. redis配置默认不含密码（鉴于大多数朋友的redis都没有密码做此修改，不过本人 **强烈建议**设置下密码）
 
 2018-05-18
 

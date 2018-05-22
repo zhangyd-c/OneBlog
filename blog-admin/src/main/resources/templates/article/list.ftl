@@ -11,13 +11,19 @@
                 <div class="x_content">
                     <div class="<#--table-responsive-->">
                         <div class="btn-group hidden-xs" id="toolbar">
-                            <a class="btn btn-default" title="发布文章" href="/article/publish"> <i class="fa fa-plus"></i> 发布文章 </a>
-                            <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
-                                <i class="fa fa-trash-o"></i> 批量删除
-                            </button>
-                            <button id="btn_push_ids" type="button" class="btn btn-info" title="批量推送">
-                                <i class="fa fa-send-o"></i> 批量推送到百度
-                            </button>
+                            <@shiro.hasPermission name="article:publish">
+                                <a class="btn btn-default" title="发布文章" href="/article/publish"> <i class="fa fa-plus"></i> 发布文章 </a>
+                            </@shiro.hasPermission>
+                            <@shiro.hasPermission name="article:batchDelete">
+                                <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
+                                    <i class="fa fa-trash-o"></i> 批量删除
+                                </button>
+                            </@shiro.hasPermission>
+                            <@shiro.hasPermission name="article:batchPush">
+                                <button id="btn_push_ids" type="button" class="btn btn-info" title="批量推送">
+                                    <i class="fa fa-send-o"></i> 批量推送到百度
+                                </button>
+                            </@shiro.hasPermission>
                         </div>
                         <table id="tablelist">
                         </table>
@@ -39,11 +45,11 @@
     function operateFormatter(code, row, index) {
         var trId = row.id;
         var operateBtn = [
-            '<a class="btn btn-xs btn-info btn-push" title="推送" data-id="' + trId + '"><i class="fa fa-send-o"></i>推送</a>',
-            '<a class="btn btn-xs btn-success btn-top" data-id="' + trId + '"><i class="fa fa-arrow-circle-up"></i>置顶</a>',
-            '<a class="btn btn-xs btn-success btn-recommend" data-id="' + trId + '"><i class="fa fa-thumbs-o-up"></i>推荐</a>',
-            '<a class="btn btn-xs btn-primary" href="/article/update/' + trId + '"><i class="fa fa-edit"></i>编辑</a>',
-            '<a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a>'
+            '<@shiro.hasPermission name="article:push"><a class="btn btn-xs btn-info btn-push" title="推送" data-id="' + trId + '"><i class="fa fa-send-o"></i>推送</a></@shiro.hasPermission>',
+            '<@shiro.hasPermission name="article:top"><a class="btn btn-xs btn-success btn-top" data-id="' + trId + '"><i class="fa fa-arrow-circle-up"></i>置顶</a></@shiro.hasPermission>',
+            '<@shiro.hasPermission name="article:recommend"><a class="btn btn-xs btn-success btn-recommend" data-id="' + trId + '"><i class="fa fa-thumbs-o-up"></i>推荐</a></@shiro.hasPermission>',
+            '<@shiro.hasPermission name="article:edit"><a class="btn btn-xs btn-primary" href="/article/update/' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
+            '<@shiro.hasPermission name="article:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
         ];
         return operateBtn.join('');
     }

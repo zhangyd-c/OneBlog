@@ -11,9 +11,11 @@
                 <div class="x_content">
                     <div class="<#--table-responsive-->">
                         <div class="btn-group hidden-xs" id="toolbar">
-                            <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
-                                <i class="fa fa-trash-o"></i> 批量删除
-                            </button>
+                            <@shiro.hasPermission name="comment:batchDelete">
+                                <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
+                                    <i class="fa fa-trash-o"></i> 批量删除
+                                </button>
+                            </@shiro.hasPermission>
                         </div>
                         <table id="tablelist">
                         </table>
@@ -112,9 +114,9 @@
         var id = row.id;
         var sid = row.sid;
         var operateBtn = [
-            '<a class="btn btn-xs btn-primary btn-reply" data-id="' + id + '" data-sid="' + sid + '"><i class="fa fa-edit"></i>回复</a>',
-            '<a class="btn btn-xs btn-warning btn-audit" data-id="' + id + '" data-sid="' + sid + '"><i class="fa fa-edit"></i>审核</a>',
-            '<a class="btn btn-xs btn-danger btn-remove" data-id="' + id + '" data-sid="' + sid + '"><i class="fa fa-trash-o"></i>删除</a>'
+            '<@shiro.hasPermission name="comment:reply"><a class="btn btn-xs btn-primary btn-reply" data-id="' + id + '" data-sid="' + sid + '"><i class="fa fa-edit"></i>回复</a></@shiro.hasPermission>',
+            '<@shiro.hasPermission name="comment:audit"><a class="btn btn-xs btn-warning btn-audit" data-id="' + id + '" data-sid="' + sid + '"><i class="fa fa-edit"></i>审核</a></@shiro.hasPermission>',
+            '<@shiro.hasPermission name="comment:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + id + '" data-sid="' + sid + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
         ];
         return operateBtn.join('');
     }

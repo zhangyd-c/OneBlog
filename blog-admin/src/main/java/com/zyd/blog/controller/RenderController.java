@@ -34,14 +34,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 页面跳转类
@@ -164,40 +157,9 @@ public class RenderController {
         return ResultUtil.view("sysWebpage/list");
     }
 
-    @GetMapping("/list")
-    public ModelAndView list(Model model) {
-        return ResultUtil.view("list");
-    }
-
-    @GetMapping("/details")
-    public ModelAndView detail(Model model) {
-        return ResultUtil.view("detail");
-    }
-
-    @GetMapping("/ztree")
-    public ModelAndView ztree(Model model) {
-        return ResultUtil.view("ztree");
-    }
-
     @GetMapping("/icons")
     public ModelAndView icons(Model model) {
         return ResultUtil.view("icons");
-    }
-
-    @PostMapping("/getZtree")
-    @ResponseBody
-    public List<Map<String, Object>> getTree() {
-        List<Map<String, Object>> mapList = new ArrayList<Map<String, Object>>();
-        Map<String, Object> map = null;
-        for (int i = 0; i < 20; i++) {
-            map = new HashMap<>(4);
-            map.put("id", i);
-            map.put("pId", (i % 3 > 0 ? i - 1 : 0));
-            map.put("checked", (i % 3 > 0 ? i - 1 : 0) != 0);
-            map.put("name", "菜单i");
-            mapList.add(map);
-        }
-        return mapList;
     }
 
     @GetMapping("/shiro")

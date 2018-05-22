@@ -10,12 +10,16 @@
             <div class="x_content">
                 <div class="<#--table-responsive-->">
                     <div class="btn-group hidden-xs" id="toolbar">
+                        <@shiro.hasPermission name="resource:add">
                         <button id="btn_add" type="button" class="btn btn-default" title="新增资源">
                             <i class="fa fa-plus"></i> 新增资源
                         </button>
-                        <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
-                            <i class="fa fa-trash-o"></i> 批量删除
-                        </button>
+                        </@shiro.hasPermission>
+                        <@shiro.hasPermission name="resource:batchDelete">
+                            <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
+                                <i class="fa fa-trash-o"></i> 批量删除
+                            </button>
+                        </@shiro.hasPermission>
                     </div>
                     <table id="tablelist">
                     </table>
@@ -46,15 +50,16 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">资源类型: <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <select name="type" id="type" required="required" class="form-control col-md-7 col-xs-12">
+                                <option value="">请选择</option>
                                 <option value="menu">菜单</option>
                                 <option value="button">按钮</option>
                             </select>
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">父级资源: <span class="required">*</span></label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select name="parentId" id="parentId" required="required" class="form-control col-md-7 col-xs-12">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">父级资源: </label>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <select id="parentId" name="parentId" class="form-control col-md-5 col-xs-5">
                                 <option value="">请选择</option>
                                 <@zhydTag method="availableMenus">
                                     <#if availableMenus?? && availableMenus?size gt 0>
@@ -101,20 +106,8 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">是否可用 <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <ul class="list-unstyled list-inline">
-                                <li>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" class="flat" checked name="available" value="1"> 可用
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" class="flat" name="available" value="0"> 禁用
-                                        </label>
-                                    </div>
-                                </li>
+                                <li><input type="radio" class="flat" checked="checked" name="available" value="1"> 可用</li>
+                                <li><input type="radio" class="flat" name="available" value="0"> 禁用</li>
                             </ul>
                         </div>
                     </div>
@@ -122,20 +115,8 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">外部链接 <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <ul class="list-unstyled list-inline">
-                                <li>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" class="flat" checked name="external" value="0"> 否
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" class="flat" name="external" value="1"> 是
-                                        </label>
-                                    </div>
-                                </li>
+                                <li><input type="radio" class="flat" checked name="external" value="0"> 否</li>
+                                <li><input type="radio" class="flat" name="external" value="1"> 是</li>
                             </ul>
                         </div>
                     </div>
@@ -160,9 +141,9 @@
     function operateFormatter(code, row, index) {
         var trId = row.id;
         var operateBtn = [
-            '<a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a>',
+            '<@shiro.hasPermission name="resource:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
+            '<@shiro.hasPermission name="resource:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
         ];
-        operateBtn.push('<a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a>');
         return operateBtn.join('');
     }
     $(function () {
@@ -225,5 +206,6 @@
         $.tableUtil.init(options);
         //2.初始化Button的点击事件
         $.buttonUtil.init(options);
+
     });
 </script>

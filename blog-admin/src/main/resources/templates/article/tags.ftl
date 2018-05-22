@@ -11,12 +11,16 @@
                 <div class="x_content">
                     <div class="<#--table-responsive-->">
                         <div class="btn-group hidden-xs" id="toolbar">
-                            <button id="btn_add" type="button" class="btn btn-default" title="新增标签">
-                                <i class="fa fa-plus"></i> 新增标签
-                            </button>
+                        <@shiro.hasPermission name="tag:add">
+                        <button id="btn_add" type="button" class="btn btn-default" title="新增标签">
+                            <i class="fa fa-plus"></i> 新增标签
+                        </button>
+                        </@shiro.hasPermission>
+                        <@shiro.hasPermission name="tag:batchDelete">
                             <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
                                 <i class="fa fa-trash-o"></i> 批量删除
                             </button>
+                        </@shiro.hasPermission>
                         </div>
                         <table id="tablelist">
                         </table>
@@ -71,8 +75,8 @@
     function operateFormatter(code, row, index) {
         var trId = row.id;
         var operateBtn = [
-            '<a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a>',
-            '<a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a>'
+            '<@shiro.hasPermission name="tag:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
+            '<@shiro.hasPermission name="tag:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
         ];
         return operateBtn.join('');
     }
