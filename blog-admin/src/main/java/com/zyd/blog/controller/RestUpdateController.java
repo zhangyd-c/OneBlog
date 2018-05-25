@@ -19,7 +19,6 @@
  */
 package com.zyd.blog.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.UpdateRecorde;
 import com.zyd.blog.business.enums.ResponseStatus;
@@ -51,7 +50,6 @@ public class RestUpdateController {
 
     @PostMapping("/list")
     public PageResult list(UpdateRecordeConditionVO vo) {
-        PageHelper.startPage(vo.getPageNumber() - 1, vo.getPageSize());
         PageInfo<UpdateRecorde> pageInfo = updateRecordeService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }

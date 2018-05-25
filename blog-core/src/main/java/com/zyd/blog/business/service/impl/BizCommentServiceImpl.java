@@ -87,7 +87,6 @@ public class BizCommentServiceImpl implements BizCommentService {
      * @return
      */
     @Override
-//    @RedisCache
     public PageInfo<Comment> findPageBreakByCondition(CommentConditionVO vo) {
         PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
         List<BizComment> list = bizCommentMapper.findPageBreakByCondition(vo);

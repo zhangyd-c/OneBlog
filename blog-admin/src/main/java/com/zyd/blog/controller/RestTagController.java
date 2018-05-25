@@ -19,7 +19,6 @@
  */
 package com.zyd.blog.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.Tags;
 import com.zyd.blog.business.enums.ResponseStatus;
@@ -51,7 +50,6 @@ public class RestTagController {
 
     @PostMapping("/list")
     public PageResult list(TagsConditionVO vo) {
-        PageHelper.startPage(vo.getPageNumber() - 1, vo.getPageSize());
         PageInfo<Tags> pageInfo = tagsService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }

@@ -20,7 +20,6 @@
 package com.zyd.blog.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.Article;
 import com.zyd.blog.business.entity.Config;
@@ -64,7 +63,6 @@ public class RestArticleController {
     @RequiresPermissions("articles")
     @PostMapping("/list")
     public PageResult list(ArticleConditionVO vo) {
-        PageHelper.startPage(vo.getPageNumber() - 1, vo.getPageSize());
         PageInfo<Article> pageInfo = articleService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }

@@ -72,7 +72,6 @@ public class SysLinkServiceImpl implements SysLinkService {
      * @return
      */
     @Override
-    @RedisCache
     public PageInfo<Link> findPageBreakByCondition(LinkConditionVO vo) {
         PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
         List<SysLink> list = sysLinkMapper.findPageBreakByCondition(vo);
@@ -172,11 +171,6 @@ public class SysLinkServiceImpl implements SysLinkService {
             throw new ZhydLinkException("贵站暂未添加本站友情链接！请先添加本站友链后重新提交申请！");
         }
 
-//        if (LinksUtil.checkFavicon(link.getFavicon())) {
-//            bo.setFavicon(link.getFavicon());
-//        } else {
-//            bo.setFavicon(link.getFavicon());
-//        }
         link.setSource(LinkSourceEnum.AUTOMATIC);
         link.setStatus(true);
         if(!StringUtils.isEmpty(link.getEmail())){
