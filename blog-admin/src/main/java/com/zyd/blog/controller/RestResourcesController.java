@@ -19,7 +19,6 @@
  */
 package com.zyd.blog.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.Resources;
 import com.zyd.blog.business.enums.ResponseStatus;
@@ -57,7 +56,6 @@ public class RestResourcesController {
 
     @PostMapping("/list")
     public PageResult getAll(ResourceConditionVO vo) {
-        PageHelper.startPage(vo.getPageNumber() - 1, vo.getPageSize());
         PageInfo<Resources> pageInfo = resourcesService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }

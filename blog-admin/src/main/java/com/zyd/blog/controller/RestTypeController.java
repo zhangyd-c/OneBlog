@@ -51,7 +51,6 @@ public class RestTypeController {
 
     @PostMapping("/list")
     public PageResult list(TypeConditionVO vo) {
-        PageHelper.startPage(vo.getPageNumber() - 1, vo.getPageSize());
         PageInfo<Type> pageInfo = typeService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }

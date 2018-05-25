@@ -19,7 +19,6 @@
  */
 package com.zyd.blog.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.Role;
 import com.zyd.blog.business.enums.ResponseStatus;
@@ -60,7 +59,6 @@ public class RestRoleController {
 
     @PostMapping("/list")
     public PageResult getAll(RoleConditionVO vo) {
-        PageHelper.startPage(vo.getPageNumber() - 1, vo.getPageSize());
         PageInfo<Role> pageInfo = roleService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }

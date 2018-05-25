@@ -51,8 +51,8 @@
                     pagination: true,                   //是否显示分页（*）
                     sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
                     pageNumber: 1,                       //初始化加载第一页，默认第一页
-                    pageSize: 10,                       //每页的记录行数（*）
-                    pageList: [10, 20, 30, 50, 100],        //可供选择的每页的行数（*）
+                    pageSize: 20,                       //每页的记录行数（*）
+                    pageList: [20, 40, 50, 100, 150],        //可供选择的每页的行数（*）
                     search: true,                       //是否启用搜索框 根据sidePagination选择从前后台搜索
                     strictSearch: true,                 //设置为 true启用 全匹配搜索，否则为模糊搜索
                     searchOnEnterKey: true,            // 设置为 true时，按回车触发搜索方法，否则自动触发搜索方法
@@ -65,7 +65,7 @@
                     // exportDataType: "basic",              //basic', 'all', 'selected'.
                     // clickToSelect: true,                //是否启用点击选中行
                     // singleSelect: true,
-                    // height: 505,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                    height: 440,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
                     onEditableSave: function (field, row, oldValue, $el) {
                         if (options.updateUrl) {
                             $.ajax({

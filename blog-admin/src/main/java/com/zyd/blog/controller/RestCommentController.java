@@ -19,7 +19,6 @@
  */
 package com.zyd.blog.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.Comment;
 import com.zyd.blog.business.entity.Config;
@@ -65,7 +64,6 @@ public class RestCommentController {
     @RequiresPermissions("comments")
     @PostMapping("/list")
     public PageResult list(CommentConditionVO vo) {
-        PageHelper.startPage(vo.getPageNumber() - 1, vo.getPageSize());
         PageInfo<Comment> pageInfo = commentService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }

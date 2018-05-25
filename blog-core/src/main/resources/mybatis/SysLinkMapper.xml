@@ -48,7 +48,9 @@
 			AND  t.home_page_display = #{homePageDisplay}
 		</if>
 		ORDER BY
-			(t. STATUS > 0) DESC, t. STATUS ASC
+			(t. STATUS > 0) DESC,
+			t. STATUS ASC,
+			t.create_time DESC
 	</select>
 </mapper>
 

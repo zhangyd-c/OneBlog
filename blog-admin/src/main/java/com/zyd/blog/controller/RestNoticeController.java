@@ -19,7 +19,6 @@
  */
 package com.zyd.blog.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.Notice;
 import com.zyd.blog.business.entity.User;
@@ -54,7 +53,6 @@ public class RestNoticeController {
 
     @PostMapping("/list")
     public PageResult list(NoticeConditionVO vo) {
-        PageHelper.startPage(vo.getPageNumber() - 1, vo.getPageSize());
         PageInfo<Notice> pageInfo = noticeService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }

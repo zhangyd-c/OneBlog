@@ -59,7 +59,6 @@ public class BizTagsServiceImpl implements BizTagsService{
      * @return
      */
     @Override
-    @RedisCache
     public PageInfo<Tags>findPageBreakByCondition(TagsConditionVO vo){
         PageHelper.startPage(vo.getPageNumber(),vo.getPageSize());
         List<BizTags>list=bizTagsMapper.findPageBreakByCondition(vo);

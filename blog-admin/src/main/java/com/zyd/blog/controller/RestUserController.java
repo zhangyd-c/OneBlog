@@ -19,7 +19,6 @@
  */
 package com.zyd.blog.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.ResponseStatus;
@@ -56,7 +55,6 @@ public class RestUserController {
 
     @PostMapping("/list")
     public PageResult list(UserConditionVO vo) {
-        PageHelper.startPage(vo.getPageNumber() - 1, vo.getPageSize());
         PageInfo<User> pageInfo = userService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }
