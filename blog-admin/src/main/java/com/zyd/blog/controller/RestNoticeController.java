@@ -30,6 +30,8 @@ import com.zyd.blog.framework.object.PageResult;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
 import com.zyd.blog.util.SessionUtil;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,12 +53,14 @@ public class RestNoticeController {
     @Autowired
     private SysNoticeService noticeService;
 
+    @RequiresPermissions("notices")
     @PostMapping("/list")
     public PageResult list(NoticeConditionVO vo) {
         PageInfo<Notice> pageInfo = noticeService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }
 
+    @RequiresPermissions("notice:add")
     @PostMapping(value = "/add")
     public ResponseVO add(Notice notice) {
         User user = SessionUtil.getUser();
@@ -67,6 +71,7 @@ public class RestNoticeController {
         return ResultUtil.success("系统通知添加成功");
     }
 
+    @RequiresPermissions(value = {"notice:batchDelete", "notice:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
@@ -78,11 +83,13 @@ public class RestNoticeController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 个系统通知");
     }
 
+    @RequiresPermissions("notice:edit")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.noticeService.getByPrimaryKey(id));
     }
 
+    @RequiresPermissions("notice:edit")
     @PostMapping("/edit")
     public ResponseVO edit(Notice notice) {
         try {
@@ -94,6 +101,7 @@ public class RestNoticeController {
         return ResultUtil.success(ResponseStatus.SUCCESS);
     }
 
+    @RequiresPermissions("notice:release")
     @PostMapping("/release/{id}")
     public ResponseVO release(@PathVariable Long id) {
         try {
@@ -108,6 +116,7 @@ public class RestNoticeController {
         return ResultUtil.success("该通知已发布，可去前台页面查看效果！");
     }
 
+    @RequiresPermissions("notice:withdraw")
     @PostMapping("/withdraw/{id}")
     public ResponseVO withdraw(@PathVariable Long id) {
         try {

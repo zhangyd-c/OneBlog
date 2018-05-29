@@ -28,6 +28,8 @@ import com.zyd.blog.business.vo.TypeConditionVO;
 import com.zyd.blog.framework.object.PageResult;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,28 +51,32 @@ public class RestTypeController {
     @Autowired
     private BizTypeService typeService;
 
+    @RequiresPermissions("types")
     @PostMapping("/list")
     public PageResult list(TypeConditionVO vo) {
         PageInfo<Type> pageInfo = typeService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }
 
+    @RequiresPermissions("types")
     @PostMapping("/listNodes")
     public PageResult listNodes(TypeConditionVO vo) {
         PageHelper.startPage(vo.getPageNumber() - 1, vo.getPageSize());
-        if (vo.getPid() == null) {
+        if(vo.getPid() == null){
             return ResultUtil.tablePage(null);
         }
         PageInfo<Type> pageInfo = typeService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }
 
+    @RequiresPermissions("type:add")
     @PostMapping(value = "/add")
     public ResponseVO add(Type type) {
         typeService.insert(type);
         return ResultUtil.success("文章类型添加成功！新类型 - " + type.getName());
     }
 
+    @RequiresPermissions(value = {"type:batchDelete", "type:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
@@ -82,11 +88,13 @@ public class RestTypeController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 个文章类型");
     }
 
+    @RequiresPermissions("type:edit")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.typeService.getByPrimaryKey(id));
     }
 
+    @RequiresPermissions("type:edit")
     @PostMapping("/edit")
     public ResponseVO edit(Type type) {
         try {

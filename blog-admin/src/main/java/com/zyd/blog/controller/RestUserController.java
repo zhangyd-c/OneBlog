@@ -29,6 +29,8 @@ import com.zyd.blog.framework.object.PageResult;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.PasswordUtil;
 import com.zyd.blog.util.ResultUtil;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,6 +55,7 @@ public class RestUserController {
     @Autowired
     private SysUserRoleService userRoleService;
 
+    @RequiresPermissions("users")
     @PostMapping("/list")
     public PageResult list(UserConditionVO vo) {
         PageInfo<User> pageInfo = userService.findPageBreakByCondition(vo);
@@ -68,6 +71,7 @@ public class RestUserController {
      *         此处获取的参数的角色id是以 “,” 分隔的字符串
      * @return
      */
+    @RequiresPermissions("user:allotRole")
     @PostMapping("/saveUserRoles")
     public ResponseVO saveUserRoles(Long userId, String roleIds) {
         if (StringUtils.isEmpty(userId)) {
@@ -77,11 +81,12 @@ public class RestUserController {
         return ResultUtil.success("成功");
     }
 
+    @RequiresPermissions("user:add")
     @PostMapping(value = "/add")
     public ResponseVO add(User user) {
         User u = userService.getByUserName(user.getUsername());
         if (u != null) {
-            return ResultUtil.error("该用户名[" + user.getUsername() + "]已存在！请更改用户名");
+            return ResultUtil.error("该用户名["+user.getUsername()+"]已存在！请更改用户名");
         }
         try {
             user.setPassword(PasswordUtil.encrypt(user.getPassword(), user.getUsername()));
@@ -93,6 +98,7 @@ public class RestUserController {
         }
     }
 
+    @RequiresPermissions(value = {"user:batchDelete", "user:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
@@ -105,11 +111,13 @@ public class RestUserController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 个用户");
     }
 
+    @RequiresPermissions("user:edit")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.userService.getByPrimaryKey(id));
     }
 
+    @RequiresPermissions("user:edit")
     @PostMapping("/edit")
     public ResponseVO edit(User user) {
         try {

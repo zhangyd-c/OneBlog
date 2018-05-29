@@ -29,6 +29,8 @@ import com.zyd.blog.core.shiro.ShiroService;
 import com.zyd.blog.framework.object.PageResult;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -57,17 +59,20 @@ public class RestRoleController {
     @Autowired
     private ShiroService shiroService;
 
+    @RequiresPermissions("roles")
     @PostMapping("/list")
     public PageResult getAll(RoleConditionVO vo) {
         PageInfo<Role> pageInfo = roleService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }
 
+    @RequiresPermissions("user:allotRole")
     @PostMapping("/rolesWithSelected")
     public ResponseVO<List<Role>> rolesWithSelected(Integer uid) {
         return ResultUtil.success(null, roleService.queryRoleListWithSelected(uid));
     }
 
+    @RequiresPermissions("role:allotResource")
     @PostMapping("/saveRoleResources")
     public ResponseVO saveRoleResources(Long roleId, String resourcesId) {
         if (StringUtils.isEmpty(roleId)) {
@@ -79,12 +84,14 @@ public class RestRoleController {
         return ResultUtil.success("成功");
     }
 
+    @RequiresPermissions("role:add")
     @PostMapping(value = "/add")
     public ResponseVO add(Role role) {
         roleService.insert(role);
         return ResultUtil.success("成功");
     }
 
+    @RequiresPermissions(value = {"role:batchDelete", "role:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
@@ -97,11 +104,13 @@ public class RestRoleController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 个角色");
     }
 
+    @RequiresPermissions("role:edit")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.roleService.getByPrimaryKey(id));
     }
 
+    @RequiresPermissions("role:edit")
     @PostMapping("/edit")
     public ResponseVO edit(Role role) {
         try {

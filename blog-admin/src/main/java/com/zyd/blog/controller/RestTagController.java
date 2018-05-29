@@ -27,6 +27,8 @@ import com.zyd.blog.business.vo.TagsConditionVO;
 import com.zyd.blog.framework.object.PageResult;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,18 +50,21 @@ public class RestTagController {
     @Autowired
     private BizTagsService tagsService;
 
+    @RequiresPermissions("tags")
     @PostMapping("/list")
     public PageResult list(TagsConditionVO vo) {
         PageInfo<Tags> pageInfo = tagsService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }
 
+    @RequiresPermissions("tag:add")
     @PostMapping(value = "/add")
     public ResponseVO add(Tags tags) {
         tagsService.insert(tags);
         return ResultUtil.success("标签添加成功！新标签 - " + tags.getName());
     }
 
+    @RequiresPermissions(value = {"tag:batchDelete", "tag:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
@@ -71,11 +76,13 @@ public class RestTagController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 个标签");
     }
 
+    @RequiresPermissions("tag:edit")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.tagsService.getByPrimaryKey(id));
     }
 
+    @RequiresPermissions("tag:edit")
     @PostMapping("/edit")
     public ResponseVO edit(Tags tags) {
         try {

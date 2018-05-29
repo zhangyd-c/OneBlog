@@ -25,6 +25,7 @@ import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.FileUtil;
 import com.zyd.blog.util.ResultUtil;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,11 +48,13 @@ public class RestConfigController {
     @Autowired
     private SysConfigService sysConfigService;
 
+    @RequiresRoles("role:root")
     @PostMapping("/get")
     public ResponseVO get() {
         return ResultUtil.success(null, sysConfigService.get());
     }
 
+    @RequiresRoles("role:root")
     @PostMapping("/edit")
     public ResponseVO edit(Config config,
                            @RequestParam(required = false) MultipartFile wxPraiseCodeFile,

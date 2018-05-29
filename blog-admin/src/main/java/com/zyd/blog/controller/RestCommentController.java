@@ -35,6 +35,7 @@ import com.zyd.blog.framework.object.PageResult;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
 import com.zyd.blog.util.SessionUtil;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -68,6 +69,7 @@ public class RestCommentController {
         return ResultUtil.tablePage(pageInfo);
     }
 
+    @RequiresPermissions("comment:reply")
     @PostMapping(value = "/reply")
     public ResponseVO reply(Comment comment) {
         try {
@@ -87,6 +89,7 @@ public class RestCommentController {
         return ResultUtil.success("成功");
     }
 
+    @RequiresPermissions(value = {"comment:batchDelete", "comment:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
@@ -98,11 +101,13 @@ public class RestCommentController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 条评论");
     }
 
+    @RequiresPermissions("comments")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.commentService.getByPrimaryKey(id));
     }
 
+    @RequiresPermissions("comments")
     @PostMapping("/edit")
     public ResponseVO edit(Comment comment) {
         try {
@@ -120,6 +125,7 @@ public class RestCommentController {
      * @param comment
      * @return
      */
+    @RequiresPermissions("comment:audit")
     @PostMapping("/audit")
     public ResponseVO audit(Comment comment, Boolean sendEmail) {
         try {
@@ -141,6 +147,7 @@ public class RestCommentController {
      * @param comment
      * @return
      */
+    @RequiresPermissions("comments")
     @PostMapping("/listVerifying")
     public ResponseVO listVerifying(Comment comment) {
         return ResultUtil.success(null, commentService.listVerifying(10));

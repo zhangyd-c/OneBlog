@@ -30,6 +30,8 @@ import com.zyd.blog.business.vo.LinkConditionVO;
 import com.zyd.blog.framework.object.PageResult;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,12 +55,14 @@ public class RestLinkController {
     @Autowired
     private MailService mailService;
 
+    @RequiresPermissions("links")
     @PostMapping("/list")
     public PageResult list(LinkConditionVO vo) {
         PageInfo<Link> pageInfo = linkService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }
 
+    @RequiresPermissions("link:add")
     @PostMapping(value = "/add")
     public ResponseVO add(Link link) {
         link.setSource(LinkSourceEnum.ADMIN);
@@ -67,6 +71,7 @@ public class RestLinkController {
         return ResultUtil.success("成功");
     }
 
+    @RequiresPermissions(value = {"link:batchDelete", "link:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
@@ -78,11 +83,13 @@ public class RestLinkController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 个友情链接");
     }
 
+    @RequiresPermissions("link:edit")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.linkService.getByPrimaryKey(id));
     }
 
+    @RequiresPermissions("link:edit")
     @PostMapping("/edit")
     public ResponseVO edit(Link link) {
         try {

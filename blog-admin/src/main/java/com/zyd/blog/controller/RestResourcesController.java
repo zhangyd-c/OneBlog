@@ -28,6 +28,8 @@ import com.zyd.blog.core.shiro.ShiroService;
 import com.zyd.blog.framework.object.PageResult;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,17 +56,20 @@ public class RestResourcesController {
     @Autowired
     private ShiroService shiroService;
 
+    @RequiresPermissions("resources")
     @PostMapping("/list")
     public PageResult getAll(ResourceConditionVO vo) {
         PageInfo<Resources> pageInfo = resourcesService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }
 
+    @RequiresPermissions("role:allotResource")
     @PostMapping("/resourcesWithSelected")
     public ResponseVO<List<Resources>> resourcesWithSelected(Long rid) {
         return ResultUtil.success(null, resourcesService.queryResourcesListWithSelected(rid));
     }
 
+    @RequiresPermissions("resource:add")
     @PostMapping(value = "/add")
     public ResponseVO add(Resources resources) {
         resourcesService.insert(resources);
@@ -73,6 +78,7 @@ public class RestResourcesController {
         return ResultUtil.success("成功");
     }
 
+    @RequiresPermissions(value = {"resource:batchDelete", "resource:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
@@ -87,11 +93,13 @@ public class RestResourcesController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 个资源");
     }
 
+    @RequiresPermissions("resource:edit")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.resourcesService.getByPrimaryKey(id));
     }
 
+    @RequiresPermissions("resource:edit")
     @PostMapping("/edit")
     public ResponseVO edit(Resources resources) {
         try {

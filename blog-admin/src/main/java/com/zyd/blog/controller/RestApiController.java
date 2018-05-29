@@ -24,6 +24,7 @@ import com.zyd.blog.business.service.BizArticleService;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.FileUtil;
 import com.zyd.blog.util.ResultUtil;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,6 +54,7 @@ public class RestApiController {
      * @param file
      * @return
      */
+    @RequiresPermissions("article:publish")
     @PostMapping("/upload2Qiniu")
     public ResponseVO upload2Qiniu(@RequestParam("file") MultipartFile file) {
         String filePath = FileUtil.uploadToQiniu(file, QiniuUploadType.SIMPLE, false);
@@ -64,6 +66,7 @@ public class RestApiController {
      *
      * @return
      */
+    @RequiresPermissions("article:publish")
     @PostMapping("/material")
     public ResponseVO material() {
         return ResultUtil.success("", articleService.listMaterial());

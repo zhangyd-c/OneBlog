@@ -34,6 +34,7 @@ import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
 import com.zyd.blog.util.UrlBuildUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -67,6 +68,7 @@ public class RestArticleController {
         return ResultUtil.tablePage(pageInfo);
     }
 
+    @RequiresPermissions(value = {"article:batchDelete", "article:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
@@ -78,23 +80,27 @@ public class RestArticleController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 篇文章");
     }
 
+    @RequiresPermissions("article:edit")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.articleService.getByPrimaryKey(id));
     }
 
+    @RequiresPermissions(value = {"article:edit", "article:publish"}, logical = Logical.OR)
     @PostMapping("/save")
     public ResponseVO edit(Article article, Long[] tags, MultipartFile file) {
         articleService.publish(article, tags, file);
         return ResultUtil.success(ResponseStatus.SUCCESS);
     }
 
+    @RequiresPermissions(value = {"article:top", "article:recommend"}, logical = Logical.OR)
     @PostMapping("/update/{type}")
     public ResponseVO update(@PathVariable("type") String type, Long id) {
         articleService.updateTopOrRecommendedById(type, id);
         return ResultUtil.success(ResponseStatus.SUCCESS);
     }
 
+    @RequiresPermissions(value = {"article:batchPush", "article:push"}, logical = Logical.OR)
     @PostMapping(value = "/pushToBaidu/{type}")
     public ResponseVO pushToBaidu(@PathVariable("type") BaiduPushTypeEnum type, Long[] ids) {
         if (null == ids) {
