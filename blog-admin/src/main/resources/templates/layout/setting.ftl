@@ -11,11 +11,6 @@
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
-                        <li>
-                            <a href="/config">
-                                <span>系统配置</span>
-                            </a>
-                        </li>
                         <@shiro.hasRole name="role:root">
                         <li>
                             <a href="/config">
