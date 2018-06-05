@@ -73,8 +73,63 @@
                                 <h2>系统日志</h2>
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="x_content">
+                            <div class="x_content" style="max-height: 200px;overflow-y: auto">
                                 <ul class="list-unstyled timeline">
+                                    <li>
+                                        <div class="block">
+                                            <div class="tags">
+                                                <a href="javascript:;" class="tag">
+                                                    <span>06月05日</span>
+                                                </a>
+                                            </div>
+                                            <div class="block_content">
+                                                <h2 class="title">
+                                                    <span>更新说明</span>
+                                                </h2>
+                                                <div class="byline">
+                                                    <span>13 hours ago</span> by <a>zyd</a>
+                                                </div>
+                                                <div class="excerpt">
+                                                    <h5>修改功能：</h5>
+                                                    <ol class="list-unstyled">
+                                                        <li>1. admin用户首页报错的问题    </li>
+                                                    </ol>
+                                                    <h5>优化功能：</h5>
+                                                    <ol class="list-unstyled">
+                                                        <li>1. ROOT用户默认拥有所有权限</li>
+                                                        <li>2. admin页面改为macro引用的方式</li>
+                                                        <li>3. 登录界面</li>
+                                                        <li>4. 日志记录</li>
+                                                    </ol>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="block">
+                                            <div class="tags">
+                                                <a href="javascript:;" class="tag">
+                                                    <span>05月25日</span>
+                                                </a>
+                                            </div>
+                                            <div class="block_content">
+                                                <h2 class="title">
+                                                    <span>更新说明</span>
+                                                </h2>
+                                                <div class="byline">
+                                                    <span>13 hours ago</span> by <a>zyd</a>
+                                                </div>
+                                                <div class="excerpt">
+                                                    <h5>修改功能：</h5>
+                                                    <ol class="list-unstyled">
+                                                        <li>1. 修复后台标签等分页失败的问题</li>
+                                                        <li>2. 修复前台自动申请友链失败的问题</li>
+                                                        <li>3. 其他一些问题</li>
+                                                    </ol>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
                                     <li>
                                         <div class="block">
                                             <div class="tags">
