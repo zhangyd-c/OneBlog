@@ -1,4 +1,5 @@
-<#include "/layout/header.ftl"/>
+<#include "/include/macros.ftl">
+<@header></@header>
 <div class="">
     <div class="clearfix"></div>
     <div class="row">
@@ -33,7 +34,7 @@
         </div>
     </div>
 </div>
-<#include "/layout/footer.ftl"/>
+<@footer>
 <script>
     /**
      * 操作按钮
@@ -235,3 +236,4 @@
         }
     });
 </script>
+</@footer>

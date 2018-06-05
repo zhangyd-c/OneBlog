@@ -206,25 +206,27 @@ $.fn.popover.Constructor.prototype.leave = function (a) {
     zhyd.initValidator();
     zhyd.initSidebar();
 
-    $.ajax({
-        cache: false,
-        type: "post",
-        url: "/comment/listVerifying",
-        success: function (json) {
-            $.alert.ajaxSuccess(json);
-            var $box = $(".msg_list > li:last-child");
-            if (!json.data) {
-                var html = '<li><a><span class="image"><img src="/assets/images/loading.gif" alt="user avatar"></span> <span><span>系统管理员</span> <span class="time">3 mins ago</span></span> <span class="message">暂无消息</span></a></li>';
+    if(hasCommentPerm){
+        $.ajax({
+            cache: false,
+            type: "post",
+            url: "/comment/listVerifying",
+            success: function (json) {
+                $.alert.ajaxSuccess(json);
+                var $box = $(".msg_list > li:last-child");
+                if (!json.data) {
+                    var html = '<li><a><span class="image"><img src="/assets/images/loading.gif" alt="user avatar"></span> <span><span>系统管理员</span> <span class="time">3 mins ago</span></span> <span class="message">暂无消息</span></a></li>';
+                    $box.before(html);
+                    return;
+                }
+                var tpl = '{{#data}}<li><a href="/comments"><span class="image"><img src="{{avatar}}" alt="user avatar"></span> <span><span>{{nickname}}</span> <span class="time">{{createTimeString}}</span></span> <span class="message">点击查看&审核</span></a></li>{{/data}}';
+                var html = Mustache.render(tpl, json);
                 $box.before(html);
-                return;
-            }
-            var tpl = '{{#data}}<li><a href="/comments"><span class="image"><img src="{{avatar}}" alt="user avatar"></span> <span><span>{{nickname}}</span> <span class="time">{{createTimeString}}</span></span> <span class="message">点击查看&审核</span></a></li>{{/data}}';
-            var html = Mustache.render(tpl, json);
-            $box.before(html);
-            $(".noticeNum").text(json.data.length);
-        },
-        error: $.alert.ajaxError
-    });
+                $(".noticeNum").text(json.data.length);
+            },
+            error: $.alert.ajaxError
+        });
+    }
 
     $("img.lazy-img").lazyload({
         placeholder: appConfig.staticPath + "/img/loading.gif",

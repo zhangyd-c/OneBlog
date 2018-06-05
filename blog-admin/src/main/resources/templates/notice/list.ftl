@@ -1,4 +1,5 @@
-<#include "/layout/header.ftl"/>
+<#include "/include/macros.ftl">
+<@header></@header>
 <div class="clearfix"></div>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -28,7 +29,6 @@
         </div>
     </div>
 </div>
-<#include "/layout/footer.ftl"/>
 <!--添加弹框-->
 <div class="modal fade" id="addOrUpdateModal" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
     <div class="modal-dialog" role="document">
@@ -80,119 +80,121 @@
     </div>
 </div>
 <!--/添加弹框-->
-<script>
-    /**
-     * 操作按钮
-     * @param code
-     * @param row
-     * @param index
-     * @returns {string}
-     */
-    function operateFormatter(code, row, index) {
-        var trId = row.id;
-        var status = row.status;
-        var html = '';
-        if (status && status == 'NOT_RELEASE') {
-            html = '<@shiro.hasPermission name="notice:release"><a class="btn btn-xs btn-primary btn-release" data-id="' + trId + '"><i class="fa fa-rocket fa-fw"></i>发布</a></@shiro.hasPermission>';
-        } else {
-            html = '<@shiro.hasPermission name="notice:withdraw"><a class="btn btn-xs btn-primary btn-withdraw" data-id="' + trId + '"><i class="fa fa-rocket fa-rotate-180 fa-fw"></i>撤回</a></@shiro.hasPermission>';
+<@footer>
+    <script>
+        /**
+         * 操作按钮
+         * @param code
+         * @param row
+         * @param index
+         * @returns {string}
+         */
+        function operateFormatter(code, row, index) {
+            var trId = row.id;
+            var status = row.status;
+            var html = '';
+            if (status && status == 'NOT_RELEASE') {
+                html = '<@shiro.hasPermission name="notice:release"><a class="btn btn-xs btn-primary btn-release" data-id="' + trId + '"><i class="fa fa-rocket fa-fw"></i>发布</a></@shiro.hasPermission>';
+            } else {
+                html = '<@shiro.hasPermission name="notice:withdraw"><a class="btn btn-xs btn-primary btn-withdraw" data-id="' + trId + '"><i class="fa fa-rocket fa-rotate-180 fa-fw"></i>撤回</a></@shiro.hasPermission>';
+            }
+            var operateBtn = [
+                html,
+                '<@shiro.hasPermission name="notice:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
+                '<@shiro.hasPermission name="notice:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
+            ];
+            return operateBtn.join('');
         }
-        var operateBtn = [
-            html,
-            '<@shiro.hasPermission name="notice:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
-            '<@shiro.hasPermission name="notice:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
-        ];
-        return operateBtn.join('');
-    }
 
-    $(function () {
-        var options = {
-            modalName: "网站通知",
-            url: "/notice/list",
-            getInfoUrl: "/notice/get/{id}",
-            updateUrl: "/notice/edit",
-            removeUrl: "/notice/remove",
-            createUrl: "/notice/add",
-            columns: [
-                {
-                    checkbox: true
-                }, {
-                    field: 'id',
-                    title: 'ID',
-                    width: '60px',
-                    editable: false
-                }, {
-                    field: 'title',
-                    title: '标题',
-                    width: '150px',
-                    editable: false,
-                    formatter: function (code) {
-                        return '<a href="' + code + '" target="_blank" rel="nofollow ">' + code + '</a>';
+        $(function () {
+            var options = {
+                modalName: "网站通知",
+                url: "/notice/list",
+                getInfoUrl: "/notice/get/{id}",
+                updateUrl: "/notice/edit",
+                removeUrl: "/notice/remove",
+                createUrl: "/notice/add",
+                columns: [
+                    {
+                        checkbox: true
+                    }, {
+                        field: 'id',
+                        title: 'ID',
+                        width: '60px',
+                        editable: false
+                    }, {
+                        field: 'title',
+                        title: '标题',
+                        width: '150px',
+                        editable: false,
+                        formatter: function (code) {
+                            return '<a href="' + code + '" target="_blank" rel="nofollow ">' + code + '</a>';
+                        }
+                    }, {
+                        field: 'content',
+                        title: '内容',
+                        width: '300px',
+                        editable: false,
+                        formatter: function (code) {
+                            return '<a href="' + code + '" target="_blank" rel="nofollow ">' + code + '</a>';
+                        }
+                    }, {
+                        field: 'status',
+                        title: '状态',
+                        editable: false,
+                        width: '60px',
+                        formatter: function (code, row, index) {
+                            return (code && code == 'RELEASE') ? "已发布" : "未发布";
+                        }
+                    }, {
+                        field: 'operate',
+                        title: '操作',
+                        width: '135px',
+                        formatter: operateFormatter //自定义方法，添加操作按钮
                     }
-                }, {
-                    field: 'content',
-                    title: '内容',
-                    width: '300px',
-                    editable: false,
-                    formatter: function (code) {
-                        return '<a href="' + code + '" target="_blank" rel="nofollow ">' + code + '</a>';
-                    }
-                }, {
-                    field: 'status',
-                    title: '状态',
-                    editable: false,
-                    width: '60px',
-                    formatter: function (code, row, index) {
-                        return (code && code == 'RELEASE') ? "已发布" : "未发布";
-                    }
-                }, {
-                    field: 'operate',
-                    title: '操作',
-                    width: '135px',
-                    formatter: operateFormatter //自定义方法，添加操作按钮
-                }
-            ]
-        };
-        //1.初始化Table
-        $.tableUtil.init(options);
-        //2.初始化Button的点击事件
-        $.buttonUtil.init(options);
+                ]
+            };
+            //1.初始化Table
+            $.tableUtil.init(options);
+            //2.初始化Button的点击事件
+            $.buttonUtil.init(options);
 
-        // 发布
-        $('#tablelist').on('click', '.btn-release', function () {
-            var $this = $(this);
-            var id = $this.data("id");
-            $.alert.confirm("确定发布该条通知？发布后将对用户可见！", function () {
-                $.ajax({
-                    type: "post",
-                    url: "/notice/release/" + id,
-                    success: function (json) {
-                        $.alert.ajaxSuccess(json);
-                        $.tableUtil.refresh();
-                    },
-                    error: $.alert.ajaxError
-                });
-            }, function () {
+            // 发布
+            $('#tablelist').on('click', '.btn-release', function () {
+                var $this = $(this);
+                var id = $this.data("id");
+                $.alert.confirm("确定发布该条通知？发布后将对用户可见！", function () {
+                    $.ajax({
+                        type: "post",
+                        url: "/notice/release/" + id,
+                        success: function (json) {
+                            $.alert.ajaxSuccess(json);
+                            $.tableUtil.refresh();
+                        },
+                        error: $.alert.ajaxError
+                    });
+                }, function () {
 
-            }, 5000);
+                }, 5000);
+            });
+            // 撤回
+            $('#tablelist').on('click', '.btn-withdraw', function () {
+                var $this = $(this);
+                var id = $this.data("id");
+                $.alert.confirm("确定撤回该条通知？撤回后将对用户不可见！", function () {
+                    $.ajax({
+                        type: "post",
+                        url: "/notice/withdraw/" + id,
+                        success: function (json) {
+                            $.alert.ajaxSuccess(json);
+                            $.tableUtil.refresh();
+                        },
+                        error: $.alert.ajaxError
+                    });
+                }, function () {
+
+                }, 5000);
+            });
         });
-        // 撤回
-        $('#tablelist').on('click', '.btn-withdraw', function () {
-            var $this = $(this);
-            var id = $this.data("id");
-            $.alert.confirm("确定撤回该条通知？撤回后将对用户不可见！", function () {
-                $.ajax({
-                    type: "post",
-                    url: "/notice/withdraw/" + id,
-                    success: function (json) {
-                        $.alert.ajaxSuccess(json);
-                        $.tableUtil.refresh();
-                    },
-                    error: $.alert.ajaxError
-                });
-            }, function () {
-
-            }, 5000);
-        });
-    });
-</script>
+    </script>
+</@footer>

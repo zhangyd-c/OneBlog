@@ -80,7 +80,7 @@ public class RestArticleController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 篇文章");
     }
 
-    @RequiresPermissions("article:edit")
+    @RequiresPermissions("article:get")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.articleService.getByPrimaryKey(id));

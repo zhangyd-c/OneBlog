@@ -76,7 +76,7 @@ public class RestTagController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 个标签");
     }
 
-    @RequiresPermissions("tag:edit")
+    @RequiresPermissions("tag:get")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.tagsService.getByPrimaryKey(id));

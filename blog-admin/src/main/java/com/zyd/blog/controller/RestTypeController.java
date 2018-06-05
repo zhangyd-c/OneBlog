@@ -88,7 +88,7 @@ public class RestTypeController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 个文章类型");
     }
 
-    @RequiresPermissions("type:edit")
+    @RequiresPermissions("type:get")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.typeService.getByPrimaryKey(id));

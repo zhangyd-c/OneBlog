@@ -104,7 +104,7 @@ public class RestRoleController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 个角色");
     }
 
-    @RequiresPermissions("role:edit")
+    @RequiresPermissions("role:get")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.roleService.getByPrimaryKey(id));

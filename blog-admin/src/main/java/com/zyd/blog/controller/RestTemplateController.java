@@ -76,7 +76,7 @@ public class RestTemplateController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 个模板");
     }
 
-    @RequiresPermissions("template:edit")
+    @RequiresPermissions("template:get")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.templateService.getByPrimaryKey(id));

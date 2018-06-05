@@ -83,7 +83,7 @@ public class RestNoticeController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 个系统通知");
     }
 
-    @RequiresPermissions("notice:edit")
+    @RequiresPermissions("notice:get")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.noticeService.getByPrimaryKey(id));

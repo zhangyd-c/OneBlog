@@ -1,4 +1,5 @@
-<#include "/layout/header.ftl"/>
+<#include "/include/macros.ftl">
+<@header></@header>
 <div class="clearfix"></div>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -28,7 +29,6 @@
         </div>
     </div>
 </div>
-<#include "/layout/footer.ftl"/>
 <!--添加资源弹框-->
 <div class="modal fade" id="addOrUpdateModal" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
     <div class="modal-dialog" role="document">
@@ -130,82 +130,84 @@
     </div>
 </div>
 <!--/添加资源弹框-->
-<script>
-    /**
-     * 操作按钮
-     * @param code
-     * @param row
-     * @param index
-     * @returns {string}
-     */
-    function operateFormatter(code, row, index) {
-        var trId = row.id;
-        var operateBtn = [
-            '<@shiro.hasPermission name="resource:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
-            '<@shiro.hasPermission name="resource:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
-        ];
-        return operateBtn.join('');
-    }
-    $(function () {
-        var options = {
-            url: "/resources/list",
-            getInfoUrl: "/resources/get/{id}",
-            updateUrl: "/resources/edit",
-            removeUrl: "/resources/remove",
-            createUrl: "/resources/add",
-            saveRolesUrl: "/resources/saveRoleResources",
-            columns: [{
-                checkbox: true
-            }, {
-                field: 'name',
-                title: '资源名',
-                editable: true
-            }, {
-                field: 'type',
-                title: '资源类型',
-                editable: true,
-                formatter: function (code) {
-                    return code == 'menu' ? '菜单' : '按钮';
-                }
-            }, {
-                field: 'url',
-                title: '资源地址',
-                editable: true
-            }, {
-                field: 'permission',
-                title: '资源权限',
-                editable: true
-            }, {
-                field: 'parent.name',
-                title: '父级资源',
-                editable: false
-            }, {
-                field: 'icon',
-                title: '资源图标',
-                editable: true
-            }, {
-                field: 'sort',
-                title: '排序',
-                editable: true
-            }, {
-                field: 'external',
-                title: '外部资源',
-                editable: false
-            }, {
-                field: 'available',
-                title: '可用',
-                editable: true
-            }, {
-                field: 'operate',
-                title: '操作',
-                formatter: operateFormatter //自定义方法，添加操作按钮
-            }],
-            modalName: "资源"
+<@footer>
+    <script>
+        /**
+         * 操作按钮
+         * @param code
+         * @param row
+         * @param index
+         * @returns {string}
+         */
+        function operateFormatter(code, row, index) {
+            var trId = row.id;
+            var operateBtn = [
+                '<@shiro.hasPermission name="resource:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
+                '<@shiro.hasPermission name="resource:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
+            ];
+            return operateBtn.join('');
         }
-        //1.初始化Table
-        $.tableUtil.init(options);
-        //2.初始化Button的点击事件
-        $.buttonUtil.init(options);
+        $(function () {
+            var options = {
+                url: "/resources/list",
+                getInfoUrl: "/resources/get/{id}",
+                updateUrl: "/resources/edit",
+                removeUrl: "/resources/remove",
+                createUrl: "/resources/add",
+                saveRolesUrl: "/resources/saveRoleResources",
+                columns: [{
+                    checkbox: true
+                }, {
+                    field: 'name',
+                    title: '资源名',
+                    editable: true
+                }, {
+                    field: 'type',
+                    title: '资源类型',
+                    editable: true,
+                    formatter: function (code) {
+                        return code == 'menu' ? '菜单' : '按钮';
+                    }
+                }, {
+                    field: 'url',
+                    title: '资源地址',
+                    editable: true
+                }, {
+                    field: 'permission',
+                    title: '资源权限',
+                    editable: true
+                }, {
+                    field: 'parent.name',
+                    title: '父级资源',
+                    editable: false
+                }, {
+                    field: 'icon',
+                    title: '资源图标',
+                    editable: true
+                }, {
+                    field: 'sort',
+                    title: '排序',
+                    editable: true
+                }, {
+                    field: 'external',
+                    title: '外部资源',
+                    editable: false
+                }, {
+                    field: 'available',
+                    title: '可用',
+                    editable: true
+                }, {
+                    field: 'operate',
+                    title: '操作',
+                    formatter: operateFormatter //自定义方法，添加操作按钮
+                }],
+                modalName: "资源"
+            }
+            //1.初始化Table
+            $.tableUtil.init(options);
+            //2.初始化Button的点击事件
+            $.buttonUtil.init(options);
 
-    });
-</script>
+        });
+    </script>
+</@footer>

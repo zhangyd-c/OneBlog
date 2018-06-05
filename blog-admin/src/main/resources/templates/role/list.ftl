@@ -1,4 +1,5 @@
-<#include "/layout/header.ftl"/>
+<#include "/include/macros.ftl">
+<@header></@header>
 <div class="clearfix"></div>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -28,7 +29,6 @@
         </div>
     </div>
 </div>
-<#include "/layout/footer.ftl"/>
 <!--弹框-->
 <div class="modal fade bs-example-modal-sm" id="selectRole" tabindex="-1" role="dialog" aria-labelledby="selectRoleLabel">
     <div class="modal-dialog modal-sm" role="document">
@@ -94,108 +94,112 @@
     </div>
 </div>
 <!--/添加角色弹框-->
-<script>
-    /**
-     * 操作按钮
-     * @param code
-     * @param row
-     * @param index
-     * @returns {string}
-     */
-    function operateFormatter(code, row, index) {
-        var trId = row.id;
-        var operateBtn = [
-            '<@shiro.hasPermission name="role:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
-            '<@shiro.hasPermission name="role:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>',
-            '<@shiro.hasPermission name="role:allotResource"><a class="btn btn-xs btn-info btn-allot" data-id="' + trId + '"><i class="fa fa-circle-thin"></i>分配资源</a></@shiro.hasPermission>'
-        ];
-        return operateBtn.join('');
-    }
+<@footer>
+    <script>
+        /**
+         * 操作按钮
+         * @param code
+         * @param row
+         * @param index
+         * @returns {string}
+         */
+        function operateFormatter(code, row, index) {
+            var trId = row.id;
+            var operateBtn = [
+                '<@shiro.hasPermission name="role:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>'
+            ];
+            if(row.name != 'role:root') {
+                operateBtn.push('<@shiro.hasPermission name="role:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>');
+                operateBtn.push('<@shiro.hasPermission name="role:allotResource"><a class="btn btn-xs btn-info btn-allot" data-id="' + trId + '"><i class="fa fa-circle-thin"></i>分配资源</a></@shiro.hasPermission>');
+            }
+            return operateBtn.join('');
+        }
 
-    $(function () {
-        var options = {
-            url: "/roles/list",
-            getInfoUrl: "/roles/get/{id}",
-            updateUrl: "/roles/edit",
-            removeUrl: "/roles/remove",
-            createUrl: "/roles/add",
-            saveRolesUrl: "/roles/saveRoleResources",
-            columns: [{
-                checkbox: true
-            }, {
-                field: 'name',
-                title: '角色名',
-                editable: false,
-            }, {
-                field: 'description',
-                title: '角色描述',
-                editable: false,
-            }, {
-                field: 'available',
-                title: '是否可用',
-                editable: true,
-                formatter: function (code) {
-                    return code ? '可用' : '不可用';
-                }
-            }, {
-                field: 'operate',
-                title: '操作',
-                formatter: operateFormatter //自定义方法，添加操作按钮
-            }],
-            modalName: "角色"
-        };
-        //1.初始化Table
-        $.tableUtil.init(options);
-        //2.初始化Button的点击事件
-        $.buttonUtil.init(options);
+        $(function () {
+            var options = {
+                url: "/roles/list",
+                getInfoUrl: "/roles/get/{id}",
+                updateUrl: "/roles/edit",
+                removeUrl: "/roles/remove",
+                createUrl: "/roles/add",
+                saveRolesUrl: "/roles/saveRoleResources",
+                columns: [{
+                    checkbox: true
+                }, {
+                    field: 'name',
+                    title: '角色名',
+                    editable: false,
+                }, {
+                    field: 'description',
+                    title: '角色描述',
+                    editable: false,
+                }, {
+                    field: 'available',
+                    title: '是否可用',
+                    editable: true,
+                    formatter: function (code) {
+                        return code ? '可用' : '不可用';
+                    }
+                }, {
+                    field: 'operate',
+                    title: '操作',
+                    formatter: operateFormatter //自定义方法，添加操作按钮
+                }],
+                modalName: "角色"
+            };
+            //1.初始化Table
+            $.tableUtil.init(options);
+            //2.初始化Button的点击事件
+            $.buttonUtil.init(options);
 
-        /* 分配资源权限 */
-        $('#tablelist').on('click', '.btn-allot', function () {
-            console.log("分配资源权限");
-            var $this = $(this);
-            var rolesId = $this.attr("data-id");
-            $.ajax({
-                async: false,
-                type: "POST",
-                data: {rid: rolesId},
-                url: '/resources/resourcesWithSelected',
-                dataType: 'json',
-                success: function (json) {
-                    var data = json.data;
-                    console.log(data);
-                    var setting = {
-                        check: {
-                            enable: true,
-                            chkboxType: {"Y": "ps", "N": "ps"},
-                            chkStyle: "checkbox"
-                        },
-                        data: {
-                            simpleData: {
-                                enable: true
-                            }
-                        },
-                        callback: {
-                            onCheck: function (event, treeId, treeNode) {
-                                console.log(treeNode.tId + ", " + treeNode.name + "," + treeNode.checked);
-                                var treeObj = $.fn.zTree.getZTreeObj(treeId);
-                                var nodes = treeObj.getCheckedNodes(true);
-                                var ids = new Array();
-                                for (var i = 0; i < nodes.length; i++) {
-                                    //获取选中节点的值
-                                    ids.push(nodes[i].id);
+            /* 分配资源权限 */
+            $('#tablelist').on('click', '.btn-allot', function () {
+                console.log("分配资源权限");
+                var $this = $(this);
+                var rolesId = $this.attr("data-id");
+                $.ajax({
+                    async: false,
+                    type: "POST",
+                    data: {rid: rolesId},
+                    url: '/resources/resourcesWithSelected',
+                    dataType: 'json',
+                    success: function (json) {
+                        var data = json.data;
+                        console.log(data);
+                        var setting = {
+                            check: {
+                                enable: true,
+                                chkboxType: {"Y": "ps", "N": "ps"},
+                                chkStyle: "checkbox"
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true
                                 }
-                                console.log(ids);
-                                console.log(rolesId);
-                                $.post(options.saveRolesUrl, {"roleId": rolesId, "resourcesId": ids.join(",")}, function (obj) { }, 'json');
+                            },
+                            callback: {
+                                onCheck: function (event, treeId, treeNode) {
+                                    console.log(treeNode.tId + ", " + treeNode.name + "," + treeNode.checked);
+                                    var treeObj = $.fn.zTree.getZTreeObj(treeId);
+                                    var nodes = treeObj.getCheckedNodes(true);
+                                    var ids = new Array();
+                                    for (var i = 0; i < nodes.length; i++) {
+                                        //获取选中节点的值
+                                        ids.push(nodes[i].id);
+                                    }
+                                    console.log(ids);
+                                    console.log(rolesId);
+                                    $.post(options.saveRolesUrl, {"roleId": rolesId, "resourcesId": ids.join(",")}, function (obj) { }, 'json');
+                                }
                             }
-                        }
-                    };
-                    var tree = $.fn.zTree.init($("#treeDemo"), setting, data);
-                    tree.expandAll(true);//全部展开
+                        };
+                        var tree = $.fn.zTree.init($("#treeDemo"), setting, data);
+                        tree.expandAll(true);//全部展开
 
-                    $('#selectRole').modal('show');
-                }
+                        $('#selectRole').modal('show');
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
+</@footer>

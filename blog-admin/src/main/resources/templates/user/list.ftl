@@ -1,4 +1,5 @@
-<#include "/layout/header.ftl"/>
+<#include "/include/macros.ftl">
+<@header></@header>
 <div class="clearfix"></div>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -28,7 +29,6 @@
         </div>
     </div>
 </div>
-<#include "/layout/footer.ftl"/>
 <!--弹框-->
 <div class="modal fade bs-example-modal-sm" id="selectRole" tabindex="-1" role="dialog" aria-labelledby="selectRoleLabel">
     <div class="modal-dialog modal-sm" role="document">
@@ -108,134 +108,136 @@
     </div>
 </div>
 <!--/添加用户弹框-->
-<script>
-    /**
-     * 操作按钮
-     * @param code
-     * @param row
-     * @param index
-     * @returns {string}
-     */
-    function operateFormatter(code, row, index) {
-        var currentUserId = '${user.id}';
-        var trUserId = row.id;
-        var operateBtn = [
-            '<@shiro.hasPermission name="user:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trUserId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
-        ];
-        if (currentUserId != trUserId) {
-            operateBtn.push('<@shiro.hasPermission name="user:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trUserId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>');
-            operateBtn.push('<@shiro.hasPermission name="user:allotRole"><a class="btn btn-xs btn-info btn-allot" data-id="' + trUserId + '"><i class="fa fa-circle-thin"></i>分配角色</a></@shiro.hasPermission>')
+<@footer>
+    <script>
+        /**
+         * 操作按钮
+         * @param code
+         * @param row
+         * @param index
+         * @returns {string}
+         */
+        function operateFormatter(code, row, index) {
+            var currentUserId = '${user.id}';
+            var trUserId = row.id;
+            var operateBtn = [
+                '<@shiro.hasPermission name="user:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trUserId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
+            ];
+            if (currentUserId != trUserId) {
+                operateBtn.push('<@shiro.hasPermission name="user:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trUserId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>');
+                operateBtn.push('<@shiro.hasPermission name="user:allotRole"><a class="btn btn-xs btn-info btn-allot" data-id="' + trUserId + '"><i class="fa fa-circle-thin"></i>分配角色</a></@shiro.hasPermission>')
+            }
+            return operateBtn.join('');
         }
-        return operateBtn.join('');
-    }
 
-    $(function () {
-        var options = {
-            url: "/user/list",
-            getInfoUrl: "/user/get/{id}",
-            updateUrl: "/user/edit",
-            removeUrl: "/user/remove",
-            createUrl: "/user/add",
-            saveRolesUrl: "/user/saveUserRoles",
-            columns: [
-                {
-                    checkbox: true
-                }, {
-                    field: 'username',
-                    title: '用户名',
-                    editable: false,
-                }, {
-                    field: 'nickname',
-                    title: '昵称',
-                    editable: true
-                }, {
-                    field: 'email',
-                    title: '邮箱',
-                    editable: true
-                }, {
-                    field: 'qq',
-                    title: 'qq',
-                    editable: true
-                }, {
-                    field: 'userType',
-                    title: '用户类型',
-                    editable: false
-                }, {
-                    field: 'statusEnum',
-                    title: '状态',
-                    editable: false
-                }, {
-                    field: 'lastLoginTime',
-                    title: '最后登录时间',
-                    editable: false,
-                    formatter: function (code) {
-                        return new Date(code).format("yyyy-MM-dd hh:mm:ss")
-                    }
-                }, {
-                    field: 'loginCount',
-                    title: '登录次数',
-                    editable: false
-                }, {
-                    field: 'operate',
-                    title: '操作',
-                    formatter: operateFormatter //自定义方法，添加操作按钮
-                }
-            ],
-            modalName: "用户"
-        };
-        //1.初始化Table
-        $.tableUtil.init(options);
-        //2.初始化Button的点击事件
-        $.buttonUtil.init(options);
-
-        /* 分配用户角色 */
-        $('#tablelist').on('click', '.btn-allot', function () {
-            console.log("分配权限");
-            var $this = $(this);
-            var userId = $this.attr("data-id");
-            $.ajax({
-                async: false,
-                type: "POST",
-                data: {uid: userId},
-                url: '/roles/rolesWithSelected',
-                dataType: 'json',
-                success: function (json) {
-                    var data = json.data;
-                    console.log(data);
-                    var setting = {
-                        check: {
-                            enable: true,
-                            chkboxType: {"Y": "ps", "N": "ps"},
-                            chkStyle: "radio"
-                        },
-                        data: {
-                            simpleData: {
-                                enable: true
-                            }
-                        },
-                        callback: {
-                            onCheck: function (event, treeId, treeNode) {
-                                console.log(treeNode.tId + ", " + treeNode.name + "," + treeNode.checked);
-                                var treeObj = $.fn.zTree.getZTreeObj(treeId);
-                                var nodes = treeObj.getCheckedNodes(true);
-                                var ids = new Array();
-                                for (var i = 0; i < nodes.length; i++) {
-                                    //获取选中节点的值
-                                    ids.push(nodes[i].id);
-                                }
-                                console.log(ids);
-                                console.log(userId);
-                                $.post(options.saveRolesUrl, {"userId": userId, "roleIds": ids.join(",")}, function (obj) {
-                                }, 'json');
-                            }
+        $(function () {
+            var options = {
+                url: "/user/list",
+                getInfoUrl: "/user/get/{id}",
+                updateUrl: "/user/edit",
+                removeUrl: "/user/remove",
+                createUrl: "/user/add",
+                saveRolesUrl: "/user/saveUserRoles",
+                columns: [
+                    {
+                        checkbox: true
+                    }, {
+                        field: 'username',
+                        title: '用户名',
+                        editable: false,
+                    }, {
+                        field: 'nickname',
+                        title: '昵称',
+                        editable: true
+                    }, {
+                        field: 'email',
+                        title: '邮箱',
+                        editable: true
+                    }, {
+                        field: 'qq',
+                        title: 'qq',
+                        editable: true
+                    }, {
+                        field: 'userType',
+                        title: '用户类型',
+                        editable: false
+                    }, {
+                        field: 'statusEnum',
+                        title: '状态',
+                        editable: false
+                    }, {
+                        field: 'lastLoginTime',
+                        title: '最后登录时间',
+                        editable: false,
+                        formatter: function (code) {
+                            return new Date(code).format("yyyy-MM-dd hh:mm:ss")
                         }
-                    };
-                    var tree = $.fn.zTree.init($("#treeDemo"), setting, data);
-                    tree.expandAll(true);//全部展开
+                    }, {
+                        field: 'loginCount',
+                        title: '登录次数',
+                        editable: false
+                    }, {
+                        field: 'operate',
+                        title: '操作',
+                        formatter: operateFormatter //自定义方法，添加操作按钮
+                    }
+                ],
+                modalName: "用户"
+            };
+            //1.初始化Table
+            $.tableUtil.init(options);
+            //2.初始化Button的点击事件
+            $.buttonUtil.init(options);
 
-                    $('#selectRole').modal('show');
-                }
+            /* 分配用户角色 */
+            $('#tablelist').on('click', '.btn-allot', function () {
+                console.log("分配权限");
+                var $this = $(this);
+                var userId = $this.attr("data-id");
+                $.ajax({
+                    async: false,
+                    type: "POST",
+                    data: {uid: userId},
+                    url: '/roles/rolesWithSelected',
+                    dataType: 'json',
+                    success: function (json) {
+                        var data = json.data;
+                        console.log(data);
+                        var setting = {
+                            check: {
+                                enable: true,
+                                chkboxType: {"Y": "ps", "N": "ps"},
+                                chkStyle: "radio"
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true
+                                }
+                            },
+                            callback: {
+                                onCheck: function (event, treeId, treeNode) {
+                                    console.log(treeNode.tId + ", " + treeNode.name + "," + treeNode.checked);
+                                    var treeObj = $.fn.zTree.getZTreeObj(treeId);
+                                    var nodes = treeObj.getCheckedNodes(true);
+                                    var ids = new Array();
+                                    for (var i = 0; i < nodes.length; i++) {
+                                        //获取选中节点的值
+                                        ids.push(nodes[i].id);
+                                    }
+                                    console.log(ids);
+                                    console.log(userId);
+                                    $.post(options.saveRolesUrl, {"userId": userId, "roleIds": ids.join(",")}, function (obj) {
+                                    }, 'json');
+                                }
+                            }
+                        };
+                        var tree = $.fn.zTree.init($("#treeDemo"), setting, data);
+                        tree.expandAll(true);//全部展开
+
+                        $('#selectRole').modal('show');
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
+</@footer>

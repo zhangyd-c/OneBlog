@@ -1,4 +1,5 @@
-<#include "/layout/header.ftl"/>
+<#include "/include/macros.ftl">
+<@header></@header>
 <div class="">
     <div class="clearfix"></div>
     <div class="row">
@@ -30,7 +31,6 @@
         </div>
     </div>
 </div>
-<#include "/layout/footer.ftl"/>
 <!--添加弹框-->
 <div class="modal fade" id="addOrUpdateModal" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
     <div class="modal-dialog" role="document">
@@ -128,86 +128,88 @@
         </div>
     </div>
 </div>
-<script>
-    /**
-     * 操作按钮
-     * @param code
-     * @param row
-     * @param index
-     * @returns {string}
-     */
-    function operateFormatter(code, row, index) {
-        var trId = row.id;
-        var operateBtn = [
-            '<@shiro.hasPermission name="type:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
-            '<@shiro.hasPermission name="type:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
-        ];
-        return operateBtn.join('');
-    }
+<@footer>
+    <script>
+        /**
+         * 操作按钮
+         * @param code
+         * @param row
+         * @param index
+         * @returns {string}
+         */
+        function operateFormatter(code, row, index) {
+            var trId = row.id;
+            var operateBtn = [
+                '<@shiro.hasPermission name="type:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
+                '<@shiro.hasPermission name="type:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
+            ];
+            return operateBtn.join('');
+        }
 
-    $(function () {
-        var options = {
-            modalName: "分类",
-            url: "/type/list",
-            getInfoUrl: "/type/get/{id}",
-            updateUrl: "/type/edit",
-            removeUrl: "/type/remove",
-            createUrl: "/type/add",
-            columns: [
-                {
-                    checkbox: true
-                }, {
-                    field: 'id',
-                    title: 'ID',
-                    width: '60px',
-                    editable: false
-                }, {
-                    field: 'name',
-                    title: '名称',
-                    width: '100px',
-                    editable: false,
-                    formatter: function (code, row, index) {
-                        var id = row.id;
-                        return '<a href="' + appConfig.wwwPath + '/type/' + id + '" target="_blank">' + row.name + '</a>';
+        $(function () {
+            var options = {
+                modalName: "分类",
+                url: "/type/list",
+                getInfoUrl: "/type/get/{id}",
+                updateUrl: "/type/edit",
+                removeUrl: "/type/remove",
+                createUrl: "/type/add",
+                columns: [
+                    {
+                        checkbox: true
+                    }, {
+                        field: 'id',
+                        title: 'ID',
+                        width: '60px',
+                        editable: false
+                    }, {
+                        field: 'name',
+                        title: '名称',
+                        width: '100px',
+                        editable: false,
+                        formatter: function (code, row, index) {
+                            var id = row.id;
+                            return '<a href="' + appConfig.wwwPath + '/type/' + id + '" target="_blank">' + row.name + '</a>';
+                        }
+                    }, {
+                        field: 'parent.name',
+                        title: '父级分类',
+                        width: '80px',
+                        editable: false
+                    }, {
+                        field: 'description',
+                        title: '描述',
+                        editable: false
+                    }, {
+                        field: 'sort',
+                        title: '排序',
+                        width: '50px',
+                        editable: false
+                    }, {
+                        field: 'available',
+                        title: '可用',
+                        width: '50px',
+                        editable: false
+                    }, {
+                        field: 'icon',
+                        title: '图标',
+                        width: '50px',
+                        editable: false,
+                        formatter: function (code, row, index) {
+                            return '<i class="' + row.icon + '"></i>';
+                        }
+                    }, {
+                        field: 'operate',
+                        title: '操作',
+                        width: '150px',
+                        formatter: operateFormatter //自定义方法，添加操作按钮
                     }
-                }, {
-                    field: 'parent.name',
-                    title: '父级分类',
-                    width: '80px',
-                    editable: false
-                }, {
-                    field: 'description',
-                    title: '描述',
-                    editable: false
-                }, {
-                    field: 'sort',
-                    title: '排序',
-                    width: '50px',
-                    editable: false
-                }, {
-                    field: 'available',
-                    title: '可用',
-                    width: '50px',
-                    editable: false
-                }, {
-                    field: 'icon',
-                    title: '图标',
-                    width: '50px',
-                    editable: false,
-                    formatter: function (code, row, index) {
-                        return '<i class="' + row.icon + '"></i>';
-                    }
-                }, {
-                    field: 'operate',
-                    title: '操作',
-                    width: '150px',
-                    formatter: operateFormatter //自定义方法，添加操作按钮
-                }
-            ]
-        };
-        //1.初始化Table
-        $.tableUtil.init(options);
-        //2.初始化Button的点击事件
-        $.buttonUtil.init(options);
-    });
-</script>
+                ]
+            };
+            //1.初始化Table
+            $.tableUtil.init(options);
+            //2.初始化Button的点击事件
+            $.buttonUtil.init(options);
+        });
+    </script>
+</@footer>

@@ -1,10 +1,12 @@
-<#include "/layout/header.ftl"/>
+<#include "/include/macros.ftl">
+<@header></@header>
 <div class="">
     <div class="clearfix"></div>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <ol class="breadcrumb">
                 <li><a href="/">首页</a></li>
+                <li><a href="/articles">文章管理</a></li>
                 <li class="active">发布文章</li>
             </ol>
             <div class="x_panel">
@@ -115,43 +117,6 @@
         </div>
     </div>
 </div>
-
-<#--<style type="text/css">
-    .img-tool{
-        width: 200px;
-    }
-    .img-tool tools{
-        opacity: 1;
-        transform: translateY(0);
-        transition: all .2s ease-in-out;
-        color: #fff;
-        text-align: center;
-        font-size: 17px;
-        padding: 3px;
-        background: rgba(0, 0, 0, .35);
-        /* margin: 72px 0 0; */
-        position: relative;
-    }
-    .img-tool tools a{
-        display: inline-block;
-        color: #FFF;
-        font-size: 18px;
-        font-weight: 400;
-        padding: 0 4px;
-    }
-</style>-->
-<#--<div>
-    <img src="http://ofndwaoqp.bkt.clouddn.com/flyat%2Farticle%2F1516606560576.jpg-pw" alt="">
-    <div class="img-tool">
-        <div class="mask">
-            <div class="tools tools-bottom">
-                <a href="javascript:void(0)"><i class="fa fa-link"></i></a>
-                <a href="javascript:void(0)"<i class="fa fa-pencil"></i></a>
-                <a href="javascript:void(0)"><i class="fa fa-times"></i></a>
-            </div>
-        </div>
-    </div>
-</div>-->
 <!--上传图片弹框-->
 <div class="modal fade" id="chooseImg" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
     <div class="modal-dialog" role="document">
@@ -192,249 +157,250 @@
     </div>
 </div>
 <!--上传图片弹框-->
-<#include "/layout/footer.ftl"/>
-<script>
-    $(function () {
-        setTimeout(function () {
-            $('.network-img-checkbox').on('ifChanged', function(event){
-                $(".choose-network-img").toggleClass("hide");
-                $(".choose-local-img").toggleClass("hide");
-            });
-        },1000);
-
-        var E = window.wangEditor;
-        var editor = new E('#editor');
-        // debug模式下，有 JS 错误会以throw Error方式提示出来
-        editor.customConfig.debug = true;
-        // 关闭粘贴样式的过滤
-        editor.customConfig.pasteFilterStyle = false;
-        // 插入网络图片的回调
-        editor.customConfig.linkImgCallback = function(url) {
-            console.log(url) // url 即插入图片的地址
-        };
-        editor.customConfig.zIndex = 100;
-
-        var $content = $('#content');
-        editor.customConfig.onchange = function (html) {
-            // 监控变化，同步更新到 textarea
-            $content.val(filterXSS(html))
-            console.log(html);
-        };
-
-        // 下面两个配置，使用其中一个即可显示“上传图片”的tab。但是两者不要同时使用！！！
-        // editor.customConfig.uploadImgShowBase64 = true   // 使用 base64 保存图片
-        // 上传图片到服务器
-        editor.customConfig.uploadImgServer = '/api/upload2Qiniu';
-        editor.customConfig.uploadFileName = 'file';
-        // 将图片大小限制为 5M
-        editor.customConfig.uploadImgMaxSize = 5 * 1024 * 1024;
-        editor.customConfig.customAlert = function (info) {
-            // info 是需要提示的内容
-            $.alert.error(info);
-        }
-        editor.customConfig.uploadImgHooks = {
-            error: function (xhr, editor) {
-                $.alert.error("图片上传出错");
-            },
-            timeout: function (xhr, editor) {
-                $.alert.error("请求超时");
-            },
-            customInsert: function (insertImg, result, editor) {
-                // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
-                // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
-                console.log('customInsert：' + insertImg, result, editor);
-                if(result.status == 200){
-                    console.log(result.data);
-                    var imgFullPath = appConfig.qiniuPath + result.data + appConfig.qiniuImgStyle;
-                    // editor.txt.append(' <a href="' + imgFullPath + '" class="showImage" title="" rel="external nofollow"><img src="' + imgFullPath + '" class="img-responsive  img-rounded" alt="" style="width: 95%;"/></a>');
-                    editor.txt.append('<img src="' + imgFullPath + '" alt="" style="width: 95%;max-width: 100%;height: auto;border-radius: 6px;"/>');
-                } else {
-                    $.alert.error(result.message);
-                }
-            }
-        };
-
-        editor.create();
-        E.fullscreen.init('#editor');
-
-        // 加载所有分类
-        function loadType(){
-            $.ajax({
-                type: "post",
-                url: "/type/listAll",
-                success: function (json) {
-                    $.alert.ajaxSuccess(json);
-                    var data = '';
-                    if(data = json.data){
-                        var typeOptions = '';
-                        for(var i = 0, len = data.length; i < len; i ++){
-                            var type = data[i];
-                            typeOptions += '<option value="' + type.id + '">' + type.name + '</option>';
-                        }
-                        $("select#typeId").html(typeOptions);
-                    }
-                    $("#refressType").removeClass("fa-spin");
-                    $.alert.showSuccessMessage("分类加载完成！");
-                },
-                error: $.alert.ajaxError
-            });
-        }
-
-        // 加载所有标签
-        function loadTag() {
-            $.ajax({
-                type: "post",
-                url: "/tag/listAll",
-                success: function (json) {
-                    $.alert.ajaxSuccess(json);
-                    var data = '';
-                    if (data = json.data) {
-                        var tagHtml = '';
-                        for (var i = 0, len = data.length; i < len; i++) {
-                            var tag = data[i];
-                            tagHtml += '<li>'
-                                    + '  <div class="checkbox">'
-                                    + '<label>'
-                                    + '<input type="checkbox" class="square" name="tags" value="' + tag.id + '"> ' + tag.name
-                                    + '       </label>'
-                                    + '   </div>'
-                                    + '</li>';
-                        }
-                        $("#tag-list").html(tagHtml);
-                        $("input[type=checkbox], input[type=radio]").iCheck({
-                            checkboxClass: 'icheckbox_square-green',
-                            radioClass: 'iradio_square-green',
-                            increaseArea: '20%' // optional
-                        });
-                    }
-                    $("#refressTag").removeClass("fa-spin");
-                    $.alert.showSuccessMessage("标签加载完成！");
-                },
-                error: $.alert.ajaxError
-            });
-        }
-        $("#refressType").click(function () {
-            $(this).addClass("fa-spin");
-            loadType();
-        });
-        $("#refressTag").click(function () {
-            $(this).addClass("fa-spin");
-            loadTag();
-        });
-        loadTag();
-        loadType();
-
-        var articleId = '${id}';
-        if(articleId){
+<@footer>
+    <script>
+        $(function () {
             setTimeout(function () {
+                $('.network-img-checkbox').on('ifChanged', function(event){
+                    $(".choose-network-img").toggleClass("hide");
+                    $(".choose-local-img").toggleClass("hide");
+                });
+            },1000);
+
+            var E = window.wangEditor;
+            var editor = new E('#editor');
+            // debug模式下，有 JS 错误会以throw Error方式提示出来
+            editor.customConfig.debug = true;
+            // 关闭粘贴样式的过滤
+            editor.customConfig.pasteFilterStyle = false;
+            // 插入网络图片的回调
+            editor.customConfig.linkImgCallback = function(url) {
+                console.log(url) // url 即插入图片的地址
+            };
+            editor.customConfig.zIndex = 100;
+
+            var $content = $('#content');
+            editor.customConfig.onchange = function (html) {
+                // 监控变化，同步更新到 textarea
+                $content.val(filterXSS(html))
+                console.log(html);
+            };
+
+            // 下面两个配置，使用其中一个即可显示“上传图片”的tab。但是两者不要同时使用！！！
+            // editor.customConfig.uploadImgShowBase64 = true   // 使用 base64 保存图片
+            // 上传图片到服务器
+            editor.customConfig.uploadImgServer = '/api/upload2Qiniu';
+            editor.customConfig.uploadFileName = 'file';
+            // 将图片大小限制为 5M
+            editor.customConfig.uploadImgMaxSize = 5 * 1024 * 1024;
+            editor.customConfig.customAlert = function (info) {
+                // info 是需要提示的内容
+                $.alert.error(info);
+            }
+            editor.customConfig.uploadImgHooks = {
+                error: function (xhr, editor) {
+                    $.alert.error("图片上传出错");
+                },
+                timeout: function (xhr, editor) {
+                    $.alert.error("请求超时");
+                },
+                customInsert: function (insertImg, result, editor) {
+                    // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+                    // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+                    console.log('customInsert：' + insertImg, result, editor);
+                    if(result.status == 200){
+                        console.log(result.data);
+                        var imgFullPath = appConfig.qiniuPath + result.data + appConfig.qiniuImgStyle;
+                        // editor.txt.append(' <a href="' + imgFullPath + '" class="showImage" title="" rel="external nofollow"><img src="' + imgFullPath + '" class="img-responsive  img-rounded" alt="" style="width: 95%;"/></a>');
+                        editor.txt.append('<img src="' + imgFullPath + '" alt="" style="width: 95%;max-width: 100%;height: auto;border-radius: 6px;"/>');
+                    } else {
+                        $.alert.error(result.message);
+                    }
+                }
+            };
+
+            editor.create();
+            E.fullscreen.init('#editor');
+
+            // 加载所有分类
+            function loadType(){
                 $.ajax({
                     type: "post",
-                    url: "/article/get/" + articleId,
+                    url: "/type/listAll",
                     success: function (json) {
                         $.alert.ajaxSuccess(json);
-                        var info = json.data;
-                        // 标签
-                        var tags = info.tags;
-                        for(var i = 0, len = tags.length; i < len ; i ++){
-                            var tag = tags[i];
-                            $("input[name=tags][value=" + tag.id + "]").iCheck('check');
+                        var data = '';
+                        if(data = json.data){
+                            var typeOptions = '';
+                            for(var i = 0, len = data.length; i < len; i ++){
+                                var type = data[i];
+                                typeOptions += '<option value="' + type.id + '">' + type.name + '</option>';
+                            }
+                            $("select#typeId").html(typeOptions);
                         }
-                        $('input[name=original]').iCheck(info.original ? 'check' : 'uncheck');
-                        $("#publishForm input[type!=checkbox], #publishForm select, #publishForm textarea").each(function () {
-                            var $this = $(this);
-                            var $div = $this.parents(".item");
-                            if ($div.hasClass("bad")) {
-                                $div.toggleClass("bad");
-                                $div.find("div.alert").remove();
-                            }
-                            if(info['coverImage']){
-                                $(".coverImage").attr('src', appConfig.qiniuPath + info['coverImage']);
-                            }
-                            var type = this.type;
-                            var thisName = $this.attr("name");
-                            var thisValue = info[thisName];
-
-                            if(thisName == 'content'){
-                                $this.val(thisValue);
-                                editor.txt.html(thisValue);
-                                return;
-                            }
-                            if (type == 'radio') {
-                                $this.iCheck(((thisValue && 1 == $this.val()) || (!thisValue && 0 == $this.val())) ? 'check' : 'uncheck')
-                            } else {
-                                if (thisValue && thisName != 'password') {
-                                    $this.val(thisValue);
-                                }
-                            }
-                        });
-                    },
-                    error: $.alert.ajaxError
-                });
-            }, 100);
-        }
-        // 点击保存
-        $(".publishBtn").click(function () {
-            if(validator.checkAll($("#publishForm"))) {
-                $("#publishForm").ajaxSubmit({
-                    type: "post",
-                    url: "/article/save",
-                    success: function (json) {
-                        $.alert.ajaxSuccessConfirm(json, function () {
-                            window.location.href = '/articles';
-                        });
+                        $("#refressType").removeClass("fa-spin");
+                        $.alert.showSuccessMessage("分类加载完成！");
                     },
                     error: $.alert.ajaxError
                 });
             }
-        });
 
-        var loadImg = false;
-        // 选择图片
-        $("#file-upload-btn").click(function () {
-            $("#chooseImg").modal('show');
-            if(!loadImg){
-                // 加载素材库
+            // 加载所有标签
+            function loadTag() {
                 $.ajax({
                     type: "post",
-                    url: "/api/material",
+                    url: "/tag/listAll",
                     success: function (json) {
                         $.alert.ajaxSuccess(json);
-                        loadImg = true;
-                        json.qiniuPath = appConfig.qiniuPath;
-                        var $box = $(".list-material");
-                        var tpl = '{{#data}}<li data-imgUrl="{{.}}"><div class="col-md-55"><img class="lazy-img" data-original="{{qiniuPath}}{{.}}" alt="image"></div></li>{{/data}}{{^data}}<li>素材库为空</li>{{/data}}';
-                        var html = Mustache.render(tpl, json);
-                        $box.html(html);
-                        $box.find("li").click(function () {
-                            $box.find("li").each(function () {
-                               $(this).removeClass("active");
-                            });
-                            var $this = $(this);
-                            $this.toggleClass("active");
-                            if($this.hasClass("active")){
-                                var imgUrl = $this.attr("data-imgUrl");
-                                console.log(imgUrl);
-                                $("#cover-img-input").val(imgUrl);
-                                $(".preview img.coverImage").attr("src", appConfig.qiniuPath + imgUrl);
+                        var data = '';
+                        if (data = json.data) {
+                            var tagHtml = '';
+                            for (var i = 0, len = data.length; i < len; i++) {
+                                var tag = data[i];
+                                tagHtml += '<li>'
+                                        + '  <div class="checkbox">'
+                                        + '<label>'
+                                        + '<input type="checkbox" class="square" name="tags" value="' + tag.id + '"> ' + tag.name
+                                        + '       </label>'
+                                        + '   </div>'
+                                        + '</li>';
                             }
-                        });
-                        $("img.lazy-img").lazyload({
-                            placeholder : appConfig.staticPath + "/img/loading.gif",
-                            effect: "fadeIn",
-                            threshold: 100
-                        });
-                        $("img.lazy-img").trigger("sporty");
+                            $("#tag-list").html(tagHtml);
+                            $("input[type=checkbox], input[type=radio]").iCheck({
+                                checkboxClass: 'icheckbox_square-green',
+                                radioClass: 'iradio_square-green',
+                                increaseArea: '20%' // optional
+                            });
+                        }
+                        $("#refressTag").removeClass("fa-spin");
+                        $.alert.showSuccessMessage("标签加载完成！");
                     },
                     error: $.alert.ajaxError
                 });
             }
-        });
+            $("#refressType").click(function () {
+                $(this).addClass("fa-spin");
+                loadType();
+            });
+            $("#refressTag").click(function () {
+                $(this).addClass("fa-spin");
+                loadTag();
+            });
+            loadTag();
+            loadType();
 
-        // 选择图片
-        $("#file-btn").click(function () {
-            var $this = $(this);
-            $("#cover-img-file").click();
+            var articleId = '${id}';
+            if(articleId){
+                setTimeout(function () {
+                    $.ajax({
+                        type: "post",
+                        url: "/article/get/" + articleId,
+                        success: function (json) {
+                            $.alert.ajaxSuccess(json);
+                            var info = json.data;
+                            // 标签
+                            var tags = info.tags;
+                            for(var i = 0, len = tags.length; i < len ; i ++){
+                                var tag = tags[i];
+                                $("input[name=tags][value=" + tag.id + "]").iCheck('check');
+                            }
+                            $('input[name=original]').iCheck(info.original ? 'check' : 'uncheck');
+                            $("#publishForm input[type!=checkbox], #publishForm select, #publishForm textarea").each(function () {
+                                var $this = $(this);
+                                var $div = $this.parents(".item");
+                                if ($div.hasClass("bad")) {
+                                    $div.toggleClass("bad");
+                                    $div.find("div.alert").remove();
+                                }
+                                if(info['coverImage']){
+                                    $(".coverImage").attr('src', appConfig.qiniuPath + info['coverImage']);
+                                }
+                                var type = this.type;
+                                var thisName = $this.attr("name");
+                                var thisValue = info[thisName];
+
+                                if(thisName == 'content'){
+                                    $this.val(thisValue);
+                                    editor.txt.html(thisValue);
+                                    return;
+                                }
+                                if (type == 'radio') {
+                                    $this.iCheck(((thisValue && 1 == $this.val()) || (!thisValue && 0 == $this.val())) ? 'check' : 'uncheck')
+                                } else {
+                                    if (thisValue && thisName != 'password') {
+                                        $this.val(thisValue);
+                                    }
+                                }
+                            });
+                        },
+                        error: $.alert.ajaxError
+                    });
+                }, 100);
+            }
+            // 点击保存
+            $(".publishBtn").click(function () {
+                if(validator.checkAll($("#publishForm"))) {
+                    $("#publishForm").ajaxSubmit({
+                        type: "post",
+                        url: "/article/save",
+                        success: function (json) {
+                            $.alert.ajaxSuccessConfirm(json, function () {
+                                window.location.href = '/articles';
+                            });
+                        },
+                        error: $.alert.ajaxError
+                    });
+                }
+            });
+
+            var loadImg = false;
+            // 选择图片
+            $("#file-upload-btn").click(function () {
+                $("#chooseImg").modal('show');
+                if(!loadImg){
+                    // 加载素材库
+                    $.ajax({
+                        type: "post",
+                        url: "/api/material",
+                        success: function (json) {
+                            $.alert.ajaxSuccess(json);
+                            loadImg = true;
+                            json.qiniuPath = appConfig.qiniuPath;
+                            var $box = $(".list-material");
+                            var tpl = '{{#data}}<li data-imgUrl="{{.}}"><div class="col-md-55"><img class="lazy-img" data-original="{{qiniuPath}}{{.}}" alt="image"></div></li>{{/data}}{{^data}}<li>素材库为空</li>{{/data}}';
+                            var html = Mustache.render(tpl, json);
+                            $box.html(html);
+                            $box.find("li").click(function () {
+                                $box.find("li").each(function () {
+                                   $(this).removeClass("active");
+                                });
+                                var $this = $(this);
+                                $this.toggleClass("active");
+                                if($this.hasClass("active")){
+                                    var imgUrl = $this.attr("data-imgUrl");
+                                    console.log(imgUrl);
+                                    $("#cover-img-input").val(imgUrl);
+                                    $(".preview img.coverImage").attr("src", appConfig.qiniuPath + imgUrl);
+                                }
+                            });
+                            $("img.lazy-img").lazyload({
+                                placeholder : appConfig.staticPath + "/img/loading.gif",
+                                effect: "fadeIn",
+                                threshold: 100
+                            });
+                            $("img.lazy-img").trigger("sporty");
+                        },
+                        error: $.alert.ajaxError
+                    });
+                }
+            });
+
+            // 选择图片
+            $("#file-btn").click(function () {
+                var $this = $(this);
+                $("#cover-img-file").click();
+            });
+            $("input[name=file]").uploadPreview({ imgContainer: ".preview", width: 190, height: 200 });
         });
-        $("input[name=file]").uploadPreview({ imgContainer: ".preview", width: 190, height: 200 });
-    });
-</script>
+    </script>
+</@footer>

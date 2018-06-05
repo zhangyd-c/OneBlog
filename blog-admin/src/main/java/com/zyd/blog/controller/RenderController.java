@@ -94,8 +94,8 @@ public class RenderController {
         return ResultUtil.view("article/publish");
     }
 
-    @RequiresPermissions("article:publish")
-    @BussinessLog("进入发表文章页")
+    @RequiresPermissions("article:edit")
+    @BussinessLog("进入更新文章页[id={1}]")
     @GetMapping("/article/update/{id}")
     public ModelAndView edit(@PathVariable("id") Long id, Model model) {
         model.addAttribute("id", id);

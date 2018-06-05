@@ -1,4 +1,5 @@
-<#include "layout/header.ftl"/>
+<#include "include/macros.ftl">
+<@header></@header>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -263,20 +264,8 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenance">首页显示维护通知</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <ul class="list-unstyled list-inline">
-                                                <li>
-                                                    <div class="radio">
-                                                        <label>
-                                                            <input type="radio" class="square" checked name="maintenance" value="1"> 显示
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="radio">
-                                                        <label>
-                                                            <input type="radio" class="square" name="maintenance" value="0"> 关闭
-                                                        </label>
-                                                    </div>
-                                                </li>
+                                                <li><input type="radio" class="square" checked name="maintenance" value="1"> 显示</li>
+                                                <li><input type="radio" class="square" name="maintenance" value="0"> 关闭</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -295,20 +284,8 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment">开启评论</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <ul class="list-unstyled list-inline">
-                                                <li>
-                                                    <div class="radio">
-                                                        <label>
-                                                            <input type="radio" class="square" checked name="comment" value="1"> 开启
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="radio">
-                                                        <label>
-                                                            <input type="radio" class="square" name="comment" value="0"> 关闭
-                                                        </label>
-                                                    </div>
-                                                </li>
+                                                <li><input type="radio" class="square" checked name="comment" value="1"> 开启</li>
+                                                <li><input type="radio" class="square" name="comment" value="0"> 关闭</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -328,36 +305,37 @@
     </div>
 </div>
 </div>
-<#include "layout/footer.ftl"/>
-<script type="text/javascript">
-    $(function () {
-        $.ajax({
-            url: '/config/get',
-            type: 'POST',
-            success: function (json) {
-                var data = json.data;
-                console.log(data);
-                $("#myTabContent").find("input, select, textarea").each(function () {
-                    clearText($(this), this.type, data);
-                });
+<@footer>
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                url: '/config/get',
+                type: 'POST',
+                success: function (json) {
+                    var data = json.data;
+                    console.log(data);
+                    $("#myTabContent").find("input, select, textarea").each(function () {
+                        clearText($(this), this.type, data);
+                    });
 
-                data.zfbPraiseCode && $("#zfbPraiseCodeFilePreview").html('<img src="' + data.qiuniuBasePath + data.zfbPraiseCode + '" alt="支付宝赞赏码" class="img-responsive img-rounded auto-shake">');
-                data.wxPraiseCode && $("#wxPraiseCodeFilePreview").html('<img src="' + data.qiuniuBasePath + data.wxPraiseCode + '" alt="微信赞赏码" class="img-responsive img-rounded auto-shake">');
-            }
+                    data.zfbPraiseCode && $("#zfbPraiseCodeFilePreview").html('<img src="' + data.qiuniuBasePath + data.zfbPraiseCode + '" alt="支付宝赞赏码" class="img-responsive img-rounded auto-shake">');
+                    data.wxPraiseCode && $("#wxPraiseCodeFilePreview").html('<img src="' + data.qiuniuBasePath + data.wxPraiseCode + '" alt="微信赞赏码" class="img-responsive img-rounded auto-shake">');
+                }
+            });
+
+            $(".saveBtn").click(function () {
+                var $this = $(this);
+                var $form = $this.parents("form");
+                if(validator.checkAll($form)) {
+                    $form.ajaxSubmit({
+                        type: "POST",
+                        url: '/config/edit',
+                        success: $.alert.ajaxSuccess,
+                        error: $.alert.ajaxError
+                    });
+                }
+            });
+
         });
-
-        $(".saveBtn").click(function () {
-            var $this = $(this);
-            var $form = $this.parents("form");
-            if(validator.checkAll($form)) {
-                $form.ajaxSubmit({
-                    type: "POST",
-                    url: '/config/edit',
-                    success: $.alert.ajaxSuccess,
-                    error: $.alert.ajaxError
-                });
-            }
-        });
-
-    });
-</script>
+    </script>
+</@footer>

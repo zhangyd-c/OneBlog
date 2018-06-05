@@ -76,7 +76,7 @@ public class RestUpdateController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 个更新记录");
     }
 
-    @RequiresPermissions("updateLog:edit")
+    @RequiresPermissions("updateLog:get")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.updateRecordeService.getByPrimaryKey(id));

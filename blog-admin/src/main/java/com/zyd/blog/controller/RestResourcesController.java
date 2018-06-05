@@ -93,7 +93,7 @@ public class RestResourcesController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 个资源");
     }
 
-    @RequiresPermissions("resource:edit")
+    @RequiresPermissions("resource:get")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.resourcesService.getByPrimaryKey(id));

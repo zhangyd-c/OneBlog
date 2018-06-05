@@ -111,7 +111,7 @@ public class RestUserController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 个用户");
     }
 
-    @RequiresPermissions("user:edit")
+    @RequiresPermissions("user:get")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.userService.getByPrimaryKey(id));

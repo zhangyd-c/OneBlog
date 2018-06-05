@@ -1,4 +1,5 @@
-<#include "/layout/header.ftl"/>
+<#include "/include/macros.ftl">
+<@header></@header>
 <div class="">
     <div class="clearfix"></div>
     <div class="row">
@@ -25,7 +26,6 @@
         </div>
     </div>
 </div>
-<#include "/layout/footer.ftl"/>
 <!--添加弹框-->
 <div class="modal fade" id="replyModal" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
     <div class="modal-dialog" role="document">
@@ -70,7 +70,6 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <select name="status" id="status" class="form-control">
                                 <option value="">请选择</option>
-                                <option value="VERIFYING">正在审核</option>
                                 <option value="APPROVED">审核通过</option>
                                 <option value="REJECT">审核失败</option>
                                 <option value="DELETED">已删除</option>
@@ -102,166 +101,168 @@
         </div>
     </div>
 </div>
-<script>
-    /**
-     * 操作按钮
-     * @param code
-     * @param row
-     * @param index
-     * @returns {string}
-     */
-    function operateFormatter(code, row, index) {
-        var id = row.id;
-        var sid = row.sid;
-        var operateBtn = [
-            '<@shiro.hasPermission name="comment:reply"><a class="btn btn-xs btn-primary btn-reply" data-id="' + id + '" data-sid="' + sid + '"><i class="fa fa-edit"></i>回复</a></@shiro.hasPermission>',
-            '<@shiro.hasPermission name="comment:audit"><a class="btn btn-xs btn-warning btn-audit" data-id="' + id + '" data-sid="' + sid + '"><i class="fa fa-edit"></i>审核</a></@shiro.hasPermission>',
-            '<@shiro.hasPermission name="comment:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + id + '" data-sid="' + sid + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
-        ];
-        return operateBtn.join('');
-    }
-
-    $(function () {
-        var options = {
-            modalName: "评论",
-            url: "/comment/list",
-            getInfoUrl: "/comment/get/{id}",
-            updateUrl: "/comment/edit",
-            removeUrl: "/comment/remove",
-            createUrl: "/comment/add",
-            columns: [
-                {
-                    checkbox: true
-                }, {
-                    field: 'avatar',
-                    title: '作者',
-                    editable: false,
-                    width: '280px',
-                    formatter: function (code, row, index) {
-                        return '<ul class="list-unstyled">' +
-                                '<li><a href="' + row.url + '" target="_blank"><img src="' + filterXSS(row.avatar) + '" style="width: 20px;border-radius: 50%;position: relative;top: -2px;"/>' + filterXSS(row.nickname) + '</a></li>' +
-                                '<li>IP: <span style="color: #a9a9a9;">'+row.ip+'</span></li>' +
-                                '<li>地址: <span style="color: #a9a9a9;">'+row.address+'</span></li>' +
-                                '<li>邮箱: <span style="color: #a9a9a9;">'+filterXSS(row.email)+'</span></li>' +
-                                '<li>设备: <span style="color: #a9a9a9;">'+row.os + ' ' + row.browser +'</span></li>' +
-                                '<li style="color: #a9a9a9;">'+row.createTimeString+'</li></ul>';
-                    }
-                }, {
-                    field: 'content',
-                    title: '内容',
-                    editable: false,
-                    formatter: function (code, row, index) {
-                        return filterXSS(row.content);
-                    }
-                }, {
-                    field: 'sid',
-                    title: '回复至',
-                    editable: false,
-                    width: '150px',
-                    formatter: function (code, row, index) {
-                        var url = appConfig.wwwPath + row.sourceUrl;
-                        return '<a href="' + url + '" target="_blank">' + row.articleTitle + '</a>';
-                    }
-                }, {
-                    field: 'support',
-                    title: '赞/踩',
-                    width: '60px',
-                    editable: false,
-                    formatter: function (code, row, index) {
-                        return row.support + "/" + row.oppose;
-                    }
-                }, {
-                    field: 'statusDesc',
-                    title: '状态',
-                    width: '70px',
-                    editable: false,
-                    formatter: function (code, row, index) {
-                        return code == '正在审核' ? '<strong style="color: red;">' + code + '</strong>' : code;
-                    }
-                }, {
-                    field: 'operate',
-                    title: '操作',
-                    width: '200px',
-                    formatter: operateFormatter //自定义方法，添加操作按钮
-                }
-            ],
-            rowStyle: function (row, index) {
-                //这里有5个取值代表5中颜色['active', 'success', 'info', 'warning', 'danger'];
-                var strclass = "";
-                if (row.status == 'REJECT'|| row.status == 'DELETED') {
-                    strclass = 'warning';
-                } else if (row.status == 'VERIFYING') {
-                    strclass = 'danger';
-                }
-                return { 'classes': strclass }
-            }
-        };
-        //1.初始化Table
-        $.tableUtil.init(options);
-        //2.初始化Button的点击事件
-        $.buttonUtil.init(options);
-
+<@footer>
+    <script>
         /**
-         * 回复
+         * 操作按钮
+         * @param code
+         * @param row
+         * @param index
+         * @returns {string}
          */
-        $('#tablelist').on('click', '.btn-reply', function () {
-            var $this = $(this);
-            $("#replyForm input,#replyForm select,#replyForm textarea").each(function () {
-                var $this = $(this);
-                clearText($this, this.type);
-            });
-            var pid = $this.attr("data-id");
-            var sid = $this.attr("data-sid");
-            $("#replyForm input[name=sid]").val(sid);
-            $("#replyForm input[name=pid]").val(pid);
-            $("#replyModal").modal('show');
-            $(".replyBtn").unbind("click");
-            $(".replyBtn").click(function () {
-                debugger
-                if (validator.checkAll($("#replyForm"))) {
-                    $.ajax({
-                        type: "post",
-                        url: "/comment/reply",
-                        data: $("#replyForm").serialize(),
-                        success: function (json) {
-                            $.alert.ajaxSuccess(json);
-                            $("#replyModal").modal('hide');
-                            $.tableUtil.refresh();
-                        },
-                        error: $.alert.ajaxError
-                    });
+        function operateFormatter(code, row, index) {
+            var id = row.id;
+            var sid = row.sid;
+            var operateBtn = [
+                '<@shiro.hasPermission name="comment:reply"><a class="btn btn-xs btn-primary btn-reply" data-id="' + id + '" data-sid="' + sid + '"><i class="fa fa-edit"></i>回复</a></@shiro.hasPermission>',
+                '<@shiro.hasPermission name="comment:audit"><a class="btn btn-xs btn-warning btn-audit" data-id="' + id + '" data-sid="' + sid + '"><i class="fa fa-edit"></i>审核</a></@shiro.hasPermission>',
+                '<@shiro.hasPermission name="comment:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + id + '" data-sid="' + sid + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
+            ];
+            return operateBtn.join('');
+        }
+
+        $(function () {
+            var options = {
+                modalName: "评论",
+                url: "/comment/list",
+                getInfoUrl: "/comment/get/{id}",
+                updateUrl: "/comment/edit",
+                removeUrl: "/comment/remove",
+                createUrl: "/comment/add",
+                columns: [
+                    {
+                        checkbox: true
+                    }, {
+                        field: 'avatar',
+                        title: '作者',
+                        editable: false,
+                        width: '280px',
+                        formatter: function (code, row, index) {
+                            return '<ul class="list-unstyled">' +
+                                    '<li><a href="' + row.url + '" target="_blank"><img src="' + filterXSS(row.avatar) + '" style="width: 20px;border-radius: 50%;position: relative;top: -2px;"/>' + filterXSS(row.nickname) + '</a></li>' +
+                                    '<li>IP: <span style="color: #a9a9a9;">'+row.ip+'</span></li>' +
+                                    '<li>地址: <span style="color: #a9a9a9;">'+row.address+'</span></li>' +
+                                    '<li>邮箱: <span style="color: #a9a9a9;">'+filterXSS(row.email)+'</span></li>' +
+                                    '<li>设备: <span style="color: #a9a9a9;">'+row.os + ' ' + row.browser +'</span></li>' +
+                                    '<li style="color: #a9a9a9;">'+row.createTimeString+'</li></ul>';
+                        }
+                    }, {
+                        field: 'content',
+                        title: '内容',
+                        editable: false,
+                        formatter: function (code, row, index) {
+                            return filterXSS(row.content);
+                        }
+                    }, {
+                        field: 'sid',
+                        title: '回复至',
+                        editable: false,
+                        width: '150px',
+                        formatter: function (code, row, index) {
+                            var url = appConfig.wwwPath + row.sourceUrl;
+                            return '<a href="' + url + '" target="_blank">' + row.articleTitle + '</a>';
+                        }
+                    }, {
+                        field: 'support',
+                        title: '赞/踩',
+                        width: '60px',
+                        editable: false,
+                        formatter: function (code, row, index) {
+                            return row.support + "/" + row.oppose;
+                        }
+                    }, {
+                        field: 'statusDesc',
+                        title: '状态',
+                        width: '70px',
+                        editable: false,
+                        formatter: function (code, row, index) {
+                            return code == '正在审核' ? '<strong style="color: red;">' + code + '</strong>' : code;
+                        }
+                    }, {
+                        field: 'operate',
+                        title: '操作',
+                        width: '200px',
+                        formatter: operateFormatter //自定义方法，添加操作按钮
+                    }
+                ],
+                rowStyle: function (row, index) {
+                    //这里有5个取值代表5中颜色['active', 'success', 'info', 'warning', 'danger'];
+                    var strclass = "";
+                    if (row.status == 'REJECT'|| row.status == 'DELETED') {
+                        strclass = 'warning';
+                    } else if (row.status == 'VERIFYING') {
+                        strclass = 'danger';
+                    }
+                    return { 'classes': strclass }
                 }
-            })
-        });
-        /**
-         * audit
-         */
-        $('#tablelist').on('click', '.btn-audit', function () {
-            var $this = $(this);
-            var userId = $this.attr("data-id");
-            var $form = $("#auditForm");
-            $("#auditForm input,#auditForm select,#auditForm textarea").each(function () {
+            };
+            //1.初始化Table
+            $.tableUtil.init(options);
+            //2.初始化Button的点击事件
+            $.buttonUtil.init(options);
+
+            /**
+             * 回复
+             */
+            $('#tablelist').on('click', '.btn-reply', function () {
                 var $this = $(this);
-                clearText($this, this.type);
+                $("#replyForm input,#replyForm select,#replyForm textarea").each(function () {
+                    var $this = $(this);
+                    clearText($this, this.type);
+                });
+                var pid = $this.attr("data-id");
+                var sid = $this.attr("data-sid");
+                $("#replyForm input[name=sid]").val(sid);
+                $("#replyForm input[name=pid]").val(pid);
+                $("#replyModal").modal('show');
+                $(".replyBtn").unbind("click");
+                $(".replyBtn").click(function () {
+                    debugger
+                    if (validator.checkAll($("#replyForm"))) {
+                        $.ajax({
+                            type: "post",
+                            url: "/comment/reply",
+                            data: $("#replyForm").serialize(),
+                            success: function (json) {
+                                $.alert.ajaxSuccess(json);
+                                $("#replyModal").modal('hide');
+                                $.tableUtil.refresh();
+                            },
+                            error: $.alert.ajaxError
+                        });
+                    }
+                })
             });
-            $("#auditForm input[name=id]").val(userId);
-            $("#auditModal").modal('show');
-            $(".auditBtn").unbind("click");
-            $(".auditBtn").click(function () {
-                if (validator.checkAll($form)) {
-                    $.ajax({
-                        type: "post",
-                        url: "/comment/audit",
-                        data: $("#auditForm").serialize(),
-                        success: function (json) {
-                            $.alert.ajaxSuccess(json);
-                            $("#auditModal").modal('hide');
-                            $.tableUtil.refresh();
-                        },
-                        error: $.alert.ajaxError
-                    });
-                }
-            })
+            /**
+             * audit
+             */
+            $('#tablelist').on('click', '.btn-audit', function () {
+                var $this = $(this);
+                var userId = $this.attr("data-id");
+                var $form = $("#auditForm");
+                $("#auditForm input,#auditForm select,#auditForm textarea").each(function () {
+                    var $this = $(this);
+                    clearText($this, this.type);
+                });
+                $("#auditForm input[name=id]").val(userId);
+                $("#auditModal").modal('show');
+                $(".auditBtn").unbind("click");
+                $(".auditBtn").click(function () {
+                    if (validator.checkAll($form)) {
+                        $.ajax({
+                            type: "post",
+                            url: "/comment/audit",
+                            data: $("#auditForm").serialize(),
+                            success: function (json) {
+                                $.alert.ajaxSuccess(json);
+                                $("#auditModal").modal('hide');
+                                $.tableUtil.refresh();
+                            },
+                            error: $.alert.ajaxError
+                        });
+                    }
+                })
+            });
         });
-    });
-</script>
+    </script>
+</@footer>

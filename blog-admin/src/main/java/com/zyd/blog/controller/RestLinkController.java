@@ -83,7 +83,7 @@ public class RestLinkController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 个友情链接");
     }
 
-    @RequiresPermissions("link:edit")
+    @RequiresPermissions("link:get")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.linkService.getByPrimaryKey(id));

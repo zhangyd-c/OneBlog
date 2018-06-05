@@ -1,12 +1,16 @@
 <footer>
     <div class="pull-right">
-        Copyright © 2018 <a href="https://www.zhyd.me" target="_blank">yadong.zhang</a> · Powered by <a href="https://gitee.com/yadong.zhang/DBlog" title="DBlog是一款简洁美观、自适应的Java博客系统..." target="_blank"><strong>DBlog</strong></a>. All Rights Reserved. Current version is 1.0.
+        Copyright © 2018 <a href="https://www.zhyd.me" target="_blank">yadong.zhang</a> · Powered by <a href="https://gitee.com/yadong.zhang/DBlog" title="DBlog是一款简洁美观、自适应的Java博客系统..." target="_blank"><strong>DBlog</strong></a>. All Rights Reserved.
     </div>
     <div class="clearfix"></div>
 </footer>
 </div>
 </div>
 <script type="text/javascript">
+    var hasCommentPerm = false;
+    <@shiro.hasPermission name="comments">
+        hasCommentPerm = true;
+    </@shiro.hasPermission>
     var appConfig = {
         qiniuPath: '${config.qiuniuBasePath}',
         qiniuImgStyle: '-pw',
