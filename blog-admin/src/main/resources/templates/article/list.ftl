@@ -13,7 +13,7 @@
                     <div class="<#--table-responsive-->">
                         <div class="btn-group hidden-xs" id="toolbar">
                             <@shiro.hasPermission name="article:publish">
-                                <a class="btn btn-default" title="发布文章" href="/article/publish"> <i class="fa fa-plus"></i> 发布文章 </a>
+                                <a class="btn btn-default" title="发布文章" href="/article/publish"> <i class="fa fa-pencil"></i> 发布文章 </a>
                             </@shiro.hasPermission>
                             <@shiro.hasPermission name="article:batchDelete">
                                 <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">

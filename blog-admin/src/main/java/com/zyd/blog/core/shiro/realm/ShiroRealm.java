@@ -105,6 +105,9 @@ public class ShiroRealm extends AuthorizingRealm {
         // 赋予权限
         List<Resources> resourcesList = null;
         User user = SessionUtil.getUser();
+        if(null == user){
+            return info;
+        }
         // ROOT用户默认拥有所有权限
         if(UserTypeEnum.ROOT.toString().equalsIgnoreCase(user.getUserType())) {
             resourcesList = resourcesService.listAll();

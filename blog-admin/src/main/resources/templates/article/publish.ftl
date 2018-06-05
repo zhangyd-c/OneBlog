@@ -107,8 +107,8 @@
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-10 col-sm-10 col-xs-12">
-                                <button type="button" class="btn btn-success publishBtn">保存</button>
-                                <button type="reset" class="btn btn-primary">重置</button>
+                                <button type="button" class="btn btn-success publishBtn"><i class="fa fa-pencil"> 发布文章</i></button>
+                                <button type="reset" class="btn btn-default">重置</button>
                             </div>
                         </div>
                     </form>
