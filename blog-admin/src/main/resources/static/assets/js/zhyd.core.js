@@ -77,6 +77,12 @@ var zhyd = window.zhyd || {
             var b = !0;
             return validator.checkAll($(this)) || (b = !1), b && this.submit(), !1
         }));
+    },
+    initHelloMsg: function () {
+        var $helloMsg = $("#hello_msg");
+        var now = new Date();
+        var nowHours = now.getHours();
+        $helloMsg.html((nowHours >= 0 && nowHours <= 5) ? "凌晨好" : (nowHours > 5 && nowHours <= 9) ? "早上好" : ((nowHours > 9 && nowHours <= 12) ? "上午好" : ((nowHours > 12 && nowHours <= 13) ? "中午好" : ((nowHours > 13 && nowHours <= 18) ? "下午好" : "晚上好"))));
     }
 };
 
@@ -246,5 +252,6 @@ $.fn.popover.Constructor.prototype.leave = function (a) {
     $(".uploadPreview").each(function () {
         var $this = $(this);
         $this.uploadPreview({ imgContainer: $this.data("preview-container") });
-    })
+    });
+    zhyd.initHelloMsg();
 });

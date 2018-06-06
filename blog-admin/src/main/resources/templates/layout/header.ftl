@@ -35,7 +35,7 @@
                         <img src="/assets/images/loading.gif" alt="..." class="img-circle profile_img">
                     </div>
                     <div class="profile_info">
-                        <span>早上好,</span>
+                        <span id="hello_msg">&nbsp;</span>
                         <h2>尊敬的管理员</h2>
                     </div>
                 </div>

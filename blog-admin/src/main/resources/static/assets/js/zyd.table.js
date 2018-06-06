@@ -225,7 +225,7 @@ function clearText($this, type, info){
         } else if (type == 'checkbox') {
             $this.iCheck((thisValue || thisValue == 1) ? 'check' : 'uncheck');
         } else {
-            if (thisValue && thisName != 'password') {
+            if (thisName != 'password') {
                 $this.val(thisValue);
             }
         }
