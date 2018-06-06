@@ -19,7 +19,6 @@
  */
 package com.zyd.blog.util;
 
-import com.google.code.kaptcha.Constants;
 import com.zyd.blog.business.consts.SessionConst;
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.framework.holder.RequestHolder;
@@ -89,21 +88,21 @@ public class SessionUtil {
      * 获取验证码
      */
     public static String getKaptcha() {
-        return (String) RequestHolder.getSession(Constants.KAPTCHA_SESSION_KEY);
+        return (String) RequestHolder.getSession(SessionConst.KAPTCHA_SESSION_KEY);
     }
 
     /**
      * 保存验证码
      */
     public static void setKaptcha(String kaptcha) {
-        RequestHolder.setSession(Constants.KAPTCHA_SESSION_KEY, kaptcha);
+        RequestHolder.setSession(SessionConst.KAPTCHA_SESSION_KEY, kaptcha);
     }
 
     /**
      * 保存验证码
      */
     public static void removeKaptcha() {
-        RequestHolder.removeSession(Constants.KAPTCHA_SESSION_KEY);
+        RequestHolder.removeSession(SessionConst.KAPTCHA_SESSION_KEY);
     }
 
     /**
