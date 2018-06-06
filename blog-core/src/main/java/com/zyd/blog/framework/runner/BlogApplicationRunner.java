@@ -17,29 +17,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.zyd.blog;
+package com.zyd.blog.framework.runner;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import com.zyd.blog.business.consts.DateConst;
+import com.zyd.blog.util.DateUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 /**
- * 程序启动类
+ * 程序启动后通过ApplicationRunner处理一些事务
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @website https://www.zhyd.me
  * @version 1.0
- * @date 2018/4/18 11:48
+ * @website https://www.zhyd.me
+ * @date 2018/6/6 16:07
  * @since 1.0
  */
-@SpringBootApplication
-@ServletComponentScan
-@EnableTransactionManagement
-public class BlogWebApplication {
+@Slf4j
+@Component
+public class BlogApplicationRunner implements ApplicationRunner {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BlogWebApplication.class, args);
-	}
-
+    @Override
+    public void run(ApplicationArguments applicationArguments) {
+        log.info("博客部署完成，当前时间：" + DateUtil.date2Str(new Date(), DateConst.YYYY_MM_DD_HH_MM_SS_EN));
+    }
 }
