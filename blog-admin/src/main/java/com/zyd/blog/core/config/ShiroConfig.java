@@ -85,7 +85,7 @@ public class ShiroConfig {
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setLoginUrl("/passport/login/");
         // 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl("/index");
+        shiroFilterFactoryBean.setSuccessUrl("/");
         // 未授权界面;
         shiroFilterFactoryBean.setUnauthorizedUrl("/error/403");
         // 配置数据库中的resource
@@ -160,7 +160,7 @@ public class ShiroConfig {
         RedisManager redisManager = new RedisManager();
         redisManager.setHost(redisProperties.getHost());
         redisManager.setPort(redisProperties.getPort());
-        redisManager.setExpire(1800);
+        redisManager.setExpire(2592000);
         redisManager.setTimeout(redisProperties.getTimeout());
         redisManager.setPassword(redisProperties.getPassword());
         return redisManager;

@@ -21,9 +21,6 @@ package com.zyd.blog.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.Comment;
-import com.zyd.blog.business.entity.Config;
-import com.zyd.blog.business.entity.User;
-import com.zyd.blog.business.enums.CommentStatusEnum;
 import com.zyd.blog.business.enums.ResponseStatus;
 import com.zyd.blog.business.enums.TemplateKeyEnum;
 import com.zyd.blog.business.service.BizCommentService;
@@ -34,10 +31,11 @@ import com.zyd.blog.framework.exception.ZhydCommentException;
 import com.zyd.blog.framework.object.PageResult;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
-import com.zyd.blog.util.SessionUtil;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,17 +71,8 @@ public class RestCommentController {
     @PostMapping(value = "/reply")
     public ResponseVO reply(Comment comment) {
         try {
-            Config config = configService.get();
-            User user = SessionUtil.getUser();
-            comment.setQq(user.getQq());
-            comment.setEmail(user.getEmail());
-            comment.setNickname(user.getNickname());
-            comment.setAvatar(user.getAvatar());
-            comment.setUrl(config.getSiteUrl());
-            comment.setUserId(user.getId());
-            comment.setStatus(CommentStatusEnum.APPROVED.toString());
-            commentService.comment(comment);
-        } catch (ZhydCommentException e) {
+            commentService.commentForAdmin(comment);
+        } catch (ZhydCommentException e){
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("成功");
@@ -127,10 +116,14 @@ public class RestCommentController {
      */
     @RequiresPermissions("comment:audit")
     @PostMapping("/audit")
-    public ResponseVO audit(Comment comment, Boolean sendEmail) {
+    public ResponseVO audit(Comment comment, String contentText, Boolean sendEmail) {
         try {
             commentService.updateSelective(comment);
-            if (null != sendEmail && sendEmail) {
+            if(!StringUtils.isEmpty(contentText)){
+                comment.setContent(contentText);
+                commentService.commentForAdmin(comment);
+            }
+            if(null != sendEmail && sendEmail){
                 Comment commentDB = commentService.getByPrimaryKey(comment.getId());
                 mailService.send(commentDB, TemplateKeyEnum.TM_COMMENT_AUDIT, true);
             }
@@ -147,7 +140,7 @@ public class RestCommentController {
      * @param comment
      * @return
      */
-    @RequiresPermissions("comments")
+    @RequiresUser
     @PostMapping("/listVerifying")
     public ResponseVO listVerifying(Comment comment) {
         return ResultUtil.success(null, commentService.listVerifying(10));

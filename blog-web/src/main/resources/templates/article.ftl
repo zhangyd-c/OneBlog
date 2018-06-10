@@ -3,6 +3,32 @@
     keywords="${article.keywords?if_exists},${config.siteName}"
     description="${article.description?if_exists}"
     canonical="/article/${article.id}">
+    <link href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
+	<link href="https://cdn.bootcss.com/github-markdown-css/2.10.0/github-markdown.min.css" rel="stylesheet">
+	<link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+    <style>
+        .CodeMirror {
+            padding: 0px;
+        }
+        .CodeMirror, .CodeMirror-scroll {
+            min-height: 130px;
+            max-height: 200px;
+        }
+        .CodeMirror .cm-spell-error:not(.cm-url):not(.cm-comment):not(.cm-tag):not(.cm-word) {
+            background: none;
+        }
+        .editor-statusbar {
+            display: none;
+        }
+        .editor-preview {
+            overflow-y: initial!important;
+        }
+        ul {
+            list-style: none;
+            margin-left: 0;
+            padding-left: 0;
+        }
+    </style>
 </@header>
 
 <#if article.coverImage?exists>
@@ -44,7 +70,7 @@
                             <strong>${article.title}</strong>
                         </h1>
                     </div>
-                    <div class="blog-info-body">
+                    <div class="blog-info-body ${article.isMarkdown?string('markdown-body editor-preview-active-side', '')}">
                         ${article.content}
                     </div>
                     <div class="separateline"><span>正文到此结束</span></div>
@@ -194,13 +220,21 @@
                 <div class="clear"></div>
             </div>
             <#--评论-->
-            <div class="blog-body clear overflow-initial expansion">
-                <div id="comment-box" data-id="${article.id?c}"></div>
-            </div>
+            <#if article.comment>
+                <div class="blog-body clear overflow-initial expansion">
+                    <div id="comment-box" data-id="${article.id?c}"></div>
+                </div>
+            <#else>
+                <div class="blog-body clear overflow-initial expansion gray">
+                    <i class="fa fa-close fa-fw"></i>该篇文章的评论功能已被站长关闭
+                </div>
+            </#if>
         </div>
         <#include "layout/sidebar.ftl"/>
     </div>
 </div>
 <@footer>
     <script src="https://v1.hitokoto.cn/?encode=js&c=d&select=%23hitokoto" defer></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+	<script type="text/javascript" src="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js"></script>
 </@footer>

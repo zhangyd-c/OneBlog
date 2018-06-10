@@ -124,6 +124,14 @@ public interface BizCommentService {
     Map<String, Object> list(CommentConditionVO vo);
 
     /**
+     * admin发表评论
+     *
+     * @param comment
+     * @return
+     */
+    void commentForAdmin(Comment comment) throws ZhydCommentException;
+
+    /**
      * 发表评论
      *
      * @param comment

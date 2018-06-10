@@ -19,8 +19,10 @@
  */
 package com.zyd.blog.controller;
 
+import com.zyd.blog.business.entity.Config;
 import com.zyd.blog.business.enums.QiniuUploadType;
 import com.zyd.blog.business.service.BizArticleService;
+import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.FileUtil;
 import com.zyd.blog.util.ResultUtil;
@@ -31,6 +33,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 其他api性质的接口
@@ -47,6 +52,8 @@ public class RestApiController {
 
     @Autowired
     private BizArticleService articleService;
+    @Autowired
+    private SysConfigService configService;
 
     /**
      * 上传文件到七牛云
@@ -59,6 +66,18 @@ public class RestApiController {
     public ResponseVO upload2Qiniu(@RequestParam("file") MultipartFile file) {
         String filePath = FileUtil.uploadToQiniu(file, QiniuUploadType.SIMPLE, false);
         return ResultUtil.success("图片上传成功", filePath);
+    }
+
+    @RequiresPermissions("article:publish")
+    @PostMapping("/upload2QiniuForMd")
+    public Object upload2QiniuForMd(@RequestParam("file") MultipartFile file) {
+        String filePath = FileUtil.uploadToQiniu(file, QiniuUploadType.SIMPLE, false);
+        Config config = configService.get();
+        Map<String, Object> resultMap = new HashMap<>(3);
+        resultMap.put("success", 1);
+        resultMap.put("message", "上传成功");
+        resultMap.put("filename", config.getQiuniuBasePath() + filePath + "-pw");
+        return resultMap;
     }
 
     /**

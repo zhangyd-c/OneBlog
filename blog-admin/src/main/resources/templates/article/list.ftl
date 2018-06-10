@@ -13,7 +13,7 @@
                     <div class="<#--table-responsive-->">
                         <div class="btn-group hidden-xs" id="toolbar">
                             <@shiro.hasPermission name="article:publish">
-                                <a class="btn btn-default" title="发布文章" href="/article/publish"> <i class="fa fa-pencil"></i> 发布文章 </a>
+                                <a class="btn btn-default" title="发布文章" href="/article/publishMd"> <i class="fa fa-pencil"></i> 发布文章 </a>
                             </@shiro.hasPermission>
                             <@shiro.hasPermission name="article:batchDelete">
                                 <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
@@ -65,13 +65,9 @@
                 {
                     checkbox: true
                 }, {
-                    field: 'id',
-                    title: 'ID',
-                    editable: false
-                }, {
                     field: 'title',
                     title: '标题',
-                    width: '200px',
+                    width: '250px',
                     editable: false,
                     formatter: function (code, row, index) {
                         var id = row.id;
@@ -79,32 +75,9 @@
                         return '<strong>['+original+']</strong> <a href="' + appConfig.wwwPath + '/article/' + id + '" target="_blank">' + code + '</a>';
                     }
                 }, {
-                    field: 'status',
-                    title: '状态',
-                    width: '60px',
-                    editable: false,
-                    formatter: function (code) {
-                        return code ? '已发布' : '<span style="color: red;font-weight: 700">草稿</span>';
-                    }
-                }, {
-                    field: 'recommended',
-                    title: '推荐',
-                    width: '60px',
-                    editable: false,
-                    formatter: function (code) {
-                        return code ? '<span style="color: #26B99A;font-weight: 700">是</span>' : '否';
-                    }
-                }, {
-                    field: 'top',
-                    title: '置顶',
-                    width: '60px',
-                    editable: false,
-                    formatter: function (code) {
-                        return code ? '<span style="color: #26B99A;font-weight: 700">是</span>' : '否';
-                    }
-                }, {
                     field: 'type',
                     title: '分类',
+                    width: '90px',
                     editable: false,
                     formatter: function (code) {
                         var type = code;
@@ -113,7 +86,7 @@
                 }, {
                     field: 'tags',
                     title: '标签',
-                    width: '200px',
+                    width: '140px',
                     editable: false,
                     formatter: function (code) {
                         var tags = code;
@@ -127,17 +100,64 @@
                         return tagHtml;
                     }
                 }, {
+                    field: 'recommended',
+                    title: '推荐',
+                    width: '50px',
+                    editable: false,
+                    formatter: function (code) {
+                        return code ? '<span style="color: #26B99A;font-weight: 700">是</span>' : '否';
+                    }
+                }, {
+                    field: 'top',
+                    title: '置顶',
+                    width: '50px',
+                    editable: false,
+                    formatter: function (code) {
+                        return code ? '<span style="color: #26B99A;font-weight: 700">是</span>' : '否';
+                    }
+                }, {
+                    field: 'status',
+                    title: '状态',
+                    width: '50px',
+                    editable: false,
+                    formatter: function (code) {
+                        return code ? '<span class="label label-success">已发布</span>' : '<span class="label label-danger">草稿</span>';
+                    }
+                }, {
+                    field: 'comment',
+                    title: '开启评论',
+                    width: '50px',
+                    editable: false,
+                    formatter: function (code) {
+                        return code ? '<span class="label label-success">开启</span>' : '<span class="label label-danger">关闭</span>';
+                    }
+                }, {
                     field: 'createTime',
                     title: '发布时间',
                     editable: false,
-                    width: '145px',
+                    width: '100px',
                     formatter: function (code) {
                         return new Date(code).format("yyyy-MM-dd hh:mm:ss")
                     }
                 }, {
+                    field: 'lookCount',
+                    title: '浏览',
+                    editable: false,
+                    width: '50px'
+                }, {
+                    field: 'commentCount',
+                    title: '评论',
+                    editable: false,
+                    width: '50px'
+                }, {
+                    field: 'loveCount',
+                    title: '喜欢',
+                    editable: false,
+                    width: '50px'
+                }, {
                     field: 'operate',
                     title: '操作',
-                    width: '250px',
+                    width: '230px',
                     formatter: operateFormatter //自定义方法，添加操作按钮
                 }
             ]
@@ -193,7 +213,7 @@
         $("#btn_push_ids").click(function () {
             var selectedId = getSelectedId();
             if (!selectedId || selectedId == '[]' || selectedId.length == 0) {
-                $.alert.alertErrorMsg("请至少选择一条记录");
+                $.alert.error("请至少选择一条记录");
                 return;
             }
             push(selectedId);

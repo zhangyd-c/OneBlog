@@ -50,8 +50,6 @@ import java.util.List;
 @Component
 public class BussinessLogAspect {
 
-    private static final String PARAM_SEPARTOR = " & ";
-
     @Pointcut(value = "@annotation(com.zyd.blog.business.annotation.BussinessLog)")
     public void pointcut() {
     }

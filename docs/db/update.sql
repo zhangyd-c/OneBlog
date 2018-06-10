@@ -22,6 +22,17 @@ ADD COLUMN `qiniu_access_key`  varchar(100) CHARACTER SET utf8 COLLATE utf8_gene
 ADD COLUMN `qiniu_secret_key`  varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '七牛SECRET_KEY' AFTER `qiniu_access_key`,
 ADD COLUMN `qiniu_bucket_name`  varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '七牛BUCKET_NAME' AFTER `qiniu_secret_key`;
 
+# 2018-06-10 文章是否开启评论功能
+ALTER TABLE `biz_article`
+ADD COLUMN `comment`  tinyint(1) UNSIGNED NULL DEFAULT 1 COMMENT '是否开启评论' AFTER `keywords`;
+ALTER TABLE `sys_config`
+MODIFY COLUMN `comment`  tinyint(1) UNSIGNED NULL DEFAULT 1 COMMENT '是否开启评论' AFTER `maintenance_data`;
+
+# 2018-06-10 markdown版本的编辑器
+ALTER TABLE `biz_article`
+ADD COLUMN `is_markdown`  tinyint(1) UNSIGNED NULL AFTER `qrcode_path`,
+ADD COLUMN `content_md`  longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT 'markdown版的文章内容' AFTER `content`;
+
 
 
 

@@ -36,7 +36,7 @@
 
     $.extend({
         alert: {
-            info: function (content, delayTime, callback) {
+            info: function (content, callback, delayTime) {
                 delayTime = delayTime ? "confirm|" + delayTime : "confirm|3000";
                 $.jqAlert({
                     title: '友情提示',
@@ -46,7 +46,7 @@
                     confirm: callback
                 });
             },
-            error: function (content, delayTime, callback) {
+            error: function (content, callback, delayTime) {
                 delayTime = delayTime ? "confirm|" + delayTime : "confirm|3000";
                 $.jqAlert({
                     title: '警告',
@@ -61,7 +61,7 @@
                 $.jqConfirm({
                     confirmButtonClass: 'btn-success',
                     cancelButtonClass: 'btn-default',
-                    title: '友情提示',
+                    title: '确认提示',
                     content: content,
                     autoClose: delayTime,
                     confirmButton: '确定',
@@ -70,10 +70,10 @@
                     cancel: cancelCallback
                 });
             },
-            ajaxSuccessConfirm: function (json, callback) {
+            ajaxSuccessConfirm: function (json, callback, cancelCallback) {
                 if (json.status == 200) {
                     if(json.message){
-                        $.alert.confirm(json.message, callback);
+                        $.alert.confirm(json.message, callback, cancelCallback);
                     }
                 } else {
                     if(json.message){
@@ -81,14 +81,14 @@
                     }
                 }
             },
-            ajaxSuccess: function (json) {
+            ajaxSuccess: function (json, callback) {
                 if (json.status == 200) {
                     if(json.message){
-                        $.alert.info(json.message);
+                        $.alert.info(json.message, callback);
                     }
                 } else {
                     if(json.message){
-                        $.alert.error(json.message);
+                        $.alert.error(json.message, callback);
                     }
                 }
             },
@@ -134,6 +134,18 @@
     });
     $.extend({
         tool: {
+            cache: function (key, value) {
+                if(!value){
+                    return localStorage.getItem(key);
+                }
+                localStorage.setItem(key, value);
+                return false;
+            },
+            delCache: function (key) {
+                if(this.cache(key)){
+                    localStorage.removeItem(key);
+                }
+            },
             isEmpty: function (value) {
                 if (value == null || this.trim(value) == "") {
                     return true;
@@ -192,6 +204,94 @@
         }
     });
 })(jQuery);
+/**
+ * 扩展String方法
+ */
+$.extend(String.prototype, {
+    trim: function () {
+        return this.replace(/(^\s*)|(\s*$)|\r|\n/g, "");
+    },
+    startsWith: function (pattern) {
+        return this.indexOf(pattern) === 0;
+    },
+    endsWith: function (pattern) {
+        var d = this.length - pattern.length;
+        return d >= 0 && this.lastIndexOf(pattern) === d;
+    },
+    replaceSuffix: function (index) {
+        return this.replace(/\[[0-9]+\]/, '[' + index + ']').replace('#index#', index);
+    },
+    getRequestURI: function () {
+        var indexOf = this.indexOf("?");
+        return (indexOf == -1) ? this : this.substr(0, indexOf);
+    },
+    getParams: function (encode) {
+        var params = {},
+                indexOf = this.indexOf("?");
+        if (indexOf != -1) {
+            var str = this.substr(indexOf + 1),
+                    strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                var item = strs[i].split("=");
+                var val = encode ? item[1].encodeParam() : item[1];
+                params[item[0]] = item.length > 1 ? val : '';
+            }
+        }
+        return params;
+    },
+    encodeParam: function () {
+        return encodeURIComponent(this);
+    },
+    replaceAll: function (os, ns) {
+        return this.replace(new RegExp(os, "gm"), ns);
+    },
+    skipChar: function (ch) {
+        if (!this || this.length === 0) {
+            return '';
+        }
+        if (this.charAt(0) === ch) {
+            return this.substring(1).skipChar(ch);
+        }
+        return this;
+    },
+    isPositiveInteger: function () {
+        return (new RegExp(/^[1-9]\d*$/).test(this));
+    },
+    isInteger: function () {
+        return (new RegExp(/^\d+$/).test(this));
+    },
+    isNumber: function (value, element) {
+        return (new RegExp(/^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/).test(this));
+    },
+    isValidPwd: function () {
+        return (new RegExp(/^([_]|[a-zA-Z0-9]){6,32}$/).test(this));
+    },
+    isValidMail: function () {
+        return (new RegExp(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(this.trim()));
+    },
+    isSpaces: function () {
+        for (var i = 0; i < this.length; i += 1) {
+            var ch = this.charAt(i);
+            if (ch != ' ' && ch != "\n" && ch != "\t" && ch != "\r") {
+                return false;
+            }
+        }
+        return true;
+    },
+    isMobile: function () {
+        return (new RegExp(/(^[0-9]{11,11}$)/).test(this));
+    },
+    isUrl: function () {
+        return (new RegExp(/^[a-zA-z]+:\/\/([a-zA-Z0-9\-\.]+)([-\w .\/?%&=:]*)$/).test(this));
+    },
+    isExternalUrl: function () {
+        return this.isUrl() && this.indexOf("://" + document.domain) == -1;
+    },
+    parseCurrency: function (num) {
+        var numberValue = parseFloat(this);
+        return parseFloat(numberValue.toFixed(num || 2));
+    }
+});
 
 /**
  * Created by yadong.zhang on 2017-03-19.

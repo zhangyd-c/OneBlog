@@ -92,12 +92,29 @@ public class Article {
         this.bizArticle.setQrcodePath(qrcodePath);
     }
 
+    public boolean getIsMarkdown() {
+        Boolean value = this.bizArticle.getIsMarkdown();
+        return null == value ? false : value;
+    }
+
+    public void setIsMarkdown(boolean isMarkdown) {
+        this.bizArticle.setIsMarkdown(isMarkdown);
+    }
+
     public String getContent() {
         return this.bizArticle.getContent();
     }
 
     public void setContent(String content) {
         this.bizArticle.setContent(content);
+    }
+
+    public String getContentMd() {
+        return this.bizArticle.getContentMd();
+    }
+
+    public void setContentMd(String contentMd) {
+        this.bizArticle.setContentMd(contentMd);
     }
 
     public boolean isTop() {
@@ -181,6 +198,15 @@ public class Article {
 
     public void setUpdateTime(Date updateTime) {
         this.bizArticle.setUpdateTime(updateTime);
+    }
+
+    public boolean isComment() {
+        Boolean value = this.bizArticle.getComment();
+        return value != null ? value : false;
+    }
+
+    public void setComment(boolean comment) {
+        this.bizArticle.setComment(comment);
     }
 
     public List<BizTags> getTags() {

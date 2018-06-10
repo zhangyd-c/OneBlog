@@ -7,10 +7,6 @@
 </div>
 </div>
 <script type="text/javascript">
-    var hasCommentPerm = false;
-    <@shiro.hasPermission name="comments">
-        hasCommentPerm = true;
-    </@shiro.hasPermission>
     var appConfig = {
         qiniuPath: '${config.qiuniuBasePath}',
         qiniuImgStyle: '-pw',

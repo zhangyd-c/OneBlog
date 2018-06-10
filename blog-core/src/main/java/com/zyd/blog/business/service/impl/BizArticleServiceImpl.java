@@ -351,6 +351,7 @@ public class BizArticleServiceImpl implements BizArticleService {
         entity.setUpdateTime(new Date());
         entity.setCreateTime(new Date());
         entity.setOriginal(entity.isOriginal());
+        entity.setComment(entity.isComment());
         bizArticleMapper.insertSelective(entity.getBizArticle());
         return entity;
     }
@@ -368,6 +369,7 @@ public class BizArticleServiceImpl implements BizArticleService {
             entity.setUpdateTime(new Date());
             entity.setCreateTime(new Date());
             entity.setOriginal(entity.isOriginal());
+            entity.setComment(entity.isComment());
             list.add(entity.getBizArticle());
         }
         bizArticleMapper.insertList(list);
@@ -412,6 +414,8 @@ public class BizArticleServiceImpl implements BizArticleService {
     public boolean update(Article entity) {
         Assert.notNull(entity, "Article不可为空！");
         entity.setUpdateTime(new Date());
+        entity.setOriginal(entity.isOriginal());
+        entity.setComment(entity.isComment());
         return bizArticleMapper.updateByPrimaryKey(entity.getBizArticle()) > 0;
     }
 
@@ -427,6 +431,7 @@ public class BizArticleServiceImpl implements BizArticleService {
         Assert.notNull(entity, "Article不可为空！");
         entity.setUpdateTime(new Date());
         entity.setOriginal(entity.isOriginal());
+        entity.setComment(entity.isComment());
         return bizArticleMapper.updateByPrimaryKeySelective(entity.getBizArticle()) > 0;
     }
 

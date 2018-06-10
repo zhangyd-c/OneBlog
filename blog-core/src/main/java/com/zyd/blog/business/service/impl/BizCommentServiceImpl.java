@@ -26,6 +26,7 @@ import com.zyd.blog.business.annotation.RedisCache;
 import com.zyd.blog.business.dto.BizCommentDTO;
 import com.zyd.blog.business.entity.Comment;
 import com.zyd.blog.business.entity.Config;
+import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.CommentStatusEnum;
 import com.zyd.blog.business.enums.TemplateKeyEnum;
 import com.zyd.blog.business.service.BizCommentService;
@@ -131,6 +132,29 @@ public class BizCommentServiceImpl implements BizCommentService {
             dtoList.add(dto);
         }
         return dtoList;
+    }
+
+    /**
+     * admin发表评论
+     *
+     * @param comment
+     * @return
+     */
+    @Override
+    @RedisCache(flush = true)
+    public void commentForAdmin(Comment comment) throws ZhydCommentException {
+        Config config = configService.get();
+        User user = SessionUtil.getUser();
+        comment.setQq(user.getQq());
+        comment.setEmail(user.getEmail());
+        comment.setNickname(user.getNickname());
+        comment.setAvatar(user.getAvatar());
+        comment.setUrl(config.getSiteUrl());
+        comment.setUserId(user.getId());
+        comment.setStatus(CommentStatusEnum.APPROVED.toString());
+        comment.setPid(comment.getId());
+        comment.setId(null);
+        this.comment(comment);
     }
 
     /**

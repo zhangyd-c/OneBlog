@@ -17,48 +17,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.zyd.blog.persistence.beans;
+package com.zyd.blog.business.entity;
 
-import com.zyd.blog.framework.object.AbstractDO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Transient;
-import java.util.List;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @website https://www.zhyd.me
  * @version 1.0
- * @date 2018/4/16 16:26
+ * @date 2018/6/6 16:34
  * @since 1.0
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class BizArticle extends AbstractDO {
-    @Transient
-    List<BizTags> tags;
-    @Transient
-    BizType bizType;
-    private String title;
-    private Long userId;
-    private String coverImage;
-    private String qrcodePath;
-    private Boolean isMarkdown;
-    private String content;
-    private String contentMd;
-    private Boolean top;
-    private Long typeId;
-    private Integer status;
-    private Boolean recommended;
-    private Boolean original;
-    private String description;
-    private String keywords;
-    private Boolean comment;
-    @Transient
-    private Integer lookCount;
-    @Transient
-    private Integer commentCount;
-    @Transient
-    private Integer loveCount;
+public class UserPwd {
+    @NotNull(message = "用户ID不可为空")
+    private Long id;
+    @NotEmpty(message = "原密码不可为空")
+    private String password;
+    @NotEmpty(message = "新密码不可为空")
+    @Length(max = 20, min = 6, message = "新密码长度建议保持在6~20个字符以内")
+    private String newPassword;
+    @NotEmpty(message = "新密码不可为空")
+    @Length(max = 20, min = 6, message = "新密码长度建议保持在6~20个字符以内")
+    private String newPasswordRepeat;
 }

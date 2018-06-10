@@ -8,7 +8,9 @@
 		<result property="userId" jdbcType="BIGINT" column="user_id"/>
 		<result property="coverImage" jdbcType="VARCHAR" column="cover_image"/>
 		<result property="qrcodePath" jdbcType="VARCHAR" column="qrcode_path"/>
+		<result property="isMarkdown" jdbcType="BIT" column="is_markdown"/>
 		<result property="content" jdbcType="VARCHAR" column="content"/>
+		<result property="contentMd" jdbcType="VARCHAR" column="content_md"/>
 		<result property="typeId" jdbcType="BIGINT" column="type_id"/>
 		<result property="status" jdbcType="INTEGER" column="status"/>
 		<result property="top" jdbcType="BIT" column="top"/>
@@ -18,6 +20,7 @@
 		<result property="keywords" jdbcType="VARCHAR" column="keywords"/>
 		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
 		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+		<result property="comment" jdbcType="BIT" column="comment"/>
 
 		<result property="lookCount" jdbcType="INTEGER" column="look_count"/>
 		<result property="commentCount" jdbcType="INTEGER" column="comment_count"/>

@@ -222,12 +222,15 @@ function clearText($this, type, info){
         var thisValue = info[thisName];
         if (type == 'radio') {
             $this.iCheck(((thisValue && 1 == $this.val()) || (!thisValue && 0 == $this.val())) ? 'check' : 'uncheck')
-        } else if (type == 'checkbox') {
-            $this.iCheck((thisValue || thisValue == 1) ? 'check' : 'uncheck');
-        } else {
-            if (thisName != 'password') {
-                $this.val(thisValue);
+        } else if (type.startsWith('select')) {
+            if(thisValue == 'true' || thisValue == true) {
+                thisValue = 1;
+            } else if(thisValue == 'false' || thisValue == false) {
+                thisValue = 0;
             }
+            $this.val(thisValue);
+        } else {
+            $this.val(thisValue);
         }
     } else {
         if (type === 'radio' || type === 'checkbox') {
@@ -256,6 +259,5 @@ function getSelectedId() {
  * @returns {*|jQuery}
  */
 function getSelectedObj() {
-    var selectedJson = $("#tablelist").bootstrapTable('getAllSelections');
-    return selectedJson;
+    return $("#tablelist").bootstrapTable('getAllSelections');
 }

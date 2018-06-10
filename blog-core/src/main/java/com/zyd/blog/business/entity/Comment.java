@@ -297,7 +297,7 @@ public class Comment {
         this.bizComment.setCreateTime(createTime);
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getCreateTimeString() {
         return this.bizComment.getCreateTime();
     }
