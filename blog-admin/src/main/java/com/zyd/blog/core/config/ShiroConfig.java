@@ -64,17 +64,23 @@ public class ShiroConfig {
     @Autowired
     private RedisProperties redisProperties;
 
+    @Bean(name = "lifecycleBeanPostProcessor")
+    public static LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
+        return new LifecycleBeanPostProcessor();
+    }
+
+    /**
+     * 修复UnavailableSecurityManagerException（详见issues#IK7C3）
+     *
+     * @param securityManager
+     * @return
+     */
     @Bean
-    public MethodInvokingFactoryBean methodInvokingFactoryBean(SecurityManager securityManager){
+    public MethodInvokingFactoryBean methodInvokingFactoryBean(SecurityManager securityManager) {
         MethodInvokingFactoryBean bean = new MethodInvokingFactoryBean();
         bean.setStaticMethod("org.apache.shiro.SecurityUtils.setSecurityManager");
         bean.setArguments(new Object[]{securityManager});
         return bean;
-    }
-
-    @Bean(name = "lifecycleBeanPostProcessor")
-    public static LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
-        return new LifecycleBeanPostProcessor();
     }
 
     /**
