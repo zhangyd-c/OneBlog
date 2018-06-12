@@ -261,7 +261,9 @@
                     url: "/article/save",
                     success: function (json) {
                         $.tool.delCache("smde_" + op.uniqueId);
-                        $.alert.ajaxSuccess(json, function () {
+                        $.alert.ajaxSuccessConfirm(json, function () {
+                            window.location.href = '/articles';
+                        }, function () {
                             window.location.href = '/articles';
                         });
                     },

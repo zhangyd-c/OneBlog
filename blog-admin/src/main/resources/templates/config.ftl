@@ -329,7 +329,9 @@
                     $form.ajaxSubmit({
                         type: "POST",
                         url: '/config/edit',
-                        success: $.alert.ajaxSuccess,
+                        success: function (json) {
+                            $.alert.ajaxSuccess(json);
+                        },
                         error: $.alert.ajaxError
                     });
                 }

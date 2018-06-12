@@ -25,7 +25,6 @@ import com.zyd.blog.business.enums.ResponseStatus;
 import com.zyd.blog.business.enums.TemplateKeyEnum;
 import com.zyd.blog.business.service.BizCommentService;
 import com.zyd.blog.business.service.MailService;
-import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.business.vo.CommentConditionVO;
 import com.zyd.blog.framework.exception.ZhydCommentException;
 import com.zyd.blog.framework.object.PageResult;
@@ -55,8 +54,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestCommentController {
     @Autowired
     private BizCommentService commentService;
-    @Autowired
-    private SysConfigService configService;
     @Autowired
     private MailService mailService;
 

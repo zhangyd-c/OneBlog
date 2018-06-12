@@ -81,14 +81,14 @@
                     }
                 }
             },
-            ajaxSuccess: function (json, callback) {
+            ajaxSuccess: function (json) {
                 if (json.status == 200) {
                     if(json.message){
-                        $.alert.info(json.message, callback);
+                        $.alert.info(json.message);
                     }
                 } else {
                     if(json.message){
-                        $.alert.error(json.message, callback);
+                        $.alert.error(json.message);
                     }
                 }
             },
