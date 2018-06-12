@@ -156,20 +156,22 @@
 <!--上传图片弹框-->
 <@footer>
     <script>
+        articleId = '${id}';
         $(function () {
-            $.alert.confirm("当前已支持markdown编辑器，去试试？", function () {
-                window.location.href="/article/publishMd";
-            }, function () {
+            if(!articleId) {
+                $.alert.confirm("当前已支持markdown编辑器，去试试？", function () {
+                    window.location.href="/article/publishMd";
+                }, function () {
 
-            });
+                });
+            }
             zhyd.initWangEditor({
                 id: "editor",
                 contentId: "content",
                 uploadUrl: "/api/upload2Qiniu",
-                uploadFileName: "file",
+                uploadFileName: "file"
             });
         });
-        articleId = '${id}';
     </script>
     <script src="/assets/js/zhyd.publish-article.js"></script>
 </@footer>

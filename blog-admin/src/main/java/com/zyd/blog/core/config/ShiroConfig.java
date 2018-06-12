@@ -23,6 +23,7 @@ import com.zyd.blog.core.shiro.ShiroService;
 import com.zyd.blog.core.shiro.credentials.RetryLimitCredentialsMatcher;
 import com.zyd.blog.core.shiro.realm.ShiroRealm;
 import com.zyd.blog.framework.property.RedisProperties;
+import com.zyd.blog.framework.redis.CustomRedisManager;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -172,10 +173,11 @@ public class ShiroConfig {
      * @return
      */
     public RedisManager redisManager() {
-        RedisManager redisManager = new RedisManager();
+        CustomRedisManager redisManager = new CustomRedisManager();
         redisManager.setHost(redisProperties.getHost());
         redisManager.setPort(redisProperties.getPort());
-        redisManager.setExpire(2592000);
+        redisManager.setDatabase(redisProperties.getDatabase());
+        redisManager.setExpire(redisProperties.getExpire());
         redisManager.setTimeout(redisProperties.getTimeout());
         redisManager.setPassword(redisProperties.getPassword());
         return redisManager;
@@ -225,7 +227,7 @@ public class ShiroConfig {
         //这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
         SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
         //<!-- 记住我cookie生效时间30天 ,单位秒;-->
-        simpleCookie.setMaxAge(2592000);
+        simpleCookie.setMaxAge(redisProperties.getExpire());
         return simpleCookie;
     }
 

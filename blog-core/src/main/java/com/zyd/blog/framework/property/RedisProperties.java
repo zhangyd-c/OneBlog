@@ -44,9 +44,11 @@ import org.springframework.core.annotation.Order;
 @EqualsAndHashCode(callSuper = false)
 @Order(-1)
 public class RedisProperties {
+    private Integer database;
     private String host;
     private Integer port;
     private String password;
     private Integer timeout;
+    private Integer expire;
 
 }
