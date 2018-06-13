@@ -1,6 +1,10 @@
 # DBlog简介
 DBlog是一款简洁美观、自适应的Java博客系统。使用springboot开发，前端使用Bootstrap。支持移动端自适应，配有完备的前台和后台管理功能。
-  
+
+# 注：请使用该项目的朋友优先查阅下【[Wiki](https://gitee.com/yadong.zhang/DBlog/wikis)】
+
+群中好多朋友，现在仍在问的问题大都写在【[Wiki](https://gitee.com/yadong.zhang/DBlog/wikis)】中了，希望各位朋友能自己翻阅下相关资料，高效提问，避免重复问题。谢谢
+
 **网站预览**    
  
 [https://www.zhyd.me](https://www.zhyd.me)  
