@@ -1936,6 +1936,7 @@ nav a:first-child .meta-nav {
 
     article .entry-content .entry-meta {
         display: block;
+        margin-left: 70px;
     }
 
     article .entry-content {
