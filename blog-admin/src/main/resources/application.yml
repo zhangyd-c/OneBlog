@@ -85,6 +85,8 @@ spring:
             minIdle: 0
         # 连接超时时间（毫秒）
         timeout: 0
+        # 默认的数据过期时间，主要用于shiro权限管理
+        expire: 2592000
     # 指定默认MimeMessage的编码，默认为: UTF-8
     mail:
         default-encoding: UTF-8
