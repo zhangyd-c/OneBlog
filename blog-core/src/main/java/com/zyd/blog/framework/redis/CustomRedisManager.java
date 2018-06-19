@@ -24,6 +24,7 @@
 package com.zyd.blog.framework.redis;
 
 import org.crazycake.shiro.RedisManager;
+import org.springframework.util.StringUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -56,6 +57,7 @@ public class CustomRedisManager extends RedisManager {
 
     @Override
     public void init() {
+        this.password = StringUtils.isEmpty(this.password) ? null : this.password;
         if (jedisPool == null) {
             jedisPool = new JedisPool(new JedisPoolConfig(), this.host, this.port, this.timeout, this.password, database);
         }
