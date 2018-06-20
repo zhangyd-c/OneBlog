@@ -5,7 +5,7 @@ spring:
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://localhost:3306/dblog?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true
         username: root
-        password: p111111
+        password:
     # 指定默认MimeMessage的编码，默认为: UTF-8
     mail:
         default-encoding: UTF-8

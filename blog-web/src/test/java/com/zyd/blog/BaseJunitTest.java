@@ -27,6 +27,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+
 /**
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -36,9 +38,8 @@ import org.springframework.test.web.servlet.MockMvc;
  * @since 1.0
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = RANDOM_PORT)
 @AutoConfigureMockMvc
-@org.springframework.boot.test.IntegrationTest("server.port:0")
 public class BaseJunitTest {
 
     protected String host = "http://localhost:8443";

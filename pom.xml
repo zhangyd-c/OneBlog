@@ -29,7 +29,17 @@
 		<java.version>1.7</java.version>
 	</properties>
 
-	<dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.zyd</groupId>
+                <artifactId>blog-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -38,12 +48,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+            <scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-test</artifactId>
-			<version>1.4.2.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
         <!--仅用于升级springboot版本时，提供配置迁移建议-->
@@ -52,9 +61,66 @@
             <!--<artifactId>spring-boot-properties-migrator</artifactId>-->
             <!--<optional>true</optional>-->
         <!--</dependency>-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-json</artifactId>
-        </dependency>
 	</dependencies>
+
+    <!-- Maven控制Spring Profile -->
+    <profiles>
+        <!--默认开启dev-->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <profileActive>dev</profileActive>
+            </properties>
+            <build>
+                <!-- 产生的构件的文件名，默认值是${artifactId}-${version}-->
+                <finalName>${artifactId}-${version}</finalName>
+            </build>
+        </profile>
+        <!--测试配置-->
+        <profile>
+            <id>test</id>
+            <properties>
+                <profileActive>test</profileActive>
+            </properties>
+            <build>
+                <!-- 产生的构件的文件名-->
+                <finalName>${artifactId}</finalName>
+            </build>
+        </profile>
+        <!--生产配置-->
+        <profile>
+            <id>prod</id>
+            <properties>
+                <profileActive>prod</profileActive>
+            </properties>
+            <build>
+                <!-- 产生的构件的文件名-->
+                <finalName>${artifactId}</finalName>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <!-- profile对资源的操作 -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>application*.yml</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!-- 是否替换@xx@表示的maven properties属性值 -->
+                <filtering>true</filtering>
+                <includes>
+                    <include>application.yml</include>
+                    <include>application-${profileActive}.yml</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 </project>
