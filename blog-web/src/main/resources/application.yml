@@ -17,7 +17,7 @@ server:
 # SPRING PROFILES
 spring:
     profiles:
-        active: pro
+        active: dev
     application:
         name: blog-web
     freemarker:
