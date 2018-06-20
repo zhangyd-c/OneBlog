@@ -5,7 +5,7 @@ spring:
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://localhost:3306/dblog?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true
         username: root
-        password:
+        password: p111111
     # 指定默认MimeMessage的编码，默认为: UTF-8
     mail:
         default-encoding: UTF-8
@@ -19,7 +19,7 @@ spring:
         # 指定SMTP server登陆密码:
         password: xxx
         # 指定是否在启动时测试邮件服务器连接，默认为false
-        test-connection: true
+        test-connection: false
         properties:
             mail.smtp.auth: true
             # 腾讯企业邮箱 下两个配置必须！！！
