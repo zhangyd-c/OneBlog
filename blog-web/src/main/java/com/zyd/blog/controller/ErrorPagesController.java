@@ -31,8 +31,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -77,18 +75,18 @@ public class ErrorPagesController implements ErrorController {
     }
 
     @RequestMapping("/404")
-    public ModelAndView errorHtml404(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView errorHtml404(HttpServletRequest request, HttpServletResponse response, WebRequest webRequest) {
         response.setStatus(HttpStatus.NOT_FOUND.value());
-        Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
+        Map<String, Object> model = getErrorAttributes(webRequest, isIncludeStackTrace(request, MediaType.TEXT_HTML));
 
         return new ModelAndView("error/404", model);
     }
 
     @RequestMapping("/403")
-    public ModelAndView errorHtml403(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView errorHtml403(HttpServletRequest request, HttpServletResponse response, WebRequest webRequest) {
         response.setStatus(HttpStatus.FORBIDDEN.value());
         // 404拦截规则，如果是静态文件发生的404则不记录到DB
-        Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
+        Map<String, Object> model = getErrorAttributes(webRequest, isIncludeStackTrace(request, MediaType.TEXT_HTML));
         if (!String.valueOf(model.get("path")).contains(".")) {
             model.put("status", HttpStatus.FORBIDDEN.value());
         }
@@ -96,23 +94,23 @@ public class ErrorPagesController implements ErrorController {
     }
 
     @RequestMapping("/400")
-    public ModelAndView errorHtml400(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView errorHtml400(HttpServletRequest request, HttpServletResponse response, WebRequest webRequest) {
         response.setStatus(HttpStatus.BAD_REQUEST.value());
-        Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
+        Map<String, Object> model = getErrorAttributes(webRequest, isIncludeStackTrace(request, MediaType.TEXT_HTML));
         return new ModelAndView("error/400", model);
     }
 
     @RequestMapping("/401")
-    public ModelAndView errorHtml401(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView errorHtml401(HttpServletRequest request, HttpServletResponse response, WebRequest webRequest) {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
+        Map<String, Object> model = getErrorAttributes(webRequest, isIncludeStackTrace(request, MediaType.TEXT_HTML));
         return new ModelAndView("error/401", model);
     }
 
     @RequestMapping("/500")
-    public ModelAndView errorHtml500(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView errorHtml500(HttpServletRequest request, HttpServletResponse response, WebRequest webRequest) {
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
+        Map<String, Object> model = getErrorAttributes(webRequest, isIncludeStackTrace(request, MediaType.TEXT_HTML));
         return new ModelAndView("error/500", model);
     }
 
@@ -138,14 +136,13 @@ public class ErrorPagesController implements ErrorController {
     /**
      * 获取错误的信息
      *
-     * @param request
+     * @param webRequest
      * @param includeStackTrace
      * @return
      */
-    private Map<String, Object> getErrorAttributes(HttpServletRequest request,
+    private Map<String, Object> getErrorAttributes(WebRequest webRequest,
                                                    boolean includeStackTrace) {
-        RequestAttributes requestAttributes = new ServletRequestAttributes(request);
-        return this.errorAttributes.getErrorAttributes((WebRequest) requestAttributes, includeStackTrace);
+        return this.errorAttributes.getErrorAttributes(webRequest, includeStackTrace);
     }
 
     /**
