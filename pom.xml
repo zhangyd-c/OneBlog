@@ -19,7 +19,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.4.RELEASE</version>
+		<version>2.0.1.RELEASE</version>
 		<relativePath/>
 	</parent>
 
@@ -46,5 +46,15 @@
 			<version>1.4.2.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
+        <!--仅用于升级springboot版本时，提供配置迁移建议-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-properties-migrator</artifactId>-->
+            <!--<optional>true</optional>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-json</artifactId>
+        </dependency>
 	</dependencies>
 </project>

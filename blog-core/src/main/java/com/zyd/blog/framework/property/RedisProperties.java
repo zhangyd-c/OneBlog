@@ -25,6 +25,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
+import java.time.Duration;
+
 /**
  * redis属性配置文件
  *
@@ -44,7 +46,7 @@ public class RedisProperties {
     private String host;
     private Integer port;
     private String password;
-    private Integer timeout;
+    private Duration timeout;
     /**
      * 默认30天 = 2592000s
      */

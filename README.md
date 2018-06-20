@@ -45,7 +45,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 ### 技术栈
 
-- Springboot 1.5.9
+- Springboot 2.0.1
 - Apache Shiro 1.2.2
 - Logback
 - Redis
@@ -93,6 +93,11 @@ _评论审核管理员_： 账号：comment-admin  密码：123456
 更多详情，请参考【[Wiki](https://gitee.com/yadong.zhang/DBlog/wikis)】
 
 ### 更新日志
+2018-06-20
+
+**修改功能：**
+
+优化：升级Spring Boot至2.0.1版本并优化相关配置
 
 2018-06-10
 
