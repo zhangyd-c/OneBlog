@@ -97,8 +97,8 @@ _评论审核管理员_： 账号：comment-admin  密码：123456
 
 **修改功能：**
 
-优化：
-    升级Spring Boot至2.0.1版本及其他关联版本升级；
+优化：  
+    升级Spring Boot至2.0.1版本及其他关联版本升级；  
     使用Maven Profile管理Spring Boot Profiles，支持动态切换profile；
 
 2018-06-10
