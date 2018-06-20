@@ -95,10 +95,10 @@ spring:
         # 指定SMTP server使用的协议，默认为: smtp
         protocol: smtp
         # 指定SMTP server host.
-        host: smtp.qq.com
+        host: xxx.xxx.xxx
         port: 465
         # 指定SMTP server的用户名.
-        username: fordev.zmc@qq.com
+        username: xxx@xxx.xxx
         # 指定SMTP server登陆密码:
         password: xxx
         # 指定是否在启动时测试邮件服务器连接，默认为false
@@ -136,5 +136,5 @@ pagehelper:
 ####################################自定义配置##########################################
 app:
     # 是否启用kaptcha验证码
-    enableKaptcha: true
+    enableKaptcha: false
 ####################################自定义配置##########################################
