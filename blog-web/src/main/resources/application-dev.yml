@@ -1,3 +1,7 @@
+# Server settings
+server:
+    tomcat:
+        basedir: /var/tmp/website-blog-web
 # SPRING PROFILES
 spring:
     datasource:
@@ -31,6 +35,10 @@ spring:
             mail.smtp.connectiontimeout: 50000
             mail.smtp.timeout: 30000
             mail.smtp.writetimeout: 50000
+
+# logging settings
+logging:
+  path: /var/tmp/website-blog-web
 ####################################自定义配置##########################################
 app:
     # 是否启用kaptcha验证码

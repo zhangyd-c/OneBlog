@@ -34,6 +34,8 @@
 				<configuration>
 					<mainClass>com.zyd.blog.BlogWebApplication</mainClass>
 					<layout>JAR</layout>
+                    <!--构建完整可执行程序，可以直接运行-->
+                    <executable>true</executable>
 				</configuration>
 			</plugin>
 		</plugins>
