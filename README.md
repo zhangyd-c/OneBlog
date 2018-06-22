@@ -45,7 +45,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 ### 技术栈
 
-- Springboot 1.5.9
+- Springboot 2.0.1
 - Apache Shiro 1.2.2
 - Logback
 - Redis
@@ -74,7 +74,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
    4. 【[七牛云](http://qiniu.com)】配置(见sys_config表中qiniu_*开头的字段)    
    注：因为系统存在redis缓存，如果是第一次使用，可以直接修改sys_config表内容，如果不是第一次用，建议使用admin项目中的`系统配置`页面修改相关配置内容
 5. 运行项目(三种方式)
-   1. 项目根目录下执行`mvn -X clean package -Dmaven.test.skip=true`编译打包，然后执行`java -jar target/blog-web.jar`
+   1. 项目根目录下执行`mvn -X clean package -Dmaven.test.skip=true -Ptest`编译打包，然后执行`java -jar target/blog-web.jar`
    2. 项目根目录下执行`mvn springboot:run`
    3. 直接运行`BlogWebApplication.java`
 6. 浏览器访问`http://127.0.0.1:8443`
@@ -93,6 +93,13 @@ _评论审核管理员_： 账号：comment-admin  密码：123456
 更多详情，请参考【[Wiki](https://gitee.com/yadong.zhang/DBlog/wikis)】
 
 ### 更新日志
+2018-06-20
+
+**修改功能：**
+
+优化：  
+    升级Spring Boot至2.0.1版本及其他关联版本升级；  
+    使用Maven Profile管理Spring Boot Profiles，支持动态切换profile；
 
 2018-06-10
 

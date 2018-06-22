@@ -178,7 +178,7 @@ public class ShiroConfig {
         redisManager.setPort(redisProperties.getPort());
         redisManager.setDatabase(redisProperties.getDatabase());
         redisManager.setExpire(redisProperties.getExpire());
-        redisManager.setTimeout(redisProperties.getTimeout());
+        redisManager.setTimeout(redisProperties.getTimeout().getNano()*1000);
         redisManager.setPassword(redisProperties.getPassword());
         return redisManager;
     }

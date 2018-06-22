@@ -23,6 +23,7 @@
  */
 package com.zyd.blog.framework.redis;
 
+import org.apache.commons.lang.StringUtils;
 import org.crazycake.shiro.RedisManager;
 import org.springframework.util.StringUtils;
 import redis.clients.jedis.Jedis;
@@ -59,6 +60,9 @@ public class CustomRedisManager extends RedisManager {
     public void init() {
         this.password = StringUtils.isEmpty(this.password) ? null : this.password;
         if (jedisPool == null) {
+        	if (StringUtils.isBlank(this.password)){
+        		this.password=null;
+			}
             jedisPool = new JedisPool(new JedisPoolConfig(), this.host, this.port, this.timeout, this.password, database);
         }
     }
@@ -71,7 +75,7 @@ public class CustomRedisManager extends RedisManager {
         try {
             value = jedis.get(key);
         } finally {
-            jedisPool.returnResource(jedis);
+			jedis.close();
         }
 
         return value;
@@ -87,7 +91,7 @@ public class CustomRedisManager extends RedisManager {
                 jedis.expire(key, this.expire);
             }
         } finally {
-            jedisPool.returnResource(jedis);
+			jedis.close();
         }
 
         return value;
@@ -103,7 +107,7 @@ public class CustomRedisManager extends RedisManager {
                 jedis.expire(key, expire);
             }
         } finally {
-            jedisPool.returnResource(jedis);
+			jedis.close();
         }
 
         return value;
@@ -116,7 +120,7 @@ public class CustomRedisManager extends RedisManager {
         try {
             jedis.del(key);
         } finally {
-            jedisPool.returnResource(jedis);
+			jedis.close();
         }
 
     }
@@ -128,7 +132,7 @@ public class CustomRedisManager extends RedisManager {
         try {
             jedis.flushDB();
         } finally {
-            jedisPool.returnResource(jedis);
+			jedis.close();
         }
 
     }
@@ -141,7 +145,7 @@ public class CustomRedisManager extends RedisManager {
         try {
             dbSize = jedis.dbSize();
         } finally {
-            jedisPool.returnResource(jedis);
+			jedis.close();
         }
 
         return dbSize;
@@ -155,7 +159,7 @@ public class CustomRedisManager extends RedisManager {
         try {
             keys = jedis.keys(pattern.getBytes());
         } finally {
-            jedisPool.returnResource(jedis);
+			jedis.close();
         }
 
         return keys;

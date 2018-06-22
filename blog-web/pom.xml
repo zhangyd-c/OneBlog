@@ -4,7 +4,6 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>blog-web</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>blog-web</name>
@@ -19,21 +18,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-freemarker</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.zyd</groupId>
 			<artifactId>blog-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -44,6 +34,8 @@
 				<configuration>
 					<mainClass>com.zyd.blog.BlogWebApplication</mainClass>
 					<layout>JAR</layout>
+                    <!--构建完整可执行程序，可以直接运行-->
+                    <executable>true</executable>
 				</configuration>
 			</plugin>
 		</plugins>

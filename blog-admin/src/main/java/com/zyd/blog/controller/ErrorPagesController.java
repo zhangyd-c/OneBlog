@@ -21,18 +21,17 @@ package com.zyd.blog.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.ErrorAttributes;
-import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.error.ErrorAttributes;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,8 +42,6 @@ import java.util.Map;
  * 重写BasicErrorController,主要负责系统的异常页面的处理以及错误信息的显示
  * <p/>
  * 此处指需要记录
- * @see org.springframework.boot.autoconfigure.web.BasicErrorController
- * @see org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration
  * <p/>
  * 要注意，这个类里面的代码一定不能有异常或者潜在异常发生，否则可能会让程序陷入死循环。
  * <p/>
@@ -78,18 +75,18 @@ public class ErrorPagesController implements ErrorController {
     }
 
     @RequestMapping("/404")
-    public ModelAndView errorHtml404(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView errorHtml404(HttpServletRequest request, HttpServletResponse response, WebRequest webRequest) {
         response.setStatus(HttpStatus.NOT_FOUND.value());
-        Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
+        Map<String, Object> model = getErrorAttributes(webRequest, isIncludeStackTrace(request, MediaType.TEXT_HTML));
 
         return new ModelAndView("error/404", model);
     }
 
     @RequestMapping("/403")
-    public ModelAndView errorHtml403(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView errorHtml403(HttpServletRequest request, HttpServletResponse response, WebRequest webRequest) {
         response.setStatus(HttpStatus.FORBIDDEN.value());
         // 404拦截规则，如果是静态文件发生的404则不记录到DB
-        Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
+        Map<String, Object> model = getErrorAttributes(webRequest, isIncludeStackTrace(request, MediaType.TEXT_HTML));
         if (!String.valueOf(model.get("path")).contains(".")) {
             model.put("status", HttpStatus.FORBIDDEN.value());
         }
@@ -97,23 +94,23 @@ public class ErrorPagesController implements ErrorController {
     }
 
     @RequestMapping("/400")
-    public ModelAndView errorHtml400(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView errorHtml400(HttpServletRequest request, HttpServletResponse response, WebRequest webRequest) {
         response.setStatus(HttpStatus.BAD_REQUEST.value());
-        Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
+        Map<String, Object> model = getErrorAttributes(webRequest, isIncludeStackTrace(request, MediaType.TEXT_HTML));
         return new ModelAndView("error/400", model);
     }
 
     @RequestMapping("/401")
-    public ModelAndView errorHtml401(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView errorHtml401(HttpServletRequest request, HttpServletResponse response, WebRequest webRequest) {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
+        Map<String, Object> model = getErrorAttributes(webRequest, isIncludeStackTrace(request, MediaType.TEXT_HTML));
         return new ModelAndView("error/401", model);
     }
 
     @RequestMapping("/500")
-    public ModelAndView errorHtml500(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView errorHtml500(HttpServletRequest request, HttpServletResponse response, WebRequest webRequest) {
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
+        Map<String, Object> model = getErrorAttributes(webRequest, isIncludeStackTrace(request, MediaType.TEXT_HTML));
         return new ModelAndView("error/500", model);
     }
 
@@ -139,15 +136,13 @@ public class ErrorPagesController implements ErrorController {
     /**
      * 获取错误的信息
      *
-     * @param request
+     * @param webRequest
      * @param includeStackTrace
      * @return
      */
-    private Map<String, Object> getErrorAttributes(HttpServletRequest request,
+    private Map<String, Object> getErrorAttributes(WebRequest webRequest,
                                                    boolean includeStackTrace) {
-        RequestAttributes requestAttributes = new ServletRequestAttributes(request);
-        return this.errorAttributes.getErrorAttributes(requestAttributes,
-                includeStackTrace);
+        return this.errorAttributes.getErrorAttributes(webRequest, includeStackTrace);
     }
 
     /**

@@ -3,9 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.zyd</groupId>
-	<artifactId>blog-admin</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+    <artifactId>blog-admin</artifactId>
 	<packaging>jar</packaging>
 
 	<name>blog-admin</name>
@@ -19,17 +17,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-freemarker</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>com.zyd</groupId>
 			<artifactId>blog-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
@@ -41,6 +30,8 @@
 				<configuration>
 					<mainClass>com.zyd.blog.BlogAdminApplication</mainClass>
 					<layout>JAR</layout>
+                    <!--构建完整可执行程序，可以直接运行-->
+                    <executable>true</executable>
 				</configuration>
 			</plugin>
 		</plugins>
