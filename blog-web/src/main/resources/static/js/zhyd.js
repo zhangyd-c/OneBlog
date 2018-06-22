@@ -350,4 +350,12 @@ $(function () {
             }
         });
     }
+
+    $('#myCarousel').mouseover(function () {
+        $(".carousel-control").removeClass("hide");
+    }).mouseout(function () {
+        $(".carousel-control").addClass("hide");
+    }).carousel({
+        interval: 5000
+    });
 });

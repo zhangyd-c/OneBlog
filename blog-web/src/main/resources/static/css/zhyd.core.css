@@ -2807,3 +2807,62 @@ nav a:first-child .meta-nav {
     width: 356px;
     height: 230px;
 }
+
+/* 轮播图 */
+
+.carousel-inner>.item>img, .carousel-inner>.item>a>img {
+    height: 300px;
+    width: 837.25px;
+}
+.carousel-control {
+    width: 8%;
+}
+.carousel-control .fa-angle-left, .carousel-control .fa-angle-right{
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    display: inline-block;
+}
+
+.carousel-control .fa-angle-left{
+    margin-left: -15px;
+    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    left: 50%;
+}
+.carousel-control .fa-angle-right{
+    margin-right: -15px;
+    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    right: 50%;
+}
+
+.carousel-control:hover, .carousel-control:focus{
+    color: #fff!important;
+    text-decoration: none;
+    filter: alpha(opacity=30);
+    outline: 0;
+    opacity: 0.3;
+}
+
+.carousel-control.right, .carousel-control.left {
+    background-image: none!important;
+}
+
+.zyd-carousel-caption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    padding: 5px 10px;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0,0,0,.6);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    background: #07ad6f;
+    filter: alpha(opacity=70);
+    opacity: .7;
+}
+/* 轮播图 */

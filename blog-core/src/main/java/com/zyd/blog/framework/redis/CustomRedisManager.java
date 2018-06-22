@@ -25,7 +25,6 @@ package com.zyd.blog.framework.redis;
 
 import org.apache.commons.lang.StringUtils;
 import org.crazycake.shiro.RedisManager;
-import org.springframework.util.StringUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
