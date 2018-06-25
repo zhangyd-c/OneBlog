@@ -77,10 +77,10 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 1. 使用IDE导入本项目
 2. 新建数据库`CREATE DATABASE dblog;`
 3. 导入数据库`docs/db/dblog.sql`
-4. 修改(`resources/application.yml`)配置文件
-   1. 数据库链接属性(可搜索`datasource`或定位到L.19) 
-   2. redis配置(可搜索`redis`或定位到L.69)
-   3. mail配置(可搜索`mail`或定位到L.89)
+4. 修改配置文件
+   1. 数据库链接属性(在`resources/application-{env}.yml`配置文件中搜索`datasource`或定位到L.7) 
+   2. redis配置(在`resources/application.yml`配置文件中搜索`redis`或定位到L.65)
+   3. mail配置(在`resources/application-{env}.yml`配置文件中搜索`mail`或定位到L.14)
    4. 【[七牛云](http://qiniu.com)】配置(见sys_config表中qiniu_*开头的字段)    
    注：因为系统存在redis缓存，如果是第一次使用，可以直接修改sys_config表内容，如果不是第一次用，建议使用admin项目中的`系统配置`页面修改相关配置内容
 5. 运行项目(三种方式)
