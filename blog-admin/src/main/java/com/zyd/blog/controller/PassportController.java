@@ -67,7 +67,7 @@ public class PassportController {
     public ModelAndView login(Model model) {
         Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated()||subject.isRemembered()){
-            return ResultUtil.redirect("/index");
+            return ResultUtil.redirect("/");
         }
         model.addAttribute("enableKaptcha", config.getEnableKaptcha());
         return ResultUtil.view("/login");
