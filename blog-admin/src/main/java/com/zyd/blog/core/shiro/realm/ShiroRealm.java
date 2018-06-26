@@ -27,7 +27,6 @@ import com.zyd.blog.business.enums.UserTypeEnum;
 import com.zyd.blog.business.service.SysResourcesService;
 import com.zyd.blog.business.service.SysRoleService;
 import com.zyd.blog.business.service.SysUserService;
-import com.zyd.blog.util.SessionUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -104,12 +103,12 @@ public class ShiroRealm extends AuthorizingRealm {
 
         // 赋予权限
         List<Resources> resourcesList = null;
-        User user = SessionUtil.getUser();
-        if(null == user){
+        User user = userService.getByPrimaryKey(userId);
+        if (null == user) {
             return info;
         }
         // ROOT用户默认拥有所有权限
-        if(UserTypeEnum.ROOT.toString().equalsIgnoreCase(user.getUserType())) {
+        if (UserTypeEnum.ROOT.toString().equalsIgnoreCase(user.getUserType())) {
             resourcesList = resourcesService.listAll();
         } else {
             resourcesList = resourcesService.listByUserId(userId);

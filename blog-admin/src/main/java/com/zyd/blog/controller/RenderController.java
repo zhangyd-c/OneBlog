@@ -72,7 +72,7 @@ public class RenderController {
         return ResultUtil.view("user/list");
     }
 
-    @RequiresPermissions("users")
+    @RequiresPermissions("resources")
     @BussinessLog("进入资源列表页")
     @GetMapping("/resources")
     public ModelAndView resources() {

@@ -31,10 +31,7 @@ import com.zyd.blog.business.service.BizArticleTagsService;
 import com.zyd.blog.business.vo.ArticleConditionVO;
 import com.zyd.blog.framework.exception.ZhydArticleException;
 import com.zyd.blog.framework.holder.RequestHolder;
-import com.zyd.blog.persistence.beans.BizArticle;
-import com.zyd.blog.persistence.beans.BizArticleLove;
-import com.zyd.blog.persistence.beans.BizArticleTags;
-import com.zyd.blog.persistence.beans.BizTags;
+import com.zyd.blog.persistence.beans.*;
 import com.zyd.blog.persistence.mapper.BizArticleLookMapper;
 import com.zyd.blog.persistence.mapper.BizArticleLoveMapper;
 import com.zyd.blog.persistence.mapper.BizArticleMapper;
@@ -391,7 +388,7 @@ public class BizArticleServiceImpl implements BizArticleService {
         loveCriteria.andEqualTo("articleId", primaryKey);
         bizArticleTagsMapper.deleteByExample(loveExample);
         // 删除查看记录
-        Example lookExample = new Example(BizArticleLove.class);
+        Example lookExample = new Example(BizArticleLook.class);
         Example.Criteria lookCriteria = loveExample.createCriteria();
         lookCriteria.andEqualTo("articleId", primaryKey);
         bizArticleLookMapper.deleteByExample(lookExample);
