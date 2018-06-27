@@ -162,7 +162,7 @@
         staticPath: '${config.staticWebSite}',
         qiuniuBasePath: '${config.qiuniuBasePath}',
         wxPraiseCode: '${config.wxPraiseCode}',
-        zfbPraiseCode: '${config.zfbPraiseCode}',
+        zfbPraiseCode: '${config.zfbPraiseCode}'
     }
 </script>
 <script type="text/javascript" src="${config.staticWebSite}/js/wangEditor.min.js"></script>
