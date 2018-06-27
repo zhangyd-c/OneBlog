@@ -66,12 +66,9 @@ public class CustomRedisManager extends RedisManager {
     @Override
     public byte[] get(byte[] key) {
         byte[] value = null;
-        Jedis jedis = (Jedis) jedisPool.getResource();
 
-        try {
+        try (Jedis jedis = jedisPool.getResource()) {
             value = jedis.get(key);
-        } finally {
-			jedis.close();
         }
 
         return value;
@@ -79,15 +76,12 @@ public class CustomRedisManager extends RedisManager {
 
     @Override
     public byte[] set(byte[] key, byte[] value) {
-        Jedis jedis = (Jedis) jedisPool.getResource();
 
-        try {
+        try (Jedis jedis = jedisPool.getResource()) {
             jedis.set(key, value);
             if (this.expire != 0) {
                 jedis.expire(key, this.expire);
             }
-        } finally {
-			jedis.close();
         }
 
         return value;
@@ -95,15 +89,12 @@ public class CustomRedisManager extends RedisManager {
 
     @Override
     public byte[] set(byte[] key, byte[] value, int expire) {
-        Jedis jedis = (Jedis) jedisPool.getResource();
 
-        try {
+        try (Jedis jedis = jedisPool.getResource()) {
             jedis.set(key, value);
             if (expire != 0) {
                 jedis.expire(key, expire);
             }
-        } finally {
-			jedis.close();
         }
 
         return value;
@@ -111,24 +102,18 @@ public class CustomRedisManager extends RedisManager {
 
     @Override
     public void del(byte[] key) {
-        Jedis jedis = (Jedis) jedisPool.getResource();
 
-        try {
+        try (Jedis jedis = jedisPool.getResource()) {
             jedis.del(key);
-        } finally {
-			jedis.close();
         }
 
     }
 
     @Override
     public void flushDB() {
-        Jedis jedis = (Jedis) jedisPool.getResource();
 
-        try {
+        try (Jedis jedis = jedisPool.getResource()) {
             jedis.flushDB();
-        } finally {
-			jedis.close();
         }
 
     }
@@ -136,12 +121,9 @@ public class CustomRedisManager extends RedisManager {
     @Override
     public Long dbSize() {
         Long dbSize = 0L;
-        Jedis jedis = (Jedis) jedisPool.getResource();
 
-        try {
+        try (Jedis jedis = jedisPool.getResource()) {
             dbSize = jedis.dbSize();
-        } finally {
-			jedis.close();
         }
 
         return dbSize;
@@ -150,12 +132,9 @@ public class CustomRedisManager extends RedisManager {
     @Override
     public Set<byte[]> keys(String pattern) {
         Set<byte[]> keys = null;
-        Jedis jedis = (Jedis) jedisPool.getResource();
 
-        try {
+        try (Jedis jedis = jedisPool.getResource()) {
             keys = jedis.keys(pattern.getBytes());
-        } finally {
-			jedis.close();
         }
 
         return keys;
