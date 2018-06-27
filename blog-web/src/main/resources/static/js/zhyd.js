@@ -229,14 +229,28 @@ $(function () {
         $("#currentTime").html(now.format('yyyy年MM月dd日 hh时mm分ss秒') + " " + weekArr[now.getDay()]);
     }
 
-    $.websocket.open({
-        host: "ws://localhost:8443/websocket",
-        reconnect: true,
-        callback: function (json) {
-            var onlineCount = json;
-            $(".online").html(onlineCount);
+    if($.websocket) {
+        var sitePath = appConfig.wwwPath;
+        var scheme = ["http://", "https://"];
+        var host;
+        $.each(scheme, function (i, v) {
+           if(sitePath.indexOf(v) !== -1) {
+               host = sitePath.replaceAll(v, "");
+               return false;
+           }
+        });
+        if(host){
+            $.websocket.open({
+                host: "ws://" + host + "/websocket",
+                reconnect: true,
+                callback: function (json) {
+                    $(".online").html(json);
+                }
+            });
+        } else {
+            console.warn("网站host获取失败，将不启动webscoket。");
         }
-    });
+    }
 
     /**
      * 显示取链的表格
