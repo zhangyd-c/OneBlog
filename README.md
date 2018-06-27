@@ -1,5 +1,4 @@
-# 关于DBlog
-DBlog是一款简洁美观、自适应的Java博客系统。使用springboot开发，前端使用Bootstrap。支持移动端自适应，配有完备的前台和后台管理功能。    
+ **DBlog** 是一款简洁美观、自适应的Java博客系统。使用springboot开发，前端使用Bootstrap。支持移动端自适应，配有完备的前台和后台管理功能。    
 
 ![JDK](https://img.shields.io/badge/JDK-1.8-green.svg)
 ![Maven](https://img.shields.io/badge/Maven-3.3.1-green.svg)
@@ -7,6 +6,7 @@ DBlog是一款简洁美观、自适应的Java博客系统。使用springboot开�
 ![Redis](https://img.shields.io/badge/Redis-3.0.503-green.svg)
 [![license](https://img.shields.io/badge/license-MIT-yellow.svg)](https://gitee.com/yadong.zhang/DBlog/blob/master/LICENSE)
 
+----
 
 # 重要声明
 
@@ -14,7 +14,7 @@ DBlog是一款简洁美观、自适应的Java博客系统。使用springboot开�
 2. **提问题**前请优先阅读【[如何向开源社区提问题](https://github.com/seajs/seajs/issues/545)】&【[提问的智慧](http://www.dianbo.org/9238/stone/tiwendezhihui.htm)】
 3. **提问题**时请优先选择[Gitee Issues](https://gitee.com/yadong.zhang/DBlog/issues)（方便问题追踪和一对一解决），其次[我的博客-留言板](https://www.zhyd.me/guestbook)，再次[QQ群190886500](http://shang.qq.com/wpa/qunwpa?idkey=9f986e9b33b1de953e1ef9a96cdeec990affd0ac7855e00ff103514de2027b60)（QQ群消息较多，提问请注意节奏、时机），最次加我QQ好友直接提问（不推荐）
 4. 本项目唯一官网：[https://www.zhyd.me](https://www.zhyd.me)  
-5. 本项目开源地址：[Gitee](https://gitee.com/yadong.zhang/DBlog)    注：Github上的项目已不准备更新，因此版本较老，请Github用户移步至[Gitee](https://gitee.com/yadong.zhang/DBlog) 
+5. 本项目开源地址：[Gitee](https://gitee.com/yadong.zhang/DBlog)    注： **Github上的项目已不准备更新** ，因此版本较老，请Github用户移步至[Gitee](https://gitee.com/yadong.zhang/DBlog) 
 6. 本项目修改记录，详情请移步[这里](https://gitee.com/yadong.zhang/DBlog/blob/master/update.md)
 7. 如果你想贡献代码，请先阅读[这篇文章](https://gitee.com/yadong.zhang/DBlog/blob/master/contribution.md)
 
@@ -101,17 +101,12 @@ _评论审核管理员_（只有评论审核的权限）： 账号：comment-adm
 ### 图片预览
 
 **前台页面**
-![PC-首页](https://gitee.com/yadong.zhang/DBlog/raw/master/docs/img/pc-index.png?v=1.0)
-![PC-文章详情页](https://gitee.com/yadong.zhang/DBlog/raw/master/docs/img/pc-detail.png?v=1.0)
-![手机](https://gitee.com/yadong.zhang/DBlog/raw/master/docs/img/m.png?v=1.0)
+![PC-首页](https://gitee.com/uploads/images/2018/0627/161851_3eefd129_784199.png?v=1.0 "PC-首页")
 **后台页面**
-![首页](https://gitee.com/yadong.zhang/DBlog/raw/master/docs/img/admin-index.png?v=1.0)
-![菜单](https://gitee.com/yadong.zhang/DBlog/raw/master/docs/img/admin-menu.png?v=1.0)
-![文章列表](https://gitee.com/yadong.zhang/DBlog/raw/master/docs/img/admin-articles.png?v=1.0)
-![发表文章](https://gitee.com/yadong.zhang/DBlog/raw/master/docs/img/admin-article2.png?v=1.0)
-![markdown版的编辑器](https://gitee.com/uploads/images/2018/0610/145228_06541ada_784199.png?v=1.0 "markdown版的编辑器")
-![角色列表](https://gitee.com/yadong.zhang/DBlog/raw/master/docs/img/admin-role.png?v=1.0)
-![角色分配](https://gitee.com/yadong.zhang/DBlog/raw/master/docs/img/admin-role2.png?v=1.0)
+![PC-后台首页](https://gitee.com/uploads/images/2018/0627/162136_01f40c01_784199.png?v=1.0 "PC-后台首页")
+![PC-文章列表页](https://gitee.com/uploads/images/2018/0627/162222_001e3342_784199.png?v=1.0 "PC-文章列表页")
+![PC-发布文章页-markdown版](https://gitee.com/uploads/images/2018/0627/162317_5ea6c8d5_784199.png "PC-发布文章页-markdown版")
+![PC-文章发布页-html版](https://gitee.com/uploads/images/2018/0627/162442_c98194c4_784199.png "PC-文章发布页-html版.png")
 
 ### 生命不息，折腾不止！ 更多信息，请关注：
  1. [我的博客](https://www.zhyd.me)
