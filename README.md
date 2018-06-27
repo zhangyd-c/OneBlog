@@ -104,10 +104,13 @@ _评论审核管理员_（只有评论审核的权限）： 账号：comment-adm
 
 ### 图片预览
 
-**前台页面**
+#### 前台页面
+
 ![PC-首页](https://gitee.com/uploads/images/2018/0627/161851_3eefd129_784199.png?v=1.0 "PC-首页")
 ![手机端](https://gitee.com/uploads/images/2018/0627/163121_6b6c551e_784199.png "手机端")
-**后台页面**
+
+#### 后台页面
+
 ![PC-后台首页](https://gitee.com/uploads/images/2018/0627/162136_01f40c01_784199.png?v=1.0 "PC-后台首页")
 ![PC-文章列表页](https://gitee.com/uploads/images/2018/0627/162222_001e3342_784199.png?v=1.0 "PC-文章列表页")
 ![PC-发布文章页-markdown版](https://gitee.com/uploads/images/2018/0627/162317_5ea6c8d5_784199.png "PC-发布文章页-markdown版")
