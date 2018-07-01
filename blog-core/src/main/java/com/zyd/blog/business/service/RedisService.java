@@ -20,6 +20,7 @@
 package com.zyd.blog.business.service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -30,19 +31,29 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0
  */
 public interface RedisService {
-    void set(String key, String value);
+    <T> void set(String key, T value);
 
-    void set(String key, String value, long expire, TimeUnit timeUnit);
+    <T> void set(String key, T value, long expire, TimeUnit timeUnit);
 
-    String get(String key);
+    <T> T get(String key);
 
     boolean expire(String key, long expire);
 
     void del(String key);
+
+    void delBatch(Set<String> keys);
+
+    void delBatch(String keyPrefix);
 
     <T> void setList(String key, List<T> list);
 
     <T> void setList(String key, List<T> list, long expire, TimeUnit timeUnit);
 
     <T> List<T> getList(String key, Class<T> clz);
+
+    boolean hasKey(String key);
+
+    long getExpire(String key);
+
+    Set<String> keySet(String keyPrefix);
 }

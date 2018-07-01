@@ -20,6 +20,7 @@
 package com.zyd.blog.business.aspect;
 
 import com.zyd.blog.business.annotation.RedisCache;
+import com.zyd.blog.business.service.RedisService;
 import com.zyd.blog.util.AspectUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -27,11 +28,9 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
-import java.util.Set;
 
 /**
  * Redis业务层数据缓存
@@ -47,8 +46,10 @@ import java.util.Set;
 @Component
 public class RedisCacheAspect {
 
+    private static final String BIZ_CACHE_PREFIX = "biz_cache_";
+
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisService redisService;
 
     @Pointcut(value = "@annotation(com.zyd.blog.business.annotation.RedisCache)")
     public void pointcut() {
@@ -57,34 +58,28 @@ public class RedisCacheAspect {
     @Around("pointcut()")
     public Object handle(ProceedingJoinPoint point) throws Throwable {
         Method currentMethod = AspectUtil.getMethod(point);
-        //获取拦截方法的参数
-        String className = AspectUtil.getClassName(point);
-        // 获取操作名称
+        //获取操作名称
         RedisCache cache = currentMethod.getAnnotation(RedisCache.class);
-        if (cache.flush()) {
-            log.info("清空缓存 - {}*", className);
-            Set<String> keys = redisTemplate.keys(className + "*");
-            redisTemplate.delete(keys);
-            log.info("Clear all the cached query result from redis");
+        boolean flush = cache.flush();
+        if (flush) {
+            log.info("清空缓存 - {}*", BIZ_CACHE_PREFIX);
+            redisService.delBatch(BIZ_CACHE_PREFIX);
             return point.proceed();
         }
-        String realKey = AspectUtil.getKey(point, cache.key());
-        // 缓存存在
-        boolean hasKey = redisTemplate.hasKey(realKey);
+        String key = AspectUtil.getKey(point, cache.key(), BIZ_CACHE_PREFIX);
+        boolean hasKey = redisService.hasKey(key);
         if (hasKey) {
             try {
-                log.info("{}从缓存中获取数据", realKey);
-                return redisTemplate.opsForValue().get(realKey);
+                log.info("{}从缓存中获取数据", key);
+                return redisService.get(key);
             } catch (Exception e) {
                 log.error("从缓存中获取数据失败！", e);
             }
         }
-        // 先执行业务
+        //先执行业务
         Object result = point.proceed();
-        // 向Redis中添加数据，有效时间是30天
-        redisTemplate.opsForValue().set(realKey, result, cache.expire(), cache.unit());
-        log.info("Put query result to redis");
-        log.info("{}从数据库中获取数据", realKey);
+        redisService.set(key, result, cache.expire(), cache.unit());
+        log.info("{}从数据库中获取数据", key);
         return result;
     }
 }

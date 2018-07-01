@@ -22,6 +22,7 @@ package com.zyd.blog.util;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
 
@@ -36,10 +37,24 @@ import java.lang.reflect.Method;
  */
 public class AspectUtil {
 
-    public static String getClassName(ProceedingJoinPoint point) throws NoSuchMethodException {
+    /**
+     * 获取当前切面执行的方法所在的class
+     *
+     * @param point
+     *         当前切面执行的方法
+     * @throws NoSuchMethodException
+     */
+    public static String getClassName(ProceedingJoinPoint point) {
         return point.getTarget().getClass().getName();
     }
 
+    /**
+     * 获取当前切面执行的方法的方法名
+     *
+     * @param point
+     *         当前切面执行的方法
+     * @throws NoSuchMethodException
+     */
     public static Method getMethod(ProceedingJoinPoint point) throws NoSuchMethodException {
         Signature sig = point.getSignature();
         MethodSignature msig = (MethodSignature) sig;
@@ -47,11 +62,31 @@ public class AspectUtil {
         return target.getClass().getMethod(msig.getName(), msig.getParameterTypes());
     }
 
-    public static String getKey(ProceedingJoinPoint point, String extra) throws NoSuchMethodException {
+    /**
+     * 获取切面缓存的key
+     *
+     * @param point
+     *         当前切面执行的方法
+     * @param extra
+     *         额外的参数 （非必选）
+     * @param prefix
+     *         key前缀 （非必选）
+     * @throws NoSuchMethodException
+     */
+    public static String getKey(ProceedingJoinPoint point, String extra, String prefix) throws NoSuchMethodException {
         Method currentMethod = AspectUtil.getMethod(point);
         //获取拦截方法的参数
         String className = AspectUtil.getClassName(point);
         String methodName = currentMethod.getName();
-        return String.format("%s.%s%s%s", className, methodName, CacheKeyUtil.getMethodParamsKey(point.getArgs()), extra);
+        StringBuilder key = new StringBuilder();
+        if (!StringUtils.isEmpty(prefix)) {
+            key.append(prefix);
+        }
+        key.append(className.replaceAll("\\.", "_"));
+        key.append("_");
+        key.append(methodName);
+        key.append(CacheKeyUtil.getMethodParamsKey(point.getArgs()));
+        key.append(extra);
+        return key.toString();
     }
 }

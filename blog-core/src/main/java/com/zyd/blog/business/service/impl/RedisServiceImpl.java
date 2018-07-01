@@ -24,14 +24,16 @@ import com.zyd.blog.business.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @website https://www.zhyd.me
  * @version 1.0
+ * @website https://www.zhyd.me
  * @date 2018/4/16 16:26
  * @since 1.0
  */
@@ -39,21 +41,21 @@ import java.util.concurrent.TimeUnit;
 public class RedisServiceImpl implements RedisService {
 
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate redisTemplate;
 
     @Override
-    public void set(String key, String value) {
+    public <T> void set(String key, T value) {
         redisTemplate.opsForValue().set(key, value);
     }
 
     @Override
-    public void set(String key, String value, long expire, TimeUnit timeUnit) {
+    public <T> void set(String key, T value, long expire, TimeUnit timeUnit) {
         redisTemplate.opsForValue().set(key, value, expire, timeUnit);
     }
 
     @Override
-    public String get(String key) {
-        return redisTemplate.opsForValue().get(key);
+    public <T> T get(String key) {
+        return (T) redisTemplate.opsForValue().get(key);
     }
 
     @Override
@@ -64,6 +66,19 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public void del(String key) {
         redisTemplate.opsForValue().getOperations().delete(key);
+    }
+
+    @Override
+    public void delBatch(Set<String> keys) {
+        redisTemplate.delete(keys);
+    }
+
+    @Override
+    public void delBatch(String keyPrefix) {
+        Set<String> keys = this.keySet(keyPrefix + "*");
+        if (!CollectionUtils.isEmpty(keys)) {
+            delBatch(keys);
+        }
     }
 
     @Override
@@ -82,9 +97,23 @@ public class RedisServiceImpl implements RedisService {
     public <T> List<T> getList(String key, Class<T> clz) {
         String json = get(key);
         if (json != null) {
-            List<T> list = JSON.parseArray(json, clz);
-            return list;
+            return JSON.parseArray(json, clz);
         }
         return null;
+    }
+
+    @Override
+    public boolean hasKey(String key) {
+        return redisTemplate.hasKey(key);
+    }
+
+    @Override
+    public long getExpire(String key) {
+        return redisTemplate.getExpire(key);
+    }
+
+    @Override
+    public Set<String> keySet(String keyPrefix) {
+        return redisTemplate.keys(keyPrefix + "*");
     }
 }
