@@ -86,7 +86,7 @@ public class AspectUtil {
         key.append("_");
         key.append(methodName);
         key.append(CacheKeyUtil.getMethodParamsKey(point.getArgs()));
-        key.append(extra);
+        key.append(null == extra ? "" : extra);
         return key.toString();
     }
 }
