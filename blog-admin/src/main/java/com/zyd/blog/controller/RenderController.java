@@ -32,6 +32,7 @@ package com.zyd.blog.controller;
 import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Article;
 import com.zyd.blog.business.service.BizArticleService;
+import com.zyd.blog.core.websocket.server.ZydWebsocketServer;
 import com.zyd.blog.util.ResultUtil;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -57,6 +58,8 @@ public class RenderController {
 
     @Autowired
     private BizArticleService articleService;
+    @Autowired
+    private ZydWebsocketServer websocketServer;
 
     @RequiresAuthentication
     @BussinessLog("进入首页")
@@ -199,5 +202,13 @@ public class RenderController {
     @GetMapping("/shiro")
     public ModelAndView shiro(Model model) {
         return ResultUtil.view("shiro");
+    }
+
+    @RequiresPermissions("notice")
+    @BussinessLog("进入静态页面管理页")
+    @GetMapping("/notice")
+    public ModelAndView notice(Model model) {
+        model.addAttribute("online", websocketServer.getOnlineUserCount());
+        return ResultUtil.view("notification");
     }
 }

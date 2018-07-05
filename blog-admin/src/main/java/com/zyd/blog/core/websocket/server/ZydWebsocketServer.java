@@ -17,8 +17,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.zyd.blog.core.websocket;
+package com.zyd.blog.core.websocket.server;
 
+import com.zyd.blog.core.websocket.util.WebSocketUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -40,16 +41,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 @ServerEndpoint(value = "/websocket")
 @Component
-public class ZydWebSocket {
+public class ZydWebsocketServer {
 
-    /**
-     * 初始在线人数
-     */
-    private static AtomicInteger onlineCount = new AtomicInteger(0);
     /**
      * 线程安全的socket集合
      */
     private static CopyOnWriteArraySet<Session> webSocketSet = new CopyOnWriteArraySet<>();
+    /**
+     * 初始在线人数
+     */
+    private static AtomicInteger onlineCount = new AtomicInteger(0);
 
     /**
      * 连接建立成功调用的方法
@@ -57,9 +58,10 @@ public class ZydWebSocket {
     @OnOpen
     public void onOpen(Session session) {
         webSocketSet.add(session);
-        onlineCount.incrementAndGet();
-        log.info("有链接加入，当前在线人数为: {}", getOnlineCount());
-        WebSocketUtil.broadcast(getOnlineCount(), webSocketSet);
+        int count = onlineCount.incrementAndGet();
+        log.info("有链接加入，当前在线人数为: {}", count);
+
+        WebSocketUtil.sendOnlineMsg(Integer.toString(count), webSocketSet);
     }
 
     /**
@@ -67,9 +69,9 @@ public class ZydWebSocket {
      */
     @OnClose
     public void onClose() {
-        onlineCount.decrementAndGet();
-        log.info("有链接关闭,当前在线人数为: {}", getOnlineCount());
-        WebSocketUtil.broadcast(getOnlineCount(), webSocketSet);
+        int count = onlineCount.decrementAndGet();
+        log.info("有链接关闭,当前在线人数为: {}", count);
+        WebSocketUtil.sendOnlineMsg(Integer.toString(count), webSocketSet);
     }
 
     /**
@@ -81,10 +83,23 @@ public class ZydWebSocket {
     @OnMessage
     public void onMessage(String message, Session session) {
         log.info("{}来自客户端的消息:{}", session.getId(), message);
-        WebSocketUtil.sendMessage(message, session);
     }
 
-    private String getOnlineCount() {
-        return Integer.toString(onlineCount.get());
+    /**
+     * 获取在线用户数量
+     *
+     * @return
+     */
+    public int getOnlineUserCount() {
+        return onlineCount.get();
+    }
+
+    /**
+     * 获取在线用户的会话信息
+     *
+     * @return
+     */
+    public CopyOnWriteArraySet<Session> getOnlineUsers() {
+        return webSocketSet;
     }
 }

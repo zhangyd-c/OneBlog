@@ -159,6 +159,7 @@
 <script type="text/javascript">
     var appConfig = {
         wwwPath: '${config.siteUrl}',
+        cmsPath: '${config.cmsUrl}',
         staticPath: '${config.staticWebSite}',
         qiuniuBasePath: '${config.qiuniuBasePath}',
         wxPraiseCode: '${config.wxPraiseCode}',

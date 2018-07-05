@@ -81,6 +81,14 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="staticWebSite">CMS后管系统地址<span
+                                                class="required">*</span></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" class="form-control col-md-7 col-xs-12" name="cmsUrl" id="cmsUrl"
+                                                   required="required" placeholder="请输入CMS后管系统地址"/>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>

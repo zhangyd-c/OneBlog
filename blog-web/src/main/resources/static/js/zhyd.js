@@ -160,6 +160,22 @@ var PaymentUtils = window.payment || {
     }
 
 };
+
+/**
+ * websocket消息解析器
+ *
+ * @type {{online: wesocketMsgResolver.online}}
+ */
+var wesocketMsgResolver = {
+    online: function (value) {
+        value && $(".online").html(value);
+    },
+    notification: function (value) {
+        value && $.notification.show({
+            notification: value
+        });
+    }
+};
 $(function () {
 
     $(document).ready(function () {
@@ -225,12 +241,12 @@ $(function () {
     }, 1000);
     function getCurrentDate(){
         var now = new Date();
-        var weekArr = new Array('星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六');
+        var weekArr = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
         $("#currentTime").html(now.format('yyyy年MM月dd日 hh时mm分ss秒') + " " + weekArr[now.getDay()]);
     }
 
     if($.websocket) {
-        var sitePath = appConfig.wwwPath;
+        var sitePath = appConfig.cmsPath;
         var scheme = ["http://", "https://"];
         var host;
         $.each(scheme, function (i, v) {
@@ -239,12 +255,18 @@ $(function () {
                return false;
            }
         });
+        // 默认取8085端口的程序
+        host = host || document.domain + ":8085";
         if(host){
+            // 申请显示通知的权限
+            $.notification.requestPermission();
             $.websocket.open({
                 host: "ws://" + host + "/websocket",
                 reconnect: true,
-                callback: function (json) {
-                    $(".online").html(json);
+                callback: function (result) {
+                    console.log(result);
+                    var resultJson = JSON.parse(result);
+                    wesocketMsgResolver[resultJson["fun"]](resultJson["msg"]);
                 }
             });
         } else {

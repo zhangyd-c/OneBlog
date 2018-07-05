@@ -33,6 +33,14 @@ ALTER TABLE `biz_article`
 ADD COLUMN `is_markdown`  tinyint(1) UNSIGNED NULL AFTER `qrcode_path`,
 ADD COLUMN `content_md`  longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT 'markdown版的文章内容' AFTER `content`;
 
+# 2018-07-05 config表中新增管理系统的url，增加推送消息的功能
+ALTER TABLE `sys_config`
+ADD COLUMN `cms_url`  varchar(255) NULL COMMENT '管理系统的url' AFTER `domain`;
+
+INSERT INTO `sys_resources` VALUES ('71', '推送消息', 'menu', '/notice', 'notice', '40', NULL, '0', '1', '', '2018-07-05 11:30:24', '2018-07-05 11:30:24');
+UPDATE `sys_config` SET `cms_url`='http://localhost:8085' WHERE (`id`='1')
+-- 如果直接执行update语句，请手动清空redis缓存
+
 
 
 

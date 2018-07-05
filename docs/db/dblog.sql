@@ -210,6 +210,7 @@ CREATE TABLE `sys_config` (
   `home_desc` varchar(255) DEFAULT NULL COMMENT '首页描述',
   `home_keywords` varchar(255) DEFAULT NULL COMMENT '首页关键字',
   `domain` varchar(255) DEFAULT NULL COMMENT '根域名',
+  `cms_url`  varchar(255) DEFAULT NULL COMMENT '管理系统的url',
   `site_url` varchar(255) DEFAULT NULL COMMENT '网站地址',
   `site_name` varchar(255) DEFAULT NULL COMMENT '站点名称',
   `site_desc` varchar(255) DEFAULT NULL COMMENT '站点描述',
@@ -384,6 +385,8 @@ INSERT INTO `sys_resources` VALUES ('67', '撤回公告', 'button', null, 'notic
 INSERT INTO `sys_resources` VALUES ('68', '测试页面', 'menu', null, null, '0', '5', '0', '1', 'fa fa-desktop', '2018-05-22 10:08:05', '2018-05-22 10:08:05');
 INSERT INTO `sys_resources` VALUES ('69', 'icons图标', 'menu', '/icons', 'icons', '68', '2', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
 INSERT INTO `sys_resources` VALUES ('70', 'shiro测试', 'menu', '/shiro', 'shiro', '68', '3', '0', '1', null, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
+INSERT INTO `sys_resources` VALUES ('71', '推送消息', 'menu', '/notice', 'notice', '40', NULL, '0', '1', '', '2018-07-05 11:30:24', '2018-07-05 11:30:24');
+
 
 -- ----------------------------
 -- Table structure for sys_role

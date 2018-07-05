@@ -76,6 +76,7 @@ public class ShiroService {
         filterChainDefinitionMap.put("/passport/logout", "logout");
         filterChainDefinitionMap.put("/passport/login", "anon");
         filterChainDefinitionMap.put("/passport/signin", "anon");
+        filterChainDefinitionMap.put("/websocket", "anon");
         filterChainDefinitionMap.put("/favicon.ico", "anon");
         filterChainDefinitionMap.put("/error", "anon");
         filterChainDefinitionMap.put("/assets/**", "anon");

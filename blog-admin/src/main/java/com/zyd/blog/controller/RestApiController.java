@@ -23,6 +23,8 @@ import com.zyd.blog.business.entity.Config;
 import com.zyd.blog.business.enums.QiniuUploadType;
 import com.zyd.blog.business.service.BizArticleService;
 import com.zyd.blog.business.service.SysConfigService;
+import com.zyd.blog.core.websocket.server.ZydWebsocketServer;
+import com.zyd.blog.core.websocket.util.WebSocketUtil;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.FileUtil;
 import com.zyd.blog.util.ResultUtil;
@@ -54,6 +56,8 @@ public class RestApiController {
     private BizArticleService articleService;
     @Autowired
     private SysConfigService configService;
+    @Autowired
+    private ZydWebsocketServer websocketServer;
 
     /**
      * 上传文件到七牛云
@@ -89,5 +93,17 @@ public class RestApiController {
     @PostMapping("/material")
     public ResponseVO material() {
         return ResultUtil.success("", articleService.listMaterial());
+    }
+
+    /**
+     * 发送消息通知
+     *
+     * @return
+     */
+    @RequiresPermissions("notice")
+    @PostMapping("/notice")
+    public ResponseVO notice(String msg) {
+        WebSocketUtil.sendNotificationMsg(msg, websocketServer.getOnlineUsers());
+        return ResultUtil.success("消息发送成功", articleService.listMaterial());
     }
 }

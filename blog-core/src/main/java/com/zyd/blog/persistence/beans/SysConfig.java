@@ -38,6 +38,7 @@ public class SysConfig extends AbstractDO {
     private String homeDesc;
     private String homeKeywords;
     private String domain;
+    private String cmsUrl;
     private String siteUrl;
     private String siteName;
     private String siteDesc;

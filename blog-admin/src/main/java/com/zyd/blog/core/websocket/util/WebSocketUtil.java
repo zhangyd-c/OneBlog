@@ -17,9 +17,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.zyd.blog.core.websocket;
+package com.zyd.blog.core.websocket.util;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.CollectionUtils;
 
 import javax.websocket.Session;
 import java.io.IOException;
@@ -37,8 +38,44 @@ import java.util.Set;
 @Slf4j
 public class WebSocketUtil {
 
+    private static final String ONLINE_MSG_KEY = "online";
+    private static final String NOTIFICATION_MSG_KEY = "notification";
+
     private WebSocketUtil() {
         // 私有化构造方法，禁止new
+    }
+
+    /**
+     * 根据消息类型，生成发送到客户端的最终消息内容
+     *
+     * @param type
+     *         消息类型
+     * @param content
+     *         消息正文
+     * @return
+     */
+    private static String generateMsg(String type, String content) {
+        return String.format("{\"fun\": \"%s\", \"msg\":\"%s\"}", type, content);
+    }
+
+    /**
+     * 发送在线用户的消息
+     *
+     * @param msg
+     * @param sessionSet
+     */
+    public static void sendOnlineMsg(String msg, Set<Session> sessionSet) {
+        broadcast(generateMsg(ONLINE_MSG_KEY, msg), sessionSet);
+    }
+
+    /**
+     * 发送通知的消息
+     *
+     * @param msg
+     * @param sessionSet
+     */
+    public static void sendNotificationMsg(String msg, Set<Session> sessionSet) {
+        broadcast(generateMsg(NOTIFICATION_MSG_KEY, msg), sessionSet);
     }
 
     /**
@@ -50,7 +87,7 @@ public class WebSocketUtil {
      *         客户端session
      * @throws IOException
      */
-    public static void sendMessage(String message, Session session) {
+    private static void sendMessage(String message, Session session) {
         try {
             session.getAsyncRemote().sendText(message);
         } catch (Exception e) {
@@ -67,10 +104,13 @@ public class WebSocketUtil {
      *         客户端session列表
      * @throws IOException
      */
-    public static void broadcast(String message, Set<Session> sessionSet) {
+    private static void broadcast(String message, Set<Session> sessionSet) {
+        if (CollectionUtils.isEmpty(sessionSet)) {
+            return;
+        }
         // 多线程群发
         for (Session entry : sessionSet) {
-            if (entry.isOpen()) {
+            if (null != entry && entry.isOpen()) {
                 sendMessage(message, entry);
             } else {
                 sessionSet.remove(entry);
