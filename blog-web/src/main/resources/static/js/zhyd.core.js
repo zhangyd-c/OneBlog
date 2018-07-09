@@ -73,11 +73,10 @@
                     delay: 5000,
                     notification: null
                 }, options);
-
                 var n = new Notification(op.title, {
                     icon: op.icon,
                     noscreen: true,
-                    body: op.notification
+                    body: decodeURIComponent(op.notification)
                 });
                 //  用户点击之后当天不再显示
                 var hide = localStorage.getItem("hide");
