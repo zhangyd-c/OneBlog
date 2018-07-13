@@ -101,13 +101,11 @@ var zhyd = window.zhyd || {
         editor.customConfig.pasteFilterStyle = false;
         editor.customConfig.zIndex = 100;
 
-        if($op.contentId){
-            var $content = $('#' + $op.contentId);
-            editor.customConfig.onchange = function (html) {
-                // 监控变化，同步更新到 textarea
-                $content.val(html);
-            };
-        }
+        var $content = $('#' + $op.contentId);
+        editor.customConfig.onchange = function (html) {
+            // 监控变化，同步更新到 textarea
+            $content.val(html);
+        };
 
         if($op.uploadUrl){
             // 上传图片到服务器
@@ -135,6 +133,8 @@ var zhyd = window.zhyd || {
                         var imgFullPath = appConfig.qiniuPath + result.data + appConfig.qiniuImgStyle;
                         // editor.txt.append(' <a href="' + imgFullPath + '" class="showImage" title="" rel="external nofollow"><img src="' + imgFullPath + '" class="img-responsive  img-rounded" alt="" style="width: 95%;"/></a>');
                         editor.txt.append('<img src="' + imgFullPath + '" alt="" style="width: 95%;max-width: 100%;height: auto;border-radius: 6px;"/>');
+                        // 解决上传完图片如果未进行其他操作，则不会触发编辑器的“change”事件，导致实际文章内容中缺少最后上传的图片文件 2018-07-13
+                        $content.val(editor.txt.html());
                     } else {
                         $.alert.error(result.message);
                     }
