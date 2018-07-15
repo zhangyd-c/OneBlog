@@ -389,7 +389,7 @@ public class BizArticleServiceImpl implements BizArticleService {
         bizArticleTagsMapper.deleteByExample(loveExample);
         // 删除查看记录
         Example lookExample = new Example(BizArticleLook.class);
-        Example.Criteria lookCriteria = loveExample.createCriteria();
+        Example.Criteria lookCriteria = lookExample.createCriteria();
         lookCriteria.andEqualTo("articleId", primaryKey);
         bizArticleLookMapper.deleteByExample(lookExample);
         // 删除赞记录
