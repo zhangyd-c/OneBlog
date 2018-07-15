@@ -65,10 +65,6 @@ public class PassportController {
     @BussinessLog("进入登录页面")
     @GetMapping("/login")
     public ModelAndView login(Model model) {
-        Subject subject = SecurityUtils.getSubject();
-        if (subject.isAuthenticated()||subject.isRemembered()){
-            return ResultUtil.redirect("/");
-        }
         model.addAttribute("enableKaptcha", config.getEnableKaptcha());
         return ResultUtil.view("/login");
     }
