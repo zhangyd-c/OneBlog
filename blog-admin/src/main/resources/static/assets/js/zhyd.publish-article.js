@@ -92,17 +92,18 @@ if(articleId){
                 if(info['coverImage']){
                     $(".coverImage").attr('src', appConfig.qiniuPath + info['coverImage']);
                 }
-                if(info['contentMd']){
-                    $("#contentMd").val(info['contentMd']);
+                var contentMd = info['contentMd'];
+                if(contentMd){
+                    $("#contentMd").val(contentMd);
                     if(simplemde){
-                        simplemde.value(info['contentMd']);
+                        simplemde.value(contentMd);
                     }
                 }
-
-                if(info['content']){
-                    $("#content").val(info['content']);
+                var contentHtml = info['content'];
+                if(contentHtml){
+                    $("#content").val(contentHtml);
                     if(editor){
-                        editor.txt.html(info['content']);
+                        editor.txt.html(contentHtml);
                     }
                 }
                 $publishForm.find("input[type!=checkbox], select, textarea").each(function () {

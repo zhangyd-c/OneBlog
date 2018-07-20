@@ -142,7 +142,7 @@
 </div>
 <footer class="footer">
     <div class="clear">
-        <p>托管于<a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=wylo59db" target="_blank" title="阿里云-为了无法计算的价值" data-toggle="tooltip" data-placement="bottom" rel="external nofollow">阿里云</a> & <a href="https://www.qiniu.com/" target="_blank" title="七牛云-国内领先的企业级云服务商" data-toggle="tooltip" data-placement="bottom" rel="external nofollow">七牛云</a> · <a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank" title="查看备案信息" data-toggle="tooltip" data-placement="bottom" rel="external nofollow">鲁ICP备17054970号-1</a></p>
+        <p>托管于<a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=wylo59db" target="_blank" title="阿里云-为了无法计算的价值" data-toggle="tooltip" data-placement="bottom" rel="external nofollow">阿里云</a> & <a href="https://portal.qiniu.com/signup?code=3l8yx2v0f21ci" target="_blank" title="七牛云-国内领先的企业级云服务商" data-toggle="tooltip" data-placement="bottom" rel="external nofollow">七牛云</a> · <a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank" title="查看备案信息" data-toggle="tooltip" data-placement="bottom" rel="external nofollow">鲁ICP备17054970号-1</a></p>
         <p>Copyright&copy;2016-${.now?string("yyyy")} ${config.siteName} · Powered by <a href="https://gitee.com/yadong.zhang/DBlog" title="DBlog是一款简洁美观、自适应的Java博客系统..." data-toggle="tooltip" data-placement="right" target="_blank"><strong>DBlog</strong></a> · <a href="http://tongji.baidu.com/web/welcome/ico?s=590226d2f4ffbf051442eb75f37333c9" target="_blank" title="点击查看${config.siteName}网站统计详情" data-toggle="tooltip" data-placement="right" rel="external nofollow"><i class="fa fa-bar-chart-o fa-fw fa-spin"></i>网站统计</a></p>
     </div>
 </footer>
@@ -166,7 +166,6 @@
         zfbPraiseCode: '${config.zfbPraiseCode}'
     }
 </script>
-<script type="text/javascript" src="${config.staticWebSite}/js/wangEditor.min.js"></script>
 <script type="text/javascript" src="${config.staticWebSite}/js/zhyd.core.js"></script>
 <script type="text/javascript" src="${config.staticWebSite}/js/zhyd.js"></script>
 <script type="text/javascript" src="${config.staticWebSite}/js/zhyd.comment.js"></script>

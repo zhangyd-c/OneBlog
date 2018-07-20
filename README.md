@@ -81,7 +81,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
    1. 数据库链接属性(在`resources/application-{env}.yml`配置文件中搜索`datasource`或定位到L.7) 
    2. redis配置(在`resources/application.yml`配置文件中搜索`redis`或定位到L.65)
    3. mail配置(在`resources/application-{env}.yml`配置文件中搜索`mail`或定位到L.14)
-   4. 【[七牛云](http://qiniu.com)】配置(见sys_config表中qiniu_*开头的字段)    
+   4. 【[七牛云](https://portal.qiniu.com/signup?code=3l8yx2v0f21ci)】配置(见sys_config表中qiniu_*开头的字段)    
       注：因为系统存在redis缓存，如果是第一次使用，可以直接修改sys_config表内容，如果不是第一次用，建议使用admin项目中的`系统配置`页面修改相关配置内容
 5. 运行项目(三种方式)
    1. 项目根目录下执行`mvn -X clean package -Dmaven.test.skip=true -Ptest`编译打包（注：-Ptest中的test为环境标识），然后cd到blog-web目录下执行`java -jar target/blog-web.jar`

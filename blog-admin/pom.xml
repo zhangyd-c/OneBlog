@@ -42,6 +42,46 @@
 				</configuration>
 			</plugin>-->
 			<plugin>
+				<groupId>net.alchim31.maven</groupId>
+				<artifactId>yuicompressor-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compress</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!-- 读取js,css文件采用UTF-8编码 -->
+					<encoding>UTF-8</encoding>
+					<!-- 不显示js可能的错误 -->
+					<jswarn>false</jswarn>
+					<!-- 若存在已压缩的文件，会先对比源文件是否有改动  有改动便压缩，无改动就不压缩 -->
+					<force>false</force>
+					<!-- 在指定的列号后插入新行 -->
+					<linebreakpos>-1</linebreakpos>
+					<!-- 压缩之前先执行聚合文件操作 -->
+					<preProcessAggregates>true</preProcessAggregates>
+					<!-- 压缩后保存的文件后缀：true=无后缀 ，false=有后缀-min -->
+					<nosuffix>true</nosuffix>
+					<!-- 源目录，即需压缩的根目录 -->
+					<sourceDirectory>src/main/resources/static/assets</sourceDirectory>
+					<!-- 目标输出目录 -->
+					<outputDirectory>target/classes/static/assets</outputDirectory>
+					<!-- 压缩js和css文件 -->
+					<includes>
+						<include>**/*.js</include>
+						<include>**/*.css</include>
+					</includes>
+					<!-- 以下目录和文件不会被压缩 -->
+					<excludes>
+						<exclude>**/*.min.js</exclude>
+						<exclude>**/*.min.css</exclude>
+						<exclude>**/jquery-form.js</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
@@ -52,6 +92,23 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>static/assets/images/**</include>
+					<!--<include>%regex[static/assets/js/(jquery-form|wangEditor\.min)\.js]</include>-->
+					<include>static/assets/js/jquery-form.js</include>
+					<include>static/assets/js/wangEditor.min.js</include>
+					<include>static/assets/css/jquery-confirm.min.css</include>
+					<include>templates/**</include>
+					<include>*.yml</include>
+					<include>*.txt</include>
+					<include>*.xml</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 
 
