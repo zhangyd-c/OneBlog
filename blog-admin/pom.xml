@@ -31,7 +31,7 @@
 	<build>
 		<plugins>
 			<!-- 解决@xx@无法解析的问题 -->
-			<!--<plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<configuration>
@@ -40,12 +40,13 @@
 					</delimiters>
 					<useDefaultDelimiters>false</useDefaultDelimiters>
 				</configuration>
-			</plugin>-->
+			</plugin>
 			<plugin>
 				<groupId>net.alchim31.maven</groupId>
 				<artifactId>yuicompressor-maven-plugin</artifactId>
 				<executions>
 					<execution>
+						<phase>process-resources</phase>
 						<goals>
 							<goal>compress</goal>
 						</goals>
@@ -92,13 +93,14 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<resources>
+		<!-- 打包的时候放开 -->
+		<!--<resources>
 			<resource>
 				<filtering>true</filtering>
 				<directory>src/main/resources</directory>
 				<includes>
 					<include>static/assets/images/**</include>
-					<!--<include>%regex[static/assets/js/(jquery-form|wangEditor\.min)\.js]</include>-->
+					&lt;!&ndash;<include>%regex[static/assets/js/(jquery-form|wangEditor\.min)\.js]</include>&ndash;&gt;
 					<include>static/assets/js/jquery-form.js</include>
 					<include>static/assets/js/wangEditor.min.js</include>
 					<include>static/assets/css/jquery-confirm.min.css</include>
@@ -108,7 +110,7 @@
 					<include>*.xml</include>
 				</includes>
 			</resource>
-		</resources>
+		</resources>-->
 	</build>
 
 
