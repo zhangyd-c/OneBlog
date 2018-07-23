@@ -62,8 +62,9 @@ public class RedisCacheAspect {
         RedisCache cache = currentMethod.getAnnotation(RedisCache.class);
         boolean flush = cache.flush();
         if (flush) {
-            log.info("清空缓存 - {}*", BIZ_CACHE_PREFIX);
-            redisService.delBatch(BIZ_CACHE_PREFIX);
+            String classPrefix = AspectUtil.getKeyOfClassPrefix(point, BIZ_CACHE_PREFIX);
+            log.info("清空缓存 - {}*", classPrefix);
+            redisService.delBatch(classPrefix);
             return point.proceed();
         }
         String key = AspectUtil.getKey(point, cache.key(), BIZ_CACHE_PREFIX);

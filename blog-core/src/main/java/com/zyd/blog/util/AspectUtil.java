@@ -38,14 +38,28 @@ import java.lang.reflect.Method;
 public class AspectUtil {
 
     /**
+     * 获取以类路径为前缀的键
+     *
+     * @param point
+     *         当前切面执行的方法
+     */
+    public static String getKeyOfClassPrefix(ProceedingJoinPoint point, String prefix) {
+        String keyPrefix = "";
+        if (!StringUtils.isEmpty(prefix)) {
+            keyPrefix += prefix;
+        }
+        keyPrefix += getClassName(point);
+        return keyPrefix;
+    }
+
+    /**
      * 获取当前切面执行的方法所在的class
      *
      * @param point
      *         当前切面执行的方法
-     * @throws NoSuchMethodException
      */
     public static String getClassName(ProceedingJoinPoint point) {
-        return point.getTarget().getClass().getName();
+        return point.getTarget().getClass().getName().replaceAll("\\.", "_");
     }
 
     /**
@@ -75,14 +89,9 @@ public class AspectUtil {
      */
     public static String getKey(ProceedingJoinPoint point, String extra, String prefix) throws NoSuchMethodException {
         Method currentMethod = AspectUtil.getMethod(point);
-        //获取拦截方法的参数
-        String className = AspectUtil.getClassName(point);
         String methodName = currentMethod.getName();
         StringBuilder key = new StringBuilder();
-        if (!StringUtils.isEmpty(prefix)) {
-            key.append(prefix);
-        }
-        key.append(className.replaceAll("\\.", "_"));
+        key.append(getKeyOfClassPrefix(point, prefix));
         key.append("_");
         key.append(methodName);
         key.append(CacheKeyUtil.getMethodParamsKey(point.getArgs()));
