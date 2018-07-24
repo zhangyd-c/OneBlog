@@ -572,6 +572,10 @@ a:-webkit-any-link {
     transition: transform .3s linear;
 }
 
+.line-container .line-left + .line-right {
+    margin-left: 15%;
+}
+
 .line-right {
     width: 85%; /*text-shadow: 0px 0.04rem 0.04rem rgba(0,0,0,0.078)*/
 }
