@@ -32,6 +32,16 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 ----
 
+### 已经在用DBlog的网站 
+- [https://www.zhyd.me](https://www.zhyd.me)
+- 更多待续...
+
+烦请各位使用DBlog已经跑起来自己的博客的朋友，能留下你的网址（没别的意思，只是看看有多少人而已） - [点这儿](https://gitee.com/yadong.zhang/DBlog/issues/ILIAQ)
+
+
+
+----
+
 ### 模块划分
 
 | 模块         | 释义                      |
