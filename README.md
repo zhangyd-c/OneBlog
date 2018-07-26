@@ -32,8 +32,10 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 ----
 
-### 已经在用DBlog的网站 
-- [https://www.zhyd.me](https://www.zhyd.me)
+### 已经在用DBlog的网站 （ 排名按照留言先后顺序 ）
+- [张亚东博客](https://www.zhyd.me)
+- [攻城狮不是猫博客](http://www.jsdblog.com)
+- [刘辉辉的博客](www.axxo.top)
 - 更多待续...
 
 烦请各位使用DBlog已经跑起来自己的博客的朋友，能留下你的网址（没别的意思，只是看看有多少人而已） - [点这儿](https://gitee.com/yadong.zhang/DBlog/issues/ILIAQ)
