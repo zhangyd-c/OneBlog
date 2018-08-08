@@ -173,7 +173,10 @@ public class BizCommentServiceImpl implements BizCommentService {
         if (StringUtils.isEmpty(content)) {
             throw new ZhydCommentException("不说话可不行，必须说点什么哦~~");
         }
-        content = content.trim();
+        if (!XssKillerUtil.isValid(content)) {
+            throw new ZhydCommentException("内容不合法，请不要使用特殊标签哦~~");
+        }
+        content = XssKillerUtil.clean(content.trim());
         if (content.endsWith("<p><br></p>")) {
             comment.setContent(content.substring(0, content.length() - "<p><br></p>".length()));
         }
