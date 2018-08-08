@@ -170,16 +170,15 @@ public class BizCommentServiceImpl implements BizCommentService {
             throw new ZhydCommentException("必须输入昵称哦~~");
         }
         String content = comment.getContent();
-        if (StringUtils.isEmpty(content)) {
-            throw new ZhydCommentException("不说话可不行，必须说点什么哦~~");
-        }
         if (!XssKillerUtil.isValid(content)) {
             throw new ZhydCommentException("内容不合法，请不要使用特殊标签哦~~");
         }
-        content = XssKillerUtil.clean(content.trim());
-        if (content.endsWith("<p><br></p>")) {
-            comment.setContent(content.substring(0, content.length() - "<p><br></p>".length()));
+        content = XssKillerUtil.clean(content.trim()).replaceAll("(<p><br></p>)|(<p></p>)", "");
+        if (StringUtils.isEmpty(content) || "\n".equals(content)) {
+            throw new ZhydCommentException("不说话可不行，必须说点什么哦~~");
         }
+        // 过滤非法属性和无用的空标签
+        comment.setContent(content);
         comment.setNickname(HtmlUtil.html2Text(comment.getNickname()));
         comment.setQq(HtmlUtil.html2Text(comment.getQq()));
         comment.setAvatar(HtmlUtil.html2Text(comment.getAvatar()));

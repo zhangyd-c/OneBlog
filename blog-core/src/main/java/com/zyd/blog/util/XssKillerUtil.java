@@ -86,7 +86,7 @@ public class XssKillerUtil {
      * @return
      */
     private static Whitelist custome() {
-        return Whitelist.none().addTags("p", "strong", "pre", "code", "span", "blockquote").addAttributes("span", "class");
+        return Whitelist.none().addTags("p", "strong", "pre", "code", "span", "blockquote", "br").addAttributes("span", "class");
     }
 
     /**
@@ -97,7 +97,7 @@ public class XssKillerUtil {
      */
     public static String clean(String xssStr) {
         if (null == xssStr || xssStr.isEmpty()) {
-            return null;
+            return "";
         }
         return Jsoup.clean(xssStr, custome());
     }

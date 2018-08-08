@@ -15,32 +15,12 @@ public class XssKillerTest {
 
     @Test
     public void main() {
-
-
         System.out.println(XssKillerUtil.isValid(xssStr));
-        ;
         System.out.println("********************************************************************");
 
-        System.out.println(XssKillerUtil.clean(xssStr));
-        ;
-        System.out.println("********************************************************************");
-
-//        System.out.println(Jsoup.isValid(xssStr, Whitelist.basicWithImages()));
-//        System.out.println("********************************************************************");
-//        System.out.println(Jsoup.isValid(xssStr, Whitelist.basic()));
-//        System.out.println("********************************************************************");
-//        System.out.println(Jsoup.isValid(xssStr, Whitelist.simpleText()));
-//        System.out.println("********************************************************************");
         System.out.println(XssKillerUtil.isValidByJsoup(xssStr));
         System.out.println("********************************************************************");
 
-
-//        System.out.println(Jsoup.clean(xssStr, Whitelist.basicWithImages()));
-//        System.out.println("********************************************************************");
-//        System.out.println(Jsoup.clean(xssStr, Whitelist.basic()));
-//        System.out.println("********************************************************************");
-//        System.out.println(Jsoup.clean(xssStr, Whitelist.simpleText()));
-//        System.out.println("********************************************************************");
         System.out.println(XssKillerUtil.clean(xssStr));
         System.out.println("********************************************************************");
     }
