@@ -9,7 +9,7 @@
 <script type="text/javascript">
     var appConfig = {
         qiniuPath: '${config.qiuniuBasePath}',
-        qiniuImgStyle: '-pw',
+        qiniuImgStyle: '',// 上传文章图片时，会自动追加该值，主要用来定制化图片样式、水印背景等属性，默认无
         wwwPath: '${config.siteUrl}',
         staticPath: '${config.staticWebSite}'
     }
