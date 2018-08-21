@@ -95,7 +95,9 @@
         WHERE
             (re.parent_id = 0 OR re.parent_id IS NULL )
         AND re.available = 1
-        AND ur.user_id = #{userId}
+        <if test="userId != null">
+            AND ur.user_id = #{userId}
+        </if>
         <if test="type != null">
             AND re.type= #{type}
         </if>

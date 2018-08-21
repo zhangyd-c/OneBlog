@@ -36,23 +36,6 @@
 			<result property="description" jdbcType="VARCHAR" column="tag_description"/>
 		</collection>
 	</resultMap>
-	<sql id="Base_Column_List">
-		id,
-		title,
-		user_id,
-		cover_image,
-		qrcode_path,
-		content,
-		top,
-		type_id,
-		status,
-		recommended,
-		original,
-		description,
-		keywords,
-		create_time,
-		update_time
-	</sql>
 
 	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.ArticleConditionVO" resultMap="rm">
 		SELECT
@@ -279,5 +262,16 @@
 		GROUP BY
 			a.cover_image
 	</select>
+
+	<update id="batchUpdateStatus" parameterType="map">
+		UPDATE `biz_article`
+		SET status = #{status}
+		WHERE
+		 	id IN (
+		<foreach collection="list" item="item" separator=",">
+			#{item}
+		</foreach>
+		)
+	</update>
 </mapper>
 

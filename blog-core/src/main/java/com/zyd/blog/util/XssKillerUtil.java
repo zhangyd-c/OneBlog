@@ -101,4 +101,13 @@ public class XssKillerUtil {
         }
         return Jsoup.clean(xssStr, custome());
     }
+
+    public static String escape(String xssStr) {
+        if (null == xssStr || xssStr.isEmpty()) {
+            return "";
+        }
+
+        // TODO ...
+        return xssStr;
+    }
 }

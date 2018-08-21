@@ -23,6 +23,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.Article;
 import com.zyd.blog.business.entity.Config;
+import com.zyd.blog.business.enums.ArticleStatusEnum;
 import com.zyd.blog.business.enums.BaiduPushTypeEnum;
 import com.zyd.blog.business.enums.ResponseStatus;
 import com.zyd.blog.business.service.BizArticleService;
@@ -134,5 +135,15 @@ public class RestArticleController {
             return ResultUtil.error(resultJson.getString("message"));
         }
         return ResultUtil.success(null, result);
+    }
+
+    @RequiresPermissions(value = {"article:publish"}, logical = Logical.OR)
+    @PostMapping(value = "/batchPublish")
+    public ResponseVO batchPublish(Long[] ids) {
+        if (null == ids) {
+            return ResultUtil.error(500, "请至少选择一条记录");
+        }
+        articleService.batchUpdateStatus(ids, true);
+        return ResultUtil.success("批量发布完成");
     }
 }

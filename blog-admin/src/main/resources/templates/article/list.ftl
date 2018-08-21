@@ -13,11 +13,17 @@
                     <div class="<#--table-responsive-->">
                         <div class="btn-group hidden-xs" id="toolbar">
                             <@shiro.hasPermission name="article:publish">
-                                <a class="btn btn-default" title="发布文章" href="/article/publishMd"> <i class="fa fa-pencil"></i> 发布文章 </a>
+                                <a class="btn btn-default" title="发表文章" href="/article/publishMd"> <i class="fa fa-pencil"></i> 发表文章 </a>
                             </@shiro.hasPermission>
                             <@shiro.hasPermission name="article:batchDelete">
                                 <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
                                     <i class="fa fa-trash-o"></i> 批量删除
+                                </button>
+                            </@shiro.hasPermission>
+                            <#-- 由草稿状态批量修改为已发布状态 -->
+                            <@shiro.hasPermission name="article:publish">
+                                <button id="btn_update_status" type="button" class="btn btn-default" title="批量发布">
+                                    <i class="fa fa-trash-o"></i> 批量发布
                                 </button>
                             </@shiro.hasPermission>
                             <@shiro.hasPermission name="article:batchPush">
@@ -45,12 +51,14 @@
      */
     function operateFormatter(code, row, index) {
         var trId = row.id;
+        var recommended = row.recommended ? '<i class="fa fa-thumbs-o-down"></i>取消推荐' : '<i class="fa fa-thumbs-o-up"></i>推荐';
+        var top = row.top ? '<i class="fa fa-arrow-circle-down"></i>取消置顶' : '<i class="fa fa-arrow-circle-up"></i>置顶';
         var operateBtn = [
             '<@shiro.hasPermission name="article:push"><a class="btn btn-xs btn-info btn-push" title="推送" data-id="' + trId + '"><i class="fa fa-send-o"></i>推送</a></@shiro.hasPermission>',
-            '<@shiro.hasPermission name="article:top"><a class="btn btn-xs btn-success btn-top" data-id="' + trId + '"><i class="fa fa-arrow-circle-up"></i>置顶</a></@shiro.hasPermission>',
-            '<@shiro.hasPermission name="article:recommend"><a class="btn btn-xs btn-success btn-recommend" data-id="' + trId + '"><i class="fa fa-thumbs-o-up"></i>推荐</a></@shiro.hasPermission>',
             '<@shiro.hasPermission name="article:edit"><a class="btn btn-xs btn-primary" href="/article/update/' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
-            '<@shiro.hasPermission name="article:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
+            '<@shiro.hasPermission name="article:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>',
+            '<@shiro.hasPermission name="article:top"><a class="btn btn-xs btn-success btn-top" data-id="' + trId + '">' + top + '</a></@shiro.hasPermission>',
+            '<@shiro.hasPermission name="article:recommend"><a class="btn btn-xs btn-success btn-recommend" data-id="' + trId + '">' + recommended + '</a></@shiro.hasPermission>'
         ];
         return operateBtn.join('');
     }
@@ -67,17 +75,22 @@
                 }, {
                     field: 'title',
                     title: '标题',
-                    width: '250px',
+                    width: '200px',
                     editable: false,
                     formatter: function (code, row, index) {
+                        var title = code;
+                        title = title.length > 10 ? (title.substr(0, 10) + '...') : title;
                         var id = row.id;
-                        var original= row.original ? "原创" : "转载";
-                        return '<strong>['+original+']</strong> <a href="' + appConfig.wwwPath + '/article/' + id + '" target="_blank">' + code + '</a>';
+                        // var original= row.original ? "原创" : "转载";
+                        // return '<strong>['+original+']</strong> <a href="' + appConfig.wwwPath + '/article/' + id + '" target="_blank">' + code + '</a>';
+                        var status = row.status ? '<span class="label label-success">已发布</span>' : '<span class="label label-danger">草稿</span>';
+
+                        return status + '<a href="' + appConfig.wwwPath + '/article/' + id + '" target="_blank" title="' + code + '">' + title + '</a>';
                     }
                 }, {
                     field: 'type',
                     title: '分类',
-                    width: '90px',
+                    width: '80px',
                     editable: false,
                     formatter: function (code) {
                         var type = code;
@@ -94,38 +107,14 @@
                         if (tags) {
                             for (var i = 0, len = tags.length; i < len; i++) {
                                 var tag = tags[i];
-                                tagHtml += '<a class="btn btn-default btn-xs" href="' + appConfig.wwwPath + '/tag/' + tag.id + '" target="_blank"> ' + tag.name + '</a> ';
+                                tagHtml += ' <a class="" href="' + appConfig.wwwPath + '/tag/' + tag.id + '" target="_blank"> ' + tag.name + '</a> |';
                             }
                         }
-                        return tagHtml;
-                    }
-                }, {
-                    field: 'recommended',
-                    title: '推荐',
-                    width: '50px',
-                    editable: false,
-                    formatter: function (code) {
-                        return code ? '<span style="color: #26B99A;font-weight: 700">是</span>' : '否';
-                    }
-                }, {
-                    field: 'top',
-                    title: '置顶',
-                    width: '50px',
-                    editable: false,
-                    formatter: function (code) {
-                        return code ? '<span style="color: #26B99A;font-weight: 700">是</span>' : '否';
-                    }
-                }, {
-                    field: 'status',
-                    title: '状态',
-                    width: '50px',
-                    editable: false,
-                    formatter: function (code) {
-                        return code ? '<span class="label label-success">已发布</span>' : '<span class="label label-danger">草稿</span>';
+                        return tagHtml.substr(0, tagHtml.length - 1);
                     }
                 }, {
                     field: 'comment',
-                    title: '开启评论',
+                    title: '评论',
                     width: '50px',
                     editable: false,
                     formatter: function (code) {
@@ -157,7 +146,7 @@
                 }, {
                     field: 'operate',
                     title: '操作',
-                    width: '230px',
+                    width: '200px',
                     formatter: operateFormatter //自定义方法，添加操作按钮
                 }
             ]
@@ -217,6 +206,31 @@
                 return;
             }
             push(selectedId);
+        });
+
+        /**
+         * 批量修改状态
+         */
+        $("#btn_update_status").click(function () {
+            var selectedId = getSelectedId();
+            if (!selectedId || selectedId == '[]' || selectedId.length == 0) {
+                $.alert.error("请至少选择一条记录");
+                return;
+            }
+            $.alert.confirm("确定批量发布？发布完成后用户可见", function () {
+                $.ajax({
+                    type: "post",
+                    url: "/article/batchPublish",
+                    traditional: true,
+                    data: {'ids': selectedId},
+                    success: function (json) {
+                        $.alert.ajaxSuccess(json);
+                    },
+                    error: $.alert.ajaxError
+                });
+            }, function () {
+
+            }, 5000);
         });
 
         function push(ids) {

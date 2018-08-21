@@ -23,7 +23,10 @@
  */
 package com.zyd.blog.framework.tag;
 
+import com.zyd.blog.business.entity.User;
+import com.zyd.blog.business.enums.UserTypeEnum;
 import com.zyd.blog.business.service.*;
+import com.zyd.blog.util.SessionUtil;
 import freemarker.core.Environment;
 import freemarker.template.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +92,8 @@ public class CustomTagDirective implements TemplateDirectiveModel {
                     break;
                 case "menus":
                     Integer userId = null;
-                    if (map.containsKey("userId")) {
+                    User user = SessionUtil.getUser();
+                    if (map.containsKey("userId") && user != null && !user.getUserTypeEnum().equals(UserTypeEnum.ROOT)) {
                         String userIdStr = map.get("userId").toString();
                         if(StringUtils.isEmpty(userIdStr)){
                             return;

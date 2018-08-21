@@ -315,6 +315,14 @@ public class BizArticleServiceImpl implements BizArticleService {
         return bizArticleMapper.updateByPrimaryKeySelective(article) > 0;
     }
 
+    @Override
+    public void batchUpdateStatus(Long[] ids, boolean status) {
+        if (ids == null || ids.length <= 0) {
+            return;
+        }
+        bizArticleMapper.batchUpdateStatus(Arrays.asList(ids), status);
+    }
+
     /**
      * 获取热门文章
      *
