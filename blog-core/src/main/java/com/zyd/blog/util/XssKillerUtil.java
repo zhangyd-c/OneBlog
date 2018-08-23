@@ -33,7 +33,7 @@ import java.util.regex.Pattern;
  * @since 1.0
  */
 public class XssKillerUtil {
-    private static final String[] WHITE_LIST = {"p", "strong", "pre", "code", "span", "blockquote"};
+    private static final String[] WHITE_LIST = {"p", "strong", "pre", "code", "span", "blockquote", "em"};
     private static String reg = null;
     private static String legalTags = null;
 
