@@ -73,5 +73,16 @@
 		ORDER BY
 			t.sort ASC
 	</select>
+
+	<select id="listParent" resultMap="rm">
+		SELECT
+		t.*
+		FROM
+		biz_type t
+		WHERE
+		t.pid = '' OR t.pid IS NULL
+		ORDER BY
+		t.sort ASC
+	</select>
 </mapper>
 

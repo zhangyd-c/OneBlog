@@ -58,17 +58,6 @@ public class RestTypeController {
         return ResultUtil.tablePage(pageInfo);
     }
 
-    @RequiresPermissions("types")
-    @PostMapping("/listNodes")
-    public PageResult listNodes(TypeConditionVO vo) {
-        PageHelper.startPage(vo.getPageNumber() - 1, vo.getPageSize());
-        if(vo.getPid() == null){
-            return ResultUtil.tablePage(null);
-        }
-        PageInfo<Type> pageInfo = typeService.findPageBreakByCondition(vo);
-        return ResultUtil.tablePage(pageInfo);
-    }
-
     @RequiresPermissions("type:add")
     @PostMapping(value = "/add")
     public ResponseVO add(Type type) {
@@ -109,6 +98,11 @@ public class RestTypeController {
     @PostMapping("/listAll")
     public ResponseVO listType() {
         return ResultUtil.success(null, typeService.listAll());
+    }
+
+    @PostMapping("/listParent")
+    public ResponseVO listParent() {
+        return ResultUtil.success(null, typeService.listParent());
     }
 
 }

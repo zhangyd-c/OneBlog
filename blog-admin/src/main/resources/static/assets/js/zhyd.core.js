@@ -36,9 +36,9 @@ var zhyd = window.zhyd || {
         var a = function () {
             $RIGHT_COL.css("min-height", $(window).height());
             var a = $BODY.outerHeight(),
-                    b = $BODY.hasClass("footer_fixed") ? -10 : $FOOTER.height(),
-                    c = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
-                    d = a < c ? c : a;
+                b = $BODY.hasClass("footer_fixed") ? -10 : $FOOTER.height(),
+                c = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
+                d = a < c ? c : a;
             d -= $NAV_MENU.height() + b, $RIGHT_COL.css("min-height", d)
         };
         $SIDEBAR_MENU.find("a").on("click", function (b) {
@@ -107,7 +107,7 @@ var zhyd = window.zhyd || {
             $content.val(html);
         };
 
-        if($op.uploadUrl){
+        if ($op.uploadUrl) {
             // 上传图片到服务器
             editor.customConfig.uploadImgServer = $op.uploadUrl;
             editor.customConfig.uploadFileName = 'file';
@@ -128,7 +128,7 @@ var zhyd = window.zhyd || {
                     // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
                     // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
                     console.log('customInsert：' + insertImg, result, editor);
-                    if(result.status == 200){
+                    if (result.status == 200) {
                         console.log(result.data);
                         var imgFullPath = appConfig.qiniuPath + result.data + appConfig.qiniuImgStyle;
                         editor.txt.append('<img src="' + imgFullPath + '" alt="" style="width: 95%;max-width: 100%;height: auto;border-radius: 6px;"/>');
@@ -150,26 +150,34 @@ var zhyd = window.zhyd || {
             uploadUrl: ""
         }, options);
         // js实现aop切面编程，实时保存文章内容
-        Function.prototype.after=function(afterfn){
-            var __self=this;
+        Function.prototype.after = function (afterfn) {
+            var __self = this;
             //保存原函数的引用
-            return function(){
+            return function () {
                 //返回包含了原函数和新函数的"代理"函数
-                afterfn.apply(this,arguments);//(1)
+                afterfn.apply(this, arguments);//(1)
                 //执行新函数,且保证this不被劫持,新函数接受的参数
                 //也会被原封不动地传入原函数,新函数在原函数之前执行
-                return __self.apply(this,arguments);//(2)
+                return __self.apply(this, arguments);//(2)
                 //执行原函数并返回原函数的执行结果
                 //并且保证this不被劫持
             }
         };
-        var showMsg = function(){
+        var showMsg = function () {
             var $div = $('<div></div>');
-            $div.css({'position':'absolute','right':'10px','top':0,'padding':'5px','font-size':'12px','color': '#ccc','opacity': 0});
+            $div.css({
+                'position': 'absolute',
+                'right': '10px',
+                'top': 0,
+                'padding': '5px',
+                'font-size': '12px',
+                'color': '#ccc',
+                'opacity': 0
+            });
             $div.html("自动保存完成");
             $div.appendTo($(".CodeMirror"));
-            $div.animate({opacity: 1}, 1000, function(){
-                $div.animate({opacity: 0}, 1000, function(){
+            $div.animate({opacity: 1}, 1000, function () {
+                $div.animate({opacity: 0}, 1000, function () {
                     $(this).remove();
                 })
             })
@@ -208,11 +216,11 @@ var zhyd = window.zhyd || {
             status: ["autosave", "lines", "words", "cursor"], // Optional usage
             status: ["autosave", "lines", "words", "cursor", {
                 className: "keystrokes",
-                defaultValue: function(el) {
+                defaultValue: function (el) {
                     this.keystrokes = 0;
                     el.innerHTML = "0 Keystrokes";
                 },
-                onUpdate: function(el) {
+                onUpdate: function (el) {
                     el.innerHTML = ++this.keystrokes + " Keystrokes";
                 }
             }]
@@ -221,18 +229,44 @@ var zhyd = window.zhyd || {
         var $fullscreen = $(".editor-toolbar a.fa-arrows-alt, .editor-toolbar a.fa-columns");
         $fullscreen.click(function () {
             var $this = $(this);
-            if($fullscreen.hasClass("active")){
+            if ($fullscreen.hasClass("active")) {
                 $(".CodeMirror, .CodeMirror-scroll").css('max-height', 'none');
             } else {
                 $(".CodeMirror, .CodeMirror-scroll").css('max-height', '200px');
             }
         });
-        if($op.uploadUrl) {
+        if ($op.uploadUrl) {
             inlineAttachment.editors.codemirror4.attach(simplemde.codemirror, {
                 uploadUrl: $op.uploadUrl
             });
         }
         $(".editor-preview-side").addClass("markdown-body");
+    },
+    /**
+     * 下拉框组件， 支持自动填充option
+     */
+    combox: {
+        init: function () {
+            $('select[target=combox]').each(function (e) {
+                var $this = $(this);
+                var url = $this.data("url");
+                if (!url) {
+                    return false;
+                }
+                var method = $this.data("method") || "get";
+                $.ajax({
+                    url: url,
+                    type: method,
+                    success: function (json) {
+                        if (json && json.status == 200) {
+                            var optionTpl = '<option value="">请选择</option>{{#data}}<option value="{{id}}">{{name}}</option>{{/data}}';
+                            var html = Mustache.render(optionTpl, json);
+                            $this.html(html);
+                        }
+                    }
+                });
+            })
+        }
     }
 };
 
@@ -255,7 +289,7 @@ function gd(a, b, c) {
             }
 
             var f = this,
-                    g = arguments;
+                g = arguments;
             d ? clearTimeout(d) : c && a.apply(f, g), d = setTimeout(h, b || 100)
         }
     };
@@ -265,22 +299,22 @@ function gd(a, b, c) {
 }(jQuery, "smartresize");
 
 var CURRENT_URL = window.location.href.split("#")[0].split("?")[0],
-        $BODY = $("body"),
-        $MENU_TOGGLE = $("#menu_toggle"),
-        $SIDEBAR_MENU = $("#sidebar-menu"),
-        $SIDEBAR_FOOTER = $(".sidebar-footer"),
-        $LEFT_COL = $(".left_col"),
-        $RIGHT_COL = $(".right_col"),
-        $NAV_MENU = $(".nav_menu"),
-        $FOOTER = $("footer"),
-        randNum = function () {
-            return Math.floor(21 * Math.random()) + 20
-        };
+    $BODY = $("body"),
+    $MENU_TOGGLE = $("#menu_toggle"),
+    $SIDEBAR_MENU = $("#sidebar-menu"),
+    $SIDEBAR_FOOTER = $(".sidebar-footer"),
+    $LEFT_COL = $(".left_col"),
+    $RIGHT_COL = $(".right_col"),
+    $NAV_MENU = $(".nav_menu"),
+    $FOOTER = $("footer"),
+    randNum = function () {
+        return Math.floor(21 * Math.random()) + 20
+    };
 $(document).ready(function () {
     $(".collapse-link").on("click", function () {
         var a = $(this).closest(".x_panel"),
-                b = $(this).find("i"),
-                c = a.find(".x_content");
+            b = $(this).find("i"),
+            c = a.find(".x_content");
         a.attr("style") ? c.slideToggle(200, function () {
             a.removeAttr("style")
         }) : (c.slideToggle(200), a.css("height", "auto")), b.toggleClass("fa-chevron-up fa-chevron-down")
@@ -333,7 +367,7 @@ $(".bulk_action input").on("ifChecked", function () {
 var originalLeave = $.fn.popover.Constructor.prototype.leave;
 $.fn.popover.Constructor.prototype.leave = function (a) {
     var c, d,
-            b = a instanceof this.constructor ? a : $(a.currentTarget)[this.type](this.getDelegateOptions()).data("bs." + this.type);
+        b = a instanceof this.constructor ? a : $(a.currentTarget)[this.type](this.getDelegateOptions()).data("bs." + this.type);
     originalLeave.call(this, a), a.currentTarget && (c = $(a.currentTarget).siblings(".popover"), d = b.timeout, c.one("mouseenter", function () {
         clearTimeout(d), c.one("mouseleave", function () {
             $.fn.popover.Constructor.prototype.leave.call(b, b)
@@ -354,8 +388,8 @@ $.fn.popover.Constructor.prototype.leave = function (a) {
     /* 自定义下拉 div */
     $(".custom-dropdown").on("click", function () {
         var a = $(this).closest(".custom-panel"),
-                b = $(this).find("i"),
-                c = a.find(".custom-container");
+            b = $(this).find("i"),
+            c = a.find(".custom-container");
         a.attr("style") ? c.slideToggle(200, function () {
             a.removeAttr("style")
         }) : (c.slideToggle(200), a.css("height", "auto")), b.toggleClass("fa-angle-double-up fa-angle-double-down")
@@ -406,20 +440,20 @@ $.fn.popover.Constructor.prototype.leave = function (a) {
      */
     $(".uploadPreview").each(function () {
         var $this = $(this);
-        $this.uploadPreview({ imgContainer: $this.data("preview-container") });
+        $this.uploadPreview({imgContainer: $this.data("preview-container")});
     });
 
     zhyd.initHelloMsg();
 
     $("#updPassBtn").click(function () {
         var $form = $("#updPassForm");
-        if(validator.checkAll($form)) {
+        if (validator.checkAll($form)) {
             $form.ajaxSubmit({
                 type: "POST",
                 url: '/passport/updatePwd',
                 success: function (json) {
                     $.alert.ajaxSuccess(json);
-                    if(json.status == 200){
+                    if (json.status == 200) {
                         setTimeout(function () {
                             window.location.reload();
                         }, 2000);
@@ -430,5 +464,5 @@ $.fn.popover.Constructor.prototype.leave = function (a) {
             });
         }
     });
-
+    zhyd.combox.init();
 });

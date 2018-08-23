@@ -49,6 +49,12 @@
                         </div>
                     </div>
                     <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">父级: </label>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <select id="pid" name="pid" class="form-control col-md-5 col-xs-5" target="combox" data-url="/type/listParent" data-method="post"></select>
+                        </div>
+                    </div>
+                    <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">描述: </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" class="form-control col-md-7 col-xs-12" id="description" name="description" placeholder="请输入分类描述"/>
@@ -92,38 +98,6 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"> 关闭</i></button>
                 <button type="button" class="btn btn-success addOrUpdateBtn"><i class="fa fa-save"> 保存</i></button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--/添加弹框-->
-<div class="modal fade" id="listNodeModal" tabindex="-1" role="dialog" aria-labelledby="listNodeLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="listNodeLabel">子分类</h4>
-            </div>
-            <div class="modal-body">
-                <table class="table">
-                    <thead>
-                        <th>ID</th>
-                        <th>名称</th>
-                        <th>描述</th>
-                        <th>图标</th>
-                    </thead>
-                    <tbody>
-                    {{#data}}
-                    <td>{{id}}</td>
-                    <td>{{name}}</td>
-                    <td>{{description}}</td>
-                    <td>{{icon}}</td>
-                    {{/data}}
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"> 关闭</i></button>
             </div>
         </div>
     </div>
@@ -174,11 +148,12 @@
                     }, {
                         field: 'parent.name',
                         title: '父级分类',
-                        width: '80px',
+                        width: '100px',
                         editable: false
                     }, {
                         field: 'description',
                         title: '描述',
+                        width: '550px',
                         editable: false
                     }, {
                         field: 'sort',

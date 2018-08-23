@@ -25,6 +25,8 @@ import com.zyd.blog.business.entity.Type;
 import com.zyd.blog.business.vo.TypeConditionVO;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 /**
  * 分类
  *
@@ -43,4 +45,6 @@ public interface BizTypeService extends AbstractService<Type, Long> {
      * @return
      */
     PageInfo<Type> findPageBreakByCondition(TypeConditionVO vo);
+
+    List<Type> listParent();
 }
