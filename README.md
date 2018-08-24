@@ -8,6 +8,13 @@
 
 ----
 
+# 博客新增“文章搬运工”功能（20180824）
+
+该功能可以将其他平台（目前支持imooc、csdn和iteye）的文章同步到本地服务器。点击下图查看视频示例
+[![输入图片说明](https://images.gitee.com/uploads/images/2018/0824/161625_250da176_784199.png "屏幕截图.png")](https://gitee.com/yadong.zhang/static/raw/master/dblog/DBlog-%E6%96%87%E7%AB%A0%E6%90%AC%E8%BF%90%E5%B7%A5%E7%A4%BA%E4%BE%8B.webm)
+
+----
+
 # 重要声明
 
 1. 本项目配有相关[帮助文档](https://gitee.com/yadong.zhang/DBlog/wikis)。文档中包括**基本的项目说明**、**shiro标签使用**、**七牛云配置**和一些常见的**异常问题解决方案**。使用时碰到问题请**优先**查阅【[帮助文档](https://gitee.com/yadong.zhang/DBlog/wikis)】。因为现在好多朋友问的问题大部分都写在【[帮助文档](https://gitee.com/yadong.zhang/DBlog/wikis)】中了，希望各位朋友能自己翻阅下相关资料，高效提问，避免重复问题！
