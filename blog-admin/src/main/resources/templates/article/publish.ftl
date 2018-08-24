@@ -65,7 +65,7 @@
                         <div class="item form-group">
                             <label class="control-label col-md-1 col-sm-1 col-xs-12" for="mobile"><i class="fa fa-refresh fa-fw fa-1x pointer" id="refressTag"></i>标签 <span class="required">*</span></label>
                             <div class="col-md-11 col-sm-11 col-xs-12">
-                                <ul class="list-unstyled list-inline" id="tag-list">
+                                <ul class="list-unstyled list-inline" id="tag-list" style="line-height: 30px;">
                                 </ul>
                             </div>
                         </div>

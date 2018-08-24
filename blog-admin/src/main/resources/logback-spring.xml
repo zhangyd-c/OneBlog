@@ -27,6 +27,7 @@
     </appender>
 
     <logger name="org.springframework.core.env" level="ERROR"/>
+    <logger name="us.codecraft.webmagic.downloader" level="WARN"/>
 
     <!-- 测试环境+开发环境，日志级别为INFO且不写日志文件 -->
     <springProfile name="test,dev">

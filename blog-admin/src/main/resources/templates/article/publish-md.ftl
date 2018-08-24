@@ -111,7 +111,7 @@
                                             <div class="col-md-10 col-sm-10 col-xs-10"  >
                                                 <div class="h5"><i class="fa fa-plus-square showContent pointer"> 点击查看</i>  <i class="fa fa-refresh fa-1x pointer" id="refressTag"> 刷新</i></div>
                                                 <div class="disable-content" style="display: none;">
-                                                    <ul class="list-unstyled list-inline" id="tag-list"></ul>
+                                                    <ul class="list-unstyled list-inline" id="tag-list" style="line-height: 30px;"></ul>
                                                 </div>
                                             </div>
                                         </div>
