@@ -37,6 +37,7 @@ import com.zyd.blog.util.ResultUtil;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -205,10 +206,17 @@ public class RenderController {
     }
 
     @RequiresPermissions("notice")
-    @BussinessLog("进入静态页面管理页")
+    @BussinessLog("进入通知管理页")
     @GetMapping("/notice")
     public ModelAndView notice(Model model) {
         model.addAttribute("online", websocketServer.getOnlineUserCount());
         return ResultUtil.view("notification");
+    }
+
+    @RequiresUser
+    @BussinessLog("进入搬运工页面")
+    @GetMapping("/remover")
+    public ModelAndView remover(Model model) {
+        return ResultUtil.view("remover/list");
     }
 }

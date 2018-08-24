@@ -11,6 +11,7 @@
 		<module>blog-core</module>
 		<module>blog-web</module>
 		<module>blog-admin</module>
+		<module>blog-spider</module>
 	</modules>
 
 	<name>blog</name>

@@ -2,6 +2,13 @@
 
 ----
 
+### 2018-08-24
+
+**新增**
+- 新增“文章搬运工”功能，支持博客文章一键迁移，示例见：[视频演示](https://gitee.com/yadong.zhang/static/raw/master/dblog/DBlog-%E6%96%87%E7%AB%A0%E6%90%AC%E8%BF%90%E5%B7%A5%E7%A4%BA%E4%BE%8B.webm)
+
+----
+
 ### 2018-07-20
 
 **改进**

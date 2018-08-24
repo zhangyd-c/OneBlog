@@ -179,5 +179,16 @@
             <artifactId>tomcat-embed-core</artifactId>
             <version>8.5.29</version>
         </dependency>
+        <dependency>
+            <groupId>com.zyd</groupId>
+            <artifactId>blog-spider</artifactId>
+            <version>2.0.1.Beta</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hibernate.validator</groupId>
+                    <artifactId>hibernate-validator</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 </project>
