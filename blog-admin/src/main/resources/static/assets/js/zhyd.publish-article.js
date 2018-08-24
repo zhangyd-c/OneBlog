@@ -119,7 +119,7 @@ $(".publishBtn").click(function () {
             type: "post",
             url: "/article/save",
             success: function (json) {
-                $.alert.ajaxSuccess(json, function () {
+                $.alert.ajaxSuccessConfirm(json, function () {
                     window.location.href = '/articles';
                 });
             },

@@ -270,12 +270,6 @@ var zhyd = window.zhyd || {
     }
 };
 
-function countChecked() {
-    "all" === checkState && $(".bulk_action input[name='table_records']").iCheck("check"), "none" === checkState && $(".bulk_action input[name='table_records']").iCheck("uncheck");
-    var a = $(".bulk_action input[name='table_records']:checked").length;
-    a ? ($(".column-title").hide(), $(".bulk-actions").show(), $(".action-cnt").html(a + " Records Selected")) : ($(".column-title").show(), $(".bulk-actions").hide())
-}
-
 function gd(a, b, c) {
     return new Date(a, b - 1, c).getTime()
 }
@@ -341,46 +335,13 @@ $(document).ready(function () {
         radioClass: 'iradio_square-green',
         increaseArea: '20%' // optional
     });
-}), $("table input").on("ifChecked", function () {
-    checkState = "", $(this).parent().parent().parent().addClass("selected"), countChecked()
-}), $("table input").on("ifUnchecked", function () {
-    checkState = "", $(this).parent().parent().parent().removeClass("selected"), countChecked()
 });
-var checkState = "";
-$(".bulk_action input").on("ifChecked", function () {
-    checkState = "", $(this).parent().parent().parent().addClass("selected"), countChecked()
-}), $(".bulk_action input").on("ifUnchecked", function () {
-    checkState = "", $(this).parent().parent().parent().removeClass("selected"), countChecked()
-}), $(".bulk_action input#check-all").on("ifChecked", function () {
-    checkState = "all", countChecked()
-}), $(".bulk_action input#check-all").on("ifUnchecked", function () {
-    checkState = "none", countChecked()
-}), $(document).ready(function () {
-    $(".expand").on("click", function () {
-        $(this).next().slideToggle(200), $expand = $(this).find(">:first-child"), "+" == $expand.text() ? $expand.text("-") : $expand.text("+")
-    })
-}), "undefined" != typeof NProgress && ($(document).ready(function () {
+"undefined" != typeof NProgress && ($(document).ready(function () {
     NProgress.start()
 }), $(window).load(function () {
     NProgress.done()
 }));
-var originalLeave = $.fn.popover.Constructor.prototype.leave;
-$.fn.popover.Constructor.prototype.leave = function (a) {
-    var c, d,
-        b = a instanceof this.constructor ? a : $(a.currentTarget)[this.type](this.getDelegateOptions()).data("bs." + this.type);
-    originalLeave.call(this, a), a.currentTarget && (c = $(a.currentTarget).siblings(".popover"), d = b.timeout, c.one("mouseenter", function () {
-        clearTimeout(d), c.one("mouseleave", function () {
-            $.fn.popover.Constructor.prototype.leave.call(b, b)
-        })
-    }))
-}, $("body").popover({
-    selector: "[data-popover]",
-    trigger: "click hover",
-    delay: {
-        show: 50,
-        hide: 400
-    }
-}), $(document).ready(function () {
+$(document).ready(function () {
     // 工具提示
     $('[data-toggle="tooltip"]').tooltip();
     // 图片预览
