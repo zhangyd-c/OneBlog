@@ -74,6 +74,16 @@ public class BizTypeServiceImpl implements BizTypeService {
         return getTypes(list);
     }
 
+    @Override
+    public List<Type> listTypeForMenu() {
+        TypeConditionVO vo = new TypeConditionVO();
+        vo.setPageNumber(1);
+        vo.setPageSize(100);
+        PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
+        List<BizType> entityList = bizTypeMapper.listTypeForMenu();
+        return getTypes(entityList);
+    }
+
     private List<Type> getTypes(List<BizType> list) {
         if (CollectionUtils.isEmpty(list)) {
             return null;
@@ -165,7 +175,7 @@ public class BizTypeServiceImpl implements BizTypeService {
         vo.setPageNumber(1);
         vo.setPageSize(100);
         PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
-        List<BizType> entityList = bizTypeMapper.findPageBreakByCondition(vo);
+        List<BizType> entityList = bizTypeMapper.selectAll();
 
         List<Type> list = getTypes(entityList);
         if (list == null) return null;

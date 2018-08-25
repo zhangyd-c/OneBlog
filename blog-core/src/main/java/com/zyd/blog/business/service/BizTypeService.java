@@ -47,4 +47,6 @@ public interface BizTypeService extends AbstractService<Type, Long> {
     PageInfo<Type> findPageBreakByCondition(TypeConditionVO vo);
 
     List<Type> listParent();
+
+    List<Type> listTypeForMenu();
 }

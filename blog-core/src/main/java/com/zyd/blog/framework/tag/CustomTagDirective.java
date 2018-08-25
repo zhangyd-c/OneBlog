@@ -72,7 +72,7 @@ public class CustomTagDirective implements TemplateDirectiveModel {
             }
             switch (method) {
                 case "types":
-                    environment.setVariable("types", builder.build().wrap(bizTypeService.listAll()));
+                    environment.setVariable("types", builder.build().wrap(bizTypeService.listTypeForMenu()));
                     break;
                 case "tagsList":
                     // 所有标签

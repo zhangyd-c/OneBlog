@@ -49,4 +49,6 @@ public interface BizTypeMapper extends BaseMapper<BizType> {
     List<BizType> findPageBreakByCondition(TypeConditionVO vo);
 
     List<BizType> listParent();
+
+    List<BizType> listTypeForMenu();
 }

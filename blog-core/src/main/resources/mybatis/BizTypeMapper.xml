@@ -84,5 +84,30 @@
 		ORDER BY
 		t.sort ASC
 	</select>
+
+	<select id="listTypeForMenu" resultMap="rm">
+		SELECT
+			t.*,
+			parent.id parent_id,
+			parent.`pid` parent_pid,
+			parent.`name` parent_name,
+			parent.description parent_description,
+			parent.available parent_available,
+			parent.icon parent_icon,
+			node.`id` node_id,
+			node.`pid` node_pid,
+			node.`name` node_name,
+			node.description node_description,
+			node.available node_available,
+			node.icon node_icon
+		FROM
+			biz_type t
+		LEFT JOIN biz_type parent ON t.pid = parent.id
+		LEFT JOIN biz_type node ON node.pid = t.id
+		WHERE
+			t.pid IS NULL OR t.pid = ''
+		ORDER BY
+			t.sort ASC
+	</select>
 </mapper>
 
