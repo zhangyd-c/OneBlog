@@ -33,11 +33,6 @@ public class BlogAdminApplicationTests {
     }
 
     @Test
-    public void drugSpiderTest(){
-        DrugSpiderProcessor.run();
-    }
-
-    @Test
     public void spiderTest() {
         ZydSpider<Article> spider = new ArticleSpiderProcessor(new ImoocModel().setUid("1175248")
                 .setTotalPage(3)
