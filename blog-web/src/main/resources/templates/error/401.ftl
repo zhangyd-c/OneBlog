@@ -10,7 +10,7 @@
                     </div>
                     <div>
                         <p class="h4">无权操作</p>
-                        <p class="h4">当前请求需要用户验证，您无权进行该项操作。更多详情，请联系<a target="_blank" href="javascript:void(0);" title="点击QQ联系我"onclick="window.open('tencent://message/?uin=843977358&amp;Site=www.${config.domain}&amp;Menu=yes')" rel="external nofollow">网站管理员</a>。</p>
+                        <p class="h4">当前请求需要用户验证，您无权进行该项操作。更多详情，请联系<a target="_blank" href="javascript:void(0);" title="点击QQ联系我"onclick="window.open('tencent://message/?uin=${config.qq}&amp;Site=www.${config.domain}&amp;Menu=yes')" rel="external nofollow">网站管理员</a>。</p>
                         <div style="width:100%;text-align: right">
                             <a onclick="javascript:history.go(-1);" style="cursor: pointer">上一页</a>
                             <span class="sepa"></span>
