@@ -23,6 +23,7 @@ import com.zyd.blog.core.shiro.ShiroService;
 import com.zyd.blog.core.shiro.credentials.RetryLimitCredentialsMatcher;
 import com.zyd.blog.core.shiro.realm.ShiroRealm;
 import com.zyd.blog.framework.property.RedisProperties;
+import com.zyd.blog.framework.property.ShiroProperties;
 import com.zyd.blog.framework.redis.CustomRedisManager;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
@@ -64,6 +65,8 @@ public class ShiroConfig {
     private ShiroService shiroService;
     @Autowired
     private RedisProperties redisProperties;
+    @Autowired
+    private ShiroProperties shiroProperties;
 
     @Bean(name = "lifecycleBeanPostProcessor")
     public static LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
@@ -99,11 +102,11 @@ public class ShiroConfig {
         // 必须设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        shiroFilterFactoryBean.setLoginUrl("/passport/login/");
+        shiroFilterFactoryBean.setLoginUrl(shiroProperties.getLoginUrl());
         // 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl("/");
+        shiroFilterFactoryBean.setSuccessUrl(shiroProperties.getSuccessUrl());
         // 未授权界面;
-        shiroFilterFactoryBean.setUnauthorizedUrl("/error/403");
+        shiroFilterFactoryBean.setUnauthorizedUrl(shiroProperties.getUnauthorizedUrl());
         // 配置数据库中的resource
         Map<String, String> filterChainDefinitionMap = shiroService.loadFilterChainDefinitions();
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

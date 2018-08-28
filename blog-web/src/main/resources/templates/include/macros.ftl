@@ -1,5 +1,5 @@
 <#-- 公共顶部 -->
-<#macro header title="张亚东博客" keywords="默认文字" description="默认文字" canonical="">
+<#macro header title="DBlog开源博客" keywords="" description="" canonical="">
 <#include "/common/annotation.ftl">
 <!DOCTYPE HTML>
 <html lang="zh-CN">

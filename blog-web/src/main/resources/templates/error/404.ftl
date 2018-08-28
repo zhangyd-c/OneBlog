@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="${config.authorName} <${config.authorEmail}>">
-    <title>Page Not Found :(</title>
-    <#include "layout/quote.ftl">
-</head>
-<body>
-<#include "layout/header.ftl"/>
+<#include "include/macros.ftl">
+<@header title="Page Not Found :("></@header>
 <div class="container custome-container">
-    <div class="clearfix"></div>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12 blog-main">
             <div class="blog-body">
@@ -37,6 +26,4 @@
         </div>
     </div>
 </div>
-<#include "layout/footer.ftl"/>
-</body>
-</html>
+<@footer></@footer>
