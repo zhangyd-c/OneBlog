@@ -4,7 +4,6 @@ import com.zyd.blog.business.enums.QiniuUploadType;
 import com.zyd.blog.plugin.QiniuApi;
 import com.zyd.blog.spider.model.*;
 import com.zyd.blog.spider.processor.ArticleSpiderProcessor;
-import com.zyd.blog.spider.processor.DrugSpiderProcessor;
 import com.zyd.blog.spider.processor.ZydSpider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,11 +30,6 @@ public class BlogAdminApplicationTests {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Test
-    public void drugSpiderTest(){
-        DrugSpiderProcessor.run();
     }
 
     @Test
