@@ -27,7 +27,7 @@
                                 <a href="#tab_contact" role="tab" id="contact-tab" data-toggle="tab" aria-expanded="false">联系方式</a>
                             </li>
                             <li role="presentation" class="">
-                                <a href="#tab_setting" role="tab" id="setting-tab" data-toggle="tab" aria-expanded="false">系统配置</a>
+                                <a href="#tab_setting" role="tab" id="setting-tab" data-toggle="tab" aria-expanded="false">其他配置</a>
                             </li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
@@ -269,7 +269,7 @@
                                     </div>
                                     <div class="clear"></div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenance">首页显示维护通知</label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenance">维护通知</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <ul class="list-unstyled list-inline">
                                                 <li><input type="radio" class="square" checked name="maintenance" value="1"> 显示</li>

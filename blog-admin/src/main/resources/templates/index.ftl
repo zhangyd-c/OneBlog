@@ -11,7 +11,7 @@
         <div class="x_panel">
             <div class="x_title">
                 <h2>欢迎光临
-                    <small>DBlog${config.siteName}后台</small>
+                    <small>${config.siteName}后台管理系统</small>
                 </h2>
                 <div class="clearfix"></div>
             </div>
@@ -31,6 +31,7 @@
                                 </ul>
                                 <h2>获取帮助</h2>
                                 <ul>
+                                    <li><i class="fa fa-fire red"></i>在线文档：<a href="http://dblog-docs.zhyd.me/" target="_blank">http://dblog-docs.zhyd.me/</a></li>
                                     <li>相关Wiki：<a href="https://gitee.com/yadong.zhang/DBlog/wikis" target="_blank">https://gitee.com/yadong.zhang/DBlog/wikis</a></li>
                                     <li>提issue：<a href="https://gitee.com/yadong.zhang/DBlog/issues" target="_blank">https://gitee.com/yadong.zhang/DBlog/issues</a></li>
                                     <li>留言：<a href="https://www.zhyd.me/guestbook" target="_blank">https://www.zhyd.me/guestbook</a></li>
