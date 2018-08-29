@@ -32,11 +32,11 @@
 <script src="https://cdn.bootcss.com/bootstrap-progressbar/0.9.0/bootstrap-progressbar.min.js"></script>
 <script src="https://cdn.bootcss.com/zTree.v3/3.5.29/js/jquery.ztree.core.min.js"></script>
 <script src="https://cdn.bootcss.com/zTree.v3/3.5.29/js/jquery.ztree.excheck.min.js"></script>
+<script src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.js" type="text/javascript"></script>
 
 <script src="/assets/js/validator.js"></script>
 <script src="/assets/js/ajaxfileupload.js"></script>
 <script src="/assets/js/jquery-form.js"></script>
-<script src="/assets/js/wangEditor.min.js" type="text/javascript"></script>
 <script src="/assets/js/zyd.tool.js"></script>
 <script src="/assets/js/zhyd.upload-preview.js"></script>
 <script src="/assets/js/zhyd.core.js"></script>

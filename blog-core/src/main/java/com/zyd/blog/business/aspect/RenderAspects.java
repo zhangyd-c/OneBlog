@@ -1,4 +1,4 @@
-package com.zyd.blog.core.aspects;
+package com.zyd.blog.business.aspect;
 
 import com.zyd.blog.business.entity.Config;
 import com.zyd.blog.business.service.SysConfigService;
@@ -13,10 +13,11 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
+ * 提到core模块中，方便控制前后台
+ *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @version 1.0
+ * @version 2.0
  * @date 2018/5/17 17:06
- * @since 1.0
  */
 @Slf4j
 @Component
@@ -30,7 +31,8 @@ public class RenderAspects {
     @Autowired
     private SysConfigService configService;
 
-    @Pointcut("execution(* com.zyd.blog.controller.RenderController.*(..))")
+    @Pointcut(value = "@annotation(org.springframework.web.bind.annotation.GetMapping)" +
+            "|| @annotation(org.springframework.web.bind.annotation.RequestMapping)")
     public void pointcut() {
         // 切面切入点
     }

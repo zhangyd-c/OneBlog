@@ -87,6 +87,24 @@ var zhyd = window.zhyd || {
         $helloMsg.html((nowHours >= 0 && nowHours <= 5) ? "凌晨好" : (nowHours > 5 && nowHours <= 9) ? "早上好" : ((nowHours > 9 && nowHours <= 12) ? "上午好" : ((nowHours > 12 && nowHours <= 13) ? "中午好" : ((nowHours > 13 && nowHours <= 18) ? "下午好" : "晚上好"))));
     },
     initWangEditor: function (options) {
+        // 全屏插件
+        window.wangEditor.fullscreen = {
+            init: function(editorSelector) {
+                $(editorSelector + " .w-e-toolbar").append('<div class="w-e-menu"><a class="_wangEditor_btn_fullscreen" href="###" onclick="window.wangEditor.fullscreen.toggleFullscreen(\'' + editorSelector + '\')" data-toggle="tooltip" data-placement="bottom" title data-original-title="全屏编辑"><i class="fa fa-expand"></i></a></div>')
+            },
+            toggleFullscreen: function(editorSelector) {
+                $(editorSelector).toggleClass('fullscreen-editor');
+                var $a = $(editorSelector + ' ._wangEditor_btn_fullscreen');
+                var $i = $a.find("i:first-child");
+                if ($i.hasClass("fa-expand")) {
+                    $a.attr("data-original-title", "退出全屏");
+                    $i.removeClass("fa-expand").addClass("fa-compress")
+                } else {
+                    $a.attr("data-original-title", "全屏编辑");
+                    $i.removeClass("fa-compress").addClass("fa-expand")
+                }
+            }
+        };
         var $op = $.extend({
             id: "wangEditor",
             contentId: "content",
@@ -95,8 +113,8 @@ var zhyd = window.zhyd || {
         }, options);
         var E = window.wangEditor;
         editor = new E('#' + $op.id);
-        // debug模式下，有 JS 错误会以throw Error方式提示出来
-        editor.customConfig.debug = false;
+        // 通过 url 参数配置 debug 模式。url 中带有 wangeditor_debug_mode=1 才会开启 debug 模式
+        editor.customConfig.debug = location.href.indexOf('wangeditor_debug_mode=1') > 0;
         // 关闭粘贴样式的过滤
         editor.customConfig.pasteFilterStyle = false;
         editor.customConfig.zIndex = 100;
@@ -142,6 +160,8 @@ var zhyd = window.zhyd || {
         }
         editor.create();
         E.fullscreen.init('#' + $op.id);
+        // 修改编辑器大小
+        editor.$textContainerElem.css('max-height', '115px').css('height', '100%');
     },
     initMdEditor: function (options) {
         var $op = $.extend({
