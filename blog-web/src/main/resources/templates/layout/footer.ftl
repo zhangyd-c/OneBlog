@@ -128,12 +128,15 @@
         <div class="col-xs-12 col-sm-4 col-md-4 text-left fade-in">
             <h4>问题交流</h4>
             <div class="row" style="padding: 4px;padding-left: 10px;">
-                <div class="col-xs-12 col-sm-7 col-md-7" style="white-space: initial;">
-                    <span>志同道合者欢迎进QQ交流群(190886500)</span>
-                </div>
-                <div class="col-xs-12 col-sm-5 col-md-5">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <a href="${config.staticWebSite}/img/wechat_account.jpg" target="_blank" class="showImage" title="[码一码]公众号" rel="external nofollow">
+                        <img data-original="${config.staticWebSite}/img/wechat_account.jpg" alt="[码一码]公众号" class="img-responsive img-rounded auto-shake lazy-img" style="width: 100px;display: inline-block">
+                    </a>
+                    <a href="${config.staticWebSite}/img/mayima.jpg" target="_blank" class="showImage" title="[码一码]小程序" rel="external nofollow">
+                        <img data-original="${config.staticWebSite}/img/mayima.jpg" alt="[码一码]小程序" class="img-responsive img-rounded auto-shake lazy-img" style="width: 100px;display: inline-block">
+                    </a>
                     <a href="${config.staticWebSite}/img/qq_group.png" class="showImage" title="QQ群(190886500)二维码" rel="external nofollow">
-                        <img data-original="${config.staticWebSite}/img/qq_group.png" alt="QQ群(190886500)二维码" class="img-responsive img-rounded auto-shake lazy-img" style="width: 100px;">
+                        <img data-original="${config.staticWebSite}/img/qq_group.png" alt="QQ群(190886500)二维码" class="img-responsive img-rounded auto-shake lazy-img" style="width: 100px;display: inline-block">
                     </a>
                 </div>
             </div>

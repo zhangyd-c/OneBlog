@@ -239,6 +239,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     overflow: hidden;
     word-wrap: break-word;
 }
+.blog-info-body img {
+    max-width: 100%;
+}
 
 fieldset {
     padding: 5px 15px;
