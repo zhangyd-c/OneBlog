@@ -82,13 +82,12 @@ public class RedisConfig extends CachingConfigurerSupport {
     }
 
     @Bean
-    public CacheManager cacheManager(JedisConnectionFactory jedisConnectionFactory) {
-		RedisCacheManager cacheManager = RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(jedisConnectionFactory))
-				// 默认缓存过期时间：天
-				.cacheDefaults(RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofDays(30)))
-				.transactionAware()
-		.build();
-		return cacheManager;
+    public CacheManager cacheManager(RedisConnectionFactory factory) {
+        return RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(factory))
+                // 默认缓存过期时间：天
+                .cacheDefaults(RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofDays(30)))
+                .transactionAware()
+        .build();
     }
 
     @Bean

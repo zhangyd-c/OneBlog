@@ -38,12 +38,12 @@ import javax.validation.constraints.NotNull;
 public class UserPwd {
     @NotNull(message = "用户ID不可为空")
     private Long id;
-    @NotEmpty(message = "原密码不可为空")
+    @NotNull(message = "原密码不可为空")
     private String password;
-    @NotEmpty(message = "新密码不可为空")
+    @NotNull(message = "新密码不可为空")
     @Length(max = 20, min = 6, message = "新密码长度建议保持在6~20个字符以内")
     private String newPassword;
-    @NotEmpty(message = "新密码不可为空")
+    @NotNull(message = "新密码不可为空")
     @Length(max = 20, min = 6, message = "新密码长度建议保持在6~20个字符以内")
     private String newPasswordRepeat;
 }
