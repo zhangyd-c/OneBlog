@@ -31,10 +31,7 @@ import com.zyd.blog.business.service.BizArticleTagsService;
 import com.zyd.blog.business.vo.ArticleConditionVO;
 import com.zyd.blog.framework.exception.ZhydArticleException;
 import com.zyd.blog.framework.holder.RequestHolder;
-import com.zyd.blog.persistence.beans.BizArticle;
-import com.zyd.blog.persistence.beans.BizArticleLove;
-import com.zyd.blog.persistence.beans.BizArticleTags;
-import com.zyd.blog.persistence.beans.BizTags;
+import com.zyd.blog.persistence.beans.*;
 import com.zyd.blog.persistence.mapper.BizArticleLookMapper;
 import com.zyd.blog.persistence.mapper.BizArticleLoveMapper;
 import com.zyd.blog.persistence.mapper.BizArticleMapper;
@@ -318,6 +315,14 @@ public class BizArticleServiceImpl implements BizArticleService {
         return bizArticleMapper.updateByPrimaryKeySelective(article) > 0;
     }
 
+    @Override
+    public void batchUpdateStatus(Long[] ids, boolean status) {
+        if (ids == null || ids.length <= 0) {
+            return;
+        }
+        bizArticleMapper.batchUpdateStatus(Arrays.asList(ids), status);
+    }
+
     /**
      * 获取热门文章
      *
@@ -351,6 +356,7 @@ public class BizArticleServiceImpl implements BizArticleService {
         entity.setUpdateTime(new Date());
         entity.setCreateTime(new Date());
         entity.setOriginal(entity.isOriginal());
+        entity.setComment(entity.isComment());
         bizArticleMapper.insertSelective(entity.getBizArticle());
         return entity;
     }
@@ -368,6 +374,7 @@ public class BizArticleServiceImpl implements BizArticleService {
             entity.setUpdateTime(new Date());
             entity.setCreateTime(new Date());
             entity.setOriginal(entity.isOriginal());
+            entity.setComment(entity.isComment());
             list.add(entity.getBizArticle());
         }
         bizArticleMapper.insertList(list);
@@ -389,8 +396,8 @@ public class BizArticleServiceImpl implements BizArticleService {
         loveCriteria.andEqualTo("articleId", primaryKey);
         bizArticleTagsMapper.deleteByExample(loveExample);
         // 删除查看记录
-        Example lookExample = new Example(BizArticleLove.class);
-        Example.Criteria lookCriteria = loveExample.createCriteria();
+        Example lookExample = new Example(BizArticleLook.class);
+        Example.Criteria lookCriteria = lookExample.createCriteria();
         lookCriteria.andEqualTo("articleId", primaryKey);
         bizArticleLookMapper.deleteByExample(lookExample);
         // 删除赞记录
@@ -412,6 +419,8 @@ public class BizArticleServiceImpl implements BizArticleService {
     public boolean update(Article entity) {
         Assert.notNull(entity, "Article不可为空！");
         entity.setUpdateTime(new Date());
+        entity.setOriginal(entity.isOriginal());
+        entity.setComment(entity.isComment());
         return bizArticleMapper.updateByPrimaryKey(entity.getBizArticle()) > 0;
     }
 
@@ -427,6 +436,7 @@ public class BizArticleServiceImpl implements BizArticleService {
         Assert.notNull(entity, "Article不可为空！");
         entity.setUpdateTime(new Date());
         entity.setOriginal(entity.isOriginal());
+        entity.setComment(entity.isComment());
         return bizArticleMapper.updateByPrimaryKeySelective(entity.getBizArticle()) > 0;
     }
 

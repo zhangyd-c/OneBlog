@@ -27,6 +27,8 @@ import com.zyd.blog.business.vo.UpdateRecordeConditionVO;
 import com.zyd.blog.framework.object.PageResult;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,18 +50,21 @@ public class RestUpdateController {
     @Autowired
     private SysUpdateRecordeService updateRecordeService;
 
+    @RequiresPermissions("updateLogs")
     @PostMapping("/list")
     public PageResult list(UpdateRecordeConditionVO vo) {
         PageInfo<UpdateRecorde> pageInfo = updateRecordeService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }
 
+    @RequiresPermissions("updateLog:add")
     @PostMapping(value = "/add")
     public ResponseVO add(UpdateRecorde updateRecorde) {
         updateRecordeService.insert(updateRecorde);
         return ResultUtil.success("成功");
     }
 
+    @RequiresPermissions(value = {"updateLog:batchDelete", "updateLog:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
@@ -71,11 +76,13 @@ public class RestUpdateController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 个更新记录");
     }
 
+    @RequiresPermissions("updateLog:get")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.updateRecordeService.getByPrimaryKey(id));
     }
 
+    @RequiresPermissions("updateLog:edit")
     @PostMapping("/edit")
     public ResponseVO edit(UpdateRecorde updateRecorde) {
         try {

@@ -7,6 +7,7 @@
         <result property="homeDesc" jdbcType="VARCHAR" column="home_desc"/>
         <result property="homeKeywords" jdbcType="VARCHAR" column="home_keywords"/>
 		<result property="domain" jdbcType="VARCHAR" column="domain"/>
+		<result property="cmsUrl" jdbcType="VARCHAR" column="cms_url"/>
         <result property="siteUrl" jdbcType="VARCHAR" column="site_url"/>
         <result property="siteName" jdbcType="VARCHAR" column="site_name"/>
         <result property="siteDesc" jdbcType="VARCHAR" column="site_desc"/>

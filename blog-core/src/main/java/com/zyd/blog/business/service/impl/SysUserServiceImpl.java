@@ -22,12 +22,14 @@ package com.zyd.blog.business.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.User;
+import com.zyd.blog.business.entity.UserPwd;
 import com.zyd.blog.business.enums.UserNotificationEnum;
 import com.zyd.blog.business.enums.UserPrivacyEnum;
 import com.zyd.blog.business.enums.UserStatusEnum;
 import com.zyd.blog.business.service.SysUserService;
 import com.zyd.blog.business.vo.UserConditionVO;
 import com.zyd.blog.framework.exception.ZhydCommentException;
+import com.zyd.blog.framework.exception.ZhydException;
 import com.zyd.blog.framework.holder.RequestHolder;
 import com.zyd.blog.persistence.beans.SysUser;
 import com.zyd.blog.persistence.mapper.SysUserMapper;
@@ -260,5 +262,30 @@ public class SysUserServiceImpl implements SysUserService {
         }
         return users;
     }
+
+    /**
+     * 修改密码
+     *
+     * @param userPwd
+     * @return
+     */
+    @Override
+    public boolean updatePwd(UserPwd userPwd) throws Exception {
+        if (!userPwd.getNewPassword().equals(userPwd.getNewPasswordRepeat())) {
+            throw new ZhydException("新密码不一致！");
+        }
+        User user = this.getByPrimaryKey(userPwd.getId());
+        if (null == user) {
+            throw new ZhydException("用户编号错误！请不要手动操作用户ID！");
+        }
+
+        if(!user.getPassword().equals(PasswordUtil.encrypt(userPwd.getPassword(), user.getUsername()))) {
+            throw new ZhydException("原密码不正确！");
+        }
+        user.setPassword(userPwd.getNewPassword());
+
+        return this.updateSelective(user);
+    }
+
 
 }

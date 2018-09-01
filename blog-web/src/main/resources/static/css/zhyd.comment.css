@@ -49,21 +49,21 @@ em {
     border-color: #00432a !important;
 }
 
-#comment-box div, .comment-box div {
+/*#comment-box .commentList div, .comment-box .commentList div {
     overflow: initial !important;
-}
+}*/
 
 .commentList {
     margin-top: 0px;
 }
 
-.comment-post .cancel-reply {
+.cancel-reply {
     float: right;
-    margin: -38px 0 0 0;
+    margin: -20px 0 0 0;
     font-size: 12px;
 }
 
-.comment-post .cancel-reply a,
+.cancel-reply a,
 .comment-reply {
     /*color: #0c0;*/
     text-decoration: none;
@@ -105,6 +105,19 @@ em {
 
 .comment .comment-body .cheader .user-img {
     float: left !important;
+    position: relative;
+}
+.comment .comment-body .cheader .user-img .author-icon {
+    width: 30px;
+    height: 16px;
+    position: absolute;
+    top: -12px;
+    left: -5px;
+    transform: rotate(7deg);
+    -ms-transform: rotate(7deg);
+    -moz-transform: rotate(7deg);
+    -webkit-transform: rotate(-18deg);
+    -o-transform: rotate(7deg);
 }
 
 .comment .comment-body .cheader .user-info {

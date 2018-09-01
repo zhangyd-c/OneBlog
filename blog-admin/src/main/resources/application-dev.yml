@@ -1,0 +1,46 @@
+# Server settings
+server:
+    tomcat:
+        basedir: /var/tmp/website-blog-admin
+# SPRING PROFILES
+spring:
+    datasource:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/dblog?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true
+        username: root
+        password: root
+    # 指定默认MimeMessage的编码，默认为: UTF-8
+    mail:
+        default-encoding: UTF-8
+        # 指定SMTP server使用的协议，默认为: smtp
+        protocol: smtp
+        # 指定SMTP server host.
+        host: xxx.xxx.xxx
+        port: 465
+        # 指定SMTP server的用户名.
+        username: xxx@xxx.xxx
+        # 指定SMTP server登陆密码:
+        password: xxx
+        # 指定是否在启动时测试邮件服务器连接，默认为false
+        test-connection: false
+        properties:
+            mail.smtp.auth: true
+            # 腾讯企业邮箱 下两个配置必须！！！
+            mail.smtp.ssl.enable: true
+            mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
+            mail.smtp.socketFactory.port: 465
+            mail.smtp.starttls.enable: true
+            mail.smtp.starttls.required: true
+            mail.smtp.connectiontimeout: 50000
+            mail.smtp.timeout: 30000
+            mail.smtp.writetimeout: 50000
+
+# logging settings
+logging:
+  path: /var/tmp/website-blog-admin
+####################################自定义配置##########################################
+app:
+    # 是否启用kaptcha验证码
+    enableKaptcha: false
+####################################自定义配置##########################################

@@ -21,13 +21,13 @@ package com.zyd.blog.controller;
 
 import com.zyd.blog.business.consts.CommonConst;
 import com.zyd.blog.business.enums.ResponseStatus;
-import com.zyd.blog.framework.exception.ZhydArticleException;
-import com.zyd.blog.framework.exception.ZhydCommentException;
-import com.zyd.blog.framework.exception.ZhydFileException;
-import com.zyd.blog.framework.exception.ZhydLinkException;
+import com.zyd.blog.framework.exception.*;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authc.AccountException;
+import org.apache.shiro.authz.UnauthorizedException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,13 +48,27 @@ import java.lang.reflect.UndeclaredThrowableException;
 @ControllerAdvice
 public class ExceptionHandleController {
 
+    /**
+     * Shiro权限认证异常
+     *
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(value = {UnauthorizedException.class, AccountException.class})
+    @ResponseBody
+    public ResponseVO unauthorizedExceptionHandle(Throwable e) {
+        e.printStackTrace(); // 打印异常栈
+        return ResultUtil.error(HttpStatus.UNAUTHORIZED.value(), e.getLocalizedMessage());
+    }
+
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public ResponseVO handle(Throwable e) {
         if (e instanceof ZhydArticleException
                 || e instanceof ZhydCommentException
                 || e instanceof ZhydFileException
-                || e instanceof ZhydLinkException) {
+                || e instanceof ZhydLinkException
+                || e instanceof ZhydException) {
             return ResultUtil.error(e.getMessage());
         }
         if (e instanceof UndeclaredThrowableException) {

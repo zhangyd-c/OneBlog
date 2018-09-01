@@ -1,4 +1,5 @@
-<#include "/layout/header.ftl"/>
+<#include "/include/macros.ftl">
+<@header></@header>
 <div class="clearfix"></div>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -28,7 +29,6 @@
         </div>
     </div>
 </div>
-<#include "/layout/footer.ftl"/>
 <!--添加弹框-->
 <div class="modal fade" id="addOrUpdateModal" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
     <div class="modal-dialog" role="document">
@@ -66,81 +66,83 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary addOrUpdateBtn">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"> 关闭</i></button>
+                <button type="button" class="btn btn-success addOrUpdateBtn"><i class="fa fa-save"> 保存</i></button>
             </div>
         </div>
     </div>
 </div>
 <!--/添加弹框-->
-<script>
-    /**
-     * 操作按钮
-     * @param code
-     * @param row
-     * @param index
-     * @returns {string}
-     */
-    function operateFormatter(code, row, index) {
-        var trId = row.id;
-        var operateBtn = [
-            '<@shiro.hasPermission name="updateLog:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
-            '<@shiro.hasPermission name="updateLog:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
-        ];
-        return operateBtn.join('');
-    }
+<@footer>
+    <script>
+        /**
+         * 操作按钮
+         * @param code
+         * @param row
+         * @param index
+         * @returns {string}
+         */
+        function operateFormatter(code, row, index) {
+            var trId = row.id;
+            var operateBtn = [
+                '<@shiro.hasPermission name="updateLog:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
+                '<@shiro.hasPermission name="updateLog:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
+            ];
+            return operateBtn.join('');
+        }
 
-    $(function () {
-        $('#myDatepicker').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            ignoreReadonly: true,
-            allowInputToggle: true
-        });
+        $(function () {
+            $('#myDatepicker').datetimepicker({
+                format: 'YYYY-MM-DD HH:mm:ss',
+                ignoreReadonly: true,
+                allowInputToggle: true
+            });
 
-        var options = {
-            modalName: "更新记录",
-            url: "/update/list",
-            getInfoUrl: "/update/get/{id}",
-            updateUrl: "/update/edit",
-            removeUrl: "/update/remove",
-            createUrl: "/update/add",
-            columns: [
-                {
-                    checkbox: true
-                }, {
-                    field: 'id',
-                    title: 'ID',
-                    width: '40px',
-                    editable: false
-                }, {
-                    field: 'version',
-                    title: '版本',
-                    width: '130px',
-                    editable: false
-                }, {
-                    field: 'description',
-                    title: '更新内容',
-                    width: '200px',
-                    editable: false
-                }, {
-                    field: 'recordeTime',
-                    title: '更新时间',
-                    width: '100px',
-                    editable: false,
-                    formatter: function (code) {
-                        return new Date(code).format("yyyy-MM-dd hh:mm:ss")
+            var options = {
+                modalName: "更新记录",
+                url: "/update/list",
+                getInfoUrl: "/update/get/{id}",
+                updateUrl: "/update/edit",
+                removeUrl: "/update/remove",
+                createUrl: "/update/add",
+                columns: [
+                    {
+                        checkbox: true
+                    }, {
+                        field: 'id',
+                        title: 'ID',
+                        width: '40px',
+                        editable: false
+                    }, {
+                        field: 'version',
+                        title: '版本',
+                        width: '130px',
+                        editable: false
+                    }, {
+                        field: 'description',
+                        title: '更新内容',
+                        width: '200px',
+                        editable: false
+                    }, {
+                        field: 'recordeTime',
+                        title: '更新时间',
+                        width: '100px',
+                        editable: false,
+                        formatter: function (code) {
+                            return new Date(code).format("yyyy-MM-dd hh:mm:ss")
+                        }
+                    }, {
+                        field: 'operate',
+                        title: '操作',
+                        width: '130px',
+                        formatter: operateFormatter //自定义方法，添加操作按钮
                     }
-                }, {
-                    field: 'operate',
-                    title: '操作',
-                    width: '130px',
-                    formatter: operateFormatter //自定义方法，添加操作按钮
-                }
-            ]
-        };
-        //1.初始化Table
-        $.tableUtil.init(options);
-        //2.初始化Button的点击事件
-        $.buttonUtil.init(options);
-    });
-</script>
+                ]
+            };
+            //1.初始化Table
+            $.tableUtil.init(options);
+            //2.初始化Button的点击事件
+            $.buttonUtil.init(options);
+        });
+    </script>
+</@footer>

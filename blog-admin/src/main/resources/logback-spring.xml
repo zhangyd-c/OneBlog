@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--定义日志文件的存储路径-->
+    <!--<property name="LOG_HOME" value="/var/tmp/website-blog-admin"/>-->
+    <springProperty scope="context" name="logdir" source="logging.path"/>
+
+    <!-- 控制台 appender -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%class:%line] %-5level - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--按天生成日志-->
+    <appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Prudent>true</Prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>
+                ${logdir}/%d{yyyy-MM-dd}/%d{yyyy-MM-dd}.log
+            </FileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} -%msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <logger name="org.springframework.core.env" level="ERROR"/>
+    <logger name="us.codecraft.webmagic.downloader" level="WARN"/>
+
+    <!-- 测试环境+开发环境，日志级别为INFO且不写日志文件 -->
+    <springProfile name="test,dev">
+        <logger name="com.zyd.blog" additivity="false">
+            <appender-ref ref="STDOUT"/>
+        </logger>
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+
+    <!-- 生产环境. 日志级别为WARN且写日志文件-->
+    <springProfile name="prod">
+        <logger name="com.zyd.blog" additivity="false">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="FILE" />
+        </logger>
+
+        <root level="WARN">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="FILE" />
+        </root>
+    </springProfile>
+
+</configuration>  

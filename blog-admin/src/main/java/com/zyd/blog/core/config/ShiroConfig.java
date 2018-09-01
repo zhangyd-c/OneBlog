@@ -23,6 +23,8 @@ import com.zyd.blog.core.shiro.ShiroService;
 import com.zyd.blog.core.shiro.credentials.RetryLimitCredentialsMatcher;
 import com.zyd.blog.core.shiro.realm.ShiroRealm;
 import com.zyd.blog.framework.property.RedisProperties;
+import com.zyd.blog.framework.property.ShiroProperties;
+import com.zyd.blog.framework.redis.CustomRedisManager;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -38,6 +40,7 @@ import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -62,10 +65,26 @@ public class ShiroConfig {
     private ShiroService shiroService;
     @Autowired
     private RedisProperties redisProperties;
+    @Autowired
+    private ShiroProperties shiroProperties;
 
     @Bean(name = "lifecycleBeanPostProcessor")
     public static LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
+    }
+
+    /**
+     * 修复UnavailableSecurityManagerException（详见issues#IK7C3）
+     *
+     * @param securityManager
+     * @return
+     */
+    @Bean
+    public MethodInvokingFactoryBean methodInvokingFactoryBean(SecurityManager securityManager) {
+        MethodInvokingFactoryBean bean = new MethodInvokingFactoryBean();
+        bean.setStaticMethod("org.apache.shiro.SecurityUtils.setSecurityManager");
+        bean.setArguments(securityManager);
+        return bean;
     }
 
     /**
@@ -83,11 +102,11 @@ public class ShiroConfig {
         // 必须设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        shiroFilterFactoryBean.setLoginUrl("/passport/login/");
+        shiroFilterFactoryBean.setLoginUrl(shiroProperties.getLoginUrl());
         // 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl("/index");
+        shiroFilterFactoryBean.setSuccessUrl(shiroProperties.getSuccessUrl());
         // 未授权界面;
-        shiroFilterFactoryBean.setUnauthorizedUrl("/error/403");
+        shiroFilterFactoryBean.setUnauthorizedUrl(shiroProperties.getUnauthorizedUrl());
         // 配置数据库中的resource
         Map<String, String> filterChainDefinitionMap = shiroService.loadFilterChainDefinitions();
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -157,11 +176,12 @@ public class ShiroConfig {
      * @return
      */
     public RedisManager redisManager() {
-        RedisManager redisManager = new RedisManager();
+        CustomRedisManager redisManager = new CustomRedisManager();
         redisManager.setHost(redisProperties.getHost());
         redisManager.setPort(redisProperties.getPort());
-        redisManager.setExpire(1800);
-        redisManager.setTimeout(redisProperties.getTimeout());
+        redisManager.setDatabase(redisProperties.getDatabase());
+        redisManager.setExpire(redisProperties.getExpire());
+        redisManager.setTimeout(redisProperties.getTimeout().getNano()*1000);
         redisManager.setPassword(redisProperties.getPassword());
         return redisManager;
     }
@@ -207,10 +227,10 @@ public class ShiroConfig {
      * @return
      */
     public SimpleCookie rememberMeCookie() {
-        //这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
+        // 这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
         SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
-        //<!-- 记住我cookie生效时间30天 ,单位秒;-->
-        simpleCookie.setMaxAge(2592000);
+        // 记住我cookie生效时间30天 ,单位秒。 注释掉，默认永久不过期 2018-07-15
+        simpleCookie.setMaxAge(redisProperties.getExpire());
         return simpleCookie;
     }
 

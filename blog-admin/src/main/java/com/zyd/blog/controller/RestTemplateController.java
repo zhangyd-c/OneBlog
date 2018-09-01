@@ -27,6 +27,8 @@ import com.zyd.blog.business.vo.TemplateConditionVO;
 import com.zyd.blog.framework.object.PageResult;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,18 +50,21 @@ public class RestTemplateController {
     @Autowired
     private SysTemplateService templateService;
 
+    @RequiresPermissions("templates")
     @PostMapping("/list")
     public PageResult list(TemplateConditionVO vo) {
         PageInfo<Template> pageInfo = templateService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }
 
+    @RequiresPermissions("template:add")
     @PostMapping(value = "/add")
     public ResponseVO add(Template template) {
         templateService.insert(template);
         return ResultUtil.success("成功");
     }
 
+    @RequiresPermissions(value = {"template:batchDelete", "template:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
@@ -71,11 +76,13 @@ public class RestTemplateController {
         return ResultUtil.success("成功删除 [" + ids.length + "] 个模板");
     }
 
+    @RequiresPermissions("template:get")
     @PostMapping("/get/{id}")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.templateService.getByPrimaryKey(id));
     }
 
+    @RequiresPermissions("template:edit")
     @PostMapping("/edit")
     public ResponseVO edit(Template template) {
         try {

@@ -4,7 +4,6 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>blog-web</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>blog-web</name>
@@ -13,18 +12,10 @@
 	<parent>
 		<groupId>com.zyd</groupId>
 		<artifactId>blog</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>2.0.1.Beta</version>
 	</parent>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-freemarker</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
@@ -32,21 +23,89 @@
 		<dependency>
 			<groupId>com.zyd</groupId>
 			<artifactId>blog-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+        </dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+			<!-- 解决@xx@无法解析的问题 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<delimiters>
+						<delimiter>@</delimiter>
+					</delimiters>
+					<useDefaultDelimiters>false</useDefaultDelimiters>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>net.alchim31.maven</groupId>
+				<artifactId>yuicompressor-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>compress</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!-- 读取js,css文件采用UTF-8编码 -->
+					<encoding>UTF-8</encoding>
+					<!-- 不显示js可能的错误 -->
+					<jswarn>false</jswarn>
+					<!-- 若存在已压缩的文件，会先对比源文件是否有改动  有改动便压缩，无改动就不压缩 -->
+					<force>false</force>
+					<!-- 在指定的列号后插入新行 -->
+					<linebreakpos>-1</linebreakpos>
+					<!-- 压缩之前先执行聚合文件操作 -->
+					<preProcessAggregates>true</preProcessAggregates>
+					<!-- 压缩后保存的文件后缀：true=无后缀 ，false=有后缀-min -->
+					<nosuffix>true</nosuffix>
+					<!-- 源目录，即需压缩的根目录 -->
+					<sourceDirectory>src/main/resources/static</sourceDirectory>
+					<!-- 目标输出目录 -->
+					<outputDirectory>target/classes/static</outputDirectory>
+					<!-- 压缩js和css文件 -->
+					<includes>
+						<include>**/*.js</include>
+						<include>**/*.css</include>
+					</includes>
+					<!-- 以下目录和文件不会被压缩 -->
+					<excludes>
+						<exclude>**/*.min.js</exclude>
+						<exclude>**/*.min.css</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<mainClass>com.zyd.blog.BlogWebApplication</mainClass>
 					<layout>JAR</layout>
+                    <!--构建完整可执行程序，可以直接运行-->
+                    <executable>true</executable>
 				</configuration>
 			</plugin>
 		</plugins>
+		<!-- 打包的时候放开 -->
+		<!--
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+				&lt;!&ndash; includes和excludes冲突时，以excludes为准 &ndash;&gt;
+				<includes>
+					<include>templates/**</include>
+					<include>static/img/**</include>
+					<include>*.yml</include>
+					<include>*.txt</include>
+					<include>*.xml</include>
+				</includes>
+			</resource>
+		</resources>-->
 	</build>
 
 

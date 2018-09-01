@@ -20,21 +20,20 @@
 package com.zyd.blog.business.aspect;
 
 import com.zyd.blog.business.annotation.BussinessLog;
-import com.zyd.blog.framework.holder.RequestHolder;
-import com.zyd.blog.util.IpUtil;
+import com.zyd.blog.util.AspectUtil;
+import com.zyd.blog.util.RegexUtils;
+import com.zyd.blog.util.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * AOP切面记录日志
@@ -49,8 +48,6 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 public class BussinessLogAspect {
-
-    private static final String PARAM_SEPARTOR = " & ";
 
     @Pointcut(value = "@annotation(com.zyd.blog.business.annotation.BussinessLog)")
     public void pointcut() {
@@ -77,35 +74,27 @@ public class BussinessLogAspect {
     }
 
     private void handle(ProceedingJoinPoint point) throws Exception {
-        //获取拦截的方法名
-        Signature sig = point.getSignature();
-        MethodSignature msig = null;
-        if (!(sig instanceof MethodSignature)) {
-            throw new IllegalArgumentException("该注解只能用于方法");
-        }
-        msig = (MethodSignature) sig;
-        Object target = point.getTarget();
         //获取拦截方法的参数
-        String className = point.getTarget().getClass().getName();
-        Method currentMethod = target.getClass().getMethod(msig.getName(), msig.getParameterTypes());
-        String methodName = currentMethod.getName();
+        String className = AspectUtil.getClassName(point);
+        Method currentMethod = AspectUtil.getMethod(point);
         //获取操作名称
         BussinessLog annotation = currentMethod.getAnnotation(BussinessLog.class);
-        String bussinessName = annotation.value();
-        log.info("{}-{}-{}", bussinessName, className, methodName);
-        Object[] params = point.getArgs();
-        StringBuilder sb = new StringBuilder();
-        for (Object param : params) {
-            sb.append(param);
-            sb.append(PARAM_SEPARTOR);
+        String bussinessName = parseContent(point.getArgs(), annotation.value());
+        String ua = RequestUtil.getUa();
+
+        log.info("{}-{}.{}", bussinessName, className, currentMethod.getName());
+        log.info("IP: {}, Method: {}, Request URL: {}", RequestUtil.getIp(), RequestUtil.getMethod(), RequestUtil.getRequestUrl());
+        log.info("User-Agent: " + ua);
+    }
+
+    private String parseContent(Object[] params, String bussinessName) {
+        if (bussinessName.contains("{") && bussinessName.contains("}")) {
+            List<String> result = RegexUtils.match(bussinessName, "(?<=\\{)(\\d+)");
+            for (String s : result) {
+                int index = Integer.parseInt(s);
+                bussinessName = bussinessName.replaceAll("\\{" + index + "\\}", String.valueOf(params[index - 1]));
+            }
         }
-        if (sb.length() > 1) {
-            sb.setLength(sb.length() - PARAM_SEPARTOR.length());
-        }
-        // 记录请求的内容
-        HttpServletRequest request = RequestHolder.getRequest();
-        log.info("IP: {}, Method: {}, Request URL: {}", IpUtil.getRealIp(request), request.getMethod(), request.getRequestURL().toString());
-        log.info("User-Agent: " + request.getHeader("User-Agent"));
-        log.info("请求参数:{}", sb.toString());
+        return bussinessName;
     }
 }

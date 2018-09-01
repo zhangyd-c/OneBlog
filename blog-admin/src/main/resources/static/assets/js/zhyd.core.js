@@ -29,14 +29,16 @@
  * @date 2018-04-25
  * @since 1.0
  */
+var editor = null, simplemde = null;
+
 var zhyd = window.zhyd || {
     initSidebar: function () {
         var a = function () {
             $RIGHT_COL.css("min-height", $(window).height());
             var a = $BODY.outerHeight(),
-                    b = $BODY.hasClass("footer_fixed") ? -10 : $FOOTER.height(),
-                    c = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
-                    d = a < c ? c : a;
+                b = $BODY.hasClass("footer_fixed") ? -10 : $FOOTER.height(),
+                c = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
+                d = a < c ? c : a;
             d -= $NAV_MENU.height() + b, $RIGHT_COL.css("min-height", d)
         };
         $SIDEBAR_MENU.find("a").on("click", function (b) {
@@ -77,14 +79,216 @@ var zhyd = window.zhyd || {
             var b = !0;
             return validator.checkAll($(this)) || (b = !1), b && this.submit(), !1
         }));
+    },
+    initHelloMsg: function () {
+        var $helloMsg = $("#hello_msg");
+        var now = new Date();
+        var nowHours = now.getHours();
+        $helloMsg.html((nowHours >= 0 && nowHours <= 5) ? "凌晨好" : (nowHours > 5 && nowHours <= 9) ? "早上好" : ((nowHours > 9 && nowHours <= 12) ? "上午好" : ((nowHours > 12 && nowHours <= 13) ? "中午好" : ((nowHours > 13 && nowHours <= 18) ? "下午好" : "晚上好"))));
+    },
+    initWangEditor: function (options) {
+        // 全屏插件
+        window.wangEditor.fullscreen = {
+            init: function(editorSelector) {
+                $(editorSelector + " .w-e-toolbar").append('<div class="w-e-menu"><a class="_wangEditor_btn_fullscreen" href="###" onclick="window.wangEditor.fullscreen.toggleFullscreen(\'' + editorSelector + '\')" data-toggle="tooltip" data-placement="bottom" title data-original-title="全屏编辑"><i class="fa fa-expand"></i></a></div>')
+            },
+            toggleFullscreen: function(editorSelector) {
+                $(editorSelector).toggleClass('fullscreen-editor');
+                var $a = $(editorSelector + ' ._wangEditor_btn_fullscreen');
+                var $i = $a.find("i:first-child");
+                if ($i.hasClass("fa-expand")) {
+                    $a.attr("data-original-title", "退出全屏");
+                    $i.removeClass("fa-expand").addClass("fa-compress")
+                } else {
+                    $a.attr("data-original-title", "全屏编辑");
+                    $i.removeClass("fa-compress").addClass("fa-expand")
+                }
+            }
+        };
+        var $op = $.extend({
+            id: "wangEditor",
+            contentId: "content",
+            uploadUrl: "",
+            uploadFileName: "file"
+        }, options);
+        var E = window.wangEditor;
+        editor = new E('#' + $op.id);
+        // 通过 url 参数配置 debug 模式。url 中带有 wangeditor_debug_mode=1 才会开启 debug 模式
+        editor.customConfig.debug = location.href.indexOf('wangeditor_debug_mode=1') > 0;
+        // 关闭粘贴样式的过滤
+        editor.customConfig.pasteFilterStyle = false;
+        editor.customConfig.zIndex = 100;
+
+        var $content = $('#' + $op.contentId);
+        editor.customConfig.onchange = function (html) {
+            // 监控变化，同步更新到 textarea
+            $content.val(html);
+        };
+
+        if ($op.uploadUrl) {
+            // 上传图片到服务器
+            editor.customConfig.uploadImgServer = $op.uploadUrl;
+            editor.customConfig.uploadFileName = 'file';
+            // 将图片大小限制为 5M
+            editor.customConfig.uploadImgMaxSize = 5 * 1024 * 1024;
+            editor.customConfig.customAlert = function (info) {
+                // info 是需要提示的内容
+                $.alert.error(info);
+            };
+            editor.customConfig.uploadImgHooks = {
+                error: function (xhr, editor) {
+                    $.alert.error("图片上传出错");
+                },
+                timeout: function (xhr, editor) {
+                    $.alert.error("请求超时");
+                },
+                customInsert: function (insertImg, result, editor) {
+                    // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+                    // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+                    console.log('customInsert：' + insertImg, result, editor);
+                    if (result.status == 200) {
+                        console.log(result.data);
+                        var imgFullPath = appConfig.qiniuPath + result.data + appConfig.qiniuImgStyle;
+                        editor.txt.append('<img src="' + imgFullPath + '" alt="" style="width: 95%;max-width: 100%;height: auto;border-radius: 6px;"/>');
+                        // 解决上传完图片如果未进行其他操作，则不会触发编辑器的“change”事件，导致实际文章内容中缺少最后上传的图片文件 2018-07-13
+                        $content.val(editor.txt.html());
+                    } else {
+                        $.alert.error(result.message);
+                    }
+                }
+            };
+        }
+        editor.create();
+        E.fullscreen.init('#' + $op.id);
+        // 修改编辑器大小
+        editor.$textContainerElem.css('max-height', '115px').css('height', '100%');
+    },
+    initMdEditor: function (options) {
+        var $op = $.extend({
+            id: "mdEditor",
+            uniqueId: "mdEditor_1",
+            uploadUrl: ""
+        }, options);
+        // js实现aop切面编程，实时保存文章内容
+        Function.prototype.after = function (afterfn) {
+            var __self = this;
+            //保存原函数的引用
+            return function () {
+                //返回包含了原函数和新函数的"代理"函数
+                afterfn.apply(this, arguments);//(1)
+                //执行新函数,且保证this不被劫持,新函数接受的参数
+                //也会被原封不动地传入原函数,新函数在原函数之前执行
+                return __self.apply(this, arguments);//(2)
+                //执行原函数并返回原函数的执行结果
+                //并且保证this不被劫持
+            }
+        };
+        var showMsg = function () {
+            var $div = $('<div></div>');
+            $div.css({
+                'position': 'absolute',
+                'right': '10px',
+                'top': 0,
+                'padding': '5px',
+                'font-size': '12px',
+                'color': '#ccc',
+                'opacity': 0
+            });
+            $div.html("自动保存完成");
+            $div.appendTo($(".CodeMirror"));
+            $div.animate({opacity: 1}, 1000, function () {
+                $div.animate({opacity: 0}, 1000, function () {
+                    $(this).remove();
+                })
+            })
+        };
+        SimpleMDE.prototype.autosave = SimpleMDE.prototype.autosave.after(showMsg);
+
+        // Powered by https://github.com/sparksuite/simplemde-markdown-editor
+        simplemde = new SimpleMDE({
+            // textarea的DOM对象
+            element: document.getElementById($op.id),
+            // 自动下载FontAwesome，设为false为不下载(如果设为false则必须手动引入)
+            autoDownloadFontAwesome: false,
+            // 自动聚焦输入框
+            autofocus: true,
+            // 是否自动保存正在编写的文本
+            autosave: {
+                // 启用自动保存功能
+                enabled: true,
+                // 自动保存的间隔，以毫秒为单位。默认为10000（10s）
+                delay: 15000,
+                // 唯一的字符串标识符(保证每个SimpleMDE编辑器的uniqueId唯一)
+                uniqueId: $op.uniqueId,
+                msg: "自动保存成功了"
+            },
+            placeholder: "请输入文本内容",
+            // 如果设置为true，则会出现JS警报窗口，询问链接或图像URL(插入图片或链接弹窗)。默认为false
+            promptURLs: true,
+            renderingConfig: {
+                // 如果设置为true，将使用highlight.js高亮显示。默认为false
+                codeSyntaxHighlighting: true
+            },
+            showIcons: ["code", "table", "clean-block", "horizontal-rule"],
+            tabSize: 4,
+            // 编辑器底部的状态栏
+            status: true,
+            status: ["autosave", "lines", "words", "cursor"], // Optional usage
+            status: ["autosave", "lines", "words", "cursor", {
+                className: "keystrokes",
+                defaultValue: function (el) {
+                    this.keystrokes = 0;
+                    el.innerHTML = "0 Keystrokes";
+                },
+                onUpdate: function (el) {
+                    el.innerHTML = ++this.keystrokes + " Keystrokes";
+                }
+            }]
+
+        });
+        var $fullscreen = $(".editor-toolbar a.fa-arrows-alt, .editor-toolbar a.fa-columns");
+        $fullscreen.click(function () {
+            var $this = $(this);
+            if ($fullscreen.hasClass("active")) {
+                $(".CodeMirror, .CodeMirror-scroll").css('max-height', 'none');
+            } else {
+                $(".CodeMirror, .CodeMirror-scroll").css('max-height', '200px');
+            }
+        });
+        if ($op.uploadUrl) {
+            inlineAttachment.editors.codemirror4.attach(simplemde.codemirror, {
+                uploadUrl: $op.uploadUrl
+            });
+        }
+        $(".editor-preview-side").addClass("markdown-body");
+    },
+    /**
+     * 下拉框组件， 支持自动填充option
+     */
+    combox: {
+        init: function () {
+            $('select[target=combox]').each(function (e) {
+                var $this = $(this);
+                var url = $this.data("url");
+                if (!url) {
+                    return false;
+                }
+                var method = $this.data("method") || "get";
+                $.ajax({
+                    url: url,
+                    type: method,
+                    success: function (json) {
+                        if (json && json.status == 200) {
+                            var optionTpl = '<option value="">请选择</option>{{#data}}<option value="{{id}}">{{name}}</option>{{/data}}';
+                            var html = Mustache.render(optionTpl, json);
+                            $this.html(html);
+                        }
+                    }
+                });
+            })
+        }
     }
 };
-
-function countChecked() {
-    "all" === checkState && $(".bulk_action input[name='table_records']").iCheck("check"), "none" === checkState && $(".bulk_action input[name='table_records']").iCheck("uncheck");
-    var a = $(".bulk_action input[name='table_records']:checked").length;
-    a ? ($(".column-title").hide(), $(".bulk-actions").show(), $(".action-cnt").html(a + " Records Selected")) : ($(".column-title").show(), $(".bulk-actions").hide())
-}
 
 function gd(a, b, c) {
     return new Date(a, b - 1, c).getTime()
@@ -99,7 +303,7 @@ function gd(a, b, c) {
             }
 
             var f = this,
-                    g = arguments;
+                g = arguments;
             d ? clearTimeout(d) : c && a.apply(f, g), d = setTimeout(h, b || 100)
         }
     };
@@ -109,22 +313,22 @@ function gd(a, b, c) {
 }(jQuery, "smartresize");
 
 var CURRENT_URL = window.location.href.split("#")[0].split("?")[0],
-        $BODY = $("body"),
-        $MENU_TOGGLE = $("#menu_toggle"),
-        $SIDEBAR_MENU = $("#sidebar-menu"),
-        $SIDEBAR_FOOTER = $(".sidebar-footer"),
-        $LEFT_COL = $(".left_col"),
-        $RIGHT_COL = $(".right_col"),
-        $NAV_MENU = $(".nav_menu"),
-        $FOOTER = $("footer"),
-        randNum = function () {
-            return Math.floor(21 * Math.random()) + 20
-        };
+    $BODY = $("body"),
+    $MENU_TOGGLE = $("#menu_toggle"),
+    $SIDEBAR_MENU = $("#sidebar-menu"),
+    $SIDEBAR_FOOTER = $(".sidebar-footer"),
+    $LEFT_COL = $(".left_col"),
+    $RIGHT_COL = $(".right_col"),
+    $NAV_MENU = $(".nav_menu"),
+    $FOOTER = $("footer"),
+    randNum = function () {
+        return Math.floor(21 * Math.random()) + 20
+    };
 $(document).ready(function () {
     $(".collapse-link").on("click", function () {
         var a = $(this).closest(".x_panel"),
-                b = $(this).find("i"),
-                c = a.find(".x_content");
+            b = $(this).find("i"),
+            c = a.find(".x_content");
         a.attr("style") ? c.slideToggle(200, function () {
             a.removeAttr("style")
         }) : (c.slideToggle(200), a.css("height", "auto")), b.toggleClass("fa-chevron-up fa-chevron-down")
@@ -151,56 +355,30 @@ $(document).ready(function () {
         radioClass: 'iradio_square-green',
         increaseArea: '20%' // optional
     });
-}), $("table input").on("ifChecked", function () {
-    checkState = "", $(this).parent().parent().parent().addClass("selected"), countChecked()
-}), $("table input").on("ifUnchecked", function () {
-    checkState = "", $(this).parent().parent().parent().removeClass("selected"), countChecked()
 });
-var checkState = "";
-$(".bulk_action input").on("ifChecked", function () {
-    checkState = "", $(this).parent().parent().parent().addClass("selected"), countChecked()
-}), $(".bulk_action input").on("ifUnchecked", function () {
-    checkState = "", $(this).parent().parent().parent().removeClass("selected"), countChecked()
-}), $(".bulk_action input#check-all").on("ifChecked", function () {
-    checkState = "all", countChecked()
-}), $(".bulk_action input#check-all").on("ifUnchecked", function () {
-    checkState = "none", countChecked()
-}), $(document).ready(function () {
-    $(".expand").on("click", function () {
-        $(this).next().slideToggle(200), $expand = $(this).find(">:first-child"), "+" == $expand.text() ? $expand.text("-") : $expand.text("+")
-    })
-}), "undefined" != typeof NProgress && ($(document).ready(function () {
+"undefined" != typeof NProgress && ($(document).ready(function () {
     NProgress.start()
 }), $(window).load(function () {
     NProgress.done()
 }));
-var originalLeave = $.fn.popover.Constructor.prototype.leave;
-$.fn.popover.Constructor.prototype.leave = function (a) {
-    var c, d,
-            b = a instanceof this.constructor ? a : $(a.currentTarget)[this.type](this.getDelegateOptions()).data("bs." + this.type);
-    originalLeave.call(this, a), a.currentTarget && (c = $(a.currentTarget).siblings(".popover"), d = b.timeout, c.one("mouseenter", function () {
-        clearTimeout(d), c.one("mouseleave", function () {
-            $.fn.popover.Constructor.prototype.leave.call(b, b)
-        })
-    }))
-}, $("body").popover({
-    selector: "[data-popover]",
-    trigger: "click hover",
-    delay: {
-        show: 50,
-        hide: 400
-    }
-}), $(document).ready(function () {
+$(document).ready(function () {
+    // 工具提示
+    $('[data-toggle="tooltip"]').tooltip();
     // 图片预览
     $(".showImage").fancybox();
     /* 自定义下拉 div */
     $(".custom-dropdown").on("click", function () {
         var a = $(this).closest(".custom-panel"),
-                b = $(this).find("i"),
-                c = a.find(".custom-container");
+            b = $(this).find("i"),
+            c = a.find(".custom-container");
         a.attr("style") ? c.slideToggle(200, function () {
             a.removeAttr("style")
         }) : (c.slideToggle(200), a.css("height", "auto")), b.toggleClass("fa-angle-double-up fa-angle-double-down")
+    });
+
+    $(".showContent").click(function () {
+        $(this).toggleClass('fa-plus-square fa-minus-square');
+        $(".disable-content").slideToggle(400);
     });
     zhyd.initDaterangepicker();
     zhyd.initValidator();
@@ -243,6 +421,29 @@ $.fn.popover.Constructor.prototype.leave = function (a) {
      */
     $(".uploadPreview").each(function () {
         var $this = $(this);
-        $this.uploadPreview({ imgContainer: $this.data("preview-container") });
-    })
+        $this.uploadPreview({imgContainer: $this.data("preview-container")});
+    });
+
+    zhyd.initHelloMsg();
+
+    $("#updPassBtn").click(function () {
+        var $form = $("#updPassForm");
+        if (validator.checkAll($form)) {
+            $form.ajaxSubmit({
+                type: "POST",
+                url: '/passport/updatePwd',
+                success: function (json) {
+                    $.alert.ajaxSuccess(json);
+                    if (json.status == 200) {
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 2000);
+                    }
+
+                },
+                error: $.alert.ajaxError
+            });
+        }
+    });
+    zhyd.combox.init();
 });

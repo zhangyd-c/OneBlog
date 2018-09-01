@@ -8,7 +8,9 @@
 		<result property="userId" jdbcType="BIGINT" column="user_id"/>
 		<result property="coverImage" jdbcType="VARCHAR" column="cover_image"/>
 		<result property="qrcodePath" jdbcType="VARCHAR" column="qrcode_path"/>
+		<result property="isMarkdown" jdbcType="BIT" column="is_markdown"/>
 		<result property="content" jdbcType="VARCHAR" column="content"/>
+		<result property="contentMd" jdbcType="VARCHAR" column="content_md"/>
 		<result property="typeId" jdbcType="BIGINT" column="type_id"/>
 		<result property="status" jdbcType="INTEGER" column="status"/>
 		<result property="top" jdbcType="BIT" column="top"/>
@@ -18,6 +20,7 @@
 		<result property="keywords" jdbcType="VARCHAR" column="keywords"/>
 		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
 		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+		<result property="comment" jdbcType="BIT" column="comment"/>
 
 		<result property="lookCount" jdbcType="INTEGER" column="look_count"/>
 		<result property="commentCount" jdbcType="INTEGER" column="comment_count"/>
@@ -33,23 +36,6 @@
 			<result property="description" jdbcType="VARCHAR" column="tag_description"/>
 		</collection>
 	</resultMap>
-	<sql id="Base_Column_List">
-		id,
-		title,
-		user_id,
-		cover_image,
-		qrcode_path,
-		content,
-		top,
-		type_id,
-		status,
-		recommended,
-		original,
-		description,
-		keywords,
-		create_time,
-		update_time
-	</sql>
 
 	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.ArticleConditionVO" resultMap="rm">
 		SELECT
@@ -276,5 +262,16 @@
 		GROUP BY
 			a.cover_image
 	</select>
+
+	<update id="batchUpdateStatus" parameterType="map">
+		UPDATE `biz_article`
+		SET status = #{status}
+		WHERE
+		 	id IN (
+		<foreach collection="list" item="item" separator=",">
+			#{item}
+		</foreach>
+		)
+	</update>
 </mapper>
 

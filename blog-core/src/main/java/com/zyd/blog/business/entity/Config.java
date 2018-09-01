@@ -82,6 +82,14 @@ public class Config {
         this.sysConfig.setDomain(domain);
     }
 
+    public String getCmsUrl() {
+        return this.sysConfig.getCmsUrl();
+    }
+
+    public void setCmsUrl(String cmsUrl) {
+        this.sysConfig.setCmsUrl(cmsUrl);
+    }
+
     public String getSiteUrl() {
         return this.sysConfig.getSiteUrl();
     }

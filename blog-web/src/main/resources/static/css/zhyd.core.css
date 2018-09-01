@@ -239,6 +239,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     overflow: hidden;
     word-wrap: break-word;
 }
+.blog-info-body img {
+    max-width: 100%;
+}
 
 fieldset {
     padding: 5px 15px;
@@ -572,6 +575,10 @@ a:-webkit-any-link {
     transition: transform .3s linear;
 }
 
+.line-container .line-left + .line-right {
+    margin-left: 15%;
+}
+
 .line-right {
     width: 85%; /*text-shadow: 0px 0.04rem 0.04rem rgba(0,0,0,0.078)*/
 }
@@ -724,10 +731,6 @@ span.separation:AFTER {
 .blog-main {
     font-size: 14px;
     line-height: 1.5;
-}
-
-.blog-main div {
-    overflow: hidden;
 }
 
 /* 右侧目录框 */
@@ -1940,6 +1943,7 @@ nav a:first-child .meta-nav {
 
     article .entry-content .entry-meta {
         display: block;
+        margin-left: 70px;
     }
 
     article .entry-content {
@@ -2644,6 +2648,16 @@ nav a:first-child .meta-nav {
         transition: all .3s ease
     }
 }
+.zhyd-container .zhyd-box:hover {
+    transform: translateY(-2px);
+    -webkit-transform: translateY(-2px);
+    -moz-transform: translateY(-2px);
+    box-shadow: 10px 10px 30px -15px rgb(128, 179, 142);
+    -webkit-box-shadow: -10px 10px 30px -15px rgb(128, 179, 142);
+    -moz-box-shadow: 0 15px 35px -25px rgba(0,36,100,.3);
+    transition: all .3s ease;
+}
+
 .container .zhyd-container {
     display: -webkit-box;
     display: flex;
@@ -2654,22 +2668,23 @@ nav a:first-child .meta-nav {
     justify-content: center;
 }
 .container .zhyd-container .zhyd-box {
-    overflow: hidden;
+    /*overflow: hidden;*/
     background: #fff;
-    padding-bottom: 20px
+    border-radius: 4px;
+    /*padding-bottom: 20px*/
 }
-.container .zhyd-container .zhyd-box {
-    overflow: hidden;
-    background: #fff;
-    padding-bottom: 20px
+.container .zhyd-container .zhyd-tool, .container .zhyd-container .zhyd-os {
+    padding-bottom: 20px;
 }
+
 .container .zhyd-container .zhyd-box .zhyd-content {
     border-radius: 6px;
     background: #fff;
     padding: 10px;
+    min-height: 321px;
     min-width: 200px;
     margin: 10px;
-    overflow: hidden;
+    /*overflow: hidden;*/
     white-space: nowrap;
     word-wrap: normal;
     text-overflow: ellipsis;
@@ -2682,12 +2697,36 @@ nav a:first-child .meta-nav {
     line-height: 210%;
 }
 .container .zhyd-container .zhyd-box .zhyd-content .alist li.item-title {
-    width: 80%;
+    width: 87%;
     line-height: 210%;
     white-space: nowrap;
     word-wrap: normal;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+.container .zhyd-container .zhyd-box .zhyd-content .alist li.item-title a.t:hover{
+    font-weight: 700;
+}
+.container .zhyd-container .zhyd-box .zhyd-content .alist li.item-title a.t:hover::before{
+    content: '> ';
+    margin-right: 5px;
+}
+.container .zhyd-container .zhyd-box .zhyd-content .alist li.item-title-0 a:first-child {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.container .zhyd-container .zhyd-box .zhyd-content .alist li.item-title .item-head {
+    overflow: initial;
+    text-overflow: initial;
+    white-space: normal;
+    word-wrap: normal;
+}
+.container .zhyd-container .zhyd-box .zhyd-content .alist li.item-title .item-head .item-head-desc {
+    height: 120px;
+    overflow: hidden;
+    line-height: 1.5;
+    color: #777;
+    margin: 0 0 5px 0;
 }
 .container .zhyd-container .zhyd-box .category {
     border-bottom: 1px solid #e4ecf2;
@@ -2775,3 +2814,62 @@ nav a:first-child .meta-nav {
     width: 356px;
     height: 230px;
 }
+
+/* 轮播图 */
+
+.carousel-inner>.item>img, .carousel-inner>.item>a>img {
+    height: 300px;
+    width: 100%;
+}
+.carousel-control {
+    width: 8%;
+}
+.carousel-control .fa-angle-left, .carousel-control .fa-angle-right{
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    display: inline-block;
+}
+
+.carousel-control .fa-angle-left{
+    margin-left: -15px;
+    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    left: 50%;
+}
+.carousel-control .fa-angle-right{
+    margin-right: -15px;
+    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    right: 50%;
+}
+
+.carousel-control:hover, .carousel-control:focus{
+    color: #fff!important;
+    text-decoration: none;
+    filter: alpha(opacity=30);
+    outline: 0;
+    opacity: 0.3;
+}
+
+.carousel-control.right, .carousel-control.left {
+    background-image: none!important;
+}
+
+.zyd-carousel-caption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    padding: 5px 10px;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0,0,0,.6);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    background: #07ad6f;
+    filter: alpha(opacity=70);
+    opacity: .7;
+}
+/* 轮播图 */

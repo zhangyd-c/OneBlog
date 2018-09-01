@@ -28,8 +28,17 @@ package com.zyd.blog.controller;
  * @date 2018/4/24 14:37
  * @since 1.0
  */
+
 import com.zyd.blog.business.annotation.BussinessLog;
+import com.zyd.blog.business.entity.Article;
+import com.zyd.blog.business.service.BizArticleService;
+import com.zyd.blog.core.websocket.server.ZydWebsocketServer;
 import com.zyd.blog.util.ResultUtil;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.authz.annotation.RequiresUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,122 +57,166 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class RenderController {
 
+    @Autowired
+    private BizArticleService articleService;
+    @Autowired
+    private ZydWebsocketServer websocketServer;
+
+    @RequiresAuthentication
     @BussinessLog("进入首页")
-    @GetMapping("")
+    @GetMapping(value = {""})
     public ModelAndView home() {
         return ResultUtil.view("index");
     }
 
-    @BussinessLog("进入首页")
-    @GetMapping("/index")
-    public ModelAndView index() {
-        return ResultUtil.view("index");
-    }
-
+    @RequiresPermissions("users")
     @BussinessLog("进入用户列表页")
     @GetMapping("/users")
     public ModelAndView user() {
         return ResultUtil.view("user/list");
     }
 
+    @RequiresPermissions("resources")
     @BussinessLog("进入资源列表页")
     @GetMapping("/resources")
     public ModelAndView resources() {
         return ResultUtil.view("resources/list");
     }
 
+    @RequiresPermissions("roles")
     @BussinessLog("进入角色列表页")
     @GetMapping("/roles")
     public ModelAndView roles() {
         return ResultUtil.view("role/list");
     }
 
+    @RequiresPermissions("articles")
     @BussinessLog("进入文章列表页")
     @GetMapping("/articles")
     public ModelAndView articles() {
         return ResultUtil.view("article/list");
     }
 
-    @BussinessLog("进入发表文章页")
+    @RequiresPermissions("article:publish")
+    @BussinessLog(value = "发表文章页[html]")
     @GetMapping("/article/publish")
     public ModelAndView publish() {
         return ResultUtil.view("article/publish");
     }
 
-    @BussinessLog("进入发表文章页")
+    @RequiresPermissions("article:publish")
+    @BussinessLog(value = "发表文章页[markdown]")
+    @GetMapping("/article/publishMd")
+    public ModelAndView publishMd() {
+        return ResultUtil.view("article/publish-md");
+    }
+
+    @RequiresPermissions("article:publish")
+    @BussinessLog(value = "修改文章页[id={1}]")
     @GetMapping("/article/update/{id}")
     public ModelAndView edit(@PathVariable("id") Long id, Model model) {
         model.addAttribute("id", id);
+        Article article = articleService.getByPrimaryKey(id);
+        if(article.getIsMarkdown()){
+            return ResultUtil.view("article/publish-md");
+        }
         return ResultUtil.view("article/publish");
     }
 
+    @RequiresPermissions("types")
     @BussinessLog("进入分类列表页")
     @GetMapping("/article/types")
     public ModelAndView types() {
         return ResultUtil.view("article/types");
     }
 
+    @RequiresPermissions("tags")
     @BussinessLog("进入标签列表页")
     @GetMapping("/article/tags")
     public ModelAndView tags() {
         return ResultUtil.view("article/tags");
     }
 
+    @RequiresPermissions("links")
     @BussinessLog("进入链接页")
     @GetMapping("/links")
     public ModelAndView links() {
         return ResultUtil.view("link/list");
     }
 
+    @RequiresPermissions("comments")
     @BussinessLog("进入评论页")
     @GetMapping("/comments")
     public ModelAndView comments() {
         return ResultUtil.view("comment/list");
     }
 
+    @RequiresPermissions("notices")
     @BussinessLog("进入系统通知页")
     @GetMapping("/notices")
     public ModelAndView notices() {
         return ResultUtil.view("notice/list");
     }
 
+    @RequiresRoles("role:root")
     @BussinessLog("进入系统配置页")
     @GetMapping("/config")
     public ModelAndView config() {
         return ResultUtil.view("config");
     }
 
+    @RequiresPermissions("templates")
     @BussinessLog("进入模板管理页")
     @GetMapping("/templates")
     public ModelAndView templates() {
         return ResultUtil.view("template/list");
     }
 
+    @RequiresPermissions("updateLogs")
     @BussinessLog("进入更新记录管理页")
     @GetMapping("/updates")
     public ModelAndView updates() {
         return ResultUtil.view("update/list");
     }
 
+    @RequiresPermissions("plays")
     @BussinessLog("进入歌单管理页")
     @GetMapping("/plays")
     public ModelAndView plays() {
         return ResultUtil.view("play/list");
     }
 
+    @RequiresPermissions("sysWebpage")
     @BussinessLog("进入静态页面管理页")
     @GetMapping("/sysWebpage")
     public ModelAndView sysWebpage() {
         return ResultUtil.view("sysWebpage/list");
     }
 
+    @RequiresPermissions("icons")
     @GetMapping("/icons")
     public ModelAndView icons(Model model) {
         return ResultUtil.view("icons");
     }
 
+    @RequiresPermissions("shiro")
     @GetMapping("/shiro")
     public ModelAndView shiro(Model model) {
         return ResultUtil.view("shiro");
+    }
+
+    @RequiresPermissions("notice")
+    @BussinessLog("进入通知管理页")
+    @GetMapping("/notice")
+    public ModelAndView notice(Model model) {
+        model.addAttribute("online", websocketServer.getOnlineUserCount());
+        return ResultUtil.view("notification");
+    }
+
+    @RequiresUser
+    @BussinessLog("进入搬运工页面")
+    @GetMapping("/remover")
+    public ModelAndView remover(Model model) {
+        return ResultUtil.view("remover/list");
     }
 }

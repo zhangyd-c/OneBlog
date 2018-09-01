@@ -1,4 +1,5 @@
-<#include "/layout/header.ftl"/>
+<#include "/include/macros.ftl">
+<@header></@header>
 <div class="clearfix"></div>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -28,7 +29,6 @@
         </div>
     </div>
 </div>
-<#include "/layout/footer.ftl"/>
 <!--添加弹框-->
 <div class="modal fade" id="addOrUpdateModal" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
     <div class="modal-dialog modal-lg" role="document">
@@ -55,62 +55,64 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary addOrUpdateBtn">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"> 关闭</i></button>
+                <button type="button" class="btn btn-success addOrUpdateBtn"><i class="fa fa-save"> 保存</i></button>
             </div>
         </div>
     </div>
 </div>
 <!--/添加弹框-->
-<script>
-    /**
-     * 操作按钮
-     * @param code
-     * @param row
-     * @param index
-     * @returns {string}
-     */
-    function operateFormatter(code, row, index) {
-        var trId = row.id;
-        var operateBtn = [
-            '<@shiro.hasPermission name="template:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
-            '<@shiro.hasPermission name="template:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
-        ];
-        return operateBtn.join('');
-    }
+<@footer>
+    <script>
+        /**
+         * 操作按钮
+         * @param code
+         * @param row
+         * @param index
+         * @returns {string}
+         */
+        function operateFormatter(code, row, index) {
+            var trId = row.id;
+            var operateBtn = [
+                '<@shiro.hasPermission name="template:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
+                '<@shiro.hasPermission name="template:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
+            ];
+            return operateBtn.join('');
+        }
 
-    $(function () {
-        var options = {
-            modalName: "模板",
-            url: "/template/list",
-            getInfoUrl: "/template/get/{id}",
-            updateUrl: "/template/edit",
-            removeUrl: "/template/remove",
-            createUrl: "/template/add",
-            columns: [
-                {
-                    checkbox: true
-                }, {
-                    field: 'id',
-                    title: 'ID',
-                    width: '40px',
-                    editable: false
-                }, {
-                    field: 'refKey',
-                    title: 'KEY',
-                    width: '100px',
-                    editable: false
-                }, {
-                    field: 'operate',
-                    title: '操作',
-                    width: '130px',
-                    formatter: operateFormatter //自定义方法，添加操作按钮
-                }
-            ]
-        };
-        //1.初始化Table
-        $.tableUtil.init(options);
-        //2.初始化Button的点击事件
-        $.buttonUtil.init(options);
-    });
-</script>
+        $(function () {
+            var options = {
+                modalName: "模板",
+                url: "/template/list",
+                getInfoUrl: "/template/get/{id}",
+                updateUrl: "/template/edit",
+                removeUrl: "/template/remove",
+                createUrl: "/template/add",
+                columns: [
+                    {
+                        checkbox: true
+                    }, {
+                        field: 'id',
+                        title: 'ID',
+                        width: '40px',
+                        editable: false
+                    }, {
+                        field: 'refKey',
+                        title: 'KEY',
+                        width: '100px',
+                        editable: false
+                    }, {
+                        field: 'operate',
+                        title: '操作',
+                        width: '130px',
+                        formatter: operateFormatter //自定义方法，添加操作按钮
+                    }
+                ]
+            };
+            //1.初始化Table
+            $.tableUtil.init(options);
+            //2.初始化Button的点击事件
+            $.buttonUtil.init(options);
+        });
+    </script>
+</@footer>

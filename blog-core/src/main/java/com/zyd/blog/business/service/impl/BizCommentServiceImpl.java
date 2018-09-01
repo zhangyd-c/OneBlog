@@ -26,6 +26,7 @@ import com.zyd.blog.business.annotation.RedisCache;
 import com.zyd.blog.business.dto.BizCommentDTO;
 import com.zyd.blog.business.entity.Comment;
 import com.zyd.blog.business.entity.Config;
+import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.CommentStatusEnum;
 import com.zyd.blog.business.enums.TemplateKeyEnum;
 import com.zyd.blog.business.service.BizCommentService;
@@ -134,6 +135,29 @@ public class BizCommentServiceImpl implements BizCommentService {
     }
 
     /**
+     * admin发表评论
+     *
+     * @param comment
+     * @return
+     */
+    @Override
+    @RedisCache(flush = true)
+    public void commentForAdmin(Comment comment) throws ZhydCommentException {
+        Config config = configService.get();
+        User user = SessionUtil.getUser();
+        comment.setQq(user.getQq());
+        comment.setEmail(user.getEmail());
+        comment.setNickname(user.getNickname());
+        comment.setAvatar(user.getAvatar());
+        comment.setUrl(config.getSiteUrl());
+        comment.setUserId(user.getId());
+        comment.setStatus(CommentStatusEnum.APPROVED.toString());
+        comment.setPid(comment.getId());
+        comment.setId(null);
+        this.comment(comment);
+    }
+
+    /**
      * 发表评论
      *
      * @param comment
@@ -146,13 +170,15 @@ public class BizCommentServiceImpl implements BizCommentService {
             throw new ZhydCommentException("必须输入昵称哦~~");
         }
         String content = comment.getContent();
-        if (StringUtils.isEmpty(content)) {
+        if (!XssKillerUtil.isValid(content)) {
+            throw new ZhydCommentException("内容不合法，请不要使用特殊标签哦~~");
+        }
+        content = XssKillerUtil.clean(content.trim()).replaceAll("(<p><br></p>)|(<p></p>)", "");
+        if (StringUtils.isEmpty(content) || "\n".equals(content)) {
             throw new ZhydCommentException("不说话可不行，必须说点什么哦~~");
         }
-        content = content.trim();
-        if (content.endsWith("<p><br></p>")) {
-            comment.setContent(content.substring(0, content.length() - "<p><br></p>".length()));
-        }
+        // 过滤非法属性和无用的空标签
+        comment.setContent(content);
         comment.setNickname(HtmlUtil.html2Text(comment.getNickname()));
         comment.setQq(HtmlUtil.html2Text(comment.getQq()));
         comment.setAvatar(HtmlUtil.html2Text(comment.getAvatar()));

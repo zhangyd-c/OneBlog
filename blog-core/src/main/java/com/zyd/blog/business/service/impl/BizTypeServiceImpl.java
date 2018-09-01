@@ -61,6 +61,30 @@ public class BizTypeServiceImpl implements BizTypeService {
     public PageInfo<Type> findPageBreakByCondition(TypeConditionVO vo) {
         PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
         List<BizType> list = bizTypeMapper.findPageBreakByCondition(vo);
+        List<Type> boList = getTypes(list);
+        if (boList == null) return null;
+        PageInfo bean = new PageInfo<BizType>(list);
+        bean.setList(boList);
+        return bean;
+    }
+
+    @Override
+    public List<Type> listParent() {
+        List<BizType> list = bizTypeMapper.listParent();
+        return getTypes(list);
+    }
+
+    @Override
+    public List<Type> listTypeForMenu() {
+        TypeConditionVO vo = new TypeConditionVO();
+        vo.setPageNumber(1);
+        vo.setPageSize(100);
+        PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
+        List<BizType> entityList = bizTypeMapper.listTypeForMenu();
+        return getTypes(entityList);
+    }
+
+    private List<Type> getTypes(List<BizType> list) {
         if (CollectionUtils.isEmpty(list)) {
             return null;
         }
@@ -68,9 +92,7 @@ public class BizTypeServiceImpl implements BizTypeService {
         for (BizType bizType : list) {
             boList.add(new Type(bizType));
         }
-        PageInfo bean = new PageInfo<BizType>(list);
-        bean.setList(boList);
-        return bean;
+        return boList;
     }
 
     /**
@@ -87,23 +109,6 @@ public class BizTypeServiceImpl implements BizTypeService {
         entity.setCreateTime(new Date());
         bizTypeMapper.insertSelective(entity.getBizType());
         return entity;
-    }
-
-    /**
-     * 批量插入，支持批量插入的数据库可以使用，例如MySQL,H2等，另外该接口限制实体包含id属性并且必须为自增列
-     *
-     * @param entities
-     */
-    @Override
-    public void insertList(List<Type> entities) {
-        Assert.notNull(entities, "Types不可为空！");
-        List<BizType> list = new ArrayList<>();
-        for (Type entity : entities) {
-            entity.setUpdateTime(new Date());
-            entity.setCreateTime(new Date());
-            list.add(entity.getBizType());
-        }
-        bizTypeMapper.insertList(list);
     }
 
     /**
@@ -160,19 +165,6 @@ public class BizTypeServiceImpl implements BizTypeService {
     }
 
     /**
-     * 根据实体中的属性进行查询，只能有一个返回值，有多个结果时抛出异常，查询条件使用等号
-     *
-     * @param entity
-     * @return
-     */
-    @Override
-    public Type getOneByEntity(Type entity) {
-        Assert.notNull(entity, "Type不可为空！");
-        BizType bo = bizTypeMapper.selectOne(entity.getBizType());
-        return null == bo ? null : new Type(bo);
-    }
-
-    /**
      * 查询全部结果，listByEntity(null)方法能达到同样的效果
      *
      * @return
@@ -183,35 +175,10 @@ public class BizTypeServiceImpl implements BizTypeService {
         vo.setPageNumber(1);
         vo.setPageSize(100);
         PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
-        List<BizType> entityList = bizTypeMapper.findPageBreakByCondition(null);
+        List<BizType> entityList = bizTypeMapper.selectAll();
 
-        if (CollectionUtils.isEmpty(entityList)) {
-            return null;
-        }
-        List<Type> list = new ArrayList<>();
-        for (BizType entity : entityList) {
-            list.add(new Type(entity));
-        }
-        return list;
-    }
-
-    /**
-     * 根据实体中的属性值进行查询，查询条件使用等号
-     *
-     * @param entity
-     * @return
-     */
-    @Override
-    public List<Type> listByEntity(Type entity) {
-        Assert.notNull(entity, "Type不可为空！");
-        List<BizType> entityList = bizTypeMapper.select(entity.getBizType());
-        if (CollectionUtils.isEmpty(entityList)) {
-            return null;
-        }
-        List<Type> list = new ArrayList<>();
-        for (BizType po : entityList) {
-            list.add(new Type(po));
-        }
+        List<Type> list = getTypes(entityList);
+        if (list == null) return null;
         return list;
     }
 }

@@ -22,41 +22,11 @@
  * SOFTWARE.
  *
  *
- * 评论插件
+ * 评论插件(md版)
  *
  * @date 2018-01-05 10:57
  * @author zhyd(yadong.zhang0415#gmail.com)
- * @link https://github.com/zhangyd-c
- *
- *
- * 'code', // 插入代码
- * 'head', // 标题
- * 'bold', // 粗体
- * 'italic', // 斜体
- * 'underline', // 下划线
- * 'strikeThrough', // 删除线
- * 'foreColor', // 文字颜色
- * 'backColor', // 背景颜色
- * 'image', // 插入图片
- * 'link', // 插入链接
- * 'list', // 列表
- * 'justify', // 对齐方式
- * 'quote', // 引用
- * 'emoticon', // 表情
- * 'table', // 表格
- * 'video', // 插入视频
- * 'undo', // 撤销
- * 'redo' // 重复
- *
- */
-/*!
- * BootstrapValidator (http://bootstrapvalidator.com)
- * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
- *
- * @version     v0.5.1-dev, built on 2014-07-23 6:05:15 AM
- * @author      https://twitter.com/nghuuphuoc
- * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
- * @license     MIT
+ * @link https://www.zhyd.me
  */
 var _form = {
     valid: function(form){
@@ -69,10 +39,10 @@ var _form = {
         return valid;
     }
 };
+
 $.extend({
     comment: {
         detailKey: 'comment-detail',
-        menus: ['code', 'bold', 'italic', 'underline', 'image', 'link', 'list', 'quote', 'emoticon'],
         sid: 0,
         _commentDetailModal: '',
         _detailForm: '',
@@ -83,6 +53,7 @@ $.extend({
         _commentPost: '',
         _cancelReply: '',
         _commentReply: '',
+        _simplemde: null,
         initDom: function () {
             $.comment._commentDetailModal = $('#comment-detail-modal');
             $.comment._detailForm = $('#detail-form');
@@ -100,70 +71,47 @@ $.extend({
                 return;
             }
             var op = $.extend({
-                menus: $.comment.menus,
-                customMenu: true
             }, options);
-            var detailInfoJson = $.tool.parseFormSerialize(localStorage.getItem(this.detailKey));
-            var currentUser = '';
-            if(detailInfoJson){
-                currentUser = '<small> - 欢迎回来，<a href="'+detailInfoJson.url+'" target="_blank" rel="external nofollow">' + filterXSS(detailInfoJson.nickname) + '<i class="fa fa-smile-o"></i></a></small>';
-            }
             var commentBox = '<div id="comment-place">'
                     + '<div class="comment-post" id="comment-post" style="position: relative">'
-                    + '<h4 class="bottom-line"><i class="fa fa-commenting-o fa-fw icon"></i><strong>发表评论</strong>' + currentUser + '</h4>'
-                    + '<div class="cancel-reply" id="cancel-reply" style="display: none;"><a href="javascript:void(0);" onclick="$.comment.cancelReply(this)" rel="external nofollow"><i class="fa fa-share"></i>取消回复</a></div>'
+                    + '<h4 class="bottom-line"><i class="fa fa-commenting-o fa-fw icon"></i><strong>评论</strong></h4>'
                     + '<form class="form-horizontal" role="form" id="comment-form">'
+                    + '<div class="cancel-reply" id="cancel-reply" style="display: none;"><a href="javascript:void(0);" onclick="$.comment.cancelReply(this)" rel="external nofollow"><i class="fa fa-share"></i>取消回复</a></div>'
                     + '<input type="hidden" name="pid" id="comment-pid" value="0" size="22" tabindex="1">'
-                    + '<textarea id="comment_content" name="content" style="display: none"></textarea>'
-                    + '<div id="editor" style="width: 100%;height: 150px;"></div>'
-                    + '<div style="position: absolute;right: 10px;bottom: 65px;font-size: 14px;font-weight: 700;color: #ececec;">张亚东博客<br>https://www.zhyd.me<br>讲文明、要和谐</div>'
+                    + '<textarea id="comment_content" class="form-control col-md-7 col-xs-12 valid" style="display: none"></textarea>'
+                    + '<textarea name="content" style="display: none"></textarea>'
+                    + '<div style="position: absolute;right: 10px;bottom: 70px;font-size: 14px;font-weight: 700;color: #ececec;z-index: 1;">张亚东博客<br>https://www.zhyd.me<br>讲文明、要和谐</div>'
                     + '<a id="comment-form-btn" type="button" data-loading-text="正在提交评论..." class="btn btn-default btn-block">提交评论</a>'
                     + '</form></div></div>';
             $box.html(commentBox);
             // 初始化并缓存常用的dom元素
             $.comment.initDom();
             // 创建编辑框
-            $.comment.createEdit(op);
+            this._simplemde = $.comment.createEdit(op);
             $.comment.loadCommentList($box);
             $.comment.initValidatorPlugin();
         },
         createEdit: function (options) {
-            var $selector = '#editor';
-            var E = window.wangEditor;
-            var editor = new E($selector);
-            if(options.customMenu){
-                editor.customConfig.menus = options.menus;
-            }
+            console.log(options.menu);
+            var simplemde = new SimpleMDE({
+                element: document.getElementById("comment_content"),
+                toolbar: ["bold", "italic", "|", "code", "quote", "|", "preview", "|", "guide"],
+                autoDownloadFontAwesome: false,
+                // autofocus: true,
+                placeholder: "说点什么吧",
+                renderingConfig: {
+                    codeSyntaxHighlighting: true
+                },
+                tabSize: 4
+            });
+            simplemde.codemirror.on("change", function(){
+                $("textarea[name=content]").val(simplemde.markdown(simplemde.value()));
+            });
 
-            // debug模式下，有 JS 错误会以throw Error方式提示出来
-            editor.customConfig.debug = false;
-
-            // 关闭粘贴样式的过滤
-            editor.customConfig.pasteFilterStyle = false;
-            // 插入网络图片的回调
-            editor.customConfig.linkImgCallback = function (url) {
-                // console.log(url) // url 即插入图片的地址
-            };
-            editor.customConfig.zIndex = 100;
-            var $content = $('#comment_content');
-            editor.customConfig.onchange = function (html) {
-                // 让编辑器始终处于最底部
-                // var $dom = document.getElementsByClassName("w-e-text")[0];
-                // $dom.scrollTop = $dom.scrollHeight;
-                // 监控变化，同步更新到 textarea
-                $content.val(filterXSS(html));
-            };
-            editor.create();
-            $content.val(editor.txt.html());
-            E.fullscreen.init($selector);
+            return simplemde;
         },
         loadCommentList: function (box, pageNumber) {
             var sid = box.attr("data-id");
-            // 该属性为了静态页面中防止请求服务器特加的属性，实际可能不用。
-            var autoLoad = box.attr("data-auto-load");
-            if(autoLoad && autoLoad == "false"){
-                return false;
-            }
             if(!sid){
                 throw "未指定sid！";
             }
@@ -193,21 +141,27 @@ $.extend({
                         // 首次加载-刷新页面后第一次加载，此时没有点击加载更多进行分页
                         if(!pageNumber) {
                             commentListBox = '<div class="commentList">'
-                                    + '<h5 class="bottom-line"><i class="fa fa-comments-o fa-fw icon"></i><strong><em>' + json.data.total + '</em> 条评论</strong></h5>'
+                                    + '<h4 class="bottom-line"><i class="fa fa-comments-o fa-fw icon"></i><strong><em>' + json.data.total + '</em> 条评论</strong></h4>'
                                     + '<ul class="comment">';
                         }
                         for(var i = 0, len = commentList.length; i < len ; i ++){
                             var comment = commentList[i];
                             var userUrl = comment.url || "javascript:void(0)";
                             var parent = comment.parent;
+                            var adminIcon = '';
+                            if(comment.admin){
+                                adminIcon = '<img src="/img/author.png" alt="" class="author-icon" title="管理员">';
+                            }
                             var parentQuote = parent ? '<a href="#comment-' + parent.id + '" class="comment-quote">@' + parent.nickname + '</a><div style="background-color: #f5f5f5;padding: 5px;margin: 5px;border-radius: 4px;"><i class="fa fa-quote-left"></i><p></p><div style="padding-left: 10px;">' + filterXSS(parent.content) + '</div></div>' : '';
                             commentListBox += '<li>' +
                                     '    <div class="comment-body fade-in" id="comment-'+comment.id+'">' +
                                     '        <div class="cheader">' +
-                                    '           <div class="user-img"><img class="userImage" src="' + comment.avatar + '" onerror="this.src=\'' + appConfig.staticPath + '/img/user.png\'"></div>' +
+                                    '           <div class="user-img">' + adminIcon + '<img class="userImage" src="' + filterXSS(comment.avatar) + '" onerror="this.src=\'' + appConfig.staticPath + '/img/user.png\'"></div>' +
                                     '           <div class="user-info">' +
                                     '              <div class="nickname">' +
                                     '                 <a target="_blank" href="' + userUrl + '" rel="external nofollow"><strong>' + comment.nickname + '</strong></a>' +
+                                    '                <i class="icons os-' + comment.osShortName + '" title="' + comment.os + '"></i>' +
+                                    '                <i class="icons browser-' + comment.browserShortName + '" title="' + comment.browser + '"></i>' +
                                     '              </div>            ' +
                                     '             <div class="timer">' +
                                     '                  <i class="fa fa-clock-o fa-fw"></i>' + comment.createTimeString +
@@ -217,8 +171,6 @@ $.extend({
                                     '        </div>' +
                                     '        <div class="content">' + parentQuote + '<div>' + filterXSS(comment.content) + '</div></div>' +
                                     '        <div class="sign">' +
-                                    '            <i class="icons os-' + comment.osShortName + '"></i>'+ comment.os +' <i class="sepa"></i>' +
-                                    '            <i class="icons browser-' + comment.browserShortName + '"></i>' + comment.browser + ' <i class="sepa"></i>' +
                                     '            <a href="javascript:void(0);" class="comment-up" onclick="$.comment.praise(' + comment.id + ', this)"><i class="fa fa-thumbs-o-up"></i>赞(<span class="count">' + comment.support + '</span>)<i class="sepa"></i></a>' +
                                     '            <a href="javascript:void(0);" class="comment-down" onclick="$.comment.step(' + comment.id + ', this)"><i class="fa fa-thumbs-o-down"></i>踩(<span class="count">' + comment.oppose + '</span>)<i class="sepa"></i></a>' +
                                     '            <a href="javascript:void(0);" class="comment-reply" onclick="$.comment.reply(' + comment.id + ', this)"><i class="fa fa-reply"></i>回复</a>' +
@@ -363,13 +315,12 @@ $.extend({
             });
 
             function submitForm(data) {
-                $.comment._detailFormBtn.button('loading');
+                console.log(data);
                 $.ajax({
                     type: "post",
                     url: "/api/comment",
                     data: data + '&sid=' + $.comment.sid,
                     success: function (json) {
-                        $.comment._detailFormBtn.button('reset');
                         $.alert.ajaxSuccess(json);
                         $.comment._commentDetailModal.modal('hide');
 
@@ -382,6 +333,7 @@ $.extend({
                         }, 1000);
                     },
                     error: function (data) {
+                        // console.log(data);
                         $.alert.ajaxError();
                         $this.button('reset');
                     }
@@ -389,18 +341,18 @@ $.extend({
             }
         },
         reply: function (pid, target) {
+            // console.log(pid);
             this._commentPid.val(pid);
             this._cancelReply.show();
-            this._commentPost.find('h5 i').addClass("shake");
+            // this._commentReply.show();
             $(target).hide();
-            $(target).parents('.comment-body').append(this._commentPost);
+            $(target).parents('.comment-body').append($("#comment-form"));
         },
         cancelReply: function (target) {
             this._commentPid.val("");
             this._cancelReply.hide();
             $(target).parents(".comment-body").find('.comment-reply').show();
-            this._commentPost.find('h5 i').addClass("shake");
-            this._commentPlace.append(this._commentPost);
+            this._commentPost.append($("#comment-form"));
         },
         /* 赞 */
         praise: function (pid, target) {
@@ -449,27 +401,11 @@ $.extend({
         }
     }
 });
-$(function(){
+
+$(function () {
     $.comment.init({customMenu: true});
 
     $("#comment-form-btn").click(function () {
         $.comment.submit($(this));
     });
-
-    window.wangEditor.fullscreen = {
-        init: function (editorSelector) {
-            $(editorSelector + " .w-e-toolbar").append('<div class="w-e-menu"><a class="_wangEditor_btn_fullscreen" href="###" onclick="window.wangEditor.fullscreen.toggleFullscreen(\'' + editorSelector + '\')" data-toggle="tooltip" data-placement="bottom" title data-original-title="全屏编辑"><i class="fa fa-expand"></i></a></div>')
-        }, toggleFullscreen: function (editorSelector) {
-            $(editorSelector).toggleClass('fullscreen-editor');
-            var $a = $(editorSelector + ' ._wangEditor_btn_fullscreen');
-            var $i = $a.find("i:first-child");
-            if ($i.hasClass("fa-expand")) {
-                $a.attr("data-original-title", "退出全屏");
-                $i.removeClass("fa-expand").addClass("fa-compress")
-            } else {
-                $a.attr("data-original-title", "全屏编辑");
-                $i.removeClass("fa-compress").addClass("fa-expand")
-            }
-        }
-    };
 });

@@ -1,4 +1,5 @@
-<#include "layout/header.ftl"/>
+<#include "include/macros.ftl">
+<@header></@header>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -26,7 +27,7 @@
                                 <a href="#tab_contact" role="tab" id="contact-tab" data-toggle="tab" aria-expanded="false">联系方式</a>
                             </li>
                             <li role="presentation" class="">
-                                <a href="#tab_setting" role="tab" id="setting-tab" data-toggle="tab" aria-expanded="false">系统配置</a>
+                                <a href="#tab_setting" role="tab" id="setting-tab" data-toggle="tab" aria-expanded="false">其他配置</a>
                             </li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
@@ -80,9 +81,17 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="staticWebSite">CMS后管系统地址<span
+                                                class="required">*</span></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" class="form-control col-md-7 col-xs-12" name="cmsUrl" id="cmsUrl"
+                                                   required="required" placeholder="请输入CMS后管系统地址"/>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <button type="button" class="btn btn-primary saveBtn">保存</button>
+                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
                                         </div>
                                     </div>
                                 </form>
@@ -120,7 +129,7 @@
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
                                         <div class="col-md-6 col-sm-7 col-xs-12">
-                                            <button type="button" class="btn btn-primary saveBtn">保存</button>
+                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
                                         </div>
                                     </div>
                                 </form>
@@ -149,7 +158,7 @@
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <button type="button" class="btn btn-primary saveBtn">保存</button>
+                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
                                         </div>
                                     </div>
                                 </form>
@@ -188,7 +197,7 @@
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <button type="button" class="btn btn-primary saveBtn">保存</button>
+                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
                                         </div>
                                     </div>
                                 </form>
@@ -239,7 +248,7 @@
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <button type="button" class="btn btn-primary saveBtn">保存</button>
+                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
                                         </div>
                                     </div>
                                 </form>
@@ -260,23 +269,11 @@
                                     </div>
                                     <div class="clear"></div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenance">首页显示维护通知</label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenance">维护通知</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <ul class="list-unstyled list-inline">
-                                                <li>
-                                                    <div class="radio">
-                                                        <label>
-                                                            <input type="radio" class="square" checked name="maintenance" value="1"> 显示
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="radio">
-                                                        <label>
-                                                            <input type="radio" class="square" name="maintenance" value="0"> 关闭
-                                                        </label>
-                                                    </div>
-                                                </li>
+                                                <li><input type="radio" class="square" checked name="maintenance" value="1"> 显示</li>
+                                                <li><input type="radio" class="square" name="maintenance" value="0"> 关闭</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -295,27 +292,15 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment">开启评论</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <ul class="list-unstyled list-inline">
-                                                <li>
-                                                    <div class="radio">
-                                                        <label>
-                                                            <input type="radio" class="square" checked name="comment" value="1"> 开启
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="radio">
-                                                        <label>
-                                                            <input type="radio" class="square" name="comment" value="0"> 关闭
-                                                        </label>
-                                                    </div>
-                                                </li>
+                                                <li><input type="radio" class="square" checked name="comment" value="1"> 开启</li>
+                                                <li><input type="radio" class="square" name="comment" value="0"> 关闭</li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <button type="button" class="btn btn-primary saveBtn">保存</button>
+                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
                                         </div>
                                     </div>
                                 </form>
@@ -328,36 +313,38 @@
     </div>
 </div>
 </div>
-<#include "layout/footer.ftl"/>
-<script type="text/javascript">
-    $(function () {
-        $.ajax({
-            url: '/config/get',
-            type: 'POST',
-            success: function (json) {
-                var data = json.data;
-                console.log(data);
-                $("#myTabContent").find("input, select, textarea").each(function () {
-                    clearText($(this), this.type, data);
-                });
+<@footer>
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                url: '/config/get',
+                type: 'POST',
+                success: function (json) {
+                    var data = json.data;
+                    $("#myTabContent").find("input, select, textarea").each(function () {
+                        clearText($(this), this.type, data);
+                    });
 
-                data.zfbPraiseCode && $("#zfbPraiseCodeFilePreview").html('<img src="' + data.qiuniuBasePath + data.zfbPraiseCode + '" alt="支付宝赞赏码" class="img-responsive img-rounded auto-shake">');
-                data.wxPraiseCode && $("#wxPraiseCodeFilePreview").html('<img src="' + data.qiuniuBasePath + data.wxPraiseCode + '" alt="微信赞赏码" class="img-responsive img-rounded auto-shake">');
-            }
+                    data.zfbPraiseCode && $("#zfbPraiseCodeFilePreview").html('<img src="' + data.qiuniuBasePath + data.zfbPraiseCode + '" alt="支付宝赞赏码" class="img-responsive img-rounded auto-shake">');
+                    data.wxPraiseCode && $("#wxPraiseCodeFilePreview").html('<img src="' + data.qiuniuBasePath + data.wxPraiseCode + '" alt="微信赞赏码" class="img-responsive img-rounded auto-shake">');
+                }
+            });
+
+            $(".saveBtn").click(function () {
+                var $this = $(this);
+                var $form = $this.parents("form");
+                if(validator.checkAll($form)) {
+                    $form.ajaxSubmit({
+                        type: "POST",
+                        url: '/config/edit',
+                        success: function (json) {
+                            $.alert.ajaxSuccess(json);
+                        },
+                        error: $.alert.ajaxError
+                    });
+                }
+            });
+
         });
-
-        $(".saveBtn").click(function () {
-            var $this = $(this);
-            var $form = $this.parents("form");
-            if(validator.checkAll($form)) {
-                $form.ajaxSubmit({
-                    type: "POST",
-                    url: '/config/edit',
-                    success: $.alert.ajaxSuccess,
-                    error: $.alert.ajaxError
-                });
-            }
-        });
-
-    });
-</script>
+    </script>
+</@footer>

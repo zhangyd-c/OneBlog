@@ -23,6 +23,7 @@ import com.zyd.blog.business.entity.Resources;
 import com.zyd.blog.business.entity.Role;
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.UserStatusEnum;
+import com.zyd.blog.business.enums.UserTypeEnum;
 import com.zyd.blog.business.service.SysResourcesService;
 import com.zyd.blog.business.service.SysRoleService;
 import com.zyd.blog.business.service.SysUserService;
@@ -37,7 +38,10 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Shiro-密码输入错误的状态下重试次数的匹配管理
@@ -98,14 +102,27 @@ public class ShiroRealm extends AuthorizingRealm {
         }
 
         // 赋予权限
-        List<Resources> resourcesList = resourcesService.listByUserId(userId);
+        List<Resources> resourcesList = null;
+        User user = userService.getByPrimaryKey(userId);
+        if (null == user) {
+            return info;
+        }
+        // ROOT用户默认拥有所有权限
+        if (UserTypeEnum.ROOT.toString().equalsIgnoreCase(user.getUserType())) {
+            resourcesList = resourcesService.listAll();
+        } else {
+            resourcesList = resourcesService.listByUserId(userId);
+        }
+
         if (!CollectionUtils.isEmpty(resourcesList)) {
+            Set<String> permissionSet = new HashSet<>();
             for (Resources resources : resourcesList) {
                 String permission = null;
                 if (!StringUtils.isEmpty(permission = resources.getPermission())) {
-                    info.addStringPermission(permission);
+                    permissionSet.addAll(Arrays.asList(permission.trim().split(",")));
                 }
             }
+            info.setStringPermissions(permissionSet);
         }
         return info;
     }

@@ -20,6 +20,8 @@
 package com.zyd.blog.controller;
 
 import com.zyd.blog.business.annotation.BussinessLog;
+import com.zyd.blog.business.entity.UserPwd;
+import com.zyd.blog.business.service.SysUserService;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.framework.property.AppProperties;
 import com.zyd.blog.util.ResultUtil;
@@ -32,6 +34,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,14 +59,12 @@ public class PassportController {
 
     @Autowired
     private AppProperties config;
+    @Autowired
+    private SysUserService userService;
 
     @BussinessLog("进入登录页面")
     @GetMapping("/login")
     public ModelAndView login(Model model) {
-        Subject subject = SecurityUtils.getSubject();
-        if (subject.isAuthenticated()||subject.isRemembered()){
-            return ResultUtil.redirect("/index");
-        }
         model.addAttribute("enableKaptcha", config.getEnableKaptcha());
         return ResultUtil.view("/login");
     }
@@ -97,6 +99,22 @@ public class PassportController {
             token.clear();
             return ResultUtil.error(e.getMessage());
         }
+    }
+
+    /**
+     * 修改密码
+     *
+     * @return
+     */
+    @PostMapping("/updatePwd")
+    @ResponseBody
+    public ResponseVO updatePwd(@Validated UserPwd userPwd, BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors()) {
+            return ResultUtil.error(bindingResult.getFieldError().getDefaultMessage());
+        }
+        boolean result = userService.updatePwd(userPwd);
+        SessionUtil.removeAllSession();
+        return ResultUtil.success(result ? "密码已修改成功，请重新登录" : "密码修改失败");
     }
 
     /**

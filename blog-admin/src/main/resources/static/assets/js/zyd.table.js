@@ -36,12 +36,12 @@
             init: function (options) {
                 $.tableUtil._option = options;
                 // console.log(options.url);
-                $('#tablelist').bootstrapTable({
+                $('#tablelist').bootstrapTable('destroy').bootstrapTable({
                     url: options.url,
                     method: 'post',                      //请求方式（*）
                     toolbar: '#toolbar',                //工具按钮用哪个容器
                     striped: true,                      //是否显示行间隔色
-                    cache: true,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                    cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
                     contentType: "application/x-www-form-urlencoded", // 发送到服务器的数据编码类型, application/x-www-form-urlencoded为了实现post方式提交
                     sortable: false,                     //是否启用排序
                     sortOrder: "asc",                   //排序方式
@@ -88,12 +88,14 @@
                             return false;
                         }
                     },
+                    onExpandRow: options.onExpandRow,
                     rowStyle: options.rowStyle || function (row, index){return {};},
                     columns: options.columns
                 });
             },
             queryParams: function (params) {
                 params = $.extend({}, params);
+                params.keywords = params.searchText;
                 return params;
             },
             refresh: function () {
@@ -221,12 +223,15 @@ function clearText($this, type, info){
         var thisValue = info[thisName];
         if (type == 'radio') {
             $this.iCheck(((thisValue && 1 == $this.val()) || (!thisValue && 0 == $this.val())) ? 'check' : 'uncheck')
-        } else if (type == 'checkbox') {
-            $this.iCheck((thisValue || thisValue == 1) ? 'check' : 'uncheck');
-        } else {
-            if (thisValue && thisName != 'password') {
-                $this.val(thisValue);
+        } else if (type.startsWith('select')) {
+            if(thisValue == 'true' || thisValue == true) {
+                thisValue = 1;
+            } else if(thisValue == 'false' || thisValue == false) {
+                thisValue = 0;
             }
+            $this.val(thisValue);
+        } else {
+            $this.val(thisValue);
         }
     } else {
         if (type === 'radio' || type === 'checkbox') {
@@ -255,6 +260,5 @@ function getSelectedId() {
  * @returns {*|jQuery}
  */
 function getSelectedObj() {
-    var selectedJson = $("#tablelist").bootstrapTable('getAllSelections');
-    return selectedJson;
+    return $("#tablelist").bootstrapTable('getAllSelections');
 }

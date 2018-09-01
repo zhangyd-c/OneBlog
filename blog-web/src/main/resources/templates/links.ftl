@@ -35,17 +35,20 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 blog-main">
-            <div class="blog-body expansion">
-                <div class="col-sm-12 col-md-10">
-                    <div class="h5">链接取消记录：<i class="fa fa-plus-square showContent">点击查看</i></div>
+        <div class="col-sm-12 zhyd-container">
+            <div class="zhyd-box zhyd-os">
+                <div class="category">
+                    <div><i class="fa fa-unlink fa-fw fa-2x"></i>取链记录</div>
+                </div>
+                <div class="col-sm-12 col-md-12" style="margin: 0 auto;float: initial">
+                    <div class="h5"><i class="fa fa-plus-square showContent"> 点击查看</i></div>
                     <div class="disable-content" style="display: none;">
                         <table class="table table-hover table-condensed table-bordered">
                             <thead>
-                                <th style="width: 80px;">网站图标</th>
-                                <th style="width: 200px;">网站名</th>
-                                <th>取链原因</th>
-                                <th style="width: 150px;">取链时间</th>
+                            <th style="width: 80px;">网站图标</th>
+                            <th style="width: 200px;">网站名</th>
+                            <th>取链原因</th>
+                            <th style="width: 150px;">取链时间</th>
                             </thead>
                             <#if link.disableList>
                                 <#list link.disableList as item>
@@ -60,14 +63,17 @@
                         </table>
                     </div>
                 </div>
-
             </div>
         </div>
         <#if link.indexList>
-        <div class="col-sm-12 blog-main">
-            <h5><i class="fa fa-link fa-fw fa-spin"></i><strong>首页友链</strong> <small>(排名不分前后)</small></h5>
-            <section class="links none-bg">
-                <ul class="list-unstyled list-inline">
+        <div class="col-sm-12 zhyd-container">
+            <div class="zhyd-box zhyd-os">
+                <div class="category">
+                    <div><i class="fa fa-link fa-fw fa-2x"></i>首页友链 <small>(排名不分前后)</small></div>
+                </div>
+                <div class="col-sm-12 col-md-12" style="margin: 0 auto;float: initial">
+                    <section class="links none-bg">
+                        <ul class="list-unstyled list-inline">
                         <#list link.indexList as item>
                             <li>
                                 <a href="${item.url}" target="_blank" title="${item.description}" data-toggle="tooltip" data-placement="bottom">
@@ -75,24 +81,32 @@
                                 </a>
                             </li>
                         </#list>
-                </ul>
-            </section>
+                        </ul>
+                    </section>
+                </div>
+            </div>
         </div>
         </#if>
         <#if link.insideList>
-        <div class="col-sm-12 blog-main">
-            <h5><i class="fa fa-link fa-fw fa-spin"></i><strong>内页友链</strong> <small>(排名不分前后)</small></h5>
-            <section class="links none-bg">
-                <ul class="list-unstyled list-inline">
-                    <#list link.insideList as item>
-                        <li>
-                            <a href="${item.url}" target="_blank" title="${item.description}" data-toggle="tooltip" data-placement="bottom">
-                                <img src="${item.favicon}" alt="${item.name}" onerror="this.src='${config.staticWebSite}/img/user.png'">${item.name}
-                            </a>
-                        </li>
-                    </#list>
-                </ul>
-            </section>
+        <div class="col-sm-12 zhyd-container">
+            <div class="zhyd-box zhyd-os">
+                <div class="category">
+                    <div><i class="fa fa-link fa-fw fa-2x"></i>内页友链 <small>(排名不分前后)</small></div>
+                </div>
+                <div class="col-sm-12 col-md-12" style="margin: 0 auto;float: initial">
+                    <section class="links none-bg">
+                        <ul class="list-unstyled list-inline">
+                            <#list link.insideList as item>
+                                <li>
+                                    <a href="${item.url}" target="_blank" title="${item.description}" data-toggle="tooltip" data-placement="bottom">
+                                        <img src="${item.favicon}" alt="${item.name}" onerror="this.src='${config.staticWebSite}/img/user.png'">${item.name}
+                                    </a>
+                                </li>
+                            </#list>
+                        </ul>
+                    </section>
+                </div>
+            </div>
         </div>
         </#if>
         <#--<div class="col-sm-12 blog-main">

@@ -1,4 +1,5 @@
-<#include "layout/header.ftl"/>
+<#include "include/macros.ftl">
+<@header></@header>
     <div class="clearfix"></div>
 
     <div class="row">
@@ -50,4 +51,4 @@ return new SimpleAuthenticationInfo(user,user.getPswd(), getName());            
         </div>
     </div>
 </div>
-<#include "layout/footer.ftl"/>
+<@footer></@footer>

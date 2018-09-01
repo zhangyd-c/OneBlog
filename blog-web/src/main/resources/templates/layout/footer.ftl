@@ -128,12 +128,15 @@
         <div class="col-xs-12 col-sm-4 col-md-4 text-left fade-in">
             <h4>问题交流</h4>
             <div class="row" style="padding: 4px;padding-left: 10px;">
-                <div class="col-xs-12 col-sm-7 col-md-7" style="white-space: initial;">
-                    <span>志同道合者欢迎进QQ交流群(190886500)</span>
-                </div>
-                <div class="col-xs-12 col-sm-5 col-md-5">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <a href="${config.staticWebSite}/img/wechat_account.jpg" target="_blank" class="showImage" title="[码一码]公众号" rel="external nofollow">
+                        <img data-original="${config.staticWebSite}/img/wechat_account.jpg" alt="[码一码]公众号" class="img-responsive img-rounded auto-shake lazy-img" style="width: 100px;display: inline-block">
+                    </a>
+                    <a href="${config.staticWebSite}/img/mayima.jpg" target="_blank" class="showImage" title="[码一码]小程序" rel="external nofollow">
+                        <img data-original="${config.staticWebSite}/img/mayima.jpg" alt="[码一码]小程序" class="img-responsive img-rounded auto-shake lazy-img" style="width: 100px;display: inline-block">
+                    </a>
                     <a href="${config.staticWebSite}/img/qq_group.png" class="showImage" title="QQ群(190886500)二维码" rel="external nofollow">
-                        <img data-original="${config.staticWebSite}/img/qq_group.png" alt="QQ群(190886500)二维码" class="img-responsive img-rounded auto-shake lazy-img" style="width: 100px;">
+                        <img data-original="${config.staticWebSite}/img/qq_group.png" alt="QQ群(190886500)二维码" class="img-responsive img-rounded auto-shake lazy-img" style="width: 100px;display: inline-block">
                     </a>
                 </div>
             </div>
@@ -142,7 +145,7 @@
 </div>
 <footer class="footer">
     <div class="clear">
-        <p>托管于<a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=wylo59db" target="_blank" title="阿里云-为了无法计算的价值" data-toggle="tooltip" data-placement="bottom" rel="external nofollow">阿里云</a> & <a href="https://www.qiniu.com/" target="_blank" title="七牛云-国内领先的企业级云服务商" data-toggle="tooltip" data-placement="bottom" rel="external nofollow">七牛云</a> · <a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank" title="查看备案信息" data-toggle="tooltip" data-placement="bottom" rel="external nofollow">鲁ICP备17054970号-1</a></p>
+        <p>托管于<a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=wylo59db" target="_blank" title="阿里云-为了无法计算的价值" data-toggle="tooltip" data-placement="bottom" rel="external nofollow">阿里云</a> & <a href="https://portal.qiniu.com/signup?code=3l8yx2v0f21ci" target="_blank" title="七牛云-国内领先的企业级云服务商" data-toggle="tooltip" data-placement="bottom" rel="external nofollow">七牛云</a> · <a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank" title="查看备案信息" data-toggle="tooltip" data-placement="bottom" rel="external nofollow">鲁ICP备17054970号-1</a></p>
         <p>Copyright&copy;2016-${.now?string("yyyy")} ${config.siteName} · Powered by <a href="https://gitee.com/yadong.zhang/DBlog" title="DBlog是一款简洁美观、自适应的Java博客系统..." data-toggle="tooltip" data-placement="right" target="_blank"><strong>DBlog</strong></a> · <a href="http://tongji.baidu.com/web/welcome/ico?s=590226d2f4ffbf051442eb75f37333c9" target="_blank" title="点击查看${config.siteName}网站统计详情" data-toggle="tooltip" data-placement="right" rel="external nofollow"><i class="fa fa-bar-chart-o fa-fw fa-spin"></i>网站统计</a></p>
     </div>
 </footer>
@@ -159,13 +162,13 @@
 <script type="text/javascript">
     var appConfig = {
         wwwPath: '${config.siteUrl}',
+        cmsPath: '${config.cmsUrl}',
         staticPath: '${config.staticWebSite}',
         qiuniuBasePath: '${config.qiuniuBasePath}',
         wxPraiseCode: '${config.wxPraiseCode}',
-        zfbPraiseCode: '${config.zfbPraiseCode}',
+        zfbPraiseCode: '${config.zfbPraiseCode}'
     }
 </script>
-<script type="text/javascript" src="${config.staticWebSite}/js/wangEditor.min.js"></script>
 <script type="text/javascript" src="${config.staticWebSite}/js/zhyd.core.js"></script>
 <script type="text/javascript" src="${config.staticWebSite}/js/zhyd.js"></script>
 <script type="text/javascript" src="${config.staticWebSite}/js/zhyd.comment.js"></script>

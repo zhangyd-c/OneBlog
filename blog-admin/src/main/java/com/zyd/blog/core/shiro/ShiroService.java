@@ -68,7 +68,7 @@ public class ShiroService {
         /*
             配置访问权限
             - anon:所有url都都可以匿名访问
-            - authc: 需要认证才能进行访问
+            - authc: 需要认证才能进行访问（此处指所有非匿名的路径都需要登陆才能访问）
             - user:配置记住我或认证通过可以访问
          */
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
@@ -76,6 +76,7 @@ public class ShiroService {
         filterChainDefinitionMap.put("/passport/logout", "logout");
         filterChainDefinitionMap.put("/passport/login", "anon");
         filterChainDefinitionMap.put("/passport/signin", "anon");
+        filterChainDefinitionMap.put("/websocket", "anon");
         filterChainDefinitionMap.put("/favicon.ico", "anon");
         filterChainDefinitionMap.put("/error", "anon");
         filterChainDefinitionMap.put("/assets/**", "anon");
@@ -90,7 +91,8 @@ public class ShiroService {
                 filterChainDefinitionMap.put(resources.getUrl(), permission);
             }
         }
-        filterChainDefinitionMap.put("/**", "authc");
+        // 本博客中并不存在什么特别关键的操作，所以直接使用user认证。如果有朋友是参考本博客的shiro开发其他安全功能（比如支付等）时，建议针对这类操作使用authc权限 by yadong.zhang
+        filterChainDefinitionMap.put("/**", "user");
         return filterChainDefinitionMap;
     }
 

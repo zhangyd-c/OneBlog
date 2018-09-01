@@ -119,7 +119,8 @@ public interface BizArticleService extends AbstractService<Article, Long> {
 
     /**
      * 发布文章
-     *a
+     * a
+     *
      * @param article
      * @param tags
      * @param file
@@ -133,5 +134,13 @@ public interface BizArticleService extends AbstractService<Article, Long> {
      * @return
      */
     boolean updateTopOrRecommendedById(String type, Long id);
+
+    /**
+     * 批量修改状态
+     *
+     * @param ids
+     * @param status
+     */
+    void batchUpdateStatus(Long[] ids, boolean status);
 
 }
