@@ -68,7 +68,7 @@ function initArticeMenu() {
             var dNum = 0;
             $('.blog-info-body').find('h2,h3').each(function (index, item) {
                 var $this = $(this);
-                $this.before($('<span id="menu_'+index+'" class="menu-point"></span>'));
+                $this.before($('<span id="menu_' + index + '" class="menu-point"></span>'));
                 $this.addClass("menu-title");
                 var tagText = $this.text();
                 var tagName = $this[0].tagName.toLowerCase();
@@ -89,12 +89,17 @@ function initArticeMenu() {
                     bindMenuScroll();
                 });
                 bindMenuScroll();
+
                 function bindMenuScroll() {
                     if ($.tool.currentPath().indexOf('/article/') !== -1) {
                         if (sc.scrollTop() >= 200) {
                             if (!am.hasClass("fixed")) {
                                 var top = win.width() > 768 ? '85px' : '55px';
-                                am.addClass('fixed').css({width: '21.7%',right: 0, border: '1px solid rgba(0, 0, 0, 0.1)'}).animate({top: top}, 100);
+                                am.addClass('fixed').css({
+                                    width: '21.7%',
+                                    right: 0,
+                                    border: '1px solid rgba(0, 0, 0, 0.1)'
+                                }).animate({top: top}, 100);
                                 $('.close-article-menu').removeClass('hide');
                             }
                         } else {
@@ -103,6 +108,7 @@ function initArticeMenu() {
                         }
                     }
                 }
+
                 $('.close-article-menu').click(function () {
                     am.addClass('hide');
                 });
@@ -122,7 +128,8 @@ function initScrollMenu() {
     win.scroll(function () {
         bindScroll();
     });
-    function bindScroll(){
+
+    function bindScroll() {
         if (sc.scrollTop() >= 100) {
             if (!mainmenu.hasClass("transparent")) {
                 topmenu.animate({opacity: '0'}, 0);
@@ -140,23 +147,27 @@ function initScrollMenu() {
         }
     }
 }
+
 var PaymentUtils = window.payment || {
-    config: [{url: appConfig.qiuniuBasePath + appConfig.zfbPraiseCode, desc: '支付宝转账'},{url: appConfig.qiuniuBasePath + appConfig.wxPraiseCode, desc: '微信转账'}],
-    show : function () {
+    config: [{
+        url: appConfig.qiuniuBasePath + appConfig.zfbPraiseCode,
+        desc: '支付宝转账'
+    }, {url: appConfig.qiuniuBasePath + appConfig.wxPraiseCode, desc: '微信转账'}],
+    show: function () {
         $("#reward").modal('show');
         this.change(0);
-        $("#reward input").on('ifChecked', function(event){
+        $("#reward input").on('ifChecked', function (event) {
             var index = $(this).data("index");
             PaymentUtils.change(index);
         });
     },
-    hide : function () {
+    hide: function () {
         $("#reward").modal('hide');
     },
     change: function (index) {
         var config = this.config[index];
         $("#qrcode-container").empty();
-        $('<img  src="' + config.url + '" style="width: 250px;height: auto;" alt="'+config.desc+'">').appendTo($("#qrcode-container"));
+        $('<img  src="' + config.url + '" style="width: 250px;height: auto;" alt="' + config.desc + '">').appendTo($("#qrcode-container"));
     }
 
 };
@@ -189,8 +200,8 @@ $(function () {
     initArticeMenu();
     initScrollMenu();
 
-    console.group("关于本站");
-    console.log("写博客、记日志、闲聊扯淡鼓捣技术\n志同道合者欢迎进QQ交流群（190886500）");
+    console.group("关于OneBlog");
+    console.log("OneBlog，一个简洁美观、功能强大并且自适应的Java博客\n欢迎进QQ交流群（190886500）");
     console.groupEnd();
     console.log("%c生活真他妈好玩，因为生活老他妈玩我！", "color:green;font-size:20px;font-weight:blod");
     console.groupEnd();
@@ -239,29 +250,32 @@ $(function () {
     setInterval(function () {
         getCurrentDate();
     }, 1000);
-    function getCurrentDate(){
+
+    function getCurrentDate() {
         var now = new Date();
         var weekArr = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
         $("#currentTime").html(now.format('yyyy年MM月dd日 hh时mm分ss秒') + " " + weekArr[now.getDay()]);
     }
 
-    if($.websocket) {
+    if ($.websocket) {
         var sitePath = appConfig.cmsPath;
-        var scheme = ["http://", "https://"];
-        var host;
-        $.each(scheme, function (i, v) {
-           if(sitePath.indexOf(v) !== -1) {
-               host = sitePath.replaceAll(v, "");
-               return false;
-           }
+        var schemes = {"http://": "ws://", "https://": "wss://"};
+        var host, scheme;
+
+        $.each(schemes, function (k, v) {
+            if (sitePath.startsWith(k)) {
+                scheme = v;
+                host = sitePath.replaceAll(k, "");
+                return false;
+            }
         });
         // 默认取8085端口的程序
         host = host || document.domain + ":8085";
-        if(host){
+        if (host) {
             // 申请显示通知的权限
             $.notification.requestPermission();
             $.websocket.open({
-                host: "ws://" + host + "/websocket",
+                host: scheme + host + "/websocket",
                 reconnect: true,
                 callback: function (result) {
                     console.log(result);
@@ -283,23 +297,23 @@ $(function () {
         $(".disable-content").slideToggle(400);
     });
 
-    if(/iphone|ipod|ipad|ipad|mobile/i.test(navigator.userAgent.toLowerCase())){
-        $('.share-sd').click(function() {
+    if (/iphone|ipod|ipad|ipad|mobile/i.test(navigator.userAgent.toLowerCase())) {
+        $('.share-sd').click(function () {
             $('#share').animate({
-                        opacity: 'toggle',
-                        top: '-80px'
-                    },
-                    500).animate({
-                        top: '-60px'
-                    },
-                    'fast');
+                    opacity: 'toggle',
+                    top: '-80px'
+                },
+                500).animate({
+                    top: '-60px'
+                },
+                'fast');
             return false;
         });
     } else {
-        $(".share-sd").mouseover(function() {
+        $(".share-sd").mouseover(function () {
             $(this).children("#share").show();
         });
-        $(".share-sd").mouseout(function() {
+        $(".share-sd").mouseout(function () {
             $(this).children("#share").hide();
         });
     }
@@ -315,8 +329,13 @@ $(function () {
             url: "/api/doPraise/" + id,
             success: function (json) {
                 $.alert.ajaxSuccess(json);
-                if(json.status === 200){
-                    $this.effectBubble({y:-80, className:'thumb-bubble', fontSize: 1, content: '<i class="fa fa-smile-o"></i>+1'});
+                if (json.status === 200) {
+                    $this.effectBubble({
+                        y: -80,
+                        className: 'thumb-bubble',
+                        fontSize: 1,
+                        content: '<i class="fa fa-smile-o"></i>+1'
+                    });
                     $count.text(parseInt($count.text()) + 1);
                 }
                 $.bubble.init();
@@ -329,12 +348,12 @@ $(function () {
     });
 
     $("img.lazy-img").lazyload({
-        placeholder : appConfig.staticPath + "/img/loading.gif",
+        placeholder: appConfig.staticPath + "/img/loading.gif",
         effect: "fadeIn",
         threshold: 100
     });
-    $(window).bind("load", function() {
-        var timeout = setTimeout(function() {
+    $(window).bind("load", function () {
+        var timeout = setTimeout(function () {
             $("img.lazy-img").trigger("sporty");
         }, 3000);
     });
@@ -354,12 +373,12 @@ $(function () {
         var search = $parents.data("search");
         var url = $parents.data("url");
         var pageNum = $this.data("page") || 1;
-        if(!pageNum){
+        if (!pageNum) {
             return;
         }
         var action = url + "/" + pageNum;
 
-        if(search){
+        if (search) {
             $("#searchForm").find("input[name=pageNumber]").val(pageNum);
             $(".nav-search-btn").click();
         } else {
@@ -368,15 +387,15 @@ $(function () {
     });
 
     /* 首页通知 */
-    if($('#notice-box') && $('#notice-box')[0]){
+    if ($('#notice-box') && $('#notice-box')[0]) {
         $.ajax({
             type: "post",
             url: "/api/listNotice",
             success: function (json) {
-                if(json.status == 200 && json.data && json.data.length > 0){
+                if (json.status == 200 && json.data && json.data.length > 0) {
                     var tpl = '{{#data}}<li class="scrolltext-title">'
-                            + '<a href="javascript:void(0)" rel="bookmark">{{&content}}</a>'
-                            + '</li>{{/data}}';
+                        + '<a href="javascript:void(0)" rel="bookmark">{{&content}}</a>'
+                        + '</li>{{/data}}';
                     var html = Mustache.render(tpl, json);
                     $("#notice-box").html(html);
                 }

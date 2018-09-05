@@ -241,22 +241,22 @@
             },
             ajaxSuccessConfirm: function (json, callback) {
                 if (json.status == 200) {
-                    if(json.message){
+                    if (json.message) {
                         $.alert.confirm(json.message, callback);
                     }
                 } else {
-                    if(json.message){
+                    if (json.message) {
                         $.alert.error(json.message);
                     }
                 }
             },
             ajaxSuccess: function (json) {
                 if (json.status == 200) {
-                    if(json.message){
+                    if (json.message) {
                         $.alert.info(json.message);
                     }
                 } else {
-                    if(json.message){
+                    if (json.message) {
                         $.alert.error(json.message);
                     }
                 }
@@ -337,12 +337,11 @@
         trim: function () {
             return this.replace(/(^\s*)|(\s*$)|\r|\n/g, "");
         },
-        startsWith: function (pattern) {
-            return this.indexOf(pattern) === 0;
+        startsWith: function (str) {
+            return new RegExp("^" + str).test(this);
         },
-        endsWith: function (pattern) {
-            var d = this.length - pattern.length;
-            return d >= 0 && this.lastIndexOf(pattern) === d;
+        endsWith: function (str) {
+            return new RegExp(str + "$").test(this);
         },
         replaceSuffix: function (index) {
             return this.replace(/\[[0-9]+\]/, '[' + index + ']').replace('#index#', index);
@@ -353,10 +352,10 @@
         },
         getParams: function (encode) {
             var params = {},
-                    indexOf = this.indexOf("?");
+                indexOf = this.indexOf("?");
             if (indexOf != -1) {
                 var str = this.substr(indexOf + 1),
-                        strs = str.split("&");
+                    strs = str.split("&");
                 for (var i = 0; i < strs.length; i++) {
                     var item = strs[i].split("=");
                     var val = encode ? item[1].encodeParam() : item[1];
@@ -436,13 +435,13 @@
 
             if (/(y+)/.test(format)) {
                 format = format.replace(RegExp.$1, (this.getFullYear() + "")
-                        .substr(4 - RegExp.$1.length));
+                    .substr(4 - RegExp.$1.length));
             }
 
             for (var k in o) {
                 if (new RegExp("(" + k + ")").test(format)) {
                     format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k]
-                            : ("00" + o[k]).substr(("" + o[k]).length));
+                        : ("00" + o[k]).substr(("" + o[k]).length));
                 }
             }
             return format;
@@ -552,15 +551,22 @@
 
         // 文字向上冒泡
         effectBubble: function (options) {
-            var op = $.extend({content: '+1', y: -100, duration: 1000, effectType: 'ease', className: '', fontSize: 2}, options);
+            var op = $.extend({
+                content: '+1',
+                y: -100,
+                duration: 1000,
+                effectType: 'ease',
+                className: '',
+                fontSize: 2
+            }, options);
 
             return this.each(function () {
                 var $box = $(this), flyId = 'effect-fly-' + (new Date().getTime());
 
                 var tpl = '<span id="#flyId#" class="effect-bubble-fly #class#" style="opacity: 1;top:#top#px;left:#left#px;font-size: #fontSize#rem;">#content#</span>';
                 var html = tpl.replaceAll('#left#', 12).replaceAll('#top#', -8)
-                        .replaceAll('#flyId#', flyId).replaceAll('#content#', op.content)
-                        .replaceAll('#class#', op.className).replaceAll('#fontSize#', op.fontSize);
+                    .replaceAll('#flyId#', flyId).replaceAll('#content#', op.content)
+                    .replaceAll('#class#', op.className).replaceAll('#fontSize#', op.fontSize);
 
                 var $fly = $(html).appendTo($box);
                 $fly.fadeIn(100, "swing", function () {
