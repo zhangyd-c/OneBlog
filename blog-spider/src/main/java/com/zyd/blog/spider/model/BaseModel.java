@@ -82,6 +82,8 @@ public class BaseModel {
 
     /* 保留字段，针对ajax渲染的页面 */
     private Boolean ajaxRequest = false;
+    /* 是否转存图片 */
+    private boolean convertImg = false;
 
     public String getUid() {
         return uid;

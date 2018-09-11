@@ -81,7 +81,7 @@ public class RestApiController {
         Map<String, Object> resultMap = new HashMap<>(3);
         resultMap.put("success", 1);
         resultMap.put("message", "上传成功");
-        resultMap.put("filename", config.getQiuniuBasePath() + filePath + "-pw");
+        resultMap.put("filename", config.getQiuniuBasePath() + filePath);
         return resultMap;
     }
 

@@ -3,10 +3,9 @@ package com.zyd.blog.business.service.impl;
 import com.zyd.blog.business.entity.Tags;
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.ArticleStatusEnum;
-import com.zyd.blog.business.service.BizArticleService;
-import com.zyd.blog.business.service.BizArticleTagsService;
-import com.zyd.blog.business.service.BizTagsService;
-import com.zyd.blog.business.service.RemoverService;
+import com.zyd.blog.business.service.*;
+import com.zyd.blog.business.util.ImageDownloadUtil;
+import com.zyd.blog.persistence.beans.SysConfig;
 import com.zyd.blog.spider.model.Article;
 import com.zyd.blog.spider.model.BaseModel;
 import com.zyd.blog.spider.processor.ArticleSpiderProcessor;
@@ -18,11 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -36,12 +36,16 @@ import java.util.stream.Collectors;
 @Service
 public class RemoverServiceImpl implements RemoverService {
 
+    private static final Pattern PATTERN = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
+
     @Autowired
     private BizArticleService articleService;
     @Autowired
     private BizTagsService tagsService;
     @Autowired
     private BizArticleTagsService articleTagsService;
+    @Autowired
+    private SysConfigService sysConfigService;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -73,9 +77,10 @@ public class RemoverServiceImpl implements RemoverService {
         List<Long> tagIds = null;
         Tags newTag = null;
         User user = SessionUtil.getUser();
+        String qiniuBasePath = sysConfigService.get().getQiuniuBasePath();
         for (Article spiderArticle : list) {
             article = new com.zyd.blog.business.entity.Article();
-            article.setContent(spiderArticle.getContent());
+            article.setContent(model.isConvertImg() ? parseImgForHtml(spiderArticle.getContent(), qiniuBasePath, writer) : spiderArticle.getContent());
             article.setTitle(spiderArticle.getTitle());
             article.setTypeId(typeId);
             article.setUserId(user.getId());
@@ -113,5 +118,26 @@ public class RemoverServiceImpl implements RemoverService {
         }
         WriterUtil.writer2Html(writer, "全部跑完了~！！！...", String.format("共耗时 %s ms.", (System.currentTimeMillis() - start)));
         WriterUtil.shutdown(writer);
+    }
+
+    private String parseImgForHtml(String html, String qiniuBasePath, PrintWriter writer) {
+        if (StringUtils.isEmpty(html)) {
+            return null;
+        }
+        Matcher m = PATTERN.matcher(html);
+        Set<String> imgUrlSet = new HashSet<>();
+        while (m.find()) {
+            String imgUrl = m.group(1);
+            imgUrlSet.add(imgUrl);
+        }
+        if (!CollectionUtils.isEmpty(imgUrlSet)) {
+            WriterUtil.writer2Html(writer, "  > 开始转存图片到七牛云...");
+            for (String imgUrl : imgUrlSet) {
+                String qiniuImgPath = ImageDownloadUtil.convertToQiniu(imgUrl);
+                html = html.replaceAll(imgUrl, qiniuBasePath + qiniuImgPath);
+                WriterUtil.writer2Html(writer, String.format("  >> <a href=\"%s\" target=\"_blank\">原图片</a> convert to <a href=\"%s\" target=\"_blank\">七牛云</a>...", imgUrl, qiniuImgPath));
+            }
+        }
+        return html;
     }
 }

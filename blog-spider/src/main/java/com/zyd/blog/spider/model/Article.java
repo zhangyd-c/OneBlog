@@ -2,7 +2,10 @@ package com.zyd.blog.spider.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -30,9 +33,15 @@ public class Article {
         this.content = content;
         this.author = author;
         this.source = source;
-        this.tags = tags;
-        this.description = description;
-        this.keywords = keywords;
+        if (CollectionUtils.isEmpty(this.tags = tags)) {
+            this.tags = Collections.singletonList("OneBlog");
+        }
+        if (StringUtils.isEmpty(this.description = description) || "null".equalsIgnoreCase(this.description)) {
+            this.description = title;
+        }
+        if (StringUtils.isEmpty(this.keywords = keywords) || "null".equalsIgnoreCase(this.keywords)) {
+            this.keywords = title;
+        }
     }
 
     public Article() {
