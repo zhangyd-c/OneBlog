@@ -134,7 +134,7 @@ public class RemoverServiceImpl implements RemoverService {
             WriterUtil.writer2Html(writer, "  > 开始转存图片到七牛云...");
             for (String imgUrl : imgUrlSet) {
                 String qiniuImgPath = ImageDownloadUtil.convertToQiniu(imgUrl);
-                if (StringUtils.isEmpty(qiniuBasePath)) {
+                if (StringUtils.isEmpty(qiniuImgPath)) {
                     WriterUtil.writer2Html(writer, "  >> 图片转存失败，请确保七牛云以配置完毕！请查看控制台详细错误信息...");
                     continue;
                 }
