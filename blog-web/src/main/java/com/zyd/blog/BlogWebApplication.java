@@ -19,13 +19,9 @@
  */
 package com.zyd.blog;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -42,39 +38,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class BlogWebApplication {
 
-    @Value("${spring.redis.password}")
-    private String password;
-    @Value("${spring.datasource.username}")
-    private String username;
-    @Value("${spring.datasource.password}")
-    private String sqlPassword;
-    @Value("${spring.mail.host}")
-    private String host;
-    @Value("${spring.mail.username}")
-    private String mailUsername;
-    @Value("${spring.mail.password}")
-    private String mailPassword;
-    @Value("${app.enableKaptcha}")
-    private boolean enableKaptcha;
-
     public static void main(String[] args) {
-
         SpringApplication.run(BlogWebApplication.class, args);
-    }
-
-    @Component
-    class Runner implements ApplicationRunner {
-
-        @Override
-        public void run(ApplicationArguments args) throws Exception {
-            System.out.println("${spring.redis.password} = " + password);
-            System.out.println("${spring.datasource.username} =  " + username);
-            System.out.println("${spring.datasource.password} = " + sqlPassword);
-            System.out.println("${spring.mail.host} = " + host);
-            System.out.println("${spring.mail.username} = " + mailUsername);
-            System.out.println("${spring.mail.password} = " + mailPassword);
-            System.out.println("${app.enableKaptcha} = " + enableKaptcha);
-        }
     }
 
 }

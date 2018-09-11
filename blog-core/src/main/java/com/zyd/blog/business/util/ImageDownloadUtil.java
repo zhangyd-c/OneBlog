@@ -34,7 +34,7 @@ public class ImageDownloadUtil {
             qiniuImgPath = QiniuApi.getInstance()
                     .withFileName("temp." + getSuffixByUrl(imgUrl), QiniuUploadType.SIMPLE)
                     .upload(outStream.toByteArray());
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error("Error.", e);
         }
         return qiniuImgPath;
