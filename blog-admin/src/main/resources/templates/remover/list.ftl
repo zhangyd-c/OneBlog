@@ -20,17 +20,23 @@
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-3" for="platform">选择博文平台 <span class="required">*</span></label>
                                     <div class="col-md-9 col-sm-9 col-xs-9">
-                                        <select name="platform" id="platform" class="form-control" required="required">
-                                            <option value="">请选择</option>
-                                            <option value="imooc">慕课网</option>
-                                            <option value="csdn">CSDN</option>
-                                            <option value="iteye">ITeye</option>
-                                            <option value="">待续...</option>
-                                        </select>
+                                        <select name="platform" id="platform" class="form-control" required="required"></select>
                                     </div>
                                 </div>
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="platform">文章分类 <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="checkbox">自动转存图片 </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-9" style="line-height: 40px;">
+                                        <input type="checkbox" class="square" name="convertImg">
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+                                    <div class="col-md-9 col-sm-9 col-xs-9">
+                                        <i class="fa fa-exclamation-circle"></i> 勾选时默认将文章中的图片转存到七牛云中（需提前配置七牛云）
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="typeId">文章分类 <span class="required">*</span></label>
                                     <div class="col-md-9 col-sm-9 col-xs-9">
                                         <select name="typeId" id="typeId" class="form-control" required="required"></select>
                                     </div>
@@ -44,16 +50,17 @@
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
                                     <div class="col-md-9 col-sm-9 col-xs-9">
-                                        <i class="fa fa-exclamation-circle"></i> 各平台“用户ID”获取方式：
+                                        <i class="fa fa-exclamation-circle"></i> 获取方式：
                                         <a href="javascript:;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/imooc.png" data-title="慕课网“用户ID”获取方式">慕课网</a> |
                                         <a href="javascript:;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/csdn.png" data-title="CSDN“用户ID”获取方式">CSDN</a> |
-                                        <a href="javascript:;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/iteye.png" data-title="ITeye“用户ID”获取方式">ITeye</a>
+                                        <a href="javascript:;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/iteye.png" data-title="ITeye“用户ID”获取方式">ITeye</a> |
+                                        <a href="javascript:;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/cnblogs.png" data-title="博客园“用户ID”获取方式">博客园</a>
                                     </div>
                                 </div>
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-3" for="totalPage">文章总页数 <span class="required">*</span></label>
                                     <div class="col-md-9 col-sm-9 col-xs-9">
-                                        <input type="number" name="totalPage" id="totalPage" class="form-control" required="required">
+                                        <input type="number" name="totalPage" id="totalPage" class="form-control" required="required" min="1" value="1">
                                     </div>
                                 </div>
                                 <div class="item form-group">
@@ -71,7 +78,7 @@
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
                                     <div class="col-md-9 col-sm-9 col-xs-9">
-                                        <i class="fa fa-exclamation-circle"></i> 只在需要登陆时才需要设置。Cookie获取方式： <a href="javascript:HandlerInterceptor;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/cookie/cookie.png" data-title="“Cookie”获取方式（通用）">以CSDN为例</a>
+                                        <i class="fa fa-exclamation-circle"></i> 需要登陆时设置。Cookie获取方式： <a href="javascript:HandlerInterceptor;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/cookie/cookie.png" data-title="“Cookie”获取方式（通用）">以CSDN为例</a>
                                     </div>
                                 </div>
                                 <div class="item form-group">
@@ -167,7 +174,7 @@
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#declareModal"><i class="fa fa-truck"> GO！</i></button>
                                 <button type="reset" class="btn btn-default" id="resetBtn"><i class="fa fa-refresh"> 清除</i></button>
-                                <button type="button" class="btn btn-info" id="showResultModal"><i class="fa fa-eye"> 显示日志</i></button>
+                                <button type="button" class="btn btn-info" id="showResultModal" style="display: none;"><i class="fa fa-eye"> 显示日志</i></button>
                             </div>
                         </form>
                     </div>
@@ -222,7 +229,7 @@
             </div>
             <div class="modal-body">
                 <div class="pageFormContent" id="pageFormContent" style="max-height: 300px;height: 300px;overflow-y: auto;">
-                    <code id="message" style="display: block;"></code>
+                    <div id="message" style="display: block;" class="profile_title"></div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -234,6 +241,17 @@
 <iframe src="" id="spiderFrame" name="spiderFrame" style="display: none"></iframe>
 <@footer>
     <script>
+        (function () {
+            var platformList = [{"imooc": "慕课网"}, {"csdn": "CSDN"}, {"iteye": "ITeye"}, {"csblogs": "博客园"}];
+            var platformHtml = '<option value="">请选择</option>';
+            $.each(platformList, function (i, v) {
+                $.each(v, function (key, value) {
+                    platformHtml += '<option value="' + key + '">' + value+ '</option>';
+                });
+            });
+            platformHtml += '<option value="">待续...</option>';
+            $("#platform").html(platformHtml);
+        } ());
         var spiderConfig = {
             imooc: {
                 domain: "www.imooc.com",
@@ -276,6 +294,20 @@
                     "Referer=http://{uid}.iteye.com/"
                 ],
                 entryUrls: 'http://{uid}.iteye.com/?page={curPage}'
+            },
+            csblogs: {
+                domain: "www.cnblogs.com",
+                titleRegex: "//a[@id=cb_post_title_url]/html()",
+                authorRegex: "//div[@class=postDesc]/a[1]/html()",
+                releaseDateRegex: "//span[@id=post-date]/html()",
+                contentRegex: "//div[@id=cnblogs_post_body]/html()",
+                targetLinksRegex: ".*www\\.cnblogs\\.com/{uid}/p/[\\w\\d]+\\.html",
+                tagRegex: "//div[@id=EntryTag]/a/html()",
+                header: [
+                    "Host=www.cnblogs.com",
+                    "Referer=https://www.cnblogs.com/"
+                ],
+                entryUrls: 'https://www.cnblogs.com/{uid}/default.html?page={curPage}'
             }
         };
         // 博文平台
@@ -284,6 +316,7 @@
         var $uid = $("#uid");
         // 文章总页数
         var $totalPage = $("#totalPage");
+        // 分割字符串的正则
         var reg = new RegExp('{\\w+}'), br = "\r\n";
 
         $("#platform, #uid, #totalPage").change(function () {
@@ -328,9 +361,11 @@
         $("#submitBtn").click(function () {
             var $form = $("form#removerForm");
             if (validator.checkAll($form)) {
+                $("#declareModal").modal('hide');
                 $(this).button('loading');
                 $("#resetBtn").button('loading');
                 $("#resultModal").modal('show');
+                $("#showResultModal").show();
                 $form.submit();
                 $("#message").html("<p> 程序正在初始化...</p>");
             }

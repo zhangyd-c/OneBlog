@@ -74,7 +74,7 @@ public class QiniuApi {
         return withFileName(key, type.getPath());
     }
 
-    public QiniuApi withFileName(String key, String path) {
+    private QiniuApi withFileName(String key, String path) {
         String suffix = FileUtil.getSuffix(key);
         // 不用时间戳命名文件，改为具体的直观的日期命名文件
         String fileName = DateUtil.date2Str(new Date(), DateConst.MILLISECOND);
@@ -82,7 +82,7 @@ public class QiniuApi {
         return this;
     }
 
-    public String getUpToken() {
+    private String getUpToken() {
         return this.auth.uploadToken(config.getQiniuBucketName(), this.key, 3600L, new StringMap().put("insertOnly", Integer.valueOf(1)));
     }
 

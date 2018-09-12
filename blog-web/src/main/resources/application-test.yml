@@ -9,19 +9,19 @@ spring:
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://localhost:3306/dblog?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true
         username: root
-        password: ZhangYad0ng
+        password: root
     # 指定默认MimeMessage的编码，默认为: UTF-8
     mail:
         default-encoding: UTF-8
         # 指定SMTP server使用的协议，默认为: smtp
         protocol: smtp
         # 指定SMTP server host.
-        host: smtp.zhyd.me
+        host: xxx
         port: 465
         # 指定SMTP server的用户名.
-        username: admin@zhyd.me
+        username: xxx
         # 指定SMTP server登陆密码:
-        password: qwer1234!@#$
+        password: xxx
         # 指定是否在启动时测试邮件服务器连接，默认为false
         test-connection: false
         properties:

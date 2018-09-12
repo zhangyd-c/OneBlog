@@ -81,7 +81,7 @@ spring:
               # 连接池中的最小空闲连接
               min-idle: 0
         # 连接超时时间（毫秒）
-        timeout: 0ms
+        timeout: 5000ms
         # 默认的数据过期时间，主要用于shiro权限管理
         expire: 2592000
     banner:

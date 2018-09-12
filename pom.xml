@@ -15,7 +15,7 @@
 	</modules>
 
 	<name>blog</name>
-	<description>DBlog for Spring Boot</description>
+	<description>OneBlog for Spring Boot</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

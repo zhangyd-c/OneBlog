@@ -16,10 +16,10 @@ spring:
         # 指定SMTP server使用的协议，默认为: smtp
         protocol: smtp
         # 指定SMTP server host.
-        host: xxx.xxx.xxx
+        host: xxx
         port: 465
         # 指定SMTP server的用户名.
-        username: xxx@xxx.xxx
+        username: xxx
         # 指定SMTP server登陆密码:
         password: xxx
         # 指定是否在启动时测试邮件服务器连接，默认为false
