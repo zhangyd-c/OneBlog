@@ -13,13 +13,14 @@ import us.codecraft.webmagic.processor.PageProcessor;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * 统一对页面进行解析处理
+ *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
+ * @website https://www.zhyd.me
  * @date 2018/7/31 17:37
- * @since 1.0
  */
 @Slf4j
 public class BaseProcessor implements PageProcessor {
@@ -71,5 +72,4 @@ public class BaseProcessor implements PageProcessor {
         }
         return site;
     }
-
 }

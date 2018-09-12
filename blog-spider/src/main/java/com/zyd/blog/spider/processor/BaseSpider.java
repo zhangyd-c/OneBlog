@@ -8,7 +8,7 @@ import java.util.List;
  * @date 2018/7/31 16:24
  * @since 1.0
  */
-public interface ZydSpider<T>  {
+public interface BaseSpider<T> {
 
     /**
      * 运行爬虫并返回结果

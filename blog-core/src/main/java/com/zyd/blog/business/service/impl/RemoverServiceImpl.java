@@ -5,11 +5,10 @@ import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.ArticleStatusEnum;
 import com.zyd.blog.business.service.*;
 import com.zyd.blog.business.util.ImageDownloadUtil;
-import com.zyd.blog.persistence.beans.SysConfig;
 import com.zyd.blog.spider.model.Article;
 import com.zyd.blog.spider.model.BaseModel;
 import com.zyd.blog.spider.processor.ArticleSpiderProcessor;
-import com.zyd.blog.spider.processor.ZydSpider;
+import com.zyd.blog.spider.processor.BaseSpider;
 import com.zyd.blog.spider.util.WriterUtil;
 import com.zyd.blog.util.SessionUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -56,7 +55,7 @@ public class RemoverServiceImpl implements RemoverService {
             WriterUtil.shutdown(writer);
             return;
         }
-        ZydSpider<Article> spider = new ArticleSpiderProcessor(model, writer);
+        BaseSpider<Article> spider = new ArticleSpiderProcessor(model, writer);
         List<Article> list = spider.run();
         if (CollectionUtils.isEmpty(list)) {
             WriterUtil.writer2Html(writer, String.format("共耗时 %s ms.", (System.currentTimeMillis() - start)));

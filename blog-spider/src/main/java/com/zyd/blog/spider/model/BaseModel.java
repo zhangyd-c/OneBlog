@@ -13,9 +13,9 @@ import java.util.Map;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
+ * @website https://www.zhyd.me
  * @version 1.0
  * @date 2018/7/23 13:33
- * @since 1.0
  */
 @Data
 public class BaseModel {
