@@ -1,4 +1,5 @@
 <#include "include/macros.ftl">
+<@compress single_line=true>
 <@header title="${article.title} | ${config.siteName}"
     keywords="${article.keywords?if_exists},${config.siteName}"
     description="${article.description?if_exists}"
@@ -238,3 +239,4 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
 	<script type="text/javascript" src="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js"></script>
 </@footer>
+</@compress>

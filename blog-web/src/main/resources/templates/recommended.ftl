@@ -1,4 +1,5 @@
 <#include "include/macros.ftl">
+<@compress single_line=true>
 <@header title="站长推荐 | ${config.siteName}"
     keywords="站长推荐"
     description="站长推荐"
@@ -35,4 +36,4 @@
 </div>
 
 <@footer></@footer>
-
+</@compress>

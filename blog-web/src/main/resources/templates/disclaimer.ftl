@@ -1,4 +1,5 @@
 <#include "include/macros.ftl">
+<@compress single_line=true>
 <@header title="免责声明 | ${config.siteName}"
     keywords="免责声明"
     description="免责声明"
@@ -58,3 +59,4 @@
 <@footer>
 <script src="https://v1.hitokoto.cn/?encode=js&c=d&select=.hitokoto" defer></script>
 </@footer>
+</@compress>

@@ -1,4 +1,5 @@
 <#include "include/macros.ftl">
+<@compress single_line=true>
 <@header title="${config.siteName?if_exists} | 一个程序员的个人博客"
     keywords="${config.homeKeywords?if_exists}"
     description="${config.homeDesc?if_exists}"
@@ -159,3 +160,4 @@
 </section>
 
 <@footer></@footer>
+</@compress>
