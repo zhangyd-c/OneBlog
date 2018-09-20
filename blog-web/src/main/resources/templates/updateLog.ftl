@@ -1,4 +1,5 @@
 <#include "include/macros.ftl">
+<@compress single_line=true>
 <@header title="网站更新记录 | 一个程序员的个人博客"
     keywords=""
     description="网站更新维护日志"
@@ -35,3 +36,4 @@
     </div>
 </div>
 <@footer></@footer>
+</@compress>

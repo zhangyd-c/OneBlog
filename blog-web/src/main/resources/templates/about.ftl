@@ -1,4 +1,5 @@
 <#include "include/macros.ftl">
+<@compress single_line=true>
 <@header title="关于 | ${config.siteName}"
     keywords="${config.siteName},关于博客"
     description="一个程序员的个人博客,关于我的个人原创博客 - ${config.siteName}"
@@ -48,3 +49,4 @@
 <@footer>
     <script src="https://v1.hitokoto.cn/?encode=js&c=d&select=%23hitokoto" defer></script>
 </@footer>
+</@compress>

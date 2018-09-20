@@ -4,7 +4,7 @@ import com.zyd.blog.business.enums.QiniuUploadType;
 import com.zyd.blog.plugin.QiniuApi;
 import com.zyd.blog.spider.model.*;
 import com.zyd.blog.spider.processor.ArticleSpiderProcessor;
-import com.zyd.blog.spider.processor.ZydSpider;
+import com.zyd.blog.spider.processor.BaseSpider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,7 +34,7 @@ public class BlogAdminApplicationTests {
 
     @Test
     public void spiderTest() {
-        ZydSpider<Article> spider = new ArticleSpiderProcessor(new ImoocModel().setUid("1175248")
+        BaseSpider<Article> spider = new ArticleSpiderProcessor(new ImoocModel().setUid("1175248")
                 .setTotalPage(3)
                 .setDomain("www.imooc.com")
                 .setTitleRegex("//span[@class=js-title]/html()")
@@ -50,7 +50,7 @@ public class BlogAdminApplicationTests {
 
     @Test
     public void csdnSpiderTest() {
-        ZydSpider<Article> spider = new ArticleSpiderProcessor(new CsdnModel().setUid("u011197448")
+        BaseSpider<Article> spider = new ArticleSpiderProcessor(new CsdnModel().setUid("u011197448")
                 .setTotalPage(1)
                 .setDomain("blog.csdn.net")
                 .setTitleRegex("//h1[@class=title-article]/html()")
@@ -66,7 +66,7 @@ public class BlogAdminApplicationTests {
 
     @Test
     public void iteyeSpiderTest() {
-        ZydSpider<Article> spider = new ArticleSpiderProcessor(new IteyeModel().setUid("843977358")
+        BaseSpider<Article> spider = new ArticleSpiderProcessor(new IteyeModel().setUid("843977358")
                 .setTotalPage(1)
                 .setDomain("843977358.iteye.com")
                 .setTitleRegex("//div[@class=blog_title]/h3/a/html()")
@@ -83,7 +83,7 @@ public class BlogAdminApplicationTests {
 
     @Test
     public void cnblogSpiderTest() {
-        ZydSpider<Article> spider = new ArticleSpiderProcessor(new CnblogModel().setUid("zhangyadong")
+        BaseSpider<Article> spider = new ArticleSpiderProcessor(new CnblogModel().setUid("zhangyadong")
                 .setTotalPage(1)
                 .setDomain("www.cnblogs.com")
                 .setTitleRegex("//a[@id=cb_post_title_url]/html()")
@@ -99,7 +99,7 @@ public class BlogAdminApplicationTests {
 
     @Test
     public void spring4AllSpiderTest() {
-        /*ZydSpider<Article> spider = new ArticleSpiderProcessor(new BaseModel()
+        /*BaseSpider<Article> spider = new ArticleSpiderProcessor(new BaseModel()
                 .setEntryUrls("http://www.spring4all.com/user/api/articles/1")
                 .setAjaxRequest(true)
                 .setDomain("www.spring4all.com")

@@ -675,6 +675,11 @@ span.separation:AFTER {
     background-color: #eeeeee;
 }
 
+.footer .external-links a{
+    font-size: 12px;
+    color: #919191 !important;;
+}
+
 .footer a {
     color: #555;
 }
@@ -2873,3 +2878,16 @@ nav a:first-child .meta-nav {
     opacity: .7;
 }
 /* 轮播图 */
+
+.img-widget {
+    display: inline-block;
+    position: relative;
+}
+.img-widget .widget-header img{
+    width: 100px;
+}
+.img-widget .widget-footer{
+    text-align: center;
+    padding: 5px;
+    font-size: 12px;
+}

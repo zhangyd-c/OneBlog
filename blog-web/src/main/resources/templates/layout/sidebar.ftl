@@ -55,20 +55,16 @@
         </div>
     </div>
     <div class="sidebar-module">
-        <h5 class="sidebar-title"><i class="fa fa-tags icon"></i><strong>文章标签</strong></h5>
-        <ul class="list-unstyled list-inline">
-            <@zhydTag method="tagsList" pageSize="10">
-                <#if tagsList?exists && (tagsList?size > 0)>
-                    <#list tagsList as item>
-                        <li class="tag-li">
-                            <a class="btn btn-default btn-xs" href="${config.siteUrl}/tag/${item.id?c}" title="${item.name?if_exists}" data-toggle="tooltip" data-placement="bottom">
-                                ${item.name?if_exists}
-                            </a>
-                        </li>
-                    </#list>
-                </#if>
-            </@zhydTag>
-        </ul>
+        <h5 class="sidebar-title"><i class="fa fa-tags icon"></i><strong>标签云</strong></h5>
+        <@zhydTag method="tagsList" pageSize="10">
+            <#if tagsList?exists && (tagsList?size > 0)>
+                <#list tagsList as item>
+                    <a style="font-size: <@zhydTag method="random" max="15" min="10">${random}</@zhydTag>px;margin: 5px;" href="${config.siteUrl}/tag/${item.id?c}" title="${item.name?if_exists}" data-toggle="tooltip" data-placement="bottom">
+                        ${item.name?if_exists}
+                    </a>
+                </#list>
+            </#if>
+        </@zhydTag>
     </div>
     <@zhydTag method="recentComments" pageSize="10">
         <#if recentComments?? && recentComments?size gt 0>

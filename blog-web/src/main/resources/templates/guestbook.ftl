@@ -1,4 +1,5 @@
 <#include "include/macros.ftl">
+<@compress single_line=true>
 <@header title="留言板 | ${config.siteName}"
     keywords="${config.siteName},留言板,原创博客留言,个人原创网站,个人技术博客"
     description="我的留言板,欢迎给我的个人原创博客留言 - ${config.siteName}"
@@ -69,3 +70,4 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
 	<script type="text/javascript" src="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js"></script>
 </@footer>
+</@compress>

@@ -13,16 +13,22 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
+ * 爬虫入口
+ *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
+ * @website https://www.zhyd.me
  * @date 2018/7/23 10:38
- * @since 1.0
  */
 @Slf4j
-public class ArticleSpiderProcessor extends BaseProcessor implements ZydSpider<Article> {
+public class ArticleSpiderProcessor extends BaseProcessor implements BaseSpider<Article> {
 
     private BaseModel model;
     private PrintWriter writer;
@@ -51,10 +57,8 @@ public class ArticleSpiderProcessor extends BaseProcessor implements ZydSpider<A
     public List<Article> run() {
         List<String> errors = validateModel(model);
         if (CollectionUtils.isNotEmpty(errors)) {
-//            log.error("校验不通过！请依据下方提示，检查输入参数是否正确......");
             WriterUtil.writer2Html(writer, "校验不通过！请依据下方提示，检查输入参数是否正确......");
             for (String error : errors) {
-//                log.error(">> {}", error);
                 WriterUtil.writer2Html(writer, ">> " + error);
             }
             return null;
@@ -62,7 +66,6 @@ public class ArticleSpiderProcessor extends BaseProcessor implements ZydSpider<A
 
         List<Article> articles = new LinkedList<>();
 
-//        log.info(">>  共 {} 页数据...", model.getTotalPage());
         WriterUtil.writer2Html(writer, ">> 爬虫初始化完成，共需抓取 " + model.getTotalPage() + " 页数据...");
 
         Spider spider = Spider.create(new ArticleSpiderProcessor())
