@@ -127,13 +127,13 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 ----
 
-# Group 交流群
+# 交流群
 
 |  微信(备注:加群)  |  QQ群  |  公众号  |
 | :------------: | :------------: | :------------: |
 | <img src="https://gitee.com/yadong.zhang/static/raw/master/wx/wx.png" width="170"/> | <img src="https://gitee.com/yadong.zhang/static/raw/master/wx/qq_group.png" width="200" /> | <img src="https://gitee.com/yadong.zhang/static/raw/master/wx/wechat_account.jpg" width="200" /> |
 
-# Donate 捐赠
+# 赞助
 
 > 为了让OneBlog更好用，作者码代码码的头发都没了！天热了，请作者吃根冰棍儿吧
 
