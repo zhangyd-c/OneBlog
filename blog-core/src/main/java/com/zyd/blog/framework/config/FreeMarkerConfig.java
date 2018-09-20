@@ -21,8 +21,8 @@ package com.zyd.blog.framework.config;
 
 import com.jagregory.shiro.freemarker.ShiroTags;
 import com.zyd.blog.business.service.SysConfigService;
-import com.zyd.blog.framework.tag.ArticleTagDirective;
-import com.zyd.blog.framework.tag.CustomTagDirective;
+import com.zyd.blog.framework.tag.ArticleTags;
+import com.zyd.blog.framework.tag.CustomTags;
 import freemarker.template.TemplateModelException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -43,9 +43,9 @@ public class FreeMarkerConfig {
     @Autowired
     protected freemarker.template.Configuration configuration;
     @Autowired
-    protected CustomTagDirective customTagDirective;
+    protected CustomTags customTags;
     @Autowired
-    protected ArticleTagDirective articleTagDirective;
+    protected ArticleTags articleTags;
     @Autowired
     private SysConfigService configService;
 
@@ -54,8 +54,8 @@ public class FreeMarkerConfig {
      */
     @PostConstruct
     public void setSharedVariable() {
-        configuration.setSharedVariable("zhydTag", customTagDirective);
-        configuration.setSharedVariable("articleTag", articleTagDirective);
+        configuration.setSharedVariable("zhydTag", customTags);
+        configuration.setSharedVariable("articleTag", articleTags);
         try {
             configuration.setSharedVariable("config", configService.get());
             //shiro标签

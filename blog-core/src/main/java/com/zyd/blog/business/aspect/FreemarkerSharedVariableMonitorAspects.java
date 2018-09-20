@@ -13,7 +13,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
- * 提到core模块中，方便控制前后台
+ * 用于监控freemarker自定义标签中共享变量是否发生变化，发生变化时实时更新到内存中
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 2.0
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 @Order(1)
-public class RenderAspects {
+public class FreemarkerSharedVariableMonitorAspects {
 
     private static volatile long configLastUpdateTime = 0L;
     @Autowired
@@ -46,10 +46,10 @@ public class RenderAspects {
         }
         Long updateTime = config.getUpdateTime().getTime();
         if (updateTime == configLastUpdateTime) {
-            log.info("config表未更新");
+            log.debug("config表未更新");
             return;
         }
-        log.info("config表已更新，重新加载config到freemarker tag");
+        log.debug("config表已更新，重新加载config到shared variable");
         configLastUpdateTime = updateTime;
         try {
             configuration.setSharedVariable("config", config);
