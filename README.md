@@ -121,6 +121,10 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - [乐赚淘](http://www.lezhuantao.com)
 - [时光号](http://www.shiguanghao.cn/)
 - [大杂烩 | 好好网](https://www.haohaowang.top)
+- [罗远祥博客](https://www.luoyuanxiangvip.com/)
+- [小公举的博客](https://loveyatou.top/)
+- [彭江毅的博客](https://pengjiangyi.com)
+- [晓飞的博客](https://dreamatach.com)
 - 更多待续...
 
 烦请各位使用OneBlog的朋友，能留下你的网址（没别的意思，只是看看有多少人而已） - [点这儿](https://gitee.com/yadong.zhang/DBlog/issues/ILIAQ)
@@ -135,7 +139,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 # 赞助
 
-> 为了让OneBlog更好用，作者码代码码的头发都没了！天热了，请作者吃根冰棍儿吧
+> 为了让OneBlog更好用，作者码代码码的头发都没了！请作者买块生姜擦擦头皮，据说这样有助于生发~~
 
 | 支付宝  | 微信  | 支付宝红包  |
 | :------------: | :------------: | :------------: |
@@ -150,9 +154,13 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
  
 # 特别感谢
 
-1. 广大的开源爱好者
-2. 无私的网友
+- 广大的开源爱好者
+- 无私的网友
+- [gentelella](https://github.com/puikinsh/gentelella): 一款开源的Bootstrap3后台管理模板
+- [七牛云](https://portal.qiniu.com/signup?code=3l8yx2v0f21ci): 强大的对象存储、CDN等服务提供商
+- 待续...
 
 # 开源协议
 
 [![license](https://img.shields.io/badge/license-MIT-yellow.svg)](https://gitee.com/yadong.zhang/DBlog/blob/master/LICENSE)
+
