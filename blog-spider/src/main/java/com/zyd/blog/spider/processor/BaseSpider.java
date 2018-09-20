@@ -13,7 +13,6 @@ public interface BaseSpider<T> {
     /**
      * 运行爬虫并返回结果
      *
-     * @return
      */
     List<T> run();
 
