@@ -138,26 +138,6 @@
         <#include "layout/sidebar.ftl"/>
     </div>
 </div>
-<section class="links index-links">
-    <ul class="list-unstyled list-inline">
-        <#if indexLinkList?exists && (indexLinkList?size > 0)>
-            <#list indexLinkList as item>
-                <li>
-                    <a href="${item.url}" target="_blank" title="${item.description?if_exists}" data-toggle="tooltip" data-placement="bottom">
-                        <img src="${item.favicon}" alt="${item.name?if_exists}" onerror="this.src='${config.staticWebSite}/img/user.png'">${item.name?if_exists}
-                    </a>
-                </li>
-            </#list>
-            <li>
-                <a href="${config.siteUrl}/links" title="更多链接" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-plus"></i>更多链接</a>
-            </li>
-        <#else>
-            <li>
-                <a href="${config.siteUrl}/links" title="申请友链" data-toggle="tooltip" data-placement="bottom">申请友链</a>
-            </li>
-        </#if>
-    </ul>
-</section>
 
 <@footer></@footer>
 </@compress>

@@ -10,12 +10,14 @@ import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 所有自定义标签的父类，负责调用具体的子类方法
@@ -26,12 +28,22 @@ import java.util.Map;
  * @date 2018/9/18 16:19
  * @since 1.8
  */
+@Slf4j
 public abstract class BaseTag implements TemplateDirectiveModel {
 
+    private static final ConcurrentHashMap<String, Class> classBucket = new ConcurrentHashMap<>();
     private String clazzPath = null;
 
     public BaseTag(String targetClassPath) {
         clazzPath = targetClassPath;
+        if (classBucket.get(clazzPath) == null) {
+            try {
+                Class clazz = Class.forName(clazzPath);
+                classBucket.put(clazzPath, clazz);
+            } catch (ClassNotFoundException e) {
+                log.error("无法从[{}]获取对应的class", clazzPath, e);
+            }
+        }
     }
 
     private String getMethod(Map params) {
@@ -67,22 +79,20 @@ public abstract class BaseTag implements TemplateDirectiveModel {
         return this.getBuilder().wrap(o);
     }
 
-
     @Override
     public void execute(Environment environment, Map map, TemplateModel[] templateModels, TemplateDirectiveBody templateDirectiveBody) throws TemplateException, IOException {
         this.verifyParameters(map);
         String funName = getMethod(map);
         Method method = null;
+        Class clazz = classBucket.get(clazzPath);
         try {
-            Class clazz = Class.forName(clazzPath);
-            method = clazz.getDeclaredMethod(funName, Map.class);
-            if (method != null) {
+            if (clazz != null && (method = clazz.getDeclaredMethod(funName, Map.class)) != null) {
                 // 核心处理，调用子类的具体方法，获取返回值
                 Object res = method.invoke(this, map);
                 environment.setVariable(funName, getModel(res));
             }
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            log.error("无法获取[{}]的方法，或者调用[{}]方法发生异常", clazzPath, method, e);
         }
         templateDirectiveBody.render(environment.getOut());
     }
