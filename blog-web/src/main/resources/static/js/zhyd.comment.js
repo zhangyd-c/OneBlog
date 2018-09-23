@@ -80,7 +80,7 @@ $.extend({
                     + '<input type="hidden" name="pid" id="comment-pid" value="0" size="22" tabindex="1">'
                     + '<textarea id="comment_content" class="form-control col-md-7 col-xs-12 valid" style="display: none"></textarea>'
                     + '<textarea name="content" style="display: none"></textarea>'
-                    + '<div style="position: absolute;right: 10px;bottom: 70px;font-size: 14px;font-weight: 700;color: #ececec;z-index: 1;">张亚东博客<br>https://www.zhyd.me<br>讲文明、要和谐</div>'
+                    + '<div style="position: absolute;right: 10px;bottom: 70px;font-size: 14px;font-weight: 700;color: #ececec;z-index: 1;">' + editorConfig.wmName + '<br>' + editorConfig.wmUrl + '<br>' + editorConfig.wmDesc + '</div>'
                     + '<a id="comment-form-btn" type="button" data-loading-text="正在提交评论..." class="btn btn-default btn-block">提交评论</a>'
                     + '</form></div></div>';
             $box.html(commentBox);
@@ -92,7 +92,6 @@ $.extend({
             $.comment.initValidatorPlugin();
         },
         createEdit: function (options) {
-            console.log(options.menu);
             var simplemde = new SimpleMDE({
                 element: document.getElementById("comment_content"),
                 toolbar: ["bold", "italic", "|", "code", "quote", "|", "preview", "|", "guide"],

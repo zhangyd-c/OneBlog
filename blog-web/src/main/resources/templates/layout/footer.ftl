@@ -203,7 +203,13 @@
         qiuniuBasePath: '${config.qiuniuBasePath}',
         wxPraiseCode: '${config.wxPraiseCode}',
         zfbPraiseCode: '${config.zfbPraiseCode}'
-    }
+    };
+
+    var editorConfig = {
+        wmName: '${config.siteName}',
+        wmUrl: '${config.siteUrl}',
+        wmDesc: '讲文明、要和谐'
+    };
 </script>
 <script type="text/javascript" src="${config.staticWebSite}/js/zhyd.core.js"></script>
 <script type="text/javascript" src="${config.staticWebSite}/js/zhyd.js"></script>
