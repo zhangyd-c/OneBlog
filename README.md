@@ -144,7 +144,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 | 支付宝  | 微信  | 支付宝红包  |
 | :------------: | :------------: | :------------: |
-| <img src="http://cdn.zhyd.me/zhyd/qrcode/zfb_code.png" width="200"/> | <img src="http://cdn.zhyd.me/zhyd/qrcode/wx_code.png" width="200" /> | <img src="https://gitee.com/yadong.zhang/static/raw/master/qrcode/zfb-code.png" width="200" /> |
+| <img src="https://gitee.com/yadong.zhang/static/raw/master/qrcode/zfb_code.png" width="200"/> | <img src="https://gitee.com/yadong.zhang/static/raw/master/qrcode/wx_code.png" width="200" /> | <img src="https://gitee.com/yadong.zhang/static/raw/master/qrcode/zfb-code.png" width="200" /> |
 
 
 # 生命不息，折腾不止！ 更多信息，请关注：
