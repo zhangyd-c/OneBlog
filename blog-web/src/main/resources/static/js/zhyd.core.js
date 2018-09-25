@@ -268,50 +268,15 @@
     });
     $.extend({
         tool: {
-            isEmpty: function (value) {
-                return value == null || this.trim(value) == "";
-            },
-            isInteger: function () {
-                return (new RegExp(/^\d+$/).test(this));
-            },
-            isNumber: function (value, element) {
-                return (new RegExp(/^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/).test(this));
-            },
-            trim: function (value) {
-                if (value == null) {
-                    return "";
-                }
-                return value.replace(/(^\s*)|(\s*$)|\r|\n/g, "");
-            },
-            html2Txt: function (value) {
-                value = this.trim(value);
-                value = value.replace(/(\n)/g, "");
-                value = value.replace(/(\t)/g, "");
-                value = value.replace(/(\r)/g, "");
-                value = value.replace(/<\/?[^>]*>/g, "");
-                value = value.replace(/\s*/g, "");
-                return value;
-            },
             currentPath: function () {
                 // 域
-                var domain = document.domain;
+                // var domain = document.domain;
                 // 当前页
-                var nowurl = document.URL;
+                // var nowurl = document.URL;
                 // 来源页
-                var fromurl = document.referrer;
+                // var fromurl = document.referrer;
 
                 return window.location.pathname;
-            },
-            getMeta: function (name) {
-                var meta = document.getElementsByTagName('meta');
-                var share_desc = '';
-                for (var i in meta) {
-                    if (typeof meta[i].name != "undefined" && meta[i].name.toLowerCase() == name.toLowerCase()) {
-                        share_desc = meta[i].content;
-                        break;
-                    }
-                }
-                return share_desc;
             },
             random: function (min, max) {
                 return Math.floor((Math.random() * max) + min);
@@ -343,78 +308,8 @@
         endsWith: function (str) {
             return new RegExp(str + "$").test(this);
         },
-        replaceSuffix: function (index) {
-            return this.replace(/\[[0-9]+\]/, '[' + index + ']').replace('#index#', index);
-        },
-        getRequestURI: function () {
-            var indexOf = this.indexOf("?");
-            return (indexOf == -1) ? this : this.substr(0, indexOf);
-        },
-        getParams: function (encode) {
-            var params = {},
-                indexOf = this.indexOf("?");
-            if (indexOf != -1) {
-                var str = this.substr(indexOf + 1),
-                    strs = str.split("&");
-                for (var i = 0; i < strs.length; i++) {
-                    var item = strs[i].split("=");
-                    var val = encode ? item[1].encodeParam() : item[1];
-                    params[item[0]] = item.length > 1 ? val : '';
-                }
-            }
-            return params;
-        },
-        encodeParam: function () {
-            return encodeURIComponent(this);
-        },
         replaceAll: function (os, ns) {
             return this.replace(new RegExp(os, "gm"), ns);
-        },
-        skipChar: function (ch) {
-            if (!this || this.length === 0) {
-                return '';
-            }
-            if (this.charAt(0) === ch) {
-                return this.substring(1).skipChar(ch);
-            }
-            return this;
-        },
-        isPositiveInteger: function () {
-            return (new RegExp(/^[1-9]\d*$/).test(this));
-        },
-        isInteger: function () {
-            return (new RegExp(/^\d+$/).test(this));
-        },
-        isNumber: function (value, element) {
-            return (new RegExp(/^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/).test(this));
-        },
-        isValidPwd: function () {
-            return (new RegExp(/^([_]|[a-zA-Z0-9]){6,32}$/).test(this));
-        },
-        isValidMail: function () {
-            return (new RegExp(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(this.trim()));
-        },
-        isSpaces: function () {
-            for (var i = 0; i < this.length; i += 1) {
-                var ch = this.charAt(i);
-                if (ch != ' ' && ch != "\n" && ch != "\t" && ch != "\r") {
-                    return false;
-                }
-            }
-            return true;
-        },
-        isMobile: function () {
-            return (new RegExp(/(^[0-9]{11,11}$)/).test(this));
-        },
-        isUrl: function () {
-            return (new RegExp(/^[a-zA-z]+:\/\/([a-zA-Z0-9\-\.]+)([-\w .\/?%&=:]*)$/).test(this));
-        },
-        isExternalUrl: function () {
-            return this.isUrl() && this.indexOf("://" + document.domain) == -1;
-        },
-        parseCurrency: function (num) {
-            var numberValue = parseFloat(this);
-            return parseFloat(numberValue.toFixed(num || 2));
         }
     });
     $.extend(Date.prototype, {
@@ -536,19 +431,6 @@
     /* 鼠标点击弹出提示动画 */
 
     $.fn.extend({
-        // 翻牌效果
-        flipCard: function (options) {
-            var op = $.extend({}, options);
-            return this.each(function () {
-                var $box = $(this);
-                $box.removeClass('animation-rotate-up').removeClass('animation-rotate-up-back');
-                $box.addClass("animation-rotate-up");
-                setTimeout(function () {
-                    $box.addClass("animation-rotate-up-back");
-                }, 500);
-            });
-        },
-
         // 文字向上冒泡
         effectBubble: function (options) {
             var op = $.extend({

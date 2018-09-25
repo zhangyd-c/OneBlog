@@ -197,6 +197,7 @@
 <script type="text/javascript" src="https://cdn.bootcss.com/mustache.js/2.3.0/mustache.min.js"></script>
 <script type="text/javascript">
     var appConfig = {
+        siteName: '${config.siteName}',
         wwwPath: '${config.siteUrl}',
         cmsPath: '${config.cmsUrl}',
         staticPath: '${config.staticWebSite}',
@@ -204,13 +205,7 @@
         wxPraiseCode: '${config.wxPraiseCode}',
         zfbPraiseCode: '${config.zfbPraiseCode}'
     };
-
-    var editorConfig = {
-        wmName: '${config.siteName}',
-        wmUrl: '${config.siteUrl}',
-        wmDesc: '讲文明、要和谐'
-    };
 </script>
 <script type="text/javascript" src="${config.staticWebSite}/js/zhyd.core.js"></script>
-<script type="text/javascript" src="${config.staticWebSite}/js/zhyd.js"></script>
 <script type="text/javascript" src="${config.staticWebSite}/js/zhyd.comment.js"></script>
+<script type="text/javascript" src="${config.staticWebSite}/js/zhyd.js"></script>

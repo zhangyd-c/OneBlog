@@ -28,15 +28,15 @@
  * @since 1.0
  */
 
-/*// 动态切换浏览器窗口title https://zhangge.net/
+// 动态切换浏览器窗口title https://zhangge.net/
 jQuery(document).ready(function() {
     function c() {
-        document.title = document[a] ? "(●_●) 床前明月光.....《" + d + "》" : d
+        document.title = document[a] ? "麻溜儿回来~~~ | " + d + "" : d
     }
     var a, b, d = document.title;
     "undefined" != typeof document.hidden ? (a = "hidden", b = "visibilitychange") : "undefined" != typeof document.mozHidden ? (a = "mozHidden", b = "mozvisibilitychange") : "undefined" != typeof document.webkitHidden && (a = "webkitHidden", b = "webkitvisibilitychange");
     "undefined" == typeof document.addEventListener && "undefined" == typeof document[a] || document.addEventListener(b, c, !1)
-});*/
+});
 
 function initNavbar() {
     $(".navbar .navbar-nav li").each(function () {
@@ -149,10 +149,7 @@ function initScrollMenu() {
 }
 
 var PaymentUtils = window.payment || {
-    config: [{
-        url: appConfig.qiuniuBasePath + appConfig.zfbPraiseCode,
-        desc: '支付宝转账'
-    }, {url: appConfig.qiuniuBasePath + appConfig.wxPraiseCode, desc: '微信转账'}],
+    config: [{url: appConfig.qiuniuBasePath + appConfig.zfbPraiseCode, desc: '支付宝转账'}, {url: appConfig.qiuniuBasePath + appConfig.wxPraiseCode, desc: '微信转账'}],
     show: function () {
         $("#reward").modal('show');
         this.change(0);
@@ -246,8 +243,7 @@ $(function () {
         $.bubble.init();
     }
 
-    getCurrentDate();
-    setInterval(function () {
+    getCurrentDate() && setInterval(function () {
         getCurrentDate();
     }, 1000);
 
@@ -288,15 +284,14 @@ $(function () {
         }
     }
 
-    /**
-     * 显示取链的表格
-     */
+    /* 显示取链的表格 */
     $(".showContent").click(function () {
         $(this).toggleClass('fa-plus-square fa-minus-square');
         // $(".disable-content").toggleClass('fade-in hide');
         $(".disable-content").slideToggle(400);
     });
 
+    /* 分享 */
     if (/iphone|ipod|ipad|ipad|mobile/i.test(navigator.userAgent.toLowerCase())) {
         $('.share-sd').click(function () {
             $('#share').animate({
@@ -318,6 +313,7 @@ $(function () {
         });
     }
 
+    /* 文章点赞 */
     $("#social .like").click(function () {
         var $this = $(this);
         var $a = $(this).find("a");
@@ -347,6 +343,7 @@ $(function () {
         });
     });
 
+    /* 图片懒加载 */
     $("img.lazy-img").lazyload({
         placeholder: appConfig.staticPath + "/img/loading.gif",
         effect: "fadeIn",
@@ -406,6 +403,7 @@ $(function () {
         });
     }
 
+    /* 轮播图 */
     $('#myCarousel').mouseover(function () {
         $(".carousel-control").removeClass("hide");
     }).mouseout(function () {
@@ -413,4 +411,17 @@ $(function () {
     }).carousel({
         interval: 5000
     });
+
+    /** 初始化评论插件 */
+    if($.comment) {
+        $.comment.init({
+            placeholder: '说点什么吧',
+            wmName: appConfig.siteName,
+            wmUrl: appConfig.wwwPath,
+            wmDesc: '讲文明、要和谐'
+        });
+        $("#comment-form-btn").click(function () {
+            $.comment.submit($(this));
+        });
+    }
 });
