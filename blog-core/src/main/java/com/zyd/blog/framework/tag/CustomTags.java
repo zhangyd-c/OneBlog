@@ -102,7 +102,6 @@ public class CustomTags extends BaseTag {
         Integer userId = null;
         if (!StringUtils.isEmpty(userIdStr) && user != null && !user.getUserTypeEnum().equals(UserTypeEnum.ROOT)) {
             userId = Integer.parseInt(userIdStr);
-            return null;
         }
         Map<String, Object> p = new HashMap<>(2);
         p.put("type", "menu");
