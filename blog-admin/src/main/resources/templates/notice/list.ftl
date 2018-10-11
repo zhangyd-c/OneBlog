@@ -94,9 +94,9 @@
             var status = row.status;
             var html = '';
             if (status && status == 'NOT_RELEASE') {
-                html = '<@shiro.hasPermission name="notice:release"><a class="btn btn-xs btn-primary btn-release" data-id="' + trId + '"><i class="fa fa-rocket fa-fw"></i>发布</a></@shiro.hasPermission>';
+                html = '<@shiro.hasPermission name="notice:release"><a class="btn btn-xs btn-success btn-release" data-id="' + trId + '"><i class="fa fa-rocket fa-fw"></i>发布</a></@shiro.hasPermission>';
             } else {
-                html = '<@shiro.hasPermission name="notice:withdraw"><a class="btn btn-xs btn-primary btn-withdraw" data-id="' + trId + '"><i class="fa fa-rocket fa-rotate-180 fa-fw"></i>撤回</a></@shiro.hasPermission>';
+                html = '<@shiro.hasPermission name="notice:withdraw"><a class="btn btn-xs btn-warning btn-withdraw" data-id="' + trId + '"><i class="fa fa-rocket fa-rotate-180 fa-fw"></i>撤回</a></@shiro.hasPermission>';
             }
             var operateBtn = [
                 html,
@@ -149,7 +149,7 @@
                     }, {
                         field: 'operate',
                         title: '操作',
-                        width: '135px',
+                        width: '150px',
                         formatter: operateFormatter //自定义方法，添加操作按钮
                     }
                 ]

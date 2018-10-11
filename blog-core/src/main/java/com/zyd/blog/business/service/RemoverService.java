@@ -14,4 +14,6 @@ import java.io.PrintWriter;
 public interface RemoverService {
 
     void run(Long typeId, BaseModel model, PrintWriter writer);
+
+    void stop();
 }

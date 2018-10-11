@@ -20,6 +20,7 @@
 package com.zyd.blog.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Resources;
 import com.zyd.blog.business.enums.ResponseStatus;
 import com.zyd.blog.business.service.SysResourcesService;
@@ -71,6 +72,7 @@ public class RestResourcesController {
 
     @RequiresPermissions("resource:add")
     @PostMapping(value = "/add")
+    @BussinessLog("添加资源")
     public ResponseVO add(Resources resources) {
         resourcesService.insert(resources);
         //更新权限
@@ -80,6 +82,7 @@ public class RestResourcesController {
 
     @RequiresPermissions(value = {"resource:batchDelete", "resource:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
+    @BussinessLog("删除资源")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
             return ResultUtil.error(500, "请至少选择一条记录");
@@ -95,12 +98,14 @@ public class RestResourcesController {
 
     @RequiresPermissions("resource:get")
     @PostMapping("/get/{id}")
+    @BussinessLog("获取资源详情")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.resourcesService.getByPrimaryKey(id));
     }
 
     @RequiresPermissions("resource:edit")
     @PostMapping("/edit")
+    @BussinessLog("编辑资源")
     public ResponseVO edit(Resources resources) {
         try {
             resourcesService.updateSelective(resources);

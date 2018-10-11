@@ -1,6 +1,6 @@
 <footer>
     <div class="pull-right">
-        Copyright © 2018 <a href="https://www.zhyd.me" target="_blank">yadong.zhang</a> · Powered by <a href="https://gitee.com/yadong.zhang/DBlog" title="DBlog是一款简洁美观、自适应的Java博客系统..." target="_blank"><strong>DBlog</strong></a>. All Rights Reserved.
+        Copyright © 2018 <a href="https://www.zhyd.me" target="_blank">yadong.zhang</a> · Powered by <a href="https://gitee.com/yadong.zhang/DBlog" title="OneBlog是一款简洁美观、自适应的Java博客系统..." target="_blank"><strong>OneBlog</strong></a>. All Rights Reserved.
     </div>
     <div class="clearfix"></div>
 </footer>
@@ -33,6 +33,7 @@
 <script src="https://cdn.bootcss.com/zTree.v3/3.5.29/js/jquery.ztree.core.min.js"></script>
 <script src="https://cdn.bootcss.com/zTree.v3/3.5.29/js/jquery.ztree.excheck.min.js"></script>
 <script src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
 
 <script src="/assets/js/validator.js"></script>
 <script src="/assets/js/ajaxfileupload.js"></script>

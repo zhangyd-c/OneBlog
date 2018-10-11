@@ -19,6 +19,7 @@
  */
 package com.zyd.blog.controller;
 
+import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Config;
 import com.zyd.blog.business.enums.QiniuUploadType;
 import com.zyd.blog.business.service.SysConfigService;
@@ -56,6 +57,7 @@ public class RestConfigController {
 
     @RequiresRoles("role:root")
     @PostMapping("/edit")
+    @BussinessLog("修改系统配置")
     public ResponseVO edit(Config config,
                            @RequestParam(required = false) MultipartFile wxPraiseCodeFile,
                            @RequestParam(required = false) MultipartFile zfbPraiseCodeFile) {

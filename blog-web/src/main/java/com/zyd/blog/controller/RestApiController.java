@@ -22,9 +22,11 @@ package com.zyd.blog.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Comment;
 import com.zyd.blog.business.entity.Link;
 import com.zyd.blog.business.enums.CommentStatusEnum;
+import com.zyd.blog.business.enums.PlatformEnum;
 import com.zyd.blog.business.service.BizArticleService;
 import com.zyd.blog.business.service.BizCommentService;
 import com.zyd.blog.business.service.SysLinkService;
@@ -73,6 +75,7 @@ public class RestApiController {
     private SysNoticeService noticeService;
 
     @PostMapping("/autoLink")
+    @BussinessLog(value = "自助申请友链", platform = PlatformEnum.WEB)
     public ResponseVO autoLink(@Validated Link link, BindingResult bindingResult) {
         log.info("申请友情链接......");
         log.info(JSON.toJSONString(link));
@@ -89,6 +92,7 @@ public class RestApiController {
     }
 
     @PostMapping("/qq/{qq}")
+    @BussinessLog(value = "获取QQ信息", platform = PlatformEnum.WEB)
     public ResponseVO qq(@PathVariable("qq") String qq) {
         if (StringUtils.isEmpty(qq)) {
             return ResultUtil.error("");
@@ -116,12 +120,14 @@ public class RestApiController {
     }
 
     @PostMapping("/comments")
+    @BussinessLog(value = "评论列表", platform = PlatformEnum.WEB, save = false)
     public ResponseVO comments(CommentConditionVO vo) {
         vo.setStatus(CommentStatusEnum.APPROVED.toString());
         return ResultUtil.success(null, commentService.list(vo));
     }
 
     @PostMapping("/comment")
+    @BussinessLog(value = "发表评论", platform = PlatformEnum.WEB)
     public ResponseVO comment(Comment comment) {
         try {
             commentService.comment(comment);
@@ -133,6 +139,7 @@ public class RestApiController {
     }
 
     @PostMapping("/doSupport/{id}")
+    @BussinessLog(value = "点赞评论{1}", platform = PlatformEnum.WEB)
     public ResponseVO doSupport(@PathVariable("id") Long id) {
         try {
             commentService.doSupport(id);
@@ -144,6 +151,7 @@ public class RestApiController {
     }
 
     @PostMapping("/doOppose/{id}")
+    @BussinessLog(value = "点踩评论{1}", platform = PlatformEnum.WEB)
     public ResponseVO doOppose(@PathVariable("id") Long id) {
         try {
             commentService.doOppose(id);
@@ -155,6 +163,7 @@ public class RestApiController {
     }
 
     @PostMapping("/doPraise/{id}")
+    @BussinessLog(value = "点赞文章{1}", platform = PlatformEnum.WEB)
     public ResponseVO doPraise(@PathVariable("id") Long id) {
         try {
             articleService.doPraise(id);
@@ -166,6 +175,7 @@ public class RestApiController {
     }
 
     @PostMapping("/listNotice")
+    @BussinessLog(value = "公告列表", platform = PlatformEnum.WEB, save = false)
     public ResponseVO listNotice() {
         return ResultUtil.success("", noticeService.listRelease());
     }

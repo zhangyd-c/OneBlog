@@ -241,7 +241,7 @@ CREATE TABLE `sys_config` (
 -- ----------------------------
 -- Records of sys_config
 -- ----------------------------
-INSERT INTO `sys_config` VALUES ('1', 'OneBlog是一款简洁美观、自适应的Java博客系统。使用springboot开发，前端使用Bootstrap。支持移动端自适应，配有完备的前台和后台管理功能。', 'OneBlog,开源博客', 'zhyd.me', 'http://localhost:8085', 'http://localhost:8443', 'OneBlog开源博客', 'OneBlog是一款简洁美观、自适应的Java博客系统', 'http://localhost:8443/img/favicon.ico', 'http://localhost:8443', '张亚东', 'yadong.zhang0415#gmail.com', 'https://static.zhyd.me/static/img/wechat_account.jpg', '843977358', 'http://weibo.com/211230415', 'https://github.com/zhangyd-c', 0, '2018-11-11 11:11:11', 1, 'http://pe6duqm84.bkt.clouddn.com/', NULL, NULL, NULL, NULL, 'qrcode/wx_code.png', 'qrcode/zfb_code.png', 'NwHaYlGalDEpgxm46xBaC3T9', '2018-01-19 23:07:52', '2018-08-28 22:33:25');
+INSERT INTO `sys_config` VALUES ('1', 'OneBlog是一款简洁美观、自适应的Java博客系统。使用springboot开发，前端使用Bootstrap。支持移动端自适应，配有完备的前台和后台管理功能。', 'OneBlog,开源博客', 'zhyd.me', 'http://localhost:8085', 'http://localhost:8443', 'OneBlog开源博客', 'OneBlog是一款简洁美观、自适应的Java博客系统', 'http://localhost:8085/img/favicon.ico', 'http://localhost:8443', '张亚东', 'yadong.zhang0415#gmail.com', 'https://static.zhyd.me/static/img/wechat_account.jpg', '843977358', 'http://weibo.com/211230415', 'https://github.com/zhangyd-c', 0, '2018-11-11 11:11:11', 1, 'http://pe6duqm84.bkt.clouddn.com/', NULL, NULL, NULL, NULL, 'qrcode/wx_code.png', 'qrcode/zfb_code.png', 'NwHaYlGalDEpgxm46xBaC3T9', '2018-01-19 23:07:52', '2018-08-28 22:33:25');
 
 -- ----------------------------
 -- Table structure for sys_link
@@ -387,7 +387,7 @@ INSERT INTO `sys_resources` VALUES (67, '撤回公告', 'button', NULL, 'notice:
 INSERT INTO `sys_resources` VALUES (68, '测试页面', 'menu', '', '', 0, 6, 0, 1, 'fa fa-desktop', '2018-05-22 10:08:05', '2018-08-24 14:11:42');
 INSERT INTO `sys_resources` VALUES (69, 'icons图标', 'menu', '/icons', 'icons', 68, 2, 0, 1, NULL, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
 INSERT INTO `sys_resources` VALUES (70, 'shiro测试', 'menu', '/shiro', 'shiro', 68, 3, 0, 1, NULL, '2018-05-22 10:08:05', '2018-05-22 10:08:05');
-INSERT INTO `sys_resources` VALUES (71, '推送消息', 'menu', '/notice', 'notice', 40, NULL, 0, 1, '', '2018-06-26 16:16:51', '2018-06-26 16:16:51');
+INSERT INTO `sys_resources` VALUES (71, '推送消息', 'menu', '/notice', 'notice', 72, NULL, 0, 1, '', '2018-06-26 16:16:51', '2018-06-26 16:16:51');
 INSERT INTO `sys_resources` VALUES (72, '实验室', 'menu', '', '', 0, 5, 0, 1, 'fa fa-flask', '2018-07-30 11:28:50', '2018-08-24 14:11:37');
 INSERT INTO `sys_resources` VALUES (73, '文章搬运工', 'menu', '/remover', 'remover', 72, NULL, 0, 1, '', '2018-08-17 21:16:24', '2018-08-17 21:22:58');
 
@@ -614,3 +614,25 @@ CREATE TABLE `sys_user_role` (
 INSERT INTO `sys_user_role` VALUES ('1', '1', '1', '2018-01-02 10:47:27', '2018-01-02 10:47:27');
 INSERT INTO `sys_user_role` VALUES ('2', '2', '2', '2018-01-05 18:21:02', '2018-01-05 18:21:02');
 INSERT INTO `sys_user_role` VALUES ('3', '3', '3', '2018-05-22 11:43:31', '2018-05-22 11:43:31');
+
+-- ----------------------------
+-- Table structure for sys_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_log`;
+CREATE TABLE `sys_log`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '已登录用户ID',
+  `type` enum('SYSTEM','VISIT','ERROR') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'SYSTEM' COMMENT '日志类型（系统操作日志，用户访问日志，异常记录日志）',
+  `log_level` enum('ERROR','WARN','INFO') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'INFO' COMMENT '日志级别',
+  `content` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '日志内容（业务操作）',
+  `spider_type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '爬虫类型（当访问者被鉴定为爬虫时该字段表示爬虫的类型）',
+  `ip` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作用户的ip',
+  `ua` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作用户的user_agent',
+  `os` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '评论时的系统类型',
+  `browser` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '评论时的浏览器类型',
+  `request_url` varchar(3000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求的路径',
+  `referer` varchar(3000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求来源地址',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;

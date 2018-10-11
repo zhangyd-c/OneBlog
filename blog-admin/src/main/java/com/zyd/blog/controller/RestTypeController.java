@@ -19,8 +19,8 @@
  */
 package com.zyd.blog.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Type;
 import com.zyd.blog.business.enums.ResponseStatus;
 import com.zyd.blog.business.service.BizTypeService;
@@ -60,6 +60,7 @@ public class RestTypeController {
 
     @RequiresPermissions("type:add")
     @PostMapping(value = "/add")
+    @BussinessLog("添加分类")
     public ResponseVO add(Type type) {
         typeService.insert(type);
         return ResultUtil.success("文章类型添加成功！新类型 - " + type.getName());
@@ -67,6 +68,7 @@ public class RestTypeController {
 
     @RequiresPermissions(value = {"type:batchDelete", "type:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
+    @BussinessLog("删除分类")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
             return ResultUtil.error(500, "请至少选择一条记录");
@@ -79,12 +81,14 @@ public class RestTypeController {
 
     @RequiresPermissions("type:get")
     @PostMapping("/get/{id}")
+    @BussinessLog("获取分类详情")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.typeService.getByPrimaryKey(id));
     }
 
     @RequiresPermissions("type:edit")
     @PostMapping("/edit")
+    @BussinessLog("编辑分类")
     public ResponseVO edit(Type type) {
         try {
             typeService.updateSelective(type);

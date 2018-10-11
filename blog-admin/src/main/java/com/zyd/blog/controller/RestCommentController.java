@@ -20,6 +20,7 @@
 package com.zyd.blog.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Comment;
 import com.zyd.blog.business.enums.ResponseStatus;
 import com.zyd.blog.business.enums.TemplateKeyEnum;
@@ -66,6 +67,7 @@ public class RestCommentController {
 
     @RequiresPermissions("comment:reply")
     @PostMapping(value = "/reply")
+    @BussinessLog("回复评论")
     public ResponseVO reply(Comment comment) {
         try {
             commentService.commentForAdmin(comment);
@@ -77,6 +79,7 @@ public class RestCommentController {
 
     @RequiresPermissions(value = {"comment:batchDelete", "comment:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
+    @BussinessLog("删除评论[{1}]")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
             return ResultUtil.error(500, "请至少选择一条记录");
@@ -89,12 +92,14 @@ public class RestCommentController {
 
     @RequiresPermissions("comments")
     @PostMapping("/get/{id}")
+    @BussinessLog("获取评论[{1}]详情")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.commentService.getByPrimaryKey(id));
     }
 
     @RequiresPermissions("comments")
     @PostMapping("/edit")
+    @BussinessLog("编辑评论")
     public ResponseVO edit(Comment comment) {
         try {
             commentService.updateSelective(comment);
@@ -105,14 +110,9 @@ public class RestCommentController {
         return ResultUtil.success(ResponseStatus.SUCCESS);
     }
 
-    /**
-     * 审核
-     *
-     * @param comment
-     * @return
-     */
     @RequiresPermissions("comment:audit")
     @PostMapping("/audit")
+    @BussinessLog("审核评论")
     public ResponseVO audit(Comment comment, String contentText, Boolean sendEmail) {
         try {
             commentService.updateSelective(comment);

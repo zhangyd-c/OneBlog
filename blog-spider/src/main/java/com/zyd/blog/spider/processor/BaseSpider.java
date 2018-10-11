@@ -1,6 +1,6 @@
 package com.zyd.blog.spider.processor;
 
-import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -15,7 +15,7 @@ public interface BaseSpider<T> {
      *
      * @return
      */
-    List<T> run();
+    CopyOnWriteArrayList<T> run();
 
 
 }

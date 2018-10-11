@@ -20,6 +20,7 @@
 package com.zyd.blog.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Role;
 import com.zyd.blog.business.enums.ResponseStatus;
 import com.zyd.blog.business.service.SysRoleResourcesService;
@@ -74,6 +75,7 @@ public class RestRoleController {
 
     @RequiresPermissions("role:allotResource")
     @PostMapping("/saveRoleResources")
+    @BussinessLog("分配角色拥有的资源")
     public ResponseVO saveRoleResources(Long roleId, String resourcesId) {
         if (StringUtils.isEmpty(roleId)) {
             return ResultUtil.error("error");
@@ -86,6 +88,7 @@ public class RestRoleController {
 
     @RequiresPermissions("role:add")
     @PostMapping(value = "/add")
+    @BussinessLog("添加角色")
     public ResponseVO add(Role role) {
         roleService.insert(role);
         return ResultUtil.success("成功");
@@ -93,6 +96,7 @@ public class RestRoleController {
 
     @RequiresPermissions(value = {"role:batchDelete", "role:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
+    @BussinessLog("删除角色")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
             return ResultUtil.error(500, "请至少选择一条记录");
@@ -106,12 +110,14 @@ public class RestRoleController {
 
     @RequiresPermissions("role:get")
     @PostMapping("/get/{id}")
+    @BussinessLog("获取角色详情")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.roleService.getByPrimaryKey(id));
     }
 
     @RequiresPermissions("role:edit")
     @PostMapping("/edit")
+    @BussinessLog("编辑角色")
     public ResponseVO edit(Role role) {
         try {
             roleService.updateSelective(role);

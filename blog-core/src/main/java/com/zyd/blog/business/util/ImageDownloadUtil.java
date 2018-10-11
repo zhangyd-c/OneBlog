@@ -2,7 +2,6 @@ package com.zyd.blog.business.util;
 
 import com.zyd.blog.business.enums.QiniuUploadType;
 import com.zyd.blog.plugin.QiniuApi;
-import com.zyd.blog.util.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -10,7 +9,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.UUID;
 
 @Slf4j
@@ -19,12 +24,13 @@ public class ImageDownloadUtil {
     /**
      * 将网络图片转存到七牛云
      *
-     * @param imgUrl 网络图片地址
+     * @param imgUrl  网络图片地址
+     * @param referer 为了预防某些网站做了权限验证，不加referer可能会403
      */
-    public static String convertToQiniu(String imgUrl) {
+    public static String convertToQiniu(String imgUrl, String referer) {
         log.debug("download img >> %s", imgUrl);
         String qiniuImgPath = null;
-        try (InputStream is = getInputStreamByUrl(checkUrl(imgUrl));
+        try (InputStream is = getInputStreamByUrl(imgUrl, referer);
              ByteArrayOutputStream outStream = new ByteArrayOutputStream();) {
             byte[] buffer = new byte[1024];
             int len = 0;
@@ -35,30 +41,23 @@ public class ImageDownloadUtil {
                     .withFileName("temp." + getSuffixByUrl(imgUrl), QiniuUploadType.SIMPLE)
                     .upload(outStream.toByteArray());
         } catch (Exception e) {
-            log.error("Error.", e);
+            log.error(e.getMessage(), e);
         }
         return qiniuImgPath;
     }
 
-    private static String getSuffixByUrl(String imgUrl) {
-        String defaultSuffix = "png";
-        if (StringUtils.isEmpty(imgUrl)) {
-            return defaultSuffix;
-        }
-        String temStr = imgUrl.substring(imgUrl.lastIndexOf("/"));
-        int index = temStr.lastIndexOf(".");
-        return -1 == index ? defaultSuffix : temStr.substring(index + 1);
-    }
-
     /**
+     * 下载网络图片到本地<br>暂时不用，只供测试
+     *
      * @param imgUrl    网络图片地址
+     * @param referer   为了预防某些网站做了权限验证，不加referer可能会403
      * @param localPath 待保存的本地地址
      */
-    public static String download(String imgUrl, String localPath) {
-        log.debug("download img >> %s", imgUrl);
+    @Deprecated
+    public static String download(String imgUrl, String referer, String localPath) {
 
         String fileName = localPath + File.separator + UUID.randomUUID().toString() + "." + getSuffixByUrl(imgUrl);
-        try (InputStream is = getInputStreamByUrl(checkUrl(imgUrl));
+        try (InputStream is = getInputStreamByUrl(imgUrl, referer);
              FileOutputStream fos = new FileOutputStream(fileName)) {
             if (null == is) {
                 return null;
@@ -79,9 +78,22 @@ public class ImageDownloadUtil {
         return fileName;
     }
 
-    private static InputStream getInputStreamByUrl(String url) {
-        HttpGet httpGet = new HttpGet(url);
-        httpGet.setHeader("user-agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36");
+    private static String getSuffixByUrl(String imgUrl) {
+        String defaultSuffix = "png";
+        if (StringUtils.isEmpty(imgUrl)) {
+            return defaultSuffix;
+        }
+        String temStr = imgUrl.substring(imgUrl.lastIndexOf("/"));
+        int index = temStr.lastIndexOf(".");
+        return -1 == index ? defaultSuffix : temStr.substring(index + 1);
+    }
+
+    private static InputStream getInputStreamByUrl(String url, String referer) {
+        HttpGet httpGet = new HttpGet(checkUrl(url));
+        httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36");
+        if (StringUtils.isNotEmpty(referer)) {
+            httpGet.setHeader("referer", referer);
+        }
         CloseableHttpClient httpclient = HttpClients.createDefault();
         CloseableHttpResponse response = null;
         InputStream in = null;
@@ -95,8 +107,7 @@ public class ImageDownloadUtil {
                 return null;
             }
         } catch (IOException e) {
-            e.printStackTrace();
-            log.error("Error.", e);
+            log.error(e.getMessage(), e);
         }
         return in;
     }

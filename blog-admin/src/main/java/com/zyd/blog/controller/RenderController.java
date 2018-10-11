@@ -33,6 +33,7 @@ import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Article;
 import com.zyd.blog.business.service.BizArticleService;
 import com.zyd.blog.core.websocket.server.ZydWebsocketServer;
+import com.zyd.blog.spider.enums.ExitWayEnum;
 import com.zyd.blog.util.ResultUtil;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -98,21 +99,21 @@ public class RenderController {
     }
 
     @RequiresPermissions("article:publish")
-    @BussinessLog(value = "发表文章页[html]")
+    @BussinessLog(value = "进入发表文章页[html]")
     @GetMapping("/article/publish")
     public ModelAndView publish() {
         return ResultUtil.view("article/publish");
     }
 
     @RequiresPermissions("article:publish")
-    @BussinessLog(value = "发表文章页[markdown]")
+    @BussinessLog(value = "进入发表文章页[markdown]")
     @GetMapping("/article/publishMd")
     public ModelAndView publishMd() {
         return ResultUtil.view("article/publish-md");
     }
 
     @RequiresPermissions("article:publish")
-    @BussinessLog(value = "修改文章页[id={1}]")
+    @BussinessLog(value = "进入修改文章页[id={1}]")
     @GetMapping("/article/update/{id}")
     public ModelAndView edit(@PathVariable("id") Long id, Model model) {
         model.addAttribute("id", id);
@@ -179,27 +180,15 @@ public class RenderController {
         return ResultUtil.view("update/list");
     }
 
-    @RequiresPermissions("plays")
-    @BussinessLog("进入歌单管理页")
-    @GetMapping("/plays")
-    public ModelAndView plays() {
-        return ResultUtil.view("play/list");
-    }
-
-    @RequiresPermissions("sysWebpage")
-    @BussinessLog("进入静态页面管理页")
-    @GetMapping("/sysWebpage")
-    public ModelAndView sysWebpage() {
-        return ResultUtil.view("sysWebpage/list");
-    }
-
     @RequiresPermissions("icons")
+    @BussinessLog(value = "进入icons页")
     @GetMapping("/icons")
     public ModelAndView icons(Model model) {
         return ResultUtil.view("icons");
     }
 
     @RequiresPermissions("shiro")
+    @BussinessLog(value = "进入shiro示例页")
     @GetMapping("/shiro")
     public ModelAndView shiro(Model model) {
         return ResultUtil.view("shiro");
@@ -217,6 +206,7 @@ public class RenderController {
     @BussinessLog("进入搬运工页面")
     @GetMapping("/remover")
     public ModelAndView remover(Model model) {
+        model.addAttribute("exitWayList", ExitWayEnum.values());
         return ResultUtil.view("remover/list");
     }
 }

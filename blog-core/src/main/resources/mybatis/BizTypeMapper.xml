@@ -71,7 +71,7 @@
 			)
 		</if>
 		ORDER BY
-			t.sort ASC
+			parent.sort ASC, t.sort ASC
 	</select>
 
 	<select id="listParent" resultMap="rm">

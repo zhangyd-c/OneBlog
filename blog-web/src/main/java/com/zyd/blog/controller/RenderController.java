@@ -20,8 +20,10 @@
 package com.zyd.blog.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Article;
 import com.zyd.blog.business.enums.ArticleStatusEnum;
+import com.zyd.blog.business.enums.PlatformEnum;
 import com.zyd.blog.business.service.BizArticleArchivesService;
 import com.zyd.blog.business.service.BizArticleService;
 import com.zyd.blog.business.service.SysLinkService;
@@ -88,6 +90,7 @@ public class RenderController {
      * @return
      */
     @RequestMapping("/")
+    @BussinessLog(value = "进入首页", platform = PlatformEnum.WEB)
     public ModelAndView home(ArticleConditionVO vo, Model model) {
         model.addAttribute("url", INDEX_URL);
         loadIndexPage(vo, model);
@@ -104,6 +107,7 @@ public class RenderController {
      * @return
      */
     @RequestMapping("/index/{pageNumber}")
+    @BussinessLog(value = "进入文章列表第{1}页", platform = PlatformEnum.WEB)
     public ModelAndView type(@PathVariable("pageNumber") Integer pageNumber, ArticleConditionVO vo, Model model) {
         vo.setPageNumber(pageNumber);
         model.addAttribute("url", INDEX_URL);
@@ -120,6 +124,7 @@ public class RenderController {
      * @return
      */
     @GetMapping("/type/{typeId}")
+    @BussinessLog(value = "进入文章分类[{1}]列表页", platform = PlatformEnum.WEB)
     public ModelAndView type(@PathVariable("typeId") Long typeId, Model model) {
         ArticleConditionVO vo = new ArticleConditionVO();
         vo.setTypeId(typeId);
@@ -138,6 +143,7 @@ public class RenderController {
      * @return
      */
     @GetMapping("/type/{typeId}/{pageNumber}")
+    @BussinessLog(value = "进入文章分类[{1}]列表第{2}页", platform = PlatformEnum.WEB)
     public ModelAndView type(@PathVariable("typeId") Long typeId, @PathVariable("pageNumber") Integer pageNumber, Model model) {
         ArticleConditionVO vo = new ArticleConditionVO();
         vo.setTypeId(typeId);
@@ -156,6 +162,7 @@ public class RenderController {
      * @return
      */
     @GetMapping("/tag/{tagId}")
+    @BussinessLog(value = "进入文章标签[{1}]列表页", platform = PlatformEnum.WEB)
     public ModelAndView tag(@PathVariable("tagId") Long tagId, Model model) {
         ArticleConditionVO vo = new ArticleConditionVO();
         vo.setTagId(tagId);
@@ -174,6 +181,7 @@ public class RenderController {
      * @return
      */
     @GetMapping("/tag/{tagId}/{pageNumber}")
+    @BussinessLog(value = "进入文章标签[{1}]列表第{2}页", platform = PlatformEnum.WEB)
     public ModelAndView tag(@PathVariable("tagId") Long tagId, @PathVariable("pageNumber") Integer pageNumber, Model model) {
         ArticleConditionVO vo = new ArticleConditionVO();
         vo.setTagId(tagId);
@@ -192,6 +200,7 @@ public class RenderController {
      * @return
      */
     @GetMapping("/article/{articleId}")
+    @BussinessLog(value = "进入文章[{1}]详情页", platform = PlatformEnum.WEB)
     public ModelAndView article(Model model, @PathVariable("articleId") Long articleId) {
         Article article = bizArticleService.getByPrimaryKey(articleId);
         if (article == null || ArticleStatusEnum.UNPUBLISHED.getCode() == article.getStatusEnum().getCode()) {
@@ -212,6 +221,7 @@ public class RenderController {
      * @return
      */
     @GetMapping("/about")
+    @BussinessLog(value = "进入关于页", platform = PlatformEnum.WEB)
     public ModelAndView about() {
         return ResultUtil.view("about");
     }
@@ -223,6 +233,7 @@ public class RenderController {
      * @return
      */
     @GetMapping("/links")
+    @BussinessLog(value = "进入友情链接页", platform = PlatformEnum.WEB)
     public ModelAndView links(Model model) {
         model.addAttribute("link", sysLinkService.listAllByGroup());
         return ResultUtil.view("links");
@@ -234,6 +245,7 @@ public class RenderController {
      * @return
      */
     @GetMapping("/guestbook")
+    @BussinessLog(value = "进入留言板页", platform = PlatformEnum.WEB)
     public ModelAndView guestbook() {
         return ResultUtil.view("guestbook");
     }
@@ -245,6 +257,7 @@ public class RenderController {
      * @return
      */
     @GetMapping("/archives")
+    @BussinessLog(value = "进入归档目录页", platform = PlatformEnum.WEB)
     public ModelAndView archives(Model model) {
         Map<String, List> map = bizArticleArchivesService.listArchives();
         model.addAttribute("archives", map);
@@ -257,6 +270,7 @@ public class RenderController {
      * @return
      */
     @GetMapping("/disclaimer")
+    @BussinessLog(value = "进入免责声明页", platform = PlatformEnum.WEB)
     public ModelAndView disclaimer() {
         return ResultUtil.view("disclaimer");
     }
@@ -268,6 +282,7 @@ public class RenderController {
      * @return
      */
     @GetMapping("/recommended")
+    @BussinessLog(value = "进入站长推荐页", platform = PlatformEnum.WEB)
     public ModelAndView recommended(Model model) {
         model.addAttribute("list", bizArticleService.listRecommended(100));
         return ResultUtil.view("recommended");
@@ -280,6 +295,7 @@ public class RenderController {
      * @return
      */
     @GetMapping("/updateLog")
+    @BussinessLog(value = "进入更新记录页", platform = PlatformEnum.WEB)
     public ModelAndView updateLog(Model model) {
         model.addAttribute("list", updateRecordeService.listAll());
         return ResultUtil.view("updateLog");
@@ -291,6 +307,7 @@ public class RenderController {
      * @return
      */
     @GetMapping("/testWebsocket")
+    @BussinessLog(value = "进入测试websocket页", platform = PlatformEnum.WEB)
     public ModelAndView testWebsocket() {
         return new ModelAndView("testWebsocket");
     }

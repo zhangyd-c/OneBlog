@@ -23,7 +23,7 @@
                             <#-- 由草稿状态批量修改为已发布状态 -->
                             <@shiro.hasPermission name="article:publish">
                                 <button id="btn_update_status" type="button" class="btn btn-default" title="批量发布">
-                                    <i class="fa fa-trash-o"></i> 批量发布
+                                    <i class="fa fa-bullhorn"></i> 批量发布
                                 </button>
                             </@shiro.hasPermission>
                             <@shiro.hasPermission name="article:batchPush">
@@ -51,14 +51,14 @@
      */
     function operateFormatter(code, row, index) {
         var trId = row.id;
-        var recommended = row.recommended ? '<i class="fa fa-thumbs-o-down"></i>取消推荐' : '<i class="fa fa-thumbs-o-up"></i>推荐';
-        var top = row.top ? '<i class="fa fa-arrow-circle-down"></i>取消置顶' : '<i class="fa fa-arrow-circle-up"></i>置顶';
+        // var recommended = row.recommended ? '<i class="fa fa-thumbs-o-down"></i>取消推荐' : '<i class="fa fa-thumbs-o-up"></i>推荐';
+        // var top = row.top ? '<i class="fa fa-arrow-circle-down"></i>取消置顶' : '<i class="fa fa-arrow-circle-up"></i>置顶';
         var operateBtn = [
-            '<@shiro.hasPermission name="article:push"><a class="btn btn-xs btn-info btn-push" title="推送" data-id="' + trId + '"><i class="fa fa-send-o"></i>推送</a></@shiro.hasPermission>',
-            '<@shiro.hasPermission name="article:edit"><a class="btn btn-xs btn-primary" href="/article/update/' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
-            '<@shiro.hasPermission name="article:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>',
-            '<@shiro.hasPermission name="article:top"><a class="btn btn-xs btn-success btn-top" data-id="' + trId + '">' + top + '</a></@shiro.hasPermission>',
-            '<@shiro.hasPermission name="article:recommend"><a class="btn btn-xs btn-success btn-recommend" data-id="' + trId + '">' + recommended + '</a></@shiro.hasPermission>'
+            '<@shiro.hasPermission name="article:push"><a class="btn btn-xs btn-info btn-push" title="推送" data-id="' + trId + '"><i class="fa fa-send-o"></i></a></@shiro.hasPermission>',
+            '<@shiro.hasPermission name="article:edit"><a class="btn btn-xs btn-primary" href="/article/update/' + trId + '"><i class="fa fa-edit"></i></a></@shiro.hasPermission>',
+            '<@shiro.hasPermission name="article:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i></a></@shiro.hasPermission>',
+            <#--'<@shiro.hasPermission name="article:top"><a class="btn btn-xs btn-success btn-top" data-id="' + trId + '">' + top + '</a></@shiro.hasPermission>',-->
+            <#--'<@shiro.hasPermission name="article:recommend"><a class="btn btn-xs btn-success btn-recommend" data-id="' + trId + '">' + recommended + '</a></@shiro.hasPermission>'-->
         ];
         return operateBtn.join('');
     }
@@ -75,11 +75,11 @@
                 }, {
                     field: 'title',
                     title: '标题',
-                    width: '200px',
+                    width: '270px',
                     editable: false,
                     formatter: function (code, row, index) {
                         var title = code;
-                        title = title.length > 10 ? (title.substr(0, 10) + '...') : title;
+                        title = title.length > 20 ? (title.substr(0, 20) + '...') : title;
                         var id = row.id;
                         // var original= row.original ? "原创" : "转载";
                         // return '<strong>['+original+']</strong> <a href="' + appConfig.wwwPath + '/article/' + id + '" target="_blank">' + code + '</a>';
@@ -88,45 +88,31 @@
                         return status + '<a href="' + appConfig.wwwPath + '/article/' + id + '" target="_blank" title="' + code + '">' + title + '</a>';
                     }
                 }, {
-                    field: 'type',
-                    title: '分类',
-                    width: '80px',
-                    editable: false,
-                    formatter: function (code) {
-                        var type = code;
-                        return '<a href="' + appConfig.wwwPath + '/type/' + type.id + '" target="_blank"> ' + type.name + '</a> ';
-                    }
-                }, {
-                    field: 'tags',
-                    title: '标签',
-                    width: '140px',
-                    editable: false,
-                    formatter: function (code) {
-                        var tags = code;
-                        var tagHtml = '';
-                        if (tags) {
-                            for (var i = 0, len = tags.length; i < len; i++) {
-                                var tag = tags[i];
-                                tagHtml += ' <a class="" href="' + appConfig.wwwPath + '/tag/' + tag.id + '" target="_blank"> ' + tag.name + '</a> |';
-                            }
-                        }
-                        return tagHtml.substr(0, tagHtml.length - 1);
-                    }
-                }, {
                     field: 'comment',
                     title: '评论',
                     width: '50px',
                     editable: false,
-                    formatter: function (code) {
-                        return code ? '<span class="label label-success">开启</span>' : '<span class="label label-danger">关闭</span>';
+                    formatter: function (code, row, index) {
+                        var checked = code ? 'checked' : '';
+                        return '<input type="checkbox" name="comment" class="js-switch btn-comment"  data-id="' + row.id + '" data-type="comment" ' + checked + '>';
                     }
                 }, {
-                    field: 'createTime',
-                    title: '发布时间',
+                    field: 'recommended',
+                    title: '推荐 <i class="fa fa-question-circle-o" title="推荐的文章会在首页滚动显示"></i>',
                     editable: false,
-                    width: '100px',
-                    formatter: function (code) {
-                        return new Date(code).format("yyyy-MM-dd hh:mm:ss")
+                    width: '50px',
+                    formatter: function (code, row, index) {
+                        var checked = code ? 'checked' : '';
+                        return '<input type="checkbox" name="recommended" class="js-switch btn-recommended" data-id="' + row.id + '" data-type="recommend" ' + checked + '>';
+                    }
+                }, {
+                    field: 'top',
+                    title: '置顶',
+                    editable: false,
+                    width: '50px',
+                    formatter: function (code, row, index) {
+                        var checked = code ? 'checked' : '';
+                        return '<input type="checkbox" name="top" class="js-switch btn-top" data-id="' + row.id + '" data-type="top" ' + checked + '>';
                     }
                 }, {
                     field: 'lookCount',
@@ -144,9 +130,17 @@
                     editable: false,
                     width: '50px'
                 }, {
+                    field: 'createTime',
+                    title: '发布时间',
+                    editable: false,
+                    width: '130px',
+                    formatter: function (code) {
+                        return new Date(code).format("yyyy-MM-dd hh:mm:ss")
+                    }
+                }, {
                     field: 'operate',
                     title: '操作',
-                    width: '200px',
+                    width: '100px',
                     formatter: operateFormatter //自定义方法，添加操作按钮
                 }
             ]
@@ -156,36 +150,25 @@
         //2.初始化Button的点击事件
         $.buttonUtil.init(options);
 
-        /**
-         * 推荐
-         */
-        $('#tablelist').on('click', '.btn-recommend', function () {
-            var $this = $(this);
-            var id = $this.attr("data-id");
-            update("recommend", id);
-        });
+        $('#tablelist').on('click', '.switchery', function () {
+            var $input = $(this).prev();
 
-        /**
-         * 置顶
-         */
-        $('#tablelist').on('click', '.btn-top', function () {
-            var $this = $(this);
-            var id = $this.attr("data-id");
-            update("top", id);
-        });
+            var id = $input.data("id");
+            var type = $input.data("type");
 
-        function update(type, id) {
             $.ajax({
                 type: "post",
                 url: "/article/update/" + type,
                 traditional: true,
                 data: {'id': id},
                 success: function (json) {
-                    $.alert.ajaxSuccess(json);
+                    if (json.status !== 200) {
+                        $.alert.error(json.message);
+                    }
                 },
                 error: $.alert.ajaxError
             });
-        }
+        });
 
         /**
          * 推送到百度
@@ -259,7 +242,7 @@
                                 message += '不合法的url：' + notValid + '\n';
                             }
                             message += '今日剩余' + remain + '条可推送的url。';
-                            $.alert.info(message, 5000);
+                            $.alert.info(message, null, 5000);
                         }
                     },
                     error: $.alert.ajaxError

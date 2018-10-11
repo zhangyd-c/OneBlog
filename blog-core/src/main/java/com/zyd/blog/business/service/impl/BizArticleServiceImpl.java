@@ -26,10 +26,12 @@ import com.zyd.blog.business.entity.Article;
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.ArticleStatusEnum;
 import com.zyd.blog.business.enums.QiniuUploadType;
+import com.zyd.blog.business.enums.ResponseStatus;
 import com.zyd.blog.business.service.BizArticleService;
 import com.zyd.blog.business.service.BizArticleTagsService;
 import com.zyd.blog.business.vo.ArticleConditionVO;
 import com.zyd.blog.framework.exception.ZhydArticleException;
+import com.zyd.blog.framework.exception.ZhydException;
 import com.zyd.blog.framework.holder.RequestHolder;
 import com.zyd.blog.persistence.beans.*;
 import com.zyd.blog.persistence.mapper.BizArticleLookMapper;
@@ -308,8 +310,12 @@ public class BizArticleServiceImpl implements BizArticleService {
         article.setId(id);
         if ("top".equals(type)) {
             article.setTop(!article.getTop());
-        } else {
+        } else if("recommend".equals(type)) {
             article.setRecommended(!article.getRecommended());
+        } else if("comment".equals(type)) {
+            article.setComment(!article.getComment());
+        } else {
+            throw new ZhydException(ResponseStatus.INVALID_PARAMS.getMessage());
         }
         article.setUpdateTime(new Date());
         return bizArticleMapper.updateByPrimaryKeySelective(article) > 0;

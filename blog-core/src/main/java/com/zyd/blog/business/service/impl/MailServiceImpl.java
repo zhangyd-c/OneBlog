@@ -19,7 +19,11 @@
  */
 package com.zyd.blog.business.service.impl;
 
-import com.zyd.blog.business.entity.*;
+import com.zyd.blog.business.entity.Comment;
+import com.zyd.blog.business.entity.Config;
+import com.zyd.blog.business.entity.Link;
+import com.zyd.blog.business.entity.MailDetail;
+import com.zyd.blog.business.entity.Template;
 import com.zyd.blog.business.enums.TemplateKeyEnum;
 import com.zyd.blog.business.service.MailService;
 import com.zyd.blog.business.service.SysConfigService;
@@ -28,7 +32,6 @@ import com.zyd.blog.util.FreeMarkerUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -39,10 +42,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -153,7 +154,11 @@ public class MailServiceImpl implements MailService {
         map.put("link", link);
         String mailContext = FreeMarkerUtil.template2String(temXml, map, true);
         String adminEmail = config.getAuthorEmail();
-        adminEmail = StringUtils.isEmpty(adminEmail) ? "yadong.zhang0415@gmail.com" : (adminEmail.contains("#") ? adminEmail.replace("#", "@") : adminEmail);
+        if (StringUtils.isEmpty(adminEmail)) {
+            log.warn("[sendToAdmin]邮件发送失败！未指定系统管理员的邮箱地址");
+            return;
+        }
+        adminEmail = (adminEmail.contains("#") ? adminEmail.replace("#", "@") : adminEmail);
         MailDetail mailDetail = new MailDetail("有新的友链消息", adminEmail, config.getAuthorName(), mailContext);
         send(mailDetail);
     }
@@ -173,53 +178,38 @@ public class MailServiceImpl implements MailService {
         map.put("comment", comment);
         map.put("config", config);
         String mailContext = FreeMarkerUtil.template2String(temXml, map, true);
-        String subject = "有新的评论消息";
         String adminEmail = config.getAuthorEmail();
-        adminEmail = StringUtils.isEmpty(adminEmail) ? "yadong.zhang0415@gmail.com" : (adminEmail.contains("#") ? adminEmail.replace("#", "@") : adminEmail);
-        MailDetail mailDetail = new MailDetail(subject, adminEmail, config.getAuthorName(), mailContext);
+        if (StringUtils.isEmpty(adminEmail)) {
+            log.warn("[sendToAdmin]邮件发送失败！未指定系统管理员的邮箱地址");
+            return;
+        }
+        adminEmail = (adminEmail.contains("#") ? adminEmail.replace("#", "@") : adminEmail);
+        MailDetail mailDetail = new MailDetail("有新的评论消息", adminEmail, config.getAuthorName(), mailContext);
         send(mailDetail);
     }
 
-
-    private boolean sendMessage(MailDetail detail, String from) {
+    private void sendMessage(MailDetail detail, String from) {
         log.info("Start to send html email for [{}({})]", detail.getToUsername(), detail.getToMailAddress());
         if (StringUtils.isEmpty(detail.getToMailAddress())) {
             log.warn("邮件接收者为空！");
-            return false;
+            return;
         }
         MimeMessage message = null;
         try {
             message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            // 创建邮件发送者地址
             InternetAddress fromAddress = new InternetAddress(MimeUtility.encodeText("网站管理员") + "<" + from + ">");
             helper.setFrom(fromAddress);
-            // 创建邮件接收者地址
             InternetAddress toAddress = new InternetAddress(MimeUtility.encodeText(detail.getToMailAddress()) + "<" + detail.getToMailAddress() + ">");
             helper.setTo(toAddress);
             helper.setSubject(detail.getSubject());
-            // 第二个参数指定发送的是HTML格式
             helper.setText(detail.getContent(), detail.isHtml());
             if (detail.getCc() != null && detail.getCc().length > 0) {
                 helper.setCc(detail.getCc());
             }
-            if (detail.isExitFile()) {
-                try {
-                    List<String> filePaths = detail.getFilePaths();
-                    for (String filePath : filePaths) {
-                        // 附件 ：注意项目路径问题，自动补用项目路径
-                        FileSystemResource file = new FileSystemResource(new File(filePath));
-                        helper.addAttachment("图片.jpg", file);
-                    }
-                } catch (Exception e) {
-                    log.error("添加附件发生异常", e);
-                }
-            }
             javaMailSender.send(message);
-            return true;
         } catch (MessagingException | UnsupportedEncodingException e) {
             log.error("Failed to send E-mail. e [{}]", e.getMessage());
         }
-        return false;
     }
 }

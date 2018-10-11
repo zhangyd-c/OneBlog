@@ -20,6 +20,7 @@
 package com.zyd.blog.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Notice;
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.NoticeStatusEnum;
@@ -62,6 +63,7 @@ public class RestNoticeController {
 
     @RequiresPermissions("notice:add")
     @PostMapping(value = "/add")
+    @BussinessLog("添加公告通知")
     public ResponseVO add(Notice notice) {
         User user = SessionUtil.getUser();
         if (null != user) {
@@ -73,6 +75,7 @@ public class RestNoticeController {
 
     @RequiresPermissions(value = {"notice:batchDelete", "notice:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
+    @BussinessLog("删除公告通知")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
             return ResultUtil.error(500, "请至少选择一条记录");
@@ -85,12 +88,14 @@ public class RestNoticeController {
 
     @RequiresPermissions("notice:get")
     @PostMapping("/get/{id}")
+    @BussinessLog("获取公告通知详情")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.noticeService.getByPrimaryKey(id));
     }
 
     @RequiresPermissions("notice:edit")
     @PostMapping("/edit")
+    @BussinessLog("编辑公告通知")
     public ResponseVO edit(Notice notice) {
         try {
             noticeService.updateSelective(notice);
@@ -103,6 +108,7 @@ public class RestNoticeController {
 
     @RequiresPermissions("notice:release")
     @PostMapping("/release/{id}")
+    @BussinessLog("发布公告通知")
     public ResponseVO release(@PathVariable Long id) {
         try {
             Notice notice = new Notice();
@@ -118,6 +124,7 @@ public class RestNoticeController {
 
     @RequiresPermissions("notice:withdraw")
     @PostMapping("/withdraw/{id}")
+    @BussinessLog("撤回公告通知")
     public ResponseVO withdraw(@PathVariable Long id) {
         try {
             Notice notice = new Notice();

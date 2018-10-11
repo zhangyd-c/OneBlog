@@ -19,6 +19,7 @@
  */
 package com.zyd.blog.controller;
 
+import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Config;
 import com.zyd.blog.business.enums.QiniuUploadType;
 import com.zyd.blog.business.service.BizArticleService;
@@ -103,6 +104,7 @@ public class RestApiController {
      */
     @RequiresPermissions("notice")
     @PostMapping("/notice")
+    @BussinessLog("通过websocket向前台用户发送通知")
     public ResponseVO notice(String msg) throws UnsupportedEncodingException {
         WebSocketUtil.sendNotificationMsg(msg, websocketServer.getOnlineUsers());
         return ResultUtil.success("消息发送成功", articleService.listMaterial());

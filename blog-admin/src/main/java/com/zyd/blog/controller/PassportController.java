@@ -65,7 +65,7 @@ public class PassportController {
     @BussinessLog("进入登录页面")
     @GetMapping("/login")
     public ModelAndView login(Model model) {
-        model.addAttribute("enableKaptcha", config.getEnableKaptcha());
+        model.addAttribute("enableKaptcha", config.isEnableKaptcha());
         return ResultUtil.view("/login");
     }
 
@@ -79,7 +79,7 @@ public class PassportController {
     @PostMapping("/signin")
     @ResponseBody
     public ResponseVO submitLogin(String username, String password, boolean rememberMe, String kaptcha) {
-        if (config.getEnableKaptcha()) {
+        if (config.isEnableKaptcha()) {
             if (StringUtils.isEmpty(kaptcha) || !kaptcha.equals(SessionUtil.getKaptcha())) {
                 return ResultUtil.error("验证码错误！");
             }

@@ -32,8 +32,8 @@
                     <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                         <li>
                             <div class="text-center">
-                                <a>
-                                    <strong>See All Alerts</strong>
+                                <a href="/comments">
+                                    <strong>查看所有</strong>
                                     <i class="fa fa-angle-right"></i>
                                 </a>
                             </div>

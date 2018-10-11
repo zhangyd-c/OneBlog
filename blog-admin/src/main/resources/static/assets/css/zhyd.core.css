@@ -964,7 +964,8 @@ a:hover {
 .toggle a {
     padding: 15px 15px 0;
     margin: 0;
-    cursor: pointer
+    cursor: pointer;
+    color: #73879C;
 }
 
 .toggle a i {
@@ -2137,14 +2138,14 @@ h4.graph_title {
     line-height: 1.65857
 }
 
-.tile-stats .count, .tile-stats h3, .tile-stats p {
+.tile-stats .count, .tile-stats h3, .tile-stats h4, .tile-stats p {
     position: relative;
     margin: 0 0 0 10px;
     z-index: 5;
     padding: 0
 }
 
-.tile-stats h3 {
+.tile-stats h3, .tile-stats h4 {
     color: #BAB8B8
 }
 

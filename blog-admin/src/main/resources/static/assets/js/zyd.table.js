@@ -36,7 +36,8 @@
             init: function (options) {
                 $.tableUtil._option = options;
                 // console.log(options.url);
-                $('#tablelist').bootstrapTable('destroy').bootstrapTable({
+                var $tablelist = $('#tablelist');
+                $tablelist.bootstrapTable('destroy').bootstrapTable({
                     url: options.url,
                     method: 'post',                      //请求方式（*）
                     toolbar: '#toolbar',                //工具按钮用哪个容器
@@ -91,6 +92,9 @@
                     onExpandRow: options.onExpandRow,
                     rowStyle: options.rowStyle || function (row, index){return {};},
                     columns: options.columns
+                });
+                $tablelist.on('load-success.bs.table',function(data){
+                    zhyd.initSwitchery();
                 });
             },
             queryParams: function (params) {

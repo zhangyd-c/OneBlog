@@ -20,9 +20,9 @@
 package com.zyd.blog.business.service.impl;
 
 import com.zyd.blog.business.annotation.RedisCache;
-import com.zyd.blog.business.consts.DateConst;
 import com.zyd.blog.business.entity.Config;
 import com.zyd.blog.business.service.SysConfigService;
+import com.zyd.blog.framework.property.AppProperties;
 import com.zyd.blog.persistence.beans.SysConfig;
 import com.zyd.blog.persistence.mapper.SysConfigMapper;
 import com.zyd.blog.util.DateUtil;
@@ -48,6 +48,8 @@ public class SysConfigServiceImpl implements SysConfigService {
 
     @Autowired
     private SysConfigMapper sysConfigMapper;
+    @Autowired
+    private AppProperties properties;
 
     /**
      * 获取系统配置
@@ -108,13 +110,12 @@ public class SysConfigServiceImpl implements SysConfigService {
     public Map<String, Object> getSiteInfo() {
         Map<String, Object> map = sysConfigMapper.getSiteInfo();
         if (!CollectionUtils.isEmpty(map)) {
-            Date recordeTime = (Date) map.get("recordeTime");
-            if (!StringUtils.isEmpty(recordeTime)) {
-                map.put("recordeTime", DateUtil.date2Str(recordeTime, "yyyy年MM月dd日HH点"));
+            Date lastUpdateTime = (Date) map.get("lastUpdateTime");
+            if (!StringUtils.isEmpty(lastUpdateTime)) {
+                map.put("lastUpdateTime", DateUtil.date2Str(lastUpdateTime, "yyyy年MM月dd日HH点"));
             }
-            Date buildSiteDate = DateUtil.str2Date("2016-10-27 00:00:00", DateConst.YYYY_MM_DD_HH_MM_SS_EN);
             // 获取建站天数
-            map.put("buildSiteDate", DateUtil.getGapDay(buildSiteDate, new Date()));
+            map.put("buildSiteDate", DateUtil.getGapDay(properties.getBuildWebsiteDate(), new Date()));
         }
         return map;
     }

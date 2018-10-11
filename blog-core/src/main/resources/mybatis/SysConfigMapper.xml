@@ -49,7 +49,7 @@
 			t.tag_count AS tagCount,
 			type.type_count AS typeCount,
 			c.comment_count AS commentCount,
-			u.recorde_time AS recordeTime
+			u.recorde_time AS lastUpdateTime
 		FROM
 			(
 				SELECT

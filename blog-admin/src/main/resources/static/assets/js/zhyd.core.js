@@ -287,6 +287,17 @@ var zhyd = window.zhyd || {
                 });
             })
         }
+    },
+    initSwitchery: function (delay) {
+        setTimeout(function () {
+            var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+            elems.forEach(function (html) {
+                var switchery = new Switchery(html, {
+                    color: '#26B99A',
+                    size: 'small'
+                });
+            });
+        }, delay || 0);
     }
 };
 
@@ -396,7 +407,7 @@ $(document).ready(function () {
                 $box.before(html);
                 return;
             }
-            var tpl = '{{#data}}<li><a href="/comments"><span class="image"><img src="{{avatar}}" alt="user avatar"></span> <span><span>{{nickname}}</span> <span class="time">{{createTimeString}}</span></span> <span class="message">点击查看&审核</span></a></li>{{/data}}';
+            var tpl = '{{#data}}<li><a href="/comments"><span class="image"><img src="{{#avatar}}{{avatar}}{{/avatar}}{{^avatar}}/assets/images/user.png{{/avatar}}" alt="user avatar"></span> <span><span>{{nickname}}</span> <span class="time">{{createTimeString}}</span></span> <span class="message">点击查看&审核</span></a></li>{{/data}}';
             var html = Mustache.render(tpl, json);
             $box.before(html);
             $(".noticeNum").text(json.data.length);
