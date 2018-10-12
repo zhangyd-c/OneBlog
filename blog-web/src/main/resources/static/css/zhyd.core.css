@@ -198,7 +198,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     color: #555555;
     width: auto;
     text-align: center;
-    border-radius: 0 10px !important;
+    border-radius: unset;
+    border: 0;
+    margin: 0 2px;
 }
 
 .pager > li > a.active, .pager > li > a:hover {
@@ -861,7 +863,15 @@ span.separation:AFTER {
 
 #article-menu ul {
     list-style-type: none;
-    -webkit-padding-start: 0px;
+    -webkit-padding-start: 0;
+}
+
+#article-menu ul li {
+    line-height: 1.5;
+    white-space: nowrap;
+    word-wrap: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 /* 菜单隐藏的锚点，用于定位 */

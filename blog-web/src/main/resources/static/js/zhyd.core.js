@@ -461,6 +461,90 @@
             });
         }
     });
+
+    /**
+     * 分页插件
+     */
+    $.fn.extend({
+        pagination: function (opts) {
+            return this.each(function(){
+                var self = $(this);
+                var page = new Pagination(opts);
+                var $ul = $('<ul class="pager page-btn"></ul>');
+                $ul.appendTo(self);
+                var pageNumFrag = '<li><a class="pointer #active#" data-page="#pageNum#">#pageNum#</a></li>';
+                var interval = page.getInterval();
+                var html = '';
+                if(page.hasPrev()) {
+                    html += '<li><a class="pointer" data-page="' + page.opts.pre + '"><i class="fa fa-angle-double-left"></i></a></li>';
+                }
+                for (var i = interval.start; i < interval.end; i++) {
+                    html += pageNumFrag.replaceAll("#pageNum#", i).replaceAll("#active#", page.opts.currentPage === i ? 'active' : '');
+                }
+                if(page.hasNext()) {
+                    html += '<li><a class="pointer" data-page="' + page.opts.next + '"><i class="fa fa-angle-double-right"></i></a></li>';
+                }
+                $ul.html(html);
+
+                $ul.find("li > a").on('click', function () {
+                    var pageNum = $(this).data('page') || 1;
+                    if (!pageNum) {
+                        return;
+                    }
+                    if (page.opts.search) {
+                        // ....
+                        $("#searchForm").find("input[name=pageNumber]").val(pageNum);
+                        $(".nav-search-btn").click();
+                    } else {
+                        window.location.href = page.opts.url + "/" + pageNum;
+                    }
+                })
+            });
+        }
+    });
+
+    var Pagination = function(opts) {
+        this.opts = $.extend({
+            // 分页请求路径
+            url: '',
+            // 是否是点击搜索后的分页
+            search: '',
+            // 总页数
+            totalPage: 0,
+            // 当前页数
+            currentPage: 1,
+            // 显示多少个分页按钮,默认7个
+            showNumPage: 7,
+            // 上一页
+            pre: -1,
+            // 下一页
+            next: -1
+        }, opts);
+    };
+    $.extend(Pagination.prototype, {
+        // 获取实际需显示的分页的区间信息
+        getInterval: function() {
+            var ne_half = Math.ceil(this.opts.showNumPage / 2);
+            var totalPage = this.opts.totalPage;
+            var upper_limit = totalPage - this.opts.showNumPage;
+            var start = this.getCurrentPage() > ne_half ? Math.max(Math.min(this.getCurrentPage() - ne_half, upper_limit), 0) : 0;
+            var end = this.getCurrentPage() > ne_half ? Math.min(this.getCurrentPage() + ne_half, totalPage) : Math.min(this.opts.showNumPage, totalPage);
+            return {
+                start: start + 1,
+                end: end + 1
+            };
+        },
+        getCurrentPage: function() {
+            var currentPage = parseInt(this.opts.currentPage);
+            return isNaN(currentPage) ? 1 : currentPage;
+        },
+        hasPrev: function() {
+            return this.opts.pre && this.opts.pre > 0;
+        },
+        hasNext: function() {
+            return this.opts.next && this.opts.next > 0 && this.opts.next <= this.opts.totalPage;
+        }
+    });
 })(jQuery);
 
 /* 返回顶部插件 */

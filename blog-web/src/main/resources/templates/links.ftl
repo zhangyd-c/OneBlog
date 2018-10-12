@@ -161,7 +161,7 @@
                         </div>
                     </div>
                     <div class="form-group has-info">
-                        <button type="button" class="btn btn-default btn-sm autoLink"><i class="fa fa-smile-o"></i>提交申请</button>
+                        <button type="button" class="btn btn-default btn-sm autoLink" data-loading-text="正在提交申请，请稍后..."><i class="fa fa-smile-o"></i>提交申请</button>
                     </div>
                 </form>
             </div>
@@ -171,7 +171,77 @@
 
 <@footer>
     <script type="text/javascript">
-        eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('$(k(){$("#n").g({0:"\\10\\R\\N\\M\\z",y:{l:"2 2-x",w:"2 2-v",u:"2 2-t"},s:{r:{3:{9:{0:"\\c\\d\\J\\q\\1\\e\\7\\f"}}},h:{3:{9:{0:"\\c\\d\\5\\4\\1\\e\\7\\f"},o:{0:"\\1\\8\\6\\j\\5\\4"}}},A:{3:{B:{0:"\\1\\8\\6\\j\\C\\D\\5\\4"}}},E:{3:{9:{0:"\\c\\d\\F\\G\\1\\e\\7\\f"}}},H:{3:{o:{0:"\\I\\p\\5\\4\\1\\8\\6"}}}}});$(".K").L(k(){i a=$("#n");a.g("O");P(Q.l(a)){i b=a.S("T");$.U({V:"W",h:b,X:a.Y(),Z:$.m.11,12:$.m.13})}})});',62,66,'message|u4e0d|fa|validators|u5740|u5730|u6cd5|u4e3a|u5408|notEmpty|||u7ad9|u70b9|u80fd|u7a7a|bootstrapValidator|url|var|u7684|function|valid|tool|autoLinkForm|uri|u6807|u79f0|name|fields|refresh|validating|remove|invalid|check|feedbackIcons|u6548|email|emailAddress|u90ae|u7bb1|description|u63cf|u8ff0|favicon|u56fe|u540d|autoLink|click|u65e0|u503c|validate|if|_form|u5165|attr|action|ajax|type|POST|data|serialize|success|u8f93|ajaxSuccess|error|ajaxError'.split('|'),0,{}))
+        $(function() {
+            $("#autoLinkForm").bootstrapValidator({
+                message: "输入值无效",
+                feedbackIcons: {
+                    valid: "fa fa-check",
+                    invalid: "fa fa-remove",
+                    validating: "fa fa-refresh"
+                },
+                fields: {
+                    name: {
+                        validators: {
+                            notEmpty: {
+                                message: "站点名称不能为空"
+                            }
+                        }
+                    },
+                    url: {
+                        validators: {
+                            notEmpty: {
+                                message: "站点地址不能为空"
+                            },
+                            uri: {
+                                message: "不合法的地址"
+                            }
+                        }
+                    },
+                    email: {
+                        validators: {
+                            emailAddress: {
+                                message: "不合法的邮箱地址"
+                            }
+                        }
+                    },
+                    description: {
+                        validators: {
+                            notEmpty: {
+                                message: "站点描述不能为空"
+                            }
+                        }
+                    },
+                    favicon: {
+                        validators: {
+                            uri: {
+                                message: "图标地址不合法"
+                            }
+                        }
+                    }
+                }
+            });
+            $(".autoLink").click(function() {
+                var $thisBtn = $(this);
+                var $form = $("#autoLinkForm");
+                $form.bootstrapValidator("validate");
+                if (_form.valid($form)) {
+                    $thisBtn.button('loading');
+                    $.ajax({
+                        type: "POST",
+                        url: $form.attr("action"),
+                        data: $form.serialize(),
+                        success: function (json) {
+                            $.alert.ajaxSuccess(json);
+                            $thisBtn.button('reset');
+                        },
+                        error: function (json) {
+                            $.alert.ajaxError(json);
+                            $thisBtn.button('reset');
+                        }
+                    })
+                }
+            })
+        });
     </script>
     <script src="https://v1.hitokoto.cn/?encode=js&c=d&select=%23hitokoto" defer></script>
 </@footer>

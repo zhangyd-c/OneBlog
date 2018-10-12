@@ -48,11 +48,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * 文章列表
@@ -260,7 +262,8 @@ public class BizArticleServiceImpl implements BizArticleService {
      */
     @Override
     public List<String> listMaterial() {
-        return bizArticleMapper.listMaterial();
+        List<String> list = bizArticleMapper.listMaterial();
+        return !CollectionUtils.isEmpty(list) ? list.stream().filter(s -> !StringUtils.isEmpty(s)).collect(Collectors.toList()): null;
     }
 
     /**

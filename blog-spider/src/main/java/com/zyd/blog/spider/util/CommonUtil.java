@@ -2,6 +2,8 @@ package com.zyd.blog.spider.util;
 
 import com.zyd.blog.spider.enums.ExitWayEnum;
 import org.apache.commons.lang3.StringUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,10 +27,12 @@ public class CommonUtil {
     }
 
     public static String subDescStr(String description, String content) {
-        return StringUtils.isNotEmpty(description) ? description.replaceAll("\r\n| ", "") : content.length() > 100 ? content.substring(0, 100) : content;
+        String desc = StringUtils.isNotEmpty(description) ? description.replaceAll("\r\n| ", "") : content.length() > 100 ? content.substring(0, 100) : content;
+        return Jsoup.clean(desc.trim(), Whitelist.simpleText());
     }
 
     public static String subKeywordsStr(String keywords) {
-        return StringUtils.isNotEmpty(keywords) && !"null".equals(keywords) ? keywords.replaceAll(" +|，", ",").replaceAll(",,", ",") : null;
+        String keys = StringUtils.isNotEmpty(keywords) && !"null".equals(keywords) ? keywords.trim().replaceAll(" +|，", ",").replaceAll(",,", ",") : null;
+        return Jsoup.clean(keys, Whitelist.simpleText());
     }
 }

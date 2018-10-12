@@ -241,7 +241,7 @@ CREATE TABLE `sys_config` (
 -- ----------------------------
 -- Records of sys_config
 -- ----------------------------
-INSERT INTO `sys_config` VALUES ('1', 'OneBlog是一款简洁美观、自适应的Java博客系统。使用springboot开发，前端使用Bootstrap。支持移动端自适应，配有完备的前台和后台管理功能。', 'OneBlog,开源博客', 'zhyd.me', 'http://localhost:8085', 'http://localhost:8443', 'OneBlog开源博客', 'OneBlog是一款简洁美观、自适应的Java博客系统', 'http://localhost:8085/img/favicon.ico', 'http://localhost:8443', '张亚东', 'yadong.zhang0415#gmail.com', 'https://static.zhyd.me/static/img/wechat_account.jpg', '843977358', 'http://weibo.com/211230415', 'https://github.com/zhangyd-c', 0, '2018-11-11 11:11:11', 1, 'http://pe6duqm84.bkt.clouddn.com/', NULL, NULL, NULL, NULL, 'qrcode/wx_code.png', 'qrcode/zfb_code.png', 'NwHaYlGalDEpgxm46xBaC3T9', '2018-01-19 23:07:52', '2018-08-28 22:33:25');
+INSERT INTO `sys_config` VALUES ('1', 'OneBlog是一款简洁美观、自适应的Java博客系统。使用springboot开发，前端使用Bootstrap。支持移动端自适应，配有完备的前台和后台管理功能。', 'OneBlog,开源博客', 'zhyd.me', 'http://localhost:8085', 'http://localhost:8443', 'OneBlog开源博客', 'OneBlog是一款简洁美观、自适应的Java博客系统', 'http://localhost:8443/img/favicon.ico', 'http://localhost:8443', '张亚东', 'yadong.zhang0415#gmail.com', 'https://static.zhyd.me/static/img/wechat_account.jpg', '843977358', 'http://weibo.com/211230415', 'https://github.com/zhangyd-c', 0, '2018-11-11 11:11:11', 1, 'http://pe6duqm84.bkt.clouddn.com/', NULL, NULL, NULL, NULL, 'qrcode/wx_code.png', 'qrcode/zfb_code.png', 'NwHaYlGalDEpgxm46xBaC3T9', '2018-01-19 23:07:52', '2018-08-28 22:33:25');
 
 -- ----------------------------
 -- Table structure for sys_link

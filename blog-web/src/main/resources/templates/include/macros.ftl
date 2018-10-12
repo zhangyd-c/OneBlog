@@ -42,19 +42,13 @@
 <#-- 分页组件 -->
 <#macro pageBar>
     <#if page?exists && (page.pages > 1)>
-    <nav>
-        <ul class="pager page-btn" data-url="${config.siteUrl}/${url?if_exists}" data-search="${(model.keywords == null || model.keywords == '')?string('false', 'true')}">
-            <#if page.hasPreviousPage>
-            <li><a class="pointer" data-page="${page.prePage}"><i class="fa fa-angle-double-left"></i></a></li>
-            </#if>
-            <#list 1..page.pages as item>
-            <li><a ${(page.pageNum == item)?string('class="pointer active"','class="pointer" data-page="${item?c}"')}>${item?c}</a></li>
-            </#list>
-            <#if page.hasNextPage>
-            <li><a class="pointer" data-page="${page.nextPage}"><i class="fa fa-angle-double-right"></i></a></li>
-            </#if>
-        </ul>
-    </nav>
+    <nav class="pagination"
+         data-url="${config.siteUrl}/${url?if_exists}"
+         data-search="${(model.keywords == null || model.keywords == '')?string('false', 'true')}"
+         data-total-page="${page.pages?c}"
+         data-current-page="${page.pageNum?c}"
+         data-pre="${page.prePage}"
+         data-next="${page.nextPage}"></nav>
     </#if>
 </#macro>
 

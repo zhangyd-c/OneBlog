@@ -75,7 +75,7 @@ function initArticeMenu() {
                 var tagIndex = parseInt(tagName.charAt(1)) - 1;
                 spanDom = '<i class="fa fa-angle-right"></i>';
                 aDom = '<a href="#menu_' + index + '" style="display:inline-block;">' + tagText + '</a>';
-                liDom = '<li style="padding-left:' + padding[tagIndex] + 'px;line-height: 2;">' + spanDom + aDom + '</li>';
+                liDom = '<li style="padding-left:' + padding[tagIndex] + 'px;">' + spanDom + aDom + '</li>';
                 $("#article-menu ul").append(liDom);
                 dNum++;
             });
@@ -274,7 +274,6 @@ $(function () {
                 host: scheme + host + "/websocket",
                 reconnect: true,
                 callback: function (result) {
-                    console.log(result);
                     var resultJson = JSON.parse(result);
                     wesocketMsgResolver[resultJson["fun"]](resultJson["msg"]);
                 }
@@ -364,23 +363,16 @@ $(function () {
     });
 
     /* 分页按钮点击事件 */
-    $(".page-btn li a").click(function () {
+    $(".pagination").each(function() {
         var $this = $(this);
-        var $parents = $this.parents(".page-btn");
-        var search = $parents.data("search");
-        var url = $parents.data("url");
-        var pageNum = $this.data("page") || 1;
-        if (!pageNum) {
-            return;
-        }
-        var action = url + "/" + pageNum;
-
-        if (search) {
-            $("#searchForm").find("input[name=pageNumber]").val(pageNum);
-            $(".nav-search-btn").click();
-        } else {
-            window.location.href = action;
-        }
+        $this.pagination({
+            url: $this.data('url'),
+            search: $this.data('search'),
+            totalPage: $this.data('total-page'),
+            currentPage: $this.data('current-page'),
+            pre: $this.data('pre') || -1,
+            next: $this.data('next') || -1
+        });
     });
 
     /* 首页通知 */

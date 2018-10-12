@@ -327,7 +327,7 @@
             csdn: {
                 domain: "blog.csdn.net",
                 titleRegex: "//h1[@class=title-article]/html()",
-                authorRegex: "//div[@class=profile-intro]/div[@class=user-info]/p[@class=name]/a[@class=text-truncate]/html()",
+                authorRegex: "//a[@class=follow-nickName]/html()",
                 releaseDateRegex: "//div[@class='article-bar-top']/span[@class='time']/text()",
                 contentRegex: "//div[@class=article_content]/html()",
                 targetLinksRegex: ".*blog\\.csdn\\.net/{uid}/article/details/[0-9a-zA-Z]{1,15}",
@@ -419,8 +419,6 @@
             var $form = $("form#removerForm");
             if (validator.checkAll($form)) {
                 $("#declareModal").modal('hide');
-                // $(this).button('loading');
-                // $("#resetBtn").button('loading');
                 changeBtnState(true)
                 $("#resultModal").modal('show');
                 $("#showResultModal").show();
@@ -445,8 +443,6 @@
 
         function printMessage(message){
             if(message == 'shutdown') {
-                // $("#submitBtn").button('reset');
-                // $("#resetBtn").button('reset');
                 changeBtnState(false)
                 return;
             }
