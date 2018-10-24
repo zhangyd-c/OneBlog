@@ -4,7 +4,7 @@
 ![Maven](https://img.shields.io/badge/Maven-3.3.1-green.svg)
 ![MySQL](https://img.shields.io/badge/MySQL-5.6.4-green.svg)
 ![Redis](https://img.shields.io/badge/Redis-3.0.503-green.svg)
-[![license](https://img.shields.io/badge/license-MIT-yellow.svg)](https://gitee.com/yadong.zhang/DBlog/blob/master/LICENSE)
+[![license](https://img.shields.io/badge/license-GPL%20v3-yellow.svg)](https://gitee.com/yadong.zhang/DBlog/blob/master/LICENSE)
 
 ----
 
@@ -165,5 +165,5 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 # 开源协议
 
-[![license](https://img.shields.io/badge/license-MIT-yellow.svg)](https://gitee.com/yadong.zhang/DBlog/blob/master/LICENSE)
+[![license](https://img.shields.io/badge/license-GPL%20v3-yellow.svg)](https://gitee.com/yadong.zhang/DBlog/blob/master/LICENSE)
 
