@@ -98,7 +98,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
       注：因为系统存在redis缓存，如果是第一次使用，可以直接修改sys_config表内容，如果不是第一次用，建议使用admin项目中的`系统配置`页面修改相关配置内容
 5. 运行项目(三种方式)
    1. 项目根目录下执行`mvn -X clean package -Dmaven.test.skip=true -Ptest`编译打包（注：-Ptest中的test为环境标识），然后cd到blog-web目录下执行`java -jar target/blog-web.jar`
-   2. 项目根目录下执行`mvn springboot:run`
+   2. 项目根目录下执行`mvn spring-boot:run`(注，如果报依赖错误，可在相关的依赖模块先执行install操作)
    3. 直接运行`BlogWebApplication.java`
 6. 浏览器访问`http://127.0.0.1:8443`
 
