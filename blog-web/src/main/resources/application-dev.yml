@@ -39,10 +39,19 @@ spring:
 # logging settings
 logging:
   path: /var/tmp/website-blog-web
+
 ####################################自定义配置##########################################
 app:
     # 是否启用kaptcha验证码
     enableKaptcha: false
     # 创建网站的时间，用于计算已建站的天数，默认为2018-01-01
     buildWebsiteDate: 2018-01-01 00:00:00
+
+# braum过滤器，用于过滤恶意请求
+braum:
+    limit:
+        access:
+            type: redis
+            threshold: 15
+            interval: 5000
 ####################################自定义配置##########################################

@@ -190,5 +190,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>me.zhyd.braum.spring.boot</groupId>
+            <artifactId>braum-spring-boot-starter</artifactId>
+            <version>1.0.0-alpha</version>
+        </dependency>
     </dependencies>
 </project>

@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 
 /**
- *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
  * @website https://www.zhyd.me
@@ -73,6 +72,15 @@ public class RequestUtil {
     public static String getMethod() {
         HttpServletRequest request = RequestHolder.getRequest();
         return request.getMethod();
+    }
+
+    public static boolean isAjax(HttpServletRequest request) {
+        if (request == null) {
+            request = RequestHolder.getRequest();
+        }
+        return "XMLHttpRequest".equalsIgnoreCase(request.getHeader("X-Requested-With"))
+                || request.getParameter("ajax") != null;
+
     }
 
 }
