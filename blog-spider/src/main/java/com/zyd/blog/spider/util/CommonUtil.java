@@ -28,11 +28,11 @@ public class CommonUtil {
 
     public static String subDescStr(String description, String content) {
         String desc = StringUtils.isNotEmpty(description) ? description.replaceAll("\r\n| ", "") : content.length() > 100 ? content.substring(0, 100) : content;
-        return Jsoup.clean(desc.trim(), Whitelist.simpleText());
+        return StringUtils.isEmpty(desc) ? null : Jsoup.clean(desc.trim(), Whitelist.simpleText());
     }
 
     public static String subKeywordsStr(String keywords) {
         String keys = StringUtils.isNotEmpty(keywords) && !"null".equals(keywords) ? keywords.trim().replaceAll(" +|，", ",").replaceAll(",,", ",") : null;
-        return Jsoup.clean(keys, Whitelist.simpleText());
+        return StringUtils.isEmpty(keys) ? null : Jsoup.clean(keys, Whitelist.simpleText());
     }
 }
