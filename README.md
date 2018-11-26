@@ -38,7 +38,9 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 [后台demo(root,123456)](http://dblog-admin.zhyd.me)
 
-[新版文档](http://dblog-docs.zhyd.me)
+![输入图片说明](https://images.gitee.com/uploads/images/2018/1126/194806_3b89eb35_784199.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2018/1126/194835_e5893dba_784199.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2018/1126/194917_2e3cb482_784199.png "屏幕截图.png")
 
 ----
 
