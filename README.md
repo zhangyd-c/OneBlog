@@ -123,6 +123,10 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - [小公举的博客](https://loveyatou.top/)
 - [彭江毅的博客](https://pengjiangyi.com)
 - [晓飞的博客](https://dreamatach.com)
+- [拾忆的博客](http://www.lsshiyi.cn/)
+- [https://blog.itourshare.net/](https://blog.itourshare.net/)
+- [码农擎天柱](http://blog.qinlei.vip/)
+- [陈晓雷的博客](http://blog.csxll.top)
 - 更多待续...
 
 烦请各位使用OneBlog的朋友，能留下你的网址（没别的意思，只是看看有多少人而已） - [点这儿](https://gitee.com/yadong.zhang/DBlog/issues/ILIAQ)
