@@ -4,6 +4,8 @@ import com.zyd.blog.framework.holder.RequestHolder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -26,6 +28,20 @@ public class RequestUtil {
             sb.append("&").append(paraName).append("=").append(request.getParameter(paraName));
         }
         return sb.toString();
+    }
+
+    public static Map<String, Object> getParametersMap() {
+        HttpServletRequest request = RequestHolder.getRequest();
+        Enumeration<String> paraNames = request.getParameterNames();
+        if (paraNames == null) {
+            return null;
+        }
+        Map<String, Object> res = new HashMap<>();
+        while (paraNames.hasMoreElements()) {
+            String paraName = paraNames.nextElement();
+            res.put(paraName, request.getParameter(paraName));
+        }
+        return res;
     }
 
     public static String getHeader(String headerName) {

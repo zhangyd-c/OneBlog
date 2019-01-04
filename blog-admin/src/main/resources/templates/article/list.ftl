@@ -208,6 +208,7 @@
                     data: {'ids': selectedId},
                     success: function (json) {
                         $.alert.ajaxSuccess(json);
+                        $.tableUtil.refresh();
                     },
                     error: $.alert.ajaxError
                 });

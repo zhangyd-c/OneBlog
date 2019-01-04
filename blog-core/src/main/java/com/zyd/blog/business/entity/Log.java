@@ -78,6 +78,15 @@ public class Log {
         this.sysLog.setContent(content);
     }
 
+
+    public String getParams() {
+        return this.sysLog.getParams();
+    }
+
+    public void setParams(String params) {
+        this.sysLog.setParams(params);
+    }
+
     public String getType() {
         return this.sysLog.getType();
     }

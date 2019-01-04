@@ -1,5 +1,7 @@
 package com.zyd.blog.business.aspect;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Log;
 import com.zyd.blog.business.entity.User;
@@ -85,13 +87,13 @@ public class BussinessLogAspect {
         sysLog.setRequestUrl(RequestUtil.getRequestUrl());
         sysLog.setUa(ua);
         sysLog.setSpiderType(WebSpiderUtils.parseUa(ua));
-
+        sysLog.setParams(JSONObject.toJSONString(RequestUtil.getParametersMap()));
         User user = SessionUtil.getUser();
         if(user != null) {
             sysLog.setUserId(user.getId());
-            sysLog.setContent(String.format("用户: [%s] | 操作: %s | 参数: %s", user.getUsername(), bussinessName, RequestUtil.getParameters()));
+            sysLog.setContent(String.format("用户: [%s] | 操作: %s", user.getUsername(), bussinessName));
         } else {
-            sysLog.setContent(String.format("访客: [%s] | 操作: %s | 参数: %s", sysLog.getIp(), bussinessName, RequestUtil.getParameters()));
+            sysLog.setContent(String.format("访客: [%s] | 操作: %s", sysLog.getIp(), bussinessName));
         }
 
         try {
@@ -109,7 +111,7 @@ public class BussinessLogAspect {
             List<String> result = RegexUtils.match(bussinessName, "(?<=\\{)(\\d+)");
             for (String s : result) {
                 int index = Integer.parseInt(s);
-                bussinessName = bussinessName.replaceAll("\\{" + index + "\\}", String.valueOf(params[index - 1]));
+                bussinessName = bussinessName.replaceAll("\\{" + index + "\\}", JSON.toJSONString(params[index - 1]));
             }
         }
         return bussinessName;
