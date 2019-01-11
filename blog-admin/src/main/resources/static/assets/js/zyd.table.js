@@ -58,9 +58,19 @@
                     strictSearch: true,                 //设置为 true启用 全匹配搜索，否则为模糊搜索
                     searchOnEnterKey: true,            // 设置为 true时，按回车触发搜索方法，否则自动触发搜索方法
                     minimumCountColumns: 1,             //最少允许的列数
-                    showColumns: true,                  //是否显示 内容列下拉框
+                    // showColumns: true,                  //是否显示 内容列下拉框
                     showRefresh: true,                  //是否显示刷新按钮
-                    showToggle: true,                   //是否显示详细视图和列表视图的切换按钮
+                    // showToggle: true,                   //是否显示详细视图和列表视图的切换按钮
+                    iconsPrefix: 'fa', // glyphicon of fa (font awesome)
+                    icons: {
+                        // paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
+                        // paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
+                        refresh: 'fa-refresh icon-refresh',
+                        toggle: 'fa-list-alt icon-list-alt',
+                        columns: 'fa-th icon-th',
+                        detailOpen: 'fa-plus icon-plus',
+                        detailClose: 'fa-minus icon-minus'
+                    },
                     // detailView: true,                   //是否显示父子表
                     // showExport: true,                   //是否显示导出
                     // exportDataType: "basic",              //basic', 'all', 'selected'.

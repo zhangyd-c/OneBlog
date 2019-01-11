@@ -17,6 +17,7 @@ public class SysLog extends AbstractDO {
 	private String logLevel;
 	private String ip;
 	private String content;
+	private String params;
 	private String type;
 	private String ua;
 	private String os;

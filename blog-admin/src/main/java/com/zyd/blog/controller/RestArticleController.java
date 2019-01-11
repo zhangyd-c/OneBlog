@@ -125,7 +125,7 @@ public class RestArticleController {
 
     @RequiresPermissions(value = {"article:publish"}, logical = Logical.OR)
     @PostMapping(value = "/batchPublish")
-    @BussinessLog("批量推送文章[{1}]到百度站长平台")
+    @BussinessLog("批量发布文章[{1}]")
     public ResponseVO batchPublish(Long[] ids) {
         if (null == ids) {
             return ResultUtil.error(500, "请至少选择一条记录");
