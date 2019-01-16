@@ -20,9 +20,9 @@
         <result property="weibo" jdbcType="VARCHAR" column="weibo"/>
         <result property="github" jdbcType="VARCHAR" column="github"/>
         <result property="maintenance" jdbcType="BIT" column="maintenance"/>
-        <result property="maintenanceData" jdbcType="TIMESTAMP" column="maintenance_data"/>
+        <result property="maintenanceDate" jdbcType="TIMESTAMP" column="maintenance_date"/>
         <result property="comment" jdbcType="BIT" column="comment"/>
-        <result property="qiuniuBasePath" jdbcType="VARCHAR" column="qiuniu_base_path"/>
+        <result property="qiniuBasePath" jdbcType="VARCHAR" column="qiniu_base_path"/>
         <result property="qiniuAccessKey" jdbcType="VARCHAR" column="qiniu_access_key"/>
         <result property="qiniuSecretKey" jdbcType="VARCHAR" column="qiniu_secret_key"/>
         <result property="qiniuBucketName" jdbcType="VARCHAR" column="qiniu_bucket_name"/>

@@ -149,7 +149,7 @@ function initScrollMenu() {
 }
 
 var PaymentUtils = window.payment || {
-    config: [{url: appConfig.qiuniuBasePath + appConfig.zfbPraiseCode, desc: '支付宝转账'}, {url: appConfig.qiuniuBasePath + appConfig.wxPraiseCode, desc: '微信转账'}],
+    config: [{url: appConfig.qiniuBasePath + appConfig.zfbPraiseCode, desc: '支付宝转账'}, {url: appConfig.qiniuBasePath + appConfig.wxPraiseCode, desc: '微信转账'}],
     show: function () {
         $("#reward").modal('show');
         this.change(0);

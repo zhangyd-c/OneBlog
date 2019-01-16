@@ -201,7 +201,7 @@
         wwwPath: '${config.siteUrl}',
         cmsPath: '${config.cmsUrl}',
         staticPath: '${config.staticWebSite}',
-        qiuniuBasePath: '${config.qiuniuBasePath}',
+        qiniuBasePath: '${config.qiniuBasePath}',
         wxPraiseCode: '${config.wxPraiseCode}',
         zfbPraiseCode: '${config.zfbPraiseCode}'
     };

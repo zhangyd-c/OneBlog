@@ -34,10 +34,10 @@ public class SysConfig extends AbstractDO {
     private String weibo;
     private String github;
     private Boolean maintenance;
-    private Date maintenanceData;
+    private Date maintenanceDate;
     private Boolean comment;
 
-    private String qiuniuBasePath;
+    private String qiniuBasePath;
     private String qiniuAccessKey;
     private String qiniuSecretKey;
     private String qiniuBucketName;

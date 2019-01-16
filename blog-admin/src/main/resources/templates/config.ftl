@@ -188,9 +188,9 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="qiuniuBasePath">七牛路径 <span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="qiniuBasePath">七牛路径 <span class="required">*</span></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" class="form-control col-md-7 col-xs-12" name="qiuniuBasePath" id="qiuniuBasePath"
+                                            <input type="text" class="form-control col-md-7 col-xs-12" name="qiniuBasePath" id="qiniuBasePath"
                                                    required="required" placeholder="请输入七牛路径"/>
                                         </div>
                                     </div>
@@ -278,10 +278,10 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenanceData">维护日期</label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenanceDate">维护日期</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class='input-group date myDatepicker'>
-                                                <input type='text' class="form-control" required="required" readonly="readonly" id="maintenanceData" name="maintenanceData" placeholder="请输入维护日期"/>
+                                                <input type='text' class="form-control" required="required" readonly="readonly" id="maintenanceDate" name="maintenanceDate" placeholder="请输入维护日期"/>
                                                 <span class="input-group-addon">
                                                    <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
@@ -325,8 +325,8 @@
                         clearText($(this), this.type, data);
                     });
 
-                    data.zfbPraiseCode && $("#zfbPraiseCodeFilePreview").html('<img src="' + data.qiuniuBasePath + data.zfbPraiseCode + '" alt="支付宝赞赏码" class="img-responsive img-rounded auto-shake">');
-                    data.wxPraiseCode && $("#wxPraiseCodeFilePreview").html('<img src="' + data.qiuniuBasePath + data.wxPraiseCode + '" alt="微信赞赏码" class="img-responsive img-rounded auto-shake">');
+                    data.zfbPraiseCode && $("#zfbPraiseCodeFilePreview").html('<img src="' + data.qiniuBasePath + data.zfbPraiseCode + '" alt="支付宝赞赏码" class="img-responsive img-rounded auto-shake">');
+                    data.wxPraiseCode && $("#wxPraiseCodeFilePreview").html('<img src="' + data.qiniuBasePath + data.wxPraiseCode + '" alt="微信赞赏码" class="img-responsive img-rounded auto-shake">');
                 }
             });
 

@@ -76,7 +76,7 @@
     <#if config.maintenance?if_exists && config.maintenance>
     <div class="alert alert-warning fade-in" role="alert">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
-        系统预计将在<strong>${config.maintenanceData?string('yyyy年MM月dd日 HH点mm分')}</strong>进行更新，届时网站将无法使用，更新时间大约 5-10分钟，敬请悉知。
+        系统预计将在<strong>${config.maintenanceDate?string('yyyy年MM月dd日 HH点mm分')}</strong>进行更新，届时网站将无法使用，更新时间大约 5-10分钟，敬请悉知。
     </div>
     </#if>
 </#macro>

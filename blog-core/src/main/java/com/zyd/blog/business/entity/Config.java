@@ -169,13 +169,13 @@ public class Config {
     }
 
     @JsonFormat(timezone = "GMT+8", pattern = DateConst.YYYY_MM_DD_HH_MM_SS_EN)
-    public Date getMaintenanceData() {
-        return this.sysConfig.getMaintenanceData();
+    public Date getMaintenanceDate() {
+        return this.sysConfig.getMaintenanceDate();
     }
 
     @DateTimeFormat(pattern = DateConst.YYYY_MM_DD_HH_MM_SS_EN)
-    public void setMaintenanceData(Date maintenanceData) {
-        this.sysConfig.setMaintenanceData(maintenanceData);
+    public void setMaintenanceDate(Date maintenanceDate) {
+        this.sysConfig.setMaintenanceDate(maintenanceDate);
     }
 
     public boolean isComment() {
@@ -203,12 +203,12 @@ public class Config {
         this.sysConfig.setUpdateTime(updateTime);
     }
 
-    public String getQiuniuBasePath() {
-        return this.sysConfig.getQiuniuBasePath();
+    public String getQiniuBasePath() {
+        return this.sysConfig.getQiniuBasePath();
     }
 
-    public void setQiuniuBasePath(String qiuniuBasePath) {
-        this.sysConfig.setQiuniuBasePath(qiuniuBasePath);
+    public void setQiniuBasePath(String qiniuBasePath) {
+        this.sysConfig.setQiniuBasePath(qiniuBasePath);
     }
 
     public String getQiniuAccessKey() {
