@@ -34,7 +34,7 @@ public class Article {
         this.author = author;
         this.source = source;
         if (CollectionUtils.isEmpty(this.tags = tags)) {
-            this.tags = Collections.singletonList("OneBlog");
+            this.tags = Collections.singletonList("其他");
         }
         if (StringUtils.isEmpty(this.description = description) || "null".equalsIgnoreCase(this.description)) {
             this.description = title;
