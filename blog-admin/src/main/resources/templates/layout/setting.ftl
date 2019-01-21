@@ -30,10 +30,10 @@
                         <span class="badge bg-green noticeNum">0</span>
                     </a>
                     <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                        <li>
+                        <li id="event-li">
                             <div class="text-center">
                                 <a href="/comments">
-                                    <strong>查看所有</strong>
+                                    <strong>立即处理</strong>
                                     <i class="fa fa-angle-right"></i>
                                 </a>
                             </div>

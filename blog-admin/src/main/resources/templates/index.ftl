@@ -292,7 +292,6 @@
             var jsonData = json.data;
 
             function setValue(dom, value) {
-                console.log(dom, value);
                 var $dom = dom;
                 $dom.find("div.tile-stats .count").text(value);
             }

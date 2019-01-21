@@ -11,6 +11,7 @@
         qiniuPath: '${config.qiniuBasePath}',
         qiniuImgStyle: '',// 上传文章图片时，会自动追加该值，主要用来定制化图片样式、水印背景等属性，默认无
         wwwPath: '${config.siteUrl}',
+        cmsPath: '${config.cmsUrl}',
         staticPath: '${config.staticWebSite}'
     }
 </script>
@@ -34,6 +35,10 @@
 <script src="https://cdn.bootcss.com/zTree.v3/3.5.29/js/jquery.ztree.excheck.min.js"></script>
 <script src="https://cdn.bootcss.com/switchery/0.8.2/switchery.min.js"></script>
 <script src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.js" type="text/javascript"></script>
+<#--
+<script src="https://cdn.bootcss.com/pnotify/3.2.1/pnotify.js"></script>
+<script src="https://cdn.bootcss.com/pnotify/3.2.1/pnotify.buttons.js"></script>
+<script src="https://cdn.bootcss.com/pnotify/3.2.1/pnotify.nonblock.js"></script>-->
 
 <script src="/assets/js/validator.js"></script>
 <script src="/assets/js/ajaxfileupload.js"></script>

@@ -89,10 +89,10 @@ var zhyd = window.zhyd || {
     initWangEditor: function (options) {
         // 全屏插件
         window.wangEditor.fullscreen = {
-            init: function(editorSelector) {
+            init: function (editorSelector) {
                 $(editorSelector + " .w-e-toolbar").append('<div class="w-e-menu"><a class="_wangEditor_btn_fullscreen" href="###" onclick="window.wangEditor.fullscreen.toggleFullscreen(\'' + editorSelector + '\')" data-toggle="tooltip" data-placement="bottom" title data-original-title="全屏编辑"><i class="fa fa-expand"></i></a></div>')
             },
-            toggleFullscreen: function(editorSelector) {
+            toggleFullscreen: function (editorSelector) {
                 $(editorSelector).toggleClass('fullscreen-editor');
                 var $a = $(editorSelector + ' ._wangEditor_btn_fullscreen');
                 var $i = $a.find("i:first-child");
@@ -298,6 +298,30 @@ var zhyd = window.zhyd || {
                 });
             });
         }, delay || 0);
+    },
+    initCommentNotify: function () {
+        $.ajax({
+            cache: false,
+            type: "post",
+            url: "/comment/listVerifying",
+            success: function (json) {
+                $.alert.ajaxSuccess(json);
+                var $box = $(".msg_list > li:last-child");
+                $box.prevAll().remove();
+                if (!json.data) {
+                    html = '<li><a><span class="image"><img src="/assets/images/loading.gif" alt="user avatar"></span> <span><span>系统管理员</span> <span class="time">3 mins ago</span></span> <span class="message">暂无消息</span></a></li>';
+                    $box.before(html);
+                    $(".noticeNum").text(0);
+                    return;
+                }
+                var tpl = '{{#data}}<li><a href="/comments"><span class="image"><img src="{{#avatar}}{{avatar}}{{/avatar}}{{^avatar}}/assets/images/user.png{{/avatar}}" alt="user avatar"></span> <span><span>{{nickname}}</span> <span class="time">{{createTimeString}}</span></span> <span class="message">点击查看&审核</span></a></li>{{/data}}';
+                html = Mustache.render(tpl, json);
+                $box.before(html);
+                $(".noticeNum").text(json.data.length);
+                // $.tool.currentPath() === "/" && $.notify.info('共有' + json.data.length + '条评论待处理，<a href="/comments"><strong>立即处理</strong></a>');
+            },
+            error: $.alert.ajaxError
+        });
     }
 };
 
@@ -394,26 +418,8 @@ $(document).ready(function () {
     zhyd.initDaterangepicker();
     zhyd.initValidator();
     zhyd.initSidebar();
-
-    $.ajax({
-        cache: false,
-        type: "post",
-        url: "/comment/listVerifying",
-        success: function (json) {
-            $.alert.ajaxSuccess(json);
-            var $box = $(".msg_list > li:last-child");
-            if (!json.data) {
-                var html = '<li><a><span class="image"><img src="/assets/images/loading.gif" alt="user avatar"></span> <span><span>系统管理员</span> <span class="time">3 mins ago</span></span> <span class="message">暂无消息</span></a></li>';
-                $box.before(html);
-                return;
-            }
-            var tpl = '{{#data}}<li><a href="/comments"><span class="image"><img src="{{#avatar}}{{avatar}}{{/avatar}}{{^avatar}}/assets/images/user.png{{/avatar}}" alt="user avatar"></span> <span><span>{{nickname}}</span> <span class="time">{{createTimeString}}</span></span> <span class="message">点击查看&审核</span></a></li>{{/data}}';
-            var html = Mustache.render(tpl, json);
-            $box.before(html);
-            $(".noticeNum").text(json.data.length);
-        },
-        error: $.alert.ajaxError
-    });
+    zhyd.initHelloMsg();
+    zhyd.initCommentNotify();
 
     $("img.lazy-img").lazyload({
         placeholder: appConfig.staticPath + "/img/loading.gif",
@@ -434,8 +440,6 @@ $(document).ready(function () {
         var $this = $(this);
         $this.uploadPreview({imgContainer: $this.data("preview-container")});
     });
-
-    zhyd.initHelloMsg();
 
     $("#updPassBtn").click(function () {
         var $form = $("#updPassForm");
