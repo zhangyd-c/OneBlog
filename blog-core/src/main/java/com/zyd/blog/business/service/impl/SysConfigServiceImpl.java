@@ -1,18 +1,24 @@
 package com.zyd.blog.business.service.impl;
 
-import com.zyd.blog.business.annotation.RedisCache;
-import com.zyd.blog.business.entity.Config;
+import com.alibaba.fastjson.JSON;
+import com.zyd.blog.business.consts.DateConst;
+import com.zyd.blog.business.entity.BaseConfig;
+import com.zyd.blog.business.enums.QiniuUploadType;
 import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.framework.property.AppProperties;
 import com.zyd.blog.persistence.beans.SysConfig;
 import com.zyd.blog.persistence.mapper.SysConfigMapper;
 import com.zyd.blog.util.DateUtil;
+import com.zyd.blog.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,63 +44,82 @@ public class SysConfigServiceImpl implements SysConfigService {
      * @return
      */
     @Override
-    @RedisCache
-    public Config get() {
-        SysConfig config = sysConfigMapper.get();
-        return null == config ? null : new Config(config);
+    public BaseConfig getBaseConfig() {
+        List<SysConfig> list = sysConfigMapper.selectAll();
+        if (CollectionUtils.isEmpty(list)) {
+            return null;
+        }
+        String updateTimeKey = "updateTime";
+        Map<String, Object> res = new HashMap<>();
+        res.put(updateTimeKey, DateUtil.str2Date("2019-01-01 00:00:00", DateConst.YYYY_MM_DD_HH_MM_SS_EN));
+        list.forEach((sysConfig) -> {
+            res.put(String.valueOf(sysConfig.getConfigKey()), sysConfig.getConfigValue());
+            if (sysConfig.getUpdateTime().after(((Date) res.get(updateTimeKey)))) {
+                res.put(updateTimeKey, sysConfig.getUpdateTime());
+            }
+        });
+        return JSON.parseObject(JSON.toJSONString(res), BaseConfig.class);
+    }
+
+    @Override
+    public void saveFile(String key, MultipartFile file) {
+        if (key == null) {
+            return;
+        }
+        if (file != null) {
+            this.saveConfig(key, FileUtil.uploadToQiniu(file, QiniuUploadType.QRCODE, true));
+        }
+    }
+
+    @Override
+    public void saveConfig(String key, String value) {
+        if (!StringUtils.isEmpty(key)) {
+            SysConfig config = null;
+            if (null == (config = this.getByKey(key))) {
+                config = new SysConfig();
+                config.setConfigKey(key);
+                config.setConfigValue(value);
+                config.setCreateTime(new Date());
+                config.setUpdateTime(new Date());
+                this.sysConfigMapper.insert(config);
+            } else {
+                config.setConfigKey(key);
+                config.setConfigValue(value);
+                config.setUpdateTime(new Date());
+                this.sysConfigMapper.updateByPrimaryKeySelective(config);
+            }
+        }
+    }
+
+    @Override
+    public SysConfig getByKey(String key) {
+        if (StringUtils.isEmpty(key)) {
+            return null;
+        }
+        SysConfig sysConfig = new SysConfig();
+        sysConfig.setConfigKey(key);
+        return this.sysConfigMapper.selectOne(sysConfig);
     }
 
     /**
-     * 添加系统配置
+     * 添加/修改系统配置
      *
-     * @param config
-     * @return
+     * @param configs 所有的配置项
      */
     @Override
-    @RedisCache(flush = true)
-    public Config insert(Config config) {
-        config.setCreateTime(new Date());
-        config.setUpdateTime(new Date());
-        sysConfigMapper.insert(config.getSysConfig());
-        return config;
-    }
-
-    /**
-     * 删除系统配置记录
-     *
-     * @param id
-     */
-    @Override
-    @RedisCache(flush = true)
-    public void remove(Long id) {
-        sysConfigMapper.deleteByPrimaryKey(id);
-    }
-
-    /**
-     * 修改系统配置记录
-     *
-     * @param config
-     */
-    @Override
-    @RedisCache(flush = true)
-    public void update(Config config) {
-        config.setUpdateTime(new Date());
-        sysConfigMapper.updateByPrimaryKeySelective(config.getSysConfig());
+    public void saveConfig(Map<String, String> configs) {
+        if (!CollectionUtils.isEmpty(configs)) {
+            configs.forEach(this::saveConfig);
+        }
     }
 
     /**
      * 获取网站详情
-     *
-     * @return
      */
     @Override
     public Map<String, Object> getSiteInfo() {
         Map<String, Object> map = sysConfigMapper.getSiteInfo();
         if (!CollectionUtils.isEmpty(map)) {
-            Date lastUpdateTime = (Date) map.get("lastUpdateTime");
-            if (!StringUtils.isEmpty(lastUpdateTime)) {
-                map.put("lastUpdateTime", DateUtil.date2Str(lastUpdateTime, "yyyy年MM月dd日HH点"));
-            }
             // 获取建站天数
             map.put("buildSiteDate", DateUtil.getGapDay(properties.getBuildWebsiteDate(), new Date()));
         }

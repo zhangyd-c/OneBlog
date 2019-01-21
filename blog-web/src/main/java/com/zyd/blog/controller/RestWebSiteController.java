@@ -66,7 +66,7 @@ public class RestWebSiteController {
         map.put("articleTypeList", typeService.listAll());
         map.put("articleTagsList", tagsService.listAll());
         map.put("articleList", articleService.listAll());
-        map.put("config", configService.get());
+        map.put("config", configService.getBaseConfig());
         return FreeMarkerUtil.template2String(template.getRefValue(), map, true);
     }
 }

@@ -150,3 +150,44 @@ ALTER TABLE `biz_comment` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unico
 ALTER TABLE `dblog`.`sys_config`
 CHANGE COLUMN `maintenance_data` `maintenance_date` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '系统维护时间' AFTER `maintenance`,
 CHANGE COLUMN `qiuniu_base_path` `qiniu_base_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '七牛路径' AFTER `comment`;
+
+
+# 2019-01-21 修改config表结构，建议升级之前先备份本地的config表数据
+DROP TABLE IF EXISTS `sys_config`;
+CREATE TABLE `sys_config`  (
+  `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `config_key` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '首页描述',
+  `config_value` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '首页关键字',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+# 清空系统配置表
+TRUNCATE TABLE `dblog`.`sys_config`;
+# 初始化系统配置
+INSERT INTO `dblog`.`sys_config` VALUES (1, 'homeDesc', 'OneBlog是一款简洁美观、自适应的Java博客系统。使用springboot开发，前端使用Bootstrap。支持移动端自适应，配有完备的前台和后台管理功能。', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (2, 'homeKeywords', 'OneBlog,开源博客', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (3, 'domain', 'zhyd.me', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (4, 'cmsUrl', 'http://localhost:8086', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (5, 'siteUrl', 'http://localhost:8443', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (6, 'siteName', 'OneBlog开源博客', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (7, 'siteDesc', 'OneBlog是一款简洁美观、自适应的Java博客系统', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (8, 'siteFavicon', 'http://localhost:8443/img/favicon.ico', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (9, 'staticWebSite', 'http://localhost:8443', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (10, 'authorName', '张亚东', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (11, 'authorEmail', 'yadong.zhang0415#gmail.com', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (12, 'wxCode', 'https://static.zhyd.me/static/img/wechat_account.jpg', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (13, 'qq', '843977358', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (14, 'weibo', 'http://weibo.com/211230415', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (15, 'github', 'https://github.com/zhangyd-c', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (16, 'maintenance', '0', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (17, 'maintenanceDate', now(), now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (18, 'comment', '1', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (19, 'qiniuBasePath', 'http://pe6duqm84.bkt.clouddn.com/', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (20, 'qiniuAccessKey', NULL, now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (21, 'qiniuSecretKey', NULL, now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (22, 'qiniuBucketName', NULL, now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (23, 'baiduPushToken', NULL, now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (24, 'wxPraiseCode', 'qrcode/wx_code.png', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (25, 'zfbPraiseCode', 'qrcode/zfb_code.png', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (26, 'baiduApiAk', 'NwHaYlGalDEpgxm46xBaC3T9', now(), now());

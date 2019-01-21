@@ -63,8 +63,6 @@ public class BussinessLogAspect {
     }
 
     private void handle(ProceedingJoinPoint point) throws Exception {
-        //获取拦截方法的参数
-        String className = AspectUtil.getClassName(point);
         Method currentMethod = AspectUtil.getMethod(point);
         //获取操作名称
         BussinessLog annotation = currentMethod.getAnnotation(BussinessLog.class);
@@ -73,9 +71,7 @@ public class BussinessLogAspect {
         String bussinessName = parseContent(point.getArgs(), annotation.value());
         String ua = RequestUtil.getUa();
 
-        log.info("{}-{}.{}", bussinessName, className, currentMethod.getName());
-        log.info("IP: {}, Method: {}, Request URL: {}", RequestUtil.getIp(), RequestUtil.getMethod(), RequestUtil.getRequestUrl());
-        log.info("User-Agent: " + ua);
+        log.info("{} | {} - {} {} - {}", bussinessName, RequestUtil.getIp(), RequestUtil.getMethod(), RequestUtil.getRequestUrl(), ua);
         if (!save) {
             return;
         }
@@ -89,7 +85,7 @@ public class BussinessLogAspect {
         sysLog.setSpiderType(WebSpiderUtils.parseUa(ua));
         sysLog.setParams(JSONObject.toJSONString(RequestUtil.getParametersMap()));
         User user = SessionUtil.getUser();
-        if(user != null) {
+        if (user != null) {
             sysLog.setUserId(user.getId());
             sysLog.setContent(String.format("用户: [%s] | 操作: %s", user.getUsername(), bussinessName));
         } else {

@@ -3,7 +3,7 @@ package com.zyd.blog.business.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.annotation.RedisCache;
-import com.zyd.blog.business.entity.Config;
+import com.zyd.blog.business.entity.BaseConfig;
 import com.zyd.blog.business.entity.Link;
 import com.zyd.blog.business.enums.LinkSourceEnum;
 import com.zyd.blog.business.enums.TemplateKeyEnum;
@@ -146,7 +146,7 @@ public class SysLinkServiceImpl implements SysLinkService {
         if (bo != null) {
             throw new ZhydLinkException("本站已经添加过贵站的链接！");
         }
-        Config config = configService.get();
+        BaseConfig config = configService.getBaseConfig();
         if (!(LinksUtil.hasLinkByHtml(url, config.getDomain()))
                 && !LinksUtil.hasLinkByChinaz(url, config.getDomain())) {
             throw new ZhydLinkException("贵站暂未添加本站友情链接！请先添加本站友链后重新提交申请！");

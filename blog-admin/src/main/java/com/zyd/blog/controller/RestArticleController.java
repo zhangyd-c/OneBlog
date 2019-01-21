@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Article;
-import com.zyd.blog.business.entity.Config;
+import com.zyd.blog.business.entity.BaseConfig;
 import com.zyd.blog.business.enums.BaiduPushTypeEnum;
 import com.zyd.blog.business.enums.ResponseStatus;
 import com.zyd.blog.business.service.BizArticleService;
@@ -93,7 +93,7 @@ public class RestArticleController {
         if (null == ids) {
             return ResultUtil.error(500, "请至少选择一条记录");
         }
-        Config config = configService.get();
+        BaseConfig config = configService.getBaseConfig();
         String siteUrl = config.getSiteUrl();
         StringBuilder params = new StringBuilder();
         for (Long id : ids) {

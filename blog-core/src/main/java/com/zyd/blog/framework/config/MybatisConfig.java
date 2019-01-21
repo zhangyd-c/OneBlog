@@ -1,6 +1,6 @@
 package com.zyd.blog.framework.config;
 
-import org.mybatis.spring.annotation.MapperScan;
+import tk.mybatis.spring.annotation.MapperScan;
 import org.springframework.stereotype.Component;
 
 /**

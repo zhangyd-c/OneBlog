@@ -1,10 +1,6 @@
 package com.zyd.blog.business.service.impl;
 
-import com.zyd.blog.business.entity.Comment;
-import com.zyd.blog.business.entity.Config;
-import com.zyd.blog.business.entity.Link;
-import com.zyd.blog.business.entity.MailDetail;
-import com.zyd.blog.business.entity.Template;
+import com.zyd.blog.business.entity.*;
 import com.zyd.blog.business.enums.TemplateKeyEnum;
 import com.zyd.blog.business.service.MailService;
 import com.zyd.blog.business.service.SysConfigService;
@@ -73,7 +69,7 @@ public class MailServiceImpl implements MailService {
     @Async
     public void send(Link link, TemplateKeyEnum keyEnum) {
         if (!StringUtils.isEmpty(link.getEmail())) {
-            Config config = configService.get();
+            BaseConfig config = configService.getBaseConfig();
             Template template = templateService.getTemplate(keyEnum);
             String temXml = template.getRefValue();
             Map<String, Object> map = new HashMap<>(2);
@@ -102,7 +98,7 @@ public class MailServiceImpl implements MailService {
             this.sendToAdmin(comment);
             return;
         }
-        Config config = configService.get();
+        BaseConfig config = configService.getBaseConfig();
         Template template = templateService.getTemplate(keyEnum);
         String temXml = template.getRefValue();
         Map<String, Object> map = new HashMap<>(2);
@@ -128,7 +124,7 @@ public class MailServiceImpl implements MailService {
     @Override
     @Async
     public void sendToAdmin(Link link) {
-        Config config = configService.get();
+        BaseConfig config = configService.getBaseConfig();
         Template template = templateService.getTemplate(TemplateKeyEnum.TM_LINKS_TO_ADMIN);
         String temXml = template.getRefValue();
         Map<String, Object> map = new HashMap<>(1);
@@ -152,7 +148,7 @@ public class MailServiceImpl implements MailService {
     @Override
     @Async
     public void sendToAdmin(Comment comment) {
-        Config config = configService.get();
+        BaseConfig config = configService.getBaseConfig();
         Template template = templateService.getTemplate(TemplateKeyEnum.TM_NEW_COMMENT);
         String temXml = template.getRefValue();
         Map<String, Object> map = new HashMap<>(2);

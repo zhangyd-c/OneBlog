@@ -86,7 +86,7 @@ public class RemoverServiceImpl implements RemoverService {
         // 处理标签，并获取最终待添加的标签id
         List<Long> tagIds = null;
         Tags newTag = null;
-        String qiniuBasePath = sysConfigService.get().getQiniuBasePath();
+        String qiniuBasePath = sysConfigService.getBaseConfig().getQiniuBasePath();
         for (Article spiderArticle : list) {
             writerUtil.print("------------------------------------------------------------------------------------");
             writerUtil.print(String.format("准备持久化 - %s", spiderArticle.getTitle()));

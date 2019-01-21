@@ -5,8 +5,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.annotation.RedisCache;
 import com.zyd.blog.business.dto.BizCommentDTO;
+import com.zyd.blog.business.entity.BaseConfig;
 import com.zyd.blog.business.entity.Comment;
-import com.zyd.blog.business.entity.Config;
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.CommentStatusEnum;
 import com.zyd.blog.business.enums.TemplateKeyEnum;
@@ -124,7 +124,7 @@ public class BizCommentServiceImpl implements BizCommentService {
     @Override
     @RedisCache(flush = true)
     public void commentForAdmin(Comment comment) throws ZhydCommentException {
-        Config config = configService.get();
+        BaseConfig config = configService.getBaseConfig();
         User user = SessionUtil.getUser();
         comment.setQq(user.getQq());
         comment.setEmail(user.getEmail());
@@ -184,7 +184,7 @@ public class BizCommentServiceImpl implements BizCommentService {
 //        comment.setOsShortName(os.getShortName());// 此处需开发者自己处理
         comment.setIp(IpUtil.getRealIp(request));
         String address = "定位失败";
-        Config config = configService.get();
+        BaseConfig config = configService.getBaseConfig();
         try {
             String locationJson = RestClientUtil.get(UrlBuildUtil.getLocationByIp(comment.getIp(), config.getBaiduApiAk()));
             JSONObject localtionContent = JSONObject.parseObject(locationJson).getJSONObject("content");

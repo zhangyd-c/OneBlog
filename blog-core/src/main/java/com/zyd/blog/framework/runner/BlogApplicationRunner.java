@@ -1,13 +1,10 @@
 package com.zyd.blog.framework.runner;
 
-import com.zyd.blog.business.consts.DateConst;
-import com.zyd.blog.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.Date;
 
 /**
  * 程序启动后通过ApplicationRunner处理一些事务
@@ -22,8 +19,11 @@ import java.util.Date;
 @Component
 public class BlogApplicationRunner implements ApplicationRunner {
 
+    @Value("${server.port}")
+    private int port;
+
     @Override
     public void run(ApplicationArguments applicationArguments) {
-        log.info("博客部署完成，当前时间：" + DateUtil.date2Str(new Date(), DateConst.YYYY_MM_DD_HH_MM_SS_EN));
+        log.info("博客部署完成，博客访问地址：http://localhost:" + port);
     }
 }

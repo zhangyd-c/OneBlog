@@ -9,7 +9,7 @@ import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
 import com.zyd.blog.business.consts.CommonConst;
 import com.zyd.blog.business.consts.DateConst;
-import com.zyd.blog.business.entity.Config;
+import com.zyd.blog.business.entity.BaseConfig;
 import com.zyd.blog.business.enums.QiniuUploadType;
 import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.framework.holder.SpringContextHolder;
@@ -33,14 +33,14 @@ import java.util.Date;
 @Slf4j
 public class QiniuApi {
     private static final Object LOCK = new Object();
-    private Config config;
+    private BaseConfig config;
     private String key;
     private Auth auth;
     private UploadManager uploadManager;
 
     private QiniuApi() {
         SysConfigService configService = SpringContextHolder.getBean(SysConfigService.class);
-        this.config = configService.get();
+        this.config = configService.getBaseConfig();
         auth = Auth.create(config.getQiniuAccessKey(), config.getQiniuSecretKey());
         uploadManager = new UploadManager();
     }
@@ -64,7 +64,7 @@ public class QiniuApi {
     }
 
     private String getUpToken() {
-        return this.auth.uploadToken(config.getQiniuBucketName(), this.key, 3600L, new StringMap().put("insertOnly", Integer.valueOf(1)));
+        return this.auth.uploadToken(config.getQiniuBucketName(), this.key, 3600L, new StringMap().put("insertOnly", 1));
     }
 
     public String upload(File fileByte) throws IOException {

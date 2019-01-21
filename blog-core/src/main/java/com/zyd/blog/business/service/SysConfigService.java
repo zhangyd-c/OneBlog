@@ -1,7 +1,9 @@
 package com.zyd.blog.business.service;
 
 
-import com.zyd.blog.business.entity.Config;
+import com.zyd.blog.business.entity.BaseConfig;
+import com.zyd.blog.persistence.beans.SysConfig;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
@@ -21,34 +23,40 @@ public interface SysConfigService {
      *
      * @return
      */
-    Config get();
+    BaseConfig getBaseConfig();
 
     /**
-     * 添加系统配置
+     * 添加/修改系统配置
      *
-     * @param config
-     * @return
+     * @param configs 所有的配置项
      */
-    Config insert(Config config);
+    void saveConfig(Map<String, String> configs);
 
     /**
-     * 删除系统配置记录
+     * 添加/修改文件的配置项
      *
-     * @param id
+     * @param key              key
+     * @param file 微信收款码
      */
-    void remove(Long id);
+    void saveFile(String key, MultipartFile file);
 
     /**
-     * 修改系统配置记录
+     * 添加/修改单个
      *
-     * @param config
+     * @param key   key
+     * @param value value
      */
-    void update(Config config);
+    void saveConfig(String key, String value);
+
+    /**
+     * 获取单个配置
+     *
+     * @param key key
+     */
+    SysConfig getByKey(String key);
 
     /**
      * 获取网站详情
-     *
-     * @return
      */
     Map<String, Object> getSiteInfo();
 }

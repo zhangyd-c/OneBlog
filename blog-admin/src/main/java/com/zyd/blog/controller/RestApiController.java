@@ -1,7 +1,7 @@
 package com.zyd.blog.controller;
 
 import com.zyd.blog.business.annotation.BussinessLog;
-import com.zyd.blog.business.entity.Config;
+import com.zyd.blog.business.entity.BaseConfig;
 import com.zyd.blog.business.enums.QiniuUploadType;
 import com.zyd.blog.business.service.BizArticleService;
 import com.zyd.blog.business.service.SysConfigService;
@@ -59,7 +59,7 @@ public class RestApiController {
     @PostMapping("/upload2QiniuForMd")
     public Object upload2QiniuForMd(@RequestParam("file") MultipartFile file) {
         String filePath = FileUtil.uploadToQiniu(file, QiniuUploadType.SIMPLE, false);
-        Config config = configService.get();
+        BaseConfig config = configService.getBaseConfig();
         Map<String, Object> resultMap = new HashMap<>(3);
         resultMap.put("success", 1);
         resultMap.put("message", "上传成功");

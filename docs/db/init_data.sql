@@ -36,7 +36,32 @@ INSERT INTO `dblog`.`biz_type` VALUES ('3', null, '其他文章', '记录网站�
 # 清空系统配置表
 TRUNCATE TABLE `dblog`.`sys_config`;
 # 初始化系统配置
-INSERT INTO `dblog`.`sys_config` VALUES ('1', 'OneBlog是一款简洁美观、自适应的Java博客系统。使用springboot开发，前端使用Bootstrap。支持移动端自适应，配有完备的前台和后台管理功能。', 'OneBlog,开源博客', 'zhyd.me', 'http://localhost:8085', 'http://localhost:8443', 'OneBlog开源博客', 'OneBlog是一款简洁美观、自适应的Java博客系统', 'http://localhost:8443/img/favicon.ico', 'http://localhost:8443', '张亚东', 'yadong.zhang0415#gmail.com', 'https://static.zhyd.me/static/img/wechat_account.jpg', '843977358', 'http://weibo.com/211230415', 'https://github.com/zhangyd-c', 0, now(), 1, 'http://pe6duqm84.bkt.clouddn.com/', NULL, NULL, NULL, NULL, 'qrcode/wx_code.png', 'qrcode/zfb_code.png', 'NwHaYlGalDEpgxm46xBaC3T9', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (1, 'homeDesc', 'OneBlog是一款简洁美观、自适应的Java博客系统。使用springboot开发，前端使用Bootstrap。支持移动端自适应，配有完备的前台和后台管理功能。', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (2, 'homeKeywords', 'OneBlog,开源博客', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (3, 'domain', 'zhyd.me', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (4, 'cmsUrl', 'http://localhost:8086', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (5, 'siteUrl', 'http://localhost:8443', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (6, 'siteName', 'OneBlog开源博客', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (7, 'siteDesc', 'OneBlog是一款简洁美观、自适应的Java博客系统', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (8, 'siteFavicon', 'http://localhost:8443/img/favicon.ico', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (9, 'staticWebSite', 'http://localhost:8443', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (10, 'authorName', '张亚东', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (11, 'authorEmail', 'yadong.zhang0415#gmail.com', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (12, 'wxCode', 'https://static.zhyd.me/static/img/wechat_account.jpg', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (13, 'qq', '843977358', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (14, 'weibo', 'http://weibo.com/211230415', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (15, 'github', 'https://github.com/zhangyd-c', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (16, 'maintenance', '0', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (17, 'maintenanceDate', now(), now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (18, 'comment', '1', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (19, 'qiniuBasePath', 'http://pe6duqm84.bkt.clouddn.com/', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (20, 'qiniuAccessKey', NULL, now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (21, 'qiniuSecretKey', NULL, now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (22, 'qiniuBucketName', NULL, now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (23, 'baiduPushToken', NULL, now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (24, 'wxPraiseCode', 'qrcode/wx_code.png', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (25, 'zfbPraiseCode', 'qrcode/zfb_code.png', now(), now());
+INSERT INTO `dblog`.`sys_config` VALUES (26, 'baiduApiAk', 'NwHaYlGalDEpgxm46xBaC3T9', now(), now());
 
 # 清空友情链接表
 TRUNCATE TABLE `dblog`.`sys_link`;
@@ -248,3 +273,8 @@ TRUNCATE TABLE `dblog`.`sys_user_role`;
 INSERT INTO `dblog`.`sys_user_role` VALUES ('1', '1', '1', now(), now());
 INSERT INTO `dblog`.`sys_user_role` VALUES ('2', '2', '2', now(), now());
 INSERT INTO `dblog`.`sys_user_role` VALUES ('3', '3', '3', now(), now());
+
+# 清空评论数据
+TRUNCATE TABLE `dblog`.`biz_comment`;
+# 初始化评论数据
+INSERT INTO `dblog`.`biz_comment` VALUES (0, '1', null, '0', '843977358', '七彩狼', 'https://q1.qlogo.cn/g?b=qq&nk=843977358&s=40', '843977358@qq.com', 'https://www.zhyd.me', 'VERIFYING', '0:0:0:0:0:0:0:1', null, null, '未知', 'Windows 7', null, 'Chrome 65.0.3325.146', null, '<p>测试评论</p>', null, '0', '0', now(), now());
