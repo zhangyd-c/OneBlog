@@ -1,6 +1,6 @@
 package com.zyd.blog.business.aspect;
 
-import com.zyd.blog.business.entity.Config;
+import com.zyd.blog.business.entity.BaseConfig;
 import com.zyd.blog.business.service.SysConfigService;
 import freemarker.template.TemplateModelException;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +39,7 @@ public class FreemarkerSharedVariableMonitorAspects {
 
     @After("pointcut()")
     public void after(JoinPoint joinPoint) {
-        Config config = configService.get();
+        BaseConfig config = configService.getBaseConfig();
         if (null == config) {
             log.error("config为空");
             return;
