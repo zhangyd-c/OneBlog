@@ -81,8 +81,8 @@ public class RemoverServiceImpl implements RemoverService {
         for (int i = 0; i < urls.length; i++) {
             BaseModel model = ModelParser.INSTANCE.parseByUrl(urls[i], spiderConfig);
             if (null == model) {
-                writerUtil.print("[ crawl ] 未获取到相关爬虫配置，程序停止运行").shutdown();
-                return;
+                writerUtil.print("[ crawl ] 暂不支持抓取该平台的文章：" + urls[i]).shutdown();
+                continue;
             }
             model.setSingle(true);
             this.crawl(typeId, model, writer, i == urls.length - 1);
@@ -111,7 +111,7 @@ public class RemoverServiceImpl implements RemoverService {
         BaseSpider<VirtualArticle> spider = new ArticleSpiderProcessor(model, writerUtil, user.getId());
         CopyOnWriteArrayList<VirtualArticle> list = spider.run();
         if (CollectionUtils.isEmpty(list)) {
-            writerUtil.print(String.format("[ crawl ] 未抓取到任何内容，请检查目标网站<a href=\"%s\" target=\"_blank\">%s</a>是否可访问！共耗时 %s ms.", model.getEntryUrls()[0], model.getEntryUrls()[0], (System.currentTimeMillis() - start))).shutdown();
+            writerUtil.print(String.format("[ crawl ] 未抓取到任何内容，请确保连接[<a href=\"%s\" target=\"_blank\">%s</a>]是否正确并能正常访问！共耗时 %s ms.", model.getEntryUrls()[0], model.getEntryUrls()[0], (System.currentTimeMillis() - start))).shutdown();
             return;
         }
         writerUtil.print("[ crawl ] Congratulation ! 此次共整理到" + list.size() + "篇文章");
