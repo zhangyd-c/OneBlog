@@ -125,4 +125,13 @@ public class SysConfigServiceImpl implements SysConfigService {
         }
         return map;
     }
+
+    @Override
+    public String getSpiderConfig() {
+        SysConfig config = this.getByKey("spiderConfig");
+        if (config == null) {
+            return "{}";
+        }
+        return StringUtils.isEmpty(config.getConfigValue()) ? "{}" : config.getConfigValue();
+    }
 }

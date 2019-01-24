@@ -22,6 +22,7 @@ import java.util.Map;
  */
 @Data
 public class BaseModel {
+    public boolean isSingle;
     @NotEmpty(message = "必须指定标题抓取规则(xpath)")
     private String titleRegex;
     @NotEmpty(message = "必须指定内容抓取规则(xpath)")
@@ -38,34 +39,29 @@ public class BaseModel {
     @NotEmpty(message = "必须指定网站根域名")
     private String domain;
     private String charset = "utf8";
-
     /**
      * 每次爬取页面时的等待时间
      */
     @Max(value = 5000, message = "线程间隔时间最大只能指定为5000毫秒")
     @Min(value = 1000, message = "线程间隔时间最小只能指定为1000毫秒")
     private int sleepTime = 1000;
-
     /**
      * 抓取失败时重试的次数
      */
     @Max(value = 5, message = "抓取失败时最多只能重试5次")
     @Min(value = 1, message = "抓取失败时最少只能重试1次")
     private int retryTimes = 2;
-
     /**
      * 线程个数
      */
     @Max(value = 5, message = "最多只能开启5个线程（线程数量越多越耗性能）")
     @Min(value = 1, message = "至少要开启1个线程")
     private int threadCount = 1;
-
     /**
      * 抓取入口地址
      */
 //    @NotEmpty(message = "必须指定待抓取的网址")
     private String[] entryUrls;
-
     /**
      * 退出方式{DURATION:爬虫持续的时间,URL_COUNT:抓取到的url数量}
      */
@@ -74,21 +70,16 @@ public class BaseModel {
      * 对应退出方式，当exitWay = URL_COUNT时，该值表示url数量，当exitWay = DURATION时，该值表示爬虫持续的时间
      */
     private int count;
-
     private List<Cookie> cookies = new ArrayList<>();
     private Map<String, String> headers = new HashMap<>();
     private String ua = UserAgentEnum.PC.getUa();
-
-    private String uid;
 //    private Integer totalPage;
-
+    private String uid;
     /* 保留字段，针对ajax渲染的页面 */
     private Boolean ajaxRequest = false;
     /* 是否转存图片 */
     private boolean convertImg = false;
-
     private List<Proxy> proxyList = new ArrayList<>();
-
     /* 是否开启自动代理，开启时将会自动获取代理ip */
     private ProxyType proxyType = ProxyType.CUSTOM;
 
@@ -265,6 +256,11 @@ public class BaseModel {
                 this.addProxy(new Proxy(proxy[0], Integer.parseInt(proxy[1]), proxy[2], proxy[3]));
             }
         }
+        return this;
+    }
+
+    public BaseModel setSingle(boolean single) {
+        isSingle = single;
         return this;
     }
 

@@ -52,14 +52,6 @@ public class Config {
         this.sysConfig.setConfigValue(value);
     }
 
-    public String getConfigDesc() {
-        return this.sysConfig.getConfigDesc();
-    }
-
-    public void setConfigDesc(String desc) {
-        this.sysConfig.setConfigDesc(desc);
-    }
-
     public Date getCreateTime() {
         return this.sysConfig.getCreateTime();
     }

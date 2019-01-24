@@ -35,7 +35,7 @@ public interface SysConfigService {
     /**
      * 添加/修改文件的配置项
      *
-     * @param key              key
+     * @param key  key
      * @param file 微信收款码
      */
     void saveFile(String key, MultipartFile file);
@@ -59,4 +59,11 @@ public interface SysConfigService {
      * 获取网站详情
      */
     Map<String, Object> getSiteInfo();
+
+    /**
+     * 返回 Spider Config
+     *
+     * @return
+     */
+    String getSpiderConfig();
 }

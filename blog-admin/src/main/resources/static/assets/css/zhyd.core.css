@@ -4992,3 +4992,13 @@ ul, menu, dir {
 }
 
 /* 重写ztree样式，修复选择框上出现阴影的问题 */
+
+#spider-message {
+    display: block;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+#spider-message p {
+    margin: 0 0 2px;
+}

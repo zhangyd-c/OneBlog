@@ -80,7 +80,7 @@ public class BizArticleServiceImpl implements BizArticleService {
             ids.add(bizArticle.getId());
         }
         List<BizArticle> listTag = bizArticleMapper.listTagsByArticleId(ids);
-        // listTag, 重新组装数据为{id: Article}
+        // listTag, 重新组装数据为{id: VirtualArticle}
         Map<Long, BizArticle> tagMap = new LinkedHashMap<>(listTag.size());
         for (BizArticle bizArticle : listTag) {
             tagMap.put(bizArticle.getId(), bizArticle);

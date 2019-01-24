@@ -16,5 +16,4 @@ import lombok.EqualsAndHashCode;
 public class SysConfig extends AbstractDO {
     private String configKey;
     private String configValue;
-    private String configDesc;
 }

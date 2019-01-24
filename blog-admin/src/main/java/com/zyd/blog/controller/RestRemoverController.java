@@ -52,4 +52,11 @@ public class RestRemoverController {
         return ResultUtil.success("程序已停止运行，当前时间 " + DateUtil.date2Str(new Date(), DateConst.YYYY_MM_DD_HH_MM_SS_EN));
     }
 
+    @PostMapping("/single")
+    @ResponseBody
+    @BussinessLog("抓取单个文章")
+    public void single(Long typeId, String[] url, HttpServletResponse response) throws IOException, InterruptedException {
+        removerService.crawlSingle(typeId, url, response.getWriter());
+    }
+
 }

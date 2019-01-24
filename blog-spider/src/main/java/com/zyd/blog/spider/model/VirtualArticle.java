@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Article {
+public class VirtualArticle {
 
     private String title;
     private String content;
@@ -28,7 +28,7 @@ public class Article {
     private String keywords;
     private List<String> tags;
 
-    public Article(String title, String content, String author, String releaseDate, String source, String description, String keywords, List<String> tags) {
+    public VirtualArticle(String title, String content, String author, String releaseDate, String source, String description, String keywords, List<String> tags) {
         this.title = title;
         this.content = content;
         this.author = author;
@@ -44,45 +44,45 @@ public class Article {
         }
     }
 
-    public Article() {
+    public VirtualArticle() {
     }
 
-    public Article setTitle(String title) {
+    public VirtualArticle setTitle(String title) {
         this.title = title;
         return this;
     }
 
-    public Article setContent(String content) {
+    public VirtualArticle setContent(String content) {
         this.content = content;
         return this;
     }
 
-    public Article setAuthor(String author) {
+    public VirtualArticle setAuthor(String author) {
         this.author = author;
         return this;
     }
 
-    public Article setReleaseDate(Date releaseDate) {
+    public VirtualArticle setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
         return this;
     }
 
-    public Article setSource(String source) {
+    public VirtualArticle setSource(String source) {
         this.source = source;
         return this;
     }
 
-    public Article setTags(List<String> tags) {
+    public VirtualArticle setTags(List<String> tags) {
         this.tags = tags;
         return this;
     }
 
-    public Article setDescription(String description) {
+    public VirtualArticle setDescription(String description) {
         this.description = description;
         return this;
     }
 
-    public Article setKeywords(String keywords) {
+    public VirtualArticle setKeywords(String keywords) {
         this.keywords = keywords;
         return this;
     }

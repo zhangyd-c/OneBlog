@@ -35,7 +35,7 @@ public class BlogAdminApplicationTests {
 
     @Test
     public void imoocSpiderTest() {
-        BaseSpider<Article> spider = new ArticleSpiderProcessor(new BaseModel().setUid("1175248")
+        BaseSpider<VirtualArticle> spider = new ArticleSpiderProcessor(new BaseModel().setUid("1175248")
                 .setEntryUrls("https://www.imooc.com/u/1175248/articles?page=1")
                 .setDomain("www.imooc.com")
                 .setTitleRegex("//span[@class=js-title]/html()")
@@ -53,7 +53,7 @@ public class BlogAdminApplicationTests {
 
     @Test
     public void csdnSpiderTest() {
-        BaseSpider<Article> spider = new ArticleSpiderProcessor(new BaseModel().setUid("u011197448")
+        BaseSpider<VirtualArticle> spider = new ArticleSpiderProcessor(new BaseModel().setUid("u011197448")
                 .setEntryUrls("https://blog.csdn.net/u011197448/article/list/1")
                 .setDomain("blog.csdn.net")
                 .setTitleRegex("//h1[@class=title-article]/html()")
@@ -71,7 +71,7 @@ public class BlogAdminApplicationTests {
 
     @Test
     public void iteyeSpiderTest() {
-        BaseSpider<Article> spider = new ArticleSpiderProcessor(new BaseModel().setUid("843977358")
+        BaseSpider<VirtualArticle> spider = new ArticleSpiderProcessor(new BaseModel().setUid("843977358")
                 .setEntryUrls("http://843977358.iteye.com/?page=1")
                 .setDomain("843977358.iteye.com")
                 .setTitleRegex("//div[@class=blog_title]/h3/a/html()")
@@ -90,7 +90,7 @@ public class BlogAdminApplicationTests {
 
     @Test
     public void cnblogSpiderTest() {
-        BaseSpider<Article> spider = new ArticleSpiderProcessor(new BaseModel().setUid("zhangyadong")
+        BaseSpider<VirtualArticle> spider = new ArticleSpiderProcessor(new BaseModel().setUid("zhangyadong")
                 .setEntryUrls("https://www.cnblogs.com/zhangyadong/default.html?page=1")
                 .setDomain("www.cnblogs.com")
                 .setTitleRegex("//a[@id=cb_post_title_url]/html()")
@@ -106,7 +106,7 @@ public class BlogAdminApplicationTests {
 
     @Test
     public void spring4AllSpiderTest() {
-        /*BaseSpider<Article> spider = new ArticleSpiderProcessor(new BaseModel()
+        /*BaseSpider<VirtualArticle> spider = new ArticleSpiderProcessor(new BaseModel()
                 .setEntryUrls("http://www.spring4all.com/user/api/articles/1")
                 .setAjaxRequest(true)
                 .setDomain("www.spring4all.com")

@@ -1,6 +1,6 @@
 package com.zyd.blog.spider.processor;
 
-import com.zyd.blog.spider.model.Article;
+import com.zyd.blog.spider.model.VirtualArticle;
 import com.zyd.blog.spider.model.BaseModel;
 import com.zyd.blog.spider.scheduler.BlockingQueueScheduler;
 import com.zyd.blog.spider.util.CommonUtil;
@@ -31,7 +31,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @website https://www.zhyd.me
  * @date 2018/7/23 10:38
  */
-public class ArticleSpiderProcessor extends BaseProcessor implements BaseSpider<Article> {
+public class ArticleSpiderProcessor extends BaseProcessor implements BaseSpider<VirtualArticle> {
 
     private BaseModel model;
     private WriterUtil writer;
@@ -61,23 +61,23 @@ public class ArticleSpiderProcessor extends BaseProcessor implements BaseSpider<
      * @return
      */
     @Override
-    public CopyOnWriteArrayList<Article> run() {
+    public CopyOnWriteArrayList<VirtualArticle> run() {
         List<String> errors = validateModel(model);
         if (CollectionUtils.isNotEmpty(errors)) {
-            writer.print("校验不通过！请依据下方提示，检查输入参数是否正确......");
+            writer.print("[crawl] 校验不通过！请依据下方提示，检查输入参数是否正确......");
             for (String error : errors) {
                 writer.print(">> " + error);
             }
             return null;
         }
 
-        writer.print(String.valueOf(CommonUtil.exitWay.get(model.getExitWay()).apply(model.getCount())));
-        CopyOnWriteArrayList<Article> articles = new CopyOnWriteArrayList<>();
+//        writer.print(String.valueOf(CommonUtil.exitWay.get(model.getExitWay()).apply(model.getCount())));
+        CopyOnWriteArrayList<VirtualArticle> virtualArticles = new CopyOnWriteArrayList<>();
         ZhydSpider spider = ZhydSpider.create(new ArticleSpiderProcessor(), model, uuid);
 
         spider.addUrl(model.getEntryUrls())
                 .setScheduler(new BlockingQueueScheduler(model))
-                .addPipeline((resultItems, task) -> process(resultItems, articles, spider))
+                .addPipeline((resultItems, task) -> process(resultItems, virtualArticles, spider))
                 .thread(model.getThreadCount());
 
         //设置抓取代理IP
@@ -97,7 +97,7 @@ public class ArticleSpiderProcessor extends BaseProcessor implements BaseSpider<
 
         // 启动爬虫
         spider.run();
-        return articles;
+        return virtualArticles;
     }
 
     /**
@@ -120,11 +120,10 @@ public class ArticleSpiderProcessor extends BaseProcessor implements BaseSpider<
      * 自定义管道的处理方法
      *
      * @param resultItems 自定义Processor处理完后的所有参数
-     * @param articles    爬虫文章集合
+     * @param virtualArticles    爬虫文章集合
      */
-    private void process(ResultItems resultItems, List<Article> articles, ZhydSpider spider) {
+    private void process(ResultItems resultItems, List<VirtualArticle> virtualArticles, ZhydSpider spider) {
         if (null == spider) {
-            System.out.println("======================爬虫结束了");
             return;
         }
         Map<String, Object> map = resultItems.getAll();
@@ -138,8 +137,8 @@ public class ArticleSpiderProcessor extends BaseProcessor implements BaseSpider<
         String author = String.valueOf(map.get("author"));
         String description = CommonUtil.subDescStr(String.valueOf(map.get("description")), content);
         String keywords = CommonUtil.subKeywordsStr(String.valueOf(map.get("keywords")));
-        articles.add(new Article(title, content, author, releaseDate, source, description, keywords, (List<String>) map.get("tags")));
-        writer.print(String.format("正在抓取 -- <a href=\"%s\" target=\"_blank\">%s</a> -- %s -- %s", source, title, releaseDate, author));
+        virtualArticles.add(new VirtualArticle(title, content, author, releaseDate, source, description, keywords, (List<String>) map.get("tags")));
+        writer.print(String.format("[ crawl ]  <a href=\"%s\" target=\"_blank\">%s</a> -- %s -- %s", source, title, releaseDate, author));
     }
 
 

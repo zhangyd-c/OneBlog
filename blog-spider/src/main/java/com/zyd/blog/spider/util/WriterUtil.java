@@ -44,7 +44,7 @@ public class WriterUtil {
     }
 
     public void shutdown() {
-        print("exit...", "shutdown");
+        print("bye~~", "shutdown");
         if (null != writer) {
             writer.close();
             writer = null;

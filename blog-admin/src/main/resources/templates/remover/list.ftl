@@ -31,209 +31,251 @@
         <div class="x_panel">
             <div class="x_content">
                 <div class="row">
-                    <form id="removerForm" action="/remover/run" target="spiderFrame" method="post" class="form-horizontal form-label-left" novalidate>
-                        <#-- 左侧 -->
-                        <div class="col-md-6">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2><i class="fa fa-user-secret"></i> 基本配置</h2>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="platform">博文平台 <span class="required">*</span></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                            <select name="platform" id="platform" class="form-control" required="required"></select>
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" class="square" name="convertImg"> 转图存片
-                                                </label>
+                    <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#multiple" id="multiple-tab" role="tab" data-toggle="tab" aria-expanded="true">抓取列表</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#single" id="single-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-fire fa-fw red"></i>抓取单个文章</a>
+                            </li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade active in" id="multiple" aria-labelledby="multiple-tab">
+                                <form id="removerForm" action="/remover/run" target="spiderFrame" method="post" class="form-horizontal form-label-left" novalidate>
+                                    <#-- 左侧 -->
+                                    <div class="col-md-6">
+                                        <div class="x_panel">
+                                            <div class="x_title">
+                                                <h2><i class="fa fa-user-secret"></i> 基本配置</h2>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="x_content">
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="platform">博文平台 <span class="required">*</span></label>
+                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                        <select name="platform" id="platform" class="form-control" required="required"></select>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" class="square" name="convertImg"> 转图存片
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9 tips">
+                                                        <i class="fa fa-exclamation-circle"></i> 勾选时默认将文章中的图片转存到七牛云中（需提前配置七牛云）
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="typeId">文章分类 <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9">
+                                                        <select name="typeId" class="form-control typeId" required="required"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="uid">用户ID <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9">
+                                                        <input type="text" name="uid" id="uid" class="form-control" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9 tips">
+                                                        <i class="fa fa-exclamation-circle"></i> 获取方式：
+                                                        <a href="javascript:;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/imooc.png" data-title="慕课网“用户ID”获取方式">慕课网</a> |
+                                                        <a href="javascript:;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/csdn.png" data-title="CSDN“用户ID”获取方式">CSDN</a> |
+                                                        <a href="javascript:;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/iteye.png" data-title="ITeye“用户ID”获取方式">ITeye</a> |
+                                                        <a href="javascript:;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/cnblogs.png" data-title="博客园“用户ID”获取方式">博客园</a>
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="exitWay">停止方式 <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9">
+                                                        <select name="exitWay" id="exitWay" class="form-control" required="required" style="width: 50%;display: inline-block">
+                                                            <#list exitWayList as exitWay>
+                                                                <option value="${exitWay}" data-def-count="${exitWay.defaultCount}" <#if exitWay_index == 2>selected="selected"</#if>>${exitWay.desc}</option>
+                                                            </#list>
+                                                        </select>
+                                                        <input class="form-control" style="width: 30%;display: inline-block" type="text" name="count" value="1">
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9 tips">
+                                                        <i class="fa fa-exclamation-circle"></i>
+                                                        <ul class="list-unstyled">
+                                                            <li><strong>默认：</strong>不做限制，抓取所有匹配到的文章，<strong class="red">慎用</strong></li>
+                                                            <li><strong>持续时间：</strong>按照爬虫运行的时间，理想状态时1s抓取一条，受实际网速影响</li>
+                                                            <li><strong>链接条数：</strong>按照指定的条数抓取，满足条数后程序自动停止</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="domain">网站根域名 <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9">
+                                                        <input type="text" name="domain" class="form-control" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="cookie">Cookie </label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9">
+                                                        <textarea name="cookie" class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9 tips">
+                                                        <i class="fa fa-exclamation-circle"></i> 需要登陆时设置。Cookie获取方式： <a href="javascript:HandlerInterceptor;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/cookie/cookie.png" data-title="“Cookie”获取方式（通用）">以CSDN为例</a>
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="header">Header <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9">
+                                                        <textarea name="header" class="form-control" required="required"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9 tips">
+                                                        <i class="fa fa-exclamation-circle"></i> Header主要是为了防止某些网站验证referer等信息防爬虫
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="entryUrls">程序入口 <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9">
+                                                        <textarea name="entryUrls" class="form-control" required="required"></textarea>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <#-- 右侧 -->
+                                    <div class="col-md-6">
+                                        <div class="x_panel">
+                                            <div class="x_title">
+                                                <h2><i class="fa fa-tasks"></i> 爬虫Xpath抓取规则</h2>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="x_content">
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="titleRegex">标题 <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9">
+                                                        <input type="text" name="titleRegex" class="form-control" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="authorRegex">作者 <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9">
+                                                        <input type="text" name="authorRegex" class="form-control" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="releaseDateRegex">发布日期 <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9">
+                                                        <input type="text" name="releaseDateRegex" class="form-control" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="contentRegex">内容 <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9">
+                                                        <input type="text" name="contentRegex" class="form-control" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="tagRegex">标签 <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9">
+                                                        <input type="text" name="tagRegex" class="form-control" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="targetLinksRegex">待抓取的url <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9">
+                                                        <input type="text" name="targetLinksRegex" class="form-control" required="required">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="x_panel">
+                                            <div class="x_title">
+                                                <h2><i class="fa fa-pagelines"></i> 爬虫其他配置项</h2>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="x_content">
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="charset">网站编码 <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9">
+                                                        <input type="text" name="charset" class="form-control" value="utf8" readonly required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="sleepTime">延迟 <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9">
+                                                        <input type="number" name="sleepTime" class="form-control" value="1000" readonly required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9 tips">
+                                                        延迟和爬取速度以及被封的概率成正比！请慎用
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="retryTimes">重试次数 <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9">
+                                                        <input type="number" name="retryTimes" class="form-control" value="2" readonly required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="threadCount">线程个数 <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-9">
+                                                        <input type="number" name="threadCount" class="form-control" value="1" readonly required="required">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#declareModal"><i class="fa fa-truck"> GO！</i></button>
+                                        <button type="reset" class="btn btn-default" id="resetBtn"><i class="fa fa-refresh"> 重置</i></button>
+                                        <a type="button" class="btn btn-danger stopBtn hide"><i class="fa fa-stop-circle-o"> 停止</i></a>
+                                        <a type="button" class="btn btn-info" id="showResultModal" style="display: none;"><i class="fa fa-eye"> 显示日志</i></a>
+                                    </div>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="single" aria-labelledby="single-tab">
+                                <form id="removerSingleForm" action="/remover/single" target="spiderFrame" method="post" class="form-horizontal form-label-left" novalidate>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9 tips">
-                                            <i class="fa fa-exclamation-circle"></i> 勾选时默认将文章中的图片转存到七牛云中（需提前配置七牛云）
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="url">请输入文章链接 <span class="required">*</span></label>
+                                        <div class="col-md-7 col-sm-7 col-xs-7">
+                                            <div class="input-group">
+                                                <input type="text" name="url" class="form-control" value="" placeholder="例如：https://www.baidu.com/article/1234567.html" required="required">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default" id="plus-btn" title="添加一条"><i class="fa fa-plus fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="url-list"></div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="typeId">选择文章分类 <span class="required">*</span></label>
+                                        <div class="col-md-7 col-sm-7 col-xs-7">
+                                            <select name="typeId" class="form-control typeId" required="required"></select>
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="typeId">文章分类 <span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="url"></label>
                                         <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <select name="typeId" id="typeId" class="form-control" required="required"></select>
+                                            <button type="button" class="btn btn-success" id="crawlSingle"><i class="fa fa-signing"> 抓他！</i></button>
                                         </div>
                                     </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="uid">用户ID <span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <input type="text" name="uid" id="uid" class="form-control" required="required">
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9 tips">
-                                            <i class="fa fa-exclamation-circle"></i> 获取方式：
-                                            <a href="javascript:;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/imooc.png" data-title="慕课网“用户ID”获取方式">慕课网</a> |
-                                            <a href="javascript:;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/csdn.png" data-title="CSDN“用户ID”获取方式">CSDN</a> |
-                                            <a href="javascript:;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/iteye.png" data-title="ITeye“用户ID”获取方式">ITeye</a> |
-                                            <a href="javascript:;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/cnblogs.png" data-title="博客园“用户ID”获取方式">博客园</a>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="exitWay">停止方式 <span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <select name="exitWay" id="exitWay" class="form-control" required="required" style="width: 50%;display: inline-block">
-                                        <#list exitWayList as exitWay>
-                                            <option value="${exitWay}" data-def-count="${exitWay.defaultCount}" <#if exitWay_index == 2>selected="selected"</#if>>${exitWay.desc}</option>
-                                        </#list>
-                                            </select>
-                                            <input class="form-control" style="width: 30%;display: inline-block" type="text" name="count" value="1">
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9 tips">
-                                            <i class="fa fa-exclamation-circle"></i>
-                                            <ul class="list-unstyled">
-                                                <li><strong>默认：</strong>不做限制，抓取所有匹配到的文章，<strong class="red">慎用</strong></li>
-                                                <li><strong>持续时间：</strong>按照爬虫运行的时间，理想状态时1s抓取一条，受实际网速影响</li>
-                                                <li><strong>链接条数：</strong>按照指定的条数抓取，满足条数后程序自动停止</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="domain">网站根域名 <span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <input type="text" name="domain" class="form-control" required="required">
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="cookie">Cookie </label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <textarea name="cookie" class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9 tips">
-                                            <i class="fa fa-exclamation-circle"></i> 需要登陆时设置。Cookie获取方式： <a href="javascript:HandlerInterceptor;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/cookie/cookie.png" data-title="“Cookie”获取方式（通用）">以CSDN为例</a>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="header">Header <span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <textarea name="header" class="form-control" required="required"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9 tips">
-                                            <i class="fa fa-exclamation-circle"></i> Header主要是为了防止某些网站验证referer等信息防爬虫
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="entryUrls">程序入口 <span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <textarea name="entryUrls" class="form-control" required="required"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
-                        <#-- 右侧 -->
-                        <div class="col-md-6">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2><i class="fa fa-tasks"></i> 爬虫Xpath抓取规则</h2>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="titleRegex">标题 <span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <input type="text" name="titleRegex" class="form-control" required="required">
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="authorRegex">作者 <span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <input type="text" name="authorRegex" class="form-control" required="required">
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="releaseDateRegex">发布日期 <span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <input type="text" name="releaseDateRegex" class="form-control" required="required">
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="contentRegex">内容 <span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <input type="text" name="contentRegex" class="form-control" required="required">
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="tagRegex">标签 <span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <input type="text" name="tagRegex" class="form-control" required="required">
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="targetLinksRegex">待抓取的url <span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <input type="text" name="targetLinksRegex" class="form-control" required="required">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2><i class="fa fa-pagelines"></i> 爬虫其他配置项</h2>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="charset">网站编码 <span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <input type="text" name="charset" class="form-control" value="utf8" readonly required="required">
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="sleepTime">延迟 <span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <input type="number" name="sleepTime" class="form-control" value="1000" readonly required="required">
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9 tips">
-                                            延迟和爬取速度以及被封的概率成正比！请慎用
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="retryTimes">重试次数 <span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <input type="number" name="retryTimes" class="form-control" value="2" readonly required="required">
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="threadCount">线程个数 <span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <input type="number" name="threadCount" class="form-control" value="1" readonly required="required">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#declareModal"><i class="fa fa-truck"> GO！</i></button>
-                            <button type="reset" class="btn btn-default" id="resetBtn"><i class="fa fa-refresh"> 重置</i></button>
-                            <a type="button" class="btn btn-danger stopBtn hide"><i class="fa fa-stop-circle-o"> 停止</i></a>
-                            <a type="button" class="btn btn-info" id="showResultModal" style="display: none;"><i class="fa fa-eye"> 显示日志</i></a>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -285,7 +327,7 @@
             </div>
             <div class="modal-body">
                 <div class="pageFormContent" id="pageFormContent" style="max-height: 300px;height: 300px;overflow-y: auto;">
-                    <div id="message" style="display: block;" class="profile_title"></div>
+                    <div id="spider-message" class="profile_title"></div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -309,64 +351,20 @@
             platformHtml += '<option value="">待续...</option>';
             $("#platform").html(platformHtml);
         } ());
-        var spiderConfig = {
-            imooc: {
-                domain: "www.imooc.com",
-                titleRegex: "//span[@class=js-title]/html()",
-                authorRegex: "//div[@class=name_con]/p[@class=name]/a[@class=nick]/html()",
-                releaseDateRegex: "//div[@class='dc-profile']/div[@class='l']/span[@class='spacer']/text()",
-                contentRegex: "//div[@class=detail-content]/html()",
-                targetLinksRegex: "/article/[0-9]{1,10}",
-                tagRegex: "//div[@class=cat-box]/div[@class=cat-wrap]/a[@class=cat]/html()",
-                header: [
-                    "Host=www.imooc.com",
-                    "Referer=https://www.imooc.com"
-                ],
-                entryUrls: 'https://www.imooc.com/u/{uid}/articles?page={curPage}'
-            },
-            csdn: {
-                domain: "blog.csdn.net",
-                titleRegex: "//h1[@class=title-article]/html()",
-                authorRegex: "//a[@class=follow-nickName]/html()",
-                releaseDateRegex: "//div[@class='article-bar-top']/span[@class='time']/text()",
-                contentRegex: "//div[@class=article_content]/html()",
-                targetLinksRegex: ".*blog\\.csdn\\.net/{uid}/article/details/[0-9a-zA-Z]{1,15}",
-                tagRegex: "//span[@class=artic-tag-box]/a[@class=tag-link]/html()",
-                header: [
-                    "Host=blog.csdn.net",
-                    "Referer=https://blog.csdn.net/{uid}/article/list/1"
-                ],
-                entryUrls: 'https://blog.csdn.net/{uid}/article/list/{curPage}'
-            },
-            iteye: {
-                domain: "{uid}.iteye.com",
-                titleRegex: "//div[@class=blog_title]/h3/a/html()",
-                authorRegex: "//div[@id=blog_owner_name]/html()",
-                releaseDateRegex: "//div[@class=blog_bottom]/ul/li/html()",
-                contentRegex: "//div[@class=blog_content]/html()",
-                targetLinksRegex: ".*{uid}\\.iteye\\.com/blog/[0-9]+",
-                tagRegex: "//div[@class=news_tag]/a/html()",
-                header: [
-                    "Host={uid}.iteye.com",
-                    "Referer=http://{uid}.iteye.com/"
-                ],
-                entryUrls: 'http://{uid}.iteye.com/?page={curPage}'
-            },
-            csblogs: {
-                domain: "www.cnblogs.com",
-                titleRegex: "//a[@id=cb_post_title_url]/html()",
-                authorRegex: "//div[@class=postDesc]/a[1]/html()",
-                releaseDateRegex: "//span[@id=post-date]/html()",
-                contentRegex: "//div[@id=cnblogs_post_body]/html()",
-                targetLinksRegex: ".*www\\.cnblogs\\.com/{uid}/p/[\\w\\d]+\\.html",
-                tagRegex: "//div[@id=EntryTag]/a/html()",
-                header: [
-                    "Host=www.cnblogs.com",
-                    "Referer=https://www.cnblogs.com/"
-                ],
-                entryUrls: 'https://www.cnblogs.com/{uid}/default.html?page={curPage}'
+        var $urlList = $("#url-list"),
+            $plusBtn = $("#plus-btn");
+
+        $plusBtn.on('click', function () {
+            $urlList.append('<div class="item form-group"><label class="control-label col-md-3 col-sm-3 col-xs-3" for="url">请输入文章链接 <span class="required">*</span></label><div class="col-md-7 col-sm-7 col-xs-7"><div class="input-group"><input type="text" name="url" class="form-control" value="" placeholder="例如：https://www.baidu.com/article/1234567.html" required> <span class="input-group-btn"><button type="button" class="btn btn-danger minus-btn" title="删除该条"><i class="fa fa-minus fa-fw"></i></button></span></div></div></div>');
+
+            function minus(){
+                var $this = $(this);
+                $this.parents(".form-group").remove();
             }
-        };
+            $(".minus-btn").unbind("click", minus).on('click', minus);
+        });
+
+        var spiderConfig = ${spiderConfig};
         // 博文平台
         var $platform = $("#platform");
         // 各平台用户id
@@ -380,10 +378,17 @@
             autoCompleForm();
         });
         function  autoCompleForm() {
-            var platform = $platform.val(),
-                    uid = $uid.val(),
-                    totalPage = $totalPage.val() | 1,
-                    curConfig = spiderConfig[platform];
+            var platform = $platform.val();
+            if(!platform) {
+                return;
+            }
+            var uid = $uid.val(),
+                totalPage = $totalPage.val() | 1,
+                curConfig = spiderConfig[platform];
+            if(!curConfig) {
+                $.toastr.warning("系统暂未内置[" + platform + "]平台的爬虫规则，请手动提取！")
+                return;
+            }
             $("#removerForm").find("input,textarea").each(function () {
                 var $this = $(this);
                 var thisName = $this.attr("name");
@@ -423,7 +428,7 @@
                 $("#resultModal").modal('show');
                 $("#showResultModal").show();
                 $form.submit();
-                $("#message").html("<p> 程序正在初始化...</p>");
+                $("#spider-message").html("<p> 程序正在初始化...</p>");
             }
         });
 
@@ -446,7 +451,7 @@
                 changeBtnState(false)
                 return;
             }
-            $("#message").append("<p>" + message + "</p>");
+            $("#spider-message").append("<p>" + message + "</p>");
             var $dom = document.getElementById("pageFormContent");
             $dom.scrollTop = $dom.scrollHeight;
         }
@@ -471,20 +476,20 @@
                 if(data = json.data){
                     var tpl = '<option value="">选择分类</option>{{#data}}<option value="{{id}}">{{name}}</option>{{#nodes}}<option value="{{id}}">  -- {{name}}</option>{{/nodes}}{{/data}}';
                     var html = Mustache.render(tpl, json);
-                    $("select#typeId").html(html);
+                    $("select.typeId").html(html);
                 }
             },
             error: $.alert.ajaxError
         });
 
         $("#exitWay").on('change', function () {
-           var $this = $(this);
-           var $input = $this.next('input');
-           if($this.val() !== 'DEFAULT') {
-               $input.removeAttr('readonly');
-           } else {
-               $input.attr('readonly', 'readonly')
-           }
+            var $this = $(this);
+            var $input = $this.next('input');
+            if($this.val() !== 'DEFAULT') {
+                $input.removeAttr('readonly');
+            } else {
+                $input.attr('readonly', 'readonly')
+            }
             $input.val($this.find("option:selected").data("def-count"));
         });
 
@@ -501,5 +506,16 @@
                 });
             })
         })
+
+        $("#crawlSingle").click(function () {
+            var $form = $("form#removerSingleForm");
+            if (validator.checkAll($form)) {
+                changeBtnState(true)
+                $("#resultModal").modal('show');
+                $("#showResultModal").show();
+                $form.submit();
+                $("#spider-message").html("<p> 程序正在初始化...</p>");
+            }
+        });
     </script>
 </@footer>
