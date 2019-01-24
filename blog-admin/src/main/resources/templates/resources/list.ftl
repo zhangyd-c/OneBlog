@@ -41,13 +41,13 @@
                 <form id="addOrUpdateForm" class="form-horizontal form-label-left" novalidate>
                     <input type="hidden" name="id">
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">资源名称: <span class="required">*</span></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">资源名称 <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" class="form-control col-md-7 col-xs-12" name="name" id="name" required="required" placeholder="请输入资源名称"/>
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">资源类型: <span class="required">*</span></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">资源类型 <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <select name="type" id="type" required="required" class="form-control col-md-7 col-xs-12">
                                 <option value="">请选择</option>
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">父级资源: </label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">父级资源 </label>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <select id="parentId" name="parentId" class="form-control col-md-5 col-xs-5">
                                 <option value="">请选择</option>
@@ -79,25 +79,25 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="url">资源链接: </label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="url">资源链接 </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" class="form-control col-md-7 col-xs-12" name="url" id="url" placeholder="请输入资源链接"/>
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="permission">资源权限: </label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="permission">资源权限 </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" class="form-control col-md-7 col-xs-12" name="permission" id="permission" placeholder="请输入资源权限"/>
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sort">资源排序: </label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sort">资源排序 </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" class="form-control col-md-7 col-xs-12" name="sort" id="sort" placeholder="请输入资源排序"/>
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="icon">资源图标: </label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="icon">资源图标 </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" class="form-control col-md-7 col-xs-12" name="icon" id="icon" placeholder="请输入资源图标"/>
                         </div>

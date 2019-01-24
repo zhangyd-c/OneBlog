@@ -54,7 +54,8 @@ em {
 }*/
 
 .commentList {
-    margin-top: 0px;
+    margin-top: 0;
+    padding-top: 10px;
 }
 
 .cancel-reply {
@@ -100,7 +101,7 @@ em {
 
 .comment .comment-body .cheader {
     display: block;
-    height: 43px;
+    height: 50px;
 }
 
 .comment .comment-body .cheader .user-img {
@@ -141,7 +142,7 @@ em {
 }
 
 .comment .comment-body .cheader .user-info .timer i {
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 .comment-quote {
@@ -155,30 +156,29 @@ em {
     list-style-type: none;
     -webkit-margin-before: 1em;
     -webkit-margin-after: 1em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-    -webkit-padding-start: 0px;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    -webkit-padding-start: 0;
 }
 
 .cheader {
-    border-bottom: 1px dotted #ddd;
+    /*border-bottom: 1px dotted #ddd;*/
 }
 
 .content {
     padding: 10px;
-    border-bottom: 1px dotted #ddd;
+    /*border-bottom: 1px dotted #ddd;*/
     font-size: 12px;
 }
 
 .content p {
-    margin: 0px;
+    margin: 0;
 }
 
 .sign {
     overflow: visible !important;
     line-height: 2;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 5px;
     background-color: rgba(255, 255, 255, .7);
     color: #999aaa;
     font-size: 12px;
@@ -194,15 +194,14 @@ em {
 
 .sepa {
     font-style: normal;
-    margin-right: -5px;
-    margin-left: 0px;
+    margin-right: 10px;
 }
 
-.sepa:before {
+/*.sepa:before {
     content: "|";
     margin-left: 3px;
     margin-right: 3px;
-}
+}*/
 
 .reply {
     margin-left: 20px
@@ -219,11 +218,9 @@ em {
 }
 
 .userImage {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    margin-bottom: 4px;
-    margin-right: 3px;
 }
 
 .userImage:hover {

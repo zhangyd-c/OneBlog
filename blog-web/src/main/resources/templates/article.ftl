@@ -1,36 +1,5 @@
 <#include "include/macros.ftl">
-<@header title="${article.title} | ${config.siteName}"
-    keywords="${article.keywords?if_exists},${config.siteName}"
-    description="${article.description?if_exists}"
-    canonical="/article/${article.id}">
-    <link href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
-	<link href="https://cdn.bootcss.com/github-markdown-css/2.10.0/github-markdown.min.css" rel="stylesheet">
-	<link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
-    <style>
-        .CodeMirror {
-            padding: 0px;
-        }
-        .CodeMirror, .CodeMirror-scroll {
-            min-height: 130px;
-            max-height: 200px;
-        }
-        .CodeMirror .cm-spell-error:not(.cm-url):not(.cm-comment):not(.cm-tag):not(.cm-word) {
-            background: none;
-        }
-        .editor-statusbar {
-            display: none;
-        }
-        .editor-preview {
-            overflow-y: initial!important;
-        }
-        ul {
-            list-style: none;
-            margin-left: 0;
-            padding-left: 0;
-        }
-    </style>
-</@header>
-
+<@header title="${article.title} | ${config.siteName}" keywords="${article.keywords?if_exists},${config.siteName}" description="${article.description?if_exists}" canonical="/article/${article.id}" hasEditor=true></@header>
 <#if article.coverImage?exists>
     <img src="${config.qiniuBasePath}${article.coverImage?if_exists}" onerror="this.src='${config.staticWebSite}/img/default_article_cover.jpg'" style="display: none;" id="cover-img">
 </#if>
@@ -41,7 +10,7 @@
         <a href="${config.siteUrl}/type/${article.typeId}" title="点击查看该分类文章" data-toggle="tooltip" data-placement="bottom">${article.type.name}</a>
         <i class="fa fa-angle-right"></i>正文
     </nav>
-    <div class="row">
+    <div class="row article-body">
         <div class="col-sm-8 blog-main">
             <div class="blog-body overflow-initial fade-in">
                 <div class="article-flag">
@@ -58,18 +27,16 @@
                     </#if>
                     <div class="blog-info-meta pull-right">
                         <ul class="list-unstyled list-inline">
-                            <li><i class="fa fa-clock-o fa-fw"></i>发表于 ${article.createTime?string('yyyy年MM月dd日')}</li>
+                            <li><i class="fa fa-clock-o fa-fw"></i>${article.createTime?string('yyyy-MM-dd')}</li>
                             <li><i class="fa fa-eye fa-fw"></i><a class="pointer" data-original-title="${article.lookCount!(0)}人浏览了该文章" data-toggle="tooltip" data-placement="bottom">浏览 (<num>${article.lookCount!(0)}</num>)</a></li>
                             <li><a href="#comment-box" data-original-title="${article.commentCount!(0)}人评论了该文章" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-comments-o fa-fw"></i>评论 (${article.commentCount!(0)})</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="blog-info overflow-initial">
-                    <div class="bottom-line">
-                        <h1 class="blog-info-title">
-                            <strong>${article.title}</strong>
-                        </h1>
-                    </div>
+                    <h1 class="blog-info-title">
+                        <strong>${article.title}</strong>
+                    </h1>
                     <div class="blog-info-body ${article.isMarkdown?string('markdown-body editor-preview-active-side', '')}">
                         ${article.content}
                     </div>
@@ -160,7 +127,7 @@
             </div>
             <#-- 热门推荐 -->
             <div class="blog-body clear overflow-initial">
-                <h4 class="bottom-line"><i class="fa fa-fire icon"></i><strong>热门推荐</strong></h4>
+                <h5 class="custom-title"><i class="fa fa-fire fa-fw icon"></i><strong>热门推荐</strong><small></small></h5>
                 <ul class="list-unstyled">
                     <@articleTag method="hotList" pageSize="10">
                         <#if hotList?exists && (hotList?size > 0)>
@@ -201,7 +168,7 @@
             </div>
             <#-- 相关文章 -->
             <div class="blog-body clear overflow-initial">
-                <h4 class="bottom-line"><i class="fa fa-google-wallet icon"></i><strong>相关文章</strong></h4>
+                <h5 class="custom-title"><i class="fa fa-google-wallet fa-fw icon"></i><strong>相关文章</strong><small></small></h5>
                 <ul class="list-unstyled">
                     <#list relatedList as item>
                         <li class="line-li">

@@ -15,8 +15,7 @@
         <@blogHeader title="友情链接"></@blogHeader>
         <div class="col-sm-12 blog-main">
             <div class="blog-body expansion">
-                <#--<h5 class="legend-title">简单的要求<small> - 简单点，说话的方式简单点</small></h5>-->
-                <h4 class="bottom-line"><i class="fa fa-coffee fa-fw"></i><strong>简单的要求</strong><small> - 简单点，说话的方式简单点</small></h4>
+                <h4 class="custom-title"><i class="fa fa-coffee fa-fw"></i><strong>简单的要求</strong><small> - 简单点，说话的方式简单点</small></h4>
                 <div class="link-info">
                     <ul class="list-unstyled">
                         <li>本站定位：个人技术类博客</li>

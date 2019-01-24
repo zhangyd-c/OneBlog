@@ -5002,3 +5002,7 @@ ul, menu, dir {
 #spider-message p {
     margin: 0 0 2px;
 }
+
+.control-label .required {
+    color: #dc3545;
+}

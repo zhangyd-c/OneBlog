@@ -158,13 +158,13 @@
     <script>
         articleId = '${id}';
         $(function () {
-            if(!articleId) {
+            /*if(!articleId) {
                 $.alert.confirm("当前已支持markdown编辑器，去试试？", function () {
                     window.location.href="/article/publishMd";
                 }, function () {
 
                 });
-            }
+            }*/
             zhyd.initWangEditor({
                 id: "editor",
                 contentId: "content",

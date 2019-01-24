@@ -37,7 +37,7 @@
                                 <a href="#multiple" id="multiple-tab" role="tab" data-toggle="tab" aria-expanded="true">抓取列表</a>
                             </li>
                             <li role="presentation">
-                                <a href="#single" id="single-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-fire fa-fw red"></i>抓取单个文章</a>
+                                <a href="#single" id="single-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-free-code-camp fa-fw red"></i>抓取单个文章</a>
                             </li>
                         </ul>
                         <div id="myTabContent" class="tab-content">

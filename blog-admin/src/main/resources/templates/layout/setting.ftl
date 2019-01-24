@@ -96,7 +96,7 @@
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-3" for="password">旧密码 <span class="required">*</span></label>
                         <div class="col-md-8 col-sm-8 col-xs-8">
-                            <input class="form-control col-md-7 col-xs-12" id="password" name="password" required="required" type="password" minlength="6" maxlength="15">
+                            <input class="form-control col-md-7 col-xs-12" id="oldPassword" name="password" required="required" type="password" minlength="6" maxlength="15">
                         </div>
                     </div>
                     <div class="item form-group">

@@ -41,20 +41,20 @@
                 <form id="addOrUpdateForm" class="form-horizontal form-label-left" novalidate>
                     <input type="hidden" name="id">
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">标题: <span class="required">*</span></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">标题 <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" class="form-control col-md-7 col-xs-12" name="title" id="title" required="required"
                                    placeholder="请输入标题"/>
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="content">内容: <span class="required">*</span></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="content">内容 <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <textarea class="form-control col-md-7 col-xs-12" id="content" name="content" required="required"></textarea>
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">状态: <span class="required">*</span></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">状态 <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <ul class="list-unstyled list-inline">
                                 <li>

@@ -12,19 +12,18 @@
         <i class="fa fa-angle-right"></i>网站更新记录
     </nav>
     <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-8 blog-main">
             <#if list?exists && (list?size > 0)>
-                <article class="fade-in update-logs">
-                    <ul class="list-unstyled">
-                        <#list list as item>
+                <div class="blog-body fade-in update-logs updatelog-body">
+                    <#list list as item>
+                        <h3 class="update-title pointer">${item.recordeTime?string('yyyy年MM月dd日 HH时')} | Version: ${item.version}</h3>
+                        <ul class="list-box list-unstyled" style="display: none;">
                             <li>
-                                更新版本：${item.version}
                                 <div>更新内容：${item.description}</div>
-                                <span>${item.recordeTime?string('yyyy/MM/dd')}</span>
                             </li>
-                        </#list>
-                    </ul>
-                </article>
+                        </ul>
+                    </#list>
+                </div>
             <#else >
                 <article class="fade-in">
                     <div class="h3 text-center">亲，啥也没找到啊~~<img src="http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/15/j_thumb.gif" alt="[囧]"></div>
@@ -35,5 +34,22 @@
         <#include "layout/sidebar.ftl"/>
     </div>
 </div>
-<@footer></@footer>
+<@footer>
+    <script>
+        $(document).ready(function() {
+            (function() {
+                var listBox = $('.updatelog-body ul.list-box'),
+                    listBoxFirst = $('.updatelog-body ul:first, .updatelog-body ul:first .list-box');
+                listBox.hide(1, function() {
+                    listBoxFirst.show();
+                });
+                $(".update-title").click(function () {
+                    var $this = $(this);
+                    $this.next(".list-box:first").slideToggle(400);
+                    return false;
+                });
+            })();
+        });
+    </script>
+</@footer>
 </@compress>

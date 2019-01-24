@@ -245,7 +245,11 @@ function clearText($this, type, info){
             }
             $this.val(thisValue);
         } else {
-            $this.val(thisValue);
+            if(type != 'password') {
+                $this.val(thisValue);
+            } else {
+                $this.val('');
+            }
         }
     } else {
         if (type === 'radio' || type === 'checkbox') {

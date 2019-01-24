@@ -1,5 +1,5 @@
 <#-- 公共顶部 -->
-<#macro header title="DBlog开源博客" keywords="" description="" canonical="">
+<#macro header title="DBlog开源博客" keywords="" description="" canonical="" hasEditor=false>
 <#include "/common/annotation.ftl">
 <!DOCTYPE HTML>
 <html lang="zh-CN">
@@ -23,6 +23,11 @@
             -o-filter: grayscale(100%);
             filter: url("data:image/svg+xml;utf8,<svg xmlns="\'http://www.w3.org/2000/svg\'"><filter id="\'grayscale\'"><feColorMatrix type="\'matrix\'" values="\'0.3333" 0.3333="" 0="" 1="" 0\'=""></fecolormatrix></filter></svg>#grayscale");filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);-webkit-filter:grayscale(1);}
     </style>-->
+    <#if hasEditor>
+        <link href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcss.com/github-markdown-css/2.10.0/github-markdown.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+    </#if>
     <#nested>
 </head>
 <body>
@@ -57,7 +62,7 @@
 <#macro blogHeader title="Header" weiboName="@我的微博">
     <div class="col-sm-12 blog-main">
         <div class="blog-header">
-            <h1 class="blog-title">${title}</h1>
+            <h4>${title}</h4>
             <p class="blog-description" id="hitokoto"></p>
             <div class="info">
                 <a href="javascript:void(0);" target="_blank" title="点击QQ联系我"onclick="window.open('tencent://message/?uin=${config.qq}&amp;Site=www.${config.domain}&amp;Menu=yes')" rel="external nofollow"><i class="fa fa fa-qq fa-fw"></i>QQ联系</a>
@@ -78,5 +83,24 @@
         <a href="#" class="close" data-dismiss="alert">&times;</a>
         系统预计将在<strong>${config.maintenanceDate?string('yyyy年MM月dd日 HH点mm分')}</strong>进行更新，届时网站将无法使用，更新时间大约 5-10分钟，敬请悉知。
     </div>
+    </#if>
+</#macro>
+
+<#-- 赞赏 -->
+<#macro praise>
+    <#if config.wxPraiseCode?if_exists || config.zfbPraiseCode?if_exists>
+        <h5 class="custom-title"><i class="fa fa-dollar fa-fw"></i><strong>鼓励一下</strong><small></small></h5>
+        <div class="col-sm-12 col-md-12">
+            <#if config.zfbPraiseCode?if_exists>
+                <a href="${config.qiniuBasePath}${config.zfbPraiseCode}" class="showImage" title="支付宝收钱码" rel="external nofollow">
+                    <img src="${config.qiniuBasePath}${config.zfbPraiseCode}" alt="支付宝收钱码" class="img-rounded" style="width: 250px;height: auto;">
+                </a>
+            </#if>
+            <#if config.wxPraiseCode?if_exists>
+                <a href="${config.qiniuBasePath}${config.wxPraiseCode}" class="showImage" title="微信收钱码" rel="external nofollow">
+                    <img src="${config.qiniuBasePath}${config.wxPraiseCode}" alt="微信收钱码" class="img-rounded" style="width: 250px;height: auto;">
+                </a>
+            </#if>
+        </div>
     </#if>
 </#macro>

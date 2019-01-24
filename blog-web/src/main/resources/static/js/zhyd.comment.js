@@ -74,13 +74,13 @@ $.extend({
             }, options);
             var commentBox = '<div id="comment-place">'
                     + '<div class="comment-post" id="comment-post" style="position: relative">'
-                    + '<h4 class="bottom-line"><i class="fa fa-commenting-o fa-fw icon"></i><strong>评论</strong></h4>'
+                    + '<h5 class="custom-title"><i class="fa fa-commenting-o fa-fw icon"></i><strong>评论</strong><small></small></h5>'
                     + '<form class="form-horizontal" role="form" id="comment-form">'
                     + '<div class="cancel-reply" id="cancel-reply" style="display: none;"><a href="javascript:void(0);" onclick="$.comment.cancelReply(this)" rel="external nofollow"><i class="fa fa-share"></i>取消回复</a></div>'
                     + '<input type="hidden" name="pid" id="comment-pid" value="0" size="22" tabindex="1">'
                     + '<textarea id="comment_content" class="form-control col-md-7 col-xs-12 valid" style="display: none"></textarea>'
                     + '<textarea name="content" style="display: none"></textarea>'
-                    + '<div style="position: absolute;right: 10px;bottom: 70px;font-size: 14px;font-weight: 700;color: #ececec;z-index: 1;">' + op.wmName + '<br>' + op.wmUrl + '<br>' + op.wmDesc + '</div>'
+                    + '<div style="position: absolute;right: 10px;bottom: 70px;font-size: 14px;color: #dbdada;z-index: 1;">' + op.wmName + '<br>' + op.wmUrl + '<br>' + op.wmDesc + '</div>'
                     + '<a id="comment-form-btn" type="button" data-loading-text="正在提交评论..." class="btn btn-default btn-block">提交评论</a>'
                     + '</form></div></div>';
             $box.html(commentBox);
@@ -126,7 +126,7 @@ $.extend({
                     var commentListBox  = '';
                     if(!commentList){
                         commentListBox = '<div class="commentList">'
-                                + '<h4 class="bottom-line"><i class="fa fa-comments-o fa-fw icon"></i><strong><em>0</em> 条评论</strong></h4>'
+                                + '<h5 class="custom-title"><i class="fa fa-comments-o fa-fw icon"></i><strong>0 评论</strong><small></small></h5>'
                                 + '<ul class="comment">';
                         commentListBox += '<li><div class="list-comment-empty-w fade-in">'
                                 +'<div class="empty-prompt-w">'
@@ -140,7 +140,7 @@ $.extend({
                         // 首次加载-刷新页面后第一次加载，此时没有点击加载更多进行分页
                         if(!pageNumber) {
                             commentListBox = '<div class="commentList">'
-                                    + '<h4 class="bottom-line"><i class="fa fa-comments-o fa-fw icon"></i><strong><em>' + json.data.total + '</em> 条评论</strong></h4>'
+                                    + '<h5 class="custom-title"><i class="fa fa-comments-o fa-fw icon"></i><strong>' + json.data.total + ' 评论</strong><small></small></h5>'
                                     + '<ul class="comment">';
                         }
                         for(var i = 0, len = commentList.length; i < len ; i ++){

@@ -1,56 +1,18 @@
 <#include "include/macros.ftl">
 <@compress single_line=true>
-<@header title="归档目录 | ${config.siteName}"
-    keywords="归档目录"
-    description="归档目录"
-    canonical="/archives">
-    <style type="text/css">
-        .bottom-line{
-            text-align: center;
-        }
-        .archives-meta{
-            margin: 10px;
-        }
-        /* 文章归档盒子 */
-        .archives-box {
-            margin: 30px 10px;
-        }
-
-        .archives-box .month {
-            color: #000;
-            line-height: 30px;
-            margin: 5px 0 5px 10px;
-        }
-
-        .archives-box .month-li {
-            line-height: 25px;
-            text-indent: 2em;
-        }
-
-        .archives-box .num {
-            color: #999;
-            font-size: 14px;
-            font-weight: 100;
-        }
-
-        .archives-box .article-item {
-            text-indent: 4em;
-        }
-
-    </style>
-</@header>
+<@header title="归档目录 | ${config.siteName}" keywords="归档目录" description="归档目录" canonical="/archives"></@header>
 
 <div class="container custome-container">
     <nav class="breadcrumb">
         <a class="crumbs" title="返回首页" href="${config.siteUrl}" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-home"></i>首页</a> <i
             class="fa fa-angle-right"></i>归档目录
     </nav>
-    <div class="row">
+    <div class="row archives">
         <div class="col-sm-8 blog-main">
             <div class="blog-body overflow-initial fade-in">
                 <div class="blog-info overflow-initial">
                     <div class="bottom-line">
-                        <h1 class="blog-info-title">
+                        <h1 class="archives-title">
                             <strong>文章归档目录</strong>
                         </h1>
                         <@zhydTag method="siteInfo">
@@ -58,7 +20,7 @@
                         </@zhydTag>
                         <p class="blog-description hitokoto"></p>
                     </div>
-                    <div class="blog-info-body">
+                    <div class="archives-body">
                         <div class="archives-box overflow-initial">
                             <#list archives['years'] as year>
                                 <h3 class="year pointer">${year}年 </h3>

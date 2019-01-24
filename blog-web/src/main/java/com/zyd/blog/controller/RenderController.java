@@ -181,7 +181,7 @@ public class RenderController {
      * @return
      */
     @GetMapping("/article/{articleId}")
-    @BussinessLog(value = "进入文章[{1}]详情页", platform = PlatformEnum.WEB)
+    @BussinessLog(value = "进入文章[{2}]详情页", platform = PlatformEnum.WEB)
     public ModelAndView article(Model model, @PathVariable("articleId") Long articleId) {
         Article article = bizArticleService.getByPrimaryKey(articleId);
         if (article == null || ArticleStatusEnum.UNPUBLISHED.getCode() == article.getStatusEnum().getCode()) {
