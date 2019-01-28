@@ -76,7 +76,7 @@ public class WebSocketUtil {
         try {
             session.getAsyncRemote().sendText(message);
         } catch (Exception e) {
-            log.error("websocket-->向客户端发送数据发生异常", e);
+            log.error("[Socket] websocket-->向客户端发送数据发生异常", e);
         }
     }
 

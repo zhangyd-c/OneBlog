@@ -62,6 +62,15 @@ public class BizCommentServiceImpl implements BizCommentService {
     @Autowired
     private SysConfigService configService;
 
+    public static void main(String[] args) {
+        List<String> avatars = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "11", "12", "13", "14", "15", "16", "17", "18", "19");
+        Collections.shuffle(avatars);
+        for (int i = 0; i < 20; i++) {
+            int randomAvatar = new Random().nextInt(avatars.size());
+            System.out.println(randomAvatar + " - " + avatars.get(randomAvatar));
+        }
+    }
+
     /**
      * 分页查询
      *
@@ -72,12 +81,9 @@ public class BizCommentServiceImpl implements BizCommentService {
     public PageInfo<Comment> findPageBreakByCondition(CommentConditionVO vo) {
         PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
         List<BizComment> list = bizCommentMapper.findPageBreakByCondition(vo);
-        if (CollectionUtils.isEmpty(list)) {
+        List<Comment> boList = this.getComments(list);
+        if (boList == null) {
             return null;
-        }
-        List<Comment> boList = new ArrayList<>();
-        for (BizComment bizComment : list) {
-            boList.add(new Comment(bizComment));
         }
         PageInfo bean = new PageInfo<BizComment>(list);
         bean.setList(boList);
@@ -89,7 +95,6 @@ public class BizCommentServiceImpl implements BizCommentService {
      * @return
      */
     @Override
-//    @RedisCache
     public Map<String, Object> list(CommentConditionVO vo) {
         PageInfo pageInfo = findPageBreakByCondition(vo);
         Map<String, Object> map = new HashMap<>();
@@ -148,42 +153,47 @@ public class BizCommentServiceImpl implements BizCommentService {
     @RedisCache(flush = true)
     public Comment comment(Comment comment) throws ZhydCommentException {
         if (StringUtils.isEmpty(comment.getNickname())) {
-            throw new ZhydCommentException("必须输入昵称哦~~");
+            throw new ZhydCommentException("必须输入昵称");
         }
         String content = comment.getContent();
         if (!XssKillerUtil.isValid(content)) {
-            throw new ZhydCommentException("内容不合法，请不要使用特殊标签哦~~");
+            throw new ZhydCommentException("请不要使用特殊标签");
         }
         content = XssKillerUtil.clean(content.trim()).replaceAll("(<p><br></p>)|(<p></p>)", "");
         if (StringUtils.isEmpty(content) || "\n".equals(content)) {
-            throw new ZhydCommentException("不说话可不行，必须说点什么哦~~");
+            throw new ZhydCommentException("说点什么吧");
         }
         // 过滤非法属性和无用的空标签
         comment.setContent(content);
         comment.setNickname(HtmlUtil.html2Text(comment.getNickname()));
         comment.setQq(HtmlUtil.html2Text(comment.getQq()));
         comment.setAvatar(HtmlUtil.html2Text(comment.getAvatar()));
+
+        List<String> avatars = configService.getRandomUserAvatar();
+        if (StringUtils.isEmpty(comment.getAvatar()) && !CollectionUtils.isEmpty(avatars)) {
+            Collections.shuffle(avatars);
+            int randomIndex = new Random().nextInt(avatars.size());
+            comment.setAvatar(avatars.get(randomIndex));
+        }
+
         comment.setEmail(HtmlUtil.html2Text(comment.getEmail()));
         comment.setUrl(HtmlUtil.html2Text(comment.getUrl()));
         HttpServletRequest request = RequestHolder.getRequest();
         String ua = request.getHeader("User-Agent");
         UserAgent agent = UserAgent.parseUserAgentString(ua);
-        // 浏览器
         Browser browser = agent.getBrowser();
         String browserInfo = browser.getName();
 //        comment.setBrowserShortName(browser.getShortName());// 此处需开发者自己处理
-        // 浏览器版本
         Version version = agent.getBrowserVersion();
         if (version != null) {
             browserInfo += " " + version.getVersion();
         }
         comment.setBrowser(browserInfo);
-        // 操作系统
         OperatingSystem os = agent.getOperatingSystem();
         comment.setOs(os.getName());
 //        comment.setOsShortName(os.getShortName());// 此处需开发者自己处理
         comment.setIp(IpUtil.getRealIp(request));
-        String address = "定位失败";
+        String address = "";
         BaseConfig config = configService.getBaseConfig();
         try {
             String locationJson = RestClientUtil.get(UrlBuildUtil.getLocationByIp(comment.getIp(), config.getBaiduApiAk()));
@@ -198,9 +208,7 @@ public class BizCommentServiceImpl implements BizCommentService {
             String district = addressDetail.getString("district");
             // 街道
             String street = addressDetail.getString("street");
-            // 街道编号
-//            String street_number = addressDetail.getString("street_number");
-            StringBuffer sb = new StringBuffer(province);
+            StringBuilder sb = new StringBuilder(province);
             if (!StringUtils.isEmpty(city)) {
                 sb.append(city);
             }
@@ -233,7 +241,7 @@ public class BizCommentServiceImpl implements BizCommentService {
     }
 
 
-    private void sendEmail(Comment comment){
+    private void sendEmail(Comment comment) {
         // 发送邮件通知，此处如发生异常不应阻塞当前的业务流程
         // 可以进行日志记录等操作
         try {
@@ -263,6 +271,10 @@ public class BizCommentServiceImpl implements BizCommentService {
         vo.setStatus(CommentStatusEnum.APPROVED.toString());
         PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
         List<BizComment> list = bizCommentMapper.findPageBreakByCondition(vo);
+        return getComments(list);
+    }
+
+    private List<Comment> getComments(List<BizComment> list) {
         if (CollectionUtils.isEmpty(list)) {
             return null;
         }
@@ -322,12 +334,6 @@ public class BizCommentServiceImpl implements BizCommentService {
         operations.set(key, id, 1, TimeUnit.HOURS);
     }
 
-    /**
-     * 保存一个实体，null的属性不会保存，会使用数据库默认值
-     *
-     * @param entity
-     * @return
-     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     @RedisCache(flush = true)
@@ -339,30 +345,6 @@ public class BizCommentServiceImpl implements BizCommentService {
         return entity;
     }
 
-    /**
-     * 批量插入，支持批量插入的数据库可以使用，例如MySQL,H2等，另外该接口限制实体包含id属性并且必须为自增列
-     *
-     * @param entities
-     */
-    @Override
-    @RedisCache(flush = true)
-    public void insertList(List<Comment> entities) {
-        Assert.notNull(entities, "Comments不可为空！");
-        List<BizComment> list = new ArrayList<>();
-        for (Comment entity : entities) {
-            entity.setUpdateTime(new Date());
-            entity.setCreateTime(new Date());
-            list.add(entity.getBizComment());
-        }
-        bizCommentMapper.insertList(list);
-    }
-
-    /**
-     * 根据主键字段进行删除，方法参数必须包含完整的主键属性
-     *
-     * @param primaryKey
-     * @return
-     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     @RedisCache(flush = true)
@@ -370,27 +352,6 @@ public class BizCommentServiceImpl implements BizCommentService {
         return bizCommentMapper.deleteByPrimaryKey(primaryKey) > 0;
     }
 
-    /**
-     * 根据主键更新实体全部字段，null值会被更新
-     *
-     * @param entity
-     * @return
-     */
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @RedisCache(flush = true)
-    public boolean update(Comment entity) {
-        Assert.notNull(entity, "Comment不可为空！");
-        entity.setUpdateTime(new Date());
-        return bizCommentMapper.updateByPrimaryKey(entity.getBizComment()) > 0;
-    }
-
-    /**
-     * 根据主键更新属性不为null的值
-     *
-     * @param entity
-     * @return
-     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     @RedisCache(flush = true)
@@ -400,68 +361,10 @@ public class BizCommentServiceImpl implements BizCommentService {
         return bizCommentMapper.updateByPrimaryKeySelective(entity.getBizComment()) > 0;
     }
 
-    /**
-     * 根据主键字段进行查询，方法参数必须包含完整的主键属性，查询条件使用等号
-     *
-     * @param primaryKey
-     * @return
-     */
     @Override
     public Comment getByPrimaryKey(Long primaryKey) {
         Assert.notNull(primaryKey, "PrimaryKey不可为空！");
         BizComment entity = bizCommentMapper.getById(primaryKey);
         return null == entity ? null : new Comment(entity);
-    }
-
-    /**
-     * 根据实体中的属性进行查询，只能有一个返回值，有多个结果时抛出异常，查询条件使用等号
-     *
-     * @param entity
-     * @return
-     */
-    @Override
-    public Comment getOneByEntity(Comment entity) {
-        Assert.notNull(entity, "Comment不可为空！");
-        BizComment bo = bizCommentMapper.selectOne(entity.getBizComment());
-        return null == bo ? null : new Comment(bo);
-    }
-
-    /**
-     * 查询全部结果，listByEntity(null)方法能达到同样的效果
-     *
-     * @return
-     */
-    @Override
-    public List<Comment> listAll() {
-        List<BizComment> entityList = bizCommentMapper.selectAll();
-
-        if (CollectionUtils.isEmpty(entityList)) {
-            return null;
-        }
-        List<Comment> list = new ArrayList<>();
-        for (BizComment entity : entityList) {
-            list.add(new Comment(entity));
-        }
-        return list;
-    }
-
-    /**
-     * 根据实体中的属性值进行查询，查询条件使用等号
-     *
-     * @param entity
-     * @return
-     */
-    @Override
-    public List<Comment> listByEntity(Comment entity) {
-        Assert.notNull(entity, "Comment不可为空！");
-        List<BizComment> entityList = bizCommentMapper.select(entity.getBizComment());
-        if (CollectionUtils.isEmpty(entityList)) {
-            return null;
-        }
-        List<Comment> list = new ArrayList<>();
-        for (BizComment po : entityList) {
-            list.add(new Comment(po));
-        }
-        return list;
     }
 }

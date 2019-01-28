@@ -5,6 +5,7 @@ import com.zyd.blog.business.entity.BaseConfig;
 import com.zyd.blog.persistence.beans.SysConfig;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,6 +25,13 @@ public interface SysConfigService {
      * @return
      */
     BaseConfig getBaseConfig();
+
+    /**
+     * 获取系统配置
+     *
+     * @return
+     */
+    Map<String, Object> getConfigs();
 
     /**
      * 添加/修改系统配置
@@ -61,9 +69,13 @@ public interface SysConfigService {
     Map<String, Object> getSiteInfo();
 
     /**
-     * 返回 Spider Config
-     *
-     * @return
+     * 返回 Spider
      */
     String getSpiderConfig();
+
+    /**
+     * 获取随机的用户头像
+     */
+    List<String> getRandomUserAvatar();
+
 }

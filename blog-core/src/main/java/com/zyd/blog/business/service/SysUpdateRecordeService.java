@@ -17,11 +17,5 @@ import com.github.pagehelper.PageInfo;
  */
 public interface SysUpdateRecordeService extends AbstractService<UpdateRecorde, Long> {
 
-    /**
-     * 分页查询
-     *
-     * @param vo
-     * @return
-     */
     PageInfo<UpdateRecorde> findPageBreakByCondition(UpdateRecordeConditionVO vo);
 }

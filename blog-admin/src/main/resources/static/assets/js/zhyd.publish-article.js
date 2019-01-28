@@ -20,7 +20,6 @@ function loadType(){
                 $("select#typeId").html(html);
             }
             $("#refressType").removeClass("fa-spin");
-            $.toastr.success("分类加载完成！");
         },
         error: $.alert.ajaxError
     });
@@ -50,7 +49,6 @@ function loadTag() {
                 });
             }
             $("#refressTag").removeClass("fa-spin");
-            $.toastr.success("标签加载完成！");
         },
         error: $.alert.ajaxError
     });

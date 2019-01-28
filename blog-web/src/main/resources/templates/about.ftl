@@ -7,7 +7,7 @@
         <a class="crumbs" title="返回首页" href="${config.siteUrl}" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-home"></i>首页</a>
         <i class="fa fa-angle-right"></i>关于
     </nav>
-    <div class="row">
+    <div class="row about-body">
         <@blogHeader title="关于本站"></@blogHeader>
         <div class="col-sm-12 blog-main">
             <div class="blog-body expansion">

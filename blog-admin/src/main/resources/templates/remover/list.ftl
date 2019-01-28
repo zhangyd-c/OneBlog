@@ -7,10 +7,10 @@
         .form-group {
             margin-bottom: 0;
         }
-        .item .alert {
+        #removerForm .item .alert {
             margin: 5px 0 0 15px;
         }
-        .item.bad .alert {
+        #removerForm .item.bad .alert {
             float: right;
             margin-top: -30px;
             left: -15px!important;
@@ -28,6 +28,12 @@
 <div class="clearfix"></div>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
+        <@breadcrumb>
+            <ol class="breadcrumb">
+                <li><a href="/">首页</a></li>
+                <li class="active">文章搬运工</li>
+            </ol>
+        </@breadcrumb>
         <div class="x_panel">
             <div class="x_content">
                 <div class="row">

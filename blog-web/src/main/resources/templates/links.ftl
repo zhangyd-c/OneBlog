@@ -40,13 +40,13 @@
                 <div class="category">
                     <div><i class="fa fa-unlink fa-fw fa-2x"></i>取链记录</div>
                 </div>
-                <div class="col-sm-12 col-md-12" style="margin: 0 auto;float: initial">
+                <div class="col-sm-12 col-md-12" style="margin: 0 auto;float: initial;padding: 0 15px;">
                     <div class="h5"><i class="fa fa-plus-square showContent"> 点击查看</i></div>
                     <div class="disable-content" style="display: none;">
                         <table class="table table-hover table-condensed table-bordered">
                             <thead>
                             <th style="width: 80px;">网站图标</th>
-                            <th style="width: 200px;">网站名</th>
+                            <th style="width: 250px;">网站名</th>
                             <th>取链原因</th>
                             <th style="width: 150px;">取链时间</th>
                             </thead>

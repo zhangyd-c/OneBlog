@@ -322,6 +322,45 @@ var zhyd = window.zhyd || {
             },
             error: $.alert.ajaxError
         });
+    },
+    initTextSlider: function () {
+        $.fn.textSlider = function (settings) {
+            settings = jQuery.extend({
+                speed: "normal",
+                line: 2,
+                timer: 3000
+            }, settings);
+            return this.each(function () {
+                $.fn.textSlider.scllor($(this), settings);
+            });
+        };
+        $.fn.textSlider.scllor = function ($this, settings) {
+            var ul = $("ul:eq(0)", $this);
+            var timerID;
+            var li = ul.children();
+            var liHight = $(li[0]).height();
+            var upHeight = 0 - settings.line * liHight;//滚动的高度；
+            var scrollUp = function () {
+                ul.animate({marginTop: upHeight}, settings.speed, function () {
+                    for (i = 0; i < settings.line; i++) {
+                        ul.find("li:first", $this).appendTo(ul);
+                    }
+                    ul.css({marginTop: 0});
+                });
+            };
+            var autoPlay = function () {
+                timerID = window.setInterval(scrollUp, settings.timer);
+            };
+            var autoStop = function () {
+                window.clearInterval(timerID);
+            };
+            //事件绑定
+            ul.hover(autoStop, autoPlay).mouseout();
+        };
+
+        if ($("#scrolldiv")) {
+            $("#scrolldiv").textSlider({line: 1, speed: 300, timer: 10000});
+        }
     }
 };
 
@@ -420,6 +459,7 @@ $(document).ready(function () {
     zhyd.initSidebar();
     zhyd.initHelloMsg();
     zhyd.initCommentNotify();
+    zhyd.initTextSlider();
 
     $("img.lazy-img").lazyload({
         placeholder: appConfig.staticPath + "/img/loading.gif",
@@ -461,4 +501,34 @@ $(document).ready(function () {
         }
     });
     zhyd.combox.init();
+
+    /**
+     * 针对shiro框架中， ajax请求时session过期后的页面跳转
+     */
+    $.ajaxSetup({
+        complete: function (XMLHttpRequest, textStatus) {
+            if (textStatus === "parsererror") {
+                $.alert.error("会话已失效！请重新登录！", function () {
+                    window.location.reload();
+                });
+            } else if (textStatus === "error") {
+                $.alert.error("请求超时,请稍后再试！");
+            }
+        }
+    });
+
+    var notice = [
+        '<strong>Hi Body!</strong> 前台首页的 “轮播”只会显示“推荐文章”哦',
+        '要想百度搜索引擎快速收录文章，可以试试“推送”功能哦',
+        '批量推送文章到百度可以一次提交多篇文章哦',
+        '碰到页面显示和数据库内容不一致的情况，可以先考虑清下redis缓存哦',
+        '不可以随便用“文章搬运工”去爬取别人未授权的文章哈',
+        '使用过程中如果有不能解决的问题，请去提issue哈，在群里消息太多，有时候会看不到消息记录',
+    ];
+    var $noticeBox = $("#notice-box");
+    var tpl = '{{#data}}<li class="scrolltext-title">'
+        + '<a href="javascript:void(0)" rel="bookmark">{{&.}}</a>'
+        + '</li>{{/data}}';
+    var html = Mustache.render(tpl, {"data": $.tool.shuffle(notice)});
+    $noticeBox.html(html);
 });

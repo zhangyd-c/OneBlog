@@ -38,17 +38,21 @@ public class RedisCacheAspect {
 
     @Around("pointcut()")
     public Object handle(ProceedingJoinPoint point) throws Throwable {
-        Method currentMethod = AspectUtil.getMethod(point);
+        Method currentMethod = AspectUtil.INSTANCE.getMethod(point);
         //获取操作名称
         RedisCache cache = currentMethod.getAnnotation(RedisCache.class);
+        boolean enable = cache.enable();
+        if (!enable) {
+            return point.proceed();
+        }
         boolean flush = cache.flush();
         if (flush) {
-            String classPrefix = AspectUtil.getKeyOfClassPrefix(point, BIZ_CACHE_PREFIX);
+            String classPrefix = AspectUtil.INSTANCE.getKey(point, BIZ_CACHE_PREFIX);
             log.info("清空缓存 - {}*", classPrefix);
             redisService.delBatch(classPrefix);
             return point.proceed();
         }
-        String key = AspectUtil.getKey(point, cache.key(), BIZ_CACHE_PREFIX);
+        String key = AspectUtil.INSTANCE.getKey(point, cache.key(), BIZ_CACHE_PREFIX);
         boolean hasKey = redisService.hasKey(key);
         if (hasKey) {
             try {

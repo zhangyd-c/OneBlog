@@ -113,7 +113,6 @@ public class RestApiController {
         try {
             commentService.comment(comment);
         } catch (ZhydCommentException e) {
-            log.error("评论发生异常", e);
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("评论发表成功，系统正在审核，请稍后刷新页面查看！");
@@ -125,7 +124,6 @@ public class RestApiController {
         try {
             commentService.doSupport(id);
         } catch (ZhydCommentException e) {
-            log.error("评论点赞发生异常", e);
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("");
@@ -137,7 +135,6 @@ public class RestApiController {
         try {
             commentService.doOppose(id);
         } catch (ZhydCommentException e) {
-            log.error("评论点踩发生异常", e);
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("");
@@ -149,7 +146,6 @@ public class RestApiController {
         try {
             articleService.doPraise(id);
         } catch (ZhydArticleException e) {
-            log.error("文章点赞发生异常", e);
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("");

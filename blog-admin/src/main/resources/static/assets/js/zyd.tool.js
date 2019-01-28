@@ -207,16 +207,16 @@
                 return value;
             },
             currentPath: function () {
-               /* // 域
-                var domain = document.domain;
-                // 当前页
-                var nowurl = document.URL;
-                // 来源页
-                var fromurl = document.referrer;
+                /* // 域
+                 var domain = document.domain;
+                 // 当前页
+                 var nowurl = document.URL;
+                 // 来源页
+                 var fromurl = document.referrer;
 
-                console.log(domain);
-                console.log(fromurl);
-                console.log(nowurl);*/
+                 console.log(domain);
+                 console.log(fromurl);
+                 console.log(nowurl);*/
                 return window.location.pathname;
             },
             getMeta: function (name) {
@@ -232,6 +232,20 @@
             },
             random: function (min, max) {
                 return Math.floor((Math.random() * max) + min);
+            },
+            shuffle: function (arr) {
+                if (!arr) {
+                    return arr;
+                }
+                var len = arr.length;
+                for (var i = 0; i < len; i++) {
+                    var end = len - 1;
+                    var index = (Math.random() * (end + 1)) >> 0;
+                    var temp = arr[end];
+                    arr[end] = arr[index];
+                    arr[index] = temp;
+                }
+                return arr;
             }
         }
     });

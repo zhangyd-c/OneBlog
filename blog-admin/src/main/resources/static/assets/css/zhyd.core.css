@@ -5006,3 +5006,36 @@ ul, menu, dir {
 .control-label .required {
     color: #dc3545;
 }
+
+.fixed-radio-checkbox {
+    position: relative;
+    top: 7px;
+}
+
+/* 滚条消息通知 */
+.notify {
+    float: left;
+    color: #666;
+    margin-right: 8px;
+    margin-top: 3px;
+}
+.notify i {
+    color: #5cb85c;
+    font-size: 15px;
+}
+.scrolltext {
+    height: 25px;
+    line-height: 25px;
+    overflow: hidden;
+}
+.scrolltext ul {
+    margin-top: 0;
+    list-style: none;
+}
+.scrolltext-title {
+    white-space: nowrap;
+    word-wrap: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+/* 滚条消息通知 */

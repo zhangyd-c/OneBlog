@@ -266,7 +266,7 @@
                         <tr>
                             <th class="title word-prase"><div><a href="${item.url}" target="_blank" rel="external nofollow">${item.nickname?if_exists}</a></div></th>
                             <td class="content"><div class="word-prase">${item.briefContent?if_exists}</div></td>
-                            <td class="source"><div class="word-prase"><a href="${item.sourceUrl}#comment-${item.id?c}" target="_blank" rel="external nofollow">${item.articleTitle?if_exists}</a></div></td>
+                            <td class="source"><div class="word-prase"><a href="${config.siteUrl}${item.sourceUrl}#comment-${item.id?c}" target="_blank" rel="external nofollow">${item.articleTitle?if_exists}</a></div></td>
                             <td>${item.createTime?string('yyyy-MM-dd')}</td>
                         </tr>
                         </#list>

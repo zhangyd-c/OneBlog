@@ -40,7 +40,7 @@ public class ZydWebsocketServer {
     public void onOpen(Session session) {
         webSocketSet.add(session);
         int count = onlineCount.incrementAndGet();
-        log.info("有链接加入，当前在线人数为: {}", count);
+        log.info("[Socket] 有链接加入，当前在线人数为: {}", count);
 
         WebSocketUtil.sendOnlineMsg(Integer.toString(count), webSocketSet);
     }
@@ -51,7 +51,7 @@ public class ZydWebsocketServer {
     @OnClose
     public void onClose() {
         int count = onlineCount.decrementAndGet();
-        log.info("有链接关闭,当前在线人数为: {}", count);
+        log.info("[Socket] 有链接关闭,当前在线人数为: {}", count);
         WebSocketUtil.sendOnlineMsg(Integer.toString(count), webSocketSet);
     }
 
@@ -63,7 +63,7 @@ public class ZydWebsocketServer {
      */
     @OnMessage
     public void onMessage(String message, Session session) {
-        log.info("{}来自客户端的消息:{}", session.getId(), message);
+        log.info("[Socket] {}来自客户端的消息:{}", session.getId(), message);
     }
 
     /**

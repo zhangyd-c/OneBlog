@@ -6,14 +6,16 @@
     <div class="clearfix"></div>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <ol class="breadcrumb">
-                <li><a href="/">首页</a></li>
-                <li><a href="/articles">文章列表</a></li>
-                <li class="active">发布文章-HTML编辑器</li>
-            </ol>
+            <@breadcrumb>
+                <ol class="breadcrumb">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/articles">文章列表</a></li>
+                    <li class="active">发布文章-wangEditor编辑器</li>
+                </ol>
+            </@breadcrumb>
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>发布文章 <small>HTML编辑器，使用 <a href="/article/publishMd">Markdown编辑器</a></small></h2>
+                    <h2>发布文章 <small>wangEditor编辑器，使用 <a href="/article/publishMd">Markdown编辑器</a></small></h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -71,7 +73,7 @@
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-1 col-sm-1 col-xs-12" for="mobile">状态 <span class="required">*</span></label>
-                            <div class="col-md-11 col-sm-11 col-xs-12">
+                            <div class="col-md-11 col-sm-11 col-xs-12 fixed-radio-checkbox">
                                 <ul class="list-unstyled list-inline">
                                     <li><input type="radio" class="square" checked name="status" value="1"> 发布</li>
                                     <li><input type="radio" class="square" name="status" value="0"> 草稿</li>
@@ -80,7 +82,7 @@
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-1 col-sm-1 col-xs-12" for="comment">开启评论 <span class="required">*</span></label>
-                            <div class="col-md-11 col-sm-11 col-xs-12">
+                            <div class="col-md-11 col-sm-11 col-xs-12 fixed-radio-checkbox">
                                 <input type="checkbox" class="square" name="comment" id="comment">
                             </div>
                         </div>

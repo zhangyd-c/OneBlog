@@ -2,6 +2,12 @@
 <@header></@header>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
+        <@breadcrumb>
+            <ol class="breadcrumb">
+                <li><a href="/">首页</a></li>
+                <li class="active">系统配置</li>
+            </ol>
+        </@breadcrumb>
         <div class="x_panel">
             <div class="x_title">
                 <h2>系统配置 </h2>
@@ -15,19 +21,22 @@
                                 <a href="#tab_basic" id="basic-tab" role="tab" data-toggle="tab" aria-expanded="true">基本信息</a>
                             </li>
                             <li role="presentation">
-                                <a href="#tab_seo" id="seo-tab" role="tab" data-toggle="tab" aria-expanded="true">SEO设置</a>
+                                <a href="#tab_seo" id="seo-tab" role="tab" data-toggle="tab" aria-expanded="true">SEO</a>
                             </li>
                             <li role="presentation">
-                                <a href="#tab_qiniu" id="qiniu-tab" role="tab" data-toggle="tab" aria-expanded="true">七牛云配置</a>
+                                <a href="#tab_qiniu" id="qiniu-tab" role="tab" data-toggle="tab" aria-expanded="true">云存储</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#tab_comment" id="comment-tab" role="tab" data-toggle="tab" aria-expanded="true">评论</a>
                             </li>
                             <li role="presentation" class="">
                                 <a href="#tab_contact" role="tab" id="contact-tab" data-toggle="tab" aria-expanded="false">联系方式</a>
                             </li>
                             <li role="presentation">
-                                <a href="#tab_praise" id="praise-tab" role="tab" data-toggle="tab" aria-expanded="true">赞赏码配置</a>
+                                <a href="#tab_praise" id="praise-tab" role="tab" data-toggle="tab" aria-expanded="true">赞赏码</a>
                             </li>
                             <li role="presentation" class="">
-                                <a href="#tab_setting" role="tab" id="setting-tab" data-toggle="tab" aria-expanded="false">其他配置</a>
+                                <a href="#tab_setting" role="tab" id="setting-tab" data-toggle="tab" aria-expanded="false">其他</a>
                             </li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
@@ -93,31 +102,31 @@
                                     </div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="homeDesc">Description <i class="fa fa-question-circle" title="对keywords进行扩展描述，100~130字左右即可"></i> <span class="required">*</span></label>
-                                        <div class="col-md-6 col-sm-7 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <textarea class="form-control col-md-7 col-xs-12" id="homeDesc" name="homeDesc" required="required" placeholder="请输入首页描述" rows="5"></textarea>
                                         </div>
                                     </div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="homeKeywords">Keywords <i class="fa fa-question-circle" title="网站关键字，半角逗号分割，不建议多，贴合网站主题"></i> <span class="required">*</span></label>
-                                        <div class="col-md-6 col-sm-7 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <textarea class="form-control col-md-7 col-xs-12" id="homeKeywords" name="homeKeywords" required="required" placeholder="请输入首页关键字(半角逗号分隔)" rows="5"></textarea>
                                         </div>
                                     </div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="homeKeywords">百度推送Token <i class="fa fa-question-circle" title="方便百度引擎快速收录"></i> <span class="required">*</span></label>
-                                        <div class="col-md-6 col-sm-7 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" class="form-control col-md-7 col-xs-12" name="baiduPushToken" id="baiduPushToken"
                                                    required="required" placeholder="请输入百度推送Token"/>
                                         </div>
                                     </div>
                                     <div class="item">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
-                                        <div class="col-md-6 col-sm-7 col-xs-12"><small>获取地址：<a href="https://ziyuan.baidu.com/linksubmit/index" target="_blank">点击获取百度推送Token</a></small></div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12"><small>获取地址：<a href="https://ziyuan.baidu.com/linksubmit/index" target="_blank">点击获取百度推送Token</a></small></div>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
-                                        <div class="col-md-6 col-sm-7 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
                                         </div>
                                     </div>
@@ -153,6 +162,49 @@
                                                    required="required" placeholder="请输入七牛路径"/>
                                         </div>
                                     </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab_comment" aria-labelledby="comment-tab">
+                                <form class="form-horizontal form-label-left" novalidate>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12 aero" for="anonymous">允许匿名评论？
+                                            <i class="fa fa-question-circle" title="【暂不可用】是否允许匿名评论，如果为否则必须需要登陆。"></i>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
+                                            <ul class="list-unstyled list-inline">
+                                                <li><input type="radio" class="square" checked name="anonymous" value="1"> 开启</li>
+                                                <li><input type="radio" class="square" name="anonymous" value="0"> 关闭</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment">开启留言板评论 <i class="fa fa-question-circle" title="控制留言板页面的评论框显示情况"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
+                                            <ul class="list-unstyled list-inline">
+                                                <li><input type="radio" class="square" checked name="comment" value="1"> 开启</li>
+                                                <li><input type="radio" class="square" name="comment" value="0"> 关闭</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="editorPlaceholder">Placeholder <i class="fa fa-question-circle" title="占位符，当没输入内容时显示该值"></i> </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" class="form-control col-md-7 col-xs-12" id="editorPlaceholder" name="editorPlaceholder" placeholder="例如：说点什么吧">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="editorAlert">警示语 <i class="fa fa-question-circle" title="评论框右下角显示的内容"></i> </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" class="form-control col-md-7 col-xs-12" id="editorAlert" name="editorAlert" placeholder="例如：讲文明、要和谐">
+                                        </div>
+                                    </div>
+
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -250,12 +302,12 @@
                                     </div>
                                     <div class="item">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
-                                        <div class="col-md-6 col-sm-7 col-xs-12"><small>获取地址：<a href="http://lbsyun.baidu.com/apiconsole/key" target="_blank">点击获取百度Api AK</a></small></div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12"><small>获取地址：<a href="http://lbsyun.baidu.com/apiconsole/key" target="_blank">点击获取百度Api AK</a></small></div>
                                     </div>
                                     <div class="clear"></div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenance">维护通知</label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
                                             <ul class="list-unstyled list-inline">
                                                 <li><input type="radio" class="square" checked name="maintenance" value="1"> 显示</li>
                                                 <li><input type="radio" class="square" name="maintenance" value="0"> 关闭</li>
@@ -271,15 +323,6 @@
                                                    <span class="fa fa-calendar"></span>
                                                 </span>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment">开启评论</label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <ul class="list-unstyled list-inline">
-                                                <li><input type="radio" class="square" checked name="comment" value="1"> 开启</li>
-                                                <li><input type="radio" class="square" name="comment" value="0"> 关闭</li>
-                                            </ul>
                                         </div>
                                     </div>
                                     <div class="item form-group">

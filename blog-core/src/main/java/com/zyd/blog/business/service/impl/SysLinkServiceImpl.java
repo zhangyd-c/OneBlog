@@ -46,12 +46,6 @@ public class SysLinkServiceImpl implements SysLinkService {
     @Autowired
     private SysConfigService configService;
 
-    /**
-     * 分页查询
-     *
-     * @param vo
-     * @return
-     */
     @Override
     public PageInfo<Link> findPageBreakByCondition(LinkConditionVO vo) {
         PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
@@ -154,19 +148,19 @@ public class SysLinkServiceImpl implements SysLinkService {
 
         link.setSource(LinkSourceEnum.AUTOMATIC);
         link.setStatus(true);
-        if(!StringUtils.isEmpty(link.getEmail())){
+        if (!StringUtils.isEmpty(link.getEmail())) {
             link.setEmail(HtmlUtil.html2Text(link.getEmail()));
         }
-        if(!StringUtils.isEmpty(link.getFavicon())){
+        if (!StringUtils.isEmpty(link.getFavicon())) {
             link.setFavicon(HtmlUtil.html2Text(link.getFavicon()));
         }
-        if(!StringUtils.isEmpty(link.getName())){
+        if (!StringUtils.isEmpty(link.getName())) {
             link.setName(HtmlUtil.html2Text(link.getName()));
         }
-        if(!StringUtils.isEmpty(link.getUrl())){
+        if (!StringUtils.isEmpty(link.getUrl())) {
             link.setUrl(HtmlUtil.html2Text(link.getUrl()));
         }
-        if(!StringUtils.isEmpty(link.getDescription())){
+        if (!StringUtils.isEmpty(link.getDescription())) {
             link.setDescription(HtmlUtil.html2Text(link.getDescription()));
         }
         this.insert(link);
@@ -175,12 +169,6 @@ public class SysLinkServiceImpl implements SysLinkService {
         return true;
     }
 
-    /**
-     * 保存一个实体，null的属性不会保存，会使用数据库默认值
-     *
-     * @param entity
-     * @return
-     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     @RedisCache(flush = true)
@@ -194,32 +182,6 @@ public class SysLinkServiceImpl implements SysLinkService {
         return entity;
     }
 
-    /**
-     * 批量插入，支持批量插入的数据库可以使用，例如MySQL,H2等，另外该接口限制实体包含id属性并且必须为自增列
-     *
-     * @param entities
-     */
-    @Override
-    @RedisCache(flush = true)
-    public void insertList(List<Link> entities) {
-        Assert.notNull(entities, "Links不可为空！");
-        List<SysLink> list = new ArrayList<>();
-        for (Link entity : entities) {
-            entity.setUpdateTime(new Date());
-            entity.setCreateTime(new Date());
-            entity.setStatus(entity.isStatus());
-            entity.setHomePageDisplay(entity.isHomePageDisplay());
-            list.add(entity.getSysLink());
-        }
-        sysLinkMapper.insertList(list);
-    }
-
-    /**
-     * 根据主键字段进行删除，方法参数必须包含完整的主键属性
-     *
-     * @param primaryKey
-     * @return
-     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     @RedisCache(flush = true)
@@ -227,29 +189,6 @@ public class SysLinkServiceImpl implements SysLinkService {
         return sysLinkMapper.deleteByPrimaryKey(primaryKey) > 0;
     }
 
-    /**
-     * 根据主键更新实体全部字段，null值会被更新
-     *
-     * @param entity
-     * @return
-     */
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @RedisCache(flush = true)
-    public boolean update(Link entity) {
-        Assert.notNull(entity, "Link不可为空！");
-        entity.setUpdateTime(new Date());
-        entity.setStatus(entity.isStatus());
-        entity.setHomePageDisplay(entity.isHomePageDisplay());
-        return sysLinkMapper.updateByPrimaryKey(entity.getSysLink()) > 0;
-    }
-
-    /**
-     * 根据主键更新属性不为null的值
-     *
-     * @param entity
-     * @return
-     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     @RedisCache(flush = true)
@@ -261,12 +200,6 @@ public class SysLinkServiceImpl implements SysLinkService {
         return sysLinkMapper.updateByPrimaryKeySelective(entity.getSysLink()) > 0;
     }
 
-    /**
-     * 根据主键字段进行查询，方法参数必须包含完整的主键属性，查询条件使用等号
-     *
-     * @param primaryKey
-     * @return
-     */
     @Override
     public Link getByPrimaryKey(Long primaryKey) {
         Assert.notNull(primaryKey, "PrimaryKey不可为空！");
@@ -274,71 +207,11 @@ public class SysLinkServiceImpl implements SysLinkService {
         return null == entity ? null : new Link(entity);
     }
 
-    /**
-     * 根据实体中的属性进行查询，只能有一个返回值，有多个结果时抛出异常，查询条件使用等号
-     *
-     * @param entity
-     * @return
-     */
-    @Override
-    @RedisCache
-    public Link getOneByEntity(Link entity) {
-        Assert.notNull(entity, "Link不可为空！");
-        SysLink bo = sysLinkMapper.selectOne(entity.getSysLink());
-        return null == bo ? null : new Link(bo);
-    }
-
-    /**
-     * 根据实体中的属性进行查询，只能有一个返回值，有多个结果时抛出异常，查询条件使用等号
-     *
-     * @param url
-     * @return
-     */
     @Override
     public Link getOneByUrl(String url) {
-        Link l = new Link();
+        SysLink l = new SysLink();
         l.setUrl(url);
-        return getOneByEntity(l);
-    }
-
-    /**
-     * 查询全部结果，listByEntity(null)方法能达到同样的效果
-     *
-     * @return
-     */
-    @Override
-    @RedisCache
-    public List<Link> listAll() {
-        List<SysLink> entityList = sysLinkMapper.selectAll();
-
-        if (CollectionUtils.isEmpty(entityList)) {
-            return null;
-        }
-        List<Link> list = new ArrayList<>();
-        for (SysLink entity : entityList) {
-            list.add(new Link(entity));
-        }
-        return list;
-    }
-
-    /**
-     * 根据实体中的属性值进行查询，查询条件使用等号
-     *
-     * @param entity
-     * @return
-     */
-    @Override
-    @RedisCache
-    public List<Link> listByEntity(Link entity) {
-        Assert.notNull(entity, "Link不可为空！");
-        List<SysLink> entityList = sysLinkMapper.select(entity.getSysLink());
-        if (CollectionUtils.isEmpty(entityList)) {
-            return null;
-        }
-        List<Link> list = new ArrayList<>();
-        for (SysLink po : entityList) {
-            list.add(new Link(po));
-        }
-        return list;
+        l = sysLinkMapper.selectOne(l);
+        return null == l ? null : new Link(l);
     }
 }

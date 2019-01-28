@@ -33,7 +33,7 @@ public @interface RedisCache {
     boolean flush() default false;
 
     /**
-     * 缓存失效时间，默认30
+     * 缓存失效时间，默认30天
      */
     long expire() default 30L;
 
@@ -41,4 +41,9 @@ public @interface RedisCache {
      * 缓存时间单位，默认天
      */
     TimeUnit unit() default TimeUnit.DAYS;
+
+    /**
+     * 是否启用缓存，默认启用
+     */
+    boolean enable() default true;
 }

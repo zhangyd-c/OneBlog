@@ -91,7 +91,7 @@
             </div>
             <div class="blog-body">
                 <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=wylo59db&utm_source=wylo59db" target="_blank" rel="external nofollow">
-                    <img src="${config.staticWebSite}/img/ad/aliyun_sale1000-60.png" alt="阿里云首购8折" class="img-responsive">
+                    <img src="${config.staticWebSite}/img/ad/aliyun_sale1000-60.png" alt="阿里云首购8折" class="img-responsive" style="width: 100%;">
                 </a>
             </div>
             <div class="blog-body prev-next">
@@ -176,7 +176,7 @@
                                 <div class="line-right">
                                     <div class="text">
                                         <a href="${config.siteUrl}/article/${item.id?c}" data-original-title="${item.lookCount?c}人浏览了该文章" data-toggle="tooltip" data-placement="bottom">
-                                            ${item.title}
+                                            <i class="fa fa-book fa-fw"></i>${item.title}
                                         </a>
                                     </div>
                                 </div>

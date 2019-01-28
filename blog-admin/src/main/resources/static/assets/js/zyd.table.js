@@ -100,10 +100,12 @@
                         }
                     },
                     onExpandRow: options.onExpandRow,
-                    rowStyle: options.rowStyle || function (row, index){return {};},
+                    rowStyle: options.rowStyle || function (row, index) {
+                        return {};
+                    },
                     columns: options.columns
                 });
-                $tablelist.on('load-success.bs.table',function(data){
+                $tablelist.on('load-success.bs.table', function (data) {
                     zhyd.initSwitchery();
                 });
             },
@@ -169,10 +171,13 @@
                             traditional: true,
                             data: {'ids': ids},
                             success: function (json) {
+                                console.warn(json);
                                 $.alert.ajaxSuccess(json);
                                 $.tableUtil.refresh();
                             },
-                            error: $.alert.ajaxError
+                            error: function (error) {
+                                console.error(error);
+                            }
                         });
                     }, function () {
 
@@ -226,7 +231,7 @@ function resetForm(info) {
     });
 }
 
-function clearText($this, type, info){
+function clearText($this, type, info) {
     var $div = $this.parents(".item");
     if ($div && $div.hasClass("bad")) {
         $div.removeClass("bad");
@@ -236,16 +241,22 @@ function clearText($this, type, info){
         var thisName = $this.attr("name");
         var thisValue = info[thisName];
         if (type == 'radio') {
-            $this.iCheck(((thisValue && 1 == $this.val()) || (!thisValue && 0 == $this.val())) ? 'check' : 'uncheck')
+            var _typeof = (typeof thisValue);
+            if (_typeof == "boolean") {
+                $this.iCheck(((thisValue && 1 == $this.val()) || (!thisValue && 0 == $this.val())) ? 'check' : 'uncheck')
+            } else if (_typeof == "string") {
+                $this.iCheck(((thisValue == '1' && 1 == $this.val()) || (thisValue != '1' && 0 == $this.val())) ? 'check' : 'uncheck')
+            }
+
         } else if (type.startsWith('select')) {
-            if(thisValue == 'true' || thisValue == true) {
+            if (thisValue == 'true' || thisValue == true) {
                 thisValue = 1;
-            } else if(thisValue == 'false' || thisValue == false) {
+            } else if (thisValue == 'false' || thisValue == false) {
                 thisValue = 0;
             }
             $this.val(thisValue);
         } else {
-            if(type != 'password') {
+            if (type != 'password') {
                 $this.val(thisValue);
             } else {
                 $this.val('');
@@ -254,7 +265,7 @@ function clearText($this, type, info){
     } else {
         if (type === 'radio' || type === 'checkbox') {
             $this.iCheck('uncheck');
-        }else{
+        } else {
             $this.val('');
         }
     }

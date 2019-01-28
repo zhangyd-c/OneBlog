@@ -32,7 +32,7 @@ public class RestConfigController {
     @RequiresRoles("role:root")
     @PostMapping("/get")
     public ResponseVO get() {
-        return ResultUtil.success(null, sysConfigService.getBaseConfig());
+        return ResultUtil.success(null, sysConfigService.getConfigs());
     }
 
     @RequiresRoles("role:root")

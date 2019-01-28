@@ -2,6 +2,34 @@
 
 ----
 
+### 2019-01-28
+
+- 关闭issue：
+	- Fixed issue : [IN4T1](https://gitee.com/yadong.zhang/DBlog/issues/IN4T1)
+	- Fixed issue : [IOWDY](https://gitee.com/yadong.zhang/DBlog/issues/IOWDY)
+	- Fixed issue : [IP2I1](https://gitee.com/yadong.zhang/DBlog/issues/IP2I1)
+- 新增：
+	- admin项目中，在面包屑导航列新增一个系统通知（友情提示）
+	
+----
+
+### 2019-01-26
+
+- 修改：
+	- 首页消息提示、面包屑导航样式修改
+	- 首页文章列表样式微调，修改文章页脚的字体位12px，看起来分为主次次
+	- sidebar调整“近期评论”、“文章列表”、“网站信息”栏的字体颜色
+	- sidebar中的“文章列表”tabs增加图标，同时增加空数据提示
+	- footer样式调整，删除上方的自定义footer，同时修改footer中的字体
+	“关于”、“友情链接”、“留言板”样式调整
+	- “文章详情”页面样式调整：标题和文章主题之间的界限调整，去除以前的灰色分割线，使文章标题和内容之前看起来不这么生硬。
+	- “文章详情”-“目录”样式微调
+	- “文章列表”查询优化
+	- 代码整理，删除一些无用的代码，去掉一些无意义的注释。
+	- RedisCache中增加一个enable参数，当指定为false时将不会进行缓存
+
+----
+
 ### 2019-01-24
 
 - 修改：

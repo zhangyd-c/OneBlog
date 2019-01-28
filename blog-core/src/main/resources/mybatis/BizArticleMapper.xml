@@ -42,42 +42,11 @@
 			a.*,
 			btype.id AS btype_id,
 			btype.`name` AS btype_name,
-			btype.description AS btype_description,
-			l.lookCount AS look_count,
-			c.commentCount AS comment_count,
-			love.loveCount AS love_count
+			btype.description AS btype_description
 		FROM
             biz_article a
 		INNER JOIN biz_type btype ON a.type_id = btype.id
 		INNER JOIN biz_article_tags atag ON a.id = atag.article_id
-		LEFT JOIN (
-			SELECT
-				l.article_id,
-				IFNULL(count(1), 0) AS lookCount
-			FROM
-				biz_article_look l
-			GROUP BY
-				l.article_id
-		) l ON a.id = l.article_id
-		LEFT JOIN (
-			SELECT
-				sid,
-				IFNULL(count(1), 0) AS commentCount
-			FROM
-				biz_comment c
-			WHERE c.status = 'APPROVED'
-			GROUP BY
-				sid
-		) c ON a.id = c.sid
-		LEFT JOIN (
-			SELECT
-				l.article_id,
-				IFNULL(count(1), 0) AS loveCount
-			FROM
-				biz_article_love l
-			GROUP BY
-				l.article_id
-		) love ON a.id = love.article_id
 		WHERE 1 = 1
         <if test="typeId != null">
             AND	a.type_id = #{typeId}
@@ -129,7 +98,7 @@
 
 	<select id="listTagsByArticleId" parameterType="List" resultMap="rm">
 		SELECT
-            a.*,
+            a.id,
             t.id AS tag_id,
             t.`name` AS tag_name,
             t.description AS tag_description
@@ -153,43 +122,12 @@
 			btype.description AS btype_description,
 			t.id AS tag_id,
 			t.`name` AS tag_name,
-			t.description AS tag_description,
-			l.lookCount AS look_count,
-			c.commentCount AS comment_count,
-			love.loveCount AS love_count
+			t.description AS tag_description
 		FROM
 			biz_article a
 		INNER JOIN biz_type btype ON a.type_id = btype.id
 		INNER JOIN biz_article_tags atag ON a.id = atag.article_id
 		INNER JOIN biz_tags t ON atag.tag_id = t.id
-		LEFT JOIN (
-			SELECT
-				l.article_id,
-				IFNULL(count(1), 0) AS lookCount
-			FROM
-				biz_article_look l
-			GROUP BY
-				l.article_id
-		) l ON a.id = l.article_id
-		LEFT JOIN (
-			SELECT
-				sid,
-				IFNULL(count(1), 0) AS commentCount
-			FROM
-				biz_comment c
-			WHERE c.status = 'APPROVED'
-			GROUP BY
-				sid
-		) c ON a.id = c.sid
-		LEFT JOIN (
-			SELECT
-				l.article_id,
-				IFNULL(count(1), 0) AS loveCount
-			FROM
-				biz_article_love l
-			GROUP BY
-				l.article_id
-		) love ON a.id = love.article_id
 		WHERE
 			a.id = #{id}
 	</select>

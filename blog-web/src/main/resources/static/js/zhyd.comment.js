@@ -321,13 +321,16 @@ $.extend({
                     data: data + '&sid=' + $.comment.sid,
                     success: function (json) {
                         $.alert.ajaxSuccess(json);
+
                         $.comment._commentDetailModal.modal('hide');
 
                         setTimeout(function () {
                             $this.html("<i class='fa fa-check'></i>" + json.message);
                             setTimeout(function () {
                                 $this.button('reset');
-                                window.location.reload();
+                                if (json.status == 200) {
+                                    window.location.reload();
+                                }
                             }, 3000);
                         }, 1000);
                     },

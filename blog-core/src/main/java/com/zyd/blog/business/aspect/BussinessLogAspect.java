@@ -1,6 +1,5 @@
 package com.zyd.blog.business.aspect;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Log;
@@ -11,7 +10,6 @@ import com.zyd.blog.business.enums.PlatformEnum;
 import com.zyd.blog.business.service.SysLogService;
 import com.zyd.blog.business.util.WebSpiderUtils;
 import com.zyd.blog.util.AspectUtil;
-import com.zyd.blog.util.RegexUtils;
 import com.zyd.blog.util.RequestUtil;
 import com.zyd.blog.util.SessionUtil;
 import eu.bitwalker.useragentutils.UserAgent;
@@ -24,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
-import java.util.List;
 
 /**
  * AOP切面记录日志
@@ -63,12 +60,12 @@ public class BussinessLogAspect {
     }
 
     private void handle(ProceedingJoinPoint point) throws Exception {
-        Method currentMethod = AspectUtil.getMethod(point);
+        Method currentMethod = AspectUtil.INSTANCE.getMethod(point);
         //获取操作名称
         BussinessLog annotation = currentMethod.getAnnotation(BussinessLog.class);
         boolean save = annotation.save();
         PlatformEnum platform = annotation.platform();
-        String bussinessName = parseContent(point.getArgs(), annotation.value());
+        String bussinessName = AspectUtil.INSTANCE.parseParams(point.getArgs(), annotation.value());
         String ua = RequestUtil.getUa();
 
         log.info("{} | {} - {} {} - {}", bussinessName, RequestUtil.getIp(), RequestUtil.getMethod(), RequestUtil.getRequestUrl(), ua);
@@ -102,14 +99,5 @@ public class BussinessLogAspect {
         }
     }
 
-    private String parseContent(Object[] params, String bussinessName) {
-        if (bussinessName.contains("{") && bussinessName.contains("}")) {
-            List<String> result = RegexUtils.match(bussinessName, "(?<=\\{)(\\d+)");
-            for (String s : result) {
-                int index = Integer.parseInt(s);
-                bussinessName = bussinessName.replaceAll("\\{" + index + "\\}", JSON.toJSONString(params[index - 1]));
-            }
-        }
-        return bussinessName;
-    }
+
 }

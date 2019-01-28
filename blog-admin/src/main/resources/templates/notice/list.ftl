@@ -3,10 +3,12 @@
 <div class="clearfix"></div>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-        <ol class="breadcrumb">
-            <li><a href="/">首页</a></li>
-            <li class="active">网站通知管理</li>
-        </ol>
+        <@breadcrumb>
+            <ol class="breadcrumb">
+                <li><a href="/">首页</a></li>
+                <li class="active">网站通知管理</li>
+            </ol>
+        </@breadcrumb>
         <div class="x_panel">
             <div class="x_content">
                 <div class="<#--table-responsive-->">
@@ -55,7 +57,7 @@
                     </div>
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">状态 <span class="required">*</span></label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
                             <ul class="list-unstyled list-inline">
                                 <li>
                                     <div class="radio">

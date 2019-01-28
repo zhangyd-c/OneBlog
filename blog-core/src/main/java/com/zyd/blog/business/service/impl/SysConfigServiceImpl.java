@@ -1,6 +1,8 @@
 package com.zyd.blog.business.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.zyd.blog.business.annotation.RedisCache;
 import com.zyd.blog.business.consts.DateConst;
 import com.zyd.blog.business.entity.BaseConfig;
 import com.zyd.blog.business.enums.QiniuUploadType;
@@ -10,6 +12,7 @@ import com.zyd.blog.persistence.beans.SysConfig;
 import com.zyd.blog.persistence.mapper.SysConfigMapper;
 import com.zyd.blog.util.DateUtil;
 import com.zyd.blog.util.FileUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -30,6 +33,7 @@ import java.util.Map;
  * @date 2018/4/16 16:26
  * @since 1.0
  */
+@Slf4j
 @Service
 public class SysConfigServiceImpl implements SysConfigService {
 
@@ -44,7 +48,20 @@ public class SysConfigServiceImpl implements SysConfigService {
      * @return
      */
     @Override
+    @RedisCache(enable = false)
     public BaseConfig getBaseConfig() {
+        Map<String, Object> res = this.getConfigs();
+        return JSON.parseObject(JSON.toJSONString(res), BaseConfig.class);
+    }
+
+    /**
+     * 获取系统配置
+     *
+     * @return
+     */
+    @Override
+    @RedisCache(enable = false)
+    public Map<String, Object> getConfigs() {
         List<SysConfig> list = sysConfigMapper.selectAll();
         if (CollectionUtils.isEmpty(list)) {
             return null;
@@ -58,10 +75,11 @@ public class SysConfigServiceImpl implements SysConfigService {
                 res.put(updateTimeKey, sysConfig.getUpdateTime());
             }
         });
-        return JSON.parseObject(JSON.toJSONString(res), BaseConfig.class);
+        return res;
     }
 
     @Override
+    @RedisCache(flush = true, enable = false)
     public void saveFile(String key, MultipartFile file) {
         if (key == null) {
             return;
@@ -72,6 +90,7 @@ public class SysConfigServiceImpl implements SysConfigService {
     }
 
     @Override
+    @RedisCache(flush = true, enable = false)
     public void saveConfig(String key, String value) {
         if (!StringUtils.isEmpty(key)) {
             SysConfig config = null;
@@ -92,6 +111,7 @@ public class SysConfigServiceImpl implements SysConfigService {
     }
 
     @Override
+    @RedisCache(enable = false)
     public SysConfig getByKey(String key) {
         if (StringUtils.isEmpty(key)) {
             return null;
@@ -107,6 +127,7 @@ public class SysConfigServiceImpl implements SysConfigService {
      * @param configs 所有的配置项
      */
     @Override
+    @RedisCache(flush = true, enable = false)
     public void saveConfig(Map<String, String> configs) {
         if (!CollectionUtils.isEmpty(configs)) {
             configs.forEach(this::saveConfig);
@@ -127,11 +148,26 @@ public class SysConfigServiceImpl implements SysConfigService {
     }
 
     @Override
+    @RedisCache(enable = false)
     public String getSpiderConfig() {
         SysConfig config = this.getByKey("spiderConfig");
         if (config == null) {
             return "{}";
         }
         return StringUtils.isEmpty(config.getConfigValue()) ? "{}" : config.getConfigValue();
+    }
+
+    @Override
+    public List<String> getRandomUserAvatar() {
+        SysConfig config = this.getByKey("defaultUserAvatar");
+        if (config == null) {
+            return null;
+        }
+        try {
+            return JSONArray.parseArray(config.getConfigValue(), String.class);
+        } catch (Exception e) {
+            log.error("配置项无效！defaultUserAvatar = [" + config.getConfigValue() + "]");
+        }
+        return null;
     }
 }

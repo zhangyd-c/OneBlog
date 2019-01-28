@@ -13,23 +13,20 @@
     </nav>
     <div class="row">
         <div class="col-sm-8 blog-main">
-            <#if list?exists && (list?size > 0)>
-                <div class="blog-body fade-in update-logs updatelog-body">
-                    <#list list as item>
-                        <h3 class="update-title pointer">${item.recordeTime?string('yyyy年MM月dd日 HH时')} | Version: ${item.version}</h3>
-                        <ul class="list-box list-unstyled" style="display: none;">
-                            <li>
-                                <div>更新内容：${item.description}</div>
-                            </li>
-                        </ul>
-                    </#list>
-                </div>
-            <#else >
-                <article class="fade-in">
-                    <div class="h3 text-center">亲，啥也没找到啊~~<img src="http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/15/j_thumb.gif" alt="[囧]"></div>
-                    <img src="${config.staticWebSite}/img/wrong.gif" class="center-block" alt="惩罚我" style="width: 110px;margin-top: -10px;">
-                </article>
-            </#if>
+            <div class="panel-group" id="updatelog-body">
+                <#list list as item>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a class="panel-title" data-toggle="collapse" data-parent="#updatelog-body" href="#panel-element-${item.id?c}" contenteditable="true">${item.recordeTime?string('yyyy年MM月dd日 HH时')} v${item.version}</a>
+                        </div>
+                        <div id="panel-element-${item.id?c}" class="panel-collapse collapse">
+                            <div class="panel-body" contenteditable="true">
+                                ${item.description}
+                            </div>
+                        </div>
+                    </div>
+                </#list>
+            </div>
         </div>
         <#include "layout/sidebar.ftl"/>
     </div>

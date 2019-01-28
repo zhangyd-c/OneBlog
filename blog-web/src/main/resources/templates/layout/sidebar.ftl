@@ -151,7 +151,7 @@
     <div class="clear"></div>
     <div class="sidebar-module">
         <h5 class="custom-title"><i class="fa fa-info fa-fw icon"></i><strong>网站信息</strong><small></small></h5>
-        <ul class="ul-default">
+        <ul class="ul-default site-info">
             <@zhydTag method="siteInfo">
                 <li> <i class="fa fa-file fa-fw"></i>  文章总数：${siteInfo.articleCount!(0)} 篇</li>
                 <li> <i class="fa fa-tags fa-fw"></i> 标签总数：${siteInfo.tagCount!(0)} 个</li>

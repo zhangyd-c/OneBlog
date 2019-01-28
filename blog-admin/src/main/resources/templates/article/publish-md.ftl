@@ -16,14 +16,16 @@
     <div class="clearfix"></div>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <ol class="breadcrumb">
-                <li><a href="/">首页</a></li>
-                <li><a href="/articles">文章列表</a></li>
-                <li class="active">发布文章-Markdown编辑器</li>
-            </ol>
+            <@breadcrumb>
+                <ol class="breadcrumb">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/articles">文章列表</a></li>
+                    <li class="active">发布文章-Markdown编辑器</li>
+                </ol>
+            </@breadcrumb>
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>发布文章 <small>Markdown编辑器，使用 <a href="/article/publish">HTML编辑器</a></small></h2>
+                    <h2>发布文章 <small>Markdown编辑器，使用 <a href="/article/publish">wangEditor编辑器</a></small></h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -117,7 +119,7 @@
                                         </div>
                                         <div class="item form-group">
                                             <label class="control-label col-md-2 col-sm-2 col-xs-2" for="status">文章状态 <span class="required">*</span></label>
-                                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                            <div class="col-md-10 col-sm-10 col-xs-10 fixed-radio-checkbox">
                                                 <ul class="list-unstyled list-inline">
                                                     <li>
                                                         <input type="radio" class="square" checked name="status" value="1"> 发布
@@ -130,7 +132,7 @@
                                         </div>
                                         <div class="item form-group">
                                             <label class="control-label col-md-2 col-sm-2 col-xs-2" for="comment">开启评论 <span class="required">*</span></label>
-                                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                            <div class="col-md-10 col-sm-10 col-xs-10 fixed-radio-checkbox">
                                                 <input type="checkbox" class="square" name="comment" id="comment">
                                             </div>
                                         </div>

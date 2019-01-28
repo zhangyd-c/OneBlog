@@ -74,7 +74,9 @@ public class RenderController {
     @BussinessLog(value = "进入首页", platform = PlatformEnum.WEB)
     public ModelAndView home(ArticleConditionVO vo, Model model) {
         model.addAttribute("url", INDEX_URL);
+        long start = System.currentTimeMillis();
         loadIndexPage(vo, model);
+        System.out.println("首页耗时：" + (System.currentTimeMillis() - start));
 
         return ResultUtil.view(INDEX_URL);
     }

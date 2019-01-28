@@ -19,23 +19,11 @@ public interface AbstractService<T, PK> {
 
     boolean removeByPrimaryKey(PK primaryKey);
 
-    default boolean update(T entity) {
-        return false;
-    }
-
     boolean updateSelective(T entity);
 
     T getByPrimaryKey(PK primaryKey);
 
-    default T getOneByEntity(T entity) {
-        return null;
-    }
-
     default List<T> listAll() {
-        return null;
-    }
-
-    default List<T> listByEntity(T entity) {
         return null;
     }
 }

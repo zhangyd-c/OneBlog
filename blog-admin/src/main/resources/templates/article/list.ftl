@@ -4,10 +4,12 @@
     <div class="clearfix"></div>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <ol class="breadcrumb">
-                <li><a href="/">首页</a></li>
-                <li class="active">文章管理</li>
-            </ol>
+            <@breadcrumb>
+                <ol class="breadcrumb">
+                    <li><a href="/">首页</a></li>
+                    <li class="active">文章管理</li>
+                </ol>
+            </@breadcrumb>
             <div class="x_panel">
                 <div class="x_content">
                     <div class="<#--table-responsive-->">
@@ -81,10 +83,7 @@
                         var title = code;
                         title = title.length > 20 ? (title.substr(0, 20) + '...') : title;
                         var id = row.id;
-                        // var original= row.original ? "原创" : "转载";
-                        // return '<strong>['+original+']</strong> <a href="' + appConfig.wwwPath + '/article/' + id + '" target="_blank">' + code + '</a>';
-                        var status = row.status ? '<span class="label label-success">已发布</span>' : '<span class="label label-danger">草稿</span>';
-
+                        var status = row.status ? '<span class="label label-success" style="margin-right: 5px;">已发布</span>' : '<span class="label label-danger">草稿</span>';
                         return status + '<a href="' + appConfig.wwwPath + '/article/' + id + '" target="_blank" title="' + code + '">' + title + '</a>';
                     }
                 }, {
