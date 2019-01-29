@@ -152,12 +152,13 @@ CHANGE COLUMN `maintenance_data` `maintenance_date` datetime(0) NULL DEFAULT CUR
 CHANGE COLUMN `qiuniu_base_path` `qiniu_base_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '七牛路径' AFTER `comment`;
 
 
+####################################################################### 2019-01-29日更新的从这儿开始执行 #########################################################################################
 # 2019-01-21 修改config表结构，建议升级之前先备份本地的config表数据
 DROP TABLE IF EXISTS `sys_config`;
 CREATE TABLE `sys_config`  (
   `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `config_key` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '首页描述',
-  `config_value` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '首页关键字',
+  `config_key` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '配置关键字',
+  `config_value` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '配置项内容',
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -165,32 +166,38 @@ CREATE TABLE `sys_config`  (
 # 清空系统配置表
 TRUNCATE TABLE `dblog`.`sys_config`;
 # 初始化系统配置
-INSERT INTO `dblog`.`sys_config` VALUES (1, 'homeDesc', 'OneBlog是一款简洁美观、自适应的Java博客系统。使用springboot开发，前端使用Bootstrap。支持移动端自适应，配有完备的前台和后台管理功能。', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (2, 'homeKeywords', 'OneBlog,开源博客', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (3, 'domain', 'zhyd.me', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (4, 'cmsUrl', 'http://localhost:8086', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (5, 'siteUrl', 'http://localhost:8443', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (6, 'siteName', 'OneBlog开源博客', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (7, 'siteDesc', 'OneBlog是一款简洁美观、自适应的Java博客系统', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (8, 'siteFavicon', 'http://localhost:8443/img/favicon.ico', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (9, 'staticWebSite', 'http://localhost:8443', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (10, 'authorName', '张亚东', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (11, 'authorEmail', 'yadong.zhang0415#gmail.com', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (12, 'wxCode', 'https://static.zhyd.me/static/img/wechat_account.jpg', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (13, 'qq', '843977358', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (14, 'weibo', 'http://weibo.com/211230415', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (15, 'github', 'https://github.com/zhangyd-c', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (16, 'maintenance', '0', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (17, 'maintenanceDate', now(), now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (18, 'comment', '1', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (19, 'qiniuBasePath', 'http://pe6duqm84.bkt.clouddn.com/', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (20, 'qiniuAccessKey', NULL, now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (21, 'qiniuSecretKey', NULL, now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (22, 'qiniuBucketName', NULL, now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (23, 'baiduPushToken', NULL, now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (24, 'wxPraiseCode', 'qrcode/wx_code.png', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (25, 'zfbPraiseCode', 'qrcode/zfb_code.png', now(), now());
-INSERT INTO `dblog`.`sys_config` VALUES (26, 'baiduApiAk', 'NwHaYlGalDEpgxm46xBaC3T9', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (1, 'homeDesc', 'OneBlog是一款简洁美观、自适应的Java博客系统。使用springboot开发，前端使用Bootstrap。支持移动端自适应，配有完备的前台和后台管理功能。', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (2, 'homeKeywords', 'OneBlog,开源博客', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (3, 'domain', 'zhyd.me', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (4, 'cmsUrl', 'http://localhost:8085', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (5, 'siteUrl', 'http://localhost:8443', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (6, 'siteName', 'OneBlog开源博客', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (7, 'siteDesc', 'OneBlog是一款简洁美观、自适应的Java博客系统', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (8, 'siteFavicon', 'http://localhost:8443/img/favicon.ico', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (9, 'staticWebSite', 'http://localhost:8443', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (10, 'authorName', '张亚东', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (11, 'authorEmail', 'yadong.zhang0415#gmail.com', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (12, 'wxCode', 'https://static.zhyd.me/static/img/wechat_account.jpg', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (13, 'qq', '843977358', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (14, 'weibo', 'http://weibo.com/211230415', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (15, 'github', 'https://github.com/zhangyd-c', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (16, 'maintenance', '0', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (17, 'maintenanceDate', now(), now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (18, 'comment', '1', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (19, 'qiniuBasePath', NULL, now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (20, 'qiniuAccessKey', NULL, now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (21, 'qiniuSecretKey', NULL, now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (22, 'qiniuBucketName', NULL, now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (23, 'baiduPushToken', NULL, now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (24, 'wxPraiseCode', NULL, now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (25, 'zfbPraiseCode', NULL, now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (26, 'baiduApiAk', 'NwHaYlGalDEpgxm46xBaC3T9', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (27, 'spiderConfig', '{\r\n            imooc: {\r\n                domain: \"www.imooc.com\",\r\n                titleRegex: \"//span[@class=js-title]/html()\",\r\n                authorRegex: \"//div[@class=name_con]/p[@class=name]/a[@class=nick]/html()\",\r\n                releaseDateRegex: \"//div[@class=\'dc-profile\']/div[@class=\'l\']/span[@class=\'spacer\']/text()\",\r\n                contentRegex: \"//div[@class=detail-content]/html()\",\r\n                targetLinksRegex: \"/article/[0-9]{1,10}\",\r\n                tagRegex: \"//div[@class=cat-box]/div[@class=cat-wrap]/a[@class=cat]/html()\",\r\n                header: [\r\n                    \"Host=www.imooc.com\",\r\n                    \"Referer=https://www.imooc.com\"\r\n                ],\r\n                entryUrls: \'https://www.imooc.com/u/{uid}/articles?page={curPage}\'\r\n            },\r\n            csdn: {\r\n                domain: \"blog.csdn.net\",\r\n                titleRegex: \"//h1[@class=title-article]/html()\",\r\n                authorRegex: \"//a[@class=follow-nickName]/html()\",\r\n                releaseDateRegex: \"//div[@class=\'article-bar-top\']/span[@class=\'time\']/text()\",\r\n                contentRegex: \"//div[@class=article_content]/html()\",\r\n                targetLinksRegex: \".*blog\\\\.csdn\\\\.net/{uid}/article/details/[0-9a-zA-Z]{1,15}\",\r\n                tagRegex: \"//span[@class=artic-tag-box]/a[@class=tag-link]/html()\",\r\n                header: [\r\n                    \"Host=blog.csdn.net\",\r\n                    \"Referer=https://blog.csdn.net/{uid}/article/list/1\"\r\n                ],\r\n                entryUrls: \'https://blog.csdn.net/{uid}/article/list/{curPage}\'\r\n            },\r\n            iteye: {\r\n                domain: \"{uid}.iteye.com\",\r\n                titleRegex: \"//div[@class=blog_title]/h3/a/html()\",\r\n                authorRegex: \"//div[@id=blog_owner_name]/html()\",\r\n                releaseDateRegex: \"//div[@class=blog_bottom]/ul/li/html()\",\r\n                contentRegex: \"//div[@class=blog_content]/html()\",\r\n                targetLinksRegex: \".*{uid}\\\\.iteye\\\\.com/blog/[0-9]+\",\r\n                tagRegex: \"//div[@class=news_tag]/a/html()\",\r\n                header: [\r\n                    \"Host={uid}.iteye.com\",\r\n                    \"Referer=http://{uid}.iteye.com/\"\r\n                ],\r\n                entryUrls: \'http://{uid}.iteye.com/?page={curPage}\'\r\n            },\r\n            csblogs: {\r\n                domain: \"www.cnblogs.com\",\r\n                titleRegex: \"//a[@id=cb_post_title_url]/html()\",\r\n                authorRegex: \"//div[@class=postDesc]/a[1]/html()\",\r\n                releaseDateRegex: \"//span[@id=post-date]/html()\",\r\n                contentRegex: \"//div[@id=cnblogs_post_body]/html()\",\r\n                targetLinksRegex: \".*www\\\\.cnblogs\\\\.com/{uid}/p/[\\\\w\\\\d]+\\\\.html\",\r\n                tagRegex: \"//div[@id=EntryTag]/a/html()\",\r\n                header: [\r\n                    \"Host=www.cnblogs.com\",\r\n                    \"Referer=https://www.cnblogs.com/\"\r\n                ],\r\n                entryUrls: \'https://www.cnblogs.com/{uid}/default.html?page={curPage}\'\r\n            }\r\n        }', '2019-01-21 11:58:12', '2019-01-21 11:58:12');
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (28, 'anonymous', '1', '2019-01-24 19:13:33', '2019-01-25 17:38:12');
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (29, 'editorPlaceholder', '说点什么吧', '2019-01-24 19:13:33', '2019-01-25 17:38:12');
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (30, 'editorAlert', '讲文明、要和谐', '2019-01-24 19:13:33', '2019-01-25 17:38:12');
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (31, 'defaultUserAvatar', '[\r\n	\"http://localhost:8443/img/random/user/1.jpg\",\r\n	\"http://localhost:8443/img/random/user/2.jpg\",\r\n	\"http://localhost:8443/img/random/user/3.jpg\",\r\n	\"http://localhost:8443/img/random/user/4.jpg\",\r\n	\"http://localhost:8443/img/random/user/5.jpg\",\r\n	\"http://localhost:8443/img/random/user/6.jpg\",\r\n	\"http://localhost:8443/img/random/user/7.jpg\",\r\n	\"http://localhost:8443/img/random/user/8.jpg\",\r\n	\"http://localhost:8443/img/random/user/9.jpg\",\r\n	\"http://localhost:8443/img/random/user/10.jpg\",\r\n	\"http://localhost:8443/img/random/user/11.jpg\",\r\n	\"http://localhost:8443/img/random/user/12.jpg\",\r\n	\"http://localhost:8443/img/random/user/13.jpg\",\r\n	\"http://localhost:8443/img/random/user/14.jpg\",\r\n	\"http://localhost:8443/img/random/user/15.jpg\",\r\n	\"http://localhost:8443/img/random/user/16.jpg\",\r\n	\"http://localhost:8443/img/random/user/17.jpg\",\r\n	\"http://localhost:8443/img/random/user/18.jpg\",\r\n	\"http://localhost:8443/img/random/user/19.jpg\",\r\n	\"http://localhost:8443/img/random/user/20.jpg\"\r\n]', '2019-01-28 16:40:04', '2019-01-28 16:40:04');
+
 
 # 添加新资源
 INSERT INTO `dblog`.`sys_resources` VALUES (74, '编辑器', 'menu', '/editor', 'editor', 68, NULL, 0, 1, '', now(), now());

@@ -1,34 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.zyd</groupId>
-	<artifactId>blog</artifactId>
-	<version>2.1.0.Beta</version>
-	<packaging>pom</packaging>
-	<modules>
-		<module>blog-core</module>
-		<module>blog-web</module>
-		<module>blog-admin</module>
-		<module>blog-spider</module>
-	</modules>
+    <groupId>com.zyd</groupId>
+    <artifactId>blog</artifactId>
+    <version>2.1.0.Beta</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>blog-core</module>
+        <module>blog-web</module>
+        <module>blog-admin</module>
+        <module>blog-spider</module>
+    </modules>
 
-	<name>blog</name>
-	<description>OneBlog for Spring Boot</description>
+    <name>blog</name>
+    <description>OneBlog是一款简洁美观、自适应的Java博客系统</description>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.1.RELEASE</version>
-		<relativePath/>
-	</parent>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.1.RELEASE</version>
+        <relativePath/>
+    </parent>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-	</properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <maven.test.skip>true</maven.test.skip>
+        <webmagic.version>0.7.3</webmagic.version>
+        <jsoup.version>1.10.2</jsoup.version>
+        <javax.validation.version>2.0.1.Final</javax.validation.version>
+        <hibernate.validator.version>6.0.9.Final</hibernate.validator.version>
+        <tomcat.version>8.5.29</tomcat.version>
+        <excel4j.version>2.1.4-Final</excel4j.version>
+        <mybatis.version>1.3.2</mybatis.version>
+        <mapper.version>2.1.0</mapper.version>
+        <pagehelper.version>1.2.3</pagehelper.version>
+        <druid.version>1.1.10</druid.version>
+        <fastjson.version>1.2.44</fastjson.version>
+        <shiro.spring.version>1.4.0</shiro.spring.version>
+        <shiro.redis.version>2.4.2.1-RELEASE</shiro.redis.version>
+        <shiro.freemarker.tags.version>0.1</shiro.freemarker.tags.version>
+        <qiniu.version>[7.0.0, 7.1.99]</qiniu.version>
+        <useragentutils.version>1.20</useragentutils.version>
+        <braum.version>1.0.0-alpha</braum.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -41,28 +59,28 @@
     </dependencyManagement>
 
     <dependencies>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <scope>test</scope>
+        </dependency>
         <!--仅用于升级springboot版本时，提供配置迁移建议-->
         <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-properties-migrator</artifactId>-->
-            <!--<optional>true</optional>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-properties-migrator</artifactId>-->
+        <!--<optional>true</optional>-->
         <!--</dependency>-->
-	</dependencies>
+    </dependencies>
 
     <!-- Maven控制Spring Profile -->
     <profiles>

@@ -8,7 +8,7 @@ import us.codecraft.webmagic.proxy.Proxy;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,20 +23,20 @@ import java.util.Map;
 @Data
 public class BaseModel {
     public boolean isSingle;
-    @NotEmpty(message = "必须指定标题抓取规则(xpath)")
+    @NotNull(message = "必须指定标题抓取规则(xpath)")
     private String titleRegex;
-    @NotEmpty(message = "必须指定内容抓取规则(xpath)")
+    @NotNull(message = "必须指定内容抓取规则(xpath)")
     private String contentRegex;
-    @NotEmpty(message = "必须指定发布日期抓取规则(xpath)")
+    @NotNull(message = "必须指定发布日期抓取规则(xpath)")
     private String releaseDateRegex;
-    @NotEmpty(message = "必须指定作者抓取规则(xpath)")
+    @NotNull(message = "必须指定作者抓取规则(xpath)")
     private String authorRegex;
-    @NotEmpty(message = "必须指定待抓取的url抓取规则(xpath)")
+    @NotNull(message = "必须指定待抓取的url抓取规则(xpath)")
     private String targetLinksRegex;
     private String tagRegex;
     private String keywordsRegex = "//meta [@name=keywords]/@content";
     private String descriptionRegex = "//meta [@name=description]/@content";
-    @NotEmpty(message = "必须指定网站根域名")
+    @NotNull(message = "必须指定网站根域名")
     private String domain;
     private String charset = "utf8";
     /**
@@ -60,7 +60,7 @@ public class BaseModel {
     /**
      * 抓取入口地址
      */
-//    @NotEmpty(message = "必须指定待抓取的网址")
+//    @NotNull(message = "必须指定待抓取的网址")
     private String[] entryUrls;
     /**
      * 退出方式{DURATION:爬虫持续的时间,URL_COUNT:抓取到的url数量}

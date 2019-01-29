@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zyd.blog.business.enums.LinkSourceEnum;
 import com.zyd.blog.persistence.beans.SysLink;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.util.StringUtils;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 
@@ -41,7 +41,7 @@ public class Link {
         this.sysLink.setId(id);
     }
 
-    @NotEmpty(message = "站点地址不能为空")
+    @NotNull(message = "站点地址不能为空")
     @Pattern(regexp = "(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]", message = "不合法的地址")
     public String getUrl() {
         return this.sysLink.getUrl();
@@ -51,7 +51,7 @@ public class Link {
         this.sysLink.setUrl(url);
     }
 
-    @NotEmpty(message = "站点名称不能为空")
+    @NotNull(message = "站点名称不能为空")
     @Length(max = 15, min = 1, message = "站点名称长度建议保持在15个字符以内")
     public String getName() {
         return this.sysLink.getName();
@@ -61,7 +61,7 @@ public class Link {
         this.sysLink.setName(name);
     }
 
-    @NotEmpty(message = "站点描述不能为空")
+    @NotNull(message = "站点描述不能为空")
     @Length(max = 30, min = 1, message = "站点描述这么长，亲你是想参加作文比赛么？^_^")
     public String getDescription() {
         return this.sysLink.getDescription();
