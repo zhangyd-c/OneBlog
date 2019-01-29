@@ -83,7 +83,7 @@
                         var title = code;
                         title = title.length > 20 ? (title.substr(0, 20) + '...') : title;
                         var id = row.id;
-                        var status = row.status ? '<span class="label label-success" style="margin-right: 5px;">已发布</span>' : '<span class="label label-danger">草稿</span>';
+                        var status = row.status ? '<span class="label label-success" style="margin-right: 5px;">已发布</span>' : '<span class="label label-danger" style="margin-right: 5px;">草稿</span>';
                         return status + '<a href="' + appConfig.wwwPath + '/article/' + id + '" target="_blank" title="' + code + '">' + title + '</a>';
                     }
                 }, {

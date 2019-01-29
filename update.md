@@ -8,6 +8,7 @@
 	- Fixed issue : [IN4T1](https://gitee.com/yadong.zhang/DBlog/issues/IN4T1)
 	- Fixed issue : [IN807](https://gitee.com/yadong.zhang/DBlog/issues/IN807)
 	- Fixed issue : [IO4P6](https://gitee.com/yadong.zhang/DBlog/issues/IO4P6)
+	- Fixed issue : [IO5HQ](https://gitee.com/yadong.zhang/DBlog/issues/IO5HQ)
 	- Fixed issue : [IOWDY](https://gitee.com/yadong.zhang/DBlog/issues/IOWDY)
 	- Fixed issue : [IP2I1](https://gitee.com/yadong.zhang/DBlog/issues/IP2I1)
 - 新增：

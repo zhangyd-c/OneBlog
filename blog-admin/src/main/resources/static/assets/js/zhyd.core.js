@@ -67,7 +67,7 @@ var zhyd = window.zhyd || {
                         itemValue: 'id',
                         itemText: 'name',
                         maxTags: 3,
-                        maxChars: 10,
+                        maxChars: 20,
                         trimValue: true,
                         focusClass: 'focus'
                     });
@@ -81,18 +81,25 @@ var zhyd = window.zhyd || {
                         var $li = $(this);
                         $li.bind('click', add);
                     });
-
-                    $this.on('itemAdded', function (event) {
-                        var tag = event.item;
-                        if (!event.options) {
-                            $.post('/tag/add', {name: tag, description: tag}, function (response) {
+                    $(".bootstrap-tagsinput input").bind('keydown',function(event){
+                        var thisVal = $(this).val();
+                        console.log(event.key);
+                        if(event.key == 'Enter' || event.keyCode == '13') {
+                            $.post('/tag/add', {name: thisVal, description: thisVal}, function (response) {
                                 if (response.status !== 200) {
-                                    $this.tagsinput('remove', tag, {del: false});
+                                    $.alert.error(response.message);
                                 } else {
                                     var data = response.data;
-                                    $('<li data-value="' + data.id + '">' + data.name + '</li>').bind('click', add).appendTo($($bindBox));
+                                    $this.tagsinput('add', {"id": data.id, "name": data.name}, {addNew: true});
                                 }
                             });
+                        }
+                    });
+                    $this.on('itemAdded', function (event) {
+                        var tag = event.item;
+                        if (event.options && event.options.addNew) {
+                            $(".bootstrap-tagsinput input").val('');
+                            $('<li data-value="' + tag.id + '">' + tag.name + '</li>').bind('click', add).appendTo($($bindBox));
                         }
                     });
                 })

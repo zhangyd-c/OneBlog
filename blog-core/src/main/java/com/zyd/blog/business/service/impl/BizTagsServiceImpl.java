@@ -6,6 +6,7 @@ import com.zyd.blog.business.annotation.RedisCache;
 import com.zyd.blog.business.entity.Tags;
 import com.zyd.blog.business.service.BizTagsService;
 import com.zyd.blog.business.vo.TagsConditionVO;
+import com.zyd.blog.framework.exception.ZhydException;
 import com.zyd.blog.persistence.beans.BizTags;
 import com.zyd.blog.persistence.mapper.BizTagsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,16 +39,22 @@ public class BizTagsServiceImpl implements BizTagsService {
     public PageInfo<Tags> findPageBreakByCondition(TagsConditionVO vo) {
         PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
         List<BizTags> list = bizTagsMapper.findPageBreakByCondition(vo);
-        if (CollectionUtils.isEmpty(list)) {
-            return null;
-        }
-        List<Tags> boList = new ArrayList<>();
-        for (BizTags bizTags : list) {
-            boList.add(new Tags(bizTags));
-        }
+        List<Tags> boList = getTags(list);
+        if (boList == null) return null;
         PageInfo bean = new PageInfo<BizTags>(list);
         bean.setList(boList);
         return bean;
+    }
+
+    @Override
+    public Tags getByName(String name) {
+        if (StringUtils.isEmpty(name)) {
+            return null;
+        }
+        BizTags tags = new BizTags();
+        tags.setName(name);
+        tags = bizTagsMapper.selectOne(tags);
+        return null == tags ? null : new Tags(tags);
     }
 
     @Override
@@ -54,6 +62,9 @@ public class BizTagsServiceImpl implements BizTagsService {
     @RedisCache(flush = true)
     public Tags insert(Tags entity) {
         Assert.notNull(entity, "Tags不可为空！");
+        if (this.getByName(entity.getName()) != null) {
+            throw new ZhydException("标签添加失败，标签已存在！[" + entity.getName() + "]");
+        }
         entity.setUpdateTime(new Date());
         entity.setCreateTime(new Date());
         bizTagsMapper.insertSelective(entity.getBizTags());
@@ -73,6 +84,10 @@ public class BizTagsServiceImpl implements BizTagsService {
     @RedisCache(flush = true)
     public boolean updateSelective(Tags entity) {
         Assert.notNull(entity, "Tags不可为空！");
+        Tags old = this.getByName(entity.getName());
+        if (old != null && !old.getId().equals(entity.getId())) {
+            throw new ZhydException("标签修改失败，标签已存在！[" + entity.getName() + "]");
+        }
         entity.setUpdateTime(new Date());
         return bizTagsMapper.updateByPrimaryKeySelective(entity.getBizTags()) > 0;
     }
@@ -89,6 +104,10 @@ public class BizTagsServiceImpl implements BizTagsService {
     public List<Tags> listAll() {
         List<BizTags> entityList = bizTagsMapper.selectAll();
 
+        return getTags(entityList);
+    }
+
+    private List<Tags> getTags(List<BizTags> entityList) {
         if (CollectionUtils.isEmpty(entityList)) {
             return null;
         }

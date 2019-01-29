@@ -18,4 +18,6 @@ import com.zyd.blog.framework.object.AbstractService;
 public interface BizTagsService extends AbstractService<Tags, Long> {
 
     PageInfo<Tags> findPageBreakByCondition(TagsConditionVO vo);
+
+    Tags getByName(String name);
 }

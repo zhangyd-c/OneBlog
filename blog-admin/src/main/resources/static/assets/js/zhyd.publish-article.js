@@ -68,7 +68,7 @@ $(".publishBtn").click(function () {
             return;
         }
         if(!$("#description").val() || !$("#keywords").val()) {
-            $.alert.error("请填写下SEO相关的内容，填写后更容易被收录哦");
+            $.alert.error("请填写SEO相关的内容，填写后更容易被收录哦");
             return;
         }
         var isMarkdown = $("input[name=isMarkdown]").val();
