@@ -38,9 +38,15 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 [后台demo(root,123456)](http://dblog-admin.zhyd.me)
 
-![输入图片说明](https://images.gitee.com/uploads/images/2018/1126/194806_3b89eb35_784199.png "屏幕截图.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2018/1126/194835_e5893dba_784199.png "屏幕截图.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2018/1127/092018_c5c4ecd4_784199.png "OneBlog博客系统   一个程序员的个人博客.png")
+![admin端首页](https://images.gitee.com/uploads/images/2019/0129/191117_221c6064_784199.png "admin-index.png")
+![admin端文章列表也](https://images.gitee.com/uploads/images/2019/0129/191135_21e4f61c_784199.png "admin-article.png")
+![admin端发布文章页](https://images.gitee.com/uploads/images/2019/0129/191150_0d28d51a_784199.png "admin-publish-article.png")
+![admin端系统配置页](https://images.gitee.com/uploads/images/2019/0129/191203_cc6941e4_784199.png "admin-config.png")
+![admin端文章搬运工](https://images.gitee.com/uploads/images/2019/0129/191214_5e8f3c34_784199.png "admin-spider.png")
+![admin端文章搬运工](https://images.gitee.com/uploads/images/2019/0129/191237_d015fcda_784199.png "admin-spider2.png")
+![web端首页-pc](https://images.gitee.com/uploads/images/2019/0129/191409_d2604f7d_784199.png "web-index-pc.png")
+![web端首页-mobile](https://images.gitee.com/uploads/images/2019/0129/191428_c76317e8_784199.png "web-index.png")
+![web端文章详情页](https://images.gitee.com/uploads/images/2019/0129/191448_a2777443_784199.png "web-article-detail.png")
 
 ----
 
@@ -84,7 +90,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - 集成七牛云，实现文件云存储
 - 系统配置支持快速配置。可通过后台手动修改诸如域名信息、SEO优化、赞赏码、七牛云以及更新维护通知等。
 - 管理员可向在线的用户发送实时消息（需用户授权 - 基于websocket实现，具体参考[DBlog建站之Websocket的使用](https://www.zhyd.me/article/111)）
-- 新增“文章搬运工”功能，支持一键同步imooc、csdn、iteye或者cnblogs上的文章
+- “文章搬运工”功能，支持一键同步imooc、csdn、iteye或者cnblogs上的文章，可抓取列表和单个文章
 
 
 # 使用方法
@@ -109,11 +115,10 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 # 后续扩展
 - [ ] 1. 页面缓存
-- [x] 2. 数据统计
-- [ ] 3. cc防护
-- [ ] 4. 集成阿里云OSS
-- [ ] 5. 配套小程序
-- [ ] 6. 待续...
+- [ ] 2. cc防护
+- [ ] 3. 集成阿里云OSS
+- [ ] 4. 配套小程序
+- [ ] 5. 待续...
 ...
 
 # 已经在用OneBlog的网站 （ 排名按照留言先后顺序 ）
@@ -143,8 +148,8 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
  **QQ群** 
 
-1. 1群[![](https://pub.idqqimg.com/wpa/images/group.png)](https://shang.qq.com/wpa/qunwpa?idkey=3571c554a143eff1e15807de033a240196c6b493b25b903d1d37571cfb6040aa)（ **已升为1000人群** ）
-2. 2群[![](https://pub.idqqimg.com/wpa/images/group.png)](https://shang.qq.com/wpa/qunwpa?idkey=38594b12fb0ec66459f0dba0316648a5c4bb71ea613289e5b57b8f44ad83ebc9)（ **人很少** ）
+1. 1群[![](https://images.gitee.com/uploads/images/2019/0129/191256_a40bceba_784199.png)](https://shang.qq.com/wpa/qunwpa?idkey=3571c554a143eff1e15807de033a240196c6b493b25b903d1d37571cfb6040aa)（ **已升为1000人群** ）
+2. 2群[![](https://images.gitee.com/uploads/images/2019/0129/191256_a40bceba_784199.png)](https://shang.qq.com/wpa/qunwpa?idkey=38594b12fb0ec66459f0dba0316648a5c4bb71ea613289e5b57b8f44ad83ebc9)（ **人很少** ）
 
 # 赞助
 
@@ -172,4 +177,3 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 # 开源协议
 
 [![license](https://img.shields.io/badge/license-GPL%20v3-yellow.svg)](https://gitee.com/yadong.zhang/DBlog/blob/master/LICENSE)
-
