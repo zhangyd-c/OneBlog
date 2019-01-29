@@ -227,7 +227,7 @@ function clearText($this, type, info) {
         var thisValue = info[thisName];
         if (type == 'radio') {
             var _typeof = (typeof thisValue);
-            if (_typeof == "boolean") {
+            if (_typeof == "boolean" || _typeof == "number") {
                 $this.iCheck(((thisValue && 1 == $this.val()) || (!thisValue && 0 == $this.val())) ? 'check' : 'uncheck')
             } else if (_typeof == "string") {
                 $this.iCheck(((thisValue == '1' && 1 == $this.val()) || (thisValue != '1' && 0 == $this.val())) ? 'check' : 'uncheck')

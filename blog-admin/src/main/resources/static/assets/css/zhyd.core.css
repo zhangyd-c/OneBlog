@@ -2940,7 +2940,7 @@ ul.timeline li {
     color: #fff !important
 }
 
-.tag:after {
+/*.tag:after {
     content: " ";
     height: 30px;
     width: 0;
@@ -2952,7 +2952,7 @@ ul.timeline li {
     border-top: 14px solid transparent;
     border-bottom: 14px solid transparent;
     border-left: 11px solid #1ABB9C
-}
+}*/
 
 .timeline h2.title {
     position: relative;
@@ -5039,3 +5039,22 @@ ul, menu, dir {
     overflow: hidden;
 }
 /* 滚条消息通知 */
+
+.bootstrap-tagsinput.focus{
+    border-color: #3c763d;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+
+.tags-list li{
+    display: block;
+    float: left;
+    margin: 5px 5px 0 0;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: #545c63;
+    line-height: 16px;
+    background: rgba(84,92,99,.1);
+    border-radius: 12px;
+    cursor: pointer;
+}

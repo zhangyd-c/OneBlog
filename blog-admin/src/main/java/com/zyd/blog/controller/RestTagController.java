@@ -43,8 +43,8 @@ public class RestTagController {
     @PostMapping(value = "/add")
     @BussinessLog("添加标签")
     public ResponseVO add(Tags tags) {
-        tagsService.insert(tags);
-        return ResultUtil.success("标签添加成功！新标签 - " + tags.getName());
+        tags = tagsService.insert(tags);
+        return ResultUtil.success("标签添加成功！新标签 - " + tags.getName(), tags);
     }
 
     @RequiresPermissions(value = {"tag:batchDelete", "tag:delete"}, logical = Logical.OR)

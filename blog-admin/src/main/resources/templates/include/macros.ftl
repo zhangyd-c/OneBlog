@@ -21,6 +21,8 @@
     <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/zTree.v3/3.5.29/css/metroStyle/metroStyle.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/switchery/0.8.2/switchery.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput-typeahead.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet">
 <#--
     <link href="https://cdn.bootcss.com/pnotify/3.2.1/pnotify.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/pnotify/3.2.1/pnotify.buttons.css" rel="stylesheet">

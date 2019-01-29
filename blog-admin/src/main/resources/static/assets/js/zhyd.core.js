@@ -31,7 +31,72 @@ var zhyd = window.zhyd || {
                         }
                     }
                 });
+            });
+            $('ul[target=combox], ol[target=combox]').each(function (e) {
+                var $this = $(this);
+                var url = $this.data("url");
+                if (!url) {
+                    return false;
+                }
+                var method = $this.data("method") || "get";
+                $.ajax({
+                    url: url,
+                    type: method,
+                    success: function (json) {
+                        if (json && json.status == 200) {
+                            var liTpl = '{{#data}}<li data-value="{{id}}">{{name}}</li>{{/data}}';
+                            var html = Mustache.render(liTpl, json);
+                            $this.html(html);
+                        }
+                    }
+                });
             })
+        }
+    },
+    tagsInput: {
+        init: function () {
+            setTimeout(function () {
+                $('select[target="tagsinput"], input[target="tagsinput"]').each(function () {
+                    var $this = $(this);
+                    var $bindBox = $this.data("bind-box");
+                    if(!$bindBox || $bindBox.length <= 0) {
+                        return ;
+                    }
+
+                    $this.tagsinput({
+                        itemValue: 'id',
+                        itemText: 'name',
+                        maxTags: 3,
+                        maxChars: 10,
+                        trimValue: true,
+                        focusClass: 'focus'
+                    });
+
+                    function add(){
+                        var thisId = $(this).data("value");
+                        var thisText = $(this).text().trim();
+                        $this.tagsinput('add', {"id": thisId, "name": thisText}, {add: false});
+                    }
+                    $($bindBox).find("li").each(function () {
+                        var $li = $(this);
+                        $li.bind('click', add);
+                    });
+
+                    $this.on('itemAdded', function (event) {
+                        var tag = event.item;
+                        if (!event.options) {
+                            $.post('/tag/add', {name: tag, description: tag}, function (response) {
+                                if (response.status !== 200) {
+                                    $this.tagsinput('remove', tag, {del: false});
+                                } else {
+                                    var data = response.data;
+                                    $('<li data-value="' + data.id + '">' + data.name + '</li>').bind('click', add).appendTo($($bindBox));
+                                }
+                            });
+                        }
+                    });
+                })
+            }, 500);
         }
     },
     initCommentNotify: function () {
@@ -116,7 +181,7 @@ var zhyd = window.zhyd || {
             // 关闭粘贴样式的过滤
             editor.customConfig.pasteFilterStyle = false;
             editor.customConfig.zIndex = 100;
-            if(config.textareaName) {
+            if (config.textareaName) {
                 $('<textarea class="wangeditor-textarea" id="' + config.textareaName + '" name="' + config.textareaName + '" style="display: none" required="required"></textarea>').insertAfter($(config.container));
             }
             var $contentBox = $('textarea[name=' + config.textareaName + ']');
@@ -125,7 +190,7 @@ var zhyd = window.zhyd || {
                 $contentBox.val(html);
             };
             // 注册上传文件插件
-            zhyd.wangEditor.plugins.registerUpload(editor, config.uploadUrl, config.uploadFileName, config.uploadType, function(result, curEditor) {
+            zhyd.wangEditor.plugins.registerUpload(editor, config.uploadUrl, config.uploadFileName, config.uploadType, function (result, curEditor) {
                 // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
                 // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
                 if (result.status == 200) {
@@ -142,7 +207,7 @@ var zhyd = window.zhyd || {
             // 注册全屏插件
             zhyd.wangEditor.plugins.registerFullscreen(config.container);
 
-            if(config.customCss) {
+            if (config.customCss) {
                 // 自定义编辑器的样式
                 for (var key in config.customCss) {
                     var value = config.customCss[key];
@@ -155,10 +220,10 @@ var zhyd = window.zhyd || {
                 var E = zhyd.wangEditor._instance;
                 // 全屏插件
                 E.fullscreen = {
-                    init: function(editorBox) {
+                    init: function (editorBox) {
                         $(editorBox + " .w-e-toolbar").append('<div class="w-e-menu"><a class="_wangEditor_btn_fullscreen" href="###" onclick="window.wangEditor.fullscreen.toggleFullscreen(\'' + editorBox + '\')" data-toggle="tooltip" data-placement="bottom" title data-original-title="全屏编辑"><i class="fa fa-expand"></i></a></div>')
                     },
-                    toggleFullscreen: function(editorSelector) {
+                    toggleFullscreen: function (editorSelector) {
                         $(editorSelector).toggleClass('fullscreen-editor');
                         var $a = $(editorSelector + ' ._wangEditor_btn_fullscreen');
                         var $i = $a.find("i:first-child");
@@ -174,7 +239,7 @@ var zhyd = window.zhyd || {
 
                 // 初始化全屏插件
                 var n = arguments.length;
-                for(var i = 0; i < n; i ++){
+                for (var i = 0; i < n; i++) {
                     E.fullscreen.init(arguments[i]);
                 }
             },
@@ -204,7 +269,7 @@ var zhyd = window.zhyd || {
                             $.alert.error("请求超时");
                         },
                         customInsert: function (insertImg, result, editor) {
-                            if(callback) {
+                            if (callback) {
                                 callback(result, editor);
                             } else {
                                 console.log('upload callback：' + insertImg, result, editor);
@@ -376,6 +441,7 @@ $(document).ready(function () {
         }
     });
     zhyd.combox.init();
+    zhyd.tagsInput.init();
 
     /**
      * 针对shiro框架中， ajax请求时session过期后的页面跳转
