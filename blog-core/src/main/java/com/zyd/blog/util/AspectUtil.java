@@ -84,7 +84,7 @@ public enum AspectUtil {
             List<String> result = RegexUtils.match(bussinessName, "(?<=\\{)(\\d+)");
             for (String s : result) {
                 int index = Integer.parseInt(s);
-                bussinessName = bussinessName.replaceAll("\\{" + index + "\\}", JSON.toJSONString(params[index - 1]));
+                bussinessName = bussinessName.replaceAll("\\{" + index + "}", JSON.toJSONString(params[index - 1]));
             }
         }
         return bussinessName;
