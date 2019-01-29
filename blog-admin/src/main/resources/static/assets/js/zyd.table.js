@@ -35,7 +35,6 @@
             _option: {},
             init: function (options) {
                 $.tableUtil._option = options;
-                // console.log(options.url);
                 var $tablelist = $('#tablelist');
                 $tablelist.bootstrapTable('destroy').bootstrapTable({
                     url: options.url,
@@ -123,14 +122,17 @@
                 /* 添加 */
                 $("#btn_add").click(function () {
                     resetForm();
-                    $("#addOrUpdateModal").modal('show');
-                    $("#addOrUpdateModal").find(".modal-dialog .modal-content .modal-header h4.modal-title").html("添加" + options.modalName);
+                    var $addOrUpdateModal = $("#addOrUpdateModal");
+                    $addOrUpdateModal.modal('show');
+                    $addOrUpdateModal.find(".modal-dialog .modal-content .modal-header h4.modal-title").html("添加" + options.modalName);
 
-                    if ($("#password") && $("#password")[0]) {
-                        $("#password").attr("required", "required");
+                    var $password = $("#password");
+                    if ($password && $password[0]) {
+                        $password.attr("required", "required");
                     }
-                    if ($("#username") && $("#username")[0]) {
-                        $("#username").removeAttr("readonly");
+                    var $username = $("#username");
+                    if ($username && $username[0]) {
+                        $username.removeAttr("readonly");
                     }
                     bindSaveInfoEvent(options.createUrl);
                 });
@@ -144,15 +146,17 @@
                         url: options.getInfoUrl.replace("{id}", userId),
                         success: function (json) {
                             var info = json.data;
-                            // console.log(info);
                             resetForm(info);
-                            $("#addOrUpdateModal").modal('show');
-                            $("#addOrUpdateModal").find(".modal-dialog .modal-content .modal-header h4.modal-title").html("修改" + options.modalName);
-                            if ($("#password") && $("#password")[0]) {
-                                $("#password").removeAttr("required");
+                            var $addOrUpdateModal = $("#addOrUpdateModal");
+                            $addOrUpdateModal.modal('show');
+                            $addOrUpdateModal.find(".modal-dialog .modal-content .modal-header h4.modal-title").html("修改" + options.modalName);
+                            var $password = $("#password");
+                            if ($password && $password[0]) {
+                                $password.removeAttr("required");
                             }
-                            if ($("#username") && $("#username")[0]) {
-                                $("#username").attr("readonly", "readonly");
+                            var $username = $("#username");
+                            if ($username && $username[0]) {
+                                $username.attr("readonly", "readonly");
                             }
 
                             bindSaveInfoEvent(options.updateUrl);
@@ -171,7 +175,6 @@
                             traditional: true,
                             data: {'ids': ids},
                             success: function (json) {
-                                console.warn(json);
                                 $.alert.ajaxSuccess(json);
                                 $.tableUtil.refresh();
                             },
@@ -206,8 +209,7 @@
 })(jQuery);
 
 function bindSaveInfoEvent(url) {
-    $(".addOrUpdateBtn").unbind('click');
-    $(".addOrUpdateBtn").click(function () {
+    $(".addOrUpdateBtn").unbind('click').click(function () {
         if (validator.checkAll($("#addOrUpdateForm"))) {
             $.ajax({
                 type: "post",
@@ -225,6 +227,10 @@ function bindSaveInfoEvent(url) {
 }
 
 function resetForm(info) {
+    var $combox = $("#addOrUpdateModal form select[target=combox]");
+    if($combox && $combox[0]) {
+        zhyd.combox.init();
+    }
     $("#addOrUpdateModal form input,#addOrUpdateModal form select,#addOrUpdateModal form textarea").each(function () {
         var $this = $(this);
         clearText($this, this.type, info);

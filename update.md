@@ -6,10 +6,15 @@
 
 - 关闭issue：
 	- Fixed issue : [IN4T1](https://gitee.com/yadong.zhang/DBlog/issues/IN4T1)
+	- Fixed issue : [IN807](https://gitee.com/yadong.zhang/DBlog/issues/IN807)
 	- Fixed issue : [IOWDY](https://gitee.com/yadong.zhang/DBlog/issues/IOWDY)
 	- Fixed issue : [IP2I1](https://gitee.com/yadong.zhang/DBlog/issues/IP2I1)
 - 新增：
 	- admin项目中，在面包屑导航列新增一个系统通知（友情提示）
+- 修改：
+	- web项目中，“更新记录”页面重构
+	- admin项目中，“推送消息”页面重构，以后准备做个简单的聊天通讯工具
+	
 	
 ----
 

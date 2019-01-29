@@ -9,7 +9,7 @@
 <div class="container custome-container">
     <@prompt></@prompt>
     <nav class="breadcrumb">
-        <div class="notify"><i class="fa fa-volume-up"></i></div>
+        <div class="notify"><i class="fa fa-bullhorn fa-fw"></i></div>
         <div id="scrolldiv">
             <div class="scrolltext">
                 <ul class="list-unstyled" id="notice-box">

@@ -113,8 +113,6 @@ var zhyd = window.zhyd || {
         }, options);
         var E = window.wangEditor;
         editor = new E('#' + $op.id);
-        // 通过 url 参数配置 debug 模式。url 中带有 wangeditor_debug_mode=1 才会开启 debug 模式
-        editor.customConfig.debug = location.href.indexOf('wangeditor_debug_mode=1') > 0;
         // 关闭粘贴样式的过滤
         editor.customConfig.pasteFilterStyle = false;
         editor.customConfig.zIndex = 100;
