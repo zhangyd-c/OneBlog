@@ -45,5 +45,6 @@
 <script src="/assets/js/jquery-form.js"></script>
 <script src="/assets/js/zyd.tool.js"></script>
 <script src="/assets/js/zhyd.upload-preview.js"></script>
+<script src="/assets/js/gentelella.core.js"></script>
 <script src="/assets/js/zhyd.core.js"></script>
 <script src="/assets/js/zyd.table.js"></script>

@@ -52,7 +52,6 @@
                             <label class="control-label col-md-1 col-sm-1 col-xs-12" for="password">内容 <span class="required">*</span></label>
                             <div class="col-md-11 col-sm-11 col-xs-12">
                                 <div id="editor" style="width: 100%;height: 150px;"></div>
-                                <textarea class="form-control col-md-7 col-xs-12" id="content" name="content" style="display: none" required="required"></textarea>
                             </div>
                         </div>
                         <div class="item form-group">
@@ -160,19 +159,17 @@
     <script>
         articleId = '${id}';
         $(function () {
-            /*if(!articleId) {
-                $.alert.confirm("当前已支持markdown编辑器，去试试？", function () {
-                    window.location.href="/article/publishMd";
-                }, function () {
-
-                });
-            }*/
-            zhyd.initWangEditor({
-                id: "editor",
-                contentId: "content",
+            zhyd.wangEditor.init({
+                container: "#editor",
+                textareaName: "content",
                 uploadUrl: "/api/upload2Qiniu",
-                uploadFileName: "file"
-            });
+                uploadFileName: "file",
+                uploadType: "article",
+                customCss: {
+                    "height": "100%",
+                    "max-height": "115px"
+                }
+            })
         });
     </script>
     <script src="/assets/js/zhyd.publish-article.js"></script>

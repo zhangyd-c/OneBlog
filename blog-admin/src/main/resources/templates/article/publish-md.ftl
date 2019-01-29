@@ -85,7 +85,7 @@
                                     <div class="custom-container">
                                         <div class="item form-group">
                                             <label class="control-label col-md-2 col-sm-2 col-xs-2" for="title">文章类型 <span class="required">*</span></label>
-                                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                            <div class="col-md-1 col-sm-1 col-xs-1">
                                                 <select class="form-control" name="original" required="required" id="original" style="width: 120px;">
                                                     <option value="1">原创</option>
                                                     <option value="0">转载</option>
@@ -226,13 +226,11 @@
             uniqueId: "mdEditor_1",
             uploadUrl: "/api/upload2QiniuForMd"
         };
-        zhyd.initMdEditor(op);
+        zhyd.simpleMDE.init(op);
         articleId = '${id}';
     </script>
     <script src="/assets/js/zhyd.publish-article.js"></script>
     <script>
-        console.log('init_SmartWizard');
-
         $('#wizard').smartWizard({
             labelNext:'<i class="fa fa-angle-right"></i> 下一步',
             labelPrevious:'<i class="fa fa-angle-left"></i> 上一步',

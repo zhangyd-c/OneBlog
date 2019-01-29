@@ -14,6 +14,8 @@
 - 修改：
 	- web项目中，“更新记录”页面重构
 	- admin项目中，“推送消息”页面重构，以后准备做个简单的聊天通讯工具
+	- admin项目中，重构wangEditor&simpleMDE编辑器的生成代码
+	- admin项目中，拆分gentelella模板的js代码和自定义的js代码
 	
 	
 ----
