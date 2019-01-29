@@ -1,4 +1,4 @@
-<#include "include/macros.ftl">
+<#include "/include/macros.ftl">
 <@header>
     <style>
         .messanger {

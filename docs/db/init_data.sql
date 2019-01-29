@@ -170,6 +170,7 @@ INSERT INTO `dblog`.`sys_resources` VALUES (70, 'shiro测试', 'menu', '/shiro',
 INSERT INTO `dblog`.`sys_resources` VALUES (71, '推送消息', 'menu', '/notice', 'notice', 72, NULL, 0, 1, '', now(), now());
 INSERT INTO `dblog`.`sys_resources` VALUES (72, '实验室', 'menu', '', '', 0, 5, 0, 1, 'fa fa-flask', now(), now());
 INSERT INTO `dblog`.`sys_resources` VALUES (73, '文章搬运工', 'menu', '/remover', 'remover', 72, NULL, 0, 1, '', now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (74, '编辑器', 'menu', '/editor', 'editor', 68, NULL, 0, 1, '', now(), now());
 
 # 清空系统角色
 TRUNCATE TABLE `dblog`.`sys_role`;

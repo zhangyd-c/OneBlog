@@ -4,9 +4,10 @@
 
 ### 2019-01-28
 
-- 关闭issue：
+- 处理issue：
 	- Fixed issue : [IN4T1](https://gitee.com/yadong.zhang/DBlog/issues/IN4T1)
 	- Fixed issue : [IN807](https://gitee.com/yadong.zhang/DBlog/issues/IN807)
+	- Fixed issue : [IO4P6](https://gitee.com/yadong.zhang/DBlog/issues/IO4P6)
 	- Fixed issue : [IOWDY](https://gitee.com/yadong.zhang/DBlog/issues/IOWDY)
 	- Fixed issue : [IP2I1](https://gitee.com/yadong.zhang/DBlog/issues/IP2I1)
 - 新增：

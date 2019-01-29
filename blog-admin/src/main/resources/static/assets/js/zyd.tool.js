@@ -233,9 +233,9 @@
  * 扩展String方法
  */
 $.extend(String.prototype, {
-    trim: function () {
+    /*trim: function () {
         return this.replace(/(^\s*)|(\s*$)|\r|\n/g, "");
-    },
+    },*/
     startsWith: function (pattern) {
         return this.indexOf(pattern) === 0;
     },

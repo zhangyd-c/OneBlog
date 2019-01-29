@@ -191,3 +191,6 @@ INSERT INTO `dblog`.`sys_config` VALUES (23, 'baiduPushToken', NULL, now(), now(
 INSERT INTO `dblog`.`sys_config` VALUES (24, 'wxPraiseCode', 'qrcode/wx_code.png', now(), now());
 INSERT INTO `dblog`.`sys_config` VALUES (25, 'zfbPraiseCode', 'qrcode/zfb_code.png', now(), now());
 INSERT INTO `dblog`.`sys_config` VALUES (26, 'baiduApiAk', 'NwHaYlGalDEpgxm46xBaC3T9', now(), now());
+
+# 添加新资源
+INSERT INTO `dblog`.`sys_resources` VALUES (74, '编辑器', 'menu', '/editor', 'editor', 68, NULL, 0, 1, '', now(), now());

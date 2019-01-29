@@ -168,14 +168,21 @@ public class RenderController {
     @BussinessLog(value = "进入icons页")
     @GetMapping("/icons")
     public ModelAndView icons(Model model) {
-        return ResultUtil.view("icons");
+        return ResultUtil.view("other/icons");
     }
 
     @RequiresPermissions("shiro")
     @BussinessLog(value = "进入shiro示例页")
     @GetMapping("/shiro")
     public ModelAndView shiro(Model model) {
-        return ResultUtil.view("shiro");
+        return ResultUtil.view("other/shiro");
+    }
+
+    @RequiresUser
+    @BussinessLog("进入编辑器测试用例页面")
+    @GetMapping("/editor")
+    public ModelAndView editor(Model model) {
+        return ResultUtil.view("other/editor");
     }
 
     @RequiresPermissions("notice")
@@ -183,7 +190,7 @@ public class RenderController {
     @GetMapping("/notice")
     public ModelAndView notice(Model model) {
         model.addAttribute("online", websocketServer.getOnlineUserCount());
-        return ResultUtil.view("notification");
+        return ResultUtil.view("laboratory/notification");
     }
 
     @RequiresUser
@@ -192,6 +199,6 @@ public class RenderController {
     public ModelAndView remover(Model model) {
         model.addAttribute("exitWayList", ExitWayEnum.values());
         model.addAttribute("spiderConfig", configService.getSpiderConfig());
-        return ResultUtil.view("remover/list");
+        return ResultUtil.view("laboratory/remover");
     }
 }
