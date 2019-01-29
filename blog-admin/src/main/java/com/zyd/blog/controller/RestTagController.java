@@ -81,7 +81,7 @@ public class RestTagController {
     }
 
     @PostMapping("/listAll")
-    public ResponseVO listType() {
+    public ResponseVO list() {
         return ResultUtil.success(null, tagsService.listAll());
     }
 

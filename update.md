@@ -18,6 +18,7 @@
 	- admin项目中，“推送消息”页面重构，以后准备做个简单的聊天通讯工具
 	- admin项目中，重构wangEditor&simpleMDE编辑器的生成代码
 	- admin项目中，拆分gentelella模板的js代码和自定义的js代码
+	- admin项目中，发表文章时可以新增标签，避免了必须得去标签页添加的问题
 	
 	
 ----

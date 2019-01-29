@@ -25,7 +25,7 @@ var zhyd = window.zhyd || {
                     type: method,
                     success: function (json) {
                         if (json && json.status == 200) {
-                            var optionTpl = '<option value="">请选择</option>{{#data}}<option value="{{id}}">{{name}}</option>{{/data}}';
+                            var optionTpl = '<option value="">请选择</option>{{#data}}<option value="{{id}}">{{name}}</option>{{#nodes}}<option value="{{id}}">  > {{name}}</option>{{/nodes}}{{/data}}';
                             var html = Mustache.render(optionTpl, json);
                             $this.html(html);
                         }
@@ -83,7 +83,6 @@ var zhyd = window.zhyd || {
                     });
                     $(".bootstrap-tagsinput input").bind('keydown',function(event){
                         var thisVal = $(this).val();
-                        console.log(event.key);
                         if(event.key == 'Enter' || event.keyCode == '13') {
                             $.post('/tag/add', {name: thisVal, description: thisVal}, function (response) {
                                 if (response.status !== 200) {
