@@ -33,7 +33,7 @@
         <jsoup.version>1.10.2</jsoup.version>
         <javax.validation.version>2.0.1.Final</javax.validation.version>
         <hibernate.validator.version>6.0.9.Final</hibernate.validator.version>
-        <tomcat.version>8.5.29</tomcat.version>
+        <tomcat.version>8.5.34</tomcat.version>
         <excel4j.version>2.1.4-Final</excel4j.version>
         <mybatis.version>1.3.2</mybatis.version>
         <mapper.version>2.1.0</mapper.version>
