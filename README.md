@@ -62,7 +62,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 # 技术栈
 
-- Springboot 2.0.1
+- Springboot 2.0.8
 - Apache Shiro 1.2.2
 - Logback
 - Redis
