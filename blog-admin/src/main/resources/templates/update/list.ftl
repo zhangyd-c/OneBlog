@@ -31,50 +31,32 @@
         </div>
     </div>
 </div>
-<!--添加弹框-->
-<div class="modal fade" id="addOrUpdateModal" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="addroleLabel">添加更新记录</h4>
-            </div>
-            <div class="modal-body">
-                <form id="addOrUpdateForm" class="form-horizontal form-label-left" novalidate>
-                    <input type="hidden" name="id">
-                    <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="version">当前版本 <span class="required">*</span></label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control col-md-7 col-xs-12" name="version" id="version" required="required" placeholder="请输入当前版本"/>
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">更新内容 <span class="required">*</span></label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <textarea class="form-control col-md-7 col-xs-12" id="description" name="description" required="required" placeholder="请输入更新内容"></textarea>
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="recordeTime">维护日期 <span class="required">*</span></label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <div class='input-group date' id='myDatepicker'>
-                                <input type='text' class="form-control" required="required" readonly="readonly" id="recordeTime" name="recordeTime" placeholder="请输入维护日期"/>
-                                <span class="input-group-addon">
+<@addOrUpdateMOdal defaultTitle="添加更新记录">
+    <input type="hidden" name="id">
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="version">当前版本 <span class="required">*</span></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" class="form-control col-md-7 col-xs-12" name="version" id="version" required="required" placeholder="请输入当前版本"/>
+        </div>
+    </div>
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">更新内容 <span class="required">*</span></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <textarea class="form-control col-md-7 col-xs-12" id="description" name="description" required="required" placeholder="请输入更新内容"></textarea>
+        </div>
+    </div>
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="recordeTime">维护日期 <span class="required">*</span></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class='input-group date' id='myDatepicker'>
+                <input type='text' class="form-control" required="required" readonly="readonly" id="recordeTime" name="recordeTime" placeholder="请输入维护日期"/>
+                <span class="input-group-addon">
                                    <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"> 关闭</i></button>
-                <button type="button" class="btn btn-success addOrUpdateBtn"><i class="fa fa-save"> 保存</i></button>
             </div>
         </div>
     </div>
-</div>
-<!--/添加弹框-->
+</@addOrUpdateMOdal>
 <@footer>
     <script>
         /**

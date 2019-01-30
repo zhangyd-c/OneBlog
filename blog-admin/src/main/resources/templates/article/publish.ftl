@@ -51,7 +51,6 @@
     </div>
    <@publishmodal></@publishmodal>
 </form>
-
 <@chooseImgModal></@chooseImgModal>
 <@footer>
     <script>

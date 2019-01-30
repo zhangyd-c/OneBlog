@@ -107,6 +107,7 @@
     </div>
 </#macro>
 
+<#-- 发布文章填写文章详情的弹窗模板 -->
 <#macro publishmodal>
     <div class="modal fade" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="publishLabel" data-backdrop="static">
         <div class="modal-dialog modal-lg" role="document">
@@ -199,6 +200,7 @@
     </div>
 </#macro>
 
+<#-- 发布文章时选择图片的弹窗模板 -->
 <#macro chooseImgModal>
     <div class="modal fade" id="chooseImg" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
         <div class="modal-dialog" role="document">
@@ -238,4 +240,27 @@
             </div>
         </div>
     </div>
+</#macro>
+
+<#-- 添加或者修改列表记录时的弹窗模板 -->
+<#macro addOrUpdateMOdal defaultTitle="">
+    <div class="modal fade" id="addOrUpdateModal" tabindex="-1" role="dialog" aria-labelledby="addroleLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addroleLabel">${defaultTitle}</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addOrUpdateForm" class="form-horizontal form-label-left" novalidate>
+                    <#nested>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"> 关闭</i></button>
+                <button type="button" class="btn btn-success addOrUpdateBtn"><i class="fa fa-save"> 保存</i></button>
+            </div>
+        </div>
+    </div>
+</div>
 </#macro>

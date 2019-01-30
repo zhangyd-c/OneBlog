@@ -33,39 +33,21 @@
         </div>
     </div>
 </div>
-<!--添加弹框-->
-<div class="modal fade" id="addOrUpdateModal" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="addroleLabel">添加标签</h4>
-            </div>
-            <div class="modal-body">
-                <form id="addOrUpdateForm" class="form-horizontal form-label-left" novalidate>
-                    <input type="hidden" name="id">
-                    <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">名称 <span class="required">*</span></label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control col-md-7 col-xs-12" name="name" id="name" required="required" placeholder="请输入标签名称"/>
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">标签描述 </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control col-md-7 col-xs-12" id="description" name="description" placeholder="请输入标签描述"/>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"> 关闭</i></button>
-                <button type="button" class="btn btn-success addOrUpdateBtn"><i class="fa fa-save"> 保存</i></button>
-            </div>
+<@addOrUpdateMOdal defaultTitle="添加标签">
+    <input type="hidden" name="id">
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">名称 <span class="required">*</span></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" class="form-control col-md-7 col-xs-12" name="name" id="name" required="required" placeholder="请输入标签名称"/>
         </div>
     </div>
-</div>
-<!--/添加弹框-->
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">标签描述 </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" class="form-control col-md-7 col-xs-12" id="description" name="description" placeholder="请输入标签描述"/>
+        </div>
+    </div>
+</@addOrUpdateMOdal>
 <@footer>
     <script>
         /**

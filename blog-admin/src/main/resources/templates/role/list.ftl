@@ -52,50 +52,31 @@
         </div>
     </div>
 </div>
-<!--/弹框-->
-<!--添加角色弹框-->
-<div class="modal fade" id="addOrUpdateModal" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="addroleLabel">添加角色</h4>
-            </div>
-            <div class="modal-body">
-                <form id="addOrUpdateForm" class="form-horizontal form-label-left" novalidate>
-                    <input type="hidden" name="id">
-                    <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">角色名称 <span class="required">*</span></label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control col-md-7 col-xs-12" name="name" id="name" required="required" placeholder="请输入角色名称"/>
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">角色描述 <span class="required">*</span></label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control col-md-7 col-xs-12" name="description" id="description" required="required" placeholder="请输入角色描述"/>
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="available">是否可用 <span class="required">*</span></label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select name="available" id="available" required="required" class="form-control col-md-7 col-xs-12">
-                                <option value="">请选择</option>
-                                <option value="0">不可用</option>
-                                <option value="1" selected="selected">可用</option>
-                            </select>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"> 关闭</i></button>
-                <button type="button" class="btn btn-success addOrUpdateBtn"><i class="fa fa-save"> 保存</i></button>
-            </div>
+<@addOrUpdateMOdal defaultTitle="添加角色">
+    <input type="hidden" name="id">
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">角色名称 <span class="required">*</span></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" class="form-control col-md-7 col-xs-12" name="name" id="name" required="required" placeholder="请输入角色名称"/>
         </div>
     </div>
-</div>
-<!--/添加角色弹框-->
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">角色描述 <span class="required">*</span></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" class="form-control col-md-7 col-xs-12" name="description" id="description" required="required" placeholder="请输入角色描述"/>
+        </div>
+    </div>
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="available">是否可用 <span class="required">*</span></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <select name="available" id="available" required="required" class="form-control col-md-7 col-xs-12">
+                <option value="">请选择</option>
+                <option value="0">不可用</option>
+                <option value="1" selected="selected">可用</option>
+            </select>
+        </div>
+    </div>
+</@addOrUpdateMOdal>
 <@footer>
     <script>
         /**

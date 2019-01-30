@@ -31,39 +31,21 @@
         </div>
     </div>
 </div>
-<!--添加弹框-->
-<div class="modal fade" id="addOrUpdateModal" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="addroleLabel">添加模板</h4>
-            </div>
-            <div class="modal-body">
-                <form id="addOrUpdateForm" class="form-horizontal form-label-left" novalidate>
-                    <input type="hidden" name="id">
-                    <div class="item form-group">
-                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="refKey">KEY <span class="required">*</span></label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" class="form-control col-md-7 col-xs-12" name="refKey" id="refKey" required="required" placeholder="KEY"/>
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="refValue">VALUE <span class="required">*</span></label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <textarea class="form-control col-md-7 col-xs-12" rows="20" id="refValue" name="refValue" required="required" placeholder="VALUE"></textarea>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"> 关闭</i></button>
-                <button type="button" class="btn btn-success addOrUpdateBtn"><i class="fa fa-save"> 保存</i></button>
-            </div>
+<@addOrUpdateMOdal defaultTitle="添加模板">
+    <input type="hidden" name="id">
+    <div class="item form-group">
+        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="refKey">KEY <span class="required">*</span></label>
+        <div class="col-md-9 col-sm-9 col-xs-12">
+            <input type="text" class="form-control col-md-7 col-xs-12" name="refKey" id="refKey" required="required" placeholder="KEY"/>
         </div>
     </div>
-</div>
-<!--/添加弹框-->
+    <div class="item form-group">
+        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="refValue">VALUE <span class="required">*</span></label>
+        <div class="col-md-9 col-sm-9 col-xs-12">
+            <textarea class="form-control col-md-7 col-xs-12" rows="20" id="refValue" name="refValue" required="required" placeholder="VALUE"></textarea>
+        </div>
+    </div>
+</@addOrUpdateMOdal>
 <@footer>
     <script>
         /**
