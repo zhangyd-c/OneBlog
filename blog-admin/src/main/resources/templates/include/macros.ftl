@@ -1,5 +1,5 @@
 <#-- 公共顶部 -->
-<#macro header>
+<#macro header sidebar=true setting=true>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +34,7 @@
 <body class="nav-md">
 <div class="container body">
     <div class="main_container">
+    <#if sidebar>
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
@@ -52,15 +53,29 @@
                 </div>
                 </@shiro.user>
                 <br />
-            <#include "/layout/sidebar.ftl"/>
+                <#include "/layout/sidebar.ftl"/>
             </div>
         </div>
-    <#include "/layout/setting.ftl"/>
-        <div class="right_col" role="main">
+    </#if>
+        <#if setting>
+        <#include "/layout/setting.ftl"/>
+        </#if>
+
+        <div class="right_col" role="main" style="${sidebar?string('','margin-left: 0;')}">
 </#macro>
 
 <#-- 公共底部 -->
-<#macro footer>
+<#macro footer footerHtml=true>
+    <#if footerHtml>
+        <footer>
+            <div class="pull-right">
+                Copyright © 2018 <a href="https://www.zhyd.me" target="_blank">yadong.zhang</a> · Powered by <a href="https://gitee.com/yadong.zhang/DBlog" title="OneBlog是一款简洁美观、自适应的Java博客系统..." target="_blank"><strong>OneBlog</strong></a>. All Rights Reserved.
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+    </#if>
+    </div>
+    </div>
     <#include "/layout/footer.ftl"/>
 
     <#nested>
