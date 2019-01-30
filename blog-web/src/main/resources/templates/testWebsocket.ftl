@@ -17,7 +17,7 @@
         <div class="col">
             <form>
                 <div class="form-group">
-                    <label for="comment">聊天框:</label> <textarea class="form-control" rows="5" id="text"></textarea>
+                    <label for="comment">聊天框 </label> <textarea class="form-control" rows="5" id="text"></textarea>
                 </div>
                 <div class="form-group">
                     <button onclick="$.websocket.send($('#text').val())" type="button" class="btn btn-primary">发送</button>

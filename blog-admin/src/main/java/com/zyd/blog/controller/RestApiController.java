@@ -1,25 +1,7 @@
-/**
- * MIT License
- * Copyright (c) 2018 yadong.zhang
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 package com.zyd.blog.controller;
 
-import com.zyd.blog.business.entity.Config;
+import com.zyd.blog.business.annotation.BussinessLog;
+import com.zyd.blog.business.entity.BaseConfig;
 import com.zyd.blog.business.enums.QiniuUploadType;
 import com.zyd.blog.business.service.BizArticleService;
 import com.zyd.blog.business.service.SysConfigService;
@@ -77,11 +59,11 @@ public class RestApiController {
     @PostMapping("/upload2QiniuForMd")
     public Object upload2QiniuForMd(@RequestParam("file") MultipartFile file) {
         String filePath = FileUtil.uploadToQiniu(file, QiniuUploadType.SIMPLE, false);
-        Config config = configService.get();
+        BaseConfig config = configService.getBaseConfig();
         Map<String, Object> resultMap = new HashMap<>(3);
         resultMap.put("success", 1);
         resultMap.put("message", "上传成功");
-        resultMap.put("filename", config.getQiuniuBasePath() + filePath);
+        resultMap.put("filename", config.getQiniuBasePath() + filePath);
         return resultMap;
     }
 
@@ -103,6 +85,7 @@ public class RestApiController {
      */
     @RequiresPermissions("notice")
     @PostMapping("/notice")
+    @BussinessLog("通过websocket向前台用户发送通知")
     public ResponseVO notice(String msg) throws UnsupportedEncodingException {
         WebSocketUtil.sendNotificationMsg(msg, websocketServer.getOnlineUsers());
         return ResultUtil.success("消息发送成功", articleService.listMaterial());

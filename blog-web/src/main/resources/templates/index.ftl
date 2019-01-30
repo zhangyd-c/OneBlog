@@ -9,7 +9,7 @@
 <div class="container custome-container">
     <@prompt></@prompt>
     <nav class="breadcrumb">
-        <div class="notify"><i class="fa fa-volume-up"></i></div>
+        <div class="notify"><i class="fa fa-bullhorn fa-fw"></i></div>
         <div id="scrolldiv">
             <div class="scrolltext">
                 <ul class="list-unstyled" id="notice-box">
@@ -32,24 +32,21 @@
                 <#if recommendedList?exists && (recommendedList?size > 0)>
                 <div class="blog-body expansion" style="padding: 0;">
                     <div id="myCarousel" class="carousel slide" style="height:300px;">
-                        <!-- 轮播（Carousel）指标 -->
                         <ol class="carousel-indicators">
                             <#list recommendedList as item>
                             <li data-target="#myCarousel" data-slide-to="${item_index}" class="${(item_index == 0)?string('active','')}"></li>
                             </#list>
                         </ol>
-                        <!-- 轮播（Carousel）项目 -->
                         <div class="carousel-inner">
                             <#list recommendedList as item>
                             <div class="item ${(item_index == 0)?string('active','')}">
                                 <a href="${config.siteUrl}/article/${item.id?c}">
-                                    <img src="${config.qiuniuBasePath}${item.coverImage}" alt="${item.title}" title="${item.title}">
+                                    <img src="${config.qiniuBasePath}${item.coverImage}" alt="${item.title}" title="${item.title}">
                                 </a>
                                 <div class="zyd-carousel-caption">${item.title}</div>
                             </div>
                             </#list>
                         </div>
-                        <!-- 轮播（Carousel）导航 -->
                         <a class="left carousel-control hide" href="#myCarousel" role="button" data-slide="prev">
                             <span class="fa fa-angle-left fa-fw fa-3x" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
@@ -68,7 +65,7 @@
                         <figure class="thumbnail">
                             <a href="${config.siteUrl}/article/${item.id?c}">
                                 <#if item.coverImage?exists && (item.coverImage?length > 7)>
-                                    <img width="150" height="150" data-original="${config.qiuniuBasePath}${item.coverImage}" class="img-responsive lazy-img" alt="${item.title?if_exists}">
+                                    <img width="150" height="150" data-original="${config.qiniuBasePath}${item.coverImage}" class="img-responsive lazy-img" alt="${item.title?if_exists}">
                                 <#else>
                                     <img width="150" height="150" data-original="${config.staticWebSite}/img/user/11.jpg" class="img-responsive lazy-img" alt="${item.title?if_exists}">
                                 </#if>
@@ -86,7 +83,7 @@
                             </div>
                             <span class="title-l"></span>
                             <span class="entry-meta">
-                                <span class="date" title="文章发表日期" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-calendar-o fa-fw"></i>${item.createTime?string('yyyy-MM-dd')}</span>
+                                <span class="date" title="文章发表日期" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-clock-o fa-fw"></i>${item.createTime?string('yyyy-MM-dd')}</span>
                                 <span class="views" title="文章阅读次数" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-eye fa-fw"></i>浏览(${item.lookCount!(0)})</span>
                                 <span class="comment" title="文章评论次数" data-toggle="tooltip" data-placement="bottom">
                                     <a href="${config.siteUrl}/article/${item.id?c}#comment-box" rel="external nofollow">

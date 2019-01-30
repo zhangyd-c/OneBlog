@@ -1,25 +1,7 @@
-/**
- * MIT License
- * Copyright (c) 2018 yadong.zhang
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 package com.zyd.blog.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Comment;
 import com.zyd.blog.business.enums.ResponseStatus;
 import com.zyd.blog.business.enums.TemplateKeyEnum;
@@ -66,6 +48,7 @@ public class RestCommentController {
 
     @RequiresPermissions("comment:reply")
     @PostMapping(value = "/reply")
+    @BussinessLog("回复评论")
     public ResponseVO reply(Comment comment) {
         try {
             commentService.commentForAdmin(comment);
@@ -77,6 +60,7 @@ public class RestCommentController {
 
     @RequiresPermissions(value = {"comment:batchDelete", "comment:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
+    @BussinessLog("删除评论[{1}]")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
             return ResultUtil.error(500, "请至少选择一条记录");
@@ -89,12 +73,14 @@ public class RestCommentController {
 
     @RequiresPermissions("comments")
     @PostMapping("/get/{id}")
+    @BussinessLog("获取评论[{1}]详情")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.commentService.getByPrimaryKey(id));
     }
 
     @RequiresPermissions("comments")
     @PostMapping("/edit")
+    @BussinessLog("编辑评论")
     public ResponseVO edit(Comment comment) {
         try {
             commentService.updateSelective(comment);
@@ -105,14 +91,9 @@ public class RestCommentController {
         return ResultUtil.success(ResponseStatus.SUCCESS);
     }
 
-    /**
-     * 审核
-     *
-     * @param comment
-     * @return
-     */
     @RequiresPermissions("comment:audit")
     @PostMapping("/audit")
+    @BussinessLog("审核评论")
     public ResponseVO audit(Comment comment, String contentText, Boolean sendEmail) {
         try {
             commentService.updateSelective(comment);

@@ -1,22 +1,3 @@
-/**
- * MIT License
- * Copyright (c) 2018 yadong.zhang
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 package com.zyd.blog.plugin;
 
 import com.qiniu.common.QiniuException;
@@ -28,7 +9,7 @@ import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
 import com.zyd.blog.business.consts.CommonConst;
 import com.zyd.blog.business.consts.DateConst;
-import com.zyd.blog.business.entity.Config;
+import com.zyd.blog.business.entity.BaseConfig;
 import com.zyd.blog.business.enums.QiniuUploadType;
 import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.framework.holder.SpringContextHolder;
@@ -52,14 +33,14 @@ import java.util.Date;
 @Slf4j
 public class QiniuApi {
     private static final Object LOCK = new Object();
-    private Config config;
+    private BaseConfig config;
     private String key;
     private Auth auth;
     private UploadManager uploadManager;
 
     private QiniuApi() {
         SysConfigService configService = SpringContextHolder.getBean(SysConfigService.class);
-        this.config = configService.get();
+        this.config = configService.getBaseConfig();
         auth = Auth.create(config.getQiniuAccessKey(), config.getQiniuSecretKey());
         uploadManager = new UploadManager();
     }
@@ -83,7 +64,7 @@ public class QiniuApi {
     }
 
     private String getUpToken() {
-        return this.auth.uploadToken(config.getQiniuBucketName(), this.key, 3600L, new StringMap().put("insertOnly", Integer.valueOf(1)));
+        return this.auth.uploadToken(config.getQiniuBucketName(), this.key, 3600L, new StringMap().put("insertOnly", 1));
     }
 
     public String upload(File fileByte) throws IOException {

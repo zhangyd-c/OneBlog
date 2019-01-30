@@ -1,6 +1,6 @@
 <footer>
     <div class="pull-right">
-        Copyright © 2018 <a href="https://www.zhyd.me" target="_blank">yadong.zhang</a> · Powered by <a href="https://gitee.com/yadong.zhang/DBlog" title="DBlog是一款简洁美观、自适应的Java博客系统..." target="_blank"><strong>DBlog</strong></a>. All Rights Reserved.
+        Copyright © 2018 <a href="https://www.zhyd.me" target="_blank">yadong.zhang</a> · Powered by <a href="https://gitee.com/yadong.zhang/DBlog" title="OneBlog是一款简洁美观、自适应的Java博客系统..." target="_blank"><strong>OneBlog</strong></a>. All Rights Reserved.
     </div>
     <div class="clearfix"></div>
 </footer>
@@ -8,9 +8,10 @@
 </div>
 <script type="text/javascript">
     var appConfig = {
-        qiniuPath: '${config.qiuniuBasePath}',
+        qiniuPath: '${config.qiniuBasePath}',
         qiniuImgStyle: '',// 上传文章图片时，会自动追加该值，主要用来定制化图片样式、水印背景等属性，默认无
         wwwPath: '${config.siteUrl}',
+        cmsPath: '${config.cmsUrl}',
         staticPath: '${config.staticWebSite}'
     }
 </script>
@@ -32,14 +33,19 @@
 <script src="https://cdn.bootcss.com/bootstrap-progressbar/0.9.0/bootstrap-progressbar.min.js"></script>
 <script src="https://cdn.bootcss.com/zTree.v3/3.5.29/js/jquery.ztree.core.min.js"></script>
 <script src="https://cdn.bootcss.com/zTree.v3/3.5.29/js/jquery.ztree.excheck.min.js"></script>
+<script src="https://cdn.bootcss.com/switchery/0.8.2/switchery.min.js"></script>
 <script src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.js" type="text/javascript"></script>
+<script src="https://cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
+<#--
+<script src="https://cdn.bootcss.com/pnotify/3.2.1/pnotify.js"></script>
+<script src="https://cdn.bootcss.com/pnotify/3.2.1/pnotify.buttons.js"></script>
+<script src="https://cdn.bootcss.com/pnotify/3.2.1/pnotify.nonblock.js"></script>-->
 
 <script src="/assets/js/validator.js"></script>
 <script src="/assets/js/ajaxfileupload.js"></script>
 <script src="/assets/js/jquery-form.js"></script>
 <script src="/assets/js/zyd.tool.js"></script>
 <script src="/assets/js/zhyd.upload-preview.js"></script>
+<script src="/assets/js/gentelella.core.js"></script>
 <script src="/assets/js/zhyd.core.js"></script>
 <script src="/assets/js/zyd.table.js"></script>
-</body>
-</html>

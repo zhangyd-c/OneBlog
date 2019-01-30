@@ -1,22 +1,3 @@
-/**
- * MIT License
- * Copyright (c) 2018 yadong.zhang
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 package com.zyd.blog.business.service.impl;
 
 import com.github.pagehelper.PageHelper;
@@ -92,31 +73,10 @@ public class SysUserServiceImpl implements SysUserService {
         sysUserMapper.insertList(sysUsers);
     }
 
-    /**
-     * 根据主键字段进行删除，方法参数必须包含完整的主键属性
-     *
-     * @param primaryKey
-     * @return
-     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean removeByPrimaryKey(Long primaryKey) {
         return sysUserMapper.deleteByPrimaryKey(primaryKey) > 0;
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean update(User user) {
-        Assert.notNull(user, "User不可为空！");
-        user.setUpdateTime(new Date());
-        if (!StringUtils.isEmpty(user.getPassword())) {
-            try {
-                user.setPassword(PasswordUtil.encrypt(user.getPassword(), user.getUsername()));
-            } catch (Exception e) {
-                throw new ZhydCommentException("密码加密失败");
-            }
-        }
-        return sysUserMapper.updateByPrimaryKey(user.getSysUser()) > 0;
     }
 
     @Override
@@ -137,30 +97,10 @@ public class SysUserServiceImpl implements SysUserService {
         return sysUserMapper.updateByPrimaryKeySelective(user.getSysUser()) > 0;
     }
 
-    /**
-     * 根据主键字段进行查询，方法参数必须包含完整的主键属性，查询条件使用等号
-     *
-     * @param primaryKey
-     * @return
-     */
-
     @Override
     public User getByPrimaryKey(Long primaryKey) {
         Assert.notNull(primaryKey, "PrimaryKey不可为空！");
         SysUser sysUser = sysUserMapper.selectByPrimaryKey(primaryKey);
-        return null == sysUser ? null : new User(sysUser);
-    }
-
-    /**
-     * 根据实体中的属性进行查询，只能有一个返回值，有多个结果时抛出异常，查询条件使用等号
-     *
-     * @param entity
-     * @return
-     */
-    @Override
-    public User getOneByEntity(User entity) {
-        Assert.notNull(entity, "User不可为空！");
-        SysUser sysUser = sysUserMapper.selectOne(entity.getSysUser());
         return null == sysUser ? null : new User(sysUser);
     }
 
@@ -178,26 +118,6 @@ public class SysUserServiceImpl implements SysUserService {
         return users;
     }
 
-    @Override
-    public List<User> listByEntity(User user) {
-        Assert.notNull(user, "User不可为空！");
-        List<SysUser> sysUsers = sysUserMapper.select(user.getSysUser());
-        if (CollectionUtils.isEmpty(sysUsers)) {
-            return null;
-        }
-        List<User> users = new ArrayList<>();
-        for (SysUser su : sysUsers) {
-            users.add(new User(su));
-        }
-        return users;
-    }
-
-    /**
-     * 分页查询
-     *
-     * @param vo
-     * @return
-     */
     @Override
     public PageInfo<User> findPageBreakByCondition(UserConditionVO vo) {
         PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
@@ -241,7 +161,8 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public User getByUserName(String userName) {
         User user = new User(userName, null);
-        return getOneByEntity(user);
+        SysUser sysUser = this.sysUserMapper.selectOne(user.getSysUser());
+        return null == sysUser ? null : new User(sysUser);
     }
 
     /**
@@ -279,7 +200,7 @@ public class SysUserServiceImpl implements SysUserService {
             throw new ZhydException("用户编号错误！请不要手动操作用户ID！");
         }
 
-        if(!user.getPassword().equals(PasswordUtil.encrypt(userPwd.getPassword(), user.getUsername()))) {
+        if (!user.getPassword().equals(PasswordUtil.encrypt(userPwd.getPassword(), user.getUsername()))) {
             throw new ZhydException("原密码不正确！");
         }
         user.setPassword(userPwd.getNewPassword());

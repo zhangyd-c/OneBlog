@@ -964,7 +964,8 @@ a:hover {
 .toggle a {
     padding: 15px 15px 0;
     margin: 0;
-    cursor: pointer
+    cursor: pointer;
+    color: #73879C;
 }
 
 .toggle a i {
@@ -2137,14 +2138,14 @@ h4.graph_title {
     line-height: 1.65857
 }
 
-.tile-stats .count, .tile-stats h3, .tile-stats p {
+.tile-stats .count, .tile-stats h3, .tile-stats h4, .tile-stats p {
     position: relative;
     margin: 0 0 0 10px;
     z-index: 5;
     padding: 0
 }
 
-.tile-stats h3 {
+.tile-stats h3, .tile-stats h4 {
     color: #BAB8B8
 }
 
@@ -2939,7 +2940,7 @@ ul.timeline li {
     color: #fff !important
 }
 
-.tag:after {
+/*.tag:after {
     content: " ";
     height: 30px;
     width: 0;
@@ -2951,7 +2952,7 @@ ul.timeline li {
     border-top: 14px solid transparent;
     border-bottom: 14px solid transparent;
     border-left: 11px solid #1ABB9C
-}
+}*/
 
 .timeline h2.title {
     position: relative;
@@ -4991,3 +4992,69 @@ ul, menu, dir {
 }
 
 /* 重写ztree样式，修复选择框上出现阴影的问题 */
+
+#spider-message {
+    display: block;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+#spider-message p {
+    margin: 0 0 2px;
+}
+
+.control-label .required {
+    color: #dc3545;
+}
+
+.fixed-radio-checkbox {
+    position: relative;
+    top: 7px;
+}
+
+/* 滚条消息通知 */
+.notify {
+    float: left;
+    color: #666;
+    margin-right: 8px;
+    margin-top: 3px;
+}
+.notify i {
+    color: #5cb85c;
+    font-size: 15px;
+}
+.scrolltext {
+    height: 25px;
+    line-height: 25px;
+    overflow: hidden;
+}
+.scrolltext ul {
+    margin-top: 0;
+    list-style: none;
+}
+.scrolltext-title {
+    white-space: nowrap;
+    word-wrap: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+/* 滚条消息通知 */
+
+.bootstrap-tagsinput.focus{
+    border-color: #3c763d;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+
+.tags-list li{
+    display: block;
+    float: left;
+    margin: 5px 5px 0 0;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: #545c63;
+    line-height: 16px;
+    background: rgba(84,92,99,.1);
+    border-radius: 12px;
+    cursor: pointer;
+}

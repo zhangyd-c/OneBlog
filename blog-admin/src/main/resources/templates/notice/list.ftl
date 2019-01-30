@@ -3,10 +3,12 @@
 <div class="clearfix"></div>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-        <ol class="breadcrumb">
-            <li><a href="/">首页</a></li>
-            <li class="active">网站通知管理</li>
-        </ol>
+        <@breadcrumb>
+            <ol class="breadcrumb">
+                <li><a href="/">首页</a></li>
+                <li class="active">网站通知管理</li>
+            </ol>
+        </@breadcrumb>
         <div class="x_panel">
             <div class="x_content">
                 <div class="<#--table-responsive-->">
@@ -41,21 +43,21 @@
                 <form id="addOrUpdateForm" class="form-horizontal form-label-left" novalidate>
                     <input type="hidden" name="id">
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">标题: <span class="required">*</span></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">标题 <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" class="form-control col-md-7 col-xs-12" name="title" id="title" required="required"
                                    placeholder="请输入标题"/>
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="content">内容: <span class="required">*</span></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="content">内容 <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <textarea class="form-control col-md-7 col-xs-12" id="content" name="content" required="required"></textarea>
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">状态: <span class="required">*</span></label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">状态 <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
                             <ul class="list-unstyled list-inline">
                                 <li>
                                     <div class="radio">
@@ -94,9 +96,9 @@
             var status = row.status;
             var html = '';
             if (status && status == 'NOT_RELEASE') {
-                html = '<@shiro.hasPermission name="notice:release"><a class="btn btn-xs btn-primary btn-release" data-id="' + trId + '"><i class="fa fa-rocket fa-fw"></i>发布</a></@shiro.hasPermission>';
+                html = '<@shiro.hasPermission name="notice:release"><a class="btn btn-xs btn-success btn-release" data-id="' + trId + '"><i class="fa fa-rocket fa-fw"></i>发布</a></@shiro.hasPermission>';
             } else {
-                html = '<@shiro.hasPermission name="notice:withdraw"><a class="btn btn-xs btn-primary btn-withdraw" data-id="' + trId + '"><i class="fa fa-rocket fa-rotate-180 fa-fw"></i>撤回</a></@shiro.hasPermission>';
+                html = '<@shiro.hasPermission name="notice:withdraw"><a class="btn btn-xs btn-warning btn-withdraw" data-id="' + trId + '"><i class="fa fa-rocket fa-rotate-180 fa-fw"></i>撤回</a></@shiro.hasPermission>';
             }
             var operateBtn = [
                 html,
@@ -149,7 +151,7 @@
                     }, {
                         field: 'operate',
                         title: '操作',
-                        width: '135px',
+                        width: '150px',
                         formatter: operateFormatter //自定义方法，添加操作按钮
                     }
                 ]

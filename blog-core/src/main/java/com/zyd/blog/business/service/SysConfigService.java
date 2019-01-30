@@ -1,27 +1,11 @@
-/**
- * MIT License
- * Copyright (c) 2018 yadong.zhang
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 package com.zyd.blog.business.service;
 
 
-import com.zyd.blog.business.entity.Config;
+import com.zyd.blog.business.entity.BaseConfig;
+import com.zyd.blog.persistence.beans.SysConfig;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,34 +24,58 @@ public interface SysConfigService {
      *
      * @return
      */
-    Config get();
+    BaseConfig getBaseConfig();
 
     /**
-     * 添加系统配置
+     * 获取系统配置
      *
-     * @param config
      * @return
      */
-    Config insert(Config config);
+    Map<String, Object> getConfigs();
 
     /**
-     * 删除系统配置记录
+     * 添加/修改系统配置
      *
-     * @param id
+     * @param configs 所有的配置项
      */
-    void remove(Long id);
+    void saveConfig(Map<String, String> configs);
 
     /**
-     * 修改系统配置记录
+     * 添加/修改文件的配置项
      *
-     * @param config
+     * @param key  key
+     * @param file 微信收款码
      */
-    void update(Config config);
+    void saveFile(String key, MultipartFile file);
+
+    /**
+     * 添加/修改单个
+     *
+     * @param key   key
+     * @param value value
+     */
+    void saveConfig(String key, String value);
+
+    /**
+     * 获取单个配置
+     *
+     * @param key key
+     */
+    SysConfig getByKey(String key);
 
     /**
      * 获取网站详情
-     *
-     * @return
      */
     Map<String, Object> getSiteInfo();
+
+    /**
+     * 返回 Spider
+     */
+    String getSpiderConfig();
+
+    /**
+     * 获取随机的用户头像
+     */
+    List<String> getRandomUserAvatar();
+
 }

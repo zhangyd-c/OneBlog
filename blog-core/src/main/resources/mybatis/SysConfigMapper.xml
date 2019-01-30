@@ -2,46 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.zyd.blog.persistence.mapper.SysConfigMapper">
-    <resultMap id="rm" type="com.zyd.blog.persistence.beans.SysConfig">
-        <result property="id" jdbcType="INTEGER" column="id"/>
-        <result property="homeDesc" jdbcType="VARCHAR" column="home_desc"/>
-        <result property="homeKeywords" jdbcType="VARCHAR" column="home_keywords"/>
-		<result property="domain" jdbcType="VARCHAR" column="domain"/>
-		<result property="cmsUrl" jdbcType="VARCHAR" column="cms_url"/>
-        <result property="siteUrl" jdbcType="VARCHAR" column="site_url"/>
-        <result property="siteName" jdbcType="VARCHAR" column="site_name"/>
-        <result property="siteDesc" jdbcType="VARCHAR" column="site_desc"/>
-        <result property="siteFavicon" jdbcType="VARCHAR" column="site_favicon"/>
-        <result property="staticWebSite" jdbcType="VARCHAR" column="static_web_site"/>
-        <result property="authorName" jdbcType="VARCHAR" column="author_name"/>
-        <result property="authorEmail" jdbcType="VARCHAR" column="author_email"/>
-        <result property="wxCode" jdbcType="VARCHAR" column="wx_code"/>
-        <result property="qq" jdbcType="VARCHAR" column="qq"/>
-        <result property="weibo" jdbcType="VARCHAR" column="weibo"/>
-        <result property="github" jdbcType="VARCHAR" column="github"/>
-        <result property="maintenance" jdbcType="BIT" column="maintenance"/>
-        <result property="maintenanceData" jdbcType="TIMESTAMP" column="maintenance_data"/>
-        <result property="comment" jdbcType="BIT" column="comment"/>
-        <result property="qiuniuBasePath" jdbcType="VARCHAR" column="qiuniu_base_path"/>
-        <result property="qiniuAccessKey" jdbcType="VARCHAR" column="qiniu_access_key"/>
-        <result property="qiniuSecretKey" jdbcType="VARCHAR" column="qiniu_secret_key"/>
-        <result property="qiniuBucketName" jdbcType="VARCHAR" column="qiniu_bucket_name"/>
-        <result property="baiduPushToken" jdbcType="VARCHAR" column="baidu_push_token"/>
-        <result property="wxPraiseCode" jdbcType="VARCHAR" column="wx_praise_code"/>
-        <result property="zfbPraiseCode" jdbcType="VARCHAR" column="zfb_praise_code"/>
-        <result property="baiduApiAk" jdbcType="VARCHAR" column="baidu_api_ak"/>
-        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
-        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
-    </resultMap>
-
-    <select id="get" resultMap="rm">
-		SELECT
-			t.*
-		FROM
-			sys_config t
-		WHERE
-			1 = 1
-	</select>
 
     <select id="getSiteInfo" resultType="map">
 		SELECT
@@ -49,7 +9,7 @@
 			t.tag_count AS tagCount,
 			type.type_count AS typeCount,
 			c.comment_count AS commentCount,
-			u.recorde_time AS recordeTime
+			u.recorde_time AS lastUpdateTime
 		FROM
 			(
 				SELECT
@@ -80,7 +40,7 @@
 			) c,
 			(
 				SELECT
-					recorde_time
+					DATE_FORMAT(recorde_time,'%Y年%m月%d日%H点') AS recorde_time
 				FROM
 					sys_update_recorde
 				ORDER BY

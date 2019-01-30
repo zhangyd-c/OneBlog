@@ -1,22 +1,3 @@
-/**
- * MIT License
- * Copyright (c) 2018 yadong.zhang
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 package com.zyd.blog.controller;
 
 /**
@@ -32,7 +13,9 @@ package com.zyd.blog.controller;
 import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Article;
 import com.zyd.blog.business.service.BizArticleService;
+import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.core.websocket.server.ZydWebsocketServer;
+import com.zyd.blog.spider.enums.ExitWayEnum;
 import com.zyd.blog.util.ResultUtil;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -59,6 +42,8 @@ public class RenderController {
 
     @Autowired
     private BizArticleService articleService;
+    @Autowired
+    private SysConfigService configService;
     @Autowired
     private ZydWebsocketServer websocketServer;
 
@@ -98,21 +83,21 @@ public class RenderController {
     }
 
     @RequiresPermissions("article:publish")
-    @BussinessLog(value = "发表文章页[html]")
+    @BussinessLog(value = "进入发表文章页[html]")
     @GetMapping("/article/publish")
     public ModelAndView publish() {
         return ResultUtil.view("article/publish");
     }
 
     @RequiresPermissions("article:publish")
-    @BussinessLog(value = "发表文章页[markdown]")
+    @BussinessLog(value = "进入发表文章页[markdown]")
     @GetMapping("/article/publishMd")
     public ModelAndView publishMd() {
         return ResultUtil.view("article/publish-md");
     }
 
     @RequiresPermissions("article:publish")
-    @BussinessLog(value = "修改文章页[id={1}]")
+    @BussinessLog(value = "进入修改文章页[id={1}]")
     @GetMapping("/article/update/{id}")
     public ModelAndView edit(@PathVariable("id") Long id, Model model) {
         model.addAttribute("id", id);
@@ -179,30 +164,25 @@ public class RenderController {
         return ResultUtil.view("update/list");
     }
 
-    @RequiresPermissions("plays")
-    @BussinessLog("进入歌单管理页")
-    @GetMapping("/plays")
-    public ModelAndView plays() {
-        return ResultUtil.view("play/list");
-    }
-
-    @RequiresPermissions("sysWebpage")
-    @BussinessLog("进入静态页面管理页")
-    @GetMapping("/sysWebpage")
-    public ModelAndView sysWebpage() {
-        return ResultUtil.view("sysWebpage/list");
-    }
-
     @RequiresPermissions("icons")
+    @BussinessLog(value = "进入icons页")
     @GetMapping("/icons")
     public ModelAndView icons(Model model) {
-        return ResultUtil.view("icons");
+        return ResultUtil.view("other/icons");
     }
 
     @RequiresPermissions("shiro")
+    @BussinessLog(value = "进入shiro示例页")
     @GetMapping("/shiro")
     public ModelAndView shiro(Model model) {
-        return ResultUtil.view("shiro");
+        return ResultUtil.view("other/shiro");
+    }
+
+    @RequiresUser
+    @BussinessLog("进入编辑器测试用例页面")
+    @GetMapping("/editor")
+    public ModelAndView editor(Model model) {
+        return ResultUtil.view("other/editor");
     }
 
     @RequiresPermissions("notice")
@@ -210,13 +190,15 @@ public class RenderController {
     @GetMapping("/notice")
     public ModelAndView notice(Model model) {
         model.addAttribute("online", websocketServer.getOnlineUserCount());
-        return ResultUtil.view("notification");
+        return ResultUtil.view("laboratory/notification");
     }
 
     @RequiresUser
     @BussinessLog("进入搬运工页面")
     @GetMapping("/remover")
     public ModelAndView remover(Model model) {
-        return ResultUtil.view("remover/list");
+        model.addAttribute("exitWayList", ExitWayEnum.values());
+        model.addAttribute("spiderConfig", configService.getSpiderConfig());
+        return ResultUtil.view("laboratory/remover");
     }
 }

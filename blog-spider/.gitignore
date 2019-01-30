@@ -23,4 +23,3 @@
 /dist/
 /nbdist/
 /.nb-gradle/
-/src/main/resources/application-prod.yml

@@ -1,30 +1,13 @@
-/**
- * MIT License
- * Copyright (c) 2018 yadong.zhang
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 package com.zyd.blog.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Comment;
 import com.zyd.blog.business.entity.Link;
 import com.zyd.blog.business.enums.CommentStatusEnum;
+import com.zyd.blog.business.enums.PlatformEnum;
 import com.zyd.blog.business.service.BizArticleService;
 import com.zyd.blog.business.service.BizCommentService;
 import com.zyd.blog.business.service.SysLinkService;
@@ -73,6 +56,7 @@ public class RestApiController {
     private SysNoticeService noticeService;
 
     @PostMapping("/autoLink")
+    @BussinessLog(value = "自助申请友链", platform = PlatformEnum.WEB)
     public ResponseVO autoLink(@Validated Link link, BindingResult bindingResult) {
         log.info("申请友情链接......");
         log.info(JSON.toJSONString(link));
@@ -89,6 +73,7 @@ public class RestApiController {
     }
 
     @PostMapping("/qq/{qq}")
+    @BussinessLog(value = "获取QQ信息", platform = PlatformEnum.WEB)
     public ResponseVO qq(@PathVariable("qq") String qq) {
         if (StringUtils.isEmpty(qq)) {
             return ResultUtil.error("");
@@ -116,56 +101,58 @@ public class RestApiController {
     }
 
     @PostMapping("/comments")
+    @BussinessLog(value = "评论列表", platform = PlatformEnum.WEB, save = false)
     public ResponseVO comments(CommentConditionVO vo) {
         vo.setStatus(CommentStatusEnum.APPROVED.toString());
         return ResultUtil.success(null, commentService.list(vo));
     }
 
     @PostMapping("/comment")
+    @BussinessLog(value = "发表评论", platform = PlatformEnum.WEB)
     public ResponseVO comment(Comment comment) {
         try {
             commentService.comment(comment);
         } catch (ZhydCommentException e) {
-            log.error("评论发生异常", e);
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("评论发表成功，系统正在审核，请稍后刷新页面查看！");
     }
 
     @PostMapping("/doSupport/{id}")
+    @BussinessLog(value = "点赞评论{1}", platform = PlatformEnum.WEB)
     public ResponseVO doSupport(@PathVariable("id") Long id) {
         try {
             commentService.doSupport(id);
         } catch (ZhydCommentException e) {
-            log.error("评论点赞发生异常", e);
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("");
     }
 
     @PostMapping("/doOppose/{id}")
+    @BussinessLog(value = "点踩评论{1}", platform = PlatformEnum.WEB)
     public ResponseVO doOppose(@PathVariable("id") Long id) {
         try {
             commentService.doOppose(id);
         } catch (ZhydCommentException e) {
-            log.error("评论点踩发生异常", e);
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("");
     }
 
     @PostMapping("/doPraise/{id}")
+    @BussinessLog(value = "点赞文章{1}", platform = PlatformEnum.WEB)
     public ResponseVO doPraise(@PathVariable("id") Long id) {
         try {
             articleService.doPraise(id);
         } catch (ZhydArticleException e) {
-            log.error("文章点赞发生异常", e);
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("");
     }
 
     @PostMapping("/listNotice")
+    @BussinessLog(value = "公告列表", platform = PlatformEnum.WEB, save = false)
     public ResponseVO listNotice() {
         return ResultUtil.success("", noticeService.listRelease());
     }

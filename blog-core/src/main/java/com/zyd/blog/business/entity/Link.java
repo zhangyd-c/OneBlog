@@ -1,31 +1,12 @@
-/**
- * MIT License
- * Copyright (c) 2018 yadong.zhang
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 package com.zyd.blog.business.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zyd.blog.business.enums.LinkSourceEnum;
 import com.zyd.blog.persistence.beans.SysLink;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.util.StringUtils;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 
@@ -60,7 +41,7 @@ public class Link {
         this.sysLink.setId(id);
     }
 
-    @NotEmpty(message = "站点地址不能为空")
+    @NotNull(message = "站点地址不能为空")
     @Pattern(regexp = "(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]", message = "不合法的地址")
     public String getUrl() {
         return this.sysLink.getUrl();
@@ -70,7 +51,7 @@ public class Link {
         this.sysLink.setUrl(url);
     }
 
-    @NotEmpty(message = "站点名称不能为空")
+    @NotNull(message = "站点名称不能为空")
     @Length(max = 15, min = 1, message = "站点名称长度建议保持在15个字符以内")
     public String getName() {
         return this.sysLink.getName();
@@ -80,7 +61,7 @@ public class Link {
         this.sysLink.setName(name);
     }
 
-    @NotEmpty(message = "站点描述不能为空")
+    @NotNull(message = "站点描述不能为空")
     @Length(max = 30, min = 1, message = "站点描述这么长，亲你是想参加作文比赛么？^_^")
     public String getDescription() {
         return this.sysLink.getDescription();

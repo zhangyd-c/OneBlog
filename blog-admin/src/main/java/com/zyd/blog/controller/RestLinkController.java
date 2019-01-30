@@ -1,25 +1,7 @@
-/**
- * MIT License
- * Copyright (c) 2018 yadong.zhang
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 package com.zyd.blog.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Link;
 import com.zyd.blog.business.enums.LinkSourceEnum;
 import com.zyd.blog.business.enums.ResponseStatus;
@@ -64,6 +46,7 @@ public class RestLinkController {
 
     @RequiresPermissions("link:add")
     @PostMapping(value = "/add")
+    @BussinessLog("添加友情链接")
     public ResponseVO add(Link link) {
         link.setSource(LinkSourceEnum.ADMIN);
         linkService.insert(link);
@@ -73,6 +56,7 @@ public class RestLinkController {
 
     @RequiresPermissions(value = {"link:batchDelete", "link:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
+    @BussinessLog("删除友情链接")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
             return ResultUtil.error(500, "请至少选择一条记录");
@@ -85,12 +69,14 @@ public class RestLinkController {
 
     @RequiresPermissions("link:get")
     @PostMapping("/get/{id}")
+    @BussinessLog("获取友情链接详情")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.linkService.getByPrimaryKey(id));
     }
 
     @RequiresPermissions("link:edit")
     @PostMapping("/edit")
+    @BussinessLog("编辑友情链接")
     public ResponseVO edit(Link link) {
         try {
             linkService.updateSelective(link);

@@ -12,28 +12,41 @@
         <i class="fa fa-angle-right"></i>网站更新记录
     </nav>
     <div class="row">
-        <div class="col-sm-8">
-            <#if list?exists && (list?size > 0)>
-                <article class="fade-in update-logs">
-                    <ul class="list-unstyled">
-                        <#list list as item>
-                            <li>
-                                更新版本：${item.version}
-                                <div>更新内容：${item.description}</div>
-                                <span>${item.recordeTime?string('yyyy/MM/dd')}</span>
-                            </li>
-                        </#list>
-                    </ul>
-                </article>
-            <#else >
-                <article class="fade-in">
-                    <div class="h3 text-center">亲，啥也没找到啊~~<img src="http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/15/j_thumb.gif" alt="[囧]"></div>
-                    <img src="${config.staticWebSite}/img/wrong.gif" class="center-block" alt="惩罚我" style="width: 110px;margin-top: -10px;">
-                </article>
-            </#if>
+        <div class="col-sm-8 blog-main">
+            <div class="panel-group" id="updatelog-body">
+                <#list list as item>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a class="panel-title" data-toggle="collapse" data-parent="#updatelog-body" href="#panel-element-${item.id?c}" contenteditable="true">${item.recordeTime?string('yyyy年MM月dd日 HH时')} v${item.version}</a>
+                        </div>
+                        <div id="panel-element-${item.id?c}" class="panel-collapse collapse">
+                            <div class="panel-body" contenteditable="true">
+                                ${item.description}
+                            </div>
+                        </div>
+                    </div>
+                </#list>
+            </div>
         </div>
         <#include "layout/sidebar.ftl"/>
     </div>
 </div>
-<@footer></@footer>
+<@footer>
+    <script>
+        $(document).ready(function() {
+            (function() {
+                var listBox = $('.updatelog-body ul.list-box'),
+                    listBoxFirst = $('.updatelog-body ul:first, .updatelog-body ul:first .list-box');
+                listBox.hide(1, function() {
+                    listBoxFirst.show();
+                });
+                $(".update-title").click(function () {
+                    var $this = $(this);
+                    $this.next(".list-box:first").slideToggle(400);
+                    return false;
+                });
+            })();
+        });
+    </script>
+</@footer>
 </@compress>

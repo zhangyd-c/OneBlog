@@ -1,40 +1,23 @@
 <#include "include/macros.ftl">
 <@compress single_line=true>
-<@header title="免责声明 | ${config.siteName}"
-    keywords="免责声明"
-    description="免责声明"
-    canonical="/disclaimer">
-    <style type="text/css">
-            .bottom-line{
-                text-align: center;
-            }
-            .disclaimer-box {
-                margin: 30px 10px;
-            }
-            .disclaimer-box li {
-                color: #000;
-                line-height: 30px;
-                margin: 5px 0 5px 10px;
-            }
-    </style>
-</@header>
+<@header title="免责声明 | ${config.siteName}" keywords="免责声明" description="免责声明" canonical="/disclaimer"></@header>
 
 <div class="container custome-container">
     <nav class="breadcrumb">
         <a class="crumbs" title="返回首页" href="${config.siteUrl}" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-home"></i>首页</a> <i
             class="fa fa-angle-right"></i>免责声明
     </nav>
-    <div class="row">
+    <div class="row disclaimer">
         <div class="col-sm-8 blog-main">
             <div class="blog-body overflow-initial fade-in">
                 <div class="blog-info overflow-initial">
                     <div class="bottom-line">
-                        <h1 class="blog-info-title">
+                        <h1 class="disclaimer-title">
                             <strong>免责声明</strong>
                         </h1>
                         <p>作者：<a href="${config.siteUrl}" title="网站作者">${config.authorName}</a>&nbsp;&nbsp;&nbsp;&nbsp; 发布时间：2018年3月16日</p>
                     </div>
-                    <div class="blog-info-body">
+                    <div class="disclaimer-body">
                         <ul class="list-unstyled disclaimer-box">
                             <li>1、本网站属于个人非赢利性质的网站，所有转载的文章都以遵循原作者的版权声明注明了文章来源。</li>
                             <li>2、如果原文没有版权声明，按照目前互联网开放的原则，本网站将在不通知作者的情况下转载文章。</li>

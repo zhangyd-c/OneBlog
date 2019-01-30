@@ -1,7 +1,7 @@
 <div class="col-sm-3 blog-sidebar">
     <#if articleDetail?exists>
         <div class="sidebar-module">
-            <h5 class="sidebar-title"><i class="fa fa-hand-peace-o icon"></i><strong>说给你听</strong></h5>
+            <h5 class="custom-title"><i class="fa fa-hand-peace-o fa-fw icon"></i><strong>说给你听</strong><small></small></h5>
             <div class="div-quote">
                 <i class="fa fa-quote-left fa-fw"></i><p id="hitokoto" style="margin-left: 15px;"></p>
             </div>
@@ -9,7 +9,7 @@
     <#else>
         <div class="sidebar-module" style="position: relative;">
             <a href='https://gitee.com/yadong.zhang/DBlog' target="_blank" rel="external nofollow"><img src='https://gitee.com/yadong.zhang/DBlog/widgets/widget_1.svg?color=07b83f' alt='Fork me on Gitee' style="position: absolute;right: 0;"/></a>
-            <h5 class="sidebar-title"><i class="fa fa-home icon"></i><strong>关于我</strong></h5>
+            <h5 class="custom-title"><i class="fa fa-home fa-fw icon"></i><strong>关于我</strong><small></small></h5>
             <div class="widget">
                 <div id="feed_widget">
                     <div class="feed-about">
@@ -29,10 +29,10 @@
                                 <a class="tag-icon" href="javascript:window.open('tencent://message/?uin=${config.qq}&Site=www.${config.domain}&Menu=yes')" title="点击QQ联系我" target="blank" rel="external nofollow"><i class="fa fa-qq"></i></a>
                             </li>
                             <li class="tsina auto-shake">
-                                <a class="tag-icon" href="http://weibo.com/211230415" title="点击查看我的微博" target="_blank" rel="external nofollow"><i class="fa fa-weibo"></i></a>
+                                <a class="tag-icon" href="${config.weibo}" title="点击查看我的微博" target="_blank" rel="external nofollow"><i class="fa fa-weibo"></i></a>
                             </li>
                             <li class="github auto-shake">
-                                <a class="tag-icon" href="https://github.com/zhangyd-c" title="点击查看我的github" target="_blank" rel="external nofollow"><i class="fa fa-github"></i></a>
+                                <a class="tag-icon" href="${config.github}" title="点击查看我的github" target="_blank" rel="external nofollow"><i class="fa fa-github"></i></a>
                             </li>
                         </ul>
                         <!-- 方案二：列表展示 -->
@@ -48,14 +48,13 @@
         </div>
     </#if>
     <div class="sidebar-module article-module hide" style="top: 0;">
-        <h5 class="sidebar-title"><i class="fa fa-book icon"></i><strong>本文目录</strong> <i class="fa fa-close pull-right close-article-menu hide pointer"></i></h5>
+        <h5 class="custom-title"><i class="fa fa-book fa-fw icon"></i><strong>本文目录</strong><i class="fa fa-close pull-right close-article-menu hide pointer"></i><small></small></h5>
         <div id="article-menu">
-            <ul class="list-unstyled">
-            </ul>
+            <ul class="list-unstyled"></ul>
         </div>
     </div>
     <div class="sidebar-module">
-        <h5 class="sidebar-title"><i class="fa fa-tags icon"></i><strong>标签云</strong></h5>
+        <h5 class="custom-title"><i class="fa fa-tags fa-fw icon"></i><strong>标签云</strong><small></small></h5>
         <@zhydTag method="tagsList" pageSize="10">
             <#if tagsList?exists && (tagsList?size > 0)>
                 <#list tagsList as item>
@@ -69,7 +68,7 @@
     <@zhydTag method="recentComments" pageSize="10">
         <#if recentComments?? && recentComments?size gt 0>
             <div class="sidebar-module">
-                <h5 class="sidebar-title"><i class="fa fa-comments icon"></i><strong>近期评论</strong></h5>
+                <h5 class="custom-title"><i class="fa fa-comments fa-fw icon"></i><strong>近期评论</strong><small></small></h5>
                 <ul class="list-unstyled list-inline comments">
                 <#list recentComments as item>
                     <li>
@@ -96,12 +95,15 @@
                         <#if recentArticles?exists && (recentArticles?size > 0)>
                             <#list recentArticles as item>
                                 <li>
-                                    <span class="li-icon li-icon-${item_index + 1}">${item_index + 1}</span>
                                     <a href="${config.siteUrl}/article/${item.id?c}" title="${item.title}" data-toggle="tooltip" data-placement="bottom">
-                                        ${item.title}
+                                        <i class="fa fa-book fa-fw"></i> ${item.title}
                                     </a>
                                 </li>
                             </#list>
+                        <#else>
+                            <li class="empty-list">
+                                <i class="fa fa-bookmark-o fa-fw"></i> 暂无相关文章
+                            </li>
                         </#if>
                     </@articleTag>
                 </ol>
@@ -112,12 +114,15 @@
                         <#if recommendedList?exists && (recommendedList?size > 0)>
                             <#list recommendedList as item>
                                 <li>
-                                    <span class="li-icon li-icon-${item_index + 1}">${item_index + 1}</span>
                                     <a href="${config.siteUrl}/article/${item.id?c}" title="${item.title}" data-toggle="tooltip" data-placement="bottom">
-                                        ${item.title}
+                                        <i class="fa fa-book fa-fw"></i> ${item.title}
                                     </a>
                                 </li>
                             </#list>
+                        <#else>
+                            <li class="empty-list">
+                                <i class="fa fa-bookmark-o fa-fw"></i> 暂无相关文章
+                            </li>
                         </#if>
                     </@articleTag>
                 </ol>
@@ -128,12 +133,15 @@
                         <#if randomList?exists && (randomList?size > 0)>
                             <#list randomList as item>
                                 <li>
-                                    <span class="li-icon li-icon-${item_index + 1}">${item_index + 1}</span>
                                     <a href="${config.siteUrl}/article/${item.id?c}" title="${item.title}" data-toggle="tooltip" data-placement="bottom">
-                                        ${item.title}
+                                        <i class="fa fa-book fa-fw"></i> ${item.title}
                                     </a>
                                 </li>
                             </#list>
+                        <#else>
+                            <li class="empty-list">
+                                <i class="fa fa-bookmark-o fa-fw"></i> 暂无相关文章
+                            </li>
                         </#if>
                     </@articleTag>
                 </ol>
@@ -142,8 +150,8 @@
     </div>
     <div class="clear"></div>
     <div class="sidebar-module">
-        <h5 class="sidebar-title"><i class="fa fa-info icon"></i><strong>网站信息</strong></h5>
-        <ul class="ul-default">
+        <h5 class="custom-title"><i class="fa fa-info fa-fw icon"></i><strong>网站信息</strong><small></small></h5>
+        <ul class="ul-default site-info">
             <@zhydTag method="siteInfo">
                 <li> <i class="fa fa-file fa-fw"></i>  文章总数：${siteInfo.articleCount!(0)} 篇</li>
                 <li> <i class="fa fa-tags fa-fw"></i> 标签总数：${siteInfo.tagCount!(0)} 个</li>
@@ -151,7 +159,7 @@
                 <li> <i class="fa fa-comments fa-fw"></i> 留言数量：${siteInfo.commentCount!(0)} 条</li>
                 <li> <i class="fa fa-users fa-fw"></i> 在线人数：<span class="online">1</span>人</li>
                 <li> <i class="fa fa-calendar fa-fw"></i> 运行天数：${siteInfo.buildSiteDate!(0)}天</li>
-                <li> <i class="fa fa-pencil-square fa-fw"></i> 最后更新：${siteInfo.recordeTime}</li>
+                <li> <i class="fa fa-pencil-square fa-fw"></i> 最后更新：${siteInfo.lastUpdateTime}</li>
             </@zhydTag>
         </ul>
     </div>

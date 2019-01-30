@@ -1,25 +1,7 @@
-/**
- * MIT License
- * Copyright (c) 2018 yadong.zhang
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 package com.zyd.blog.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Notice;
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.NoticeStatusEnum;
@@ -62,6 +44,7 @@ public class RestNoticeController {
 
     @RequiresPermissions("notice:add")
     @PostMapping(value = "/add")
+    @BussinessLog("添加公告通知")
     public ResponseVO add(Notice notice) {
         User user = SessionUtil.getUser();
         if (null != user) {
@@ -73,6 +56,7 @@ public class RestNoticeController {
 
     @RequiresPermissions(value = {"notice:batchDelete", "notice:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
+    @BussinessLog("删除公告通知")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
             return ResultUtil.error(500, "请至少选择一条记录");
@@ -85,12 +69,14 @@ public class RestNoticeController {
 
     @RequiresPermissions("notice:get")
     @PostMapping("/get/{id}")
+    @BussinessLog("获取公告通知详情")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.noticeService.getByPrimaryKey(id));
     }
 
     @RequiresPermissions("notice:edit")
     @PostMapping("/edit")
+    @BussinessLog("编辑公告通知")
     public ResponseVO edit(Notice notice) {
         try {
             noticeService.updateSelective(notice);
@@ -103,6 +89,7 @@ public class RestNoticeController {
 
     @RequiresPermissions("notice:release")
     @PostMapping("/release/{id}")
+    @BussinessLog("发布公告通知")
     public ResponseVO release(@PathVariable Long id) {
         try {
             Notice notice = new Notice();
@@ -118,6 +105,7 @@ public class RestNoticeController {
 
     @RequiresPermissions("notice:withdraw")
     @PostMapping("/withdraw/{id}")
+    @BussinessLog("撤回公告通知")
     public ResponseVO withdraw(@PathVariable Long id) {
         try {
             Notice notice = new Notice();

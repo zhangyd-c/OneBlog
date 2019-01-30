@@ -1,25 +1,7 @@
-/**
- * MIT License
- * Copyright (c) 2018 yadong.zhang
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 package com.zyd.blog.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Tags;
 import com.zyd.blog.business.enums.ResponseStatus;
 import com.zyd.blog.business.service.BizTagsService;
@@ -59,13 +41,15 @@ public class RestTagController {
 
     @RequiresPermissions("tag:add")
     @PostMapping(value = "/add")
+    @BussinessLog("添加标签")
     public ResponseVO add(Tags tags) {
-        tagsService.insert(tags);
-        return ResultUtil.success("标签添加成功！新标签 - " + tags.getName());
+        tags = tagsService.insert(tags);
+        return ResultUtil.success("标签添加成功！新标签 - " + tags.getName(), tags);
     }
 
     @RequiresPermissions(value = {"tag:batchDelete", "tag:delete"}, logical = Logical.OR)
     @PostMapping(value = "/remove")
+    @BussinessLog("删除标签")
     public ResponseVO remove(Long[] ids) {
         if (null == ids) {
             return ResultUtil.error(500, "请至少选择一条记录");
@@ -78,12 +62,14 @@ public class RestTagController {
 
     @RequiresPermissions("tag:get")
     @PostMapping("/get/{id}")
+    @BussinessLog("获取标签详情")
     public ResponseVO get(@PathVariable Long id) {
         return ResultUtil.success(null, this.tagsService.getByPrimaryKey(id));
     }
 
     @RequiresPermissions("tag:edit")
     @PostMapping("/edit")
+    @BussinessLog("编辑标签")
     public ResponseVO edit(Tags tags) {
         try {
             tagsService.updateSelective(tags);
@@ -95,7 +81,7 @@ public class RestTagController {
     }
 
     @PostMapping("/listAll")
-    public ResponseVO listType() {
+    public ResponseVO list() {
         return ResultUtil.success(null, tagsService.listAll());
     }
 

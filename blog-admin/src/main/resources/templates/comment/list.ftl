@@ -4,10 +4,12 @@
     <div class="clearfix"></div>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <ol class="breadcrumb">
-                <li><a href="/">首页</a></li>
-                <li class="active">评论管理</li>
-            </ol>
+            <@breadcrumb>
+                <ol class="breadcrumb">
+                    <li><a href="/">首页</a></li>
+                    <li class="active">评论管理</li>
+                </ol>
+            </@breadcrumb>
             <div class="x_panel">
                 <div class="x_content">
                     <div class="<#--table-responsive-->">
@@ -275,6 +277,7 @@
                                 $.alert.ajaxSuccess(json);
                                 $("#auditModal").modal('hide');
                                 $.tableUtil.refresh();
+                                zhyd.initCommentNotify();
                             },
                             error: $.alert.ajaxError
                         });

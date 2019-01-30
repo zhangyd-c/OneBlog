@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zyd.blog.persistence.mapper.BizStatisticsMapper">
+    <resultMap id="rm" type="com.zyd.blog.persistence.beans.BizStatistics">
+        <result property="name" jdbcType="VARCHAR" column="name"/>
+        <result property="value" jdbcType="INTEGER" column="name_value"/>
+    </resultMap>
+
+    <select id="listSpider" parameterType="Integer" resultMap="rm">
+		SELECT
+			l.spider_type AS 'name',
+			COUNT( l.id ) AS name_value
+		FROM
+			sys_log l
+		WHERE
+			l.spider_type IS NOT NULL
+		GROUP BY
+			l.spider_type
+		ORDER BY
+			name_value DESC
+	</select>
+
+    <select id="listType" parameterType="Integer" resultMap="rm">
+		SELECT
+			bt.`name` AS 'name',
+			count( ba.id ) AS name_value
+		FROM
+			biz_type bt
+			INNER JOIN biz_article ba ON bt.id = ba.type_id
+		GROUP BY
+			ba.type_id
+		ORDER BY
+			name_value DESC
+	</select>
+</mapper>
+

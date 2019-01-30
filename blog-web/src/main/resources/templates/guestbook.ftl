@@ -3,33 +3,7 @@
 <@header title="留言板 | ${config.siteName}"
     keywords="${config.siteName},留言板,原创博客留言,个人原创网站,个人技术博客"
     description="我的留言板,欢迎给我的个人原创博客留言 - ${config.siteName}"
-    canonical="/guestbook">
-    <link href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
-	<link href="https://cdn.bootcss.com/github-markdown-css/2.10.0/github-markdown.min.css" rel="stylesheet">
-	<link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
-    <style>
-        .CodeMirror {
-            padding: 0px;
-        }
-        .CodeMirror, .CodeMirror-scroll {
-            min-height: 130px;
-            max-height: 200px;
-        }
-        .CodeMirror .cm-spell-error:not(.cm-url):not(.cm-comment):not(.cm-tag):not(.cm-word) {
-            background: none;
-        }
-        .editor-statusbar {
-            display: none;
-        }
-        .editor-preview {
-            overflow-y: initial!important;
-        }
-        ul {
-            list-style: none;
-            margin-left: 0;
-            padding-left: 0;
-        }
-    </style>
+    canonical="/guestbook" hasEditor=true>
 </@header>
 
 <div class="container custome-container">
@@ -37,7 +11,7 @@
         <a class="crumbs" title="返回首页" href="${config.siteUrl}" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-home"></i>首页</a>
         <i class="fa fa-angle-right"></i>留言板
     </nav>
-    <div class="row">
+    <div class="row guestbook-body">
         <@blogHeader title="留言板"></@blogHeader>
         <div class="col-sm-12 blog-main">
             <div class="blog-body expansion">

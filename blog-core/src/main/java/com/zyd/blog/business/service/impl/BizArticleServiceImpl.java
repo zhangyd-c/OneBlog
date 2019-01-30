@@ -1,22 +1,3 @@
-/**
- * MIT License
- * Copyright (c) 2018 yadong.zhang
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 package com.zyd.blog.business.service.impl;
 
 import com.github.pagehelper.PageHelper;
@@ -26,16 +7,15 @@ import com.zyd.blog.business.entity.Article;
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.ArticleStatusEnum;
 import com.zyd.blog.business.enums.QiniuUploadType;
+import com.zyd.blog.business.enums.ResponseStatus;
 import com.zyd.blog.business.service.BizArticleService;
 import com.zyd.blog.business.service.BizArticleTagsService;
 import com.zyd.blog.business.vo.ArticleConditionVO;
 import com.zyd.blog.framework.exception.ZhydArticleException;
+import com.zyd.blog.framework.exception.ZhydException;
 import com.zyd.blog.framework.holder.RequestHolder;
 import com.zyd.blog.persistence.beans.*;
-import com.zyd.blog.persistence.mapper.BizArticleLookMapper;
-import com.zyd.blog.persistence.mapper.BizArticleLoveMapper;
-import com.zyd.blog.persistence.mapper.BizArticleMapper;
-import com.zyd.blog.persistence.mapper.BizArticleTagsMapper;
+import com.zyd.blog.persistence.mapper.*;
 import com.zyd.blog.util.FileUtil;
 import com.zyd.blog.util.IpUtil;
 import com.zyd.blog.util.SessionUtil;
@@ -46,11 +26,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * 文章列表
@@ -76,6 +58,8 @@ public class BizArticleServiceImpl implements BizArticleService {
     private RedisTemplate redisTemplate;
     @Autowired
     private BizArticleTagsService articleTagsService;
+    @Autowired
+    private BizCommentMapper commentMapper;
 
     /**
      * 分页查询
@@ -90,21 +74,17 @@ public class BizArticleServiceImpl implements BizArticleService {
         if (CollectionUtils.isEmpty(list)) {
             return null;
         }
-        List<Long> ids = new ArrayList<>();
-        for (BizArticle bizArticle : list) {
-            ids.add(bizArticle.getId());
-        }
+        List<Long> ids = list.stream().map(BizArticle::getId).collect(Collectors.toList());
+
         List<BizArticle> listTag = bizArticleMapper.listTagsByArticleId(ids);
-        // listTag, 重新组装数据为{id: Article}
-        Map<Long, BizArticle> tagMap = new LinkedHashMap<>(listTag.size());
-        for (BizArticle bizArticle : listTag) {
-            tagMap.put(bizArticle.getId(), bizArticle);
-        }
+
+        Map<Long, BizArticle> tagMap = listTag.stream().collect(Collectors.toMap(BizArticle::getId, a -> a, (k1, k2) -> k1));
 
         List<Article> boList = new LinkedList<>();
         for (BizArticle bizArticle : list) {
             BizArticle tagArticle = tagMap.get(bizArticle.getId());
             bizArticle.setTags(tagArticle.getTags());
+            this.subquery(bizArticle);
             boList.add(new Article(bizArticle));
         }
         PageInfo bean = new PageInfo<BizArticle>(list);
@@ -258,7 +238,8 @@ public class BizArticleServiceImpl implements BizArticleService {
      */
     @Override
     public List<String> listMaterial() {
-        return bizArticleMapper.listMaterial();
+        List<String> list = bizArticleMapper.listMaterial();
+        return !CollectionUtils.isEmpty(list) ? list.stream().filter(s -> !StringUtils.isEmpty(s)).collect(Collectors.toList()) : null;
     }
 
     /**
@@ -308,8 +289,12 @@ public class BizArticleServiceImpl implements BizArticleService {
         article.setId(id);
         if ("top".equals(type)) {
             article.setTop(!article.getTop());
-        } else {
+        } else if ("recommend".equals(type)) {
             article.setRecommended(!article.getRecommended());
+        } else if ("comment".equals(type)) {
+            article.setComment(!article.getComment());
+        } else {
+            throw new ZhydException(ResponseStatus.INVALID_PARAMS.getMessage());
         }
         article.setUpdateTime(new Date());
         return bizArticleMapper.updateByPrimaryKeySelective(article) > 0;
@@ -343,12 +328,6 @@ public class BizArticleServiceImpl implements BizArticleService {
         return list;
     }
 
-    /**
-     * 保存一个实体，null的属性不会保存，会使用数据库默认值
-     *
-     * @param entity
-     * @return
-     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Article insert(Article entity) {
@@ -361,31 +340,6 @@ public class BizArticleServiceImpl implements BizArticleService {
         return entity;
     }
 
-    /**
-     * 批量插入，支持批量插入的数据库可以使用，例如MySQL,H2等，另外该接口限制实体包含id属性并且必须为自增列
-     *
-     * @param entities
-     */
-    @Override
-    public void insertList(List<Article> entities) {
-        Assert.notNull(entities, "Articles不可为空！");
-        List<BizArticle> list = new ArrayList<>();
-        for (Article entity : entities) {
-            entity.setUpdateTime(new Date());
-            entity.setCreateTime(new Date());
-            entity.setOriginal(entity.isOriginal());
-            entity.setComment(entity.isComment());
-            list.add(entity.getBizArticle());
-        }
-        bizArticleMapper.insertList(list);
-    }
-
-    /**
-     * 根据主键字段进行删除，方法参数必须包含完整的主键属性
-     *
-     * @param primaryKey
-     * @return
-     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean removeByPrimaryKey(Long primaryKey) {
@@ -408,28 +362,6 @@ public class BizArticleServiceImpl implements BizArticleService {
         return result;
     }
 
-    /**
-     * 根据主键更新实体全部字段，null值会被更新
-     *
-     * @param entity
-     * @return
-     */
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean update(Article entity) {
-        Assert.notNull(entity, "Article不可为空！");
-        entity.setUpdateTime(new Date());
-        entity.setOriginal(entity.isOriginal());
-        entity.setComment(entity.isComment());
-        return bizArticleMapper.updateByPrimaryKey(entity.getBizArticle()) > 0;
-    }
-
-    /**
-     * 根据主键更新属性不为null的值
-     *
-     * @param entity
-     * @return
-     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateSelective(Article entity) {
@@ -440,37 +372,35 @@ public class BizArticleServiceImpl implements BizArticleService {
         return bizArticleMapper.updateByPrimaryKeySelective(entity.getBizArticle()) > 0;
     }
 
-    /**
-     * 根据主键字段进行查询，方法参数必须包含完整的主键属性，查询条件使用等号
-     *
-     * @param primaryKey
-     * @return
-     */
     @Override
     public Article getByPrimaryKey(Long primaryKey) {
         Assert.notNull(primaryKey, "PrimaryKey不可为空！");
         BizArticle entity = bizArticleMapper.get(primaryKey);
-        return null == entity ? null : new Article(entity);
+        if (null == entity) {
+            return null;
+        }
+        this.subquery(entity);
+        return new Article(entity);
     }
 
-    /**
-     * 根据实体中的属性进行查询，只能有一个返回值，有多个结果时抛出异常，查询条件使用等号
-     *
-     * @param entity
-     * @return
-     */
-    @Override
-    public Article getOneByEntity(Article entity) {
-        Assert.notNull(entity, "Article不可为空！");
-        BizArticle bo = bizArticleMapper.selectOne(entity.getBizArticle());
-        return null == bo ? null : new Article(bo);
+    private void subquery(BizArticle entity) {
+        Long primaryKey = entity.getId();
+        // 查看的次数
+        BizArticleLook look = new BizArticleLook();
+        look.setArticleId(primaryKey);
+        entity.setLookCount(bizArticleLookMapper.selectCount(look));
+
+        // 评论数
+        BizComment comment = new BizComment();
+        comment.setSid(primaryKey);
+        entity.setCommentCount(commentMapper.selectCount(comment));
+
+        // 喜欢的次数
+        BizArticleLove love = new BizArticleLove();
+        love.setArticleId(primaryKey);
+        entity.setLoveCount(bizArticleLoveMapper.selectCount(love));
     }
 
-    /**
-     * 查询全部结果，listByEntity(null)方法能达到同样的效果
-     *
-     * @return
-     */
     @Override
     public List<Article> listAll() {
         List<BizArticle> entityList = bizArticleMapper.selectAll();
@@ -481,26 +411,6 @@ public class BizArticleServiceImpl implements BizArticleService {
         List<Article> list = new ArrayList<>();
         for (BizArticle entity : entityList) {
             list.add(new Article(entity));
-        }
-        return list;
-    }
-
-    /**
-     * 根据实体中的属性值进行查询，查询条件使用等号
-     *
-     * @param entity
-     * @return
-     */
-    @Override
-    public List<Article> listByEntity(Article entity) {
-        Assert.notNull(entity, "Article不可为空！");
-        List<BizArticle> entityList = bizArticleMapper.select(entity.getBizArticle());
-        if (CollectionUtils.isEmpty(entityList)) {
-            return null;
-        }
-        List<Article> list = new ArrayList<>();
-        for (BizArticle po : entityList) {
-            list.add(new Article(po));
         }
         return list;
     }

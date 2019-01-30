@@ -14,4 +14,8 @@ import java.io.PrintWriter;
 public interface RemoverService {
 
     void run(Long typeId, BaseModel model, PrintWriter writer);
+
+    void stop();
+
+    void crawlSingle(Long typeId, String[] url, PrintWriter writer);
 }

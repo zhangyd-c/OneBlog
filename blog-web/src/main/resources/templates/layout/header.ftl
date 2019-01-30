@@ -27,8 +27,8 @@
             <a class="navbar-brand logo" href="#"></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <div class="pull-left site-desc" style="line-height: 0.9;">
-                <h1 style="font-size: 20px;font-weight: 700;" class="auto-shake"><a href="${config.siteUrl}" data-original-title="${config.siteDesc}" data-toggle="tooltip" data-placement="bottom">${config.siteName}</a></h1>
+            <div class="pull-left site-desc">
+                <h1 class="auto-shake"><a href="${config.siteUrl}" data-original-title="${config.siteDesc}" data-toggle="tooltip" data-placement="bottom">${config.siteName}</a></h1>
                 <p class="site-description">${config.siteDesc}</p>
             </div>
             <ul class="nav navbar-nav ">

@@ -22,7 +22,7 @@ public class HtmlProcessor implements Processor {
         Html pageHtml = page.getHtml();
         String title = pageHtml.xpath(model.getTitleRegex()).get();
         String source = page.getRequest().getUrl();
-        if (!StringUtils.isEmpty(title) && !"null".equals(title) && !Arrays.asList(model.getEntryUrls()).contains(source)) {
+        if (!StringUtils.isEmpty(title) && (!"null".equals(title) && !Arrays.asList(model.getEntryUrls()).contains(source) || model.isSingle)) {
             page.putField("title", title);
             page.putField("source", source);
             page.putField("releaseDate", pageHtml.xpath(model.getReleaseDateRegex()).get());

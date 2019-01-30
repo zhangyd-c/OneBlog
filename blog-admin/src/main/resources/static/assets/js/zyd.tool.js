@@ -1,25 +1,4 @@
 /**
- * MIT License
- *
- * Copyright (c) 2018 yadong.zhang
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
  *
  * 项目工具类
  *
@@ -72,31 +51,35 @@
             },
             ajaxSuccessConfirm: function (json, callback, cancelCallback) {
                 if (json.status == 200) {
-                    if(json.message){
+                    if (json.message) {
                         $.alert.confirm(json.message, callback, cancelCallback);
                     }
                 } else {
-                    if(json.message){
+                    if (json.message) {
                         $.alert.error(json.message);
                     }
                 }
             },
             ajaxSuccess: function (json) {
                 if (json.status == 200) {
-                    if(json.message){
+                    if (json.message) {
                         $.alert.info(json.message);
                     }
                 } else {
-                    if(json.message){
+                    if (json.message) {
                         $.alert.error(json.message);
                     }
                 }
             },
             ajaxError: function () {
                 $.alert.error("网络超时！");
-            },
+            }
+        }
+    });
+    $.extend({
+        toastr: {
             initToastr: function () {
-                if(toastr){
+                if (toastr) {
                     toastr.options = {
                         closeButton: true,
                         debug: false,
@@ -105,7 +88,7 @@
                         onclick: null,
                         showDuration: "300",//显示动作时间
                         hideDuration: "1000",//隐藏动作时间
-                        timeOut: "2000",//自动关闭超时时间
+                        timeOut: "3000",//自动关闭超时时间
                         extendedTimeOut: "1000",
                         showEasing: "swing",
                         hideEasing: "linear",
@@ -114,35 +97,64 @@
                     };
                 }
             },
-            showInfoMessage: function (message) {
+            info: function (message) {
                 this.initToastr();
                 toastr.info(message);
             },
-            showSuccessMessage: function (message) {
+            success: function (message) {
                 this.initToastr();
                 toastr.success(message);
             },
-            showWarningMessage: function (message) {
+            warning: function (message) {
                 this.initToastr();
                 toastr.warning(message);
             },
-            showErrorMessage: function (message) {
+            error: function (message) {
                 this.initToastr();
                 toastr.error(message);
             }
         }
     });
     $.extend({
+        notify: {
+            _open: function (type, title, text) {
+                "undefined" != typeof PNotify && new PNotify({
+                    title: title,
+                    text: text,
+                    type: type,// Type of the notice. 'notice', 'info', 'success', or 'error'.
+                    addclass: "dark",// blue purple green aero red dark
+                    styling: "bootstrap3", // Can be 'brighttheme', 'bootstrap3', 'bootstrap4'
+                    icons: "fontawesome4", // Can be 'brighttheme', 'bootstrap3', 'fontawesome4', 'fontawesome5'
+                    shadow: true,
+                    delay: 3000
+                    // hide: !1
+                });
+            },
+            info: function (message) {
+                this._open("info", "通知", message);
+            },
+            success: function (message) {
+                this._open("success", "成功", message);
+            },
+            notice: function (message) {
+                this._open("notice", "注意", message);
+            },
+            error: function (message) {
+                this._open("error", "警告", message);
+            }
+        }
+    });
+    $.extend({
         tool: {
             cache: function (key, value) {
-                if(!value){
+                if (!value) {
                     return localStorage.getItem(key);
                 }
                 localStorage.setItem(key, value);
                 return false;
             },
             delCache: function (key) {
-                if(this.cache(key)){
+                if (this.cache(key)) {
                     localStorage.removeItem(key);
                 }
             },
@@ -174,18 +186,17 @@
                 return value;
             },
             currentPath: function () {
-                // 域
-                var domain = document.domain;
-                // 当前页
-                var nowurl = document.URL;
-                // 来源页
-                var fromurl = document.referrer;
+                /* // 域
+                 var domain = document.domain;
+                 // 当前页
+                 var nowurl = document.URL;
+                 // 来源页
+                 var fromurl = document.referrer;
 
-                var path = window.location.pathname;
-                console.log(domain);
-                console.log(fromurl);
-                console.log(nowurl);
-                return path;
+                 console.log(domain);
+                 console.log(fromurl);
+                 console.log(nowurl);*/
+                return window.location.pathname;
             },
             getMeta: function (name) {
                 var meta = document.getElementsByTagName('meta');
@@ -200,6 +211,20 @@
             },
             random: function (min, max) {
                 return Math.floor((Math.random() * max) + min);
+            },
+            shuffle: function (arr) {
+                if (!arr) {
+                    return arr;
+                }
+                var len = arr.length;
+                for (var i = 0; i < len; i++) {
+                    var end = len - 1;
+                    var index = (Math.random() * (end + 1)) >> 0;
+                    var temp = arr[end];
+                    arr[end] = arr[index];
+                    arr[index] = temp;
+                }
+                return arr;
             }
         }
     });
@@ -208,9 +233,9 @@
  * 扩展String方法
  */
 $.extend(String.prototype, {
-    trim: function () {
+    /*trim: function () {
         return this.replace(/(^\s*)|(\s*$)|\r|\n/g, "");
-    },
+    },*/
     startsWith: function (pattern) {
         return this.indexOf(pattern) === 0;
     },
@@ -227,10 +252,10 @@ $.extend(String.prototype, {
     },
     getParams: function (encode) {
         var params = {},
-                indexOf = this.indexOf("?");
+            indexOf = this.indexOf("?");
         if (indexOf != -1) {
             var str = this.substr(indexOf + 1),
-                    strs = str.split("&");
+                strs = str.split("&");
             for (var i = 0; i < strs.length; i++) {
                 var item = strs[i].split("=");
                 var val = encode ? item[1].encodeParam() : item[1];
@@ -317,13 +342,13 @@ Date.prototype.format = function (format) {
 
     if (/(y+)/.test(format)) {
         format = format.replace(RegExp.$1, (this.getFullYear() + "")
-                .substr(4 - RegExp.$1.length));
+            .substr(4 - RegExp.$1.length));
     }
 
     for (var k in o) {
         if (new RegExp("(" + k + ")").test(format)) {
             format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k]
-                    : ("00" + o[k]).substr(("" + o[k]).length));
+                : ("00" + o[k]).substr(("" + o[k]).length));
         }
     }
     return format;
