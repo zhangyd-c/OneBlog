@@ -4,14 +4,8 @@ server:
         basedir: /var/tmp/website-blog-admin
 # SPRING PROFILES
 spring:
-    datasource:
-        druid:
-            connection-init-sqls: set names utf8mb4
-            driver-class-name: com.mysql.jdbc.Driver
-        type: com.alibaba.druid.pool.DruidDataSource
-        url: jdbc:mysql://localhost:3306/dblog?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true
-        username: root
-        password: root
+    profiles:
+        include: [center-dev]
     # 指定默认MimeMessage的编码，默认为: UTF-8
     mail:
         default-encoding: UTF-8
@@ -37,18 +31,8 @@ spring:
             mail.smtp.connectiontimeout: 50000
             mail.smtp.timeout: 30000
             mail.smtp.writetimeout: 50000
-    # redis缓存服务配置
-    session:
-        store-type: redis
     # Redis数据库索引（默认为0）
     redis:
-        database: 5
-        # Redis服务器地址
-        host: 127.0.0.1
-        # Redis服务器连接端口
-        port: 6379
-        # Redis服务器连接密码（默认为空）
-        password: qwe!@#123
         jedis:
             pool:
                 # 连接池最大连接数（使用负值表示没有限制）
@@ -76,6 +60,4 @@ app:
         loginUrl: "/passport/login/"
         successUrl: "/"
         unauthorizedUrl: "/error/403"
-    # 创建网站的时间，用于计算已建站的天数，默认为2018-01-01
-    buildWebsiteDate: 2018-01-01 00:00:00
 ####################################自定义配置##########################################
