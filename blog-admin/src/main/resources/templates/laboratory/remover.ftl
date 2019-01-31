@@ -135,7 +135,7 @@
                                                 <div class="item form-group">
                                                     <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
                                                     <div class="col-md-9 col-sm-9 col-xs-9 tips">
-                                                        <i class="fa fa-exclamation-circle"></i> 需要登陆时设置。Cookie获取方式： <a href="javascript:HandlerInterceptor;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/cookie/cookie.png" data-title="“Cookie”获取方式（通用）">以CSDN为例</a>
+                                                        <i class="fa fa-exclamation-circle"></i> 需要登录时设置。Cookie获取方式： <a href="javascript:HandlerInterceptor;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/cookie/cookie.png" data-title="“Cookie”获取方式（通用）">以CSDN为例</a>
                                                     </div>
                                                 </div>
                                                 <div class="item form-group">
