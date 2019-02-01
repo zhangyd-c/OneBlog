@@ -2,7 +2,7 @@
 <@header>
 
 </@header>
-<form id="publishForm" class="form-horizontal form-label-left" novalidate onkeydown="if(event.keyCode==13){return false;}">
+<form id="publishForm" class="form-horizontal form-label-left" novalidate>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <@breadcrumb>
