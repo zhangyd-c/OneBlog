@@ -49,7 +49,7 @@ public class ShiroService {
         /*
             配置访问权限
             - anon:所有url都都可以匿名访问
-            - authc: 需要认证才能进行访问（此处指所有非匿名的路径都需要登陆才能访问）
+            - authc: 需要认证才能进行访问（此处指所有非匿名的路径都需要登录才能访问）
             - user:配置记住我或认证通过可以访问
          */
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();

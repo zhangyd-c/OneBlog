@@ -1,7 +1,7 @@
 spring:
   profiles:
     include: [center]
-####### database Config #######
+  ####### database Config #######
   datasource:
     druid:
       connection-init-sqls: set names utf8mb4
@@ -9,8 +9,8 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://localhost:3306/dblog?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true
     username: root
-    password:
-####### Redis Config #######
+    password: root
+  ####### Redis Config #######
   redis:
     database: 5
     # Redis服务器地址
@@ -18,12 +18,12 @@ spring:
     # Redis服务器连接端口
     port: 6379
     # Redis服务器连接密码（默认为空）
-    password:
+    password: qwe!@#123
 
-####### redis缓存服务配置 #######
+  ####### redis缓存服务配置 #######
   session:
     store-type: redis
 
-####### 自定义配置 #######
+  ####### 自定义配置 #######
 
-####### 自定义配置 #######
+  ####### 自定义配置 #######

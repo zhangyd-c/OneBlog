@@ -1,7 +1,7 @@
 spring:
   profiles:
     include: [center]
-####### database Config #######
+  ####### database Config #######
   datasource:
     druid:
       connection-init-sqls: set names utf8mb4
@@ -24,6 +24,6 @@ spring:
   session:
     store-type: redis
 
-####### 自定义配置 #######
+  ####### 自定义配置 #######
 
-####### 自定义配置 #######
+  ####### 自定义配置 #######

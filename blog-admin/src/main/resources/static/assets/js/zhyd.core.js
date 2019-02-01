@@ -59,8 +59,8 @@ var zhyd = window.zhyd || {
                 $('select[target="tagsinput"], input[target="tagsinput"]').each(function () {
                     var $this = $(this);
                     var $bindBox = $this.data("bind-box");
-                    if(!$bindBox || $bindBox.length <= 0) {
-                        return ;
+                    if (!$bindBox || $bindBox.length <= 0) {
+                        return;
                     }
 
                     $this.tagsinput({
@@ -72,18 +72,19 @@ var zhyd = window.zhyd || {
                         focusClass: 'focus'
                     });
 
-                    function add(){
+                    function add() {
                         var thisId = $(this).data("value");
                         var thisText = $(this).text().trim();
                         $this.tagsinput('add', {"id": thisId, "name": thisText}, {add: false});
                     }
+
                     $($bindBox).find("li").each(function () {
                         var $li = $(this);
                         $li.bind('click', add);
                     });
-                    $(".bootstrap-tagsinput input").bind('keydown',function(event){
+                    $(".bootstrap-tagsinput input").bind('keydown', function (event) {
                         var thisVal = $(this).val();
-                        if(event.key == 'Enter' || event.keyCode == '13') {
+                        if (event.key == 'Enter' || event.keyCode == '13') {
                             $.post('/tag/add', {name: thisVal, description: thisVal}, function (response) {
                                 if (response.status !== 200) {
                                     $.alert.error(response.message);
@@ -400,6 +401,37 @@ var zhyd = window.zhyd || {
                 }
             }
         }
+    },
+    mask: {
+        _box: '<div class="mask {{maskType}}"><div class="masker"><i class="{{icon}}"></i></div><h3 class="text">{{text}}</h3></div>',
+        _icon: {
+            load: "fa fa-spinner fa-spin",
+            lock: "fa fa-lock"
+        },
+        _open: function (container, msg, type) {
+            var html = Mustache.render(this._box, {icon: this._icon[type], text: msg, maskType: type});
+            $(container).append(html);
+
+        },
+        init: function () {
+            console.log("init mask...");
+            $(".loading").each(function () {
+                var $this = $(this);
+                if (!$this.hasClass("locking")) {
+                    zhyd.mask.loading($this, $this.data("mask"));
+                }
+            });
+            $(".locking").each(function () {
+                var $this = $(this);
+                zhyd.mask.locking($this, $this.data("mask"));
+            });
+        },
+        loading: function (container, msg) {
+            this._open(container, msg || "Loading", "load");
+        },
+        locking: function (container, msg) {
+            this._open(container, msg || "Locking", "lock");
+        }
     }
 };
 
@@ -448,6 +480,7 @@ $(document).ready(function () {
     });
     zhyd.combox.init();
     zhyd.tagsInput.init();
+    zhyd.mask.init();
 
     /**
      * 针对shiro框架中， ajax请求时session过期后的页面跳转

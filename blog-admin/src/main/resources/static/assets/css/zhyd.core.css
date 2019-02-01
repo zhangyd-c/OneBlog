@@ -5058,3 +5058,49 @@ ul, menu, dir {
     border-radius: 12px;
     cursor: pointer;
 }
+
+.mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    color: #555;
+    border-radius: 3px;
+    z-index: 9999;
+}
+
+.mask .masker {
+    position: relative;
+    width: 30px;
+}
+
+.mask .masker i {
+    font-size: 30px;
+    font-weight: 400;
+}
+.mask .text {
+    font-size: 24px;
+    margin-top: 10px;
+}
+.mask.lock {
+    cursor: not-allowed;
+    background-color: #eee;
+    opacity: 1;
+}
+.mask.load {
+}
