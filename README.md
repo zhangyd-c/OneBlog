@@ -62,7 +62,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 # 技术栈
 
-- Springboot 2.0.1
+- Springboot 2.0.8
 - Apache Shiro 1.2.2
 - Logback
 - Redis
@@ -99,9 +99,9 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 2. 新建数据库`CREATE DATABASE dblog;`
 3. 导入数据库`docs/db/dblog.sql`
 4. 修改配置文件
-   1. 数据库链接属性(在`resources/application-{env}.yml`配置文件中搜索`datasource`或定位到L.7) 
-   2. redis配置(在`resources/application.yml`配置文件中搜索`redis`或定位到L.65)
-   3. mail配置(在`resources/application-{env}.yml`配置文件中搜索`mail`或定位到L.14)
+   1. 数据库链接属性(在`[blog-core]/resources/config/application-center-{env}.yml`配置文件中搜索`datasource`或定位到L.5) 
+   2. redis配置(在`[blog-core]/resources/config/application-center-{env}.yml`配置文件中搜索`redis`或定位到L.14)
+   3. mail配置(在`resources/application-{env}.yml`配置文件中搜索`mail`或定位到L.10)
    4. 【[七牛云](https://portal.qiniu.com/signup?code=3l8yx2v0f21ci)】配置(见sys_config表中qiniu_*开头的字段)    
       注：因为系统存在redis缓存，如果是第一次使用，可以直接修改sys_config表内容，如果不是第一次用，建议使用admin项目中的`系统配置`页面修改相关配置内容
 5. 运行项目(三种方式)
