@@ -33,4 +33,12 @@ public interface SysTemplateService extends AbstractService<Template, Long> {
      * @return
      */
     Template getTemplate(TemplateKeyEnum key);
+
+    /**
+     * 通过key获取模板信息
+     *
+     * @param key
+     * @return
+     */
+    Template getTemplate(String key);
 }

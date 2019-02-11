@@ -2,11 +2,7 @@ package com.zyd.blog.framework.tag;
 
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.UserTypeEnum;
-import com.zyd.blog.business.service.BizCommentService;
-import com.zyd.blog.business.service.BizTagsService;
-import com.zyd.blog.business.service.BizTypeService;
-import com.zyd.blog.business.service.SysConfigService;
-import com.zyd.blog.business.service.SysResourcesService;
+import com.zyd.blog.business.service.*;
 import com.zyd.blog.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -47,6 +43,8 @@ public class CustomTags extends BaseTag {
     private SysResourcesService resourcesService;
     @Autowired
     private SysConfigService configService;
+    @Autowired
+    private SysTemplateService templateService;
 
     public CustomTags() {
         super(CustomTags.class.getName());
@@ -90,5 +88,10 @@ public class CustomTags extends BaseTag {
         int max = NumberUtils.parseNumber(getParam(params, "max"), Integer.class);
         int min = NumberUtils.parseNumber(getParam(params, "min"), Integer.class);
         return df.format(randoms.nextInt(max) % (max - min + 1) + min + Math.random());
+    }
+
+    public Object template(Map params) {
+        String tempKey = getParam(params, "key");
+        return templateService.getTemplate(tempKey);
     }
 }

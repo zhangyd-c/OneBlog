@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,8 +64,16 @@ public class SysTemplateServiceImpl implements SysTemplateService {
      */
     @Override
     public Template getTemplate(TemplateKeyEnum key) {
+        return getTemplate(key.toString());
+    }
+
+    @Override
+    public Template getTemplate(String key) {
+        if (StringUtils.isEmpty(key)) {
+            return null;
+        }
         SysTemplate entity = new SysTemplate();
-        entity.setRefKey(key.toString());
+        entity.setRefKey(key);
         entity = this.sysTemplateMapper.selectOne(entity);
         return null == entity ? null : new Template(entity);
     }
