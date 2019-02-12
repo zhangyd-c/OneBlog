@@ -59,7 +59,7 @@
             zhyd.wangEditor.init({
                 container: "#editor",
                 textareaName: "content",
-                uploadUrl: "/api/upload2Qiniu",
+                uploadUrl: "/api/uploadFile",
                 uploadFileName: "file",
                 uploadType: "article",
                 customCss: {

@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Article;
-import com.zyd.blog.business.entity.BaseConfig;
 import com.zyd.blog.business.enums.BaiduPushTypeEnum;
+import com.zyd.blog.business.enums.ConfigKeyEnum;
 import com.zyd.blog.business.enums.ResponseStatus;
 import com.zyd.blog.business.service.BizArticleService;
 import com.zyd.blog.business.service.SysConfigService;
@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 
 /**
  * 文章管理
@@ -93,14 +95,14 @@ public class RestArticleController {
         if (null == ids) {
             return ResultUtil.error(500, "请至少选择一条记录");
         }
-        BaseConfig config = configService.getBaseConfig();
-        String siteUrl = config.getSiteUrl();
+        Map config = configService.getConfigs();
+        String siteUrl = (String) config.get(ConfigKeyEnum.SITE_URL.getKey());
         StringBuilder params = new StringBuilder();
         for (Long id : ids) {
             params.append(siteUrl).append("/article/").append(id).append("\n");
         }
         // urls: 推送, update: 更新, del: 删除
-        String url = UrlBuildUtil.getBaiduPushUrl(type.toString(), config.getSiteUrl(), config.getBaiduPushToken());
+        String url = UrlBuildUtil.getBaiduPushUrl(type.toString(), (String) config.get(ConfigKeyEnum.SITE_URL.getKey()), (String) config.get(ConfigKeyEnum.BAIDU_PUSH_TOKEN.getKey()));
         /**
          * success	       	int	    成功推送的url条数
          * remain	       	int	    当天剩余的可推送url条数

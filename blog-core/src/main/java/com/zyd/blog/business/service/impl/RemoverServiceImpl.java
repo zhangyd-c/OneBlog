@@ -121,9 +121,8 @@ public class RemoverServiceImpl implements RemoverService {
 
         // 添加文章到数据库
         Article article = null;
-        String qiniuBasePath = sysConfigService.getBaseConfig().getQiniuBasePath();
         for (VirtualArticle spiderVirtualArticle : list) {
-            article = this.saveArticle(typeId, model.isConvertImg(), writerUtil, user, qiniuBasePath, spiderVirtualArticle);
+            article = this.saveArticle(typeId, model.isConvertImg(), writerUtil, user, spiderVirtualArticle);
 
             this.saveTags(writerUtil, originalTags, article, spiderVirtualArticle);
         }
@@ -140,12 +139,11 @@ public class RemoverServiceImpl implements RemoverService {
      * @param isConvertImg         是否转存文章图片
      * @param writerUtil           writer Util
      * @param user                 当前操作的用户
-     * @param qiniuBasePath        七牛 bucket路径
      * @param spiderVirtualArticle 爬虫抓取完成的虚拟文章
      */
-    private Article saveArticle(Long typeId, boolean isConvertImg, WriterUtil writerUtil, User user, String qiniuBasePath, VirtualArticle spiderVirtualArticle) {
+    private Article saveArticle(Long typeId, boolean isConvertImg, WriterUtil writerUtil, User user, VirtualArticle spiderVirtualArticle) {
         Article article = new Article();
-        article.setContent(isConvertImg ? parseImgForHtml(spiderVirtualArticle.getSource(), spiderVirtualArticle.getContent(), qiniuBasePath, writerUtil) : spiderVirtualArticle.getContent());
+        article.setContent(isConvertImg ? parseImgForHtml(spiderVirtualArticle.getSource(), spiderVirtualArticle.getContent(), writerUtil) : spiderVirtualArticle.getContent());
         article.setTitle(spiderVirtualArticle.getTitle());
         article.setTypeId(typeId);
         article.setUserId(user.getId());
@@ -196,10 +194,9 @@ public class RemoverServiceImpl implements RemoverService {
      *
      * @param referer       为了预防某些网站做了权限验证，不加referer可能会403
      * @param html          待解析的html
-     * @param qiniuBasePath 七牛的根路径，在config表中配置
      * @param writerUtil    打印输出的工具类
      */
-    private String parseImgForHtml(String referer, String html, String qiniuBasePath, WriterUtil writerUtil) {
+    private String parseImgForHtml(String referer, String html, WriterUtil writerUtil) {
         if (StringUtils.isEmpty(html)) {
             return null;
         }
@@ -210,15 +207,15 @@ public class RemoverServiceImpl implements RemoverService {
             imgUrlSet.add(imgUrl);
         }
         if (!CollectionUtils.isEmpty(imgUrlSet)) {
-            writerUtil.print(String.format("[ crawl ] 检测到存在%s张图片，即将转存图片到七牛云...", imgUrlSet.size()));
+            writerUtil.print(String.format("[ crawl ] 检测到存在%s张图片，即将转存图片到云存储服务器中...", imgUrlSet.size()));
             for (String imgUrl : imgUrlSet) {
-                String qiniuImgPath = ImageDownloadUtil.convertToQiniu(imgUrl, referer);
-                if (StringUtils.isEmpty(qiniuImgPath)) {
-                    writerUtil.print("[ crawl ] 图片转存失败，请确保七牛云以配置完毕！请查看控制台详细错误信息...");
+                String resImgPath = ImageDownloadUtil.saveToCloudStorage(imgUrl, referer);
+                if (StringUtils.isEmpty(resImgPath)) {
+                    writerUtil.print("[ crawl ] 图片转存失败，请确保云存储已经配置完毕！请查看控制台详细错误信息...");
                     continue;
                 }
-                html = html.replace(imgUrl, qiniuBasePath + qiniuImgPath);
-                writerUtil.print(String.format("[ crawl ] <a href=\"%s\" target=\"_blank\">原图片</a> convert to <a href=\"%s%s\" target=\"_blank\">七牛云</a>...", imgUrl, qiniuBasePath, qiniuImgPath));
+                html = html.replace(imgUrl, resImgPath);
+                writerUtil.print(String.format("[ crawl ] <a href=\"%s\" target=\"_blank\">原图片</a> convert to <a href=\"%s\" target=\"_blank\">云存储</a>...", imgUrl, resImgPath));
             }
         }
         return html;

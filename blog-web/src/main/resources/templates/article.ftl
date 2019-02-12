@@ -1,7 +1,7 @@
 <#include "include/macros.ftl">
 <@header title="${article.title} | ${config.siteName}" keywords="${article.keywords?if_exists},${config.siteName}" description="${article.description?if_exists}" canonical="/article/${article.id}" hasEditor=true></@header>
 <#if article.coverImage?exists>
-    <img src="${config.qiniuBasePath}${article.coverImage?if_exists}" onerror="this.src='${config.staticWebSite}/img/default_article_cover.jpg'" style="display: none;" id="cover-img">
+    <img src="${config.fileStoragePath}${article.coverImage?if_exists}" onerror="this.src='${config.staticWebSite}/img/default_article_cover.jpg'" style="display: none;" id="cover-img">
 </#if>
 <div class="container custome-container">
     <nav class="breadcrumb">
@@ -136,7 +136,7 @@
                                 <div class="line-container">
                                     <div class="line-left">
                                         <#if item.coverImage?exists>
-                                            <img class="lazy-img" data-original="${config.qiniuBasePath}${item.coverImage}" width="50" height="50" rel="external nofollow"/>
+                                            <img class="lazy-img" data-original="${config.fileStoragePath}${item.coverImage}" width="50" height="50" rel="external nofollow"/>
                                         <#else>
                                             <img class="lazy-img" data-original="${config.staticWebSite}/img/favicon.ico" width="50" height="50" rel="external nofollow"/>
                                         </#if>

@@ -12,6 +12,7 @@
         <module>blog-web</module>
         <module>blog-admin</module>
         <module>blog-spider</module>
+        <module>blog-file</module>
     </modules>
 
     <name>blog</name>
@@ -43,9 +44,10 @@
         <shiro.spring.version>1.4.0</shiro.spring.version>
         <shiro.redis.version>2.4.2.1-RELEASE</shiro.redis.version>
         <shiro.freemarker.tags.version>0.1</shiro.freemarker.tags.version>
-        <qiniu.version>[7.0.0, 7.1.99]</qiniu.version>
+        <qiniu.version>[7.2.0, 7.2.99]</qiniu.version>
         <useragentutils.version>1.20</useragentutils.version>
         <braum.version>1.0.0-alpha</braum.version>
+        <hutool.version>4.1.21</hutool.version>
     </properties>
 
     <dependencyManagement>
@@ -73,6 +75,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+            <version>${hutool.version}</version>
+            <scope>compile</scope>
         </dependency>
         <!--仅用于升级springboot版本时，提供配置迁移建议-->
         <!--<dependency>-->

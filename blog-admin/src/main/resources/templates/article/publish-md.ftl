@@ -76,7 +76,7 @@
         var op = {
             id: "contentMd",
             uniqueId: "mdEditor_1",
-            uploadUrl: "/api/upload2QiniuForMd"
+            uploadUrl: "/api/uploadFileForMd"
         };
         zhyd.simpleMDE.init(op);
         articleId = '${id}';

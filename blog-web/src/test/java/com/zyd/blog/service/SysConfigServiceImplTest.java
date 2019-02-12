@@ -20,6 +20,6 @@ public class SysConfigServiceImplTest extends BaseJunitTest {
 
     @Test
     public void comment() throws InterruptedException {
-        System.out.println(JSON.toJSONString(configService.getBaseConfig()));
+        System.out.println(JSON.toJSONString(configService.getConfigs()));
     }
 }

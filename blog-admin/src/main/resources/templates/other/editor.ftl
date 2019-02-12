@@ -49,14 +49,14 @@
                                 <p>第三个 demo（oneBlog系统单独定制，支持文件上传）</p>
                                 <p>
                                     使用方式：
-                                <pre><code># html<br>&lt;div id="editor"&gt;&lt;/div&gt;<br><br># js<br>$.wangEditor.init({<br>	container: "#editor",<br>	textareaName: "content",<br>	uploadUrl: "/api/upload2Qiniu",<br>	uploadFileName: "file",<br>	uploadType: "goods",<br>	customCss: {<br>		"overflow-y": "scroll",<br>		"height": "100%",<br>		"max-height": "125px"<br>	}<br>})</code></pre>
+                                <pre><code># html<br>&lt;div id="editor"&gt;&lt;/div&gt;<br><br># js<br>$.wangEditor.init({<br>	container: "#editor",<br>	textareaName: "content",<br>	uploadUrl: "/api/uploadFile",<br>	uploadFileName: "file",<br>	uploadType: "goods",<br>	customCss: {<br>		"overflow-y": "scroll",<br>		"height": "100%",<br>		"max-height": "125px"<br>	}<br>})</code></pre>
                                 </p>
                                 <ul>
                                     <li>container: 编辑器的id，默认为editor</li>
                                     <li>textareaName: 自动生成的textarea组件的name，默认为content。可以自定义为表单中实际的参数name</li>
                                     <li>uploadUrl: 文件上传的api路径。如果不为空，则开启上传文件的功能</li>
                                     <li>uploadFileName: 文件上传时后台接收文件的参数名，默认为file</li>
-                                    <li>uploadType: 当前上传文件的场景类型，<strong>最好根据实际业务取名</strong>，它会决定最终上传完成后的文件路径，比如在商品信息管理页中指定了uploadType = goods,那么最终上传完成后的文件路径就是：<code>elife/goods/{filename}.png</code>，默认为空</li>
+                                    <li>uploadType: 当前上传文件的场景类型，<strong>最好根据实际业务取名</strong>，它会决定最终上传完成后的文件路径，比如在商品信息管理页中指定了uploadType = goods,那么最终上传完成后的文件路径就是：<code>oneblog/goods/{filename}.png</code>，默认为空</li>
                                     <li>customCss: 自定义的css，可以修改编辑器大小，默认为空。注：如果是修改高度，必须通过<code>max-height</code>参数修改，并且一定要加上：<code>"overflow-y": "scroll"</code>, <code>"height": "100%"</code>这两项配置，否则可能会使编辑器显示不正确</li>
                                 </ul>
                             </div>
@@ -79,11 +79,11 @@
         editor2.create();
         $("#div2").find(".w-e-text-container").css("height","100px");
 
-        // elife定制版的wangEditor
+        // oneblog定制版的wangEditor
         zhyd.wangEditor.init({
             container: "#editor",
             textareaName: "content",
-            uploadUrl: "/api/upload2Qiniu",
+            uploadUrl: "/api/uploadFile",
             uploadFileName: "file",
             uploadType: "goods",
             customCss: {

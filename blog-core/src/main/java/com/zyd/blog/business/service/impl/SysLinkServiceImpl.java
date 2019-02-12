@@ -3,8 +3,8 @@ package com.zyd.blog.business.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.annotation.RedisCache;
-import com.zyd.blog.business.entity.BaseConfig;
 import com.zyd.blog.business.entity.Link;
+import com.zyd.blog.business.enums.ConfigKeyEnum;
 import com.zyd.blog.business.enums.LinkSourceEnum;
 import com.zyd.blog.business.enums.TemplateKeyEnum;
 import com.zyd.blog.business.service.MailService;
@@ -140,9 +140,10 @@ public class SysLinkServiceImpl implements SysLinkService {
         if (bo != null) {
             throw new ZhydLinkException("本站已经添加过贵站的链接！");
         }
-        BaseConfig config = configService.getBaseConfig();
-        if (!(LinksUtil.hasLinkByHtml(url, config.getDomain()))
-                && !LinksUtil.hasLinkByChinaz(url, config.getDomain())) {
+        Map config = configService.getConfigs();
+        String domain = (String) config.get(ConfigKeyEnum.DOMAIN.getKey());
+        if (!(LinksUtil.hasLinkByHtml(url, domain))
+                && !LinksUtil.hasLinkByChinaz(url, domain)) {
             throw new ZhydLinkException("贵站暂未添加本站友情链接！请先添加本站友链后重新提交申请！");
         }
 

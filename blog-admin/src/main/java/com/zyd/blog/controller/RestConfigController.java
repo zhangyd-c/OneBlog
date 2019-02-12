@@ -39,12 +39,12 @@ public class RestConfigController {
     @PostMapping("/save")
     @BussinessLog("修改系统配置")
     public ResponseVO save(@RequestParam Map<String, String> configs,
-                           @RequestParam(required = false) MultipartFile wxPraiseCodeFile,
-                           @RequestParam(required = false) MultipartFile zfbPraiseCodeFile) {
+                           @RequestParam(required = false) MultipartFile wxPraiseCode,
+                           @RequestParam(required = false) MultipartFile zfbPraiseCode) {
         try {
             sysConfigService.saveConfig(configs);
-            sysConfigService.saveFile("wx_praise_code", wxPraiseCodeFile);
-            sysConfigService.saveFile("zfb_praise_code", zfbPraiseCodeFile);
+            sysConfigService.saveFile("wx_praise_code", wxPraiseCode);
+            sysConfigService.saveFile("zfb_praise_code", zfbPraiseCode);
         } catch (Exception e) {
             e.printStackTrace();
             return ResultUtil.error("系统配置修改失败");

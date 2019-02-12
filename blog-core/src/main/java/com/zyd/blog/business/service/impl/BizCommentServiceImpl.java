@@ -5,10 +5,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.annotation.RedisCache;
 import com.zyd.blog.business.dto.BizCommentDTO;
-import com.zyd.blog.business.entity.BaseConfig;
 import com.zyd.blog.business.entity.Comment;
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.CommentStatusEnum;
+import com.zyd.blog.business.enums.ConfigKeyEnum;
 import com.zyd.blog.business.enums.TemplateKeyEnum;
 import com.zyd.blog.business.service.BizCommentService;
 import com.zyd.blog.business.service.MailService;
@@ -61,15 +61,6 @@ public class BizCommentServiceImpl implements BizCommentService {
 
     @Autowired
     private SysConfigService configService;
-
-    public static void main(String[] args) {
-        List<String> avatars = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "11", "12", "13", "14", "15", "16", "17", "18", "19");
-        Collections.shuffle(avatars);
-        for (int i = 0; i < 20; i++) {
-            int randomAvatar = new Random().nextInt(avatars.size());
-            System.out.println(randomAvatar + " - " + avatars.get(randomAvatar));
-        }
-    }
 
     /**
      * 分页查询
@@ -129,13 +120,13 @@ public class BizCommentServiceImpl implements BizCommentService {
     @Override
     @RedisCache(flush = true)
     public void commentForAdmin(Comment comment) throws ZhydCommentException {
-        BaseConfig config = configService.getBaseConfig();
+        Map config = configService.getConfigs();
         User user = SessionUtil.getUser();
         comment.setQq(user.getQq());
         comment.setEmail(user.getEmail());
         comment.setNickname(user.getNickname());
         comment.setAvatar(user.getAvatar());
-        comment.setUrl(config.getSiteUrl());
+        comment.setUrl((String) config.get(ConfigKeyEnum.SITE_URL.getKey()));
         comment.setUserId(user.getId());
         comment.setStatus(CommentStatusEnum.APPROVED.toString());
         comment.setPid(comment.getId());
@@ -194,39 +185,20 @@ public class BizCommentServiceImpl implements BizCommentService {
 //        comment.setOsShortName(os.getShortName());// 此处需开发者自己处理
         comment.setIp(IpUtil.getRealIp(request));
         String address = "";
-        BaseConfig config = configService.getBaseConfig();
+        Map config = configService.getConfigs();
         try {
-            String locationJson = RestClientUtil.get(UrlBuildUtil.getLocationByIp(comment.getIp(), config.getBaiduApiAk()));
+            String locationJson = RestClientUtil.get(UrlBuildUtil.getLocationByIp(comment.getIp(), (String) config.get(ConfigKeyEnum.BAIDU_API_AK.getKey())));
             JSONObject localtionContent = JSONObject.parseObject(locationJson).getJSONObject("content");
-            // 地址详情
             JSONObject addressDetail = localtionContent.getJSONObject("address_detail");
-            // 省
-            String province = addressDetail.getString("province");
-            // 市
             String city = addressDetail.getString("city");
-            // 区
             String district = addressDetail.getString("district");
-            // 街道
             String street = addressDetail.getString("street");
-            StringBuilder sb = new StringBuilder(province);
-            if (!StringUtils.isEmpty(city)) {
-                sb.append(city);
-            }
-            if (!StringUtils.isEmpty(district)) {
-                sb.append(district);
-            }
-            if (!StringUtils.isEmpty(street)) {
-                sb.append(street);
-            }
-            address = sb.toString();
-            // 经纬度
+            address = addressDetail.getString("province") + (StringUtils.isEmpty(city) ? "" : city) +
+                    (StringUtils.isEmpty(district) ? "" : district) +
+                    (StringUtils.isEmpty(street) ? "" : street);
             JSONObject point = localtionContent.getJSONObject("point");
-            // 纬度
-            String lat = point.getString("y");
-            // 经度
-            String lng = point.getString("x");
-            comment.setLat(lat);
-            comment.setLng(lng);
+            comment.setLat(point.getString("y"));
+            comment.setLng(point.getString("x"));
             comment.setAddress(address);
         } catch (Exception e) {
             comment.setAddress("未知");

@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-        <#if config.comment>
+        <#if config.comment?if_exists && config.comment == 1>
             <div class="col-sm-12 blog-main">
                 <div class="blog-body expansion">
                     <div id="comment-box" data-id="-1"></div>

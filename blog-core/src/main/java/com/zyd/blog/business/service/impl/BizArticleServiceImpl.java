@@ -6,17 +6,19 @@ import com.zyd.blog.business.annotation.RedisCache;
 import com.zyd.blog.business.entity.Article;
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.ArticleStatusEnum;
-import com.zyd.blog.business.enums.QiniuUploadType;
+import com.zyd.blog.business.enums.FileUploadType;
 import com.zyd.blog.business.enums.ResponseStatus;
 import com.zyd.blog.business.service.BizArticleService;
 import com.zyd.blog.business.service.BizArticleTagsService;
 import com.zyd.blog.business.vo.ArticleConditionVO;
+import com.zyd.blog.file.FileUploader;
+import com.zyd.blog.file.entity.VirtualFile;
 import com.zyd.blog.framework.exception.ZhydArticleException;
 import com.zyd.blog.framework.exception.ZhydException;
 import com.zyd.blog.framework.holder.RequestHolder;
 import com.zyd.blog.persistence.beans.*;
 import com.zyd.blog.persistence.mapper.*;
-import com.zyd.blog.util.FileUtil;
+import com.zyd.blog.plugin.file.GlobalFileUploader;
 import com.zyd.blog.util.IpUtil;
 import com.zyd.blog.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -257,9 +259,10 @@ public class BizArticleServiceImpl implements BizArticleService {
             throw new ZhydArticleException("请至少选择一个标签");
         }
         if (null != file) {
-            String filePath = FileUtil.uploadToQiniu(file, QiniuUploadType.COVER_IMAGE, true);
+            FileUploader uploader = new GlobalFileUploader();
+            VirtualFile virtualFile = uploader.upload(file, FileUploadType.COVER_IMAGE.getPath(), true);
             // 保存封面图片
-            article.setCoverImage(filePath);
+            article.setCoverImage(virtualFile.getFilePath());
         }
         Long articleId = null;
         if ((articleId = article.getId()) != null) {

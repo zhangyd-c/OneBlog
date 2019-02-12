@@ -47,8 +47,7 @@ public class LinksUtil {
      * 获取网站的favicon图标<br>
      * https站点可能存在问题
      *
-     * @param url
-     *         网站地址
+     * @param url 网站地址
      * @return favicon地址
      * @deprecated 当前版本为前台用户手动录入favicon，可考虑后台应用使用该接口
      */
@@ -70,8 +69,7 @@ public class LinksUtil {
     /**
      * 检查favicon的有效性
      *
-     * @param faviocnUrl
-     *         favicon地址
+     * @param faviocnUrl favicon地址
      * @return true favicon大小合适，false favicon过大或者过小
      */
     public static boolean checkFavicon(String faviocnUrl) {
@@ -82,8 +80,7 @@ public class LinksUtil {
     /**
      * 获取网站的favicon图标大小
      *
-     * @param faviocnUrl
-     *         favicon地址
+     * @param faviocnUrl favicon地址
      * @return favicon图标大小
      */
     private static int getFaviconSize(String faviocnUrl) {
@@ -113,10 +110,8 @@ public class LinksUtil {
     /**
      * 爬取url所在的页面，查找是否添加了本站友情链接
      *
-     * @param url
-     *         目标站地址
-     * @param domainName
-     *         本站地址
+     * @param url        目标站地址
+     * @param domainName 本站地址
      * @return true 已链接本站，false 未链接
      */
     public static boolean hasLinkByHtml(String url, String domainName) {
@@ -131,10 +126,8 @@ public class LinksUtil {
      * 通过Chinaz接口
      * 查找是否添加了本站友情链接
      *
-     * @param url
-     *         目标站地址
-     * @param domainName
-     *         本站地址
+     * @param url        目标站地址
+     * @param domainName 本站地址
      * @return true 已链接本站，false 未链接
      */
     public static boolean hasLinkByChinaz(String url, String domainName) {

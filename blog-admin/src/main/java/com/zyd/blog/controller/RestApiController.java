@@ -1,14 +1,15 @@
 package com.zyd.blog.controller;
 
 import com.zyd.blog.business.annotation.BussinessLog;
-import com.zyd.blog.business.entity.BaseConfig;
-import com.zyd.blog.business.enums.QiniuUploadType;
+import com.zyd.blog.business.enums.FileUploadType;
 import com.zyd.blog.business.service.BizArticleService;
 import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.core.websocket.server.ZydWebsocketServer;
 import com.zyd.blog.core.websocket.util.WebSocketUtil;
+import com.zyd.blog.file.FileUploader;
+import com.zyd.blog.file.entity.VirtualFile;
 import com.zyd.blog.framework.object.ResponseVO;
-import com.zyd.blog.util.FileUtil;
+import com.zyd.blog.plugin.file.GlobalFileUploader;
 import com.zyd.blog.util.ResultUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,27 +44,28 @@ public class RestApiController {
     private ZydWebsocketServer websocketServer;
 
     /**
-     * 上传文件到七牛云
+     * 上传文件
      *
      * @param file
      * @return
      */
     @RequiresPermissions("article:publish")
-    @PostMapping("/upload2Qiniu")
-    public ResponseVO upload2Qiniu(@RequestParam("file") MultipartFile file) {
-        String filePath = FileUtil.uploadToQiniu(file, QiniuUploadType.SIMPLE, false);
-        return ResultUtil.success("图片上传成功", filePath);
+    @PostMapping("/uploadFile")
+    public ResponseVO uploadFile(@RequestParam("file") MultipartFile file) {
+        FileUploader uploader = new GlobalFileUploader();
+        VirtualFile virtualFile = uploader.upload(file, FileUploadType.SIMPLE.getPath(), true);
+        return ResultUtil.success("图片上传成功", virtualFile.getFullFilePath());
     }
 
     @RequiresPermissions("article:publish")
-    @PostMapping("/upload2QiniuForMd")
-    public Object upload2QiniuForMd(@RequestParam("file") MultipartFile file) {
-        String filePath = FileUtil.uploadToQiniu(file, QiniuUploadType.SIMPLE, false);
-        BaseConfig config = configService.getBaseConfig();
+    @PostMapping("/uploadFileForMd")
+    public Object uploadFileForMd(@RequestParam("file") MultipartFile file) {
+        FileUploader uploader = new GlobalFileUploader();
+        VirtualFile virtualFile = uploader.upload(file, FileUploadType.SIMPLE.getPath(), true);
         Map<String, Object> resultMap = new HashMap<>(3);
         resultMap.put("success", 1);
         resultMap.put("message", "上传成功");
-        resultMap.put("filename", config.getQiniuBasePath() + filePath);
+        resultMap.put("filename", virtualFile.getFullFilePath());
         return resultMap;
     }
 

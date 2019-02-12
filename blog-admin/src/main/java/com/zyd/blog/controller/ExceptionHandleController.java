@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.lang.reflect.UndeclaredThrowableException;
 
@@ -40,6 +41,19 @@ public class ExceptionHandleController {
     public ResponseVO unauthorizedExceptionHandle(Throwable e) {
         e.printStackTrace(); // 打印异常栈
         return ResultUtil.error(HttpStatus.UNAUTHORIZED.value(), e.getLocalizedMessage());
+    }
+
+    /**
+     * Shiro权限认证异常
+     *
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(value = {MaxUploadSizeExceededException.class})
+    @ResponseBody
+    public ResponseVO maxUploadSizeExceededExceptionHandle(Throwable e) {
+        e.printStackTrace(); // 打印异常栈
+        return ResultUtil.error(CommonConst.DEFAULT_ERROR_CODE, ResponseStatus.UPLOAD_FILE_ERROR.getMessage() + "文件过大！");
     }
 
     @ExceptionHandler(value = Exception.class)

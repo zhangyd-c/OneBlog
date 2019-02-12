@@ -38,7 +38,7 @@ public class FreeMarkerConfig {
         configuration.setSharedVariable("zhydTag", customTags);
         configuration.setSharedVariable("articleTag", articleTags);
         try {
-            configuration.setSharedVariable("config", configService.getBaseConfig());
+            configuration.setSharedVariable("config", configService.getConfigs());
             //shiro标签
             configuration.setSharedVariable("shiro", new ShiroTags());
         } catch (TemplateModelException e) {

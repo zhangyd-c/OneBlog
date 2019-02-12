@@ -1,7 +1,7 @@
-package com.zyd.blog.util;
+package com.zyd.blog.file.util;
 
-import com.zyd.blog.business.entity.ImageFileInfo;
-import com.zyd.blog.framework.exception.ZhydFileException;
+import com.zyd.blog.file.entity.VirtualFile;
+import com.zyd.blog.file.exception.GlobalFileException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,7 +18,6 @@ import java.io.*;
  * @date 2018/4/18 11:48
  * @since 1.0
  */
-@Slf4j
 public class ImageUtil {
 
     /**
@@ -27,18 +26,18 @@ public class ImageUtil {
      * @param file
      * @throws IOException
      */
-    public static ImageFileInfo getInfo(File file) {
+    public static VirtualFile getInfo(File file) {
         if (null == file) {
-            return null;
+            return new VirtualFile();
         }
         try {
             return getInfo(new FileInputStream(file))
-                    .withSize(file.length())
-                    .withFilename(file.getName())
-                    .withType(FileUtil.getSuffix(file.getName()));
+                    .setSize(file.length())
+                    .setOriginalFileName(file.getName())
+                    .setSuffix(FileUtil.getSuffix(file.getName()));
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ZhydFileException("获取图片信息发生异常！", e);
+            throw new GlobalFileException("获取图片信息发生异常！", e);
         }
     }
 
@@ -48,18 +47,18 @@ public class ImageUtil {
      * @param multipartFile
      * @throws IOException
      */
-    public static ImageFileInfo getInfo(MultipartFile multipartFile) {
+    public static VirtualFile getInfo(MultipartFile multipartFile) {
         if (null == multipartFile) {
-            return null;
+            return new VirtualFile();
         }
         try {
             return getInfo(multipartFile.getInputStream())
-                    .withSize(multipartFile.getSize())
-                    .withFilename(multipartFile.getOriginalFilename())
-                    .withType(FileUtil.getSuffix(multipartFile.getOriginalFilename()));
+                    .setSize(multipartFile.getSize())
+                    .setOriginalFileName(multipartFile.getOriginalFilename())
+                    .setSuffix(FileUtil.getSuffix(multipartFile.getOriginalFilename()));
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ZhydFileException("获取图片信息发生异常！", e);
+            throw new GlobalFileException("获取图片信息发生异常！", e);
         }
     }
 
@@ -69,15 +68,20 @@ public class ImageUtil {
      * @param inputStream
      * @throws IOException
      */
-    public static ImageFileInfo getInfo(InputStream inputStream) {
+    public static VirtualFile getInfo(InputStream inputStream) {
         try (BufferedInputStream in = new BufferedInputStream(inputStream)) {
             //字节流转图片对象
             Image bi = ImageIO.read(in);
+            if (null == bi) {
+                return new VirtualFile();
+            }
             //获取默认图像的高度，宽度
-            return new ImageFileInfo(bi.getWidth(null), bi.getHeight(null));
+            return new VirtualFile()
+                    .setWidth(bi.getWidth(null))
+                    .setHeight(bi.getHeight(null))
+                    .setSize(inputStream.available());
         } catch (Exception e) {
-            log.error("获取图片信息失败", e);
+            throw new GlobalFileException("获取图片信息发生异常！", e);
         }
-        return new ImageFileInfo();
     }
 }

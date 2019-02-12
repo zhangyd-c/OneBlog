@@ -1,11 +1,11 @@
 package com.zyd.blog.controller;
 
+import cn.hutool.core.date.DateUtil;
 import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.consts.DateConst;
 import com.zyd.blog.business.service.RemoverService;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.spider.model.BaseModel;
-import com.zyd.blog.util.DateUtil;
 import com.zyd.blog.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,7 +49,7 @@ public class RestRemoverController {
         } catch (Exception e) {
             return ResultUtil.error(e.getMessage());
         }
-        return ResultUtil.success("程序已停止运行，当前时间 " + DateUtil.date2Str(new Date(), DateConst.YYYY_MM_DD_HH_MM_SS_EN));
+        return ResultUtil.success("程序已停止运行，当前时间 " + DateUtil.format(new Date(), DateConst.YYYY_MM_DD_HH_MM_SS_EN));
     }
 
     @PostMapping("/single")

@@ -73,7 +73,7 @@
                                                 <div class="item form-group">
                                                     <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
                                                     <div class="col-md-9 col-sm-9 col-xs-9 tips">
-                                                        <i class="fa fa-exclamation-circle"></i> 勾选时默认将文章中的图片转存到七牛云中（需提前配置七牛云）
+                                                        <i class="fa fa-exclamation-circle"></i> 勾选时默认将文章中的图片转存到自有云存储服务器中（需提前配置云存储服务器）
                                                     </div>
                                                 </div>
                                                 <div class="item form-group">

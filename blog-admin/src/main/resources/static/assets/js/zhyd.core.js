@@ -201,8 +201,8 @@ var zhyd = window.zhyd || {
                 // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
                 // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
                 if (result.status == 200) {
-                    var imgFullPath = appConfig.qiniuPath + result.data + appConfig.qiniuImgStyle;
-                    curEditor.txt.append('<img src="' + imgFullPath + '" alt="" style="width: 95%;max-width: 100%;height: auto;border-radius: 6px;"/>');
+                    var imgFullPath = result.data;
+                    curEditor.txt.append('<img src="' + imgFullPath + '" alt="" style="max-width: 100%;height: auto;border-radius: 6px;"/>');
                     // 解决上传完图片如果未进行其他操作，则不会触发编辑器的“change”事件，导致实际文章内容中缺少最后上传的图片文件 2018-07-13
                     $contentBox.val(editor.txt.html());
                 } else {

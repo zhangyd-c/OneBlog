@@ -157,7 +157,7 @@
         wwwPath: '${config.siteUrl}',
         cmsPath: '${config.cmsUrl}',
         staticPath: '${config.staticWebSite}',
-        qiniuBasePath: '${config.qiniuBasePath}',
+        fileStoragePath: '${config.fileStoragePath}',
         wxPraiseCode: '${config.wxPraiseCode}',
         zfbPraiseCode: '${config.zfbPraiseCode}',
         anonymous: '${config.anonymous}',

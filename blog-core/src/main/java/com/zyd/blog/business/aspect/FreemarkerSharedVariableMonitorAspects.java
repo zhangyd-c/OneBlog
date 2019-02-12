@@ -1,6 +1,6 @@
 package com.zyd.blog.business.aspect;
 
-import com.zyd.blog.business.entity.BaseConfig;
+import com.zyd.blog.business.enums.ConfigKeyEnum;
 import com.zyd.blog.business.service.SysConfigService;
 import freemarker.template.TemplateModelException;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +11,9 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
+import java.util.Map;
 
 /**
  * 用于监控freemarker自定义标签中共享变量是否发生变化，发生变化时实时更新到内存中
@@ -39,12 +42,12 @@ public class FreemarkerSharedVariableMonitorAspects {
 
     @After("pointcut()")
     public void after(JoinPoint joinPoint) {
-        BaseConfig config = configService.getBaseConfig();
+        Map config = configService.getConfigs();
         if (null == config) {
             log.error("config为空");
             return;
         }
-        Long updateTime = config.getUpdateTime().getTime();
+        Long updateTime = ((Date) config.get(ConfigKeyEnum.UPDATE_TIME.getKey())).getTime();
         if (updateTime == configLastUpdateTime) {
             log.debug("config表未更新");
             return;

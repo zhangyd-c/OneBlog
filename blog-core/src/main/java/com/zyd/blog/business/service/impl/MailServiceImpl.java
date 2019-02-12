@@ -1,6 +1,10 @@
 package com.zyd.blog.business.service.impl;
 
-import com.zyd.blog.business.entity.*;
+import com.zyd.blog.business.entity.Comment;
+import com.zyd.blog.business.entity.Link;
+import com.zyd.blog.business.entity.MailDetail;
+import com.zyd.blog.business.entity.Template;
+import com.zyd.blog.business.enums.ConfigKeyEnum;
 import com.zyd.blog.business.enums.TemplateKeyEnum;
 import com.zyd.blog.business.service.MailService;
 import com.zyd.blog.business.service.SysConfigService;
@@ -69,7 +73,7 @@ public class MailServiceImpl implements MailService {
     @Async
     public void send(Link link, TemplateKeyEnum keyEnum) {
         if (!StringUtils.isEmpty(link.getEmail())) {
-            BaseConfig config = configService.getBaseConfig();
+            Map config = configService.getConfigs();
             Template template = templateService.getTemplate(keyEnum);
             String temXml = template.getRefValue();
             Map<String, Object> map = new HashMap<>(2);
@@ -98,7 +102,7 @@ public class MailServiceImpl implements MailService {
             this.sendToAdmin(comment);
             return;
         }
-        BaseConfig config = configService.getBaseConfig();
+        Map config = configService.getConfigs();
         Template template = templateService.getTemplate(keyEnum);
         String temXml = template.getRefValue();
         Map<String, Object> map = new HashMap<>(2);
@@ -124,19 +128,19 @@ public class MailServiceImpl implements MailService {
     @Override
     @Async
     public void sendToAdmin(Link link) {
-        BaseConfig config = configService.getBaseConfig();
+        Map config = configService.getConfigs();
         Template template = templateService.getTemplate(TemplateKeyEnum.TM_LINKS_TO_ADMIN);
         String temXml = template.getRefValue();
         Map<String, Object> map = new HashMap<>(1);
         map.put("link", link);
         String mailContext = FreeMarkerUtil.template2String(temXml, map, true);
-        String adminEmail = config.getAuthorEmail();
+        String adminEmail = (String) config.get(ConfigKeyEnum.AUTHOR_EMAIL.getKey());
         if (StringUtils.isEmpty(adminEmail)) {
             log.warn("[sendToAdmin]邮件发送失败！未指定系统管理员的邮箱地址");
             return;
         }
         adminEmail = (adminEmail.contains("#") ? adminEmail.replace("#", "@") : adminEmail);
-        MailDetail mailDetail = new MailDetail("有新的友链消息", adminEmail, config.getAuthorName(), mailContext);
+        MailDetail mailDetail = new MailDetail("有新的友链消息", adminEmail, (String) config.get(ConfigKeyEnum.AUTHOR_NAME.getKey()), mailContext);
         send(mailDetail);
     }
 
@@ -148,20 +152,20 @@ public class MailServiceImpl implements MailService {
     @Override
     @Async
     public void sendToAdmin(Comment comment) {
-        BaseConfig config = configService.getBaseConfig();
+        Map config = configService.getConfigs();
         Template template = templateService.getTemplate(TemplateKeyEnum.TM_NEW_COMMENT);
         String temXml = template.getRefValue();
         Map<String, Object> map = new HashMap<>(2);
         map.put("comment", comment);
         map.put("config", config);
         String mailContext = FreeMarkerUtil.template2String(temXml, map, true);
-        String adminEmail = config.getAuthorEmail();
+        String adminEmail = (String) config.get("authorEmail");
         if (StringUtils.isEmpty(adminEmail)) {
             log.warn("[sendToAdmin]邮件发送失败！未指定系统管理员的邮箱地址");
             return;
         }
         adminEmail = (adminEmail.contains("#") ? adminEmail.replace("#", "@") : adminEmail);
-        MailDetail mailDetail = new MailDetail("有新的评论消息", adminEmail, config.getAuthorName(), mailContext);
+        MailDetail mailDetail = new MailDetail("有新的评论消息", adminEmail, (String) config.get("authorName"), mailContext);
         send(mailDetail);
     }
 

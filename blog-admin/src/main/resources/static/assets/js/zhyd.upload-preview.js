@@ -70,7 +70,7 @@ jQuery.fn.extend({
                         $img.attr('src', _self.getObjectURL($this.files[0]));
                         $img.addClass("img-responsive img-rounded auto-shake");
                         $img.appendTo($container);
-                    }, 1500);
+                    }, 100);
                 } catch (e) {
                     $.alert.error("当前浏览器不支持图片预览！");
                 }

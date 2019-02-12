@@ -1,17 +1,19 @@
 package com.zyd.blog.business.service.impl;
 
-import com.alibaba.fastjson.JSON;
+import cn.hutool.core.date.DateUnit;
+import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.zyd.blog.business.annotation.RedisCache;
 import com.zyd.blog.business.consts.DateConst;
-import com.zyd.blog.business.entity.BaseConfig;
-import com.zyd.blog.business.enums.QiniuUploadType;
+import com.zyd.blog.business.enums.ConfigKeyEnum;
+import com.zyd.blog.business.enums.FileUploadType;
 import com.zyd.blog.business.service.SysConfigService;
+import com.zyd.blog.file.FileUploader;
+import com.zyd.blog.file.entity.VirtualFile;
 import com.zyd.blog.framework.property.AppProperties;
 import com.zyd.blog.persistence.beans.SysConfig;
 import com.zyd.blog.persistence.mapper.SysConfigMapper;
-import com.zyd.blog.util.DateUtil;
-import com.zyd.blog.util.FileUtil;
+import com.zyd.blog.plugin.file.GlobalFileUploader;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,32 +51,28 @@ public class SysConfigServiceImpl implements SysConfigService {
      */
     @Override
     @RedisCache(enable = false)
-    public BaseConfig getBaseConfig() {
-        Map<String, Object> res = this.getConfigs();
-        return JSON.parseObject(JSON.toJSONString(res), BaseConfig.class);
-    }
-
-    /**
-     * 获取系统配置
-     *
-     * @return
-     */
-    @Override
-    @RedisCache(enable = false)
     public Map<String, Object> getConfigs() {
         List<SysConfig> list = sysConfigMapper.selectAll();
         if (CollectionUtils.isEmpty(list)) {
             return null;
         }
-        String updateTimeKey = "updateTime";
+        String updateTimeKey = ConfigKeyEnum.UPDATE_TIME.getKey();
         Map<String, Object> res = new HashMap<>();
-        res.put(updateTimeKey, DateUtil.str2Date("2019-01-01 00:00:00", DateConst.YYYY_MM_DD_HH_MM_SS_EN));
+        res.put(updateTimeKey, DateUtil.parse("2019-01-01 00:00:00", DateConst.YYYY_MM_DD_HH_MM_SS_EN));
         list.forEach((sysConfig) -> {
             res.put(String.valueOf(sysConfig.getConfigKey()), sysConfig.getConfigValue());
             if (sysConfig.getUpdateTime().after(((Date) res.get(updateTimeKey)))) {
                 res.put(updateTimeKey, sysConfig.getUpdateTime());
             }
         });
+        String storageType = (String) res.get(ConfigKeyEnum.STORAGE_TYPE.getKey());
+        if ("local".equalsIgnoreCase(storageType)) {
+            res.put("fileStoragePath", res.get(ConfigKeyEnum.LOCAL_FILE_URL.getKey()));
+        } else if ("qiniu".equalsIgnoreCase(storageType)) {
+            res.put("fileStoragePath", res.get(ConfigKeyEnum.QINIU_BASE_PATH.getKey()));
+        } else if ("aliyun".equalsIgnoreCase(storageType)) {
+            res.put("fileStoragePath", res.get(ConfigKeyEnum.ALIYUN_FILE_URL.getKey()));
+        }
         return res;
     }
 
@@ -85,7 +83,9 @@ public class SysConfigServiceImpl implements SysConfigService {
             return;
         }
         if (file != null) {
-            this.saveConfig(key, FileUtil.uploadToQiniu(file, QiniuUploadType.QRCODE, true));
+            FileUploader uploader = new GlobalFileUploader();
+            VirtualFile virtualFile = uploader.upload(file, FileUploadType.QRCODE.getPath(), true);
+            this.saveConfig(key, virtualFile.getFilePath());
         }
     }
 
@@ -142,7 +142,7 @@ public class SysConfigServiceImpl implements SysConfigService {
         Map<String, Object> map = sysConfigMapper.getSiteInfo();
         if (!CollectionUtils.isEmpty(map)) {
             // 获取建站天数
-            map.put("buildSiteDate", DateUtil.getGapDay(properties.getBuildWebsiteDate(), new Date()));
+            map.put("buildSiteDate", DateUtil.between(properties.getBuildWebsiteDate(), new Date(), DateUnit.DAY));
         }
         return map;
     }

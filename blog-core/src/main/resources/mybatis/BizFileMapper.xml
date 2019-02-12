@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zyd.blog.persistence.mapper.BizFileMapper">
+    <resultMap id="rm" type="com.zyd.blog.persistence.beans.BizFile">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="userId" jdbcType="INTEGER" column="user_id"/>
+        <result property="originalFileName" jdbcType="VARCHAR" column="original_file_name"/>
+        <result property="size" jdbcType="INTEGER" column="size"/>
+        <result property="suffix" jdbcType="VARCHAR" column="suffix"/>
+        <result property="width" jdbcType="INTEGER" column="width"/>
+        <result property="height" jdbcType="INTEGER" column="height"/>
+        <result property="filePath" jdbcType="VARCHAR" column="file_path"/>
+        <result property="fullFilePath" jdbcType="VARCHAR" column="full_file_path"/>
+        <result property="fileHash" jdbcType="VARCHAR" column="file_hash"/>
+        <result property="uploadType" jdbcType="VARCHAR" column="upload_type"/>
+        <result property="uploadStartTime" jdbcType="TIMESTAMP" column="upload_start_time"/>
+        <result property="uploadEndTime" jdbcType="TIMESTAMP" column="upload_end_time"/>
+        <result property="storageType" jdbcType="VARCHAR" column="storage_type"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+    </resultMap>
+
+    <select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.FileConditionVO" resultMap="rm">
+		SELECT
+			t.id,
+			t.user_id,
+			t.original_file_name,
+			t.`size`,
+			t.`suffix`,
+			t.`width`,
+			t.`height`,
+			t.file_path,
+			t.full_file_path,
+			t.file_hash,
+			t.upload_type,
+			t.upload_start_time,
+			t.upload_end_time,
+			t.storage_type,
+			t.create_time,
+			t.update_time
+		FROM
+			biz_file t
+		WHERE
+			1 = 1
+		ORDER BY t.create_time DESC
+	</select>
+</mapper>
+

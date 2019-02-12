@@ -1,7 +1,6 @@
 package com.zyd.blog.business.service;
 
 
-import com.zyd.blog.business.entity.BaseConfig;
 import com.zyd.blog.persistence.beans.SysConfig;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,13 +17,6 @@ import java.util.Map;
  * @since 1.0
  */
 public interface SysConfigService {
-
-    /**
-     * 获取系统配置
-     *
-     * @return
-     */
-    BaseConfig getBaseConfig();
 
     /**
      * 获取系统配置

@@ -230,7 +230,13 @@ function clearText($this, type, info) {
             if (_typeof == "boolean" || _typeof == "number") {
                 $this.iCheck(((thisValue && 1 == $this.val()) || (!thisValue && 0 == $this.val())) ? 'check' : 'uncheck')
             } else if (_typeof == "string") {
-                $this.iCheck(((thisValue == '1' && 1 == $this.val()) || (thisValue != '1' && 0 == $this.val())) ? 'check' : 'uncheck')
+                if((thisValue == '1' && 1 == $this.val()) || (thisValue != '1' && 0 == $this.val())) {
+                    $this.iCheck('check');
+                } else if (thisValue == $this.val()) {
+                    $this.iCheck('check');
+                } else {
+                    $this.iCheck('uncheck');
+                }
             }
 
         } else if (type.startsWith('select')) {

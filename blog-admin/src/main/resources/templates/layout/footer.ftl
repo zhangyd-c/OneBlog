@@ -1,7 +1,6 @@
 <script type="text/javascript">
     var appConfig = {
-        qiniuPath: '${config.qiniuBasePath}',
-        qiniuImgStyle: '',// 上传文章图片时，会自动追加该值，主要用来定制化图片样式、水印背景等属性，默认无
+        fileStoragePath: '${config.fileStoragePath}',
         wwwPath: '${config.siteUrl}',
         cmsPath: '${config.cmsUrl}',
         staticPath: '${config.staticWebSite}'

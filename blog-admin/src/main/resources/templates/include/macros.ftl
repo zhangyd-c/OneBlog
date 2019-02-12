@@ -136,6 +136,12 @@
                                                     </div>
 
                                                     <button type="button" class="btn btn-round btn-info" id="file-upload-btn" style="margin-top: 10px;">上传封面图片</button>
+                                                    <div class="tip" style="margin-top: 10px;color: #c3c3c3;">
+                                                        <div class="clearfix"></div>
+                                                        <small style="font-size: 12px;">图片不宜过大</small>
+                                                        <div class="clearfix"></div>
+                                                        <small style="font-size: 12px;">建议尺寸 1190*300</small>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

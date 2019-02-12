@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zyd.blog.business.enums.CommentStatusEnum;
+import com.zyd.blog.business.enums.ExtraCommentTypeEnum;
 import com.zyd.blog.persistence.beans.BizArticle;
 import com.zyd.blog.persistence.beans.BizComment;
 import com.zyd.blog.util.HtmlUtil;
@@ -13,8 +14,8 @@ import java.util.Date;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @website https://www.zhyd.me
  * @version 1.0
+ * @website https://www.zhyd.me
  * @date 2018/4/16 16:26
  * @since 1.0
  */
@@ -58,20 +59,14 @@ public class Comment {
      */
     public String getSourceUrl() {
         Long sid = getSid();
-        String url = "";
-        if (null == sid) {
-            return url;
+        ExtraCommentTypeEnum extraCommentType = ExtraCommentTypeEnum.getBySid(sid);
+        if (null == extraCommentType) {
+            return "";
         }
-        if (sid == -1) {
-            url += "/guestbook";
-        } else if (sid == -2) {
-            url += "/links";
-        } else if (sid == -3) {
-            url += "/about";
-        } else {
-            url += "/article/" + sid;
+        if (extraCommentType.equals(ExtraCommentTypeEnum.ARTICLE)) {
+            return extraCommentType.getUrl() + sid;
         }
-        return url;
+        return extraCommentType.getUrl();
     }
 
     public String getArticleTitle() {
@@ -79,13 +74,8 @@ public class Comment {
         String title = null == article ? null : article.getTitle();
         if (title == null) {
             Long sid = getSid();
-            if (sid == -1) {
-                title = "留言板 | 张亚东博客";
-            } else if (sid == -2) {
-                title = "友情链接 | 张亚东博客";
-            } else if (sid == -3) {
-                title = "关于 | 张亚东博客";
-            }
+            ExtraCommentTypeEnum extraCommentType = ExtraCommentTypeEnum.getBySid(sid);
+            title = extraCommentType.getTitle();
         }
         return title;
     }

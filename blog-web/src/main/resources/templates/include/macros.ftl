@@ -64,7 +64,7 @@
         <div class="blog-header">
             <h4>${title}</h4>
             <p class="blog-description" id="hitokoto"></p>
-            <div class="info">
+            <div>
                 <a href="javascript:void(0);" target="_blank" title="点击QQ联系我"onclick="window.open('tencent://message/?uin=${config.qq}&amp;Site=www.${config.domain}&amp;Menu=yes')" rel="external nofollow"><i class="fa fa fa-qq fa-fw"></i>QQ联系</a>
                 |
                 <a href="mailto:${config.authorEmail}" target="_blank" title="点击给我发邮件" rel="external nofollow"><i class="fa fa fa-envelope fa-fw"></i>邮箱联系</a>
@@ -81,7 +81,7 @@
     <#if config.maintenance?if_exists && config.maintenance>
     <div class="alert alert-warning fade-in" role="alert">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
-        系统预计将在<strong>${config.maintenanceDate?string('yyyy年MM月dd日 HH点mm分')}</strong>进行更新，届时网站将无法使用，更新时间大约 5-10分钟，敬请悉知。
+        系统预计将在<strong>${config.maintenanceDate}</strong>进行更新，届时网站将无法使用，更新时间大约 5-10分钟，敬请悉知。
     </div>
     </#if>
 </#macro>
@@ -92,13 +92,13 @@
         <h5 class="custom-title"><i class="fa fa-dollar fa-fw"></i><strong>鼓励一下</strong><small></small></h5>
         <div class="col-sm-12 col-md-12">
             <#if config.zfbPraiseCode?if_exists>
-                <a href="${config.qiniuBasePath}${config.zfbPraiseCode}" class="showImage" title="支付宝收钱码" rel="external nofollow">
-                    <img src="${config.qiniuBasePath}${config.zfbPraiseCode}" alt="支付宝收钱码" class="img-rounded" style="width: 250px;height: auto;">
+                <a href="${config.fileStoragePath}${config.zfbPraiseCode}" class="showImage" title="支付宝收钱码" rel="external nofollow">
+                    <img src="${config.fileStoragePath}${config.zfbPraiseCode}" alt="支付宝收钱码" class="img-rounded" style="width: 250px;height: auto;">
                 </a>
             </#if>
             <#if config.wxPraiseCode?if_exists>
-                <a href="${config.qiniuBasePath}${config.wxPraiseCode}" class="showImage" title="微信收钱码" rel="external nofollow">
-                    <img src="${config.qiniuBasePath}${config.wxPraiseCode}" alt="微信收钱码" class="img-rounded" style="width: 250px;height: auto;">
+                <a href="${config.fileStoragePath}${config.wxPraiseCode}" class="showImage" title="微信收钱码" rel="external nofollow">
+                    <img src="${config.fileStoragePath}${config.wxPraiseCode}" alt="微信收钱码" class="img-rounded" style="width: 250px;height: auto;">
                 </a>
             </#if>
         </div>
