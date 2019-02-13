@@ -9,7 +9,7 @@ package com.zyd.blog.business.enums;
  */
 public enum ExtraCommentTypeEnum {
 
-    GUESTBOOK(1L, "/guestbook", "留言板 "),
+    GUESTBOOK(-1L, "/guestbook", "留言板 "),
     LINKS(-2L, "/links", "友情链接 "),
     ABOUT(-3L, "/about", "关于"),
     ARTICLE(null, "/article/", ""),

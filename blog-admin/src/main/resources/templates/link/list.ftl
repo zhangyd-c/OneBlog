@@ -167,9 +167,9 @@
                         }
                     }, {
                         field: 'source',
-                        title: '来源',
+                        title: '来源 <i class="fa fa-question-circle-o" title="\'ADMIN\'表示管理员添加，\'AUTOMATIC\'表示用户自动添加"></i>',
                         editable: false,
-                        width: '40px'
+                        width: '60px'
                     }, {
                         field: 'email',
                         title: '联系方式',
@@ -180,12 +180,8 @@
                             if(row.email){
                                 html += '<a href="mailto:' + row.email + '" target="_blank" rel="external nofollow"><i class="fa fa fa-envelope fa-fw"></i></a>';
                             }
-                            html = html ? html : '-';
-                            html += '/';
                             if(row.qq){
                                 html += '<a href="javascript:void(0);" target="_blank" onclick="window.open(\'tencent://message/?uin=' + row.qq + '&amp;Site=www.zhyd.me&amp;Menu=yes\')" rel="external nofollow"><i class="fa fa fa-qq fa-fw"></i></a>';
-                            }else{
-                                html += '-';
                             }
                             return html;
                         }

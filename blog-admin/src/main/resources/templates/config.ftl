@@ -136,9 +136,12 @@
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="tab_storage" aria-labelledby="storage-tab">
                                 <form class="form-horizontal form-label-left" novalidate>
+                                    <div class="alert alert-info" role="alert" style="color: white">
+                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                        <i class="fa fa-info-circle fa-fw"></i>注意：系统<strong>暂不自持自动同步</strong>各个云存储空间中的文件，所以当切换云存储类型时可能会造成<strong class="red">部分图片不可用</strong>的情况！请悉知！
+                                    </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">存储类型 <span
-                                                    class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">存储类型 <span class="required">*</span></label>
                                         <div class="col-md-8 col-sm-8 col-xs-8">
                                             <div class="checkbox">
                                                 <label for="storageType" style="margin-right: 10px"> <input type="radio" class="square" name="storageType" value="local" checked="checked"/> 本地 </label>
@@ -361,8 +364,8 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
                                             <ul class="list-unstyled list-inline">
-                                                <li><input type="radio" class="square" checked name="anonymous" value="1"> 开启 </li>
-                                                <li><input type="radio" class="square" name="anonymous" value="0"> 关闭 </li>
+                                                <li><label for="storageType" class="pointer"> <input type="radio" class="square" checked name="anonymous" value="1"> 开启 </label></li>
+                                                <li><label for="storageType" class="pointer"> <input type="radio" class="square" name="anonymous" value="0"> 关闭 </label></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -370,8 +373,8 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment">开启留言板评论 <i class="fa fa-question-circle" title="控制留言板页面的评论框显示情况"></i></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
                                             <ul class="list-unstyled list-inline">
-                                                <li><input type="radio" class="square" checked name="comment" value="1"> 开启 </li>
-                                                <li><input type="radio" class="square" name="comment" value="0"> 关闭</li>
+                                                <li><label for="storageType" class="pointer"> <input type="radio" class="square" checked name="comment" value="1"> 开启 </label></li>
+                                                <li><label for="storageType" class="pointer"> <input type="radio" class="square" name="comment" value="0"> 关闭 </label></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -490,8 +493,8 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenance">维护通知</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
                                             <ul class="list-unstyled list-inline">
-                                                <li><input type="radio" class="square" checked name="maintenance" value="1"> 显示 </li>
-                                                <li><input type="radio" class="square" name="maintenance" value="0"> 关闭  </li>
+                                                <li><label for="storageType" class="pointer"> <input type="radio" class="square" checked name="maintenance" value="1"> 显示 </label> </li>
+                                                <li><label for="storageType" class="pointer"> <input type="radio" class="square" name="maintenance" value="0"> 关闭 </label></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -499,9 +502,20 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenanceDate">维护日期</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class='input-group date myDatepicker'>
-                                                <input type='text' class="form-control" required="required" readonly="readonly" id="maintenanceDate" name="maintenanceDate"  placeholder="请输入维护日期"/>
+                                                <input type='text' class="form-control" readonly="readonly" id="maintenanceDate" name="maintenanceDate"  placeholder="请输入维护日期"/>
                                                 <span class="input-group-addon">
                                                    <span class="fa fa-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenanceTime">维护用时</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class='input-group'>
+                                                <input type='text' class="form-control" id="maintenanceTime" name="maintenanceTime"  placeholder="请输入维护大约需要的时间"/>
+                                                <span class="input-group-addon">
+                                                   分
                                                 </span>
                                             </div>
                                         </div>
@@ -544,13 +558,19 @@
                     <fieldset>
                         <legend style="padding-bottom: 0;"><h4>使用帮助<i class="fa fa-question-circle fa-fw"></i></h4>
                         </legend>
-                        <ul class="list-unstyled">
-                            <li><strong>serverName</strong> 改为自己的域名</li>
-                            <li><strong>serverPath</strong> Nginx文件服务映射的服务器路径，同云存储中填写的“文件存储路径”</li>
-                            <li><strong>serverReferers</strong> 防盗链的Referers，多个用空格分隔，支持通配符，比如：<code>*.zhyd.me zhyd.me</code></li>
-                            <li><strong>serverLogoPath</strong> 触发防盗链后显示的默认图片，即当别人引用你网站中的图片时，会触发防盗链，对方网站中看到的就是 <code>serverLogoPath</code>对应的文件内容
-                            </li>
-                        </ul>
+                        <dl>
+                            <dt><i class="fa fa-info-circle fa-fw"></i>1. 替换配置文件中的指定内容</dt>
+                            <dd><code>serverName</code> 改为自己的域名</dd>
+                            <dd><code>serverPath</code> Nginx文件服务映射的服务器路径，同云存储中填写的“文件存储路径”</dd>
+                            <dd><code>serverReferers</code> 防盗链的Referers，多个用空格分隔，支持通配符，比如：<code>*.zhyd.me zhyd.me</code></dd>
+                            <dd><code>serverLogoPath</code> 触发防盗链后显示的默认图片，即当别人引用你网站中的图片时，会触发防盗链，对方网站中看到的就是 <code>serverLogoPath</code>对应的文件内容</dd>
+                        </dl>
+                        <dl>
+                            <dt><i class="fa fa-info-circle fa-fw"></i>2. 添加Nginx配置</dt>
+                            <dd>i. 将上方文本域修改后的内容保存为<code>**.conf</code>，放入到Nginx配置文件目录中</dd>
+                            <dd>ii. 重启Nginx</dd>
+                            <dd>iii. 尝试访问<code>serverName</code>检查Nginx是否配置成功</dd>
+                        </dl>
                     </fieldset>
                 </div>
             </div>
@@ -563,6 +583,7 @@
 <@footer>
     <script type="text/javascript">
         $(function () {
+            var oldStorageType;
             $.ajax({
                 url: '/config/get',
                 type: 'POST',
@@ -571,7 +592,8 @@
                     $("#myTabContent").find("input, select, textarea").each(function () {
                         clearText($(this), this.type, data);
                     });
-
+                    oldStorageType = data.storageType;
+                    changeMaintenance(data.maintenance && data.maintenance == 1, data.maintenance);
                     data.zfbPraiseCode && $("#zfbPraiseCodePreview").html('<img src="' + data.fileStoragePath + data.zfbPraiseCode + '" alt="支付宝赞赏码" class="img-responsive img-rounded auto-shake">');
                     data.wxPraiseCode && $("#wxPraiseCodePreview").html('<img src="' + data.fileStoragePath + data.wxPraiseCode + '" alt="微信赞赏码" class="img-responsive img-rounded auto-shake">');
                 }
@@ -591,31 +613,60 @@
                     });
                 }
             });
-            $("#tab_storage input[name=storageType]").on('ifChanged', function (event) {
+
+            $("#tab_storage input[name=storageType]").on('ifChecked', function (event) {
                 var $this = $(this);
                 var thisValue = $this.val();
-
-                if ($(this).is(':checked')) {
-                    if (!$("#" + thisValue).hasClass("hide")) {
-                        return;
-                    }
-                    $(".storage-box").each(function () {
-                        var $box = $(this);
-                        if ($box.attr("id") === thisValue) {
-                            $box.removeClass("hide").find("input").removeAttr("disabled").removeAttr("readonly");
-                        } else {
-                            $box.addClass("hide").find("input").attr("disabled", "disabled").attr("readonly", "readonly");
-                        }
-                    })
+                if (!$("#" + thisValue).hasClass("hide")) {
+                    return;
+                }
+                if(oldStorageType !== thisValue) {
+                    $.alert.confirm("您确定要切换云存储类型吗？切换后原文件将不可访问！", function () {
+                        oldStorageType = thisValue;
+                        $(".storage-box").each(function () {
+                            var $box = $(this);
+                            if ($box.attr("id") === thisValue) {
+                                $box.removeClass("hide").find("input").removeAttr("disabled").removeAttr("readonly");
+                            } else {
+                                $box.addClass("hide").find("input").attr("disabled", "disabled").attr("readonly", "readonly");
+                            }
+                        });
+                    }, function () {
+                        $("#tab_storage input[name=storageType]").each(function () {
+                            var $this = $(this);
+                            $this.iCheck((oldStorageType !== $this.val()) ? 'uncheck' : 'check');
+                        });
+                    });
                 }
             });
+
+            $("#tab_setting input[name=maintenance]").on('ifChanged', function (event) {
+                changeMaintenance($(this).is(':checked'), $(this).val());
+            });
+            function changeMaintenance(checked, thisVal){
+                if (checked && thisVal == 1) {
+                    $("#maintenanceDate, #maintenanceTime").each(function () {
+                        var $this = $(this);
+                        var $label = $this.parents("div.form-group").find("label");
+                        $this.attr("required", "required");
+                        $label.append('<span class="required">*</span>');
+                    })
+                } else {
+                    $("#maintenanceDate, #maintenanceTime").each(function () {
+                        var $this = $(this);
+                        var $span = $this.parents("div.form-group").find("label span");
+                        $this.removeAttr("required");
+                        $span.remove();
+                    })
+                }
+            }
 
             $("#aliyunBucketName, #aliyunEndpoint").change(function () {
                 var $fileUrl = $("#aliyunFileUrl");
                 var aliyunBucketName = $("#aliyunBucketName").val();
                 var aliyunEndpoint = $("#aliyunEndpoint").val();
                 if(aliyunBucketName && aliyunEndpoint) {
-                    $fileUrl.val(aliyunBucketName + "." + aliyunEndpoint);
+                    $fileUrl.val("https://" + aliyunBucketName + "." + aliyunEndpoint + "/");
                 }
             });
 

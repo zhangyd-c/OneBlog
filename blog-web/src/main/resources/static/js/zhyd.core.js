@@ -1,26 +1,4 @@
 /**
- * MIT License
- *
- * Copyright (c) 2018 yadong.zhang
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
  * 项目核心Js库，主要包含核心工具类和 相关插件
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -205,38 +183,63 @@
 
     $.extend({
         alert: {
-            info: function (content, delayTime, callback) {
+            info: function (content, callback, delayTime) {
                 delayTime = delayTime ? "confirm|" + delayTime : "confirm|3000";
                 $.jqAlert({
+                    icon: 'fa fa-info-circle',
                     title: '友情提示',
                     content: content,
-                    confirmButton: '关闭',
+                    type: 'green',
+                    typeAnimated: true,
                     autoClose: delayTime,
-                    confirm: callback
+                    buttons: {
+                        confirm: {
+                            text: "关闭",
+                            btnClass: 'btn-default',
+                            action: callback
+                        }
+                    }
                 });
             },
-            error: function (content, delayTime, callback) {
+            error: function (content, callback, delayTime) {
                 delayTime = delayTime ? "confirm|" + delayTime : "confirm|3000";
                 $.jqAlert({
+                    icon: 'fa fa-exclamation-circle',
                     title: '警告',
                     content: content,
-                    confirmButton: '关闭',
                     autoClose: delayTime,
-                    confirm: callback
+                    type: 'orange',
+                    typeAnimated: true,
+                    buttons: {
+                        confirm: {
+                            text: "关闭",
+                            btnClass: 'btn-default',
+                            action: callback
+                        }
+                    }
                 });
             },
             confirm: function (content, confirmCallback, cancelCallback, delayTime) {
                 delayTime = delayTime ? "cancel|" + delayTime : "cancel|5000";
                 $.jqConfirm({
-                    confirmButtonClass: 'btn-success',
-                    cancelButtonClass: 'btn-default',
-                    title: '友情提示',
+                    icon: 'fa fa-question-circle',
+                    title: '确认？',
                     content: content,
                     autoClose: delayTime,
-                    confirmButton: '确定',
-                    cancelButton: '关闭',
-                    confirm: confirmCallback,
-                    cancel: cancelCallback
+                    type: 'dark',
+                    typeAnimated: true,
+                    buttons: {
+                        confirm: {
+                            text: '确定',
+                            btnClass: 'btn-green',
+                            action: confirmCallback
+                        },
+                        cancel: {
+                            text: '取消',
+                            btnClass: 'btn-default',
+                            action: cancelCallback
+                        }
+                    }
                 });
             },
             ajaxSuccessConfirm: function (json, callback) {

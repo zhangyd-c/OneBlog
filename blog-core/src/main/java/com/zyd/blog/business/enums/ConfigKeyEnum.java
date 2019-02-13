@@ -195,6 +195,10 @@ public enum ConfigKeyEnum {
      * 维护通知的日期
      */
     MAINTENANCE_DATE("maintenanceDate"),
+    /**
+     * 维护通知大约需要的时间
+     */
+    MAINTENANCE_TIME("maintenanceTime"),
 
     /**
      * 系统最后一次更新的日期

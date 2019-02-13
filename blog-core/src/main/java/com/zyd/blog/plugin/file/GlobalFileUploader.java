@@ -3,7 +3,7 @@ package com.zyd.blog.plugin.file;
 import com.zyd.blog.file.ApiClient;
 import com.zyd.blog.file.FileUploader;
 import com.zyd.blog.file.entity.VirtualFile;
-import com.zyd.blog.file.exception.QiniuApiException;
+import com.zyd.blog.file.exception.GlobalFileException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,11 +43,10 @@ public class GlobalFileUploader extends BaseFileUploader implements FileUploader
     @Override
     public boolean delete(String filePath, String uploadType) {
         if (StringUtils.isEmpty(filePath)) {
-            throw new QiniuApiException("[文件服务]文件删除失败，文件为空！");
+            throw new GlobalFileException("[文件服务]文件删除失败，文件为空！");
         }
 
         ApiClient apiClient = this.getApiClient(uploadType);
-
         return this.removeFile(apiClient, filePath, uploadType);
     }
 }

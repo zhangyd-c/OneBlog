@@ -58,7 +58,7 @@ $(".to-choose-info").click(function () {
     if(validator.checkAll($publishForm)) {
         $("#publishModal").modal('show');
     }
-})
+});
 
 // 点击保存
 $(".publishBtn").click(function () {

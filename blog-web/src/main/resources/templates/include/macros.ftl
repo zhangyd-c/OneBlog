@@ -65,7 +65,7 @@
             <h4>${title}</h4>
             <p class="blog-description" id="hitokoto"></p>
             <div>
-                <a href="javascript:void(0);" target="_blank" title="点击QQ联系我"onclick="window.open('tencent://message/?uin=${config.qq}&amp;Site=www.${config.domain}&amp;Menu=yes')" rel="external nofollow"><i class="fa fa fa-qq fa-fw"></i>QQ联系</a>
+                <a href="javascript:void(0);" target="_blank" title="点击QQ联系我" onclick="window.open('tencent://message/?uin=${config.qq}&amp;Site=www.${config.domain}&amp;Menu=yes')" rel="external nofollow"><i class="fa fa fa-qq fa-fw"></i>QQ联系</a>
                 |
                 <a href="mailto:${config.authorEmail}" target="_blank" title="点击给我发邮件" rel="external nofollow"><i class="fa fa fa-envelope fa-fw"></i>邮箱联系</a>
                 |
@@ -78,10 +78,10 @@
 <#-- 页面顶部、菜单下方提示栏 -->
 <#macro prompt>
     <!--[if lt IE 9]><div class="alert alert-danger topframe" role="alert">Oh My God！你的浏览器实在<strong>太太太太太太旧了</strong>，赶紧升级浏览器 <a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div><![endif]-->
-    <#if config.maintenance?if_exists && config.maintenance>
+    <#if config.maintenance?if_exists && config.maintenance == 1>
     <div class="alert alert-warning fade-in" role="alert">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
-        系统预计将在<strong>${config.maintenanceDate}</strong>进行更新，届时网站将无法使用，更新时间大约 5-10分钟，敬请悉知。
+        系统预计将在<strong>${config.maintenanceDate}</strong>左右进行更新维护，届时网站将无法使用，更新大约持续${config.maintenanceTime!(30)}分钟，敬请悉知。
     </div>
     </#if>
 </#macro>

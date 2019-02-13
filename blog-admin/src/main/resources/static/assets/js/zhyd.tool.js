@@ -18,35 +18,60 @@
             info: function (content, callback, delayTime) {
                 delayTime = delayTime ? "confirm|" + delayTime : "confirm|3000";
                 $.jqAlert({
+                    icon: 'fa fa-info-circle',
                     title: '友情提示',
                     content: content,
-                    confirmButton: '关闭',
+                    type: 'green',
+                    typeAnimated: true,
                     autoClose: delayTime,
-                    confirm: callback
+                    buttons: {
+                        confirm: {
+                            text: "关闭",
+                            btnClass: 'btn-default',
+                            action: callback
+                        }
+                    }
                 });
             },
             error: function (content, callback, delayTime) {
                 delayTime = delayTime ? "confirm|" + delayTime : "confirm|3000";
                 $.jqAlert({
+                    icon: 'fa fa-exclamation-circle',
                     title: '警告',
                     content: content,
-                    confirmButton: '关闭',
                     autoClose: delayTime,
-                    confirm: callback
+                    type: 'orange',
+                    typeAnimated: true,
+                    buttons: {
+                        confirm: {
+                            text: "关闭",
+                            btnClass: 'btn-default',
+                            action: callback
+                        }
+                    }
                 });
             },
             confirm: function (content, confirmCallback, cancelCallback, delayTime) {
                 delayTime = delayTime ? "cancel|" + delayTime : "cancel|5000";
                 $.jqConfirm({
-                    confirmButtonClass: 'btn-success',
-                    cancelButtonClass: 'btn-default',
-                    title: '确认提示',
+                    icon: 'fa fa-question-circle',
+                    title: '确认？',
                     content: content,
                     autoClose: delayTime,
-                    confirmButton: '确定',
-                    cancelButton: '关闭',
-                    confirm: confirmCallback,
-                    cancel: cancelCallback
+                    type: 'dark',
+                    typeAnimated: true,
+                    buttons: {
+                        confirm: {
+                            text: '确定',
+                            btnClass: 'btn-green',
+                            action: confirmCallback
+                        },
+                        cancel: {
+                            text: '取消',
+                            btnClass: 'btn-default',
+                            action: cancelCallback
+                        }
+                    }
                 });
             },
             ajaxSuccessConfirm: function (json, callback, cancelCallback) {

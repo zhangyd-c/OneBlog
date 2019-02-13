@@ -146,13 +146,15 @@
                         editable: false,
                         width: '200px',
                         formatter: function (code, row, index) {
-                            return '<ul class="list-unstyled" style="max-width: 200px;">' +
-                                    '<li><a href="' + row.url + '" target="_blank"><img src="' + filterXSS(row.avatar) + '" style="width: 20px;border-radius: 50%;position: relative;top: -2px;"/>' + filterXSS(row.nickname) + '</a></li>' +
-                                    '<li>IP: <span style="color: #a9a9a9;">'+row.ip+'</span></li>' +
-                                    '<li>地址: <span style="color: #a9a9a9;">'+row.address+'</span></li>' +
-                                    // '<li>邮箱: <span style="color: #a9a9a9;">'+filterXSS(row.email)+'</span></li>' +
-                                    '<li>设备: <span style="color: #a9a9a9;">'+row.os + ' ' + row.browser +'</span></li>' +
-                                    '<li style="color: #a9a9a9;">'+row.createTimeString+'</li></ul>';
+                            return '<ul class="list-unstyled">' +
+                                    '<li>' +
+                                    '<a href="' + row.url + '" target="_blank"><img src="' + filterXSS(row.avatar) + '" onerror="this.src=\'/assets/images/user.png\'" style="width: 20px;border-radius: 50%;position: relative;top: -2px;"/> ' + filterXSS(row.nickname) + '</a>' +
+                                    '<a href="javascript:void(0);" onclick="window.open(\'tencent://message/?uin=' + row.qq + '&amp;Menu=yes\')" rel="external nofollow" target="_blank"><i class="fa fa-qq fa-fw"></i></a>' +
+                                    '<a href="mailto:' + filterXSS(row.email) + '" rel="external nofollow" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>' +
+                                    '</li>' +
+                                    '<li><i class="fa fa-address-book-o fa-fw"></i> <span style="color: #a9a9a9;">' + row.ip + ' | ' + row.address + '</span></li>' +
+                                    '<li><i class="fa fa-windows fa-fw"></i> <span style="color: #a9a9a9;">' + row.os + ' | ' + row.browser + '</span></li>' +
+                                    '<li><i class="fa fa-clock-o fa-fw"></i> <span style="color: #a9a9a9;">' + row.createTimeString + '</span></li></ul>';
                         }
                     }, {
                         field: 'content',
