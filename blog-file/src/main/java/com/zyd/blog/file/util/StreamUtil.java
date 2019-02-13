@@ -57,6 +57,9 @@ public class StreamUtil {
      * @return
      */
     public static InputStream clone(InputStream is) {
+        if(null == is){
+            throw new GlobalFileException("文件流为空，无法复制当前文件流！");
+        }
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];

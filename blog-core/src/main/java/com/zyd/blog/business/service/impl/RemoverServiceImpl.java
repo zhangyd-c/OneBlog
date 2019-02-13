@@ -40,7 +40,8 @@ import java.util.stream.Collectors;
 @Service
 public class RemoverServiceImpl implements RemoverService {
 
-    private static final Pattern PATTERN = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
+    private static final Pattern PATTERN = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^'\"]+data-original\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>|<img[^>]+data-original\\s*=\\s*['\"]([^'\"]+)['\"][^'\"]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>|<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
+//    private static final Pattern PATTERN = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
 
     @Autowired
     private BizArticleService articleService;
@@ -75,7 +76,7 @@ public class RemoverServiceImpl implements RemoverService {
     }
 
     @Override
-    public void crawlSingle(Long typeId, String[] urls, PrintWriter writer) {
+    public void crawlSingle(Long typeId, String[] urls, boolean convertImg, PrintWriter writer) {
         WriterUtil writerUtil = new WriterUtil(writer);
         String spiderConfig = sysConfigService.getSpiderConfig();
         for (int i = 0; i < urls.length; i++) {
@@ -85,6 +86,7 @@ public class RemoverServiceImpl implements RemoverService {
                 continue;
             }
             model.setSingle(true);
+            model.setConvertImg(convertImg);
             this.crawl(typeId, model, writer, i == urls.length - 1);
         }
     }
@@ -192,32 +194,78 @@ public class RemoverServiceImpl implements RemoverService {
     /**
      * 解析Html中的img标签，将图片转存到七牛云
      *
-     * @param referer       为了预防某些网站做了权限验证，不加referer可能会403
-     * @param html          待解析的html
-     * @param writerUtil    打印输出的工具类
+     * @param referer    为了预防某些网站做了权限验证，不加referer可能会403
+     * @param html       待解析的html
+     * @param writerUtil 打印输出的工具类
      */
     private String parseImgForHtml(String referer, String html, WriterUtil writerUtil) {
         if (StringUtils.isEmpty(html)) {
             return null;
         }
-        Matcher m = PATTERN.matcher(html);
-        Set<String> imgUrlSet = new HashSet<>();
-        while (m.find()) {
-            String imgUrl = m.group(1);
-            imgUrlSet.add(imgUrl);
-        }
+        Set<String[]> imgUrlSet = this.getAllImageSrc(html);
         if (!CollectionUtils.isEmpty(imgUrlSet)) {
             writerUtil.print(String.format("[ crawl ] 检测到存在%s张图片，即将转存图片到云存储服务器中...", imgUrlSet.size()));
-            for (String imgUrl : imgUrlSet) {
-                String resImgPath = ImageDownloadUtil.saveToCloudStorage(imgUrl, referer);
+            for (String[] imgUrls : imgUrlSet) {
+                String resImgPath = ImageDownloadUtil.saveToCloudStorage(imgUrls[0], referer);
                 if (StringUtils.isEmpty(resImgPath)) {
                     writerUtil.print("[ crawl ] 图片转存失败，请确保云存储已经配置完毕！请查看控制台详细错误信息...");
                     continue;
                 }
-                html = html.replace(imgUrl, resImgPath);
-                writerUtil.print(String.format("[ crawl ] <a href=\"%s\" target=\"_blank\">原图片</a> convert to <a href=\"%s\" target=\"_blank\">云存储</a>...", imgUrl, resImgPath));
+                html = html.replace(imgUrls[0], resImgPath).replace(imgUrls[1], resImgPath);
+                writerUtil.print(String.format("[ crawl ] <a href=\"%s\" target=\"_blank\">原图片</a> convert to <a href=\"%s\" target=\"_blank\">云存储</a>...", imgUrls[0], resImgPath));
             }
         }
         return html;
     }
+
+    private Set<String[]> getAllImageSrc(String html) {
+        if (StringUtils.isEmpty(html)) {
+            return null;
+        }
+        String base64Prefix = "data:image";
+        Matcher m = PATTERN.matcher(html);
+        Set<String[]> imgUrlSet = new HashSet<>();
+        while (m.find()) {
+            String imgUrl1 = m.group(1), imgUrl2 = m.group(2);// 如果不为空，则表示img标签格式为 <img src="xx" data-original="xx">,下同， 一般为添加了懒加载的img
+            String imgUrl3 = m.group(3), imgUrl4 = m.group(4);// 如果不为空，则表示img标签格式为 <img data-original="xx" src="xx">,下同， 一般为添加了懒加载的img
+            String imgUrl5 = m.group(5);// 如果不为空，则表示img标签格式为 <img src="xx">, 正常的标签
+            String[] res = new String[2];
+            if(!StringUtils.isEmpty(imgUrl1)) {
+                if(imgUrl1.contains(base64Prefix)) {
+                    res[0] = imgUrl2;
+                    res[1] = imgUrl1;
+                } else {
+                    res[0] = imgUrl1;
+                    res[1] = imgUrl2;
+                }
+            } else if (!StringUtils.isEmpty(imgUrl3)) {
+                if(imgUrl3.contains(base64Prefix)) {
+                    res[0] = imgUrl4;
+                    res[1] = imgUrl3;
+                } else {
+                    res[0] = imgUrl3;
+                    res[1] = imgUrl4;
+                }
+            } else if (!StringUtils.isEmpty(imgUrl5)) {
+                res[0] = imgUrl5;
+                res[1] = null;
+            }
+            imgUrlSet.add(res);
+        }
+        return imgUrlSet;
+    }
+
+        public static void main(String[] args) {
+            String html1 = "<img class=\"lazyload\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC\" data-original=\"//img.mukewang.com/5be03eb80001631815940793.png\" alt=\"图片描述\">";
+            String html2 = "<img class=\"lazyload\" data-original=\"//img.mukewang.com/5be03eb80001631815940793.png\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC\" alt=\"图片描述\">";
+            String html3 = "<img class=\"lazyload\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC\" alt=\"图片描述\">";
+
+            RemoverServiceImpl service = new RemoverServiceImpl();
+            int i = 1;
+            for (String s : Arrays.asList(html1, html2, html3)) {
+                System.out.println("==============html" + (i++));
+                service.getAllImageSrc(s);
+            }
+
+        }
 }

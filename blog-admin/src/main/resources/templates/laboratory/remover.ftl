@@ -255,6 +255,16 @@
                             <div role="tabpanel" class="tab-pane fade" id="single" aria-labelledby="single-tab">
                                 <form id="removerSingleForm" action="/remover/single" target="spiderFrame" method="post" class="form-horizontal form-label-left" novalidate>
                                     <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="url">转图存片</label>
+                                        <div class="col-md-7 col-sm-7 col-xs-7">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" class="square" name="convertImg" checked="checked">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-3" for="url">请输入文章链接 <span class="required">*</span></label>
                                         <div class="col-md-7 col-sm-7 col-xs-7">
                                             <div class="input-group">

@@ -17,5 +17,5 @@ public interface RemoverService {
 
     void stop();
 
-    void crawlSingle(Long typeId, String[] url, PrintWriter writer);
+    void crawlSingle(Long typeId, String[] url, boolean convertImg, PrintWriter writer);
 }

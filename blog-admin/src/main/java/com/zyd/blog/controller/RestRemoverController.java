@@ -55,8 +55,8 @@ public class RestRemoverController {
     @PostMapping("/single")
     @ResponseBody
     @BussinessLog("抓取单个文章")
-    public void single(Long typeId, String[] url, HttpServletResponse response) throws IOException, InterruptedException {
-        removerService.crawlSingle(typeId, url, response.getWriter());
+    public void single(Long typeId, String[] url, boolean convertImg, HttpServletResponse response) throws IOException, InterruptedException {
+        removerService.crawlSingle(typeId, url, convertImg, response.getWriter());
     }
 
 }
