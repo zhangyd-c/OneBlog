@@ -583,16 +583,16 @@
 <@footer>
     <script type="text/javascript">
         $(function () {
-            var oldStorageType;
+            var oldStorageType, firstLoad = true;
             $.ajax({
                 url: '/config/get',
                 type: 'POST',
                 success: function (json) {
                     var data = json.data;
+                    oldStorageType = data.storageType;
                     $("#myTabContent").find("input, select, textarea").each(function () {
                         clearText($(this), this.type, data);
                     });
-                    oldStorageType = data.storageType;
                     changeMaintenance(data.maintenance && data.maintenance == 1, data.maintenance);
                     data.zfbPraiseCode && $("#zfbPraiseCodePreview").html('<img src="' + data.fileStoragePath + data.zfbPraiseCode + '" alt="支付宝赞赏码" class="img-responsive img-rounded auto-shake">');
                     data.wxPraiseCode && $("#wxPraiseCodePreview").html('<img src="' + data.fileStoragePath + data.wxPraiseCode + '" alt="微信赞赏码" class="img-responsive img-rounded auto-shake">');
@@ -620,23 +620,31 @@
                 if (!$("#" + thisValue).hasClass("hide")) {
                     return;
                 }
-                if(oldStorageType !== thisValue) {
-                    $.alert.confirm("您确定要切换云存储类型吗？切换后原文件将不可访问！", function () {
-                        oldStorageType = thisValue;
-                        $(".storage-box").each(function () {
-                            var $box = $(this);
-                            if ($box.attr("id") === thisValue) {
-                                $box.removeClass("hide").find("input").removeAttr("disabled").removeAttr("readonly");
-                            } else {
-                                $box.addClass("hide").find("input").attr("disabled", "disabled").attr("readonly", "readonly");
-                            }
-                        });
-                    }, function () {
-                        $("#tab_storage input[name=storageType]").each(function () {
-                            var $this = $(this);
-                            $this.iCheck((oldStorageType !== $this.val()) ? 'uncheck' : 'check');
-                        });
+                function changeStorageBox() {
+                    $(".storage-box").each(function () {
+                        var $box = $(this);
+                        if ($box.attr("id") === thisValue) {
+                            $box.removeClass("hide").find("input").removeAttr("disabled").removeAttr("readonly");
+                        } else {
+                            $box.addClass("hide").find("input").attr("disabled", "disabled").attr("readonly", "readonly");
+                        }
                     });
+                }
+                if(firstLoad) {
+                    changeStorageBox();
+                    firstLoad = false;
+                } else {
+                    if(oldStorageType !== thisValue) {
+                        $.alert.confirm("您确定要切换云存储类型吗？切换后原文件将不可访问！", function () {
+                            oldStorageType = thisValue;
+                            changeStorageBox();
+                        }, function () {
+                            $("#tab_storage input[name=storageType]").each(function () {
+                                var $this = $(this);
+                                $this.iCheck((oldStorageType !== $this.val()) ? 'uncheck' : 'check');
+                            });
+                        });
+                    }
                 }
             });
 
