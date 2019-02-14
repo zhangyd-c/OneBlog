@@ -364,8 +364,8 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
                                             <ul class="list-unstyled list-inline">
-                                                <li><label for="storageType" class="pointer"> <input type="radio" class="square" checked name="anonymous" value="1"> 开启 </label></li>
-                                                <li><label for="storageType" class="pointer"> <input type="radio" class="square" name="anonymous" value="0"> 关闭 </label></li>
+                                                <li><label for="anonymous" class="pointer"> <input type="radio" class="square" checked name="anonymous" value="1"> 开启 </label></li>
+                                                <li><label for="anonymous" class="pointer"> <input type="radio" class="square" name="anonymous" value="0"> 关闭 </label></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -373,8 +373,8 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment">开启留言板评论 <i class="fa fa-question-circle" title="控制留言板页面的评论框显示情况"></i></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
                                             <ul class="list-unstyled list-inline">
-                                                <li><label for="storageType" class="pointer"> <input type="radio" class="square" checked name="comment" value="1"> 开启 </label></li>
-                                                <li><label for="storageType" class="pointer"> <input type="radio" class="square" name="comment" value="0"> 关闭 </label></li>
+                                                <li><label for="comment" class="pointer"> <input type="radio" class="square" checked name="comment" value="1"> 开启 </label></li>
+                                                <li><label for="comment" class="pointer"> <input type="radio" class="square" name="comment" value="0"> 关闭 </label></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -493,8 +493,8 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenance">维护通知</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
                                             <ul class="list-unstyled list-inline">
-                                                <li><label for="storageType" class="pointer"> <input type="radio" class="square" checked name="maintenance" value="1"> 显示 </label> </li>
-                                                <li><label for="storageType" class="pointer"> <input type="radio" class="square" name="maintenance" value="0"> 关闭 </label></li>
+                                                <li><label for="maintenance" class="pointer"> <input type="radio" class="square" checked name="maintenance" value="1"> 显示 </label> </li>
+                                                <li><label for="maintenance" class="pointer"> <input type="radio" class="square" name="maintenance" value="0"> 关闭 </label></li>
                                             </ul>
                                         </div>
                                     </div>

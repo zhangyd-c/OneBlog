@@ -177,6 +177,8 @@ INSERT INTO `dblog`.`sys_resources` VALUES (72, '实验室', 'menu', '', '', 0, 
 INSERT INTO `dblog`.`sys_resources` VALUES (73, '文章搬运工', 'menu', '/remover', 'remover', 72, NULL, 0, 1, '', now(), now());
 INSERT INTO `dblog`.`sys_resources` VALUES (74, '编辑器', 'menu', '/editor', 'editor', 68, NULL, 0, 1, '', now(), now());
 
+INSERT INTO `dblog`.`sys_resources` VALUES (75, '文件管理', 'menu', '/files', 'files', 40, 6, 0, 1, NULL, now(), now());
+
 # 清空系统角色
 TRUNCATE TABLE `dblog`.`sys_role`;
 # 初始化系统角色

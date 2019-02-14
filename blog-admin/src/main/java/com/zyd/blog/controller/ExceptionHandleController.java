@@ -2,6 +2,7 @@ package com.zyd.blog.controller;
 
 import com.zyd.blog.business.consts.CommonConst;
 import com.zyd.blog.business.enums.ResponseStatus;
+import com.zyd.blog.file.exception.OssApiException;
 import com.zyd.blog.framework.exception.*;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.util.ResultUtil;
@@ -59,7 +60,7 @@ public class ExceptionHandleController {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public ResponseVO handle(Throwable e) {
-        if (e instanceof ZhydException) {
+        if (e instanceof ZhydException || e instanceof OssApiException) {
             return ResultUtil.error(e.getMessage());
         }
         if (e instanceof UndeclaredThrowableException) {

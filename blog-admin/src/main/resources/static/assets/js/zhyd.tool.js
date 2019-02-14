@@ -85,10 +85,10 @@
                     }
                 }
             },
-            ajaxSuccess: function (json) {
+            ajaxSuccess: function (json, callback) {
                 if (json.status == 200) {
                     if (json.message) {
-                        $.alert.info(json.message);
+                        $.alert.info(json.message, callback);
                     }
                 } else {
                     if (json.message) {

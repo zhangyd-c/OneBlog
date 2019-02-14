@@ -67,6 +67,13 @@ var gentelella = window.gentelella || {
                 });
             });
         }, delay || 0);
+    },
+    initiICheck: function () {
+        $("input[type=checkbox], input[type=radio]").iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+            increaseArea: '20%' // optional
+        });
     }
 };
 
@@ -130,11 +137,7 @@ $(document).ready(function () {
         })
     }
 }), $(document).ready(function () {
-    $("input[type=checkbox], input[type=radio]").iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
-    });
+    gentelella.initiICheck();
 });
 "undefined" != typeof NProgress && ($(document).ready(function () {
     NProgress.start()

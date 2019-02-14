@@ -3488,17 +3488,22 @@ ul.project_files li a i {
 }
 
 .thumbnail .image {
-    height: 120px;
+    height: 147px;
     overflow: hidden
 }
 
 .caption {
-    padding: 9px 5px;
+    padding: 5px !important;
     background: #F7F7F7
 }
 
 .caption p {
     margin-bottom: 5px
+}
+
+.caption img {
+    float: right;
+    width: 20px;
 }
 
 .thumbnail {
@@ -3518,12 +3523,13 @@ ul.project_files li a i {
     cursor: pointer
 }
 
-.view .content, .view .mask {
+.view .content, .view .vmask {
     position: absolute;
     width: 100%;
+    height: 100%;
     overflow: hidden;
     top: 0;
-    left: 0
+    left: 0;
 }
 
 .sideways, .view .tools, .view img, .view p {
@@ -3540,10 +3546,13 @@ ul.project_files li a i {
     font-size: 17px;
     padding: 3px;
     background: rgba(0, 0, 0, .35);
-    margin: 43px 0 0
+    /* margin: 69px 0 0; */
+    bottom: 0;
+    position: absolute;
+    width: 100%;
 }
 
-.mask.no-caption .tools {
+.vmask.no-caption .tools {
     margin: 90px 0 0
 }
 
@@ -3575,9 +3584,9 @@ ul.project_files li a i {
     transition: all .2s linear
 }
 
-.view-first .mask {
+.view-first .vmask {
     opacity: 0;
-    background-color: rgba(0, 0, 0, .5);
+    background-color: rgba(0, 0, 0, .2);
     transition: all .4s ease-in-out
 }
 
@@ -3597,7 +3606,7 @@ ul.project_files li a i {
     transform: scale(1.1)
 }
 
-.view-first:hover .mask {
+.view-first:hover .vmask {
     opacity: 1
 }
 
@@ -3625,6 +3634,46 @@ ul.project_files li a i {
 .input-group.date .input-group-addon {
     border-radius: 0 !important;
     background-color: #ffff !important
+}
+
+
+.thumbnail.selected, .thumbnail:hover {
+    -moz-box-shadow:0 0 15px #b5b5b5;
+    -webkit-box-shadow:0 0 15px #b5b5b5;
+    box-shadow:0 0 15px #b5b5b5;
+}
+.thumbnail.selected .selected-mask, .thumbnail:hover  .selected-mask {
+    opacity: 1;
+}
+.thumbnail .selected-mask {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+.thumbnail .selected-mask [class^="icheckbox"] {
+    float: left!important;
+}
+.thumbnail .selected-mask .inner {
+    width: 100%;
+    height: 100%;
+    -moz-opacity: .6;
+    -khtml-opacity: .6;
+    opacity: .6;
+    background-color: #000;
+    filter: alpha(opacity=60);
+}
+.thumbnail .selected-mask .icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent url(/assets/images/selected_mask.png) no-repeat 0 0;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    display: inline-block;
+    background-position: 50% 50%;
 }
 
 /*!

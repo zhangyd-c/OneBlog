@@ -201,4 +201,11 @@ public class RenderController {
         model.addAttribute("spiderConfig", configService.getSpiderConfig());
         return ResultUtil.view("laboratory/remover");
     }
+
+    @RequiresPermissions("files")
+    @BussinessLog("进入文件管理页面")
+    @GetMapping("/files")
+    public ModelAndView files(Model model) {
+        return ResultUtil.view("file/list");
+    }
 }

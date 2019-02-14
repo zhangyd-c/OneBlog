@@ -5,8 +5,10 @@ import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.File;
 import com.zyd.blog.business.service.BizFileService;
 import com.zyd.blog.business.vo.FileConditionVO;
+import com.zyd.blog.file.FileUploader;
 import com.zyd.blog.persistence.beans.BizFile;
 import com.zyd.blog.persistence.mapper.BizFileMapper;
+import com.zyd.blog.plugin.file.GlobalFileUploader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,6 +66,18 @@ public class BizFileServiceImpl implements BizFileService {
         }
         List<BizFile> fileList = shopFileMapper.select(file);
         return CollectionUtils.isEmpty(fileList) ? null : new File(fileList.get(0));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void remove(Long[] ids) {
+        for (Long id : ids) {
+            File oldFile = this.getByPrimaryKey(id);
+
+            this.removeByPrimaryKey(id);
+            FileUploader uploader = new GlobalFileUploader();
+            uploader.delete(oldFile.getFilePath(), oldFile.getUploadType());
+        }
     }
 
     @Override

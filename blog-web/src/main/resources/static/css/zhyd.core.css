@@ -217,11 +217,40 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 
 .blog-info-body, .disclaimer-body, .archives-body {
     font-size: 14px;
-    color: #666;
+    color: #1c1f21;
     line-height: 24px;
     padding: 10px 0;
     overflow: hidden;
     word-wrap: break-word;
+}
+
+.blog-info-body h1, .blog-info-body h2, .blog-info-body h3, .blog-info-body h4, .blog-info-body h5, .blog-info-body h6 {
+    font-family: inherit;
+    font-weight: 700;
+}
+
+.blog-info-body h1 {
+    font-size: 1.89111em;
+}
+
+.blog-info-body h2 {
+    font-size: 1.49111em;
+}
+
+.blog-info-body h3 {
+    font-size: 1.19111em;
+}
+
+.blog-info-body h4 {
+    font-size: 1.1em;
+}
+
+.blog-info-body h5 {
+    font-size: 1em;
+}
+
+.blog-info-body h6 {
+    font-size: .857em;
 }
 
 .blog-info-body ol {
@@ -274,11 +303,38 @@ fieldset legend {
 }
 
 blockquote {
+    text-indent: 0;
     padding: 10px 20px;
-    margin: 0;
-    font-size: 14px;
-    border-left: 5px solid #eee;
-    background-color: #fefefe;
+    margin: 0 0 15px;
+    color: #555;
+    font-size: 1em;
+    background-color: #f5f5f5;
+    border-left: 4px solid #ccc;
+}
+
+.blog-info-body  p {
+    text-indent: 0;
+    line-height: 1.5;
+    margin: .8em 0!important;
+    color: #1c1f21;
+    overflow-x: auto;
+}
+
+.blog-info-body  table {
+    display: table!important;
+    margin-bottom: 10px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.blog-info-body  table th, .blog-info-body  table td {
+    border: 1px solid #e6e6e6!important;
+    padding: 5px 8px!important;
+    word-break: normal;
+}
+
+.blog-info-body  table th {
+    background: #eee;
 }
 
 .div-quote {
@@ -290,16 +346,16 @@ blockquote {
 
 pre {
     display: block;
-    padding: 8px;
-    margin: 10px 0 10px;
-    font-size: 14px;
+    padding: 10px!important;
+    overflow-x: auto;
+    font-size: 1em;
     line-height: 1.42857143;
     color: #333;
+    white-space: pre;
     word-break: break-all;
     word-wrap: break-word;
-    background-color: #f8f8f8;
-    border: 0 solid #ccc;
-    border-radius: 0;
+    background-color: #fbfdff!important;
+    border: 1px solid #f1f3f5;
 }
 
 .bottom-line {
