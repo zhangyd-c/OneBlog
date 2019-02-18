@@ -594,8 +594,8 @@
                         clearText($(this), this.type, data);
                     });
                     changeMaintenance(data.maintenance && data.maintenance == 1, data.maintenance);
-                    data.zfbPraiseCode && $("#zfbPraiseCodePreview").html('<img src="' + data.fileStoragePath + data.zfbPraiseCode + '" alt="支付宝赞赏码" class="img-responsive img-rounded auto-shake">');
-                    data.wxPraiseCode && $("#wxPraiseCodePreview").html('<img src="' + data.fileStoragePath + data.wxPraiseCode + '" alt="微信赞赏码" class="img-responsive img-rounded auto-shake">');
+                    data.zfbPraiseCode && $("#zfbPraiseCodePreview").html('<img src="' + data.zfbPraiseCode + '" alt="支付宝赞赏码" class="img-responsive img-rounded auto-shake">');
+                    data.wxPraiseCode && $("#wxPraiseCodePreview").html('<img src="' + data.wxPraiseCode + '" alt="微信赞赏码" class="img-responsive img-rounded auto-shake">');
                 }
             });
 

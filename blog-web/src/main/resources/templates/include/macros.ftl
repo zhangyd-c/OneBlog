@@ -90,15 +90,15 @@
 <#macro praise>
     <#if config.wxPraiseCode?if_exists || config.zfbPraiseCode?if_exists>
         <h5 class="custom-title"><i class="fa fa-dollar fa-fw"></i><strong>鼓励一下</strong><small></small></h5>
-        <div class="col-sm-12 col-md-12">
+        <div class="col-sm-12 col-md-12" style="float: initial;">
             <#if config.zfbPraiseCode?if_exists>
-                <a href="${config.fileStoragePath}${config.zfbPraiseCode}" class="showImage" title="支付宝收钱码" rel="external nofollow">
-                    <img src="${config.fileStoragePath}${config.zfbPraiseCode}" alt="支付宝收钱码" class="img-rounded" style="width: 250px;height: auto;">
+                <a href="${config.zfbPraiseCode}" class="showImage" title="支付宝收钱码" rel="external nofollow">
+                    <img src="${config.zfbPraiseCode}" alt="支付宝收钱码" class="img-rounded" style="width: 250px;height: auto;">
                 </a>
             </#if>
             <#if config.wxPraiseCode?if_exists>
-                <a href="${config.fileStoragePath}${config.wxPraiseCode}" class="showImage" title="微信收钱码" rel="external nofollow">
-                    <img src="${config.fileStoragePath}${config.wxPraiseCode}" alt="微信收钱码" class="img-rounded" style="width: 250px;height: auto;">
+                <a href="${config.wxPraiseCode}" class="showImage" title="微信收钱码" rel="external nofollow">
+                    <img src="${config.wxPraiseCode}" alt="微信收钱码" class="img-rounded" style="width: 250px;height: auto;">
                 </a>
             </#if>
         </div>

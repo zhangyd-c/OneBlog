@@ -43,8 +43,8 @@ public class RestConfigController {
                            @RequestParam(required = false) MultipartFile zfbPraiseCode) {
         try {
             sysConfigService.saveConfig(configs);
-            sysConfigService.saveFile("wx_praise_code", wxPraiseCode);
-            sysConfigService.saveFile("zfb_praise_code", zfbPraiseCode);
+            sysConfigService.saveFile("wxPraiseCode", wxPraiseCode);
+            sysConfigService.saveFile("zfbPraiseCode", zfbPraiseCode);
         } catch (Exception e) {
             e.printStackTrace();
             return ResultUtil.error("系统配置修改失败");

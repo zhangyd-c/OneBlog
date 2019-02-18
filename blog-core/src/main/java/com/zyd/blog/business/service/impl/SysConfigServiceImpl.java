@@ -85,7 +85,7 @@ public class SysConfigServiceImpl implements SysConfigService {
         if (file != null) {
             FileUploader uploader = new GlobalFileUploader();
             VirtualFile virtualFile = uploader.upload(file, FileUploadType.QRCODE.getPath(), true);
-            this.saveConfig(key, virtualFile.getFilePath());
+            this.saveConfig(key, virtualFile.getFullFilePath());
         }
     }
 

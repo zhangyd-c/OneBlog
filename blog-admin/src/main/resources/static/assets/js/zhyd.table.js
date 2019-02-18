@@ -225,6 +225,9 @@ function clearText($this, type, info) {
     if (info) {
         var thisName = $this.attr("name");
         var thisValue = info[thisName];
+        if(type == 'file') {
+            return false;
+        }
         if (type == 'radio') {
             var _typeof = (typeof thisValue);
             if (_typeof == "boolean" || _typeof == "number") {
