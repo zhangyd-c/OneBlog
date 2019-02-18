@@ -102,6 +102,163 @@
         }
     });
     $.extend({
+        modal: {
+            material: {
+                _loadData: function(config, callback){
+                    $("#selectable").html(config.selectable), $("#selected").html(0);
+                    zhyd.mask.loading($(".material-body"), "加载中...");
+                    $.ajax({
+                        url: "/file/list",
+                        data: {pageNumber: config && config.pageNumber ? config.pageNumber : 1},
+                        type: "POST",
+                        success: function (json) {
+                            zhyd.mask.closeAll($(".material-body"));
+                            var $box = $(".list-file");
+                            var tpl = '{{#list}}<li class="material-item" data-imgUrl="{{fullFilePath}}"><div style="position: relative;">' +
+                                '<div class="selected-mask mask-xs"><div class="inner"></div><div class="icon"></div></div>' +
+                                '<img class="lazy-img" data-original="{{fullFilePath}}" alt="image"></div></li>{{/list}}{{^list}}<li>素材库为空</li>{{/list}}';
+                            var html = Mustache.render(tpl, json);
+                            var pageTpl = '{{#data}}<li class="material-page">\n' +
+                                '    <div class="material-page-body">\n' +
+                                '        {{#hasPreviousPage}}<a class="btn btn-default btn-sm material-pagination" data-page="{{prePage}}">\n' +
+                                '            <i class="fa fa-caret-left"></i>\n' +
+                                '        </a>{{/hasPreviousPage}}<span style="margin-right: 5px;">{{pageNum}}/{{pages}}</span>{{#hasNextPage}}<a class="btn btn-default btn-sm material-pagination" data-page="{{nextPage}}">\n' +
+                                '            <i class="fa fa-caret-right"></i>\n' +
+                                '        </a>{{/hasNextPage}}<input class="form-control input-sm material-input">\n' +
+                                '    <a class="btn btn-default btn-sm material-jump">\n' +
+                                '            Go\n' +
+                                '        </a>\n' +
+                                '    \n' +
+                                '    </div>\n' +
+                                '</li>{{/data}}';
+                            html += Mustache.render(pageTpl, {data: json});
+                            $box.html(html);
+
+                            // 图片懒加载
+                            var $lazyImg = $("img.lazy-img");
+                            $lazyImg.lazyload({
+                                placeholder : appConfig.cmsPath + "/assets/images/loading.gif",
+                                effect: "fadeIn",
+                                threshold: 100
+                            });
+                            $lazyImg.trigger("sporty");
+
+                            // 绑定分页点击事件
+                            $(".material-pagination").unbind("click").click(function () {
+                                var $this = $(this);
+                                var pageNumber = $this.data("page");
+                                config.pageNumber = !pageNumber || isNaN(pageNumber) ? 1 : parseInt(pageNumber);
+                                console.log(config.pageNumber);
+                                $.modal.material._loadData(config);
+                            });
+                            // 绑定分页-跳转页面点击事件
+                            $(".material-jump").unbind("click").click(function () {
+                                var $this = $(this);
+                                var jumpTarget = $(".material-input").val();
+                                config.pageNumber = !jumpTarget || isNaN(jumpTarget) ? 1 : parseInt(jumpTarget);
+                                $.modal.material._loadData(config);
+                            });
+
+                            // 绑定图片点击事件
+                            var selectable = 0;
+                            var $li = $box.find("li.material-item");
+                            $li.unbind("click").click(function () {
+                                var $this = $(this);
+                                if(config.multiSelect) {
+                                    if($this.hasClass("active") || $this.hasClass("selected")) {
+                                        selectable --;
+                                        $this.removeClass("active selected");
+                                    } else {
+                                        if(selectable >= config.selectable) {
+                                            $.alert.error("最多只能选择" + config.selectable + "张图片！");
+                                            return false;
+                                        }
+                                        selectable ++;
+                                        $this.addClass("active selected");
+                                    }
+
+                                    $("#selected").html(selectable);
+                                } else {
+                                    $this.addClass("current");
+                                    $li.each(function () {
+                                        !$(this).hasClass("current") && $(this).removeClass("active selected");
+                                    });
+                                    $this.toggleClass("active selected").removeClass("current");
+                                    if($this.hasClass("active") || $this.hasClass("selected")) {
+                                        $("#selected").html(1);
+                                    } else {
+                                        $("#selected").html(0);
+                                    }
+                                }
+                            });
+
+                            // 执行回调
+                            callback && callback($box);
+                        },
+                        error: function () {
+                            zhyd.mask.closeAll($(".material-body"));
+                        }
+                    })
+                },
+                open: function (config, callback){
+                    config = $.extend({
+                        // 是否多选
+                        multiSelect: false,
+                        // 可选择的数量，当multiSelect为true时可用
+                        selectable: 1
+                    }, config);
+                    $("#chooseImgModal").modal('show');
+                    this._loadData(config, function ($box) {
+
+                        $(".btn-confirm").unbind("click").click(function () {
+                            var $this = $(this);
+                            var imgUrls = [];
+                            $box.find("li").each(function () {
+                                var $thisLi = $(this);
+                                if($thisLi.hasClass("active") || $thisLi.hasClass("selected") ){
+                                    var imgUrl = $thisLi.attr("data-imgUrl");
+                                    imgUrls.push(imgUrl);
+                                }
+                            });
+                            if(config.multiSelect) {
+                                callback(imgUrls);
+                            } else {
+                                callback(imgUrls[0]);
+                            }
+                        });
+
+                        $("#btn-material-upload").unbind("click").click(function () {
+                            var $input = $("#input-material-upload");
+                            $input.click().unbind("change").change(function () {
+                                var selectedFiles = document.getElementById("input-material-upload").files;
+                                if(!selectedFiles || selectedFiles.length <= 0) {
+                                    return false;
+                                }
+                                var $form = $("#materialForm");
+                                if (validator.checkAll($form)) {
+                                    $form.ajaxSubmit({
+                                        type: "post",
+                                        url: "/file/add",
+                                        success: function (json) {
+                                            if (json.status == 200) {
+                                                $.modal.material._loadData(config)
+                                            } else {
+                                                if (json.message) {
+                                                    $.alert.error(json.message);
+                                                }
+                                            }
+                                        },
+                                        error: $.alert.ajaxError
+                                    });
+                                }
+                            });
+                        });
+                    })
+                }
+            }
+        }
+    });
+    $.extend({
         toastr: {
             initToastr: function () {
                 if (toastr) {

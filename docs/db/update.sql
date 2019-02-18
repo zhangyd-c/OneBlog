@@ -224,3 +224,10 @@ CREATE TABLE `biz_file`  (
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+
+
+# 2.2.0版本 批量修改biz_article表的cover_image为全路径
+UPDATE `dblog`.`biz_article`
+SET `cover_image` = CONCAT((SELECT config_value FROM sys_config WHERE config_key = 'qiniuBasePath' ), `cover_image`)
+WHERE
+	LEFT(cover_image, 8) != 'https://' && LEFT(cover_image, 7) != 'http://'

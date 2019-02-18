@@ -29,7 +29,7 @@ if(articleId){
                     $('#comment').iCheck(info.comment ? 'check' : 'uncheck');
                 }
                 if(info['coverImage']){
-                    $(".coverImage").attr('src', appConfig.fileStoragePath + info['coverImage']);
+                    $(".coverImage").attr('src', info['coverImage']);
                 }
                 var contentMd = info['contentMd'];
                 if(contentMd){
@@ -84,7 +84,7 @@ $(".publishBtn").click(function () {
                 if(isMarkdown == 1) {
                     $.tool.delCache("smde_" + op.uniqueId);
                 }
-                $.alert.ajaxSuccessConfirm(json, function () {
+                $.alert.ajaxSuccess(json, function () {
                     window.location.href = '/articles';
                 });
             },
@@ -93,45 +93,11 @@ $(".publishBtn").click(function () {
     }
 });
 
-var loadImg = false;
-// 选择图片
 $("#file-upload-btn").click(function () {
-    $("#chooseImg").modal('show');
-    if(!loadImg){
-        // 加载素材库
-        $.ajax({
-            type: "post",
-            url: "/api/material",
-            success: function (json) {
-                $.alert.ajaxSuccess(json);
-                loadImg = true;
-                var $box = $(".list-material");
-                var tpl = '{{#data}}<li data-imgUrl="{{.}}"><div class="col-md-55"><img class="lazy-img" data-original="' + appConfig.fileStoragePath + '{{.}}" alt="image"></div></li>{{/data}}{{^data}}<li>素材库为空</li>{{/data}}';
-                var html = Mustache.render(tpl, json);
-                $box.html(html);
-                $box.find("li").click(function () {
-                    $box.find("li").each(function () {
-                        $(this).removeClass("active");
-                    });
-                    var $this = $(this);
-                    $this.toggleClass("active");
-                    if($this.hasClass("active")){
-                        var imgUrl = $this.attr("data-imgUrl");
-                        $("#cover-img-input").val(imgUrl);
-                        $(".preview img.coverImage").attr("src", appConfig.fileStoragePath + imgUrl);
-                    }
-                });
-                $("img.lazy-img").lazyload({
-                    placeholder : appConfig.staticPath + "/img/loading.gif",
-                    effect: "fadeIn",
-                    threshold: 100
-                });
-
-                $("img.lazy-img").trigger("sporty");
-            },
-            error: $.alert.ajaxError
-        });
-    }
+    $.modal.material.open({multiSelect: false}, function (selectedImageUrl) {
+        $("#cover-img-input").val(selectedImageUrl);
+        $(".preview img.coverImage").attr("src", selectedImageUrl);
+    })
 });
 
 // 选择图片

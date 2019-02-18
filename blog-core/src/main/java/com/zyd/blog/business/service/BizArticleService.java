@@ -92,13 +92,6 @@ public interface BizArticleService extends AbstractService<Article, Long> {
     boolean isExist(Long id);
 
     /**
-     * 获取素材库
-     *
-     * @return
-     */
-    List<String> listMaterial();
-
-    /**
      * 发布文章
      * a
      *

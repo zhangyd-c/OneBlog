@@ -3,9 +3,11 @@ package com.zyd.blog.business.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.File;
+import com.zyd.blog.business.enums.FileUploadType;
 import com.zyd.blog.business.service.BizFileService;
 import com.zyd.blog.business.vo.FileConditionVO;
 import com.zyd.blog.file.FileUploader;
+import com.zyd.blog.file.exception.GlobalFileException;
 import com.zyd.blog.persistence.beans.BizFile;
 import com.zyd.blog.persistence.mapper.BizFileMapper;
 import com.zyd.blog.plugin.file.GlobalFileUploader;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -78,6 +81,19 @@ public class BizFileServiceImpl implements BizFileService {
             FileUploader uploader = new GlobalFileUploader();
             uploader.delete(oldFile.getFilePath(), oldFile.getUploadType());
         }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int upload(MultipartFile[] file) {
+        if (null == file || file.length == 0) {
+            throw new GlobalFileException("请至少选择一张图片！");
+        }
+        for (MultipartFile multipartFile : file) {
+            FileUploader uploader = new GlobalFileUploader();
+            uploader.upload(multipartFile, FileUploadType.COMMON.getPath(), true);
+        }
+        return file.length;
     }
 
     @Override

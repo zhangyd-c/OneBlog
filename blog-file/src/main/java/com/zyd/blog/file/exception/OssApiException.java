@@ -7,7 +7,7 @@ package com.zyd.blog.file.exception;
  * @date 2017/7/12 10:29
  * @since 1.8
  */
-public class OssApiException extends RuntimeException {
+public class OssApiException extends GlobalFileException {
 
     public OssApiException(String message) {
         super(message);

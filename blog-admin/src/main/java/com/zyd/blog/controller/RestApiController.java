@@ -70,17 +70,6 @@ public class RestApiController {
     }
 
     /**
-     * 发布文章选择图片时获取素材库
-     *
-     * @return
-     */
-    @RequiresPermissions("article:publish")
-    @PostMapping("/material")
-    public ResponseVO material() {
-        return ResultUtil.success("", articleService.listMaterial());
-    }
-
-    /**
      * 发送消息通知
      *
      * @return
@@ -90,6 +79,6 @@ public class RestApiController {
     @BussinessLog("通过websocket向前台用户发送通知")
     public ResponseVO notice(String msg) throws UnsupportedEncodingException {
         WebSocketUtil.sendNotificationMsg(msg, websocketServer.getOnlineUsers());
-        return ResultUtil.success("消息发送成功", articleService.listMaterial());
+        return ResultUtil.success("消息发送成功");
     }
 }

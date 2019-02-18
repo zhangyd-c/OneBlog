@@ -6,7 +6,7 @@ package com.zyd.blog.file.exception;
  * @date 2018/12/5 17:15
  * @since 1.8
  */
-public class LocalApiException extends RuntimeException {
+public class LocalApiException extends GlobalFileException {
     public LocalApiException() {
         super();
     }

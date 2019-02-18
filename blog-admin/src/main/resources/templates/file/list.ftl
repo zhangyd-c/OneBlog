@@ -61,7 +61,7 @@
     <div class="item form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-3" for="url">选择图片 <span class="required">*</span></label>
         <div class="col-md-7 col-sm-7 col-xs-7">
-            <input type="file" class="form-control" name="file" id="file" required="required"/>
+            <input type="file" class="form-control" name="file" id="file" accept="image/bmp,image/png,image/jpeg,image/jpg,image/gif" required="required"/>
         </div>
     </div>
 </@addOrUpdateMOdal>
@@ -74,26 +74,26 @@
                 type: "POST",
                 success: function (json) {
                     var tpl = '{{#list}}<div class="col-md-55">\n' +
-                        '                            <div class="thumbnail">\n' +
-                        '                                <div class="image view view-first pointer file-item">\n' +
-                        '                                    <img style="width: 100%; display: block;" src="{{fullFilePath}}" onerror="this.alt=\'图片加载失败\'" alt="{{originalFileName}}" title="{{originalFileName}}" />\n' +
-                        '                                    <div class="vmask">\n' +
-                        '                                        <p>File Path: {{filePath}}<br>File Hash: {{fileHash}}</p>\n' +
-                        '                                        <div class="tools tools-bottom">\n' +
-                        '                                            <a href="{{fullFilePath}}" class="file-icon showImage" title="大图查看"><i class="fa fa-eye"></i></a>\n' +
-                        '                                            <a href="{{fullFilePath}}" target="_blank" class="file-icon" title="复制地址（打开标签后复制）"><i class="fa fa-link"></i></a>\n' +
-                        '                                            <a class="pointer file-icon" data-event="del" data-value="{{id}}" data-storage-type="{{storageType}}" title="删除文件"><i class="fa fa-times"></i></a>\n' +
-                        '                                        </div>\n' +
-                        '                                    </div>\n' +
-                        '                                    <div class="selected-mask">\n' +
-                        '                                        <input type="checkbox" class="square mask-checkbox" name="ids" value="{{id}}" data-storage-type="{{storageType}}" />' +
-                        '                                    </div>\n' +
-                        '                                </div>\n' +
-                        '                                <div class="caption">\n' +
-                        '                                    <p>{{originalFileName}}<img src="/assets/images/icons/{{storageType}}.svg" alt="{{storageType}}" title="{{storageType}}"></p>\n' +
+                        '                    <div class="thumbnail">\n' +
+                        '                        <div class="image view view-first pointer file-item">\n' +
+                        '                            <img style="width: 100%; display: block;" src="{{fullFilePath}}" onerror="this.alt=\'图片加载失败\'" alt="{{originalFileName}}" title="{{originalFileName}}" />\n' +
+                        '                            <div class="vmask">\n' +
+                        '                                <p>点击选中</p>\n' +
+                        '                                <div class="tools tools-bottom">\n' +
+                        '                                    <a href="{{fullFilePath}}" class="file-icon showImage" title="{{filePath}}"><i class="fa fa-eye"></i></a>\n' +
+                        '                                    <a href="{{fullFilePath}}" target="_blank" class="file-icon" title="复制地址（打开标签后复制）"><i class="fa fa-link"></i></a>\n' +
+                        '                                    <a class="pointer file-icon" data-event="del" data-value="{{id}}" data-storage-type="{{storageType}}" title="删除文件"><i class="fa fa-times"></i></a>\n' +
                         '                                </div>\n' +
                         '                            </div>\n' +
-                        '                        </div>{{/list}}';
+                        '                            <div class="selected-mask">\n' +
+                        '                                <input type="checkbox" class="square mask-checkbox" name="ids" value="{{id}}" data-storage-type="{{storageType}}" />' +
+                        '                            </div>\n' +
+                        '                        </div>\n' +
+                        '                        <div class="caption">\n' +
+                        '                            <p><span title="{{originalFileName}}">{{originalFileName}}</span><img src="/assets/images/icons/{{storageType}}.svg" alt="{{storageType}}" title="{{storageType}}"></p>\n' +
+                        '                        </div>\n' +
+                        '                    </div>\n' +
+                        '                </div>{{/list}}';
                     var html = Mustache.render(tpl, json);
                     $("#file-container").html(html);
                     gentelella.initiICheck();

@@ -234,17 +234,6 @@ public class BizArticleServiceImpl implements BizArticleService {
     }
 
     /**
-     * 获取素材库
-     *
-     * @return
-     */
-    @Override
-    public List<String> listMaterial() {
-        List<String> list = bizArticleMapper.listMaterial();
-        return !CollectionUtils.isEmpty(list) ? list.stream().filter(s -> !StringUtils.isEmpty(s)).collect(Collectors.toList()) : null;
-    }
-
-    /**
      * 发布文章
      *
      * @param article

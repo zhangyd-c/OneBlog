@@ -2384,6 +2384,9 @@ a.star {
     padding: 3px 0;
     border: 1px solid #EFEFEF
 }
+.editor-statusbar .lines:before {
+    content: ''!important;
+}
 
 .input-group {
     margin-bottom: 10px
@@ -3501,7 +3504,16 @@ ul.project_files li a i {
     margin-bottom: 5px
 }
 
-.caption img {
+.caption p span {
+    display: inline-block;
+    width: 88%;
+    white-space: nowrap;
+    word-wrap: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.caption p img {
     float: right;
     width: 20px;
 }
@@ -3566,10 +3578,11 @@ ul.project_files li a i {
 
 .view p {
     font-family: Georgia, serif;
-    font-size: 12px;
+    font-size: 15px;
     color: #fff;
     padding: 10px 20px 20px;
-    text-align: center
+    text-align: center;
+    line-height: 7;
 }
 
 .view a.info {
@@ -3642,20 +3655,24 @@ ul.project_files li a i {
     -webkit-box-shadow:0 0 15px #b5b5b5;
     box-shadow:0 0 15px #b5b5b5;
 }
-.thumbnail.selected .selected-mask, .thumbnail:hover  .selected-mask {
+.thumbnail.selected .selected-mask, .thumbnail:hover  .selected-mask, .material-item.selected .selected-mask {
     opacity: 1;
 }
-.thumbnail .selected-mask {
+.thumbnail .selected-mask, .material-item .selected-mask {
     display: block;
     position: absolute;
     top: 0;
     left: 0;
     opacity: 0;
 }
+.thumbnail .selected-mask.mask-xs, .material-item .selected-mask.mask-xs {
+    width: 95px;
+    height: 95px;
+}
 .thumbnail .selected-mask [class^="icheckbox"] {
     float: left!important;
 }
-.thumbnail .selected-mask .inner {
+.thumbnail .selected-mask .inner, .material-item .selected-mask .inner {
     width: 100%;
     height: 100%;
     -moz-opacity: .6;
@@ -3664,7 +3681,7 @@ ul.project_files li a i {
     background-color: #000;
     filter: alpha(opacity=60);
 }
-.thumbnail .selected-mask .icon {
+.thumbnail .selected-mask .icon, .material-item .selected-mask .icon {
     position: absolute;
     top: 0;
     left: 0;
@@ -4888,43 +4905,92 @@ ul, menu, dir {
     background-color: #f5f5f5;
 }
 
+
+
+.chooseImgModal .material-status, #chooseImgModal .material-status {
+    line-height: 3;
+    color: #333
+}
+
+.chooseImgModal .material-box::-webkit-scrollbar {
+    margin-right: 2px;
+    width: 5px;
+}
+
+.chooseImgModal .material-box::-webkit-scrollbar-thumb {
+    width: 5px;
+    border: 0 solid #000;
+    background: #cbcbcb;
+}
+
+.chooseImgModal .material-box::-webkit-scrollbar-track-piece {
+    border-left: 0 solid #d2d2d2;
+    background-color: #f5f5f5;
+}
+
 .material-box {
-    min-height: 250px;
-    height: 250px;
+    max-height: 325px;
+    min-height: 215px;
+    /*height: 250px;*/
     overflow-y: scroll;
 }
 
-.material-box ul li {
+.material-box ul li.material-item {
     border: 1px solid #ddd;
-    -webkit-transition: border .2s ease-in-out;
-    -o-transition: border .2s ease-in-out;
-    transition: border .2s ease-in-out;
+    /*-webkit-transition: border .2s ease-in-out;*/
+    /*-o-transition: border .2s ease-in-out;*/
+    /*transition: border .2s ease-in-out;*/
     float: left;
-    width: 120px;
-    height: 120px;
-    margin: 5px;
+    width: 96px;
+    height: 96px;
+    margin: 7px;
 }
 
-.material-box ul li:hover {
+.material-box ul li.material-item:hover {
     -moz-box-shadow: 2px 2px 5px #cbd0d6;
     -webkit-box-shadow: 2px 2px 5px #cbd0d6;
     box-shadow: 2px 2px 5px #cbd0d6;
 }
 
-.material-box ul li.active {
+.material-box ul li.material-item.active {
     -moz-box-shadow: 2px 2px 5px #cbd0d6;
     -webkit-box-shadow: 2px 2px 5px #cbd0d6;
     box-shadow: 2px 2px 5px #cbd0d6;
 }
 
-.material-box ul li img {
-    transition: all .2s linear;
-    width: 100px;
-    max-height: 100px;
+.material-box ul li.material-item img {
+    /*transition: all .2s linear;*/
+    width: 100%;
+    max-height: 95px;
 }
 
-.material-box ul li:hover img {
-    transform: scale(1.1);
+.material-box ul li.material-item:hover img {
+    /*transform: scale(1.1);*/
+}
+
+.material-box ul li.material-page {
+    width: 100%;
+    height: 38px;
+    border: 0 solid #ddd;
+    text-align: right;
+    padding-right: 15px;
+    padding-top: 5px;
+    float: right;
+}
+
+.material-box ul li.material-page .material-page-body {
+    width: 100%;
+    height: 100%;
+}
+
+.material-box ul li.material-page .material-page-body a, .material-box ul li.material-page .material-page-body input {
+    display: inline-block
+}
+
+.material-box ul li.material-page .material-page-body input {
+    width: 50px;
+    position: relative;
+    top: -2px;
 }
 
 .preview img {

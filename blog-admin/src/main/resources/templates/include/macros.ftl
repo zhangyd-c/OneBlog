@@ -87,7 +87,7 @@
 <#-- 面包屑导航内容 + 系统通知 -->
 <#macro breadcrumb>
     <div class="row">
-        <div class="col col-md-9">
+        <div class="col col-md-8">
             <nav class="breadcrumb">
                 <div class="notify"><i class="fa fa-bullhorn fa-fw"></i></div>
                 <div id="scrolldiv">
@@ -101,7 +101,7 @@
                 </div>
             </nav>
         </div>
-        <div class="col col-md-3 text-right">
+        <div class="col col-md-4 text-right">
             <#nested>
         </div>
     </div>
@@ -208,44 +208,36 @@
 
 <#-- 发布文章时选择图片的弹窗模板 -->
 <#macro chooseImgModal>
-    <div class="modal fade" id="chooseImg" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="addroleLabel">选择图片</h4>
+    <div class="modal fade chooseImgModal" id="chooseImgModal" tabindex="-1" role="dialog" aria-labelledby="chooseImgLabelledby" aria-hidden="true" data-backdrop="static"
+     data-keyboard="false">
+    <div class="modal-dialog <#--modal-lg-->" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="chooseImgLabelledby"><i class="fa fa-image fa-fw"></i>素材库</h4>
+            </div>
+            <div class="modal-body material-body">
+                <div class="btn-group" style="width: 100%;margin: 0 5px 5px 5px;padding: 0 0 10px 0;border-bottom: 1px solid #e7e7eb;">
+                    <form action="" id="materialForm">
+                        <input id="input-material-upload" type="file" name="file" multiple="multiple" accept="image/bmp,image/png,image/jpeg,image/jpg,image/gif" style="display: none;">
+                        <button id="btn-material-upload" type="button" class="btn btn-success btn-md" title="本地上传">
+                            <i class="fa fa-cloud-upload fa-fw"></i> 本地上传
+                        </button>
+                    </form>
                 </div>
-                <div class="modal-body">
-                    <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                            <li role="presentation" class="active">
-                                <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">素材库</a>
-                            </li>
-                            <li role="presentation" class="">
-                                <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">本地图片</a>
-                            </li>
-                        </ul>
-                        <div id="myTabContent" class="tab-content">
-                            <div role="tabpanel" class="tab-pane fade active in material-box" id="tab_content1" aria-labelledby="home-tab">
-                                <ul class="list-unstyled list-material">
-                                </ul>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-                                <button type="button" class="btn btn-round btn-info" id="file-btn">选择图片</button>
-                                <div class="preview" class="fa-2x">
-                                    <img class="coverImage" src="" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="fade active in material-box">
+                    <ul class="list-unstyled list-file">
+                    </ul>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"> 关闭</i></button>
-                    <button type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-hand-o-up"> 确定</i></button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <span class="material-status pull-left">已选<span id="selected">0</span>个，可选<span id="selectable">1</span>个</span>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"> 关闭</i></button>
+                <button type="button" class="btn btn-success btn-confirm" data-dismiss="modal"><i class="fa fa-hand-o-up"> 确定</i></button>
             </div>
         </div>
     </div>
+</div>
 </#macro>
 
 <#-- 添加或者修改列表记录时的弹窗模板 -->

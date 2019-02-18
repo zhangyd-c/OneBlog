@@ -2,13 +2,9 @@ package com.zyd.blog.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.annotation.BussinessLog;
-import com.zyd.blog.business.entity.File;
-import com.zyd.blog.business.enums.FileUploadType;
 import com.zyd.blog.business.service.BizFileService;
 import com.zyd.blog.business.vo.FileConditionVO;
-import com.zyd.blog.file.FileUploader;
 import com.zyd.blog.framework.object.ResponseVO;
-import com.zyd.blog.plugin.file.GlobalFileUploader;
 import com.zyd.blog.util.ResultUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +50,11 @@ public class RestFileController {
     @RequiresPermissions("files")
     @PostMapping(value = "/add")
     @BussinessLog("添加文件")
-    public ResponseVO add(MultipartFile file) {
-        FileUploader uploader = new GlobalFileUploader();
-        uploader.upload(file, FileUploadType.COMMON.getPath(), true);
-        return ResultUtil.success("成功上传一张图片");
+    public ResponseVO add(MultipartFile[] file) {
+        if (null == file || file.length == 0) {
+            return ResultUtil.error("请至少选择一张图片！");
+        }
+        int res = fileService.upload(file);
+        return ResultUtil.success("成功上传" + res + "张图片");
     }
 }

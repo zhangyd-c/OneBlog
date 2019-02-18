@@ -192,15 +192,6 @@
 			a.id = #{id}
 	</select>
 
-	<select id="listMaterial" resultType="String">
-		SELECT
-			a.cover_image
-		FROM
-			biz_article a
-		GROUP BY
-			a.cover_image
-	</select>
-
 	<update id="batchUpdateStatus" parameterType="map">
 		UPDATE `biz_article`
 		SET status = #{status}

@@ -317,31 +317,18 @@ var zhyd = window.zhyd || {
                 },
                 placeholder: "请输入文本内容",
                 // 如果设置为true，则会出现JS警报窗口，询问链接或图像URL(插入图片或链接弹窗)。默认为false
-                promptURLs: true,
+                promptURLs: false,
                 renderingConfig: {
                     // 如果设置为true，将使用highlight.js高亮显示。默认为false
                     codeSyntaxHighlighting: true
                 },
                 showIcons: ["code", "table", "clean-block", "horizontal-rule"],
                 tabSize: 4,
-                // 编辑器底部的状态栏
-                status: true,
-                status: ["autosave", "lines", "words", "cursor"], // Optional usage
-                status: ["autosave", "lines", "words", "cursor", {
-                    className: "keystrokes",
-                    defaultValue: function (el) {
-                        this.keystrokes = 0;
-                        el.innerHTML = "0 Keystrokes";
-                    },
-                    onUpdate: function (el) {
-                        el.innerHTML = ++this.keystrokes + " Keystrokes";
-                    }
-                }]
-
+                status: false
             });
-
             zhyd.simpleMDE.plugins.registerFullscreen();
             zhyd.simpleMDE.plugins.registerUpload($op.uploadUrl, simplemde);
+            zhyd.simpleMDE.plugins.registerUploadImg();
 
             $(".editor-preview-side").addClass("markdown-body");
         },
@@ -399,6 +386,96 @@ var zhyd = window.zhyd || {
                         uploadUrl: uploadUrl
                     });
                 }
+            },
+            registerUploadImg: function () {
+                function getState(cm, pos) {
+                    pos = pos || cm.getCursor("start");
+                    var stat = cm.getTokenAt(pos);
+                    if(!stat.type) return {};
+                    var types = stat.type.split(" ");
+                    var ret = {},
+                        data, text;
+                    for(var i = 0; i < types.length; i++) {
+                        data = types[i];
+                        if(data === "strong") {
+                            ret.bold = true;
+                        } else if(data === "variable-2") {
+                            text = cm.getLine(pos.line);
+                            if(/^\s*\d+\.\s/.test(text)) {
+                                ret["ordered-list"] = true;
+                            } else {
+                                ret["unordered-list"] = true;
+                            }
+                        } else if(data === "atom") {
+                            ret.quote = true;
+                        } else if(data === "em") {
+                            ret.italic = true;
+                        } else if(data === "quote") {
+                            ret.quote = true;
+                        } else if(data === "strikethrough") {
+                            ret.strikethrough = true;
+                        } else if(data === "comment") {
+                            ret.code = true;
+                        } else if(data === "link") {
+                            ret.link = true;
+                        } else if(data === "tag") {
+                            ret.image = true;
+                        } else if(data.match(/^header(\-[1-6])?$/)) {
+                            ret[data.replace("header", "heading")] = true;
+                        }
+                    }
+                    return ret;
+                }
+                function insertHtml(imgUrl){
+                    var cm = simplemde.codemirror;
+                    var state = getState(cm);
+                    var options = simplemde.options;
+
+                    if(/editor-preview-active/.test(cm.getWrapperElement().lastChild.className))
+                        return;
+                    var text;
+                    var start = options.insertTexts.image[0];
+                    var end = options.insertTexts.image[1];
+                    var startPoint = cm.getCursor("start");
+                    var endPoint = cm.getCursor("end");
+                    if(imgUrl) {
+                        end = end.replace("#url#", imgUrl);
+                    }
+                    if(state.image) {
+                        text = cm.getLine(startPoint.line);
+                        start = text.slice(0, startPoint.ch);
+                        end = text.slice(startPoint.ch);
+                        cm.replaceRange(start + end, {
+                            line: startPoint.line,
+                            ch: 0
+                        });
+                    } else {
+                        text = cm.getSelection();
+                        var img = start + text + end;
+                        cm.replaceSelection(img);
+                        startPoint.ch += img.length;
+                        if(startPoint !== endPoint) {
+                            endPoint.ch += img.length;
+                        }
+                    }
+                    cm.setSelection(startPoint, endPoint);
+                    cm.focus();
+                }
+                try {
+                    var insertImage = document.getElementsByClassName("editor-toolbar")[0].getElementsByTagName("a")[9];
+                    insertImage.onclick = function (ev) {
+                        $.modal.material.open({multiSelect: true, selectable: 10}, function (selectedImageUrls) {
+                            if(!selectedImageUrls) {
+                                return false;
+                            }
+                            for(var i = 0; i < selectedImageUrls.length; i ++){
+                                insertHtml(selectedImageUrls[i]);
+                            }
+                        })
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
             }
         }
     },
@@ -411,7 +488,9 @@ var zhyd = window.zhyd || {
         _open: function (container, msg, type) {
             var html = Mustache.render(this._box, {icon: this._icon[type], text: msg, maskType: type});
             $(container).append(html);
-
+        },
+        closeAll: function (container) {
+            $(container).find("div.mask.load, div.mask.lock").remove();
         },
         init: function () {
             console.log("init mask...");
@@ -431,6 +510,12 @@ var zhyd = window.zhyd || {
         },
         locking: function (container, msg) {
             this._open(container, msg || "Locking", "lock");
+        },
+        closeLoading: function (container) {
+            $(container).find("div.mask.load").remove();
+        },
+        closeLocking: function (container) {
+            $(container).find("div.mask.lock").remove();
         }
     }
 };

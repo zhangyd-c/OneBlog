@@ -67,13 +67,6 @@ public interface BizArticleMapper extends BaseMapper<BizArticle> {
     Integer isExist(Long id);
 
     /**
-     * 获取封面图片素材
-     *
-     * @return
-     */
-    List<String> listMaterial();
-
-    /**
      * 批量修改status
      *
      * @param list
