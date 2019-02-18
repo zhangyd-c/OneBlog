@@ -213,6 +213,8 @@ var zhyd = window.zhyd || {
             editor.create();
             // 注册全屏插件
             zhyd.wangEditor.plugins.registerFullscreen(config.container);
+            // 注册图片资源库
+            zhyd.wangEditor.plugins.registerMaterial(editor, $contentBox);
 
             if (config.customCss) {
                 // 自定义编辑器的样式
@@ -284,6 +286,28 @@ var zhyd = window.zhyd || {
                         }
                     };
                 }
+            },
+            registerMaterial: function (editor, $contentBox) {
+                $("div[id^='w-e-img']").unbind("click").click(function () {
+                    setTimeout(function () {
+                        // 删掉原来的input#file，防止触发原选中文件的函数
+                        $(".w-e-up-img-container").find("input").remove();
+                        // 重新绑定选中图片按钮的事件
+                        $("div[id^='up-trigger'], div.w-e-up-btn").unbind("click").click(function () {
+                            $.modal.material.open({multiSelect: true, selectable: 10}, function (selectedImageUrls) {
+                                if(!selectedImageUrls) {
+                                    return false;
+                                }
+                                for(var i = 0; i < selectedImageUrls.length; i ++){
+                                    editor.txt.append('<img src="' + selectedImageUrls[i] + '" alt="" style="max-width: 100%;height: auto;border-radius: 6px;"/>');
+                                    $contentBox.val(editor.txt.html());
+                                }
+                            })
+                        })
+                    }, 50);
+                })
+
+
             }
         }
     },
@@ -328,7 +352,7 @@ var zhyd = window.zhyd || {
             });
             zhyd.simpleMDE.plugins.registerFullscreen();
             zhyd.simpleMDE.plugins.registerUpload($op.uploadUrl, simplemde);
-            zhyd.simpleMDE.plugins.registerUploadImg();
+            zhyd.simpleMDE.plugins.registerMaterial();
 
             $(".editor-preview-side").addClass("markdown-body");
         },
@@ -387,7 +411,7 @@ var zhyd = window.zhyd || {
                     });
                 }
             },
-            registerUploadImg: function () {
+            registerMaterial: function () {
                 function getState(cm, pos) {
                     pos = pos || cm.getCursor("start");
                     var stat = cm.getTokenAt(pos);

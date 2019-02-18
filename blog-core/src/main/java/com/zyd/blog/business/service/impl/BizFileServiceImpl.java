@@ -76,10 +76,12 @@ public class BizFileServiceImpl implements BizFileService {
     public void remove(Long[] ids) {
         for (Long id : ids) {
             File oldFile = this.getByPrimaryKey(id);
-
             this.removeByPrimaryKey(id);
-            FileUploader uploader = new GlobalFileUploader();
-            uploader.delete(oldFile.getFilePath(), oldFile.getUploadType());
+            try {
+                FileUploader uploader = new GlobalFileUploader();
+                uploader.delete(oldFile.getFilePath(), oldFile.getUploadType());
+            } catch (Exception ignored) {
+            }
         }
     }
 

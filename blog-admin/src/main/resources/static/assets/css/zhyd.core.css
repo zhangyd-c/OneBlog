@@ -4907,6 +4907,9 @@ ul, menu, dir {
 
 
 
+.chooseImgModal, #chooseImgModal {
+    z-index: 9999;
+}
 .chooseImgModal .material-status, #chooseImgModal .material-status {
     line-height: 3;
     color: #333
