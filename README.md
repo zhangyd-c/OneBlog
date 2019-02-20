@@ -93,7 +93,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - “文章搬运工”功能，支持一键同步imooc、csdn、iteye或者cnblogs上的文章，可抓取列表和单个文章
 
 
-# 使用方法
+# 使用方法(以blog-web项目为例)
 
 1. 使用IDE导入本项目
 2. 新建数据库`CREATE DATABASE dblog;`
@@ -103,21 +103,18 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
    1. 数据库链接属性(在`[blog-core]/resources/config/application-center-{env}.yml`配置文件中搜索`datasource`或定位到L.5) 
    2. redis配置(在`[blog-core]/resources/config/application-center-{env}.yml`配置文件中搜索`redis`或定位到L.14)
    3. 以上两个必备的配置项修改完成后就能启动项目了。关于其他配置项，请参考后台“系统配置”页面
-6. 运行项目(三种方式)
+6. 运行项目(三种方式，任选其一)
    1. 项目根目录下执行`mvn -X clean package -Dmaven.test.skip=true -Ptest`编译打包（注：-Ptest中的test为环境标识），然后cd到blog-web目录下执行`java -jar target/blog-web.jar`
-   2. 项目根目录下执行`mvn spring-boot:run`(注，如果报依赖错误，可在相关的依赖模块先执行install操作)
+   2. 在`blog-web`项目根目录下执行`mvn spring-boot:run`(注，如果报依赖错误，可在相关的依赖模块先执行install操作)
    3. 直接运行`BlogWebApplication.java`
 7. 浏览器访问`http://127.0.0.1:8443`
-
-
-你能看到这儿已经很不容易了，剩下的自己先摸索摸索吧
+8. `blog-admin`项目的启动方式与`blog-web`类似，请参考上面的使用说明
 
 # 后续扩展
 - [ ] 1. 页面缓存
 - [ ] 2. cc防护
-- [ ] 3. 集成阿里云OSS
-- [ ] 4. 配套小程序
-- [ ] 5. 待续...
+- [ ] 3. 配套小程序
+- [ ] 4. 待续...
 ...
 
 # 在用OneBlog的网站 （排名按照留言先后顺序 ）
@@ -176,6 +173,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - 无私的网友
 - [gentelella](https://github.com/puikinsh/gentelella): 一款开源的Bootstrap3后台管理模板
 - [七牛云](https://portal.qiniu.com/signup?code=3l8yx2v0f21ci): 强大的对象存储、CDN等服务提供商
+- [emoji表情列表](https://github.com/caiyongji/emoji-list#nature): emoji表情列表
 - 待续...
 
 # 开源协议
