@@ -6,8 +6,8 @@
         staticPath: '${config.staticWebSite}'
     }
 </script>
-<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
-<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js" type="text/javascript"></script>
 <script src="https://cdn.bootcss.com/jquery-confirm/3.3.2/jquery-confirm.min.js" type="text/javascript"></script>
 <script src="https://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js" type="text/javascript"></script>
