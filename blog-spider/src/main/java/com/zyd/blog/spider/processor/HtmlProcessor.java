@@ -32,6 +32,8 @@ public class HtmlProcessor implements Processor {
             page.putField("description", pageHtml.xpath(model.getDescriptionRegex()).get());
             page.putField("keywords", pageHtml.xpath(model.getKeywordsRegex()).get());
         }
-        page.addTargetRequests(page.getHtml().links().regex(model.getTargetLinksRegex()).all());
+        if(!model.isSingle()) {
+            page.addTargetRequests(page.getHtml().links().regex(model.getTargetLinksRegex()).all());
+        }
     }
 }
