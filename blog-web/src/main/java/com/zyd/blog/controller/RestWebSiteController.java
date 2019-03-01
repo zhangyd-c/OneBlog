@@ -57,7 +57,9 @@ public class RestWebSiteController {
     @BussinessLog(value = "查看robots", platform = PlatformEnum.WEB)
     public String robots() {
         Template template = templateService.getTemplate(TemplateKeyEnum.TM_ROBOTS);
-        return template.getRefValue();
+        Map<String, Object> map = new HashMap<>();
+        map.put("config", configService.getConfigs());
+        return FreeMarkerUtil.template2String(template.getRefValue(), map, true);
     }
 
     private String getSitemap(TemplateKeyEnum key) {

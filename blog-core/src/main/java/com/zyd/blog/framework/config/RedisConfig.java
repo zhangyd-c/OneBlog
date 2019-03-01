@@ -13,11 +13,9 @@ import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 
-import java.lang.reflect.Method;
 import java.time.Duration;
 
 
@@ -41,20 +39,15 @@ public class RedisConfig extends CachingConfigurerSupport {
     @Override
     @Deprecated
     public KeyGenerator keyGenerator() {
-        return new KeyGenerator() {
-            @Override
-            public Object generate(Object target, Method method, Object... params) {
-                StringBuilder sb = new StringBuilder();
-                //类名+方法名
-                sb.append(target.getClass().getName());
-                sb.append("." + method.getName());
-                for (Object obj : params) {
-                    sb.append(String.valueOf(obj));
-                }
-                System.out.println("============:" + sb.toString());
-                return sb.toString();
+        return (target, method, params) -> {
+            StringBuilder sb = new StringBuilder();
+            //类名+方法名
+            sb.append(target.getClass().getName());
+            sb.append(".").append(method.getName());
+            for (Object obj : params) {
+                sb.append(obj);
             }
-
+            return sb.toString();
         };
     }
 
@@ -64,7 +57,7 @@ public class RedisConfig extends CachingConfigurerSupport {
                 // 默认缓存过期时间：天
                 .cacheDefaults(RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofDays(30)))
                 .transactionAware()
-        .build();
+                .build();
     }
 
     @Bean
