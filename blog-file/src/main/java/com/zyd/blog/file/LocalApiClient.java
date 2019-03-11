@@ -41,8 +41,10 @@ public class LocalApiClient extends BaseApiClient {
     }
 
     @Override
-    public VirtualFile uploadImg(InputStream is, String key) {
+    public VirtualFile uploadImg(InputStream is, String imageUrl) {
         this.check();
+
+        String key = FileUtil.generateTempFileName(imageUrl);
         this.createNewFileName(key, this.pathPrefix);
         Date startTime = new Date();
 
@@ -60,8 +62,8 @@ public class LocalApiClient extends BaseApiClient {
                     .setFilePath(this.newFileName)
                     .setFileHash(DigestUtils.md5DigestAsHex(fileHashIs))
                     .setFullFilePath(this.url + this.newFileName);
-        } catch (IOException e) {
-            throw new LocalApiException("[" + this.storageType + "]文件上传失败：" + e.getMessage());
+        } catch (Exception e) {
+            throw new LocalApiException("[" + this.storageType + "]文件上传失败：" + e.getMessage() + imageUrl);
         } finally {
             if (is != null) {
                 try {

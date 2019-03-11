@@ -231,3 +231,7 @@ UPDATE `dblog`.`biz_article`
 SET `cover_image` = CONCAT((SELECT config_value FROM sys_config WHERE config_key = 'qiniuBasePath' ), `cover_image`)
 WHERE
 	LEFT(cover_image, 8) != 'https://' && LEFT(cover_image, 7) != 'http://'
+
+
+# 云存储Nginx Server的示例配置
+INSERT INTO `dblog`.`sys_template` VALUES ('10', 'TM_NGINX_FILE_SERVER', 'server {\r\n    listen 80;\r\n    server_name serverName;\r\n    root serverPath;\r\n	error_page 403 /error.html;\r\n	location = /error.html {\r\n		return 404;\r\n	}\r\n	autoindex off; \r\n	autoindex_exact_size off; \r\n	autoindex_localtime off; \r\n	\r\n	location ^~ / {\r\n		proxy_set_header Host $host:$server_port;\r\n    }\r\n	\r\n	location ~*\\.(jpg|gif|png|swf|flv|wma|wmv|asf|mp3|mmf|zip|rar|js|css)$ {\r\n		expires 30d;\r\n		valid_referers serverReferers;\r\n		if ($invalid_referer) {\r\n			rewrite ^/ serverLogoPath;\r\n		}\r\n    }\r\n}\r\n', now(), now());

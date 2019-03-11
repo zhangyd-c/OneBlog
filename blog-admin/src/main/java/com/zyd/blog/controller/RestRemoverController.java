@@ -5,8 +5,8 @@ import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.consts.DateConst;
 import com.zyd.blog.business.service.RemoverService;
 import com.zyd.blog.framework.object.ResponseVO;
-import com.zyd.blog.spider.model.BaseModel;
 import com.zyd.blog.util.ResultUtil;
+import me.zhyd.hunter.config.HunterConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,8 +36,8 @@ public class RestRemoverController {
     @PostMapping("/run")
     @ResponseBody
     @BussinessLog("运行文章搬运工")
-    public void run(Long typeId, BaseModel model, HttpServletResponse response) throws IOException, InterruptedException {
-        removerService.run(typeId, model, response.getWriter());
+    public void run(Long typeId, HunterConfig config, HttpServletResponse response) throws IOException, InterruptedException {
+        removerService.run(typeId, config, response.getWriter());
     }
 
     @PostMapping("/stop")

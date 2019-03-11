@@ -59,6 +59,7 @@ public class ErrorPagesController implements ErrorController {
     public ModelAndView errorHtml404(HttpServletRequest request, HttpServletResponse response, WebRequest webRequest) {
         response.setStatus(HttpStatus.NOT_FOUND.value());
         Map<String, Object> model = getErrorAttributes(webRequest, isIncludeStackTrace(request, MediaType.TEXT_HTML));
+        model.put("queryString", request.getQueryString());
 
         return new ModelAndView("error/404", model);
     }
@@ -68,6 +69,7 @@ public class ErrorPagesController implements ErrorController {
         response.setStatus(HttpStatus.FORBIDDEN.value());
         // 404拦截规则，如果是静态文件发生的404则不记录到DB
         Map<String, Object> model = getErrorAttributes(webRequest, isIncludeStackTrace(request, MediaType.TEXT_HTML));
+        model.put("queryString", request.getQueryString());
         if (!String.valueOf(model.get("path")).contains(".")) {
             model.put("status", HttpStatus.FORBIDDEN.value());
         }
@@ -78,6 +80,7 @@ public class ErrorPagesController implements ErrorController {
     public ModelAndView errorHtml400(HttpServletRequest request, HttpServletResponse response, WebRequest webRequest) {
         response.setStatus(HttpStatus.BAD_REQUEST.value());
         Map<String, Object> model = getErrorAttributes(webRequest, isIncludeStackTrace(request, MediaType.TEXT_HTML));
+        model.put("queryString", request.getQueryString());
         return new ModelAndView("error/400", model);
     }
 
@@ -85,6 +88,7 @@ public class ErrorPagesController implements ErrorController {
     public ModelAndView errorHtml401(HttpServletRequest request, HttpServletResponse response, WebRequest webRequest) {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         Map<String, Object> model = getErrorAttributes(webRequest, isIncludeStackTrace(request, MediaType.TEXT_HTML));
+        model.put("queryString", request.getQueryString());
         return new ModelAndView("error/401", model);
     }
 
@@ -92,6 +96,7 @@ public class ErrorPagesController implements ErrorController {
     public ModelAndView errorHtml500(HttpServletRequest request, HttpServletResponse response, WebRequest webRequest) {
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         Map<String, Object> model = getErrorAttributes(webRequest, isIncludeStackTrace(request, MediaType.TEXT_HTML));
+        model.put("queryString", request.getQueryString());
         return new ModelAndView("error/500", model);
     }
 

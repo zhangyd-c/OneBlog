@@ -40,8 +40,10 @@ public class AliyunOssApiClient extends BaseApiClient {
     }
 
     @Override
-    public VirtualFile uploadImg(InputStream is, String key) {
+    public VirtualFile uploadImg(InputStream is, String imageUrl) {
         this.check();
+
+        String key = FileUtil.generateTempFileName(imageUrl);
         this.createNewFileName(key, this.pathPrefix);
         Date startTime = new Date();
         try (InputStream uploadIs = StreamUtil.clone(is);

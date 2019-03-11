@@ -1,6 +1,6 @@
 package com.zyd.blog.business.service;
 
-import com.zyd.blog.spider.model.BaseModel;
+import me.zhyd.hunter.config.HunterConfig;
 
 import java.io.PrintWriter;
 
@@ -13,7 +13,7 @@ import java.io.PrintWriter;
  */
 public interface RemoverService {
 
-    void run(Long typeId, BaseModel model, PrintWriter writer);
+    void run(Long typeId, HunterConfig config, PrintWriter writer);
 
     void stop();
 

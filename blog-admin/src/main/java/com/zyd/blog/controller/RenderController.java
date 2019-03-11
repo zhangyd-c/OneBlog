@@ -15,8 +15,10 @@ import com.zyd.blog.business.entity.Article;
 import com.zyd.blog.business.service.BizArticleService;
 import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.core.websocket.server.ZydWebsocketServer;
-import com.zyd.blog.spider.enums.ExitWayEnum;
 import com.zyd.blog.util.ResultUtil;
+import me.zhyd.hunter.config.HunterConfigTemplate;
+import me.zhyd.hunter.config.platform.Platform;
+import me.zhyd.hunter.enums.ExitWayEnum;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -198,7 +200,8 @@ public class RenderController {
     @GetMapping("/remover")
     public ModelAndView remover(Model model) {
         model.addAttribute("exitWayList", ExitWayEnum.values());
-        model.addAttribute("spiderConfig", configService.getSpiderConfig());
+        model.addAttribute("spiderConfig", HunterConfigTemplate.configTemplate.toJSONString());
+        model.addAttribute("platforms", Platform.values());
         return ResultUtil.view("laboratory/remover");
     }
 

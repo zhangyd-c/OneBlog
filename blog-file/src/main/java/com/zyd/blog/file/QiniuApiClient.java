@@ -12,6 +12,7 @@ import com.qiniu.util.Auth;
 import com.qiniu.util.StringUtils;
 import com.zyd.blog.file.entity.VirtualFile;
 import com.zyd.blog.file.exception.QiniuApiException;
+import com.zyd.blog.file.util.FileUtil;
 
 import java.io.InputStream;
 import java.util.Date;
@@ -51,13 +52,14 @@ public class QiniuApiClient extends BaseApiClient {
      * 上传图片
      *
      * @param is  图片流
-     * @param key 图片文件名（非上传后的文件名）
+     * @param imageUrl 图片路径
      * @return 上传后的路径
      */
     @Override
-    public VirtualFile uploadImg(InputStream is, String key) {
+    public VirtualFile uploadImg(InputStream is, String imageUrl) {
         this.check();
 
+        String key = FileUtil.generateTempFileName(imageUrl);
         this.createNewFileName(key, this.pathPrefix);
         Date startTime = new Date();
         //Zone.zone0:华东

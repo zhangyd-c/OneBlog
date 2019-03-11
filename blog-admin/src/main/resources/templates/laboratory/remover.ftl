@@ -60,7 +60,13 @@
                                                 <div class="item form-group">
                                                     <label class="control-label col-md-3 col-sm-3 col-xs-3" for="platform">博文平台 <span class="required">*</span></label>
                                                     <div class="col-md-6 col-sm-6 col-xs-6">
-                                                        <select name="platform" id="platform" class="form-control" required="required"></select>
+                                                        <select name="platform" id="platform" class="form-control" required="required">
+                                                            <option value="">请选择</option>
+                                                            <#list platforms as item>
+                                                                <option value="${item.platform}">${item.platform} (${item.host})</option>
+                                                            </#list>
+                                                            <option value="">待续...</option>
+                                                        </select>
                                                     </div>
                                                     <div class="col-md-3 col-sm-3 col-xs-3">
                                                         <div class="checkbox">
@@ -285,7 +291,7 @@
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-3" for="url"></label>
                                         <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <button type="button" class="btn btn-success" id="crawlSingle"><i class="fa fa-signing"> 抓他！</i></button>
+                                            <button type="button" class="btn btn-success" id="crawlSingle"><i class="fa fa-signing"> 就是它了！</i></button>
                                         </div>
                                     </div>
                                 </form>
@@ -356,17 +362,6 @@
 <iframe src="" id="spiderFrame" name="spiderFrame" style="display: none"></iframe>
 <@footer>
     <script>
-        (function () {
-            var platformList = [{"imooc": "慕课网"}, {"csdn": "CSDN"}, {"iteye": "ITeye"}, {"csblogs": "博客园"}];
-            var platformHtml = '<option value="">请选择</option>';
-            $.each(platformList, function (i, v) {
-                $.each(v, function (key, value) {
-                    platformHtml += '<option value="' + key + '">' + value+ '</option>';
-                });
-            });
-            platformHtml += '<option value="">待续...</option>';
-            $("#platform").html(platformHtml);
-        } ());
         var $urlList = $("#url-list"),
             $plusBtn = $("#plus-btn");
 
@@ -427,7 +422,7 @@
             } else if(thisName === "entryUrls") {
                 var entryUrl = "";
                 for(var j = 1; j <= totalPage; j ++) {
-                    entryUrl += text.replaceAll("{uid}", uid).replaceAll("{curPage}", j) + br;
+                    entryUrl += text[0].replaceAll("{uid}", uid).replaceAll("{curPage}", j) + br;
                 }
                 text = entryUrl.substr(0, entryUrl.length - br.length);
             } else if(reg.exec(text)) {

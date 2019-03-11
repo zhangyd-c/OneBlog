@@ -3,6 +3,8 @@ package com.zyd.blog.business.util;
 import com.zyd.blog.business.enums.FileUploadType;
 import com.zyd.blog.file.FileUploader;
 import com.zyd.blog.file.entity.VirtualFile;
+import com.zyd.blog.file.exception.GlobalFileException;
+import com.zyd.blog.file.util.FileUtil;
 import com.zyd.blog.plugin.file.GlobalFileUploader;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -28,10 +30,11 @@ public class ImageDownloadUtil {
         String res = null;
         try (InputStream is = getInputStreamByUrl(imgUrl, referer)) {
             FileUploader uploader = new GlobalFileUploader();
-            VirtualFile file = uploader.upload(is, FileUploadType.SIMPLE.getPath(), getSuffixByUrl(imgUrl), false);
+            VirtualFile file = uploader.upload(is, FileUploadType.SIMPLE.getPath(), imgUrl, false);
             res = file.getFullFilePath();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
+            throw new GlobalFileException(e.getMessage());
         }
         return res;
     }
@@ -46,7 +49,7 @@ public class ImageDownloadUtil {
     @Deprecated
     public static String download(String imgUrl, String referer, String localPath) {
 
-        String fileName = localPath + File.separator + UUID.randomUUID().toString() + "." + getSuffixByUrl(imgUrl);
+        String fileName = localPath + File.separator + UUID.randomUUID().toString() + FileUtil.getSuffixByUrl(imgUrl);
         try (InputStream is = getInputStreamByUrl(imgUrl, referer);
              FileOutputStream fos = new FileOutputStream(fileName)) {
             if (null == is) {
@@ -66,16 +69,6 @@ public class ImageDownloadUtil {
             return null;
         }
         return fileName;
-    }
-
-    private static String getSuffixByUrl(String imgUrl) {
-        String defaultSuffix = "png";
-        if (StringUtils.isEmpty(imgUrl)) {
-            return defaultSuffix;
-        }
-        String temStr = imgUrl.substring(imgUrl.lastIndexOf("/"));
-        int index = temStr.lastIndexOf(".");
-        return -1 == index ? defaultSuffix : temStr.substring(index + 1);
     }
 
     private static InputStream getInputStreamByUrl(String url, String referer) {

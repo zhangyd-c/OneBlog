@@ -20,9 +20,9 @@ import java.io.InputStream;
 public class GlobalFileUploader extends BaseFileUploader implements FileUploader {
 
     @Override
-    public VirtualFile upload(InputStream is, String uploadType, String suffix, boolean save) {
+    public VirtualFile upload(InputStream is, String uploadType, String imageUrl, boolean save) {
         ApiClient apiClient = this.getApiClient(uploadType);
-        VirtualFile virtualFile = apiClient.uploadImg(is, "temp." + suffix);
+        VirtualFile virtualFile = apiClient.uploadImg(is, imageUrl);
         return this.saveFile(virtualFile, save, uploadType);
     }
 

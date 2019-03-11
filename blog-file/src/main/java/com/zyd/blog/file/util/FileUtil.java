@@ -15,7 +15,7 @@ import java.util.Arrays;
  * @since 1.0
  */
 public class FileUtil extends cn.hutool.core.io.FileUtil {
-    private static final String[] PICTURE_SUFFIXS = {".jpg", ".jpeg", ".png", ".gif", ".bmp"};
+    private static final String[] PICTURE_SUFFIXS = {".jpg", ".jpeg", ".png", ".gif", ".bmp", ".svg"};
 
     /**
      * 删除目录，返回删除的文件数
@@ -65,9 +65,23 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     }
 
     public static String getSuffix(String fileName) {
-        int idx = fileName.lastIndexOf(".");
-        idx = idx == -1 ? fileName.length() : idx;
-        return fileName.substring(idx);
+        int index = fileName.lastIndexOf(".");
+        index = -1 == index ? fileName.length() : index;
+        return fileName.substring(index);
+    }
+
+    public static String getSuffixByUrl(String imgUrl) {
+        String defaultSuffix = ".png";
+        if (StringUtils.isEmpty(imgUrl)) {
+            return defaultSuffix;
+        }
+        String fileName = imgUrl.substring(imgUrl.lastIndexOf("/"));
+        String fileSuffix = getSuffix(fileName);
+        return StringUtils.isEmpty(fileSuffix) ? defaultSuffix : fileSuffix;
+    }
+
+    public static String generateTempFileName(String imgUrl) {
+        return "temp" + getSuffixByUrl(imgUrl);
     }
 
     public static boolean isPicture(String suffix) {

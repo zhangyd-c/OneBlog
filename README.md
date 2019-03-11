@@ -174,6 +174,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - [gentelella](https://github.com/puikinsh/gentelella): 一款开源的Bootstrap3后台管理模板
 - [七牛云](https://portal.qiniu.com/signup?code=3l8yx2v0f21ci): 强大的对象存储、CDN等服务提供商
 - [emoji表情列表](https://github.com/caiyongji/emoji-list#nature): emoji表情列表
+- [blog-hunter](https://github.com/zhangyd-c/blog-hunter): 博客猎手，基于webMagic的博客爬取工具，支持慕课、csdn、iteye、cnblogs、掘金和V2EX等各大主流博客平台。
 - 待续...
 
 # 开源协议
