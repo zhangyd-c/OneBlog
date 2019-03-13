@@ -92,7 +92,6 @@
 		<if test="keywords != null and keywords != '' ">
 			AND
 			(
-				a.content LIKE CONCAT('%',#{keywords , jdbcType=VARCHAR},'%') OR
 				a.description LIKE CONCAT('%',#{keywords , jdbcType=VARCHAR},'%') OR
 				a.keywords LIKE CONCAT('%',#{keywords , jdbcType=VARCHAR},'%')
 			)
