@@ -20,11 +20,11 @@
 
 ul, ol {
     list-style-type: none;
-    -webkit-margin-before: 0px;
-    -webkit-margin-after: 0px;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-    -webkit-padding-start: 0px;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    -webkit-padding-start: 0;
 }
 
 .tooltip.right .tooltip-arrow {
@@ -53,7 +53,7 @@ ul, ol {
 
 .menu-box {
     /*border-bottom: 1px solid #ccc;*/
-    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
     background: #fff;
     width: 100%;
     z-index: 999;
@@ -71,14 +71,14 @@ body {
 }
 
 .navbar-toggle {
-    border: 0px solid transparent;
-    border-radius: 0px;
+    border: 0 solid transparent;
+    border-radius: 0;
 }
 
 .navbar {
     min-height: 30px;
-    margin-bottom: 0px !important;
-    border: 0px solid transparent;
+    margin-bottom: 0 !important;
+    border: 0 solid transparent;
 }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
@@ -94,7 +94,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     display: inline-block;
     font-size: 17px;
     line-height: 26px;
-    margin: 25px 14px 0 0px;
+    margin: 25px 14px 0 0;
     padding: 3px 8px 3px;
     cursor: pointer;
     border-radius: 4px;
@@ -258,8 +258,8 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     list-style-type: decimal;
     margin-block-start: 1em;
     margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
     padding-inline-start: 40px;
 
 }
@@ -269,8 +269,8 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     list-style-type: square;
     margin-block-start: 1em;
     margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
     padding-inline-start: 40px;
 
 }
@@ -951,6 +951,8 @@ span.separation:AFTER {
 /* 文章详情页 文章目录 */
 #article-menu {
     display: none;
+    overflow-y: scroll;
+    max-height: 500px;
 }
 
 #article-menu ul {

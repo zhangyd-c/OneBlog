@@ -39,7 +39,22 @@
 
 	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.ArticleConditionVO" resultMap="rm">
 		SELECT
-			a.*,
+			a.id,
+			a.title,
+			a.user_id,
+			a.cover_image,
+			a.qrcode_path,
+			a.is_markdown,
+			a.top,
+			a.type_id,
+			a.`status`,
+			a.recommended,
+			a.original,
+			a.description,
+			a.keywords,
+			a.`comment`,
+			a.create_time,
+			a.update_time,
 			btype.id AS btype_id,
 			btype.`name` AS btype_name,
 			btype.description AS btype_description
@@ -116,7 +131,24 @@
 
 	<select id="get" parameterType="Long" resultMap="rm">
 		SELECT
-			a.*,
+			a.id,
+			a.title,
+			a.user_id,
+			a.cover_image,
+			a.qrcode_path,
+			a.is_markdown,
+			a.content,
+			a.content_md,
+			a.top,
+			a.type_id,
+			a.`status`,
+			a.recommended,
+			a.original,
+			a.description,
+			a.keywords,
+			a.`comment`,
+			a.create_time,
+			a.update_time,
 			btype.id AS btype_id,
 			btype.`name` AS btype_name,
 			btype.description AS btype_description,
@@ -166,7 +198,23 @@
 	<!-- 获取热门文章 -->
 	<select id="listHotArticle" resultMap="rm">
 		SELECT
-			a.*, l.lookCount AS look_count
+			a.id,
+			a.title,
+			a.user_id,
+			a.cover_image,
+			a.qrcode_path,
+			a.is_markdown,
+			a.top,
+			a.type_id,
+			a.`status`,
+			a.recommended,
+			a.original,
+			a.description,
+			a.keywords,
+			a.`comment`,
+			a.create_time,
+			a.update_time,
+			l.lookCount AS look_count
 		FROM
 			biz_article a
 		LEFT JOIN (
