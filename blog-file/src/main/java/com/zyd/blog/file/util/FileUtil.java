@@ -75,7 +75,10 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
         if (StringUtils.isEmpty(imgUrl)) {
             return defaultSuffix;
         }
-        String fileName = imgUrl.substring(imgUrl.lastIndexOf("/"));
+        String fileName = imgUrl;
+        if(imgUrl.contains("/")) {
+            fileName = imgUrl.substring(imgUrl.lastIndexOf("/"));
+        }
         String fileSuffix = getSuffix(fileName);
         return StringUtils.isEmpty(fileSuffix) ? defaultSuffix : fileSuffix;
     }
