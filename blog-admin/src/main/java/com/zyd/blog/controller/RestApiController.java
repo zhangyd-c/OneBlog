@@ -43,12 +43,7 @@ public class RestApiController {
     @Autowired
     private ZydWebsocketServer websocketServer;
 
-    /**
-     * 上传文件
-     *
-     * @param file
-     * @return
-     */
+    @BussinessLog("wangEditor编辑器中上传文件")
     @RequiresPermissions("article:publish")
     @PostMapping("/uploadFile")
     public ResponseVO uploadFile(@RequestParam("file") MultipartFile file) {
@@ -57,6 +52,7 @@ public class RestApiController {
         return ResultUtil.success("图片上传成功", virtualFile.getFullFilePath());
     }
 
+    @BussinessLog("simpleMD编辑器中上传文件")
     @RequiresPermissions("article:publish")
     @PostMapping("/uploadFileForMd")
     public Object uploadFileForMd(@RequestParam("file") MultipartFile file) {
@@ -76,7 +72,7 @@ public class RestApiController {
      */
     @RequiresPermissions("notice")
     @PostMapping("/notice")
-    @BussinessLog("通过websocket向前台用户发送通知")
+    @BussinessLog("通过websocket向前台发送通知")
     public ResponseVO notice(String msg) throws UnsupportedEncodingException {
         WebSocketUtil.sendNotificationMsg(msg, websocketServer.getOnlineUsers());
         return ResultUtil.success("消息发送成功");
