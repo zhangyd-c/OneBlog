@@ -41,11 +41,11 @@ public class ArticleLook {
         return this.bizArticleLook.getArticleId();
     }
 
-    public void setArticleId(long articleId) {
+    public void setArticleId(Long articleId) {
         this.bizArticleLook.setArticleId(articleId);
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return this.bizArticleLook.getUserId();
     }
 

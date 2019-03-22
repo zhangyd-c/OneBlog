@@ -1,8 +1,8 @@
 package com.zyd.blog.core.aspects;
 
 import com.zyd.blog.business.entity.ArticleLook;
-import com.zyd.blog.business.service.BizArticleLookService;
-import com.zyd.blog.business.service.BizArticleService;
+import com.zyd.blog.business.service.RedisService;
+import com.zyd.blog.core.schedule.ArticleLookTask;
 import com.zyd.blog.framework.holder.RequestHolder;
 import com.zyd.blog.util.IpUtil;
 import com.zyd.blog.util.SessionUtil;
@@ -13,6 +13,8 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
+import org.springframework.data.redis.core.BoundListOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -33,9 +35,7 @@ import java.util.Date;
 public class ArticleLookAspects {
 
     @Autowired
-    private BizArticleService bizArticleService;
-    @Autowired
-    private BizArticleLookService articleLookService;
+    private ArticleLookTask task;
 
     @Pointcut("execution(* com.zyd.blog.controller.RenderController.article(..))")
     public void pointcut() {
@@ -48,10 +48,6 @@ public class ArticleLookAspects {
         if (args != null && args.length > 0) {
             String userIp = IpUtil.getRealIp(RequestHolder.getRequest());
             Long articleId = (Long) args[1];
-            if (!bizArticleService.isExist(articleId)) {
-                log.warn("{}-该文章不存在！", articleId);
-                return;
-            }
             ArticleLook articleLook = new ArticleLook();
             articleLook.setArticleId(articleId);
             articleLook.setUserIp(userIp);
@@ -59,7 +55,7 @@ public class ArticleLookAspects {
             if (SessionUtil.getUser() != null) {
                 articleLook.setUserId(SessionUtil.getUser().getId());
             }
-            articleLookService.insert(articleLook);
+            task.addLookRecordToQueue(articleLook);
         }
     }
 }

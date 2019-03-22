@@ -3069,6 +3069,10 @@ nav a:first-child .meta-nav {
     padding: 0 !important;
 }
 
+.CodeMirror pre {
+    background-color: initial!important;
+}
+
 .CodeMirror, .CodeMirror-scroll {
     min-height: 130px !important;
     max-height: 200px !important;

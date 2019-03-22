@@ -1,13 +1,24 @@
 package com.zyd.blog.business.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.Log;
+import com.zyd.blog.business.entity.User;
+import com.zyd.blog.business.enums.LogLevelEnum;
+import com.zyd.blog.business.enums.LogTypeEnum;
+import com.zyd.blog.business.enums.PlatformEnum;
 import com.zyd.blog.business.service.SysLogService;
+import com.zyd.blog.business.util.WebSpiderUtils;
 import com.zyd.blog.business.vo.LogConditionVO;
 import com.zyd.blog.persistence.beans.SysLog;
 import com.zyd.blog.persistence.mapper.SysLogMapper;
+import com.zyd.blog.util.RequestUtil;
+import com.zyd.blog.util.SessionUtil;
+import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -16,6 +27,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author yadong.zhang email:yadong.zhang0415(a)gmail.com
@@ -23,6 +35,7 @@ import java.util.List;
  * @date 2018/01/09 17:50
  * @since 1.0
  */
+@EnableAsync
 @Service
 public class SysLogServiceImpl implements SysLogService {
 
@@ -43,6 +56,37 @@ public class SysLogServiceImpl implements SysLogService {
         PageInfo bean = new PageInfo<SysLog>(list);
         bean.setList(boList);
         return bean;
+    }
+
+    @Async
+    @Override
+    public void asyncSaveSystemLog(PlatformEnum platform, String bussinessName) {
+        String ua = RequestUtil.getUa();
+        Log sysLog = new Log();
+        sysLog.setLogLevel(LogLevelEnum.INFO);
+        sysLog.setType(platform.equals(PlatformEnum.WEB) ? LogTypeEnum.VISIT : LogTypeEnum.SYSTEM);
+        sysLog.setIp(RequestUtil.getIp());
+        sysLog.setReferer(RequestUtil.getReferer());
+        sysLog.setRequestUrl(RequestUtil.getRequestUrl());
+        sysLog.setUa(ua);
+        sysLog.setSpiderType(WebSpiderUtils.parseUa(ua));
+        sysLog.setParams(JSONObject.toJSONString(RequestUtil.getParametersMap()));
+        User user = SessionUtil.getUser();
+        if (user != null) {
+            sysLog.setUserId(user.getId());
+            sysLog.setContent(String.format("用户: [%s] | 操作: %s", user.getUsername(), bussinessName));
+        } else {
+            sysLog.setContent(String.format("访客: [%s] | 操作: %s", sysLog.getIp(), bussinessName));
+        }
+
+        try {
+            UserAgent agent = UserAgent.parseUserAgentString(ua);
+            sysLog.setBrowser(agent.getBrowser().getName());
+            sysLog.setOs(agent.getOperatingSystem().getName());
+            this.insert(sysLog);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

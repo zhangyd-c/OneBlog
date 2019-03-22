@@ -18,6 +18,9 @@ public class RequestUtil {
 
     public static String getParameters() {
         HttpServletRequest request = RequestHolder.getRequest();
+        if (null == request) {
+            return null;
+        }
         Enumeration<String> paraNames = request.getParameterNames();
         if (paraNames == null) {
             return null;
@@ -32,9 +35,12 @@ public class RequestUtil {
 
     public static Map<String, Object> getParametersMap() {
         HttpServletRequest request = RequestHolder.getRequest();
+        if (null == request) {
+            return new HashMap<>();
+        }
         Enumeration<String> paraNames = request.getParameterNames();
         if (paraNames == null) {
-            return null;
+            return new HashMap<>();
         }
         Map<String, Object> res = new HashMap<>();
         while (paraNames.hasMoreElements()) {
@@ -45,7 +51,11 @@ public class RequestUtil {
     }
 
     public static String getHeader(String headerName) {
-        return RequestHolder.getRequest().getHeader(headerName);
+        HttpServletRequest request = RequestHolder.getRequest();
+        if (null == request) {
+            return null;
+        }
+        return request.getHeader(headerName);
     }
 
     public static String getReferer() {
@@ -58,22 +68,34 @@ public class RequestUtil {
 
     public static String getIp() {
         HttpServletRequest request = RequestHolder.getRequest();
+        if (null == request) {
+            return null;
+        }
         return IpUtil.getRealIp(request);
     }
 
     public static String getRequestUrl() {
         HttpServletRequest request = RequestHolder.getRequest();
+        if (null == request) {
+            return null;
+        }
         return request.getRequestURL().toString();
     }
 
     public static String getMethod() {
         HttpServletRequest request = RequestHolder.getRequest();
+        if (null == request) {
+            return null;
+        }
         return request.getMethod();
     }
 
     public static boolean isAjax(HttpServletRequest request) {
-        if (request == null) {
+        if (null == request) {
             request = RequestHolder.getRequest();
+        }
+        if (null == request) {
+            return false;
         }
         return "XMLHttpRequest".equalsIgnoreCase(request.getHeader("X-Requested-With"))
                 || request.getParameter("ajax") != null;
