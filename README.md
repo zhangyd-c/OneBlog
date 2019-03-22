@@ -57,7 +57,8 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 | blog-core | 核心业务类模块，提供基本的数据操作、工具处理等 | 该模块只是作为核心依赖包存在 |
 | blog-admin | 后台管理模块 | 该模块作为单独项目打包部署 |
 | blog-web | 前台模块 | 该模块作为单独项目打包部署 |
-| blog-spider | 爬虫相关代码模块 | 目前仅作为后台管理模块里“文章搬运工”的实现代码库 |
+| blog-file | 文件存储功能模块 | 支持local、七牛云和阿里云OSS |
+| ~~blog-spider~~ | 爬虫相关代码模块 | 已使用[blog-hunter](https://gitee.com/yadong.zhang/blog-hunter)插件替代 |
 
 
 # 技术栈
