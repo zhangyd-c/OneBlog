@@ -50,6 +50,10 @@ public class ResultUtil {
         return vo(CommonConst.DEFAULT_SUCCESS_CODE, message, data);
     }
 
+    public static ResponseVO success(Object data) {
+        return vo(ResponseStatus.SUCCESS.getCode(), ResponseStatus.SUCCESS.getMessage(), data);
+    }
+
     public static ResponseVO success(String message) {
         return success(message, null);
     }

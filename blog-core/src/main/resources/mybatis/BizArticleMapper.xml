@@ -213,7 +213,8 @@
 			a.`comment`,
 			a.create_time,
 			a.update_time,
-			l.lookCount AS look_count
+			l.lookCount AS look_count,
+			c.commentCount AS comment_count
 		FROM
 			biz_article a
 		LEFT JOIN (
@@ -225,6 +226,16 @@
 			GROUP BY
 				l.article_id
 		) l ON a.id = l.article_id
+		LEFT JOIN (
+			SELECT
+				c.sid,
+				IFNULL(count(1), 0) AS commentCount
+			FROM
+				biz_comment c
+			WHERE c.`status` = 'APPROVED'
+			GROUP BY
+				c.sid
+		) c ON a.id = c.sid
 		WHERE a.status = 1
 		ORDER BY
 			l.lookCount DESC

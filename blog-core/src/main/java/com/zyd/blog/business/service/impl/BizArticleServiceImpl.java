@@ -6,6 +6,7 @@ import com.zyd.blog.business.annotation.RedisCache;
 import com.zyd.blog.business.entity.Article;
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.ArticleStatusEnum;
+import com.zyd.blog.business.enums.CommentStatusEnum;
 import com.zyd.blog.business.enums.FileUploadType;
 import com.zyd.blog.business.enums.ResponseStatus;
 import com.zyd.blog.business.service.BizArticleService;
@@ -383,9 +384,11 @@ public class BizArticleServiceImpl implements BizArticleService {
         entity.setLookCount(bizArticleLookMapper.selectCount(look));
 
         // 评论数
-        BizComment comment = new BizComment();
-        comment.setSid(primaryKey);
-        entity.setCommentCount(commentMapper.selectCount(comment));
+        Example example = new Example(BizComment.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("sid", primaryKey);
+        criteria.andEqualTo("status", CommentStatusEnum.APPROVED.toString());
+        entity.setCommentCount(commentMapper.selectCountByExample(example));
 
         // 喜欢的次数
         BizArticleLove love = new BizArticleLove();
