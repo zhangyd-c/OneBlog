@@ -13,6 +13,7 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 自定义的freemarker标签
@@ -93,5 +94,9 @@ public class CustomTags extends BaseTag {
     public Object template(Map params) {
         String tempKey = getParam(params, "key");
         return templateService.getTemplate(tempKey);
+    }
+
+    public Object sessionTimeOutUnit(Map params) {
+        return TimeUnit.values();
     }
 }

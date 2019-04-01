@@ -27,7 +27,7 @@
                                 <a href="#tab_storage" id="storage-tab" role="tab" data-toggle="tab" aria-expanded="true">云存储</a>
                             </li>
                             <li role="presentation">
-                                <a href="#tab_auth" id="auth-tab" role="tab" data-toggle="tab" aria-expanded="true">第三方登录</a>
+                                <a href="#tab_auth" id="auth-tab" role="tab" data-toggle="tab" aria-expanded="true">登录</a>
                             </li>
                             <li role="presentation">
                                 <a href="#tab_comment" id="comment-tab" role="tab" data-toggle="tab" aria-expanded="true">评论</a>
@@ -239,118 +239,31 @@
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="tab_auth" aria-labelledby="auth-tab">
                                 <form class="form-horizontal form-label-left" novalidate>
-                                    <div class="col-md-6">
-                                        <div class="x_panel">
-                                            <div class="x_title">
-                                                <h2><i class="fa fa-github"></i> GitHub
-                                                    <small><a href="https://github.com/settings/developers" target="_blank">OAuth Apps</a></small>
-                                                </h2>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                            <div class="x_content locking" data-mask="暂不支持，敬请期待！">
-                                                <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="githubClientId">Client ID <i class="fa fa-question-circle" title="GitHub OAuth Apps的Client ID"></i>
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        <input type="text" class="form-control col-md-7 col-xs-12" name="githubClientId" id="githubClientId" placeholder="请输入 client id"/>
-                                                    </div>
-                                                </div>
-                                                <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="githubClientSecret">Client Secret
-                                                        <i class="fa fa-question-circle" title="GitHub OAuth Apps的Client Secret"></i>
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        <input type="text" class="form-control col-md-7 col-xs-12" name="githubClientSecret" id="githubClientSecret" placeholder="请输入 client secret"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="x_panel">
-                                            <div class="x_title">
-                                                <h2><i class="fa fa-git"></i> Gitee
-                                                    <small><a href="https://gitee.com/api/v5/oauth_doc#list_1" target="_blank">第三方应用</a></small>
-                                                </h2>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                            <div class="x_content locking" data-mask="暂不支持，敬请期待！">
-                                                <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="giteeClientId">Client ID
-                                                        <i class="fa fa-question-circle" title="Gitee 应用的Client Id"></i>
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        <input type="text" class="form-control col-md-7 col-xs-12" name="giteeClientId" id="giteeClientId" placeholder="请输入 client id"/>
-                                                    </div>
-                                                </div>
-                                                <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="giteeClientSecret">Client Secret
-                                                        <i class="fa fa-question-circle" title="Gitee 应用的Client Secret"></i>
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        <input type="text" class="form-control col-md-7 col-xs-12" name="giteeClientSecret" id="giteeClientSecret" placeholder="请输入 client secret"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="x_panel">
-                                            <div class="x_title">
-                                                <h2><i class="fa fa-weibo"></i> Weibo <small><a href="https://open.weibo.com/apps" target="_blank">微博·开放平台</a></small></h2>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                            <div class="x_content locking" data-mask="暂不支持，敬请期待！">
-                                                <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="weiboClientId">App Key
-                                                        <i class="fa fa-question-circle" title="weibo应用的App Key，可在“应用信息”-“基本信息”页面查看"></i>
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        <input type="text" class="form-control col-md-7 col-xs-12" name="weiboClientId" id="weiboClientId" placeholder="请输入 App Key"/>
-                                                    </div>
-                                                </div>
-                                                <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="weiboClientSecret">App Secret
-                                                        <i class="fa fa-question-circle" title="weibo应用的App Secret，可在“应用信息”-“基本信息”页面查看"></i>
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        <input type="text" class="form-control col-md-7 col-xs-12" name="weiboClientSecret" id="weiboClientSecret" placeholder="请输入 App Secret"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="x_panel">
-                                            <div class="x_title">
-                                                <h2><i class="fa fa-qq"></i> QQ
-                                                    <small><a href="https://connect.qq.com/" target="_blank">QQ互联</a> </small>
-                                                </h2>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                            <div class="x_content locking" data-mask="暂不支持，敬请期待！">
-                                                <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="qqClientId">App Id
-                                                        <i class="fa fa-question-circle" title="qq 开发者账号的App ID"></i>
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        <input type="text" class="form-control col-md-7 col-xs-12" name="qqClientId" id="qqClientId" placeholder="请输入 App Id"/>
-                                                    </div>
-                                                </div>
-                                                <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="qqClientSecret">App Secret
-                                                        <i class="fa fa-question-circle" title="qq 开发者账号的App Secret"></i>
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        <input type="text" class="form-control col-md-7 col-xs-12" name="qqClientSecret" id="qqClientSecret" placeholder="请输入 App Secret"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <div class="item form-group">
-                                        <div class="col-md-11 col-sm-11 col-xs-11">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="loginRetryNum">登录重试次数 <span class="required">*</span></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" class="form-control col-md-7 col-xs-12" name="loginRetryNum" id="loginRetryNum" required="required" placeholder="请输入登录重试次数，默认5"/>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="sessionTimeOut">Session有效期 <span class="required">*</span></label>
+                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                            <input type="text" class="form-control col-md-7 col-xs-12" name="sessionTimeOut" id="sessionTimeOut" required="required" placeholder="请输入Session有效期，默认1小时"/>
+                                        </div>
+                                        <div class="col-md-1 col-sm-1 col-xs-1">
+                                            <select name="sessionTimeOutUnit" id="sessionTimeOutUnit" class="form-control" required="required" >
+                                                <@zhydTag method="sessionTimeOutUnit">
+                                                    <option value="">请选择</option>
+                                                    <#list sessionTimeOutUnit as item>
+                                                        <option value="${item}">${item}</option>
+                                                    </#list>
+                                                </@zhydTag>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
                                         </div>
                                     </div>

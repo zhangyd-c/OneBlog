@@ -77,7 +77,7 @@ public class PassportController {
             currentUser.login(token);
             return ResultUtil.success("登录成功！");
         } catch (Exception e) {
-            log.error("登录失败，用户名[{}]", username, e);
+            log.error("登录失败，用户名[{}]：{}", username, e.getMessage());
             token.clear();
             return ResultUtil.error(e.getMessage());
         }

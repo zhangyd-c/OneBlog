@@ -2,6 +2,7 @@ package com.zyd.blog.core.shiro.credentials;
 
 import com.zyd.blog.business.consts.SessionConst;
 import com.zyd.blog.business.entity.User;
+import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.business.service.SysUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AccountException;
@@ -11,7 +12,9 @@ import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.util.StringUtils;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -33,10 +36,24 @@ public class RetryLimitCredentialsMatcher extends CredentialsMatcher {
      * 用户登录是否被锁定    一小时 redisKey 前缀
      */
     private static final String SHIRO_IS_LOCK = "shiro_is_lock_";
+    /**
+     * 登录失败时重试的次数，默认5次
+     */
+    private static final int DEFAULT_RETRY_NUM = 5;
+    /**
+     * session有效期，默认1小时
+     */
+    private static final int DEFAULT_SESSIONTIME_OUT = 1;
+    /**
+     * session有效期的时间单位，默认小时
+     */
+    private static final TimeUnit DEFAULT_SESSIONTIME_OUT_UNIT = TimeUnit.HOURS;
     @Autowired
     private RedisTemplate redisTemplate;
     @Autowired
     private SysUserService userService;
+    @Autowired
+    private SysConfigService configService;
 
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
@@ -50,23 +67,38 @@ public class RetryLimitCredentialsMatcher extends CredentialsMatcher {
         opsForValue.increment(loginCountKey, 1);
 
         if (redisTemplate.hasKey(isLockKey)) {
-            throw new ExcessiveAttemptsException("帐号[" + username + "]已被禁止登录！");
+            String unit = "分钟";
+            long time = TimeUnit.SECONDS.toMinutes(redisTemplate.getExpire(isLockKey));
+            if (time <= 0) {
+                unit = "秒";
+                time = TimeUnit.SECONDS.toSeconds(redisTemplate.getExpire(isLockKey));
+            } else if (time > 60) {
+                unit = "小时";
+                time = TimeUnit.SECONDS.toHours(redisTemplate.getExpire(isLockKey));
+            }
+            throw new ExcessiveAttemptsException("帐号[" + username + "]已被禁止登录！剩余" + time + unit);
         }
 
-        // 计数大于5时，设置用户被锁定一小时
+        Map<String, Object> configs = configService.getConfigs();
+        Object loginRetryNumObj = configs.get("loginRetryNum");
+        Object sessionTimeOutObj = configs.get("sessionTimeOut");
+        Object sessionTimeOutUnitObj = configs.get("sessionTimeOutUnit");
+        int loginRetryNum = StringUtils.isEmpty(loginRetryNumObj) ? DEFAULT_RETRY_NUM : Integer.parseInt(String.valueOf(loginRetryNumObj));
+        int sessionTimeOut = StringUtils.isEmpty(sessionTimeOutObj) ? DEFAULT_SESSIONTIME_OUT : Integer.parseInt(String.valueOf(sessionTimeOutObj));
+        TimeUnit sessionTimeOutUnit = StringUtils.isEmpty(sessionTimeOutUnitObj) ? DEFAULT_SESSIONTIME_OUT_UNIT : TimeUnit.valueOf(String.valueOf(sessionTimeOutUnitObj));
+
         String loginCount = String.valueOf(opsForValue.get(loginCountKey));
-        int retryCount = (5 - Integer.parseInt(loginCount));
+        int retryCount = ((loginRetryNum + 1) - Integer.parseInt(loginCount));
         if (retryCount <= 0) {
             opsForValue.set(isLockKey, "LOCK");
-            redisTemplate.expire(isLockKey, 1, TimeUnit.HOURS);
-            redisTemplate.expire(loginCountKey, 1, TimeUnit.HOURS);
+            redisTemplate.expire(isLockKey, sessionTimeOut, sessionTimeOutUnit);
+            redisTemplate.expire(loginCountKey, sessionTimeOut, sessionTimeOutUnit);
             throw new ExcessiveAttemptsException("由于密码输入错误次数过多，帐号[" + username + "]已被禁止登录！");
         }
 
         boolean matches = super.doCredentialsMatch(token, info);
         if (!matches) {
-            String msg = retryCount <= 0 ? "您的账号一小时内禁止登录！" : "您还剩" + retryCount + "次重试的机会";
-            throw new AccountException("帐号或密码不正确！" + msg);
+            throw new AccountException("帐号或密码不正确！您还剩" + retryCount + "次重试的机会");
         }
 
         //清空登录计数
