@@ -46,7 +46,6 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
     public void insertList(List<UserRole> entities) {
         Assert.notNull(entities, "entities不可为空！");
         List<SysUserRole> sysUserRole = new ArrayList<>();
-        String regIp = IpUtil.getRealIp(RequestHolder.getRequest());
         for (UserRole UserRole : entities) {
             UserRole.setUpdateTime(new Date());
             UserRole.setCreateTime(new Date());
@@ -103,10 +102,13 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
         //删除
         removeByUserId(userId);
         //添加
-        String[] roleids = roleIds.split(",");
+        String[] roleIdArr = roleIds.split(",");
+        if (roleIdArr.length == 0) {
+            return;
+        }
         UserRole u = null;
         List<UserRole> roles = new ArrayList<>();
-        for (String roleId : roleids) {
+        for (String roleId : roleIdArr) {
             u = new UserRole();
             u.setUserId(userId);
             u.setRoleId(Long.parseLong(roleId));
