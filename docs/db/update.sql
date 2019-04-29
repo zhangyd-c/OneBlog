@@ -230,7 +230,7 @@ CREATE TABLE `biz_file`  (
 UPDATE `dblog`.`biz_article`
 SET `cover_image` = CONCAT((SELECT config_value FROM sys_config WHERE config_key = 'qiniuBasePath' ), `cover_image`)
 WHERE
-	LEFT(cover_image, 8) != 'https://' && LEFT(cover_image, 7) != 'http://'
+	LEFT(cover_image, 8) != 'https://' && LEFT(cover_image, 7) != 'http://';
 
 
 # 云存储Nginx Server的示例配置
@@ -241,3 +241,6 @@ INSERT INTO `dblog`.`sys_template` VALUES ('10', 'TM_NGINX_FILE_SERVER', 'server
 ALTER TABLE `dblog`.`biz_article`
 MODIFY COLUMN `content` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '文章内容' AFTER `is_markdown`,
 MODIFY COLUMN `content_md` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT 'markdown版的文章内容' AFTER `content`;
+
+# 日志文件缺少字段
+ALTER TABLE `sys_log` ADD COLUMN `params` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求参数（业务操作）';
