@@ -5,48 +5,60 @@
 
     <select id="getSiteInfo" resultType="map">
 		SELECT
-			a.article_count AS articleCount,
-			t.tag_count AS tagCount,
-			type.type_count AS typeCount,
-			c.comment_count AS commentCount,
-			u.recorde_time AS lastUpdateTime
+			co.articleCount,
+			co.commentCount,
+			co.tagCount,
+			co.typeCount,
+			da.recorde_time
 		FROM
 			(
 				SELECT
-					COUNT(1) AS article_count
+					a.article_count AS articleCount,
+					t.tag_count AS tagCount,
+					type.type_count AS typeCount,
+					c.comment_count AS commentCount
 				FROM
-					biz_article
-				WHERE `status` = 1
-			) a,
-			(
+					(
+						SELECT
+							COUNT(1) AS article_count
+						FROM
+							biz_article
+						WHERE
+								`status` = 1
+					) a,
+					(
+						SELECT
+							COUNT(1) AS tag_count
+						FROM
+							biz_tags
+					) t,
+					(
+						SELECT
+							COUNT(1) AS type_count
+						FROM
+							biz_type
+						WHERE
+								available = 1
+					) type,
+					(
+						SELECT
+							COUNT(1) AS comment_count
+						FROM
+							biz_comment
+						WHERE
+								`status` = 'APPROVED'
+					) c
+			) co
+		LEFT JOIN (
 				SELECT
-					COUNT(1) AS tag_count
-				FROM
-					biz_tags
-			) t,
-			(
-				SELECT
-					COUNT(1) AS type_count
-				FROM
-					biz_type
-				WHERE available = 1
-			) type,
-			(
-				SELECT
-					COUNT(1) AS comment_count
-				FROM
-					biz_comment
-				WHERE `status` = 'APPROVED'
-			) c,
-			(
-				SELECT
-					DATE_FORMAT(recorde_time,'%Y年%m月%d日%H点') AS recorde_time
+					DATE_FORMAT( recorde_time, '%Y年%m月%d日%H点') AS recorde_time
 				FROM
 					sys_update_recorde
 				ORDER BY
 					create_time DESC
 				LIMIT 1
-			) u
+			) da
+		ON 1 = 1;
 	</select>
 </mapper>
 
