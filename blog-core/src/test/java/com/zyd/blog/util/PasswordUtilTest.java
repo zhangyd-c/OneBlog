@@ -21,7 +21,7 @@ public class PasswordUtilTest {
     public void encryptTest(String password, String salt) throws Exception {
         String encrypt = PasswordUtil.encrypt(password, salt);
         System.out.println(encrypt);
-        String decrypt = PasswordUtil.decrypt(encrypt, salt);
+        String decrypt = PasswordUtil.decrypt("VpavsFi6DaRqF5o3nziCgw==", "root");
         System.out.println(decrypt);
     }
 
