@@ -29,15 +29,6 @@
 			<result property="icon" jdbcType="VARCHAR" column="node_icon"/>
 		</collection>
 	</resultMap>
-	<sql id="Base_Column_List">
-		id,
-		pid,
-		name,
-		description,
-		sort,
-		create_time,
-		update_time
-	</sql>
 
 	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.TypeConditionVO" resultMap="rm">
 		SELECT

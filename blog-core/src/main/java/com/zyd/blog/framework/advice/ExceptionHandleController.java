@@ -1,10 +1,12 @@
-package com.zyd.blog.controller;
+package com.zyd.blog.framework.advice;
 
 import com.zyd.blog.business.consts.CommonConst;
 import com.zyd.blog.business.enums.ResponseStatus;
 import com.zyd.blog.file.exception.GlobalFileException;
 import com.zyd.blog.framework.exception.ZhydException;
+import com.zyd.blog.framework.holder.RequestHolder;
 import com.zyd.blog.framework.object.ResponseVO;
+import com.zyd.blog.util.RequestUtil;
 import com.zyd.blog.util.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AccountException;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.lang.reflect.UndeclaredThrowableException;
@@ -57,6 +60,22 @@ public class ExceptionHandleController {
         return ResultUtil.error(CommonConst.DEFAULT_ERROR_CODE, ResponseStatus.UPLOAD_FILE_ERROR.getMessage() + "文件过大！");
     }
 
+    /**
+     * MethodArgumentTypeMismatchException ： 方法参数类型异常
+     *
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
+    @ResponseBody
+    public Object methodArgumentTypeMismatchException(Throwable e) {
+        log.error("url参数异常，请检查参数类型是否匹配！", e);
+        if (RequestUtil.isAjax(RequestHolder.getRequest())) {
+            return ResultUtil.error(ResponseStatus.INVALID_PARAMS);
+        }
+        return ResultUtil.forward("/error/500");
+    }
+
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public ResponseVO handle(Throwable e) {
@@ -74,5 +93,4 @@ public class ExceptionHandleController {
         e.printStackTrace(); // 打印异常栈
         return ResultUtil.error(CommonConst.DEFAULT_ERROR_CODE, ResponseStatus.ERROR.getMessage());
     }
-
 }

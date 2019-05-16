@@ -17,21 +17,6 @@
 		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
 		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
 	</resultMap>
-	<sql id="Base_Column_List">
-		id,
-		url,
-		name,
-		description,
-		email,
-		qq,
-		favicon,
-		status,
-		home_page_display,
-		remark,
-		source,
-		create_time,
-		update_time
-	</sql>
 
 	<!-- 按照状态分段排序，已经禁用的记录显示在列表最后，未被禁用的显示在列表顶部 -->
 	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.LinkConditionVO" resultMap="rm">

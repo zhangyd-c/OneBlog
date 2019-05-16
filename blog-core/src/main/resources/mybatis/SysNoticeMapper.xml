@@ -11,15 +11,6 @@
 		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
 		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
 	</resultMap>
-	<sql id="Base_Column_List">
-		id,
-		user_id,
-		status,
-		title,
-		content,
-		create_time,
-		update_time
-	</sql>
 
 	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.NoticeConditionVO" resultMap="rm">
 		SELECT

@@ -34,6 +34,10 @@ public class ResultUtil {
         return new ModelAndView("redirect:" + view);
     }
 
+    public static ModelAndView forward(String view) {
+        return new ModelAndView("forward:" + view);
+    }
+
     public static ResponseVO error(int code, String message) {
         return vo(code, message, null);
     }

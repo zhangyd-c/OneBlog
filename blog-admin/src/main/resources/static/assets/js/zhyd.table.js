@@ -124,6 +124,10 @@
                         type: "post",
                         url: options.getInfoUrl.replace("{id}", userId),
                         success: function (json) {
+                            if(json.status !== 200) {
+                                $.alert.error(json.message);
+                                return false;
+                            }
                             var info = json.data;
                             resetForm(info);
                             var $addOrUpdateModal = $("#addOrUpdateModal");

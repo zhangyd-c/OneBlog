@@ -37,32 +37,6 @@
 			<result property="title" jdbcType="VARCHAR" column="article_title"/>
 		</association>
 	</resultMap>
-	<sql id="Base_Column_List">
-		id,
-		sid,
-		user_id,
-		pid,
-		qq,
-		nickname,
-		avatar,
-		email,
-		url,
-		status,
-		ip,
-		lng,
-		lat,
-		address,
-		os,
-		os_short_name,
-		browser,
-		browser_short_name,
-		content,
-		remark,
-		support,
-		oppose,
-		create_time,
-		update_time
-	</sql>
 
 	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.CommentConditionVO" resultMap="rm">
 		SELECT
