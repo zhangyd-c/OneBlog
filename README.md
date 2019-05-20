@@ -118,25 +118,17 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - [ ] 4. 待续...
 ...
 
-# 在用OneBlog的网站 （排名按照留言先后顺序 ）
+# 在用OneBlog的网站 
 - [张亚东博客](https://www.zhyd.me)
 - [攻城狮不是猫博客](http://www.jsdblog.com)
-- [刘辉辉的博客](http://www.axxo.top)
-- [时光号](http://www.shiguanghao.cn/)
 - [罗远祥博客](https://www.luoyuanxiangvip.com/)
 - [小公举的博客](https://loveyatou.top/)
-- [彭江毅的博客](https://pengjiangyi.com)
-- [晓飞的博客](https://dreamatach.com)
-- [拾忆的博客](http://www.lsshiyi.cn/)
-- [https://blog.itourshare.net/](https://blog.itourshare.net/)
-- [码农擎天柱](http://blog.qinlei.vip/)
 - [陈晓雷的博客](http://www.csxll.top)
-- [小猩博客](http://www.cmhblog.com/)
 - [宋高俊博客](http://www.senghor.cn/)
 - [Li Pan's 博客](http://www.lipan.xyz/)
 - [MTR小站](https://www.itmtr.cn/)
-- [老揭博客](http://www.laojieblog.com/)
-- 更多待续...
+- [小米球Blog](https://www.xiaomiqiu.com/)
+- [怀念时光](https://blog.earic.club/)
 
 烦请各位使用OneBlog的朋友，能留下你的网址（没别的意思，只是看看有多少人而已） - [点这儿](https://gitee.com/yadong.zhang/DBlog/issues/ILIAQ)
 
