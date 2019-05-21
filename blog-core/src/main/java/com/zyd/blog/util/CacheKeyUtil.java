@@ -22,7 +22,7 @@ public class CacheKeyUtil {
      *         参数数组
      */
     public static String getMethodParamsKey(Object... params) {
-        if (StringUtils.isEmpty(params)) {
+        if (null == params || params.length == 0) {
             return "";
         }
         StringBuilder key = new StringBuilder("(");
