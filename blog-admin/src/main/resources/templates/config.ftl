@@ -154,7 +154,7 @@
                                         <div class="item form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="localFileUrl">文件服务器域名 <span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input type="text" class="form-control col-md-7 col-xs-12" name="localFileUrl" id="localFileUrl" required="required" placeholder="请输入文件服务器域名"/>
+                                                <input type="text" class="form-control col-md-7 col-xs-12" name="localFileUrl" id="localFileUrl" required="required" placeholder="请输入文件服务器域名，如：http://file.zhyd.me/"/>
                                             </div>
                                         </div>
                                         <div class="item form-group">
