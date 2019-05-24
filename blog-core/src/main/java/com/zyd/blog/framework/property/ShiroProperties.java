@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * @date 2018/8/27 15:26
  * @since 1.0
  */
-@Configuration
+@Component
 @ConfigurationProperties(prefix = "app.shiro")
 @Data
 @EqualsAndHashCode(callSuper = false)

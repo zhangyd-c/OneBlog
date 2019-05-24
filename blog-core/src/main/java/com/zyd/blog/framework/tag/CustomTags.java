@@ -1,16 +1,19 @@
 package com.zyd.blog.framework.tag;
 
+import com.zyd.blog.business.entity.Comment;
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.UserTypeEnum;
 import com.zyd.blog.business.service.*;
 import com.zyd.blog.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -22,11 +25,11 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0
  * @website https://www.zhyd.me
  * @date 2018/4/16 16:26
- * @since 1.0
  * @modify by zhyd 2018-09-20
- *      调整实现，所有自定义标签只需继承BaseTag后通过构造函数将自定义标签类的className传递给父类即可。
- *      增加标签时，只需要添加相关的方法即可，默认自定义标签的method就是自定义方法的函数名。
- *      例如：<@zhydTag method="types" ...></@zhydTag>就对应 {{@link #types(Map)}}方法
+ * 调整实现，所有自定义标签只需继承BaseTag后通过构造函数将自定义标签类的className传递给父类即可。
+ * 增加标签时，只需要添加相关的方法即可，默认自定义标签的method就是自定义方法的函数名。
+ * 例如：<@zhydTag method="types" ...></@zhydTag>就对应 {{@link #types(Map)}}方法
+ * @since 1.0
  */
 @Component
 public class CustomTags extends BaseTag {
@@ -98,5 +101,18 @@ public class CustomTags extends BaseTag {
 
     public Object sessionTimeOutUnit(Map params) {
         return TimeUnit.values();
+    }
+
+    public Object getNewCommentInfo(Map params) {
+        String pageSizeStr = getParam(params, "pageSize");
+        int pageSize = 50;
+        if (!StringUtils.isEmpty(pageSizeStr)) {
+            pageSize = Integer.parseInt(pageSizeStr);
+        }
+        List<Comment> comments = commentService.listVerifying(pageSize);
+        Map<String, Object> res = new HashMap<>();
+        res.put("total", CollectionUtils.isEmpty(comments) ? 0 : comments.size());
+        res.put("comments", comments);
+        return res;
     }
 }

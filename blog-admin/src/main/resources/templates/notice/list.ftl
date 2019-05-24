@@ -14,13 +14,13 @@
                 <div class="<#--table-responsive-->">
                     <div class="btn-group hidden-xs" id="toolbar">
                         <@shiro.hasPermission name="notice:add">
-                            <button id="btn_add" type="button" class="btn btn-default" title="添加公告">
-                                <i class="fa fa-plus"></i> 添加公告
+                            <button id="btn_add" type="button" class="btn btn-info" title="添加公告">
+                                <i class="fa fa-plus fa-fw"></i>
                             </button>
                         </@shiro.hasPermission>
                         <@shiro.hasPermission name="notice:batchDelete">
-                            <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
-                                <i class="fa fa-trash-o"></i> 批量删除
+                            <button id="btn_delete_ids" type="button" class="btn btn-danger" title="删除选中">
+                                <i class="fa fa-trash-o fa-fw"></i>
                             </button>
                         </@shiro.hasPermission>
                     </div>
@@ -78,14 +78,14 @@
             var status = row.status;
             var html = '';
             if (status && status == 'NOT_RELEASE') {
-                html = '<@shiro.hasPermission name="notice:release"><a class="btn btn-xs btn-success btn-release" data-id="' + trId + '"><i class="fa fa-rocket fa-fw"></i>发布</a></@shiro.hasPermission>';
+                html = '<@shiro.hasPermission name="notice:release"><a class="btn btn-sm btn-success btn-release" data-id="' + trId + '" title="发布"><i class="fa fa-rocket fa-fw"></i></a></@shiro.hasPermission>';
             } else {
-                html = '<@shiro.hasPermission name="notice:withdraw"><a class="btn btn-xs btn-warning btn-withdraw" data-id="' + trId + '"><i class="fa fa-rocket fa-rotate-180 fa-fw"></i>撤回</a></@shiro.hasPermission>';
+                html = '<@shiro.hasPermission name="notice:withdraw"><a class="btn btn-sm btn-warning btn-withdraw" data-id="' + trId + '" title="撤回"><i class="fa fa-rocket fa-rotate-180 fa-fw"></i></a></@shiro.hasPermission>';
             }
             var operateBtn = [
                 html,
-                '<@shiro.hasPermission name="notice:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
-                '<@shiro.hasPermission name="notice:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
+                '<@shiro.hasPermission name="notice:edit"><a class="btn btn-sm btn-success btn-update" data-id="' + trId + '"title="编辑"><i class="fa fa-edit fa-fw"></i></a></@shiro.hasPermission>',
+                '<@shiro.hasPermission name="notice:delete"><a class="btn btn-sm btn-danger btn-remove" data-id="' + trId + '"title="删除"><i class="fa fa-trash-o fa-fw"></i></a></@shiro.hasPermission>'
             ];
             return operateBtn.join('');
         }
@@ -105,12 +105,13 @@
                         field: 'id',
                         title: 'ID',
                         width: '60px',
-                        editable: false
+                        formatter: function (code) {
+                            return code ? code : '-';
+                        }
                     }, {
                         field: 'title',
                         title: '标题',
                         width: '150px',
-                        editable: false,
                         formatter: function (code) {
                             return '<a href="' + code + '" target="_blank" rel="nofollow ">' + code + '</a>';
                         }
@@ -118,14 +119,12 @@
                         field: 'content',
                         title: '内容',
                         width: '300px',
-                        editable: false,
                         formatter: function (code) {
                             return '<a href="' + code + '" target="_blank" rel="nofollow ">' + code + '</a>';
                         }
                     }, {
                         field: 'status',
                         title: '状态',
-                        editable: false,
                         width: '60px',
                         formatter: function (code, row, index) {
                             return (code && code == 'RELEASE') ? "已发布" : "未发布";
@@ -133,18 +132,18 @@
                     }, {
                         field: 'operate',
                         title: '操作',
-                        width: '150px',
+                        align: "center",
+                        width: '80px',
                         formatter: operateFormatter //自定义方法，添加操作按钮
                     }
                 ]
             };
-            //1.初始化Table
-            $.tableUtil.init(options);
-            //2.初始化Button的点击事件
-            $.buttonUtil.init(options);
+            // 初始化table组件
+            var table = new Table(options);
+            table.init();
 
             // 发布
-            $('#tablelist').on('click', '.btn-release', function () {
+            table.bindClickEvent('.btn-release', function () {
                 var $this = $(this);
                 var id = $this.data("id");
                 $.alert.confirm("确定发布该条通知？发布后将对用户可见！", function () {
@@ -162,7 +161,7 @@
                 }, 5000);
             });
             // 撤回
-            $('#tablelist').on('click', '.btn-withdraw', function () {
+            table.bindClickEvent('.btn-withdraw', function () {
                 var $this = $(this);
                 var id = $this.data("id");
                 $.alert.confirm("确定撤回该条通知？撤回后将对用户不可见！", function () {

@@ -59,8 +59,71 @@ braum:
             type: redis
             threshold: 15
             interval: 5000
+
 ####################################自定义配置##########################################
 app:
     # 是否启用kaptcha验证码
     enableKaptcha: false
+
+me:
+    zhyd:
+        oauth:
+            gitee:
+                clientId:
+                clientSecret:
+                redirectUri:
+            github:
+                clientId:
+                clientSecret:
+                redirectUri:
+            weibo:
+                clientId:
+                clientSecret:
+                redirectUri:
+            dingTalk:
+                clientId:
+                clientSecret:
+                redirectUri:
+            baidu:
+                clientId:
+                clientSecret:
+                redirectUri:
+            coding:
+                clientId:
+                clientSecret:
+                redirectUri:
+            tencentCloud:
+                clientId:
+                clientSecret:
+                redirectUri:
+            oschina:
+                clientId:
+                clientSecret:
+                redirectUri:
+            alipay:
+                clientId:
+                clientSecret:
+                redirectUri:
+                alipayPublicKey:
+            qq:
+                clientId:
+                clientSecret:
+                redirectUri:
+            wechat:
+                clientId:
+                clientSecret:
+                redirectUri:
+            taobao:
+                clientId:
+                clientSecret:
+                redirectUri:
+            google:
+                clientId:
+                clientSecret:
+                redirectUri:
+            facebook:
+                clientId:
+                clientSecret:
+                redirectUri:
+
 ####################################自定义配置##########################################

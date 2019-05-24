@@ -13,13 +13,13 @@
             <div class="x_content">
                 <div class="btn-group hidden-xs" id="toolbar" style="padding: 10px 0;">
                     <@shiro.hasPermission name="files">
-                        <button id="btn_add" type="button" class="btn btn-default" title="新增图片">
-                            <i class="fa fa-plus"></i> 新增图片
+                        <button id="btn_add" type="button" class="btn btn-info" title="新增图片">
+                            <i class="fa fa-plus fa-fw"></i>
                         </button>
                     </@shiro.hasPermission>
                     <@shiro.hasPermission name="files">
-                        <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
-                            <i class="fa fa-trash-o"></i> 批量删除
+                        <button id="btn_delete_ids" type="button" class="btn btn-danger" title="删除选中">
+                            <i class="fa fa-trash-o fa-fw"></i>
                         </button>
                     </@shiro.hasPermission>
                 </div>

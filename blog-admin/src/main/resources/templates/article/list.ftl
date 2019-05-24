@@ -15,22 +15,22 @@
                     <div class="<#--table-responsive-->">
                         <div class="btn-group hidden-xs" id="toolbar">
                             <@shiro.hasPermission name="article:publish">
-                                <a class="btn btn-default" title="发表文章" href="/article/publishMd"> <i class="fa fa-pencil"></i> 发表文章 </a>
+                                <a class="btn btn-success" title="发表文章" href="${(config.articleEditor?if_exists == 'md')?string('/article/publishMd', '/article/publish')}"> <i class="fa fa-pencil fa-fw"></i>  </a>
                             </@shiro.hasPermission>
                             <@shiro.hasPermission name="article:batchDelete">
-                                <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
-                                    <i class="fa fa-trash-o"></i> 批量删除
+                                <button id="btn_delete_ids" type="button" class="btn btn-danger" title="删除选中">
+                                    <i class="fa fa-trash-o fa-fw"></i>
                                 </button>
                             </@shiro.hasPermission>
                             <#-- 由草稿状态批量修改为已发布状态 -->
                             <@shiro.hasPermission name="article:publish">
                                 <button id="btn_update_status" type="button" class="btn btn-default" title="批量发布">
-                                    <i class="fa fa-bullhorn"></i> 批量发布
+                                    <i class="fa fa-bullhorn fa-fw"></i>
                                 </button>
                             </@shiro.hasPermission>
                             <@shiro.hasPermission name="article:batchPush">
-                                <button id="btn_push_ids" type="button" class="btn btn-info" title="批量推送">
-                                    <i class="fa fa-send-o"></i> 批量推送到百度
+                                <button id="btn_push_ids" type="button" class="btn btn-info" title="批量推送到百度">
+                                    <i class="fa fa-send-o fa-fw"></i>
                                 </button>
                             </@shiro.hasPermission>
                         </div>
@@ -56,11 +56,11 @@
         // var recommended = row.recommended ? '<i class="fa fa-thumbs-o-down"></i>取消推荐' : '<i class="fa fa-thumbs-o-up"></i>推荐';
         // var top = row.top ? '<i class="fa fa-arrow-circle-down"></i>取消置顶' : '<i class="fa fa-arrow-circle-up"></i>置顶';
         var operateBtn = [
-            '<@shiro.hasPermission name="article:push"><a class="btn btn-xs btn-info btn-push" title="推送" data-id="' + trId + '"><i class="fa fa-send-o"></i></a></@shiro.hasPermission>',
-            '<@shiro.hasPermission name="article:edit"><a class="btn btn-xs btn-primary" href="/article/update/' + trId + '"><i class="fa fa-edit"></i></a></@shiro.hasPermission>',
-            '<@shiro.hasPermission name="article:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i></a></@shiro.hasPermission>',
-            <#--'<@shiro.hasPermission name="article:top"><a class="btn btn-xs btn-success btn-top" data-id="' + trId + '">' + top + '</a></@shiro.hasPermission>',-->
-            <#--'<@shiro.hasPermission name="article:recommend"><a class="btn btn-xs btn-success btn-recommend" data-id="' + trId + '">' + recommended + '</a></@shiro.hasPermission>'-->
+            '<@shiro.hasPermission name="article:push"><a class="btn btn-sm btn-info btn-push" title="推送" data-id="' + trId + '"><i class="fa fa-send-o"></i></a></@shiro.hasPermission>',
+            '<@shiro.hasPermission name="article:edit"><a class="btn btn-sm btn-success" href="/article/update/' + trId + '"><i class="fa fa-edit fa-fw"></i></a></@shiro.hasPermission>',
+            '<@shiro.hasPermission name="article:delete"><a class="btn btn-sm btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o fa-fw"></i></a></@shiro.hasPermission>',
+            <#--'<@shiro.hasPermission name="article:top"><a class="btn btn-sm btn-success btn-top" data-id="' + trId + '">' + top + '</a></@shiro.hasPermission>',-->
+            <#--'<@shiro.hasPermission name="article:recommend"><a class="btn btn-sm btn-success btn-recommend" data-id="' + trId + '">' + recommended + '</a></@shiro.hasPermission>'-->
         ];
         return operateBtn.join('');
     }
@@ -78,10 +78,9 @@
                     field: 'title',
                     title: '标题',
                     width: '270px',
-                    editable: false,
                     formatter: function (code, row, index) {
                         var title = code;
-                        title = title.length > 20 ? (title.substr(0, 20) + '...') : title;
+                        title = title.length > 30 ? (title.substr(0, 30) + '...') : title;
                         var id = row.id;
                         var status = row.status ? '<span class="label label-success" style="margin-right: 5px;">已发布</span>' : '<span class="label label-danger" style="margin-right: 5px;">草稿</span>';
                         return status + '<a href="' + appConfig.wwwPath + '/article/' + id + '" target="_blank" title="' + code + '">' + title + '</a>';
@@ -90,7 +89,6 @@
                     field: 'comment',
                     title: '评论',
                     width: '50px',
-                    editable: false,
                     formatter: function (code, row, index) {
                         var checked = code ? 'checked' : '';
                         return '<input type="checkbox" name="comment" class="js-switch btn-comment"  data-id="' + row.id + '" data-type="comment" ' + checked + '>';
@@ -98,7 +96,6 @@
                 }, {
                     field: 'recommended',
                     title: '推荐 <i class="fa fa-question-circle-o" title="推荐的文章会在首页滚动显示"></i>',
-                    editable: false,
                     width: '50px',
                     formatter: function (code, row, index) {
                         var checked = code ? 'checked' : '';
@@ -107,7 +104,6 @@
                 }, {
                     field: 'top',
                     title: '置顶',
-                    editable: false,
                     width: '50px',
                     formatter: function (code, row, index) {
                         var checked = code ? 'checked' : '';
@@ -116,22 +112,27 @@
                 }, {
                     field: 'lookCount',
                     title: '浏览',
-                    editable: false,
-                    width: '50px'
+                    width: '50px',
+                    formatter: function (code) {
+                        return code ? code : '-';
+                    }
                 }, {
                     field: 'commentCount',
                     title: '评论',
-                    editable: false,
-                    width: '50px'
+                    width: '50px',
+                    formatter: function (code) {
+                        return code ? code : '-';
+                    }
                 }, {
                     field: 'loveCount',
                     title: '喜欢',
-                    editable: false,
-                    width: '50px'
+                    width: '50px',
+                    formatter: function (code) {
+                        return code ? code : '-';
+                    }
                 }, {
                     field: 'createTime',
                     title: '发布时间',
-                    editable: false,
                     width: '130px',
                     formatter: function (code) {
                         return new Date(code).format("yyyy-MM-dd hh:mm:ss")
@@ -139,17 +140,17 @@
                 }, {
                     field: 'operate',
                     title: '操作',
+                    align: "center",
                     width: '100px',
                     formatter: operateFormatter //自定义方法，添加操作按钮
                 }
             ]
         };
-        //1.初始化Table
-        $.tableUtil.init(options);
-        //2.初始化Button的点击事件
-        $.buttonUtil.init(options);
+        // 初始化table组件
+        var table = new Table(options);
+        table.init();
 
-        $('#tablelist').on('click', '.switchery', function () {
+        table.bindClickEvent('.switchery', function () {
             var $input = $(this).prev();
 
             var id = $input.data("id");
@@ -172,7 +173,7 @@
         /**
          * 推送到百度
          */
-        $('#tablelist').on('click', '.btn-push', function () {
+        table.bindClickEvent('.btn-push', function () {
             var $this = $(this);
             var userId = $this.attr("data-id");
             push(userId);

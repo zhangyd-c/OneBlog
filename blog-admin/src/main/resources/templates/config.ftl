@@ -32,6 +32,9 @@
                             <li role="presentation">
                                 <a href="#tab_comment" id="comment-tab" role="tab" data-toggle="tab" aria-expanded="true">评论</a>
                             </li>
+                            <li role="presentation">
+                                <a href="#tab_article_editor" id="article-editor-tab" role="tab" data-toggle="tab" aria-expanded="true">文章编辑器</a>
+                            </li>
                             <li role="presentation" class="">
                                 <a href="#tab_contact" role="tab" id="contact-tab" data-toggle="tab" aria-expanded="false">联系方式</a>
                             </li>
@@ -68,21 +71,21 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="siteFavicon">站点图标
                                             <i class="fa fa-question-circle" title="favicon，浏览器标签网站标题左侧的图标"></i> <span class="required">*</span></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" class="form-control col-md-7 col-xs-12" name="siteFavicon" id="siteFavicon" required="required" placeholder="请输入站点LOGO"/>
+                                            <input type="text" class="form-control col-md-7 col-xs-12" name="siteFavicon" id="siteFavicon" required="required" placeholder="请输入站点LOGO，如：http://localhost:8443/favicon.ico"/>
                                         </div>
                                     </div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="staticWebSite">资源文件域名
                                             <i class="fa fa-question-circle" title="js、css、img等文件的域名地址，如果是在本项目内，则与“博客地址”设置一样即可"></i> <span class="required">*</span></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" class="form-control col-md-7 col-xs-12" name="staticWebSite" id="staticWebSite" required="required" placeholder="请输入资源文件域名"/>
+                                            <input type="text" class="form-control col-md-7 col-xs-12" name="staticWebSite" id="staticWebSite" required="required" placeholder="请输入资源文件域名，如：http://localhost:8443"/>
                                         </div>
                                     </div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="staticWebSite">CMS后管系统地址
                                             <i class="fa fa-question-circle" title="博客后台管理系统的地址，例如: http://localhost:8085"></i> <span class="required">*</span></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" class="form-control col-md-7 col-xs-12" name="cmsUrl" id="cmsUrl" required="required" placeholder="请输入CMS后管系统地址"/>
+                                            <input type="text" class="form-control col-md-7 col-xs-12" name="cmsUrl" id="cmsUrl" required="required" placeholder="请输入CMS后管系统地址，例如: http://localhost:8085"/>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -138,7 +141,7 @@
                                 <form class="form-horizontal form-label-left" novalidate>
                                     <div class="alert alert-info" role="alert" style="color: white">
                                         <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                        <i class="fa fa-info-circle fa-fw"></i>注意：系统<strong>暂不自持自动同步</strong>各个云存储空间中的文件，所以当切换云存储类型时可能会造成<strong class="red">部分图片不可用</strong>的情况！请悉知！
+                                        <i class="fa fa-info-circle fa-fw"></i>注意：系统<strong>暂不自持自动同步</strong>各个云存储空间中的文件，所以当切换云存储类型时可能会造成<strong>部分图片不可用</strong>的情况！请悉知！
                                     </div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">存储类型 <span class="required">*</span></label>
@@ -302,6 +305,26 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="editorAlert">警示语 <i class="fa fa-question-circle" title="评论框右下角显示的内容"></i> </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" class="form-control col-md-7 col-xs-12" id="editorAlert" name="editorAlert" placeholder="例如：讲文明、要和谐">
+                                        </div>
+                                    </div>
+
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab_article_editor" aria-labelledby="article-editor-tab">
+                                <form class="form-horizontal form-label-left" novalidate>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="articleEditor">默认文章编辑器 <i class="fa fa-question-circle" title="文章编辑器"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
+                                            <select name="articleEditor" id="articleEditor" class="form-control">
+                                                <option value="md">Markdown编辑器</option>
+                                                <option value="we">WangEditor编辑器</option>
+                                            </select>
                                         </div>
                                     </div>
 
@@ -504,7 +527,7 @@
                     var data = json.data;
                     oldStorageType = data.storageType;
                     $("#myTabContent").find("input, select, textarea").each(function () {
-                        clearText($(this), this.type, data);
+                        new Table().clearText($(this), this.type, data);
                     });
                     changeMaintenance(data.maintenance && data.maintenance == 1, data.maintenance);
                     data.zfbPraiseCode && $("#zfbPraiseCodePreview").html('<img src="' + data.zfbPraiseCode + '" alt="支付宝赞赏码" class="img-responsive img-rounded auto-shake">');

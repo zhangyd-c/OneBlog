@@ -204,6 +204,11 @@ public enum ConfigKeyEnum {
      * 系统最后一次更新的日期
      */
     UPDATE_TIME("updateTime"),
+
+    /**
+     * 系统最后一次更新的日期
+     */
+    ARTICLE_EDITOR("articleEditor"),
     ;
 
     private String key;

@@ -14,13 +14,13 @@
                 <div class="<#--table-responsive-->">
                     <div class="btn-group hidden-xs" id="toolbar">
                         <@shiro.hasPermission name="user:add">
-                        <button id="btn_add" type="button" class="btn btn-default" title="新增用户">
-                            <i class="fa fa-plus"></i> 新增用户
+                        <button id="btn_add" type="button" class="btn btn-info" title="新增用户">
+                            <i class="fa fa-plus fa-fw"></i>
                         </button>
                         </@shiro.hasPermission>
                         <@shiro.hasPermission name="user:batchDelete">
-                            <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
-                                <i class="fa fa-trash-o"></i> 批量删除
+                            <button id="btn_delete_ids" type="button" class="btn btn-danger" title="删除选中">
+                                <i class="fa fa-trash-o fa-fw"></i>
                             </button>
                         </@shiro.hasPermission>
                     </div>
@@ -104,11 +104,11 @@
             var currentUserId = '${user.id}';
             var trUserId = row.id;
             var operateBtn = [
-                '<@shiro.hasPermission name="user:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trUserId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
+                '<@shiro.hasPermission name="user:edit"><a class="btn btn-sm btn-success btn-update" data-id="' + trUserId + '"title="编辑"><i class="fa fa-edit fa-fw"></i></a></@shiro.hasPermission>',
             ];
             if (currentUserId != trUserId) {
-                operateBtn.push('<@shiro.hasPermission name="user:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trUserId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>');
-                operateBtn.push('<@shiro.hasPermission name="user:allotRole"><a class="btn btn-xs btn-info btn-allot" data-id="' + trUserId + '"><i class="fa fa-circle-thin"></i>分配角色</a></@shiro.hasPermission>')
+                operateBtn.push('<@shiro.hasPermission name="user:delete"><a class="btn btn-sm btn-danger btn-remove" data-id="' + trUserId + '"title="删除"><i class="fa fa-trash-o fa-fw"></i></a></@shiro.hasPermission>');
+                operateBtn.push('<@shiro.hasPermission name="user:allotRole"><a class="btn btn-sm btn-info btn-allot" data-id="' + trUserId + '" title="分配角色"><i class="fa fa-circle-thin fa-fw"></i></a></@shiro.hasPermission>')
             }
             return operateBtn.join('');
         }
@@ -127,53 +127,67 @@
                     }, {
                         field: 'username',
                         title: '用户名',
-                        editable: false,
+                        formatter: function (code) {
+                            return code ? code : '-';
+                        }
                     }, {
                         field: 'nickname',
                         title: '昵称',
-                        editable: true
+                        formatter: function (code) {
+                            return code ? code : '-';
+                        }
                     }, {
                         field: 'email',
                         title: '邮箱',
-                        editable: true
+                        formatter: function (code) {
+                            return code ? code : '-';
+                        }
                     }, {
                         field: 'qq',
                         title: 'qq',
-                        editable: true
+                        formatter: function (code) {
+                            return code ? code : '-';
+                        }
                     }, {
                         field: 'userType',
                         title: '用户类型',
-                        editable: false
+                        formatter: function (code) {
+                            return code ? code : '-';
+                        }
                     }, {
                         field: 'statusEnum',
                         title: '状态',
-                        editable: false
+                        formatter: function (code) {
+                            return code ? code : '-';
+                        }
                     }, {
                         field: 'lastLoginTime',
                         title: '最后登录时间',
-                        editable: false,
                         formatter: function (code) {
                             return new Date(code).format("yyyy-MM-dd hh:mm:ss")
                         }
                     }, {
                         field: 'loginCount',
                         title: '登录次数',
-                        editable: false
+                        formatter: function (code) {
+                            return code ? code : '-';
+                        }
                     }, {
                         field: 'operate',
                         title: '操作',
+                        align: "center",
+                        width: '150px',
                         formatter: operateFormatter //自定义方法，添加操作按钮
                     }
                 ],
                 modalName: "用户"
             };
-            //1.初始化Table
-            $.tableUtil.init(options);
-            //2.初始化Button的点击事件
-            $.buttonUtil.init(options);
+            // 初始化table组件
+            var table = new Table(options);
+            table.init();
 
             /* 分配用户角色 */
-            $('#tablelist').on('click', '.btn-allot', function () {
+            table.bindClickEvent('.btn-allot', function () {
                 console.log("分配权限");
                 var $this = $(this);
                 var userId = $this.attr("data-id");

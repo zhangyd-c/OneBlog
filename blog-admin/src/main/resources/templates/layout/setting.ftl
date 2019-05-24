@@ -25,20 +25,36 @@
                 </li>
                 <@shiro.hasPermission name="comments">
                 <li role="presentation" class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="badge bg-green noticeNum">0</span>
-                    </a>
-                    <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                        <li id="event-li">
-                            <div class="text-center">
-                                <a href="/comments">
-                                    <strong>立即处理</strong>
-                                    <i class="fa fa-angle-right"></i>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
+                    <@zhydTag method="getNewCommentInfo" pageSize="50">
+                        <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="badge bg-green noticeNum">${getNewCommentInfo['total']}</span>
+                        </a>
+                        <#if getNewCommentInfo['total'] gt 0>
+                            <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                                <#list getNewCommentInfo["comments"] as item>
+                                    <li>
+                                        <a href="/comments">
+                                            <span class="image"><img src="${item.avatar}" onerror="this.src='/assets/images/user.png'" alt="user avatar"></span>
+                                            <span>
+                                                <span>${item.nickname}</span>
+                                                <span class="time">${item.createTime?string('yyyy-MM-dd HH:mm:ss')}</span>
+                                            </span>
+                                            <span class="message">点击查看&审核</span>
+                                        </a>
+                                    </li>
+                                </#list>
+                                <li id="event-li">
+                                    <div class="text-center">
+                                        <a href="/comments">
+                                            <strong>立即处理</strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </#if>
+                    </@zhydTag>
                 </li>
                 </@shiro.hasPermission>
                 <li>

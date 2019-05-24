@@ -38,17 +38,10 @@
 			parent.`name` parent_name,
 			parent.description parent_description,
 			parent.available parent_available,
-			parent.icon parent_icon,
-			node.`id` node_id,
-			node.`pid` node_pid,
-			node.`name` node_name,
-			node.description node_description,
-			node.available node_available,
-			node.icon node_icon
+			parent.icon parent_icon
 		FROM
 			biz_type t
 		LEFT JOIN biz_type parent ON t.pid = parent.id
-		LEFT JOIN biz_type node ON node.pid = t.id
 		WHERE
 			1 = 1
 		<if test="pid != null and pid != ''">

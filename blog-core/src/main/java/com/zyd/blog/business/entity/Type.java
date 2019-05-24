@@ -8,8 +8,8 @@ import java.util.List;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @website https://www.zhyd.me
  * @version 1.0
+ * @website https://www.zhyd.me
  * @date 2018/4/16 16:26
  * @since 1.0
  */
@@ -43,6 +43,10 @@ public class Type {
 
     public void setPid(Long pid) {
         this.bizType.setPid(pid);
+    }
+
+    public Long getParentId() {
+        return this.bizType.getPid();
     }
 
     public String getName() {

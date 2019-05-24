@@ -14,13 +14,13 @@
                 <div class="<#--table-responsive-->">
                     <div class="btn-group hidden-xs" id="toolbar">
                         <@shiro.hasPermission name="link:add">
-                            <button id="btn_add" type="button" class="btn btn-default" title="新增友链">
-                                <i class="fa fa-plus"></i> 新增友链
+                            <button id="btn_add" type="button" class="btn btn-info" title="新增友链">
+                                <i class="fa fa-plus fa-fw"></i>
                             </button>
                         </@shiro.hasPermission>
                         <@shiro.hasPermission name="link:batchDelete">
-                            <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
-                                <i class="fa fa-trash-o"></i> 批量删除
+                            <button id="btn_delete_ids" type="button" class="btn btn-danger" title="批量删除">
+                                <i class="fa fa-trash-o fa-fw"></i>
                             </button>
                         </@shiro.hasPermission>
                     </div>
@@ -106,8 +106,8 @@
         function operateFormatter(code, row, index) {
             var trId = row.id;
             var operateBtn = [
-                '<@shiro.hasPermission name="link:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>',
-                '<@shiro.hasPermission name="link:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
+                '<@shiro.hasPermission name="link:edit"><a class="btn btn-sm btn-success btn-update" data-id="' + trId + '"title="编辑"><i class="fa fa-edit fa-fw"></i></a></@shiro.hasPermission>',
+                '<@shiro.hasPermission name="link:delete"><a class="btn btn-sm btn-danger btn-remove" data-id="' + trId + '"title="删除"><i class="fa fa-trash-o fa-fw"></i></a></@shiro.hasPermission>'
             ];
             return operateBtn.join('');
         }
@@ -127,7 +127,6 @@
                         field: 'url',
                         title: 'URL',
                         width: '120px',
-                        editable: false,
                         formatter: function (code) {
                             return '<a href="'+code+'" target="_blank" rel="nofollow ">' + code + '</a>';
                         }
@@ -135,16 +134,19 @@
                         field: 'name',
                         title: '名称',
                         width: '100px',
-                        editable: false
+                        formatter: function (code) {
+                            return code ? code : '-';
+                        }
                     }, {
                         field: 'description',
                         title: '描述',
                         width: '200px',
-                        editable: false
+                        formatter: function (code) {
+                            return code ? code : '-';
+                        }
                     }, {
                         field: 'favicon',
                         title: 'Logo',
-                        editable: false,
                         width: '40px',
                         formatter: function (code) {
                             return !code ? '' : '<img src="'+code+'" width="20">';
@@ -152,7 +154,6 @@
                     }, {
                         field: 'status',
                         title: '状态',
-                        editable: false,
                         width: '40px',
                         formatter: function (code, row, index) {
                             return code ? "启用" : "<strong style='color: red;' title='" + row.remark + "'>禁用</strong>";
@@ -160,7 +161,6 @@
                     }, {
                         field: 'homePageDisplay',
                         title: '首页',
-                        editable: false,
                         width: '40px',
                         formatter: function (code) {
                             return code ? "是" : "否";
@@ -168,12 +168,13 @@
                     }, {
                         field: 'source',
                         title: '来源 <i class="fa fa-question-circle-o" title="\'ADMIN\'表示管理员添加，\'AUTOMATIC\'表示用户自动添加"></i>',
-                        editable: false,
-                        width: '60px'
+                        width: '60px',
+                        formatter: function (code) {
+                            return code ? code : '-';
+                        }
                     }, {
                         field: 'email',
                         title: '联系方式',
-                        editable: false,
                         width: '60px',
                         formatter: function (code, row, index) {
                             var html = '';
@@ -189,14 +190,14 @@
                         field: 'updateTime',
                         title: '更新时间',
                         width: '120px',
-                        editable: false,
                         formatter: function (code) {
                             return new Date(code).format("yyyy-MM-dd hh:mm:ss")
                         }
                     }, {
                         field: 'operate',
                         title: '操作',
-                        width: '150px',
+                        align: "center",
+                        width: '80px',
                         formatter: operateFormatter //自定义方法，添加操作按钮
                     }
                 ],
@@ -211,10 +212,9 @@
                     return { 'classes': strclass }
                 }
             };
-            //1.初始化Table
-            $.tableUtil.init(options);
-            //2.初始化Button的点击事件
-            $.buttonUtil.init(options);
+            // 初始化table组件
+            var table = new Table(options);
+            table.init();
         });
     </script>
 </@footer>

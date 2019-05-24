@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 
@@ -17,7 +18,7 @@ import java.time.Duration;
  * @date 2018/4/16 16:26
  * @since 1.0
  */
-@Configuration
+@Component
 @ConfigurationProperties(prefix = "spring.redis")
 @Data
 @EqualsAndHashCode(callSuper = false)

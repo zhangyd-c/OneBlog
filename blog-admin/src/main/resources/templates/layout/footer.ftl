@@ -32,6 +32,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.1/pnotify.buttons.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.1/pnotify.nonblock.js"></script>-->
 
+<script src="/assets/js/bootstrap-treetable.js" type="text/javascript"></script>
 <script src="/assets/js/validator.js"></script>
 <script src="/assets/js/ajaxfileupload.js"></script>
 <script src="/assets/js/jquery-form.js"></script>

@@ -91,7 +91,7 @@ public class BizTypeServiceImpl implements BizTypeService {
     public boolean updateSelective(Type entity) {
         Assert.notNull(entity, "Type不可为空！");
         entity.setUpdateTime(new Date());
-        return bizTypeMapper.updateByPrimaryKeySelective(entity.getBizType()) > 0;
+        return bizTypeMapper.updateByPrimaryKey(entity.getBizType()) > 0;
     }
 
     @Override

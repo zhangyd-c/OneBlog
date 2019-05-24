@@ -46,7 +46,7 @@ if(articleId){
                     }
                 }
                 $publishForm.find("input[type!=checkbox], select, textarea").each(function () {
-                    clearText($(this), this.type, info);
+                    new Table().clearText($(this), this.type, info);
                 });
             },
             error: $.alert.ajaxError

@@ -106,30 +106,6 @@ var zhyd = window.zhyd || {
             }, 500);
         }
     },
-    initCommentNotify: function () {
-        $.ajax({
-            cache: false,
-            type: "post",
-            url: "/comment/listVerifying",
-            success: function (json) {
-                $.alert.ajaxSuccess(json);
-                var $box = $(".msg_list > li:last-child");
-                $box.prevAll().remove();
-                if (!json.data) {
-                    html = '<li><a><span class="image"><img src="/assets/images/loading.gif" alt="user avatar"></span> <span><span>系统管理员</span> <span class="time">3 mins ago</span></span> <span class="message">暂无消息</span></a></li>';
-                    $box.before(html);
-                    $(".noticeNum").text(0);
-                    return;
-                }
-                var tpl = '{{#data}}<li><a href="/comments"><span class="image"><img src="{{#avatar}}{{avatar}}{{/avatar}}{{^avatar}}/assets/images/user.png{{/avatar}}" onerror="this.src=\'/assets/images/user.png\'" alt="user avatar"></span> <span><span>{{nickname}}</span> <span class="time">{{createTimeString}}</span></span> <span class="message">点击查看&审核</span></a></li>{{/data}}';
-                html = Mustache.render(tpl, json);
-                $box.before(html);
-                $(".noticeNum").text(json.data.length);
-                // $.tool.currentPath() === "/" && $.notify.info('共有' + json.data.length + '条评论待处理，<a href="/comments"><strong>立即处理</strong></a>');
-            },
-            error: $.alert.ajaxError
-        });
-    },
     initTextSlider: function () {
         $.fn.textSlider = function (settings) {
             settings = jQuery.extend({
@@ -545,7 +521,6 @@ var zhyd = window.zhyd || {
 };
 
 $(document).ready(function () {
-    zhyd.initCommentNotify();
     zhyd.initTextSlider();
 
     $("img.lazy-img").lazyload({
@@ -607,12 +582,13 @@ $(document).ready(function () {
     });
 
     var notice = [
-        '<strong>Hi Body!</strong> 前台首页的 “轮播”只会显示“推荐文章”哦',
+        '<strong>Hi Boy!</strong> 前台首页的 “轮播”只会显示“推荐文章”哦',
         '要想百度搜索引擎快速收录文章，可以试试“推送”功能哦',
         '批量推送文章到百度可以一次提交多篇文章哦',
         '碰到页面显示和数据库内容不一致的情况，可以先考虑清下redis缓存哦',
         '不可以随便用“文章搬运工”去爬取别人未授权的文章哈',
         '使用过程中如果有不能解决的问题，请去提issue哈，在群里消息太多，有时候会看不到消息记录',
+        '可以通过右上角“系统配置”-“文章编辑器”选择默认的文章发布编辑器'
     ];
     var $noticeBox = $("#notice-box");
     var tpl = '{{#data}}<li class="scrolltext-title">'
@@ -620,4 +596,14 @@ $(document).ready(function () {
         + '</li>{{/data}}';
     var html = Mustache.render(tpl, {"data": $.tool.shuffle(notice)});
     $noticeBox.html(html);
+
+    /**
+     * 切换编辑器
+     */
+    $("#changeEditor").click(function () {
+        var $this = $(this);
+        $.alert.confirm("确定要切换编辑器吗？切换后本页内容将可能会丢失？", function () {
+            window.location.href = $this.data("href");
+        })
+    })
 });

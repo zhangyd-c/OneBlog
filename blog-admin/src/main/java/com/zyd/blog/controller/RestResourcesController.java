@@ -41,6 +41,7 @@ public class RestResourcesController {
     @RequiresPermissions("resources")
     @PostMapping("/list")
     public PageResult getAll(ResourceConditionVO vo) {
+        vo.setPageSize(Integer.MAX_VALUE);
         PageInfo<Resources> pageInfo = resourcesService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }

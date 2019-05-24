@@ -15,8 +15,8 @@
                     <div class="<#--table-responsive-->">
                         <div class="btn-group hidden-xs" id="toolbar">
                             <@shiro.hasPermission name="comment:batchDelete">
-                                <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
-                                    <i class="fa fa-trash-o"></i> 批量删除
+                                <button id="btn_delete_ids" type="button" class="btn btn-danger" title="删除选中">
+                                    <i class="fa fa-trash-o fa-fw"></i>
                                 </button>
                             </@shiro.hasPermission>
                         </div>
@@ -122,9 +122,9 @@
             var id = row.id;
             var sid = row.sid;
             var operateBtn = [
-                '<@shiro.hasPermission name="comment:reply"><a class="btn btn-xs btn-primary btn-reply" data-id="' + id + '" data-sid="' + sid + '"><i class="fa fa-edit"></i>回复</a></@shiro.hasPermission>',
-                '<@shiro.hasPermission name="comment:audit"><a class="btn btn-xs btn-warning btn-audit" data-id="' + id + '" data-sid="' + sid + '"><i class="fa fa-edit"></i>审核</a></@shiro.hasPermission>',
-                '<@shiro.hasPermission name="comment:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + id + '" data-sid="' + sid + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>'
+                '<@shiro.hasPermission name="comment:reply"><a class="btn btn-primary btn-reply" data-id="' + id + '" data-sid="' + sid + '" title="回复"><i class="fa fa-reply"></i></a></@shiro.hasPermission>',
+                '<@shiro.hasPermission name="comment:audit"><a class="btn btn-warning btn-audit" data-id="' + id + '" data-sid="' + sid + '" title="审核"><i class="fa fa-shield"></i></a></@shiro.hasPermission>',
+                '<@shiro.hasPermission name="comment:delete"><a class="btn btn-danger btn-remove" data-id="' + id + '" data-sid="' + sid + '" title="删除"><i class="fa fa-trash-o fa-fw"></i></a></@shiro.hasPermission>'
             ];
             return operateBtn.join('');
         }
@@ -143,7 +143,6 @@
                     }, {
                         field: 'avatar',
                         title: '作者',
-                        editable: false,
                         width: '200px',
                         formatter: function (code, row, index) {
                             return '<ul class="list-unstyled">' +
@@ -159,8 +158,7 @@
                     }, {
                         field: 'content',
                         title: '内容',
-                        editable: false,
-                        width: '260px',
+                        width: '380px',
                         formatter: function (code, row, index) {
                             var content = filterXSS(row.content);
                             var source = '<a href="' + appConfig.wwwPath + row.sourceUrl + '" target="_blank">' + row.articleTitle + '</a>';
@@ -173,7 +171,7 @@
                         field: 'support',
                         title: '赞/踩',
                         width: '40px',
-                        editable: false,
+                        align: "center",
                         formatter: function (code, row, index) {
                             return row.support + "/" + row.oppose;
                         }
@@ -181,7 +179,7 @@
                         field: 'status',
                         title: '状态',
                         width: '40px',
-                        editable: false,
+                        align: "center",
                         formatter: function (code, row, index) {
                             var html = '';
                             if(code == 'VERIFYING'){
@@ -198,7 +196,8 @@
                     }, {
                         field: 'operate',
                         title: '操作',
-                        width: '140px',
+                        align: "center",
+                        width: '100px',
                         formatter: operateFormatter //自定义方法，添加操作按钮
                     }
                 ],
@@ -213,12 +212,11 @@
                     return { 'classes': strclass }
                 }
             };
-            //1.初始化Table
-            $.tableUtil.init(options);
-            //2.初始化Button的点击事件
-            $.buttonUtil.init(options);
+            // 初始化table组件
+            var table = new Table(options);
+            table.init();
 
-            var $tablelist = $('#tablelist');
+            var $tablelist = $(table.options.tableBox);
             /**
              * 回复
              */
@@ -227,7 +225,7 @@
                 var $replyForm = $("#replyForm");
                 $replyForm.find("input,select,textarea").each(function () {
                     var $this = $(this);
-                    clearText($this, this.type);
+                    new Table().clearText($this, this.type);
                 });
                 var pid = $this.attr("data-id");
                 var sid = $this.attr("data-sid");
@@ -261,7 +259,7 @@
                 var $auditForm = $("#auditForm");
                 $auditForm.find("input,select,textarea").each(function () {
                     var $this = $(this);
-                    clearText($this, this.type);
+                    new Table().clearText($this, this.type);
                 });
                 $("#audit_id").val(userId);
                 $("#audit_sid").val($this.attr("data-sid"));

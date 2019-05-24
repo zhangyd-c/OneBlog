@@ -14,13 +14,13 @@
                 <div class="<#--table-responsive-->">
                     <div class="btn-group hidden-xs" id="toolbar">
                         <@shiro.hasPermission name="role:add">
-                        <button id="btn_add" type="button" class="btn btn-default" title="新增角色">
-                            <i class="fa fa-plus"></i> 新增角色
+                        <button id="btn_add" type="button" class="btn btn-info" title="新增角色">
+                            <i class="fa fa-plus fa-fw"></i>
                         </button>
                         </@shiro.hasPermission>
                         <@shiro.hasPermission name="role:batchDelete">
-                            <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
-                                <i class="fa fa-trash-o"></i> 批量删除
+                            <button id="btn_delete_ids" type="button" class="btn btn-danger" title="删除选中">
+                                <i class="fa fa-trash-o fa-fw"></i>
                             </button>
                         </@shiro.hasPermission>
                     </div>
@@ -33,7 +33,7 @@
 </div>
 <!--弹框-->
 <div class="modal fade bs-example-modal-sm" id="selectRole" tabindex="-1" role="dialog" aria-labelledby="selectRoleLabel">
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -89,11 +89,11 @@
         function operateFormatter(code, row, index) {
             var trId = row.id;
             var operateBtn = [
-                '<@shiro.hasPermission name="role:edit"><a class="btn btn-xs btn-primary btn-update" data-id="' + trId + '"><i class="fa fa-edit"></i>编辑</a></@shiro.hasPermission>'
+                '<@shiro.hasPermission name="role:edit"><a class="btn btn-sm btn-success btn-update" data-id="' + trId + '"title="编辑"><i class="fa fa-edit fa-fw"></i></a></@shiro.hasPermission>'
             ];
             if(row.name != 'role:root') {
-                operateBtn.push('<@shiro.hasPermission name="role:delete"><a class="btn btn-xs btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o"></i>删除</a></@shiro.hasPermission>');
-                operateBtn.push('<@shiro.hasPermission name="role:allotResource"><a class="btn btn-xs btn-info btn-allot" data-id="' + trId + '"><i class="fa fa-circle-thin"></i>分配资源</a></@shiro.hasPermission>');
+                operateBtn.push('<@shiro.hasPermission name="role:delete"><a class="btn btn-sm btn-danger btn-remove" data-id="' + trId + '"title="删除"><i class="fa fa-trash-o fa-fw"></i></a></@shiro.hasPermission>');
+                operateBtn.push('<@shiro.hasPermission name="role:allotResource"><a class="btn btn-sm btn-info btn-allot" data-id="' + trId + '" title="分配资源"><i class="fa fa-circle-thin fa-fw"></i></a></@shiro.hasPermission>');
             }
             return operateBtn.join('');
         }
@@ -111,32 +111,38 @@
                 }, {
                     field: 'name',
                     title: '角色名',
-                    editable: false
+                    width: '150px',
+                    formatter: function (code) {
+                        return code ? code : '-';
+                    }
                 }, {
                     field: 'description',
                     title: '角色描述',
-                    editable: false
+                    formatter: function (code) {
+                        return code ? code : '-';
+                    }
                 }, {
                     field: 'available',
                     title: '是否可用',
-                    editable: true,
+                    width: '120px',
                     formatter: function (code) {
                         return code ? '可用' : '不可用';
                     }
                 }, {
                     field: 'operate',
                     title: '操作',
+                    align: "center",
+                    width: '150px',
                     formatter: operateFormatter //自定义方法，添加操作按钮
                 }],
                 modalName: "角色"
             };
-            //1.初始化Table
-            $.tableUtil.init(options);
-            //2.初始化Button的点击事件
-            $.buttonUtil.init(options);
+            // 初始化table组件
+            var table = new Table(options);
+            table.init();
 
             /* 分配资源权限 */
-            $('#tablelist').on('click', '.btn-allot', function () {
+            table.bindClickEvent('.btn-allot', function () {
                 console.log("分配资源权限");
                 var $this = $(this);
                 var rolesId = $this.attr("data-id");
