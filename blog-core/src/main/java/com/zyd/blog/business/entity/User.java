@@ -210,12 +210,12 @@ public class User extends AbstractBO {
         this.sysUser.setSource(source);
     }
 
-    public void setSource(UserSourceEnum source) {
-        this.sysUser.setSource(source.toString());
+    public void setUuid(String uuid) {
+        this.sysUser.setUuid(uuid);
     }
 
-    public UserSourceEnum getSourceEnum() {
-        return UserSourceEnum.valueOf(this.sysUser.getSource());
+    public String getUuid() {
+        return this.sysUser.getUuid();
     }
 
     public Integer getScore() {

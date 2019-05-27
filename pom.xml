@@ -51,6 +51,7 @@
         <aliyun.oss.version>2.8.3</aliyun.oss.version>
         <oneblog.version>2.2.1</oneblog.version>
         <blog-hunter.version>1.0.1</blog-hunter.version>
+        <justauth.version>1.3.3</justauth.version>
     </properties>
 
     <dependencyManagement>

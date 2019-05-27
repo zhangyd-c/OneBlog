@@ -169,7 +169,7 @@
                                         <div class="item form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <small><a class="pointer" data-toggle="modal" data-target="#storageNginxServerModal">获取nginx文件服务器配置</a> </small>
+                                                <small>本地文件服务器，需要手动<strong class="red">搭建文件服务器</strong>。作者推荐Nginx，<a class="pointer" data-toggle="modal" data-target="#storageNginxServerModal">获取nginx文件服务器配置</a> </small>
                                             </div>
                                         </div>
                                     </div>

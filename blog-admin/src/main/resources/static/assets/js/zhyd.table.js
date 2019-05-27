@@ -276,11 +276,6 @@ Table.prototype = {
             $div.removeClass("bad");
             $div.find("div.alert").remove();
         }
-        if (info == undefined) {
-            $("div[id^='text-']").empty();
-            $("div[id^='text-']").append("<p><br/><br/></p>");
-        }
-
         if (info) {
             var thisName = $this.attr("name");
             if (("undefined" == typeof thisName)) {
@@ -296,7 +291,19 @@ Table.prototype = {
                 thisValue = info[thisName];
             }
             if (type == 'radio') {
-                $this.iCheck(((thisValue && 1 == $this.val()) || (!thisValue && 0 == $this.val())) ? 'check' : 'uncheck')
+                var _typeof = (typeof thisValue);
+                if (_typeof == "boolean" || _typeof == "number") {
+                    $this.iCheck(((thisValue && 1 == $this.val()) || (!thisValue && 0 == $this.val())) ? 'check' : 'uncheck')
+                } else if (_typeof == "string") {
+                    if((thisValue == '1' && 1 == $this.val()) || (thisValue != '1' && 0 == $this.val())) {
+                        $this.iCheck('check');
+                    } else if (thisValue == $this.val()) {
+                        $this.iCheck('check');
+                    } else {
+                        $this.iCheck('uncheck');
+                    }
+                }
+
             } else if (type.startsWith('select')) {
                 if (thisValue == 'true' || thisValue == true) {
                     thisValue = 1;
@@ -304,10 +311,6 @@ Table.prototype = {
                     thisValue = 0;
                 }
                 $this.val(thisValue);
-            } else if (type == "textarea" && $("#" + thisName).prev().find("div[id^='text-']").length > 0) {
-
-                $("#" + thisName).prev().find("div[id^='text-']").empty();
-                $("#" + thisName).prev().find("div[id^='text-']").append(thisValue);
             } else {
                 if(type == 'file') {
                     var previewContainer = $this.data("preview-container");
@@ -315,8 +318,11 @@ Table.prototype = {
                         $(previewContainer).html('<img src="' + thisValue + '" class="img-responsive img-rounded auto-shake" alt="">')
                     }
                     return;
+                } else if (type == 'password') {
+                    $this.val('');
+                } else {
+                    $this.val(thisValue);
                 }
-                $this.val(thisValue);
             }
         } else {
             if (type === 'radio' || type === 'checkbox') {

@@ -74,7 +74,7 @@
                         </figure>
                         <header class="entry-header">
                             <h2 class="entry-title">
-                                <a href="${config.siteUrl}/article/${item.id?c}" rel="bookmark" title="点击查看文章详情" data-toggle="tooltip" data-placement="bottom">${item.title}</a>
+                                <a href="${config.siteUrl}/article/${item.id?c}" rel="bookmark" title="${item.title}" data-toggle="tooltip" data-placement="bottom">${item.title}</a>
                             </h2>
                         </header>
                         <div class="entry-content">

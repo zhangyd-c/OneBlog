@@ -18,6 +18,15 @@ import java.util.UUID;
 public class SessionUtil {
 
     /**
+     * 当前是否登录
+     *
+     * @return
+     */
+    public static boolean isLogin() {
+        return null != SessionUtil.getUser();
+    }
+
+    /**
      * 获取session中的用户信息
      *
      * @return User

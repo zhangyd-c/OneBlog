@@ -18,6 +18,7 @@
 		<result property="blog" jdbcType="VARCHAR" column="blog"/>
 		<result property="location" jdbcType="VARCHAR" column="location"/>
 		<result property="source" jdbcType="VARCHAR" column="source"/>
+		<result property="uuid" jdbcType="VARCHAR" column="uuid"/>
 		<result property="privacy" jdbcType="INTEGER" column="privacy"/>
 		<result property="notification" jdbcType="INTEGER" column="notification"/>
 		<result property="score" jdbcType="INTEGER" column="score"/>

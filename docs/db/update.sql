@@ -244,3 +244,10 @@ MODIFY COLUMN `content_md` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unic
 
 # 日志文件缺少字段
 ALTER TABLE `sys_log` ADD COLUMN `params` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求参数（业务操作）';
+
+
+# 用户表新增uuid，对接JustAuth
+ALTER TABLE `dblog`.`sys_user`
+  ADD COLUMN `uuid` varchar(50) NULL COMMENT '用户唯一表示(第三方网站)' AFTER `source`;
+ALTER TABLE `dblog`.`sys_user`
+  MODIFY COLUMN `source` enum('GITHUB','GITEE','WEIBO','DINGTALK','BAIDU','CSDN','CODING','OSCHINA','TENCENT_CLOUD','ALIPAY','TAOBAO','QQ','WECHAT','GOOGLE','FACEBOOK') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户来源' AFTER `location`;

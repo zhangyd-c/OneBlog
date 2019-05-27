@@ -208,5 +208,17 @@ public class SysUserServiceImpl implements SysUserService {
         return this.updateSelective(user);
     }
 
+    @Override
+    public User getByUuidAndSource(String uuid, String source) {
+        if (StringUtils.isEmpty(uuid) || StringUtils.isEmpty(source)) {
+            return null;
+        }
+        SysUser user = new SysUser();
+        user.setUuid(uuid);
+        user.setSource(source);
+        user = sysUserMapper.selectOne(user);
+        return null == user ? null : new User(user);
+    }
+
 
 }

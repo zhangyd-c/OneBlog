@@ -6,6 +6,7 @@ import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.entity.UserPwd;
 import com.zyd.blog.business.vo.UserConditionVO;
 import com.zyd.blog.framework.object.AbstractService;
+import me.zhyd.oauth.model.AuthSource;
 
 import java.util.List;
 
@@ -61,4 +62,12 @@ public interface SysUserService extends AbstractService<User, Long> {
     boolean updatePwd(UserPwd userPwd) throws Exception;
 
 
+    /**
+     * 通过用户的uuid和source查询用户是否存在
+     *
+     * @param uuid
+     * @param source
+     * @return
+     */
+    User getByUuidAndSource(String uuid, String source);
 }

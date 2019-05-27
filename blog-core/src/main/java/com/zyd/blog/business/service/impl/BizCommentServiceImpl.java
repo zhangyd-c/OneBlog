@@ -17,6 +17,7 @@ import com.zyd.blog.business.vo.CommentConditionVO;
 import com.zyd.blog.framework.exception.ZhydCommentException;
 import com.zyd.blog.framework.holder.RequestHolder;
 import com.zyd.blog.persistence.beans.BizComment;
+import com.zyd.blog.persistence.beans.SysConfig;
 import com.zyd.blog.persistence.mapper.BizCommentMapper;
 import com.zyd.blog.util.*;
 import eu.bitwalker.useragentutils.Browser;
@@ -143,6 +144,13 @@ public class BizCommentServiceImpl implements BizCommentService {
     @Override
     @RedisCache(flush = true)
     public Comment comment(Comment comment) throws ZhydCommentException {
+        SysConfig sysConfig = configService.getByKey(ConfigKeyEnum.ANONYMOUS.getKey());
+        if (null != sysConfig) {
+            String anonymous = sysConfig.getConfigValue();
+            if (!StringUtils.isEmpty(anonymous) && !"1".equals(anonymous) && !SessionUtil.isLogin()) {
+                throw new ZhydCommentException("站长已关闭匿名评论，请先登录！");
+            }
+        }
         if (StringUtils.isEmpty(comment.getNickname())) {
             throw new ZhydCommentException("必须输入昵称");
         }

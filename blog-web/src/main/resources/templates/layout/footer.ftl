@@ -164,6 +164,11 @@
         editorPlaceholder: '${config.editorPlaceholder}',
         editorAlert: '${config.editorAlert}'
     };
+
+    var oauthConfig = {
+        loginUserName: '${user.username}',
+        loginUserAvatar: '${user.avatar}'
+    }
 </script>
 <script type="text/javascript" src="${config.staticWebSite}/js/zhyd.core.js"></script>
 <script type="text/javascript" src="${config.staticWebSite}/js/zhyd.comment.js"></script>

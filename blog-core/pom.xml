@@ -227,5 +227,10 @@
             <artifactId>braum-spring-boot-starter</artifactId>
             <version>${braum.version}</version>
         </dependency>
+        <dependency>
+            <groupId>me.zhyd.oauth</groupId>
+            <artifactId>JustAuth</artifactId>
+            <version>${justauth.version}</version>
+        </dependency>
     </dependencies>
 </project>

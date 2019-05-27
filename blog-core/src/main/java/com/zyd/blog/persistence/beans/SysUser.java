@@ -30,6 +30,7 @@ public class SysUser extends AbstractDO {
     private String blog;
     private String location;
     private String source;
+    private String uuid;
     private Integer privacy;
     private Integer notification;
     private Integer score;
