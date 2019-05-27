@@ -5,11 +5,11 @@
 
     <select id="getSiteInfo" resultType="map">
 		SELECT
-			co.articleCount,
-			co.commentCount,
-			co.tagCount,
-			co.typeCount,
-			da.recorde_time
+			co.articleCount AS articleCount,
+			co.commentCount AS commentCount,
+			co.tagCount AS tagCount,
+			co.typeCount AS typeCount,
+			da.recorde_time AS lastUpdateTime
 		FROM
 			(
 				SELECT

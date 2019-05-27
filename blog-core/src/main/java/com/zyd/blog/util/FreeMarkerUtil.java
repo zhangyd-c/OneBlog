@@ -73,7 +73,10 @@ public class FreeMarkerUtil {
         }
         Template t = null;
         try {
-            t = new Template("", new StringReader(templateContent), new Configuration());
+            // 设定freemarker对数值的格式化
+            Configuration cfg = new Configuration(Configuration.VERSION_2_3_22);
+            cfg.setNumberFormat("#");
+            t = new Template("", new StringReader(templateContent), cfg);
             StringWriter writer = new StringWriter();
             t.process(newMap, writer);
             return writer.toString();
