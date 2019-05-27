@@ -243,7 +243,7 @@
                             success: function (json) {
                                 $.alert.ajaxSuccess(json);
                                 $("#replyModal").modal('hide');
-                                $.tableUtil.refresh();
+                                table.refresh();
                             },
                             error: $.alert.ajaxError
                         });
@@ -276,7 +276,7 @@
                             success: function (json) {
                                 $.alert.ajaxSuccess(json);
                                 $("#auditModal").modal('hide');
-                                $.tableUtil.refresh();
+                                table.refresh();
                                 zhyd.initCommentNotify();
                             },
                             error: $.alert.ajaxError

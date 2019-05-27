@@ -125,8 +125,9 @@
                     field: 'available',
                     title: '是否可用',
                     width: '120px',
+                    align: 'center',
                     formatter: function (code) {
-                        return code ? '可用' : '不可用';
+                        return code ? '<span class="label label-success">是</span>' : '<span class="label label-danger">否</span>';
                     }
                 }, {
                     field: 'operate',

@@ -569,6 +569,7 @@
                 if(firstLoad) {
                     changeStorageBox();
                     firstLoad = false;
+                    oldStorageType = thisValue;
                 } else {
                     if(oldStorageType !== thisValue) {
                         $.alert.confirm("您确定要切换云存储类型吗？切换后原文件将不可访问！", function () {

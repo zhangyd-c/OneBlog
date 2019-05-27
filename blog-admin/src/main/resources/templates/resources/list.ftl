@@ -144,26 +144,34 @@
                 }, {
                     field: 'icon',
                     title: '资源图标',
+                    width: '120px',
+                    align: 'center',
                     formatter: function (code) {
-                        return code ? code : '-';
+                        return code ? '<i class="' + code + ' fa-fw"></i>'+ code : '-';
                     }
                 }, {
                     field: 'sort',
                     title: '排序',
+                    width: '70px',
+                    align: 'center',
                     formatter: function (code) {
                         return code ? code : '-';
                     }
                 }, {
                     field: 'external',
                     title: '外部资源',
+                    width: '100px',
+                    align: 'center',
                     formatter: function (code) {
-                        return code ? code : '-';
+                        return code ? '<span class="label label-success">是</span>' : '<span class="label label-danger">否</span>';
                     }
                 }, {
                     field: 'available',
                     title: '可用',
+                    width: '80px',
+                    align: 'center',
                     formatter: function (code) {
-                        return code ? code : '-';
+                        return code ? '<span class="label label-success">可用</span>' : '<span class="label label-danger">不可用</span>';
                     }
                 }]
             }, {

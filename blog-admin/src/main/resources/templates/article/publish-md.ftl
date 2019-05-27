@@ -27,7 +27,9 @@
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>发布文章 <small>可以通过右上角“系统配置”-“文章编辑器”选择默认的文章发布编辑器</small></h2>
+                        <#if !id??>
                         <div class="pull-right"><small>切换到 <a class="pointer" id="changeEditor" data-href="/article/publish">wangEditor编辑器</a></small></div>
+                        </#if>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">

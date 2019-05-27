@@ -89,6 +89,7 @@
                     field: 'comment',
                     title: '评论',
                     width: '50px',
+                    align: 'center',
                     formatter: function (code, row, index) {
                         var checked = code ? 'checked' : '';
                         return '<input type="checkbox" name="comment" class="js-switch btn-comment"  data-id="' + row.id + '" data-type="comment" ' + checked + '>';
@@ -97,6 +98,7 @@
                     field: 'recommended',
                     title: '推荐 <i class="fa fa-question-circle-o" title="推荐的文章会在首页滚动显示"></i>',
                     width: '50px',
+                    align: 'center',
                     formatter: function (code, row, index) {
                         var checked = code ? 'checked' : '';
                         return '<input type="checkbox" name="recommended" class="js-switch btn-recommended" data-id="' + row.id + '" data-type="recommend" ' + checked + '>';
@@ -105,6 +107,7 @@
                     field: 'top',
                     title: '置顶',
                     width: '50px',
+                    align: 'center',
                     formatter: function (code, row, index) {
                         var checked = code ? 'checked' : '';
                         return '<input type="checkbox" name="top" class="js-switch btn-top" data-id="' + row.id + '" data-type="top" ' + checked + '>';
@@ -113,6 +116,7 @@
                     field: 'lookCount',
                     title: '浏览',
                     width: '50px',
+                    align: 'center',
                     formatter: function (code) {
                         return code ? code : '-';
                     }
@@ -120,6 +124,7 @@
                     field: 'commentCount',
                     title: '评论',
                     width: '50px',
+                    align: 'center',
                     formatter: function (code) {
                         return code ? code : '-';
                     }
@@ -127,6 +132,7 @@
                     field: 'loveCount',
                     title: '喜欢',
                     width: '50px',
+                    align: 'center',
                     formatter: function (code) {
                         return code ? code : '-';
                     }
@@ -134,6 +140,7 @@
                     field: 'createTime',
                     title: '发布时间',
                     width: '130px',
+                    align: 'center',
                     formatter: function (code) {
                         return new Date(code).format("yyyy-MM-dd hh:mm:ss")
                     }
@@ -183,7 +190,7 @@
          * 批量推送到百度
          */
         $("#btn_push_ids").click(function () {
-            var selectedId = getSelectedId();
+            var selectedId = table.getSelectedIds();
             if (!selectedId || selectedId == '[]' || selectedId.length == 0) {
                 $.alert.error("请至少选择一条记录");
                 return;
@@ -195,7 +202,7 @@
          * 批量修改状态
          */
         $("#btn_update_status").click(function () {
-            var selectedId = getSelectedId();
+            var selectedId = table.getSelectedIds();
             if (!selectedId || selectedId == '[]' || selectedId.length == 0) {
                 $.alert.error("请至少选择一条记录");
                 return;
@@ -208,7 +215,7 @@
                     data: {'ids': selectedId},
                     success: function (json) {
                         $.alert.ajaxSuccess(json);
-                        $.tableUtil.refresh();
+                        table.refresh();
                     },
                     error: $.alert.ajaxError
                 });

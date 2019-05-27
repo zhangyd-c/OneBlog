@@ -154,7 +154,7 @@ Table.prototype = {
 
         /* 删除 */
         function remove(ids) {
-            $.alert.confirm("确定删除该" + options.modalName + "信息？", function () {
+            $.alert.confirm("确定删除已选中的" + ids.length + "条 [ " + options.modalName + " ] 信息？", function () {
                 $.ajax({
                     type: "post",
                     url: options.removeUrl,
@@ -292,18 +292,17 @@ Table.prototype = {
             }
             if (type == 'radio') {
                 var _typeof = (typeof thisValue);
-                if (_typeof == "boolean" || _typeof == "number") {
+                if (_typeof == "boolean") {
                     $this.iCheck(((thisValue && 1 == $this.val()) || (!thisValue && 0 == $this.val())) ? 'check' : 'uncheck')
+                } else if (_typeof == "number") {
+                    $this.iCheck((thisValue == $this.val()) ? 'check' : 'uncheck')
                 } else if (_typeof == "string") {
-                    if((thisValue == '1' && 1 == $this.val()) || (thisValue != '1' && 0 == $this.val())) {
-                        $this.iCheck('check');
-                    } else if (thisValue == $this.val()) {
+                    if (thisValue == $this.val()) {
                         $this.iCheck('check');
                     } else {
                         $this.iCheck('uncheck');
                     }
                 }
-
             } else if (type.startsWith('select')) {
                 if (thisValue == 'true' || thisValue == true) {
                     thisValue = 1;
@@ -317,7 +316,6 @@ Table.prototype = {
                     if(previewContainer) {
                         $(previewContainer).html('<img src="' + thisValue + '" class="img-responsive img-rounded auto-shake" alt="">')
                     }
-                    return;
                 } else if (type == 'password') {
                     $this.val('');
                 } else {

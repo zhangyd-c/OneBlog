@@ -126,8 +126,9 @@
                         field: 'status',
                         title: '状态',
                         width: '60px',
+                        align: 'center',
                         formatter: function (code, row, index) {
-                            return (code && code == 'RELEASE') ? "已发布" : "未发布";
+                            return (code && code == 'RELEASE') ? '<span class="label label-success">已发布</span>' : '<span class="label label-default">未发布</span>';
                         }
                     }, {
                         field: 'operate',
@@ -152,7 +153,7 @@
                         url: "/notice/release/" + id,
                         success: function (json) {
                             $.alert.ajaxSuccess(json);
-                            $.tableUtil.refresh();
+                            table.refresh();
                         },
                         error: $.alert.ajaxError
                     });
@@ -170,7 +171,7 @@
                         url: "/notice/withdraw/" + id,
                         success: function (json) {
                             $.alert.ajaxSuccess(json);
-                            $.tableUtil.refresh();
+                            table.refresh();
                         },
                         error: $.alert.ajaxError
                     });

@@ -97,43 +97,10 @@ $.extend({
                     }
                 })
             }
-            function resetForm(info) {
-                $("#addOrUpdateModal form").find("input, select, textarea").each(function () {
-                    var $this = $(this);
-                    var type = this.type;
-                    var $div = $this.parents(".item");
-                    if ($div && $div.hasClass("bad")) {
-                        $div.removeClass("bad");
-                        $div.find("div.alert").remove();
-                    }
-                    if (info) {
-                        var thisName = $this.attr("name");
-                        var thisValue = info[thisName];
-                        if (type == 'radio') {
-                            $this.prop('checked', ((thisValue && 1 == $this.val()) || (!thisValue && 0 == $this.val())));
-                        } else if (type.startsWith('select')) {
-                            if(thisValue == 'true' || thisValue == true) {
-                                thisValue = 1;
-                            } else if(thisValue == 'false' || thisValue == false) {
-                                thisValue = 0;
-                            }
-                            $this.val(thisValue);
-                        } else {
-                            $this.val(thisValue);
-                        }
-                    } else {
-                        if (type === 'radio' || type === 'checkbox') {
-                            $this.prop('checked', false);
-                        }else{
-                            $this.val('');
-                        }
-                    }
-                });
-            }
 
             // 添加
             $("#add-btn").click(function () {
-                resetForm();
+                new Table().resetForm();
                 var $addOrUpdateModal = $("#addOrUpdateModal");
                 $addOrUpdateModal.find(".modal-dialog .modal-content .modal-header h5.modal-title").html("添加" + initOptions.modalName);
                 $addOrUpdateModal.modal('show');
@@ -150,7 +117,7 @@ $.extend({
                     success: function (json) {
                         var info = json.data;
                         // console.log(info);
-                        resetForm(info);
+                        new Table().resetForm(info);
                         var $addOrUpdateModal = $("#addOrUpdateModal");
                         $addOrUpdateModal.modal('show');
                         $addOrUpdateModal.find(".modal-dialog .modal-content .modal-header h5.modal-title").html("修改" + initOptions.modalName);
@@ -165,7 +132,7 @@ $.extend({
             });
 
             function remove(ids) {
-                $.alert.confirm("确定删除已选中的" + initOptions.modalName + "的" + ids.length + "条信息？", function () {
+                $.alert.confirm("确定删除已选中的" + ids.length + "条 [ " + initOptions.modalName + " ] 信息？", function () {
                     $.ajax({
                         type: "post",
                         url: urlOptions.removeUrl,

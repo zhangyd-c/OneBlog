@@ -162,13 +162,15 @@
                         field: 'homePageDisplay',
                         title: '首页',
                         width: '40px',
+                        align: 'center',
                         formatter: function (code) {
-                            return code ? "是" : "否";
+                            return code ? '<span class="label label-success">是</span>' : '<span class="label label-default">否</span>';
                         }
                     }, {
                         field: 'source',
                         title: '来源 <i class="fa fa-question-circle-o" title="\'ADMIN\'表示管理员添加，\'AUTOMATIC\'表示用户自动添加"></i>',
                         width: '60px',
+                        align: 'center',
                         formatter: function (code) {
                             return code ? code : '-';
                         }
@@ -176,6 +178,7 @@
                         field: 'email',
                         title: '联系方式',
                         width: '60px',
+                        align: 'center',
                         formatter: function (code, row, index) {
                             var html = '';
                             if(row.email){
@@ -190,6 +193,7 @@
                         field: 'updateTime',
                         title: '更新时间',
                         width: '120px',
+                        align: 'center',
                         formatter: function (code) {
                             return new Date(code).format("yyyy-MM-dd hh:mm:ss")
                         }

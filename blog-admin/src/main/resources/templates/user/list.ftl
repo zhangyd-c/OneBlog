@@ -125,6 +125,12 @@
                     {
                         checkbox: true
                     }, {
+                        field: 'id',
+                        title: 'ID',
+                        formatter: function (code) {
+                            return code ? code : '-';
+                        }
+                    }, {
                         field: 'username',
                         title: '用户名',
                         formatter: function (code) {
@@ -145,30 +151,35 @@
                     }, {
                         field: 'qq',
                         title: 'qq',
+                        align: 'center',
                         formatter: function (code) {
                             return code ? code : '-';
                         }
                     }, {
                         field: 'userType',
                         title: '用户类型',
+                        align: 'center',
                         formatter: function (code) {
                             return code ? code : '-';
                         }
                     }, {
                         field: 'statusEnum',
                         title: '状态',
+                        align: 'center',
                         formatter: function (code) {
-                            return code ? code : '-';
+                            return (code && code == 'NORMAL') ? '<span class="label label-success">正常</span>' : '<span class="label label-danger">禁用</span>';
                         }
                     }, {
                         field: 'lastLoginTime',
                         title: '最后登录时间',
+                        align: 'center',
                         formatter: function (code) {
                             return new Date(code).format("yyyy-MM-dd hh:mm:ss")
                         }
                     }, {
                         field: 'loginCount',
                         title: '登录次数',
+                        align: 'center',
                         formatter: function (code) {
                             return code ? code : '-';
                         }

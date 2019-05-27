@@ -126,6 +126,7 @@
                     field: 'sort',
                     title: '排序',
                     width: '50px',
+                    align: 'center',
                     formatter: function (code) {
                         return code ? code : '-';
                     }
@@ -133,13 +134,15 @@
                     field: 'available',
                     title: '可用',
                     width: '50px',
+                    align: 'center',
                     formatter: function (code) {
-                        return code ? code : '-';
+                        return code ? '<span class="label label-success">可用</span>' : '<span class="label label-danger">不可用</span>';
                     }
                 }, {
                     field: 'icon',
                     title: '图标',
                     width: '50px',
+                    align: 'center',
                     formatter: function (code, row, index) {
                         return '<i class="' + row.icon + '"></i>';
                     }
