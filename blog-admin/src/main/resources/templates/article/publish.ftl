@@ -1,4 +1,5 @@
 <#include "/include/macros.ftl">
+<#setting number_format="#">
 <@header>
 
 </@header>
