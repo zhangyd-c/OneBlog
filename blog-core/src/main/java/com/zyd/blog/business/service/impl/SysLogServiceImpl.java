@@ -18,7 +18,6 @@ import com.zyd.blog.util.SessionUtil;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -27,7 +26,6 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author yadong.zhang email:yadong.zhang0415(a)gmail.com
@@ -35,7 +33,6 @@ import java.util.concurrent.TimeUnit;
  * @date 2018/01/09 17:50
  * @since 1.0
  */
-@EnableAsync
 @Service
 public class SysLogServiceImpl implements SysLogService {
 

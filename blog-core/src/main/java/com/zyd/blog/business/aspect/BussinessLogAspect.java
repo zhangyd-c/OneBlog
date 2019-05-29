@@ -66,10 +66,7 @@ public class BussinessLogAspect {
         if (!save) {
             return;
         }
-        
-        //将RequestAttributes对象设置为子线程共享
-        ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        RequestContextHolder.setRequestAttributes(sra, true);
+
         logService.asyncSaveSystemLog(platform, bussinessName);
     }
 
