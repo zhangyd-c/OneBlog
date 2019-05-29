@@ -79,7 +79,7 @@
             uploadUrl: "/api/uploadFileForMd"
         };
         zhyd.simpleMDE.init(op);
-        articleId = '${id?c}';
+        articleId = '${id}';
     </script>
     <script src="/assets/js/zhyd.publish-article.js"></script>
 </@footer>
