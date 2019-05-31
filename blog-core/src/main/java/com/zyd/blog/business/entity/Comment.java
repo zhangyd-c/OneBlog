@@ -292,5 +292,9 @@ public class Comment {
         this.bizComment.setArticle(article);
     }
 
+    public User getUser() {
+        return null == this.bizComment.getUser() ? null : new User(this.bizComment.getUser());
+    }
+
 }
 

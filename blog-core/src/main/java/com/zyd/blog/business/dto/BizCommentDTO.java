@@ -2,6 +2,7 @@ package com.zyd.blog.business.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.zyd.blog.business.enums.UserTypeEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -39,10 +40,10 @@ public class BizCommentDTO {
     private Integer oppose;
 
     @JsonIgnore
-    private Long userId;
+    private UserTypeEnum userType;
 
-    public boolean isAdmin() {
-        return null != userId && userId != 0;
+    public boolean isRoot() {
+        return null != userType && userType == UserTypeEnum.ROOT;
     }
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")

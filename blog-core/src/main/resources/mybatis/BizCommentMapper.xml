@@ -36,6 +36,12 @@
 			<result property="id" jdbcType="BIGINT" column="article_id"/>
 			<result property="title" jdbcType="VARCHAR" column="article_title"/>
 		</association>
+		<association property="user" javaType="com.zyd.blog.persistence.beans.SysUser">
+			<result property="id" jdbcType="BIGINT" column="u_id"/>
+			<result property="username" jdbcType="VARCHAR" column="u_username"/>
+			<result property="nickname" jdbcType="VARCHAR" column="u_nickname"/>
+			<result property="userType" jdbcType="CHAR" column="u_user_type"/>
+		</association>
 	</resultMap>
 
 	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.CommentConditionVO" resultMap="rm">
@@ -45,11 +51,16 @@
 			f.nickname AS parent_nickname,
 			f.content AS parent_content,
 			a.id AS article_id,
-			a.title AS article_title
+			a.title AS article_title,
+		    u.id AS u_id,
+		    u.username AS u_username,
+		    u.nickname AS u_nickname,
+		    u.user_type AS u_user_type
 		FROM
 			biz_comment t
 		LEFT JOIN biz_comment f ON t.pid = f.id
 		LEFT JOIN biz_article a ON a.id = t.sid
+		LEFT JOIN sys_user u ON u.id = t.user_id
 		WHERE
 			1 = 1
 			<if test="userId != null">
@@ -85,11 +96,16 @@
 			f.nickname AS parent_nickname,
 			f.content AS parent_content,
 			a.id AS article_id,
-			a.title AS article_title
+			a.title AS article_title,
+			u.id AS u_id,
+			u.username AS u_username,
+			u.nickname AS u_nickname,
+			u.user_type AS u_user_type
 		FROM
 			biz_comment t
 		LEFT JOIN biz_comment f ON t.pid = f.id
 		LEFT JOIN biz_article a ON a.id = t.sid
+		LEFT JOIN sys_user u ON u.id = t.user_id
 		WHERE t.id = #{id}
 	</select>
 

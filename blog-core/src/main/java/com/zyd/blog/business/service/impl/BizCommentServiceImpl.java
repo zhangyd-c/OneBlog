@@ -34,7 +34,6 @@ import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -107,6 +106,9 @@ public class BizCommentServiceImpl implements BizCommentService {
         for (Comment comment : list) {
             BizCommentDTO dto = BeanConvertUtil.doConvert(comment, BizCommentDTO.class);
             dto.setParentDTO(BeanConvertUtil.doConvert(comment.getParent(), BizCommentDTO.class));
+            if (null != comment.getUser()) {
+                dto.setUserType(comment.getUser().getUserTypeEnum());
+            }
             dtoList.add(dto);
         }
         return dtoList;
@@ -151,22 +153,14 @@ public class BizCommentServiceImpl implements BizCommentService {
                 throw new ZhydCommentException("站长已关闭匿名评论，请先登录！");
             }
         }
-        if (StringUtils.isEmpty(comment.getNickname())) {
-            throw new ZhydCommentException("必须输入昵称");
+
+        this.filterContent(comment);
+
+        if (SessionUtil.isLogin()) {
+            this.setCurrentLoginUserInfo(comment);
+        } else {
+            this.setCurrentAnonymousUserInfo(comment);
         }
-        String content = comment.getContent();
-        if (!XssKillerUtil.isValid(content)) {
-            throw new ZhydCommentException("请不要使用特殊标签");
-        }
-        content = XssKillerUtil.clean(content.trim()).replaceAll("(<p><br></p>)|(<p></p>)", "");
-        if (StringUtils.isEmpty(content) || "\n".equals(content)) {
-            throw new ZhydCommentException("说点什么吧");
-        }
-        // 过滤非法属性和无用的空标签
-        comment.setContent(content);
-        comment.setNickname(HtmlUtil.html2Text(comment.getNickname()));
-        comment.setQq(HtmlUtil.html2Text(comment.getQq()));
-        comment.setAvatar(HtmlUtil.html2Text(comment.getAvatar()));
 
         List<String> avatars = configService.getRandomUserAvatar();
         if (StringUtils.isEmpty(comment.getAvatar()) && !CollectionUtils.isEmpty(avatars)) {
@@ -175,14 +169,80 @@ public class BizCommentServiceImpl implements BizCommentService {
             comment.setAvatar(avatars.get(randomIndex));
         }
 
+        if (StringUtils.isEmpty(comment.getStatus())) {
+            comment.setStatus(CommentStatusEnum.VERIFYING.toString());
+        }
+
+        this.setCurrentDeviceInfo(comment);
+
+        this.setCurrentLocation(comment);
+        this.insert(comment);
+        this.sendEmail(comment);
+        return comment;
+    }
+
+    /**
+     * 过滤评论内容
+     *
+     * @param comment
+     */
+    private void filterContent(Comment comment) {
+        String content = comment.getContent();
+        if (StringUtils.isEmpty(content) || "\n".equals(content)) {
+            throw new ZhydCommentException("说点什么吧");
+        }
+        // 过滤非法属性和无用的空标签
+        if (!XssKillerUtil.isValid(content)) {
+            throw new ZhydCommentException("请不要使用特殊标签");
+        }
+        content = XssKillerUtil.clean(content.trim()).replaceAll("(<p><br></p>)|(<p></p>)", "");
+        if (StringUtils.isEmpty(content) || "\n".equals(content)) {
+            throw new ZhydCommentException("说点什么吧");
+        }
+        comment.setContent(content);
+    }
+
+    /**
+     * 保存当前匿名用户的信息
+     *
+     * @param comment
+     */
+    private void setCurrentAnonymousUserInfo(Comment comment) {
+        if (StringUtils.isEmpty(comment.getNickname())) {
+            throw new ZhydCommentException("必须输入昵称");
+        }
+        comment.setNickname(HtmlUtil.html2Text(comment.getNickname()));
+        comment.setQq(HtmlUtil.html2Text(comment.getQq()));
+        comment.setAvatar(HtmlUtil.html2Text(comment.getAvatar()));
         comment.setEmail(HtmlUtil.html2Text(comment.getEmail()));
         comment.setUrl(HtmlUtil.html2Text(comment.getUrl()));
-        HttpServletRequest request = RequestHolder.getRequest();
-        String ua = request.getHeader("User-Agent");
+    }
+
+    /**
+     * 保存当前登录用户的信息
+     *
+     * @param comment
+     */
+    private void setCurrentLoginUserInfo(Comment comment) {
+        User loginUser = SessionUtil.getUser();
+        comment.setNickname(HtmlUtil.html2Text(loginUser.getNickname()));
+        comment.setQq(HtmlUtil.html2Text(loginUser.getQq()));
+        comment.setAvatar(HtmlUtil.html2Text(loginUser.getAvatar()));
+        comment.setEmail(HtmlUtil.html2Text(loginUser.getEmail()));
+        comment.setUrl(HtmlUtil.html2Text(loginUser.getBlog()));
+        comment.setUserId(loginUser.getId());
+    }
+
+    /**
+     * 保存当前评论时的设备信息
+     *
+     * @param comment
+     */
+    private void setCurrentDeviceInfo(Comment comment) {
+        String ua = RequestUtil.getUa();
         UserAgent agent = UserAgent.parseUserAgentString(ua);
         Browser browser = agent.getBrowser();
         String browserInfo = browser.getName();
-//        comment.setBrowserShortName(browser.getShortName());// 此处需开发者自己处理
         Version version = agent.getBrowserVersion();
         if (version != null) {
             browserInfo += " " + version.getVersion();
@@ -190,34 +250,39 @@ public class BizCommentServiceImpl implements BizCommentService {
         comment.setBrowser(browserInfo);
         OperatingSystem os = agent.getOperatingSystem();
         comment.setOs(os.getName());
-//        comment.setOsShortName(os.getShortName());// 此处需开发者自己处理
-        comment.setIp(IpUtil.getRealIp(request));
-        String address = "";
+        comment.setIp(RequestUtil.getIp());
+    }
+
+    /**
+     * 保存当前评论时的位置信息
+     *
+     * @param comment
+     */
+    private void setCurrentLocation(Comment comment) {
         Map config = configService.getConfigs();
         try {
             String locationJson = RestClientUtil.get(UrlBuildUtil.getLocationByIp(comment.getIp(), (String) config.get(ConfigKeyEnum.BAIDU_API_AK.getKey())));
             JSONObject localtionContent = JSONObject.parseObject(locationJson).getJSONObject("content");
-            JSONObject addressDetail = localtionContent.getJSONObject("address_detail");
-            String city = addressDetail.getString("city");
-            String district = addressDetail.getString("district");
-            String street = addressDetail.getString("street");
-            address = addressDetail.getString("province") + (StringUtils.isEmpty(city) ? "" : city) +
-                    (StringUtils.isEmpty(district) ? "" : district) +
-                    (StringUtils.isEmpty(street) ? "" : street);
             JSONObject point = localtionContent.getJSONObject("point");
             comment.setLat(point.getString("y"));
             comment.setLng(point.getString("x"));
-            comment.setAddress(address);
+
+            if (localtionContent.containsKey("address_detail")) {
+                JSONObject addressDetail = localtionContent.getJSONObject("address_detail");
+                String city = addressDetail.getString("city");
+                String district = addressDetail.getString("district");
+                String street = addressDetail.getString("street");
+                String address = addressDetail.getString("province") + (StringUtils.isEmpty(city) ? "" : city) +
+                        (StringUtils.isEmpty(district) ? "" : district) +
+                        (StringUtils.isEmpty(street) ? "" : street);
+                comment.setAddress(address);
+            }
         } catch (Exception e) {
-            comment.setAddress("未知");
             log.error("获取地址失败", e);
         }
-        if (StringUtils.isEmpty(comment.getStatus())) {
-            comment.setStatus(CommentStatusEnum.VERIFYING.toString());
+        if (StringUtils.isEmpty(comment.getAddress())) {
+            comment.setAddress("未知");
         }
-        this.insert(comment);
-        this.sendEmail(comment);
-        return comment;
     }
 
 

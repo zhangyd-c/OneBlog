@@ -126,7 +126,7 @@ $.extend({
                             var userUrl = comment.url || "javascript:void(0)";
                             var parent = comment.parent;
                             var adminIcon = '';
-                            if(comment.admin){
+                            if(comment.root){
                                 adminIcon = '<img src="/img/author.png" alt="" class="author-icon" title="管理员">';
                             }
                             var parentQuote = parent ? '<a href="#comment-' + parent.id + '" class="comment-quote">@' + parent.nickname + '</a><div style="background-color: #f5f5f5;padding: 5px;margin: 5px;border-radius: 4px;"><i class="fa fa-quote-left"></i><p></p><div style="padding-left: 10px;">' + filterXSS(parent.content) + '</div></div>' : '';
@@ -221,75 +221,81 @@ $.extend({
         submit: function (target) {
             var $this = $(target);
             $this.button('loading');
-            var detail = localStorage.getItem(this.detailKey);
             var data = $("#comment-form").serialize();
-            if(!detail){
-            }else{
-                var detailInfoJson = $.tool.parseFormSerialize(detail);
-                $.comment._detailForm.find("input").each(function () {
+            if(!oauthConfig.loginUserId) {
+                var detail = localStorage.getItem(this.detailKey);
+                if(!detail){
+                }else{
+                    var detailInfoJson = $.tool.parseFormSerialize(detail);
+                    $.comment._detailForm.find("input").each(function () {
+                        var $this = $(this);
+                        var inputName = $this.attr("name");
+                        if(detailInfoJson[inputName]){
+                            $this.val(detailInfoJson[inputName]);
+                        }
+                    });
+                    var $img = $.comment._detailForm.find('img');
+                    $img.attr('src', detailInfoJson.avatar);
+                    $img.removeClass('hide');
+
+                }
+                this._commentDetailModal.modal('show');
+                this._closeBtn.unbind('click');
+                this._closeBtn.click(function () {
+                    setTimeout(function () {
+                        $this.html("<i class='fa fa-close'></i>取消操作...");
+                        setTimeout(function () {
+                            $this.button('reset');
+                        }, 1000);
+                    }, 500);
+                });
+                // 模态框抖动
+                this._commentDetailModal.find('.modal-content').addClass("shake");
+                $.comment._detailForm.find("input[name=qq]").unbind('change');
+                $.comment._detailForm.find("input[name=qq]").change(function () {
                     var $this = $(this);
-                    var inputName = $this.attr("name");
-                    if(detailInfoJson[inputName]){
-                        $this.val(detailInfoJson[inputName]);
+                    var qq = $this.val();
+                    var $nextImg = $this.next('img');
+                    if(qq){
+                        $.ajax({
+                            type: "post",
+                            url: "/api/qq/" + qq,
+                            success: function (json) {
+                                $.alert.ajaxSuccess(json);
+                                var data = json.data;
+                                $.comment._detailForm.find("input").each(function () {
+                                    var $this = $(this);
+                                    var inputName = $this.attr("name");
+                                    if(data[inputName]){
+                                        $this.val(data[inputName]);
+                                    }
+                                });
+                                $nextImg.attr('src', data.avatar);
+                                $nextImg.removeClass('hide');
+                            },
+                            error: $.alert.ajaxError
+                        });
+                    }else{
+                        $nextImg.addClass('hide');
+                    }
+
+                });
+                // 提交评论
+                this._detailFormBtn.unbind('click');
+                this._detailFormBtn.click(function () {
+                    $.comment._detailForm.bootstrapValidator("validate");
+                    if (_form.valid($.comment._detailForm)) {
+                        data = data + "&" + $.comment._detailForm.serialize();
+                        localStorage.setItem($.comment.detailKey, $.comment._detailForm.serialize());
+                        submitForm(data);
                     }
                 });
-                var $img = $.comment._detailForm.find('img');
-                $img.attr('src', detailInfoJson.avatar);
-                $img.removeClass('hide');
-
+            } else {
+                submitForm(data);
             }
-            this._commentDetailModal.modal('show');
-            this._closeBtn.unbind('click');
-            this._closeBtn.click(function () {
-                setTimeout(function () {
-                    $this.html("<i class='fa fa-close'></i>取消操作...");
-                    setTimeout(function () {
-                        $this.button('reset');
-                    }, 1000);
-                }, 500);
-            });
-            // 模态框抖动
-            this._commentDetailModal.find('.modal-content').addClass("shake");
-            $.comment._detailForm.find("input[name=qq]").unbind('change');
-            $.comment._detailForm.find("input[name=qq]").change(function () {
-                var $this = $(this);
-                var qq = $this.val();
-                var $nextImg = $this.next('img');
-                if(qq){
-                    $.ajax({
-                        type: "post",
-                        url: "/api/qq/" + qq,
-                        success: function (json) {
-                            $.alert.ajaxSuccess(json);
-                            var data = json.data;
-                            $.comment._detailForm.find("input").each(function () {
-                                var $this = $(this);
-                                var inputName = $this.attr("name");
-                                if(data[inputName]){
-                                    $this.val(data[inputName]);
-                                }
-                            });
-                            $nextImg.attr('src', data.avatar);
-                            $nextImg.removeClass('hide');
-                        },
-                        error: $.alert.ajaxError
-                    });
-                }else{
-                    $nextImg.addClass('hide');
-                }
 
-            });
 
-            // 提交评论
-            this._detailFormBtn.unbind('click');
-            this._detailFormBtn.click(function () {
-                $.comment._detailForm.bootstrapValidator("validate");
-                if (_form.valid($.comment._detailForm)) {
-                    data = data + "&" + $.comment._detailForm.serialize();
-                    localStorage.setItem($.comment.detailKey, $.comment._detailForm.serialize());
-                    submitForm(data);
-                }
-            });
+
 
             function submitForm(data) {
                 console.log(data);

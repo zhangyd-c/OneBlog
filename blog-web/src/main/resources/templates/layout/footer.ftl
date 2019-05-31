@@ -166,6 +166,7 @@
     };
 
     var oauthConfig = {
+        loginUserId: '${user.id}',
         loginUserName: '${user.username}',
         loginUserAvatar: '${user.avatar}'
     }

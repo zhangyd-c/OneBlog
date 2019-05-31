@@ -1,6 +1,7 @@
 package com.zyd.blog.business.service.impl;
 
 import com.zyd.blog.business.entity.User;
+import com.zyd.blog.business.enums.UserTypeEnum;
 import com.zyd.blog.business.service.AuthService;
 import com.zyd.blog.business.service.SysUserService;
 import com.zyd.blog.plugin.oauth.RequestFactory;
@@ -40,6 +41,7 @@ public class AuthServiceImpl implements AuthService {
                 newUser.setGender(authUser.getGender().getCode());
             }
             User user = userService.getByUuidAndSource(authUser.getUuid(), authUser.getSource().toString());
+            newUser.setUserType(UserTypeEnum.USER);
             if (null != user) {
                 newUser.setId(user.getId());
                 userService.updateSelective(newUser);
