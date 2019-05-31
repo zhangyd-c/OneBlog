@@ -6,6 +6,7 @@ import com.zyd.blog.business.service.SysUserService;
 import com.zyd.blog.plugin.oauth.RequestFactory;
 import com.zyd.blog.util.BeanConvertUtil;
 import com.zyd.blog.util.SessionUtil;
+import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.request.AuthRequest;
@@ -20,6 +21,7 @@ import org.springframework.util.StringUtils;
  * @date 2019/5/25 14:34
  * @since 1.8
  */
+@Slf4j
 @Service
 public class AuthServiceImpl implements AuthService {
 
@@ -30,7 +32,7 @@ public class AuthServiceImpl implements AuthService {
     public boolean login(String source, String code, String auth_code) {
         AuthRequest authRequest = RequestFactory.getInstance(source).getRequest();
         AuthResponse response = authRequest.login(StringUtils.isEmpty(code) ? auth_code : code);
-        if (response.getCode() == 2000) {
+        if (response.ok()) {
             AuthUser authUser = (AuthUser) response.getData();
             User newUser = BeanConvertUtil.doConvert(authUser, User.class);
             newUser.setSource(authUser.getSource().toString());
@@ -40,13 +42,14 @@ public class AuthServiceImpl implements AuthService {
             User user = userService.getByUuidAndSource(authUser.getUuid(), authUser.getSource().toString());
             if (null != user) {
                 newUser.setId(user.getId());
-                userService.updateSelective(user);
+                userService.updateSelective(newUser);
             } else {
                 userService.insert(newUser);
             }
             SessionUtil.setUser(newUser);
             return true;
         }
+        log.warn("[{}] {}", source, response.getMsg());
         return false;
     }
 

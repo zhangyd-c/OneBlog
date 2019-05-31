@@ -80,7 +80,7 @@ me:
                 clientId:
                 clientSecret:
                 redirectUri:
-            dingTalk:
+            dingtalk:
                 clientId:
                 clientSecret:
                 redirectUri:

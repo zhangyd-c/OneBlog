@@ -16,6 +16,7 @@
 
 1. 修复zhyd.table.js插件中`clearText`方法的一个小问题；
 2. 集成JustAuth
+3. 修复一些bug
 
 ----
 

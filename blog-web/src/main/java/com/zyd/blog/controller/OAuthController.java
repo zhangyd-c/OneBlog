@@ -2,17 +2,20 @@ package com.zyd.blog.controller;
 
 import com.zyd.blog.business.service.AuthService;
 import com.zyd.blog.plugin.oauth.RequestFactory;
+import com.zyd.blog.util.RequestUtil;
 import com.zyd.blog.util.ResultUtil;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.request.AuthRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -30,8 +33,9 @@ public class OAuthController {
     private AuthService authService;
 
     @RequestMapping("/render/{source}")
-    public void renderAuth(@PathVariable("source") String source, HttpServletResponse response) throws IOException {
+    public void renderAuth(@PathVariable("source") String source, HttpServletResponse response, HttpSession session) throws IOException {
         AuthRequest authRequest = RequestFactory.getInstance(source).getRequest();
+        session.setAttribute("historyUrl", RequestUtil.getReferer());
         response.sendRedirect(authRequest.authorize());
     }
 
@@ -44,9 +48,14 @@ public class OAuthController {
      * @return
      */
     @RequestMapping("/callback/{source}")
-    public ModelAndView login(@PathVariable("source") String source, String code, String auth_code) {
+    public ModelAndView login(@PathVariable("source") String source, String code, String auth_code, HttpSession session) {
         authService.login(source, code, auth_code);
-        return ResultUtil.redirect("/");
+        String historyUrl = (String) session.getAttribute("historyUrl");
+        session.removeAttribute("historyUrl");
+        if (StringUtils.isEmpty(historyUrl)) {
+            return ResultUtil.redirect("/");
+        }
+        return ResultUtil.redirect(historyUrl);
     }
 
     /**

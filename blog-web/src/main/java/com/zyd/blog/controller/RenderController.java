@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -74,9 +75,7 @@ public class RenderController {
     @BussinessLog(value = "进入首页", platform = PlatformEnum.WEB)
     public ModelAndView home(ArticleConditionVO vo, Model model) {
         model.addAttribute("url", INDEX_URL);
-        long start = System.currentTimeMillis();
         loadIndexPage(vo, model);
-        System.out.println("首页耗时：" + (System.currentTimeMillis() - start));
 
         return ResultUtil.view(INDEX_URL);
     }

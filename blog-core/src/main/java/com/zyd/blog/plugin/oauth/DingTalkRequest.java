@@ -23,7 +23,7 @@ public class DingTalkRequest implements OauthRequest, InitializingBean {
 
     @Override
     public AuthRequest getRequest() {
-        AuthConfig authConfig = properties.getDingTalk();
+        AuthConfig authConfig = properties.getDingtalk();
         return new AuthDingTalkRequest(AuthConfig.builder()
                 .clientId(authConfig.getClientId())
                 .clientSecret(authConfig.getClientSecret())

@@ -24,7 +24,7 @@ public class JustAuthProperties {
     private AuthConfig gitee;
     private AuthConfig github;
     private AuthConfig weibo;
-    private AuthConfig dingTalk;
+    private AuthConfig dingtalk;
     private AuthConfig baidu;
     private AuthConfig coding;
     private AuthConfig tencentCloud;

@@ -41,7 +41,22 @@
             <div class="modal-body">
                 <div class="oauth">
                     <ul class="list-unstyled list-inline oauth-list">
-                        <li>
+                        <@zhydTag method="listAvailableOAuthPlatforms">
+                            <#if listAvailableOAuthPlatforms?? && listAvailableOAuthPlatforms?size gt 0>
+                                <#list listAvailableOAuthPlatforms as item>
+                                    <li>
+                                        <a href="${config.siteUrl}/oauth/render/${item}" target="">
+                                            <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/${item}.png" alt="" class="img-circle">
+                                        </a>
+                                    </li>
+                                </#list>
+                            <#else>
+                                <li>
+                                    稍等一下， 博主正在快马加鞭的配置~~
+                                </li>
+                            </#if>
+                        </@zhydTag>
+                        <#--<li>
                             <a href="${config.siteUrl}/oauth/render/gitee" target="">
                                 <img src="https://gitee.com/logo_icon.png" alt="" class="img-circle">
                             </a>
@@ -110,7 +125,7 @@
                             <a href="${config.siteUrl}/oauth/render/facebook" target="">
                                 <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/facebook.png" alt="">
                             </a>
-                        </li>
+                        </li>-->
                     </ul>
                     <div class="oauth-line">
                         <span>
