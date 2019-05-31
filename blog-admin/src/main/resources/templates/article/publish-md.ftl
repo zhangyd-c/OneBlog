@@ -1,4 +1,5 @@
 <#include "/include/macros.ftl">
+<#setting number_format="#">
 <@header>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" rel="stylesheet">
@@ -82,7 +83,7 @@
             uploadUrl: "/api/uploadFileForMd"
         };
         zhyd.simpleMDE.init(op);
-        articleId = '${id?c}';
+        articleId = '${id}';
     </script>
     <script src="/assets/js/zhyd.publish-article.js"></script>
 </@footer>

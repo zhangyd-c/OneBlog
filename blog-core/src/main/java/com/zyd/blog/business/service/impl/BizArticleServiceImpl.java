@@ -22,6 +22,7 @@ import com.zyd.blog.persistence.mapper.*;
 import com.zyd.blog.plugin.file.GlobalFileUploader;
 import com.zyd.blog.util.IpUtil;
 import com.zyd.blog.util.SessionUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -29,7 +30,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import tk.mybatis.mapper.entity.Example;
 
@@ -46,6 +46,7 @@ import java.util.stream.Collectors;
  * @date 2018/4/16 16:26
  * @since 1.0
  */
+@Slf4j
 @Service
 public class BizArticleServiceImpl implements BizArticleService {
 
@@ -86,6 +87,10 @@ public class BizArticleServiceImpl implements BizArticleService {
         List<Article> boList = new LinkedList<>();
         for (BizArticle bizArticle : list) {
             BizArticle tagArticle = tagMap.get(bizArticle.getId());
+            if (null == tagArticle) {
+                log.warn("文章[{}] 未绑定标签信息，或者已绑定的标签不存在！", bizArticle.getTitle());
+                continue;
+            }
             bizArticle.setTags(tagArticle.getTags());
             this.subquery(bizArticle);
             boList.add(new Article(bizArticle));
@@ -338,20 +343,20 @@ public class BizArticleServiceImpl implements BizArticleService {
     public boolean removeByPrimaryKey(Long primaryKey) {
         boolean result = bizArticleMapper.deleteByPrimaryKey(primaryKey) > 0;
         // 删除标签记录
-        Example loveExample = new Example(BizArticleTags.class);
-        Example.Criteria loveCriteria = loveExample.createCriteria();
-        loveCriteria.andEqualTo("articleId", primaryKey);
-        bizArticleTagsMapper.deleteByExample(loveExample);
+        Example tagsExample = new Example(BizArticleTags.class);
+        Example.Criteria tagsCriteria = tagsExample.createCriteria();
+        tagsCriteria.andEqualTo("articleId", primaryKey);
+        bizArticleTagsMapper.deleteByExample(tagsExample);
         // 删除查看记录
         Example lookExample = new Example(BizArticleLook.class);
         Example.Criteria lookCriteria = lookExample.createCriteria();
         lookCriteria.andEqualTo("articleId", primaryKey);
         bizArticleLookMapper.deleteByExample(lookExample);
         // 删除赞记录
-        Example tagsExample = new Example(BizArticleLove.class);
-        Example.Criteria tagsCriteria = tagsExample.createCriteria();
-        tagsCriteria.andEqualTo("articleId", primaryKey);
-        bizArticleLoveMapper.deleteByExample(tagsExample);
+        Example loveExample = new Example(BizArticleLove.class);
+        Example.Criteria loveCriteria = loveExample.createCriteria();
+        loveCriteria.andEqualTo("articleId", primaryKey);
+        bizArticleLoveMapper.deleteByExample(loveExample);
         return result;
     }
 

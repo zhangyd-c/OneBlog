@@ -7,7 +7,9 @@ import com.zyd.blog.business.entity.Tags;
 import com.zyd.blog.business.service.BizTagsService;
 import com.zyd.blog.business.vo.TagsConditionVO;
 import com.zyd.blog.framework.exception.ZhydException;
+import com.zyd.blog.persistence.beans.BizArticleTags;
 import com.zyd.blog.persistence.beans.BizTags;
+import com.zyd.blog.persistence.mapper.BizArticleTagsMapper;
 import com.zyd.blog.persistence.mapper.BizTagsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,8 @@ public class BizTagsServiceImpl implements BizTagsService {
 
     @Autowired
     private BizTagsMapper bizTagsMapper;
+    @Autowired
+    private BizArticleTagsMapper bizArticleTagsMapper;
 
     @Override
     public PageInfo<Tags> findPageBreakByCondition(TagsConditionVO vo) {
@@ -75,6 +79,12 @@ public class BizTagsServiceImpl implements BizTagsService {
     @Transactional(rollbackFor = Exception.class)
     @RedisCache(flush = true)
     public boolean removeByPrimaryKey(Long primaryKey) {
+        BizArticleTags articleTag = new BizArticleTags();
+        articleTag.setTagId(primaryKey);
+        List<BizArticleTags> articleTags = bizArticleTagsMapper.select(articleTag);
+        if (!CollectionUtils.isEmpty(articleTags)) {
+            throw new ZhydException("当前标签下存在文章信息，禁止删除！");
+        }
         return bizTagsMapper.deleteByPrimaryKey(primaryKey) > 0;
     }
 
