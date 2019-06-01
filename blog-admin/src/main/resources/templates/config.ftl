@@ -89,6 +89,18 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="installdate">系统安装日期
+                                            <i class="fa fa-question-circle" title="用于前台计算运行天数"></i> <span class="required">*</span></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class='input-group date myDatepicker'>
+                                                <input type='text' class="form-control" readonly="readonly" id="installdate" name="installdate"  placeholder="请选择系统安装日期"/>
+                                                <span class="input-group-addon">
+                                                   <span class="fa fa-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>

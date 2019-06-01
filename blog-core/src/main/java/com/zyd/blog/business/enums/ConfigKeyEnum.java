@@ -100,39 +100,6 @@ public enum ConfigKeyEnum {
     ALIYUN_ACCESS_KEY_SECRET("aliyunAccessKeySecret"),
 
     /**
-     * 第三方登陆github Client ID
-     */
-    GITHUB_CLIENT_ID("githubClientId"),
-    /**
-     * 第三方登陆github Client Secret
-     */
-    GITHUB_CLIENT_SECRET("githubClientSecret"),
-    /**
-     * 第三方登陆gitee Client ID
-     */
-    GITEE_CLIENT_ID("giteeClientId"),
-    /**
-     * 第三方登陆gitee Client ID
-     */
-    GITEE_CLIENT_SECRET("giteeClientSecret"),
-    /**
-     * 第三方登陆 微博App Key
-     */
-    WEIBO_CLIENT_ID("weiboClientId"),
-    /**
-     * 第三方登陆 微博App Secret
-     */
-    WEIBO_CLIENT_SECRET("weiboClientSecret"),
-    /**
-     * 第三方登陆 QQ App Key
-     */
-    QQ_CLIENT_ID("qqClientId"),
-    /**
-     * 第三方登陆 QQ App Secret
-     */
-    QQ_CLIENT_SECRET("qqClientSecret"),
-
-    /**
      * 允许匿名评论
      */
     ANONYMOUS("anonymous"),
@@ -206,9 +173,14 @@ public enum ConfigKeyEnum {
     UPDATE_TIME("updateTime"),
 
     /**
-     * 系统最后一次更新的日期
+     * 文章编辑器
      */
     ARTICLE_EDITOR("articleEditor"),
+
+    /**
+     * 网站安装时间，默认为执行init_data.sql的时间
+     */
+    INSTALLDATE("installdate"),
     ;
 
     private String key;

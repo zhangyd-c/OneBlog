@@ -1,5 +1,6 @@
 package com.zyd.blog.business.service.impl;
 
+import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSONArray;
@@ -21,6 +22,8 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -139,12 +142,23 @@ public class SysConfigServiceImpl implements SysConfigService {
      */
     @Override
     public Map<String, Object> getSiteInfo() {
-        Map<String, Object> map = sysConfigMapper.getSiteInfo();
-        if (!CollectionUtils.isEmpty(map)) {
-            // 获取建站天数
-            map.put("buildSiteDate", DateUtil.between(properties.getBuildWebsiteDate(), new Date(), DateUnit.DAY));
+        Map<String, Object> siteInfo = sysConfigMapper.getSiteInfo();
+        if (!CollectionUtils.isEmpty(siteInfo)) {
+            Date installdate = null;
+            SysConfig config = this.getByKey(ConfigKeyEnum.INSTALLDATE.getKey());
+            if (null == config || StringUtils.isEmpty(config.getConfigValue())) {
+                // 默认建站日期为2019-01-01
+                installdate = Date.from(LocalDate.of(2019, 1, 1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+            } else {
+                installdate = DateUtil.parse(config.getConfigValue(), DatePattern.NORM_DATETIME_PATTERN);
+            }
+            long between = 1;
+            if (!installdate.after(new Date())) {
+                between = DateUtil.between(installdate, new Date(), DateUnit.DAY);
+            }
+            siteInfo.put("installdate", between < 1 ? 1 : between);
         }
-        return map;
+        return siteInfo;
     }
 
     @Override

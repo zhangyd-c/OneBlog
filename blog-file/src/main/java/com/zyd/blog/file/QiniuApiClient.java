@@ -2,7 +2,7 @@ package com.zyd.blog.file;
 
 import com.alibaba.fastjson.JSON;
 import com.qiniu.common.QiniuException;
-import com.qiniu.common.Zone;
+import com.qiniu.common.Region;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.Configuration;
@@ -51,7 +51,7 @@ public class QiniuApiClient extends BaseApiClient {
     /**
      * 上传图片
      *
-     * @param is  图片流
+     * @param is       图片流
      * @param imageUrl 图片路径
      * @return 上传后的路径
      */
@@ -66,7 +66,7 @@ public class QiniuApiClient extends BaseApiClient {
         //Zone.zone1:华北
         //Zone.zone2:华南
         //Zone.zoneNa0:北美
-        Configuration cfg = new Configuration(Zone.autoZone());
+        Configuration cfg = new Configuration(Region.autoRegion());
         UploadManager uploadManager = new UploadManager(cfg);
         try {
             Auth auth = Auth.create(this.accessKey, this.secretKey);
@@ -102,7 +102,7 @@ public class QiniuApiClient extends BaseApiClient {
             throw new QiniuApiException("[" + this.storageType + "]删除文件失败：文件key为空");
         }
         Auth auth = Auth.create(this.accessKey, this.secretKey);
-        Configuration config = new Configuration(Zone.autoZone());
+        Configuration config = new Configuration(Region.autoRegion());
         BucketManager bucketManager = new BucketManager(auth, config);
         try {
             Response re = bucketManager.delete(this.bucket, key);

@@ -254,3 +254,7 @@ ALTER TABLE `dblog`.`sys_user`
 
 ALTER TABLE `dblog`.`sys_user`
   MODIFY COLUMN `gender` smallint(2) NULL DEFAULT NULL COMMENT '性别' AFTER `birthday`;
+
+
+# 20190601 系统配置表增加博客安装日期
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (35, 'installdate', now(), now(), now());

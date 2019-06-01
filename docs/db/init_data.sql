@@ -70,6 +70,7 @@ INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_tim
 INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (32, 'sessionTimeOut', '5', now(), now());
 INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (33, 'sessionTimeOutUnit', 'MINUTES', now(), now());
 INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (34, 'loginRetryNum', '5', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (35, 'installdate', now(), now(), now());
 
 # 清空友情链接表
 TRUNCATE TABLE `dblog`.`sys_link`;
