@@ -186,7 +186,7 @@ public class RenderController {
     public ModelAndView article(Model model, @PathVariable("articleId") Long articleId) {
         Article article = bizArticleService.getByPrimaryKey(articleId);
         if (article == null || ArticleStatusEnum.UNPUBLISHED.getCode() == article.getStatusEnum().getCode()) {
-            return ResultUtil.redirect("/error/404");
+            return ResultUtil.forward("/error/404");
         }
         model.addAttribute("article", article);
         // 上一篇下一篇

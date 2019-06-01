@@ -158,7 +158,7 @@
 			biz_article a
 		INNER JOIN biz_type btype ON a.type_id = btype.id
 		INNER JOIN biz_article_tags atag ON a.id = atag.article_id
-		INNER JOIN biz_tags t ON atag.tag_id = t.id
+		LEFT JOIN biz_tags t ON atag.tag_id = t.id
 		WHERE
 			a.id = #{id}
 	</select>

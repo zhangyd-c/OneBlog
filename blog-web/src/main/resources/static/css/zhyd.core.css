@@ -315,9 +315,10 @@ blockquote {
 .blog-info-body p {
     text-indent: 0;
     line-height: 1.5;
-    margin: .8em 0 !important;
-    color: #1c1f21;
+    color: rgb(28, 31, 33);
     overflow-x: auto;
+    margin: 0.8em 0 !important;
+    padding: 10px 0;
 }
 
 .blog-info-body table {

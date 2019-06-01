@@ -74,9 +74,13 @@
                     <ul class="list-unstyled">
                         <li>
                             <strong>本文标签：</strong>
-                                <#list article.tags as item>
-                                    <a href="${config.siteUrl}/tag/${item.id?c}" class="c-label" data-original-title="${item.name}" data-toggle="tooltip" data-placement="bottom" target="_blank">${item.name}</a>
-                                </#list>
+                                <#if article.tags?? && article.tags?size gt 0>
+                                    <#list article.tags as item>
+                                        <a href="${config.siteUrl}/tag/${item.id?c}" class="c-label" data-original-title="${item.name}" data-toggle="tooltip" data-placement="bottom" target="_blank">${item.name}</a>
+                                    </#list>
+                                <#else>
+                                    <a href="javascript:;;" class="c-label" data-original-title="暂无相关标签" data-toggle="tooltip" data-placement="bottom" target="_blank">暂无相关标签</a>
+                                </#if>
                         </li>
                         <li>
                             <strong>版权声明：</strong>

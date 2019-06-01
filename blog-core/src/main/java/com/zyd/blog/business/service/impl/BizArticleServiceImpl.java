@@ -89,9 +89,9 @@ public class BizArticleServiceImpl implements BizArticleService {
             BizArticle tagArticle = tagMap.get(bizArticle.getId());
             if (null == tagArticle) {
                 log.warn("文章[{}] 未绑定标签信息，或者已绑定的标签不存在！", bizArticle.getTitle());
-                continue;
+            } else {
+                bizArticle.setTags(tagArticle.getTags());
             }
-            bizArticle.setTags(tagArticle.getTags());
             this.subquery(bizArticle);
             boList.add(new Article(bizArticle));
         }
