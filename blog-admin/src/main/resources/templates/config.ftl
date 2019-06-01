@@ -93,7 +93,7 @@
                                             <i class="fa fa-question-circle" title="用于前台计算运行天数"></i> <span class="required">*</span></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class='input-group date myDatepicker'>
-                                                <input type='text' class="form-control" readonly="readonly" id="installdate" name="installdate"  placeholder="请选择系统安装日期"/>
+                                                <input type='text' class="form-control" readonly="readonly" id="installdate" name="installdate"  required="required" placeholder="请选择系统安装日期"/>
                                                 <span class="input-group-addon">
                                                    <span class="fa fa-calendar"></span>
                                                 </span>
