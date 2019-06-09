@@ -169,6 +169,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - [七牛云](https://portal.qiniu.com/signup?code=3l8yx2v0f21ci): 强大的对象存储、CDN等服务提供商
 - [emoji表情列表](https://github.com/caiyongji/emoji-list#nature): emoji表情列表
 - [blog-hunter](https://github.com/zhangyd-c/blog-hunter): 博客猎手，基于webMagic的博客爬取工具，支持慕课、csdn、iteye、cnblogs、掘金和V2EX等各大主流博客平台。
+- [JustAuth](https://gitee.com/yadong.zhang/JustAuth): 史上最全的整合第三方登录的工具,目前已支持Github、Gitee、微博、钉钉、百度、Coding、腾讯云开发者平台、OSChina、支付宝、QQ、微信、淘宝、Google、Facebook、抖音、领英、小米、微软和今日头条等第三方平台的授权登录。 Login, so easy!
 - 待续...
 
 # 开源协议
