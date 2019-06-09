@@ -21,22 +21,17 @@ import java.util.Date;
  */
 @Slf4j
 public class BaiduPushUtil extends RestClientUtil {
-    /**
-     * 自行登录百度站长平台后获取响应的cookie
-     */
-    private static final String COOKIE = "";
 
     /**
      * 推送链接到百度站长平台
      *
-     * @param urlString
-     *         百度站长平台地址
-     * @param params
-     *         待推送的链接
+     * @param urlString 百度站长平台地址
+     * @param params    待推送的链接
+     * @param cookie    百度平台的cookie
      * @return api接口响应内容
      */
-    public static String doPush(String urlString, String params) {
-        if (StringUtils.isEmpty(COOKIE)) {
+    public static String doPush(String urlString, String params, String cookie) {
+        if (StringUtils.isEmpty(cookie)) {
             throw new ZhydCommentException("尚未设置百度站长平台的Cookie信息，该功能不可用！");
         }
         log.info("{} REST url: {}", new Date(), urlString);
@@ -49,7 +44,7 @@ public class BaiduPushUtil extends RestClientUtil {
             connection.setRequestProperty("Action", "1000");
             connection.setRequestProperty("User-Agent", USER_AGENT);
             connection.setRequestProperty("Connection", "keep-alive");
-            connection.setRequestProperty("Cookie", COOKIE);
+            connection.setRequestProperty("Cookie", cookie);
             connection.setDoOutput(true);
             connection.setDoInput(true);
             // 设置连接超时时间，单位毫秒

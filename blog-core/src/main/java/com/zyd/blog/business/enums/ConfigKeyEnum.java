@@ -51,6 +51,11 @@ public enum ConfigKeyEnum {
     BAIDU_PUSH_TOKEN("baiduPushToken"),
 
     /**
+     * 百度站长平台的Cookie
+     */
+    BAIDU_PUSH_COOKIE("baiduPushCookie"),
+
+    /**
      * 存储类型
      */
     STORAGE_TYPE("storageType"),

@@ -18,31 +18,31 @@
                     <div class="" role="tabpanel" data-example-id="togglable-tabs">
                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                             <li role="presentation" class="active">
-                                <a href="#tab_basic" id="basic-tab" role="tab" data-toggle="tab" aria-expanded="true">基本信息</a>
+                                <a href="#tab_basic" id="basic-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-info fa-fw"></i> 基本信息</a>
                             </li>
                             <li role="presentation">
-                                <a href="#tab_seo" id="seo-tab" role="tab" data-toggle="tab" aria-expanded="true">SEO</a>
+                                <a href="#tab_seo" id="seo-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-sitemap fa-fw"></i> SEO</a>
                             </li>
                             <li role="presentation">
-                                <a href="#tab_storage" id="storage-tab" role="tab" data-toggle="tab" aria-expanded="true">云存储</a>
+                                <a href="#tab_storage" id="storage-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-cube fa-fw"></i> 云存储</a>
                             </li>
                             <li role="presentation">
-                                <a href="#tab_auth" id="auth-tab" role="tab" data-toggle="tab" aria-expanded="true">登录</a>
+                                <a href="#tab_auth" id="auth-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-sign-in fa-fw"></i> 登录</a>
                             </li>
                             <li role="presentation">
-                                <a href="#tab_comment" id="comment-tab" role="tab" data-toggle="tab" aria-expanded="true">评论</a>
+                                <a href="#tab_comment" id="comment-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-commenting-o fa-fw"></i> 评论</a>
                             </li>
                             <li role="presentation">
-                                <a href="#tab_article_editor" id="article-editor-tab" role="tab" data-toggle="tab" aria-expanded="true">文章编辑器</a>
+                                <a href="#tab_article_editor" id="article-editor-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-edit fa-fw"></i> 文章编辑器</a>
                             </li>
                             <li role="presentation" class="">
-                                <a href="#tab_contact" role="tab" id="contact-tab" data-toggle="tab" aria-expanded="false">联系方式</a>
+                                <a href="#tab_contact" role="tab" id="contact-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-id-card-o fa-fw"></i> 联系方式</a>
                             </li>
                             <li role="presentation">
-                                <a href="#tab_praise" id="praise-tab" role="tab" data-toggle="tab" aria-expanded="true">赞赏码</a>
+                                <a href="#tab_praise" id="praise-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-money fa-fw"></i> 赞赏码</a>
                             </li>
                             <li role="presentation" class="">
-                                <a href="#tab_setting" role="tab" id="setting-tab" data-toggle="tab" aria-expanded="false">其他</a>
+                                <a href="#tab_setting" role="tab" id="setting-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-tasks fa-fw"></i> 其他</a>
                             </li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
@@ -129,15 +129,27 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="homeKeywords">百度推送Token <i class="fa fa-question-circle" title="方便百度引擎快速收录"></i> <span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="baiduPushToken">百度推送Token <i class="fa fa-question-circle" title="方便百度引擎快速收录"></i> <span class="required">*</span></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" class="form-control col-md-7 col-xs-12" name="baiduPushToken" id="baiduPushToken" required="required" placeholder="请输入百度推送Token"/>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <small>获取地址：<a href="https://ziyuan.baidu.com/linksubmit/index" target="_blank">点击获取百度推送Token</a></small>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="baiduPushCookie">百度推送Cookie <i class="fa fa-question-circle" title="请求API使用"></i> <span class="required">*</span></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" class="form-control col-md-7 col-xs-12" name="baiduPushCookie" id="baiduPushCookie" required="required" placeholder="请输入百度推送Cookie"/>
                                         </div>
                                     </div>
                                     <div class="item">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <small>获取地址：<a href="https://ziyuan.baidu.com/linksubmit/index" target="_blank">点击获取百度推送Token</a></small>
+                                            <small>帮助文档：<a href="http://t.cn/AiCIWi0Q" target="_blank">OneBlog-第三方配置参考-百度站长平台配置</a></small>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>

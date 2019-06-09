@@ -103,19 +103,7 @@ public class RestArticleController {
         }
         // urls: 推送, update: 更新, del: 删除
         String url = UrlBuildUtil.getBaiduPushUrl(type.toString(), (String) config.get(ConfigKeyEnum.SITE_URL.getKey()), (String) config.get(ConfigKeyEnum.BAIDU_PUSH_TOKEN.getKey()));
-        /**
-         * success	       	int	    成功推送的url条数
-         * remain	       	int	    当天剩余的可推送url条数
-         * not_same_site	array	由于不是本站url而未处理的url列表
-         * not_valid	   	array	不合法的url列表
-         */
-        // {"remain":4999997,"success":1,"not_same_site":[],"not_valid":[]}
-        /**
-         * error	是	int	      错误码，与状态码相同
-         * message	是	string	  错误描述
-         */
-        //{error":401,"message":"token is not valid"}
-        String result = BaiduPushUtil.doPush(url, params.toString());
+        String result = BaiduPushUtil.doPush(url, params.toString(), (String) config.get(ConfigKeyEnum.BAIDU_PUSH_COOKIE.getKey()));
         log.info(result);
         JSONObject resultJson = JSONObject.parseObject(result);
 
