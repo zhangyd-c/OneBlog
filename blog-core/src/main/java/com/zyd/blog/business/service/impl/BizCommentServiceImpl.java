@@ -147,36 +147,50 @@ public class BizCommentServiceImpl implements BizCommentService {
     @RedisCache(flush = true)
     public Comment comment(Comment comment) throws ZhydCommentException {
         SysConfig sysConfig = configService.getByKey(ConfigKeyEnum.ANONYMOUS.getKey());
+        boolean anonymous = true;
         if (null != sysConfig) {
-            String anonymous = sysConfig.getConfigValue();
-            if (!StringUtils.isEmpty(anonymous) && !"1".equals(anonymous) && !SessionUtil.isLogin()) {
-                throw new ZhydCommentException("站长已关闭匿名评论，请先登录！");
-            }
+            anonymous = Boolean.valueOf(sysConfig.getConfigValue());
         }
 
+        // 非匿名且未登录
+        if (!anonymous && !SessionUtil.isLogin()) {
+            throw new ZhydCommentException("站长已关闭匿名评论，请先登录！");
+        }
+
+        // 过滤文本内容，防止xss
         this.filterContent(comment);
 
-        if (SessionUtil.isLogin()) {
+        // 已登录且非匿名，使用当前登录用户的信息评论
+        if (SessionUtil.isLogin() && !anonymous) {
             this.setCurrentLoginUserInfo(comment);
         } else {
             this.setCurrentAnonymousUserInfo(comment);
         }
 
-        List<String> avatars = configService.getRandomUserAvatar();
-        if (StringUtils.isEmpty(comment.getAvatar()) && !CollectionUtils.isEmpty(avatars)) {
-            Collections.shuffle(avatars);
-            int randomIndex = new Random().nextInt(avatars.size());
-            comment.setAvatar(avatars.get(randomIndex));
+        // 用户没有头像时， 使用随机默认的头像
+        if (StringUtils.isEmpty(comment.getAvatar())) {
+            List<String> avatars = configService.getRandomUserAvatar();
+            if (!CollectionUtils.isEmpty(avatars)) {
+                Collections.shuffle(avatars);
+                int randomIndex = new Random().nextInt(avatars.size());
+                comment.setAvatar(avatars.get(randomIndex));
+            }
         }
 
         if (StringUtils.isEmpty(comment.getStatus())) {
             comment.setStatus(CommentStatusEnum.VERIFYING.toString());
         }
 
+        // set当前评论者的设备信息
         this.setCurrentDeviceInfo(comment);
 
+        // set当前评论者的位置信息
         this.setCurrentLocation(comment);
+
+        // 保存
         this.insert(comment);
+
+        // 发送邮件通知
         this.sendEmail(comment);
         return comment;
     }
@@ -192,7 +206,7 @@ public class BizCommentServiceImpl implements BizCommentService {
             throw new ZhydCommentException("说点什么吧");
         }
         // 过滤非法属性和无用的空标签
-        if (!XssKillerUtil.isValid(content)) {
+        if (!XssKillerUtil.isValid(content) || !XssKillerUtil.isValid(comment.getAvatar())) {
             throw new ZhydCommentException("请不要使用特殊标签");
         }
         content = XssKillerUtil.clean(content.trim()).replaceAll("(<p><br></p>)|(<p></p>)", "");

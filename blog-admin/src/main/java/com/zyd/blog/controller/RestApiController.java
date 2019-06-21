@@ -2,8 +2,6 @@ package com.zyd.blog.controller;
 
 import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.enums.FileUploadType;
-import com.zyd.blog.business.service.BizArticleService;
-import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.core.websocket.server.ZydWebsocketServer;
 import com.zyd.blog.core.websocket.util.WebSocketUtil;
 import com.zyd.blog.file.FileUploader;
@@ -36,10 +34,6 @@ import java.util.Map;
 @RequestMapping("/api")
 public class RestApiController {
 
-    @Autowired
-    private BizArticleService articleService;
-    @Autowired
-    private SysConfigService configService;
     @Autowired
     private ZydWebsocketServer websocketServer;
 
