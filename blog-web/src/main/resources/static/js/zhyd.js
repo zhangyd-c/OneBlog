@@ -337,16 +337,18 @@ $(function () {
     });
 
     /* 图片懒加载 */
-    $("img.lazy-img").lazyload({
-        placeholder: appConfig.staticPath + "/img/loading.gif",
-        effect: "fadeIn",
-        threshold: 100
-    });
-    $(window).bind("load", function () {
-        var timeout = setTimeout(function () {
-            $("img.lazy-img").trigger("sporty");
-        }, 3000);
-    });
+    if(appConfig.lazyloadPath) {
+        $("img.lazy-img").lazyload({
+            placeholder: appConfig.lazyloadPath,
+            effect: "fadeIn",
+            threshold: 100
+        });
+        $(window).bind("load", function () {
+            var timeout = setTimeout(function () {
+                $("img.lazy-img").trigger("sporty");
+            }, 3000);
+        });
+    }
 
     /* 热门搜索标签点击事件 */
     $(".search-hot li").click(function () {

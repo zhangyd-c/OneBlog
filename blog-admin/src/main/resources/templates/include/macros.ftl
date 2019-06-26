@@ -71,7 +71,7 @@
     <#if footerHtml>
         <footer>
             <div class="pull-right">
-                Copyright © 2018-${.now?string('yyyy')} <a href="https://www.zhyd.me" target="_blank">yadong.zhang</a> · Powered by <a href="https://gitee.com/yadong.zhang/DBlog" title="OneBlog是一款简洁美观、自适应的Java博客系统..." target="_blank"><strong>OneBlog</strong></a>. All Rights Reserved.
+                Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
             </div>
             <div class="clearfix"></div>
         </footer>
@@ -259,6 +259,85 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"> 关闭</i></button>
                 <button type="button" class="btn btn-success addOrUpdateBtn"><i class="fa fa-save"> 保存</i></button>
+            </div>
+        </div>
+    </div>
+</div>
+</#macro>
+
+<#-- 网站首页的项目介绍内容 -->
+<#macro aboutOneBlog>
+    <div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog modal-lg" role="document" style="width: 70%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2">关于OneBlog - 一个简洁美观、功能强大并且自适应的Java博客</h4>
+            </div>
+            <div class="modal-body notice-box">
+                <div class="row">
+                    <div class="col col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                        <fieldset>
+                            <legend>关注公众号</legend>
+                            <a href="https://gitee.com/yadong.zhang/static/raw/master/wx/wechat_account_500x500.jpg" class="showImage" title="关注公众号：码一码" rel="external nofollow" style="display: block;text-align: center">
+                                <img src="https://gitee.com/yadong.zhang/static/raw/master/wx/wechat_account_500x500.jpg" class="img-rounded" alt="关注公众号：码一码" width="300">
+                            </a>
+                        </fieldset>
+                    </div>
+                    <div class="col col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                        <fieldset>
+                            <legend>关于OneBlog</legend>
+
+                            <h2>项目相关</h2>
+                            <ul>
+                                <li>开源项目地址①：<a href="https://gitee.com/yadong.zhang/DBlog" target="_blank">https://gitee.com/yadong.zhang/DBlog</a></li>
+                                <li>开源项目地址②：<a href="https://github.com/zhangyd-c/OneBlog" target="_blank">https://github.com/zhangyd-c/OneBlog</a></li>
+                                <li>博主网站首页：<a href="https://www.zhyd.me" target="_blank">https://www.zhyd.me</a></li>
+                            </ul>
+                            <h2>Demo演示</h2>
+                            <ul>
+                                <li><a href="http://dblog-admin.zhyd.me" target="_blank">后台</a>：用户名：root，密码：123456</li>
+                                <li><a href="http://dblog-web.zhyd.me" target="_blank">前台</a></li>
+                            </ul>
+                            <h2>获取帮助</h2>
+                            <ul>
+                                <li>相关Wiki：<a href="https://gitee.com/yadong.zhang/DBlog/wikis" target="_blank">https://gitee.com/yadong.zhang/DBlog/wikis</a></li>
+                                <li>提issue：<a href="https://gitee.com/yadong.zhang/DBlog/issues" target="_blank">https://gitee.com/yadong.zhang/DBlog/issues</a></li>
+                                <li>留言：<a href="https://www.zhyd.me/guestbook" target="_blank">https://www.zhyd.me/guestbook</a></li>
+                                <li>加QQ群：<a href="http://shang.qq.com/wpa/qunwpa?idkey=9f986e9b33b1de953e1ef9a96cdeec990affd0ac7855e00ff103514de2027b60" target="_blank">190886500</a></li>
+                            </ul>
+                            <h2>其他开源作品</h2>
+                            <ul>
+                                <li><a href="https://gitee.com/yadong.zhang/JustAuth" target="_blank">JustAuth</a>：史上最全的整合第三方登录的工具,目前已支持Github、Gitee、微博、钉钉、百度、Coding、腾讯云开发者平台、OSChina、支付宝、QQ、微信、淘宝、Google、Facebook、抖音、领英、小米、微软和今日头条等第三方平台的授权登录。 Login, so easy!</li>
+                                <li><a href="https://gitee.com/yadong.zhang/blog-hunter" target="_blank">blog-hunter</a>：博客猎手，基于webMagic的博客爬取工具，支持慕课、csdn、iteye、cnblogs、掘金和V2EX等各大主流博客平台。博客千万篇，版权第一条。狩猎不规范，亲人两行泪。</li>
+                                <li><a href="https://gitee.com/yadong.zhang/shiro" target="_blank">springboot-shiro</a>：Springboot + shiro权限管理。这或许是流程最详细、代码最干净、配置最简单的shiro上手项目了。</li>
+                                <li><a href="https://gitee.com/yadong.zhang" target="_blank">查看更多...</a></li>
+                            </ul>
+                        </fieldset>
+                    </div>
+                    <div class="col col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                        <fieldset>
+                            <legend>支持的功能</legend>
+                            <ul>
+                                <li><span><span><strong>多种编辑器</strong>：支持wangEditor和Markdown两种富文本编辑器，可以自行选择</span></span></li>
+                                <li><span><span><strong>自动申请友情链接</strong>：在线申请友情链接，无需站长手动配置，只需申请方添加完站长的连接后自行申请即可</span></span></li>
+                                <li><span><span><strong>百度推送</strong>：支持百度推送功能，加速百度搜索引擎收录博文</span></span></li>
+                                <li><span><span><strong>评论系统</strong>：自研的评论系统，支持显示用户地址、浏览器和os信息，后台可审核评论、开启匿名评论、回复和邮件通知评论</span></span></li>
+                                <li><span><span><strong>权限管理</strong>：后台配备完善的权限管理</span></span></li>
+                                <li><span><span><strong>SEO</strong>：自带robots、sitemap等seo模板，实现自动生成robots和sitemap</span></span></li>
+                                <li><span><span><strong>实时通讯</strong>：管理员可向在线的用户发送实时消息（需用户授权 - 基于websocket实现，具体参考<a href="https://www.zhyd.me/article/111">DBlog建站之Websocket的使用</a>）</span></span></li>
+                                <li><span><span><strong>系统配置支持快速配置</strong>：可通过后台手动修改诸如域名信息、SEO优化、赞赏码、七牛云以及更新维护通知等</span></span></li>
+                                <li><span><span><strong><i class="fa fa-fire fa-fw red"></i>多种文件存储</strong>：集成七牛云、阿里云OSS，实现文件云存储，同时支持本地文件存储</span></span></li>
+                                <li><span><span><strong><i class="fa fa-fire fa-fw red"></i>文件搬运工</strong>：集成<a href="https://gitee.com/yadong.zhang/blog-hunter">blog-hunter</a>实现“文章搬运工”功能，支持一键同步imooc、csdn、iteye或者cnblogs上的文章，可抓取列表和单个文章</span></span></li>
+                                <li><span><span><strong><i class="fa fa-fire fa-fw red"></i>第三方授权登录</strong>：集成<a href="https://gitee.com/yadong.zhang/JustAuth">JustAuth</a>实现第三方授权登录</span></span></li>
+                            </ul>
+                        </fieldset></div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <span class="pull-left">tips: 如不想显示该弹窗，可在 <code>index.ftl</code> 中搜索 <code>noticeModal</code> 后删掉相关代码</span>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"> 关闭</i></button>
             </div>
         </div>
     </div>

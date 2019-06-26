@@ -63,42 +63,13 @@
             float: left;
             text-align: right;
         }
+        .notice-box li{
+            line-height: 25px;
+        }
     </style>
 </@header>
-<div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel2">关于${config.siteName}</h4>
-            </div>
-            <div class="modal-body notice-box">
-                <h2>项目相关</h2>
-                <ul>
-                    <li>开源项目地址：<a href="https://gitee.com/yadong.zhang/DBlog" target="_blank">https://gitee.com/yadong.zhang/DBlog</a></li>
-                    <li>博主网站首页：<a href="https://www.zhyd.me" target="_blank">https://www.zhyd.me</a></li>
-                </ul>
-                <h2>获取帮助</h2>
-                <ul>
-                    <li class="red h4"><i class="fa fa-fire"></i>在线文档：<a href="http://dblog-docs.zhyd.me/" target="_blank">http://dblog-docs.zhyd.me/</a></li>
-                    <li>相关Wiki：<a href="https://gitee.com/yadong.zhang/DBlog/wikis" target="_blank">https://gitee.com/yadong.zhang/DBlog/wikis</a></li>
-                    <li>提issue：<a href="https://gitee.com/yadong.zhang/DBlog/issues" target="_blank">https://gitee.com/yadong.zhang/DBlog/issues</a></li>
-                    <li>留言：<a href="https://www.zhyd.me/guestbook" target="_blank">https://www.zhyd.me/guestbook</a></li>
-                    <li>加QQ群：<a href="http://shang.qq.com/wpa/qunwpa?idkey=9f986e9b33b1de953e1ef9a96cdeec990affd0ac7855e00ff103514de2027b60" target="_blank">190886500</a></li>
-                </ul>
-                <h2>关注公众号</h2>
-                <a href="https://gitee.com/yadong.zhang/static/raw/master/wx/wechat_account.jpg" class="showImage" title="关注公众号：码一码" rel="external nofollow">
-                    <img src="https://gitee.com/yadong.zhang/static/raw/master/wx/wechat_account.jpg" class="img-rounded" alt="关注公众号：码一码" width="150">
-                </a>
-
-            </div>
-            <div class="modal-footer">
-                <span class="pull-left">tips: 如不想显示该弹窗，可在 <code>index.ftl</code> 中搜索 <code>noticeModal</code> 后删掉相关代码</span>
-                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"> 关闭</i></button>
-            </div>
-        </div>
-    </div>
-</div>
+<#-- 网站首页的项目介绍内容 -->
+<@aboutOneBlog></@aboutOneBlog>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12 top_tiles">
         <#-- 文章 -->

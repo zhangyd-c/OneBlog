@@ -5,7 +5,7 @@
 
     <groupId>com.zyd</groupId>
     <artifactId>blog</artifactId>
-    <version>2.2.1</version>
+    <version>2.2.2</version>
     <packaging>pom</packaging>
     <modules>
         <module>blog-core</module>
