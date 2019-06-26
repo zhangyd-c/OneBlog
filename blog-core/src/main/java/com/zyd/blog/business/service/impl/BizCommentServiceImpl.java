@@ -149,7 +149,7 @@ public class BizCommentServiceImpl implements BizCommentService {
         SysConfig sysConfig = configService.getByKey(ConfigKeyEnum.ANONYMOUS.getKey());
         boolean anonymous = true;
         if (null != sysConfig) {
-            anonymous = Boolean.valueOf(sysConfig.getConfigValue());
+            anonymous = "1".equals(sysConfig.getConfigValue());
         }
 
         // 非匿名且未登录
