@@ -109,6 +109,20 @@ public class WebSpiderUtils {
         spider.put("WinHTTP", "WinHTTP");
         spider.put("WordPress", "WordPress");
         spider.put("Xenu Link Sleuth", "死链接检测工具");
+        
+        spider.put("BLEXBot", "BLEXBot");
+		spider.put("DoCoMo", "DoCoMo");
+		spider.put("Exabot", "Exabot");
+		spider.put("Spinn3r", "Spinn3r");
+		spider.put("DotBot", "DotBot");
+		spider.put("psbot", "psbot");
+		spider.put("360spider", "360spider");
+		spider.put("curl", "curl");
+		spider.put("MJ12bot", "MJ12bot");
+		spider.put("Nimbostratus-Bot", "Nimbostratus-Bot");
+		spider.put("Applebot", "Applebot");
+		spider.put("CCBot", "CCBot");
+		spider.put("Pandalytics", "Pandalytics");
 
         operations.set(KEY, spider, 7, TimeUnit.DAYS);
         return spider;
