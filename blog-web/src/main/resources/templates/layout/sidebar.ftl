@@ -1,5 +1,5 @@
 <div class="col-sm-3 blog-sidebar">
-    <#if articleDetail?exists>
+    <#if articleDetail??>
         <div class="sidebar-module">
             <h5 class="custom-title"><i class="fa fa-hand-peace-o fa-fw icon"></i><strong>说给你听</strong><small></small></h5>
             <div class="div-quote">
@@ -16,7 +16,7 @@
                         <div class="about-main">
                             <div class="about-img"><a href="${config.wxCode}" class="showImage" title="微信公众号"><img src="${config.wxCode}" alt="微信公众号"></a></div>
                             <div class="about-name">${config.siteName}</div>
-                            <div class="about-the">${config.siteDesc?if_exists}</div>
+                            <div class="about-the">${config.siteDesc!}</div>
                         </div>
                         <div class="clear"></div>
                         <!-- 方案一：图标展示 -->
@@ -56,10 +56,10 @@
     <div class="sidebar-module">
         <h5 class="custom-title"><i class="fa fa-tags fa-fw icon"></i><strong>标签云</strong><small></small></h5>
         <@zhydTag method="tagsList" pageSize="10">
-            <#if tagsList?exists && (tagsList?size > 0)>
+            <#if tagsList?? && (tagsList?size > 0)>
                 <#list tagsList as item>
-                    <a style="font-size: <@zhydTag method="random" max="15" min="10">${random}</@zhydTag>px;margin: 5px;" href="${config.siteUrl}/tag/${item.id?c}" title="${item.name?if_exists}" data-toggle="tooltip" data-placement="bottom">
-                        ${item.name?if_exists}
+                    <a style="font-size: <@zhydTag method="random" max="15" min="10">${random}</@zhydTag>px;margin: 5px;" href="${config.siteUrl}/tag/${item.id?c}" title="${item.name!}" data-toggle="tooltip" data-placement="bottom">
+                        ${item.name!}
                     </a>
                 </#list>
             </#if>
@@ -72,9 +72,9 @@
                 <ul class="list-unstyled list-inline comments">
                 <#list recentComments as item>
                     <li>
-                        <a href="${item.sourceUrl}#comment-${item.id?c}" title="${item.briefContent?if_exists}" rel="external nofollow" data-toggle="tooltip" data-placement="bottom">
-                            <img alt="${item.nickname?if_exists}" src="${item.avatar?if_exists}" class="avatar auto-shake" height="64" width="64" onerror="this.src='${config.staticWebSite}/img/user.png'" />
-                            <span class="comment-author">${item.nickname?if_exists}</span> ${item.briefContent?if_exists}
+                        <a href="${item.sourceUrl}#comment-${item.id?c}" title="${item.briefContent!}" rel="external nofollow" data-toggle="tooltip" data-placement="bottom">
+                            <img alt="${item.nickname!}" src="${item.avatar!}" class="avatar auto-shake" height="64" width="64" onerror="this.src='${config.staticWebSite}/img/user.png'" />
+                            <span class="comment-author">${item.nickname!}</span> ${item.briefContent!}
                         </a>
                     </li>
                 </#list>
@@ -92,7 +92,7 @@
             <div role="tabpanel" class="tab-pane active" id="profile">
                 <ol class="list-unstyled">
                     <@articleTag method="recentArticles" pageSize="10">
-                        <#if recentArticles?exists && (recentArticles?size > 0)>
+                        <#if recentArticles?? && (recentArticles?size > 0)>
                             <#list recentArticles as item>
                                 <li>
                                     <a href="${config.siteUrl}/article/${item.id?c}" title="${item.title}" data-toggle="tooltip" data-placement="bottom">
@@ -111,7 +111,7 @@
             <div role="tabpanel" class="tab-pane" id="home">
                 <ol class="list-unstyled">
                     <@articleTag method="recommendedList" pageSize="10">
-                        <#if recommendedList?exists && (recommendedList?size > 0)>
+                        <#if recommendedList?? && (recommendedList?size > 0)>
                             <#list recommendedList as item>
                                 <li>
                                     <a href="${config.siteUrl}/article/${item.id?c}" title="${item.title}" data-toggle="tooltip" data-placement="bottom">
@@ -130,7 +130,7 @@
             <div role="tabpanel" class="tab-pane" id="messages">
                 <ol class="list-unstyled">
                     <@articleTag method="randomList" pageSize="10">
-                        <#if randomList?exists && (randomList?size > 0)>
+                        <#if randomList?? && (randomList?size > 0)>
                             <#list randomList as item>
                                 <li>
                                     <a href="${config.siteUrl}/article/${item.id?c}" title="${item.title}" data-toggle="tooltip" data-placement="bottom">

@@ -1,7 +1,6 @@
 <#include "include/macros.ftl">
 <@compress single_line=true>
-<@header title="网站更新记录 | 一个程序员的个人博客"
-    keywords=""
+<@header title="网站更新记录 | ${config.siteName!}"
     description="网站更新维护日志"
     canonical="/updateLog">
 </@header>

@@ -529,7 +529,7 @@
             </div>
             <div class="modal-body">
                 <@zhydTag method="template" key="TM_NGINX_FILE_SERVER">
-                    <#if template?if_exists>
+                    <#if template!>
                         <textarea class="form-control" rows="15" cols="">${template.refValue}</textarea>
                     <#else>
                         <textarea class="form-control" placeholder="暂无可参考的配置" disabled readonly></textarea>

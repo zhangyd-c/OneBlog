@@ -1,7 +1,6 @@
 <#include "include/macros.ftl">
 <@compress single_line=true>
 <@header title="站长推荐 | ${config.siteName}"
-    keywords="站长推荐"
     description="站长推荐"
     canonical="/recommended">
 </@header>
@@ -13,7 +12,7 @@
     </nav>
     <div class="row">
         <div class="col-sm-8">
-            <#if list?exists && (list?size > 0)>
+            <#if list?? && (list?size > 0)>
                 <article class="fade-in recommended-articles">
                     <ul class="list-unstyled">
                         <#list list as item>

@@ -1,8 +1,7 @@
 <#include "include/macros.ftl">
 <@compress single_line=true>
 <@header title="友情链接 | ${config.siteName}"
-    keywords="${config.siteName},友情链接交换"
-    description="${config.siteName}，一个程序员的个人原创博客，友情链接交换"
+    description="${config.siteName}，友情链接交换"
     canonical="/links">
 </@header>
 

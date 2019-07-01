@@ -1,6 +1,6 @@
 <#include "include/macros.ftl">
 <@compress single_line=true>
-<@header title="归档目录 | ${config.siteName}" keywords="归档目录" description="归档目录" canonical="/archives"></@header>
+<@header title="归档目录 | ${config.siteName}" description="归档目录" canonical="/archives"></@header>
 
 <div class="container custome-container">
     <nav class="breadcrumb">

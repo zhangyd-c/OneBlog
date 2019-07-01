@@ -283,15 +283,4 @@ public class RenderController {
         return ResultUtil.view("updateLog");
     }
 
-    /**
-     * 测试websocket
-     *
-     * @return
-     */
-    @GetMapping("/testWebsocket")
-    @BussinessLog(value = "进入测试websocket页", platform = PlatformEnum.WEB)
-    public ModelAndView testWebsocket() {
-        return new ModelAndView("testWebsocket");
-    }
-
 }

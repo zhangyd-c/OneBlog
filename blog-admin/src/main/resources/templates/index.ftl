@@ -143,7 +143,7 @@
             <div class="x_content" id="statistics-article-list">
                 <ul class="list-unstyled">
                     <@articleTag method="hotList" pageSize="10">
-                        <#if hotList?exists && (hotList?size > 0)>
+                        <#if hotList?? && (hotList?size > 0)>
                             <#list hotList as item>
                             <li class="title word-prase"><a href="${config.siteUrl}/article/${item.id?c}" title="${item.title}">${item.title}</a></li>
                             <li class="count"><span title="浏览人次：${item.lookCount?c}">${item.lookCount?c}</span></li>
@@ -193,7 +193,7 @@
                     </thead>
                     <tbody>
                     <@articleTag method="recentArticles" pageSize="5">
-                        <#if recentArticles?exists && (recentArticles?size > 0)>
+                        <#if recentArticles?? && (recentArticles?size > 0)>
                             <#list recentArticles as item>
                             <tr>
                                 <th class="title"><div class="word-prase"><a href="${config.siteUrl}/article/${item.id?c}" title="${item.title}">${item.title}</a></div></th>
@@ -232,12 +232,12 @@
                     </thead>
                     <tbody>
                     <@zhydTag method="recentComments" pageSize="5">
-                        <#if recentComments?exists && (recentComments?size > 0)>
+                        <#if recentComments?? && (recentComments?size > 0)>
                             <#list recentComments as item>
                             <tr>
-                                <th class="title word-prase"><div><a href="${item.url}" target="_blank" rel="external nofollow">${item.nickname?if_exists}</a></div></th>
-                                <td class="content"><div class="word-prase">${item.briefContent?if_exists}</div></td>
-                                <td class="source"><div class="word-prase"><a href="${config.siteUrl}${item.sourceUrl}#comment-${item.id?c}" target="_blank" rel="external nofollow">${item.articleTitle?if_exists}</a></div></td>
+                                <th class="title word-prase"><div><a href="${item.url}" target="_blank" rel="external nofollow">${item.nickname!}</a></div></th>
+                                <td class="content"><div class="word-prase">${item.briefContent!}</div></td>
+                                <td class="source"><div class="word-prase"><a href="${config.siteUrl}${item.sourceUrl}#comment-${item.id?c}" target="_blank" rel="external nofollow">${item.articleTitle!}</a></div></td>
                                 <td>${item.createTime?string('yyyy-MM-dd')}</td>
                             </tr>
                             </#list>

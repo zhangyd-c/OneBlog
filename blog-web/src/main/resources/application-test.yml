@@ -6,6 +6,7 @@ server:
 spring:
     profiles:
         include: [center-test]
+        active:
     # 指定默认MimeMessage的编码，默认为: UTF-8
     mail:
         default-encoding: UTF-8
@@ -64,6 +65,9 @@ braum:
 app:
     # 是否启用kaptcha验证码
     enableKaptcha: false
+    # 启用后，项目在启动时会打印数据库（Mysql和Redis）链接信息（包含密码）
+    # 代码请参考
+    enabledConfigLog: false
 
 me:
     zhyd:

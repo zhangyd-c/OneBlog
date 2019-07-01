@@ -1,6 +1,6 @@
 <#include "include/macros.ftl">
 <@compress single_line=true>
-<@header title="关于 | ${config.siteName}" keywords="${config.siteName},关于博客" description="一个程序员的个人博客,关于我的个人原创博客 - ${config.siteName}" canonical="/about"></@header>
+<@header title="关于 | ${config.siteName}" description="关于${config.siteName}" canonical="/about"></@header>
 
 <div class="container custome-container">
     <nav class="breadcrumb">

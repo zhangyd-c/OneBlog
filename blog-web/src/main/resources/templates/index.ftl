@@ -1,9 +1,9 @@
 <#include "include/macros.ftl">
 <@compress single_line=true>
-<@header title="${config.siteName?if_exists} | 一个程序员的个人博客"
-    keywords="${config.homeKeywords?if_exists}"
-    description="${config.homeDesc?if_exists}"
-    canonical="/${url?if_exists}">
+<@header title="${config.siteName!} | 一个程序员的个人博客"
+    keywords="${config.homeKeywords!}"
+    description="${config.homeDesc!}"
+    canonical="/${url!}">
 </@header>
 
 <div class="container custome-container">
@@ -29,7 +29,7 @@
     <div class="row">
         <div class="col-sm-8 blog-main">
             <@articleTag method="recommendedList" pageSize="8">
-                <#if recommendedList?exists && (recommendedList?size > 0)>
+                <#if recommendedList?? && (recommendedList?size > 0)>
                 <div class="blog-body expansion" style="padding: 0;">
                     <div id="myCarousel" class="carousel slide" style="height:300px;">
                         <ol class="carousel-indicators">
@@ -59,15 +59,15 @@
                 </div>
                 </#if>
             </@articleTag>
-            <#if page.list?exists && (page.list?size > 0)>
+            <#if page.list?? && (page.list?size > 0)>
                 <#list page.list as item>
                     <article class="fade-in">
                         <figure class="thumbnail">
                             <a href="${config.siteUrl}/article/${item.id?c}">
-                                <#if item.coverImage?exists && (item.coverImage?length > 7)>
-                                    <img width="150" height="150" data-original="${item.coverImage}" class="img-responsive lazy-img" alt="${item.title?if_exists}">
+                                <#if item.coverImage?? && (item.coverImage?length > 7)>
+                                    <img width="150" height="150" data-original="${item.coverImage}" class="img-responsive lazy-img" alt="${item.title!}">
                                 <#else>
-                                    <img width="150" height="150" data-original="${config.staticWebSite}/img/user/11.jpg" class="img-responsive lazy-img" alt="${item.title?if_exists}">
+                                    <img width="150" height="150" data-original="${config.staticWebSite}/img/user/11.jpg" class="img-responsive lazy-img" alt="${item.title!}">
                                 </#if>
                             </a>
                             <span class="cat"><a href="${config.siteUrl}/type/${item.typeId?c}">${item.type.name}</a></span>
@@ -79,7 +79,7 @@
                         </header>
                         <div class="entry-content">
                             <div class="archive-content">
-                                ${item.description?if_exists}
+                                ${item.description!}
                             </div>
                             <span class="title-l"></span>
                             <span class="entry-meta">

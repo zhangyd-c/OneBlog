@@ -11,10 +11,10 @@
                 <li><a href="${config.siteUrl}/about" class="menu_a" title="关于博客" data-toggle="tooltip" data-placement="bottom">关于本站</a></li>
                 <li><a href="${config.siteUrl}/links" class="menu_a" title="友情链接" data-toggle="tooltip" data-placement="bottom">友情链接</a></li>
             </ul>
-            <#if user?exists>
+            <#if user??>
                 <ul class="list-unstyled list-inline nav navbar-nav">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle menu_a" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-user fa-fw"></i>${user.username?if_exists} <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle menu_a" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-user fa-fw"></i>${user.username!} <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/oauth/logout"><i class="fa fa-sign-out"></i>退出</a></li>
                         </ul>
@@ -161,19 +161,19 @@
                 <@zhydTag method="types">
                     <#if types?? && types?size gt 0>
                         <#list types as item>
-                            <#if item.nodes?exists && item.nodes?size gt 0>
+                            <#if item.nodes?? && item.nodes?size gt 0>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle menu_a" data-toggle="dropdown" aria-expanded="false">
-                                        <i class="${item.icon?if_exists}"></i>${item.name?if_exists} <span class="caret"></span>
+                                        <i class="${item.icon!}"></i>${item.name!} <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
                                         <#list item.nodes as node>
-                                        <li><a href="/type/${node.id?c}" title="点击查看《${node.name?if_exists}》的文章">${node.name?if_exists}</a></li>
+                                        <li><a href="/type/${node.id?c}" title="点击查看《${node.name!}》的文章">${node.name!}</a></li>
                                         </#list>
                                     </ul>
                                 </li>
                             <#else>
-                                <li><a href="/type/${item.id?c}" class="menu_a"><i class="${item.icon?if_exists}"></i>${item.name?if_exists}</a></li>
+                                <li><a href="/type/${item.id?c}" class="menu_a"><i class="${item.icon!}"></i>${item.name!}</a></li>
                             </#if>
                         </#list>
                     </#if>

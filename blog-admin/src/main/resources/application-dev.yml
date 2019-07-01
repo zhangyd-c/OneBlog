@@ -55,6 +55,9 @@ logging:
 app:
     # 是否启用kaptcha验证码
     enableKaptcha: false
+    # 启用后，项目在启动时会打印数据库（Mysql和Redis）链接信息（包含密码）
+    # 代码请参考
+    enabledConfigLog: true
     # shiro配置项
     shiro:
         loginUrl: "/passport/login/"

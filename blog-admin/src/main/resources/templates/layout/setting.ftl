@@ -8,7 +8,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img src="/assets/images/loading.gif" alt=""><#if user?exists>${user.username?if_exists}<#else>管理员</#if>
+                        <img src="/assets/images/loading.gif" alt=""><#if user??>${user.username!}<#else>管理员</#if>
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -58,7 +58,7 @@
                 </li>
                 </@shiro.hasPermission>
                 <li>
-                    <a href="${config.siteUrl?if_exists}" target="_blank">
+                    <a href="${config.siteUrl!}" target="_blank">
                         <i class="fa fa-desktop"> 访问前台</i>
                     </a>
                 </li>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="modal-body">
                     <form action="" class="form-horizontal form-label-left" role="form" id="updPassForm">
-                        <input type="hidden" name="id" value="<#if user?exists>${user.id?c}</#if>">
+                        <input type="hidden" name="id" value="<#if user??>${user.id?c}</#if>">
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-3" for="password">旧密码 <span
                                         class="required">*</span></label>

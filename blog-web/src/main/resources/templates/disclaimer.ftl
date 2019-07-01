@@ -1,6 +1,6 @@
 <#include "include/macros.ftl">
 <@compress single_line=true>
-<@header title="免责声明 | ${config.siteName}" keywords="免责声明" description="免责声明" canonical="/disclaimer"></@header>
+<@header title="免责声明 | ${config.siteName}" keywords="" description="免责声明" canonical="/disclaimer"></@header>
 
 <div class="container custome-container">
     <nav class="breadcrumb">

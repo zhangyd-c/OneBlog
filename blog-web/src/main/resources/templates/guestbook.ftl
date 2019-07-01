@@ -1,9 +1,6 @@
 <#include "include/macros.ftl">
 <@compress single_line=true>
-<@header title="留言板 | ${config.siteName}"
-    keywords="${config.siteName},留言板,原创博客留言,个人原创网站,个人技术博客"
-    description="我的留言板,欢迎给我的个人原创博客留言 - ${config.siteName}"
-    canonical="/guestbook" hasEditor=true>
+<@header title="留言板 | ${config.siteName}" canonical="/guestbook" hasEditor=true>
 </@header>
 
 <div class="container custome-container">
@@ -24,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <#if config.comment?if_exists && config.comment == 1>
+        <#if config.comment! && config.comment == 1>
             <div class="col-sm-12 blog-main">
                 <div class="blog-body expansion">
                     <div id="comment-box" data-id="-1"></div>

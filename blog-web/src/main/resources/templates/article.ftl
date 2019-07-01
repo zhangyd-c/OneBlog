@@ -1,7 +1,8 @@
 <#include "include/macros.ftl">
-<@header title="${article.title} | ${config.siteName}" keywords="${article.keywords?if_exists},${config.siteName}" description="${article.description?if_exists}" canonical="/article/${article.id}" hasEditor=true></@header>
-<#if article.coverImage?exists>
-    <img src="${article.coverImage?if_exists}" onerror="this.src='${config.staticWebSite}/img/default_article_cover.jpg'" style="display: none;" id="cover-img">
+<@header title="${article.title} | ${config.siteName}" keywords="${article.keywords!},${config.siteName}" description="${article.description!}"
+    canonical="/article/${article.id}" hasEditor=true></@header>
+<#if article.coverImage??>
+    <img src="${article.coverImage!}" onerror="this.src='${config.staticWebSite}/img/default_article_cover.jpg'" style="display: none;" id="cover-img">
 </#if>
 <div class="container custome-container">
     <nav class="breadcrumb">
@@ -134,12 +135,12 @@
                 <h5 class="custom-title"><i class="fa fa-fire fa-fw icon"></i><strong>热门推荐</strong><small></small></h5>
                 <ul class="list-unstyled">
                     <@articleTag method="hotList" pageSize="10">
-                        <#if hotList?exists && (hotList?size > 0)>
+                        <#if hotList?? && (hotList?size > 0)>
                             <#list hotList as item>
                             <li class="line-li">
                                 <div class="line-container">
                                     <div class="line-left">
-                                        <#if item.coverImage?exists>
+                                        <#if item.coverImage??>
                                             <img class="lazy-img" data-original="${item.coverImage}" width="50" height="50" rel="external nofollow"/>
                                         <#else>
                                             <img class="lazy-img" data-original="${config.staticWebSite}/img/favicon.ico" width="50" height="50" rel="external nofollow"/>
