@@ -148,7 +148,6 @@
                                 var $this = $(this);
                                 var pageNumber = $this.data("page");
                                 config.pageNumber = !pageNumber || isNaN(pageNumber) ? 1 : parseInt(pageNumber);
-                                console.log(config.pageNumber);
                                 $.modal.material._loadData(config);
                             });
                             // 绑定分页-跳转页面点击事件
@@ -208,52 +207,57 @@
                         selectable: 1
                     }, config);
                     $("#chooseImgModal").modal('show');
-                    this._loadData(config, function ($box) {
+                    var $this = this;
+                    // modal show事件，默认会有300ms的延迟，所以需要加setTimeout，且延迟时间要比modal弹出的时间大
+                    // 主要为了解决首次弹出素材库时，图片懒加载无法转换成真实图片地址的问题
+                    setTimeout(function () {
+                        $this._loadData(config, function ($box) {
 
-                        $(".btn-confirm").unbind("click").click(function () {
-                            var $this = $(this);
-                            var imgUrls = [];
-                            $box.find("li").each(function () {
-                                var $thisLi = $(this);
-                                if($thisLi.hasClass("active") || $thisLi.hasClass("selected") ){
-                                    var imgUrl = $thisLi.attr("data-imgUrl");
-                                    imgUrls.push(imgUrl);
+                            $(".btn-confirm").unbind("click").click(function () {
+                                var $this = $(this);
+                                var imgUrls = [];
+                                $box.find("li").each(function () {
+                                    var $thisLi = $(this);
+                                    if($thisLi.hasClass("active") || $thisLi.hasClass("selected") ){
+                                        var imgUrl = $thisLi.attr("data-imgUrl");
+                                        imgUrls.push(imgUrl);
+                                    }
+                                });
+                                if(config.multiSelect) {
+                                    callback(imgUrls);
+                                } else {
+                                    callback(imgUrls[0]);
                                 }
                             });
-                            if(config.multiSelect) {
-                                callback(imgUrls);
-                            } else {
-                                callback(imgUrls[0]);
-                            }
-                        });
 
-                        $("#btn-material-upload").unbind("click").click(function () {
-                            var $input = $("#input-material-upload");
-                            $input.click().unbind("change").change(function () {
-                                var selectedFiles = document.getElementById("input-material-upload").files;
-                                if(!selectedFiles || selectedFiles.length <= 0) {
-                                    return false;
-                                }
-                                var $form = $("#materialForm");
-                                if (validator.checkAll($form)) {
-                                    $form.ajaxSubmit({
-                                        type: "post",
-                                        url: "/file/add",
-                                        success: function (json) {
-                                            if (json.status == 200) {
-                                                $.modal.material._loadData(config)
-                                            } else {
-                                                if (json.message) {
-                                                    $.alert.error(json.message);
+                            $("#btn-material-upload").unbind("click").click(function () {
+                                var $input = $("#input-material-upload");
+                                $input.click().unbind("change").change(function () {
+                                    var selectedFiles = document.getElementById("input-material-upload").files;
+                                    if(!selectedFiles || selectedFiles.length <= 0) {
+                                        return false;
+                                    }
+                                    var $form = $("#materialForm");
+                                    if (validator.checkAll($form)) {
+                                        $form.ajaxSubmit({
+                                            type: "post",
+                                            url: "/file/add",
+                                            success: function (json) {
+                                                if (json.status == 200) {
+                                                    $.modal.material._loadData(config)
+                                                } else {
+                                                    if (json.message) {
+                                                        $.alert.error(json.message);
+                                                    }
                                                 }
-                                            }
-                                        },
-                                        error: $.alert.ajaxError
-                                    });
-                                }
+                                            },
+                                            error: $.alert.ajaxError
+                                        });
+                                    }
+                                });
                             });
-                        });
-                    })
+                        })
+                    }, 301);
                 }
             }
         }

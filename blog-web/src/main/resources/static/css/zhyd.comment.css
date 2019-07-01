@@ -436,3 +436,9 @@ i {
     max-height: initial !important
 }
 /* wangEditor-fullscreen*/
+
+/* simplemd */
+
+.CodeMirror-cursor {
+    height: auto!important;
+}
