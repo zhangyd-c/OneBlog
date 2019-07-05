@@ -160,7 +160,8 @@
         zfbPraiseCode: '${config.zfbPraiseCode}',
         anonymous: '${config.anonymous}',
         editorPlaceholder: '${config.editorPlaceholder}',
-        editorAlert: '${config.editorAlert}'
+        editorAlert: '${config.editorAlert}',
+        dynamicTitle: '${config.dynamicTitle}'
     };
 
     var oauthConfig = {

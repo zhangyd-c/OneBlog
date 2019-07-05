@@ -1,5 +1,5 @@
 <#include "include/macros.ftl">
-<@compress single_line=true>
+<@compress single_line=false>
 <@header title="留言板 | ${config.siteName}" canonical="/guestbook" hasEditor=true>
 </@header>
 

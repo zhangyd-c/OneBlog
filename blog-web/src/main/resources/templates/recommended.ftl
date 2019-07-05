@@ -1,5 +1,5 @@
 <#include "include/macros.ftl">
-<@compress single_line=true>
+<@compress single_line=false>
 <@header title="站长推荐 | ${config.siteName}"
     description="站长推荐"
     canonical="/recommended">

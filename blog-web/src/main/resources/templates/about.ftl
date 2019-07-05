@@ -1,5 +1,5 @@
 <#include "include/macros.ftl">
-<@compress single_line=true>
+<@compress single_line=false>
 <@header title="关于 | ${config.siteName}" description="关于${config.siteName}" canonical="/about"></@header>
 
 <div class="container custome-container">

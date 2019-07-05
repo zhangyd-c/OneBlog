@@ -1,5 +1,5 @@
 <#include "include/macros.ftl">
-<@compress single_line=true>
+<@compress single_line=false>
 <@header title="归档目录 | ${config.siteName}" description="归档目录" canonical="/archives"></@header>
 
 <div class="container custome-container">

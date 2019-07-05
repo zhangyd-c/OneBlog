@@ -186,6 +186,11 @@ public enum ConfigKeyEnum {
      * 网站安装时间，默认为执行init_data.sql的时间
      */
     INSTALLDATE("installdate"),
+
+    /**
+     * 当切换浏览器tab时，在原tab上的标题。比如https://www.zhyd.me上的“麻溜儿回来~~~”
+     */
+    DYNAMIC_TITLE("dynamicTitle"),
     ;
 
     private String key;
