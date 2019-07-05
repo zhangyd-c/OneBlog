@@ -121,18 +121,21 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - [ ] 4. 待续...
 ...
 
-# 在用OneBlog的网站 
+# Who is using?
 - [张亚东博客](https://www.zhyd.me)
 - [攻城狮不是猫博客](http://www.jsdblog.com)
-- [罗远祥博客](https://www.luoyuanxiangvip.com/)
 - [小公举的博客](https://loveyatou.top/)
 - [陈晓雷的博客](http://www.csxll.top)
-- [宋高俊博客](http://www.senghor.cn/)
 - [Li Pan's 博客](http://www.lipan.xyz/)
 - [MTR小站](https://www.itmtr.cn/)
-- [小米球Blog](https://www.xiaomiqiu.com/)
 - [怀念时光](https://blog.earic.club/)
 - [Java干货铺子](http://www.itsoku.com/)
+- [介龙平博客](https://www.jlpyyf.com/)
+- [大数据施工现场](http://blog.sev7e0.site/)
+- [fireflyi博客](https://www.fireflyi.com/)
+- [AIAS编程有道](http://www.piqiandong.com/)
+- [btmcheck博客](https://btmcheck.com/)
+- [我的博客](http://www.chenyunkeji.com/)
 
 烦请各位使用OneBlog的朋友，能留下你的网址（没别的意思，只是看看有多少人而已） - [点这儿](https://gitee.com/yadong.zhang/DBlog/issues/ILIAQ)
 
