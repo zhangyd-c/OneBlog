@@ -1,5 +1,5 @@
 <#-- 公共顶部 -->
-<#macro header title="DBlog开源博客" keywords="" description="" canonical="" hasEditor=false>
+<#macro header title="OneBlog开源博客" keywords="" description="" canonical="" hasEditor=false>
 <#include "/common/annotation.ftl">
 <!DOCTYPE HTML>
 <html lang="zh-CN">

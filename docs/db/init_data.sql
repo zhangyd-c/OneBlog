@@ -76,8 +76,6 @@ INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_tim
 TRUNCATE TABLE `dblog`.`sys_link`;
 # 初始化友情链接
 INSERT INTO `dblog`.`sys_link` VALUES ('1', 'https://www.zhyd.me', '张亚东博客', '一个程序员的个人博客', 'yadong.zhang0415@gmail.com', null, 'https://static.zhyd.me/static/img/favicon.ico', '1', '1', null, 'ADMIN', now(), now());
-INSERT INTO `dblog`.`sys_link` VALUES ('13', 'http://tool.zhyd.me', '在线工具', '在线工具，只做最有用、最简单、最干净、最方便的工具网站。', 'yadong.zhang0415@gmail.com', null, 'https://static.zhyd.me/static/img/favicon.ico', '1', '1', null, 'ADMIN', now(), now());
-INSERT INTO `dblog`.`sys_link` VALUES ('35', 'http://music.zhyd.me', '我的音乐馆', '我的音乐馆', 'yadong.zhang0415@gmail.com', null, 'http://music.zhyd.me/images/favicon.ico', '1', '1', null, 'ADMIN', now(), now());
 
 # 清空系统通知表
 TRUNCATE TABLE `dblog`.`sys_notice`;
