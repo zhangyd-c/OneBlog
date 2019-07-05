@@ -336,7 +336,7 @@
 
             </div>
             <div class="modal-footer">
-                <span class="pull-left">tips: 如不想显示该弹窗，可在 <code>index.ftl</code> 中搜索 <code>noticeModal</code> 后删掉相关代码</span>
+                <span class="pull-left">tips: 如不想显示该弹窗，可在 <code>index.ftl</code> 中搜索 <code>aboutOneBlog</code> 后删掉相关代码</span>
                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"> 关闭</i></button>
             </div>
         </div>
