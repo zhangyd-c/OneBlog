@@ -2295,7 +2295,7 @@ nav a:first-child .meta-nav {
     display: block;
     text-align: center;
     margin: 0 auto;
-    border-radius: 25px;
+    border-radius: 25px!important;
     border: 1px solid rgba(0, 0, 0, 0.1)
 }
 
@@ -3187,4 +3187,12 @@ nav a:first-child .meta-nav {
     font-size: 14px;
     color: #9B9B9B;
     font-weight: normal;
+}
+
+* {
+    border-radius: 0!important;
+}
+
+#nprogress .spinner-icon {
+    border-radius: 50%!important;
 }
