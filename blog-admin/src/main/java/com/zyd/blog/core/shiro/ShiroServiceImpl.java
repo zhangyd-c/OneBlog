@@ -68,7 +68,7 @@ public class ShiroServiceImpl implements ShiroService {
         // 加载数据库中配置的资源权限列表
         List<Resources> resourcesList = resourcesService.listUrlAndPermission();
         if (CollectionUtils.isEmpty(resourcesList)) {
-            throw new ZhydException("尚未加载resources内容，请确认是否执行了init_data.sql");
+            throw new ZhydException("未加载到resources内容，请确认是否执行了init_data.sql");
         }
         for (Resources resources : resourcesList) {
             if (!StringUtils.isEmpty(resources.getUrl()) && !StringUtils.isEmpty(resources.getPermission())) {
