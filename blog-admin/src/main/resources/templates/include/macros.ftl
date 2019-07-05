@@ -186,13 +186,13 @@
                                 <div class="item form-group">
                                     <label class="control-label col-md-2 col-sm-2 col-xs-12" for="password">摘要 <span class="required">*</span></label>
                                     <div class="col-md-8 col-sm-8 col-xs-12">
-                                        <textarea class="form-control col-md-7 col-xs-12" id="description" name="description" required="required"></textarea>
+                                        <textarea class="form-control col-md-7 col-xs-12" id="description" name="description" required="required" maxlength="200"></textarea>
                                     </div>
                                 </div>
                                 <div class="item form-group">
                                     <label class="control-label col-md-2 col-sm-2 col-xs-12" for="password">关键词 <span class="required">*</span></label>
                                     <div class="col-md-8 col-sm-8 col-xs-12">
-                                        <textarea class="form-control col-md-7 col-xs-12" id="keywords" name="keywords" required="required"></textarea>
+                                        <textarea class="form-control col-md-7 col-xs-12" id="keywords" name="keywords" required="required" maxlength="50"></textarea>
                                     </div>
                                 </div>
                             </div>

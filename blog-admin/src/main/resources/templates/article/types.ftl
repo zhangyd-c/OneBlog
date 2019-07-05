@@ -101,6 +101,11 @@
                     field: 'selectItem',
                     checkbox: true
                 }, {
+                    field: '-',
+                    title: '层级',
+                    width: "60px",
+                    align: "center"
+                }, {
                     field: 'id',
                     title: 'ID',
                     width: '60px',

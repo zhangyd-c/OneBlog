@@ -62,16 +62,14 @@
             <#if page.list?? && (page.list?size > 0)>
                 <#list page.list as item>
                     <article class="fade-in">
-                        <figure class="thumbnail">
-                            <a href="${config.siteUrl}/article/${item.id?c}">
-                                <#if item.coverImage?? && (item.coverImage?length > 7)>
-                                    <img width="150" height="150" data-original="${item.coverImage}" class="img-responsive lazy-img" alt="${item.title!}">
-                                <#else>
-                                    <img width="150" height="150" data-original="${config.staticWebSite}/img/user/11.jpg" class="img-responsive lazy-img" alt="${item.title!}">
-                                </#if>
-                            </a>
-                            <span class="cat"><a href="${config.siteUrl}/type/${item.typeId?c}">${item.type.name}</a></span>
-                        </figure>
+                        <#if item.coverImage?? && (item.coverImage?length > 7)>
+                            <figure class="thumbnail">
+                                <a href="${config.siteUrl}/article/${item.id?c}">
+                                    <img width="150" height="150" <#if config.lazyloadPath!>data-original<#else>src</#if>="${item.coverImage}" class="img-responsive lazy-img" alt="${item.title!}">
+                                </a>
+                                <span class="cat"><a href="${config.siteUrl}/type/${item.typeId?c}">${item.type.name}</a></span>
+                            </figure>
+                        </#if>
                         <header class="entry-header">
                             <h2 class="entry-title">
                                 <a href="${config.siteUrl}/article/${item.id?c}" rel="bookmark" title="${item.title}" data-toggle="tooltip" data-placement="bottom">${item.title}</a>

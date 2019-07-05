@@ -528,8 +528,8 @@
         pagination: false, // 是否启用分页
         pageSize: [20, 30, 40, 50], // 可选的分页大小
         clickToSelect: false,
-        expanderExpandedClass: 'fa fa-minus',// 展开的按钮的图标
-        expanderCollapsedClass: 'fa fa-plus',// 缩起的按钮的图标
+        expanderExpandedClass: 'fa fa-folder-open-o fa-fw',// 展开的按钮的图标
+        expanderCollapsedClass: 'fa fa-folder-o fa-fw',// 缩起的按钮的图标
         curPage: 1
     };
 })(jQuery);

@@ -80,10 +80,22 @@
                     width: '270px',
                     formatter: function (code, row, index) {
                         var title = code;
+                        if(!title) {
+                            return '-';
+                        }
                         title = title.length > 30 ? (title.substr(0, 30) + '...') : title;
                         var id = row.id;
                         var status = row.status ? '<span class="label label-success" style="margin-right: 5px;">已发布</span>' : '<span class="label label-danger" style="margin-right: 5px;">草稿</span>';
                         return status + '<a href="' + appConfig.wwwPath + '/article/' + id + '" target="_blank" title="' + code + '">' + title + '</a>';
+                    }
+                }, {
+                    field: 'coverImage',
+                    title: '封面图',
+                    width: '50px',
+                    align: 'center',
+                    editable: false,
+                    formatter: function (code, row, index) {
+                        return code ? '<a href="' + code + '" class="showImage" title="' + row.title + '" rel="external nofollow"><img src="' + code + '" alt="' + row.title + '" class="img-rounded" style="width: 50px;height: auto;"></a>' : '-';
                     }
                 }, {
                     field: 'comment',

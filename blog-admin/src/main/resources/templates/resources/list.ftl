@@ -112,8 +112,20 @@
                     field: 'selectItem',
                     checkbox: true
                 }, {
+                    field: '-',
+                    title: '层级',
+                    width: "60px",
+                    align: "center"
+                }, {
                     field: 'name',
                     title: '资源名',
+                    formatter: function (code) {
+                        return code ? code : '-';
+                    }
+                }, {
+                    field: 'id',
+                    title: '资源ID',
+                    width: '60px',
                     formatter: function (code) {
                         return code ? code : '-';
                     }

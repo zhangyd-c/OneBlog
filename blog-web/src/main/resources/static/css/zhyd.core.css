@@ -1041,7 +1041,7 @@ article {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
     /*border-radius: 0 20px !important;*/
     border-radius: 4px;
-    height: 193px;
+    height: 170px;
 }
 
 article .thumbnail {
@@ -1068,7 +1068,6 @@ article .thumbnail {
 }
 
 .zhyd-thumbnail a img:hover {
-    transition: All .7s ease;
     -webkit-transform: scale(1.3);
     -moz-transform: scale(1.3);
     -ms-transform: scale(1.3);
@@ -1082,7 +1081,6 @@ article .thumbnail {
 /* custom thumbnail */
 
 article .thumbnail a img:hover {
-    transition: All .7s ease;
     -webkit-transform: scale(1.3);
     -moz-transform: scale(1.3);
     -ms-transform: scale(1.3);
@@ -1098,14 +1096,15 @@ article .thumbnail {
     -moz-transition: max-width .5s; /* Firefox 4 */
     -webkit-transition: max-width .5s; /* Safari and Chrome */
     -o-transition: max-width .5s; /* Opera */
+    height: 100%;
 }
 
 article .thumbnail a img {
     float: left;
-    width: 150px;
-    height: 150px;
-    /*width: auto;*/
-    /*height: auto;*/
+    /*width: 150px;*/
+    /*height: 150px;*/
+    width: auto;
+    height: auto;
     max-width: 100%;
     border: 0;
 }
