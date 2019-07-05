@@ -5,6 +5,7 @@ import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.service.SysResourcesService;
 import com.zyd.blog.business.service.SysUserService;
 import com.zyd.blog.core.shiro.realm.ShiroRealm;
+import com.zyd.blog.framework.exception.ZhydException;
 import com.zyd.blog.framework.holder.SpringContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -66,6 +67,9 @@ public class ShiroServiceImpl implements ShiroService {
         filterChainDefinitionMap.put("/getKaptcha", "anon");
         // 加载数据库中配置的资源权限列表
         List<Resources> resourcesList = resourcesService.listUrlAndPermission();
+        if (CollectionUtils.isEmpty(resourcesList)) {
+            throw new ZhydException("尚未加载resources内容，请确认是否执行了init_data.sql");
+        }
         for (Resources resources : resourcesList) {
             if (!StringUtils.isEmpty(resources.getUrl()) && !StringUtils.isEmpty(resources.getPermission())) {
                 String permission = "perms[" + resources.getPermission() + "]";
