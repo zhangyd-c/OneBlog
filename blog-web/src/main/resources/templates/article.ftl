@@ -141,9 +141,9 @@
                                 <div class="line-container">
                                     <div class="line-left">
                                         <#if item.coverImage??>
-                                            <img class="lazy-img" data-original="${item.coverImage}" width="50" height="50" rel="external nofollow"/>
+                                            <img class="lazy-img" <#if config.lazyloadPath!>data-original<#else>src</#if>="${item.coverImage}" width="50" height="50" rel="external nofollow"/>
                                         <#else>
-                                            <img class="lazy-img" data-original="${config.staticWebSite}/img/favicon.ico" width="50" height="50" rel="external nofollow"/>
+                                            <img class="lazy-img" <#if config.lazyloadPath!>data-original<#else>src</#if>="${config.staticWebSite}/img/favicon.ico" width="50" height="50" rel="external nofollow"/>
                                         </#if>
                                     </div>
                                     <div class="line-right">
