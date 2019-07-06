@@ -258,3 +258,7 @@ ALTER TABLE `dblog`.`sys_user`
 
 # 20190601 系统配置表增加博客安装日期
 INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (35, 'installdate', now(), now(), now());
+
+# 20190705
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (0, 'copyright', 'Copyright zhyd.me', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (0, 'dynamicTitle', '您有一条新消息', now(), now());

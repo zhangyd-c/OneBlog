@@ -71,6 +71,8 @@ INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_tim
 INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (33, 'sessionTimeOutUnit', 'MINUTES', now(), now());
 INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (34, 'loginRetryNum', '5', now(), now());
 INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (35, 'installdate', now(), now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (36, 'copyright', 'Copyright zhyd.me', now(), now());
+INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (37, 'dynamicTitle', '您有一条新消息', now(), now());
 
 # 清空友情链接表
 TRUNCATE TABLE `dblog`.`sys_link`;
