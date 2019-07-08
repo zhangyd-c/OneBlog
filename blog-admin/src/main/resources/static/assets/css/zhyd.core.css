@@ -4971,7 +4971,8 @@ ul, menu, dir {
     /*transform: scale(1.1);*/
 }
 
-.material-box ul li.material-page {
+.material-box ul li.material-page,
+.file-container ul li.file-page {
     width: 100%;
     height: 38px;
     border: 0 solid #ddd;
@@ -4981,16 +4982,19 @@ ul, menu, dir {
     float: right;
 }
 
-.material-box ul li.material-page .material-page-body {
+.material-box ul li.material-page .material-page-body,
+.file-container ul li.file-page .file-body {
     width: 100%;
     height: 100%;
 }
 
-.material-box ul li.material-page .material-page-body a, .material-box ul li.material-page .material-page-body input {
+.material-box ul li.material-page .material-page-body a, .material-box ul li.material-page .material-page-body input,
+.file-container ul li.file-page .file-page-body a, .file-container ul li.file-page .file-page-body input {
     display: inline-block
 }
 
-.material-box ul li.material-page .material-page-body input {
+.material-box ul li.material-page .material-page-body input,
+.file-container ul li.file-page .file-page-body input {
     width: 50px;
     position: relative;
     top: -2px;
