@@ -115,10 +115,21 @@
                 }, {
                     field: 'name',
                     title: '名称',
-                    width: '100px',
+                    width: '180px',
                     formatter: function (code, row, index) {
                         var id = row.id;
                         return '<a href="' + appConfig.wwwPath + '/type/' + id + '" target="_blank">' + row.name + '</a>';
+                    }
+                }, {
+                    field: 'parent.name',
+                    title: '父级分类',
+                    width: '180px',
+                    formatter: function (code, row, index) {
+                        var parent = row.parent;
+                        if(!parent) {
+                            return "-";
+                        }
+                        return '<a href="' + appConfig.wwwPath + '/type/' + parent.id + '" target="_blank">' + parent.name + '</a>';
                     }
                 }, {
                     field: 'description',
