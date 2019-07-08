@@ -95,7 +95,7 @@
                     align: 'center',
                     editable: false,
                     formatter: function (code, row, index) {
-                        return code ? '<a href="' + code + '" class="showImage" title="' + row.title + '" rel="external nofollow"><img src="' + code + '" alt="' + row.title + '" class="img-rounded" style="width: 50px;height: auto;"></a>' : '-';
+                        return code ? '<a href="' + code + '" class="showImage" title="' + row.title + '" rel="external nofollow"><img src="' + code + '" alt="' + row.title + '" class="img-rounded" style="width: 30px;height: auto;"></a>' : '-';
                     }
                 }, {
                     field: 'comment',
