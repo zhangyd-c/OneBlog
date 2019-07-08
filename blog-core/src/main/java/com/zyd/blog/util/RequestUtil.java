@@ -33,21 +33,12 @@ public class RequestUtil {
         return sb.toString();
     }
 
-    public static Map<String, Object> getParametersMap() {
+    public static Map<String, String[]> getParametersMap() {
         HttpServletRequest request = RequestHolder.getRequest();
         if (null == request) {
             return new HashMap<>();
         }
-        Enumeration<String> paraNames = request.getParameterNames();
-        if (paraNames == null) {
-            return new HashMap<>();
-        }
-        Map<String, Object> res = new HashMap<>();
-        while (paraNames.hasMoreElements()) {
-            String paraName = paraNames.nextElement();
-            res.put(paraName, request.getParameter(paraName));
-        }
-        return res;
+        return request.getParameterMap();
     }
 
     public static String getHeader(String headerName) {
