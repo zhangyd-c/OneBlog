@@ -21,7 +21,7 @@ if(articleId){
                        var tag = tags[i];
                        $('input[target="tagsinput"]').tagsinput('add', {"id": tag.id, "name": tag.name}, {add: false});
                    }
-               }, 600);
+               }, 1000);
                 if($('input[name=original]')){
                     $('input[name=original]').iCheck(info.original ? 'check' : 'uncheck');
                 }
