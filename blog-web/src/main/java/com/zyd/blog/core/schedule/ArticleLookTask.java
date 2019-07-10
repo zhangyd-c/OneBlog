@@ -3,14 +3,14 @@ package com.zyd.blog.core.schedule;
 import com.zyd.blog.business.entity.ArticleLook;
 import com.zyd.blog.business.service.BizArticleLookService;
 import com.zyd.blog.business.service.BizArticleService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.BoundListOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -21,20 +21,14 @@ import javax.annotation.PostConstruct;
  */
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class ArticleLookTask {
-    @Autowired
-    private BizArticleService bizArticleService;
-    @Autowired
-    private BizArticleLookService articleLookService;
-    @Autowired
-    private RedisTemplate redisTemplate;
 
-    private BoundListOperations<String, ArticleLook> listOperations;
+    private final BizArticleService bizArticleService;
 
-    @PostConstruct
-    public void init() {
-        this.listOperations = redisTemplate.boundListOps("article-look-cache");
-    }
+    private final BizArticleLookService articleLookService;
+
+    private BlockingQueue<ArticleLook> queue = new ArrayBlockingQueue<>(1024);
 
     /**
      * 保存文章的浏览记录，先进先出
@@ -43,22 +37,32 @@ public class ArticleLookTask {
         if (null == articleLook) {
             return;
         }
-        listOperations.rightPush(articleLook);
+        queue.offer(articleLook);
     }
 
-    /**
-     * 每分钟保存一次文章的浏览记录
-     */
-    @Scheduled(cron = "0 0/1 * * * ? ")
-//    @Scheduled(cron = "0/5 * * * * ? ")
     public void save() {
-        ArticleLook articleLook = null;
-        while (null != (articleLook = listOperations.leftPop())) {
-            if (!bizArticleService.isExist(articleLook.getArticleId())) {
-                log.warn("{}-该文章不存在！", articleLook.getArticleId());
-                return;
+        List<ArticleLook> bufferList = new ArrayList<>();
+        while (true) {
+            try {
+                bufferList.add(queue.take());
+                for (ArticleLook articleLook : bufferList) {
+                    if (!bizArticleService.isExist(articleLook.getArticleId())) {
+                        log.warn("{}-该文章不存在！", articleLook.getArticleId());
+                        continue;
+                    }
+                    articleLookService.insert(articleLook);
+                }
+            } catch (InterruptedException e) {
+                log.error("保存文章浏览记录失败--->[{}]", e.getMessage());
+                // 防止缓冲队列填充数据出现异常时不断刷屏
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception err) {
+                    log.error(err.getMessage());
+                }
+            } finally {
+                bufferList.clear();
             }
-            articleLookService.insert(articleLook);
         }
     }
 
