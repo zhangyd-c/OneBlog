@@ -161,7 +161,7 @@ public class BizCommentServiceImpl implements BizCommentService {
         this.filterContent(comment);
 
         // 已登录且非匿名，使用当前登录用户的信息评论
-        if (SessionUtil.isLogin() && !anonymous) {
+        if (SessionUtil.isLogin()) {
             this.setCurrentLoginUserInfo(comment);
         } else {
             this.setCurrentAnonymousUserInfo(comment);
