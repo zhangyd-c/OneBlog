@@ -154,7 +154,11 @@ Table.prototype = {
 
         /* 删除 */
         function remove(ids) {
-            $.alert.confirm("确定删除已选中的" + ids.length + "条 [ " + options.modalName + " ] 信息？", function () {
+            var len = 1;
+            if(typeof ids == "object") {
+                len = ids.length;
+            }
+            $.alert.confirm("确定删除已选中的" + len + "条 [ " + options.modalName + " ] 信息？", function () {
                 $.ajax({
                     type: "post",
                     url: options.removeUrl,
