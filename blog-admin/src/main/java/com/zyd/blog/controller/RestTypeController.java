@@ -35,6 +35,7 @@ public class RestTypeController {
     @RequiresPermissions("types")
     @PostMapping("/list")
     public PageResult list(TypeConditionVO vo) {
+        vo.setPageSize(Integer.MAX_VALUE);
         PageInfo<Type> pageInfo = typeService.findPageBreakByCondition(vo);
         return ResultUtil.tablePage(pageInfo);
     }
