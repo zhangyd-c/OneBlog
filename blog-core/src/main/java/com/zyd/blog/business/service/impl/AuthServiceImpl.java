@@ -8,12 +8,12 @@ import com.zyd.blog.plugin.oauth.RequestFactory;
 import com.zyd.blog.util.BeanConvertUtil;
 import com.zyd.blog.util.SessionUtil;
 import lombok.extern.slf4j.Slf4j;
+import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.request.AuthRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -30,9 +30,9 @@ public class AuthServiceImpl implements AuthService {
     private SysUserService userService;
 
     @Override
-    public boolean login(String source, String code, String auth_code) {
+    public boolean login(String source, AuthCallback callback) {
         AuthRequest authRequest = RequestFactory.getInstance(source).getRequest();
-        AuthResponse response = authRequest.login(StringUtils.isEmpty(code) ? auth_code : code);
+        AuthResponse response = authRequest.login(callback);
         if (response.ok()) {
             AuthUser authUser = (AuthUser) response.getData();
             User newUser = BeanConvertUtil.doConvert(authUser, User.class);

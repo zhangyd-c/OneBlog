@@ -1,5 +1,7 @@
 package com.zyd.blog.business.service;
 
+import me.zhyd.oauth.model.AuthCallback;
+
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
@@ -9,7 +11,7 @@ package com.zyd.blog.business.service;
  */
 public interface AuthService {
 
-    boolean login(String source, String code, String auth_code);
+    boolean login(String source, AuthCallback callback);
 
     boolean revoke(String source, Long userId);
 

@@ -8,7 +8,8 @@ import com.zyd.blog.framework.property.JustAuthProperties;
 import com.zyd.blog.util.SessionUtil;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.utils.AuthConfigChecker;
+import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.utils.AuthChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -133,16 +134,20 @@ public class CustomTags extends BaseTag {
             for (Field f : authProperties.getClass().getDeclaredFields()) {
                 f.setAccessible(true);
                 String fieldName = f.getName();
+                AuthSource source = null;
+                if ("tencentCloud".equals(fieldName)) {
+                    source = AuthSource.TENCENT_CLOUD;
+                } else if ("stackoverflow".equals(fieldName)) {
+                    source = AuthSource.STACK_OVERFLOW;
+                } else if ("wechatEnterprise".equals(fieldName)) {
+                    source = AuthSource.WECHAT_ENTERPRISE;
+                } else {
+                    source = AuthSource.valueOf(fieldName.toUpperCase());
+                }
                 AuthConfig authConfig = (AuthConfig) f.get(authProperties);
                 if (null != authConfig) {
-                    if (AuthConfigChecker.isSupportedAuth(authConfig)) {
-                        if ("alipay".equals(fieldName)) {
-                            if (!StringUtils.isEmpty(authConfig.getAlipayPublicKey())) {
-                                list.add(fieldName);
-                            }
-                        } else {
-                            list.add(fieldName);
-                        }
+                    if (AuthChecker.isSupportedAuth(authConfig, source)) {
+                        list.add(fieldName);
                     }
                 }
 

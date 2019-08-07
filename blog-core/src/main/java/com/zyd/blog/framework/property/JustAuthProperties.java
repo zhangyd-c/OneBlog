@@ -36,4 +36,16 @@ public class JustAuthProperties {
     private AuthConfig google;
     private AuthConfig facebook;
     private AuthConfig csdn;
+
+    private AuthConfig douyin;
+    private AuthConfig linkedin;
+    private AuthConfig microsoft;
+    private AuthConfig mi;
+    private AuthConfig toutiao;
+    private AuthConfig teambition;
+    private AuthConfig renren;
+    private AuthConfig pinterest;
+    private AuthConfig stackoverflow;
+    private AuthConfig huawei;
+    private AuthConfig wechatEnterprise;
 }

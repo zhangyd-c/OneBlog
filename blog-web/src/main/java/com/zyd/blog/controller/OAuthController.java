@@ -4,9 +4,11 @@ import com.zyd.blog.business.service.AuthService;
 import com.zyd.blog.plugin.oauth.RequestFactory;
 import com.zyd.blog.util.RequestUtil;
 import com.zyd.blog.util.ResultUtil;
+import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.request.AuthRequest;
+import me.zhyd.oauth.utils.AuthStateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -36,20 +38,19 @@ public class OAuthController {
     public void renderAuth(@PathVariable("source") String source, HttpServletResponse response, HttpSession session) throws IOException {
         AuthRequest authRequest = RequestFactory.getInstance(source).getRequest();
         session.setAttribute("historyUrl", RequestUtil.getReferer());
-        response.sendRedirect(authRequest.authorize());
+        response.sendRedirect(authRequest.authorize(AuthStateUtils.createState()));
     }
 
     /**
      * 授权回调地址
      *
-     * @param source    授权回调来源
-     * @param code      认证code
-     * @param auth_code 认证code，当使用支付宝登陆时，该值不为空。切勿修改该参数的命名！强迫症不要把他改成驼峰式命名哈~~~
+     * @param source   授权回调来源
+     * @param callback 回调参数包装类
      * @return
      */
     @RequestMapping("/callback/{source}")
-    public ModelAndView login(@PathVariable("source") String source, String code, String auth_code, HttpSession session) {
-        authService.login(source, code, auth_code);
+    public ModelAndView login(@PathVariable("source") String source, AuthCallback callback, HttpSession session) {
+        authService.login(source, callback);
         String historyUrl = (String) session.getAttribute("historyUrl");
         session.removeAttribute("historyUrl");
         if (StringUtils.isEmpty(historyUrl)) {
