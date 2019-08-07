@@ -128,5 +128,51 @@ me:
                 clientId:
                 clientSecret:
                 redirectUri:
+            douyin:
+                clientId:
+                clientSecret:
+                redirectUri:
+            linkedin:
+                clientId:
+                clientSecret:
+                redirectUri:
+            microsoft:
+                clientId:
+                clientSecret:
+                redirectUri:
+            mi:
+                clientId:
+                clientSecret:
+                redirectUri:
+            toutiao:
+                clientId:
+                clientSecret:
+                redirectUri:
+            teambition:
+                clientId:
+                clientSecret:
+                redirectUri:
+            renren:
+                clientId:
+                clientSecret:
+                redirectUri:
+            pinterest:
+                clientId:
+                clientSecret:
+                redirectUri:
+            stackoverflow:
+                clientId:
+                clientSecret:
+                redirectUri:
+                stackOverflowKey:
+            huawei:
+                clientId:
+                clientSecret:
+                redirectUri:
+            wechatEnterprise:
+                clientId:
+                clientSecret:
+                redirectUri:
+                agentId:
 
 ####################################自定义配置##########################################
