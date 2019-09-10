@@ -1,10 +1,13 @@
 package com.zyd.blog.runner;
 
+import cn.hutool.core.thread.ThreadFactoryBuilder;
 import com.zyd.blog.core.schedule.ArticleLookTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.*;
 
 /**
  * 执行保存文章浏览记录任务
@@ -20,6 +23,14 @@ public class TaskRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        articleLookTask.save();
+        ThreadFactory articleLookThreadFactory = new ThreadFactoryBuilder().setNamePrefix("BLOG-ARTICLE_LOOK-").build();
+
+        ExecutorService singleThreadPool = new ThreadPoolExecutor(1, 1,
+                3650L, TimeUnit.DAYS,
+                new LinkedBlockingQueue<Runnable>(1024),
+                articleLookThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+
+        singleThreadPool.execute(()-> articleLookTask.save());
+        singleThreadPool.shutdown();
     }
 }
