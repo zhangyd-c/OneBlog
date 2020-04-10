@@ -78,9 +78,11 @@ public class ShiroRealm extends AuthorizingRealm {
 
         // 赋予角色
         List<Role> roleList = roleService.listRolesByUserId(userId);
-        for (Role role : roleList) {
-            info.addRole(role.getName());
-        }
+        if (null != roleList) {
+            for (Role role : roleList) {
+                info.addRole(role.getName());
+            }
+        }        
 
         // 赋予权限
         List<Resources> resourcesList = null;
