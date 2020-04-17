@@ -89,7 +89,7 @@ public class SessionUtil {
     }
 
     /**
-     * 保存验证码
+     * 删除验证码
      */
     public static void removeKaptcha() {
         RequestHolder.removeSession(SessionConst.KAPTCHA_SESSION_KEY);
