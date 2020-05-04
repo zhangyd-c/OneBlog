@@ -12,7 +12,7 @@ var editor = null, simplemde = null;
 
 var zhyd = window.zhyd || {
     combox: {
-        init: function () {
+        init: function (mockComboxCallback) {
             $('select[target=combox]').each(function (e) {
                 var $this = $(this);
                 var url = $this.data("url");
@@ -47,6 +47,10 @@ var zhyd = window.zhyd || {
                             var liTpl = '{{#data}}<li data-value="{{id}}">{{name}}</li>{{/data}}';
                             var html = Mustache.render(liTpl, json);
                             $this.html(html);
+
+                            if ($.isFunction(mockComboxCallback)) {
+                                mockComboxCallback();
+                            }
                         }
                     }
                 });
@@ -75,11 +79,13 @@ var zhyd = window.zhyd || {
                     function add() {
                         var thisId = $(this).data("value");
                         var thisText = $(this).text().trim();
+                        console.log(thisText);
                         $this.tagsinput('add', {"id": thisId, "name": thisText}, {add: false});
                     }
 
                     $($bindBox).find("li").each(function () {
                         var $li = $(this);
+                        console.log(222222)
                         $li.bind('click', add);
                     });
                     $(".bootstrap-tagsinput input").bind('keydown', function (event) {
@@ -562,8 +568,7 @@ $(document).ready(function () {
             });
         }
     });
-    zhyd.combox.init();
-    zhyd.tagsInput.init();
+    zhyd.combox.init(zhyd.tagsInput.init);
     zhyd.mask.init();
 
     /**
