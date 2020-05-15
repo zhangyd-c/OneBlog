@@ -347,7 +347,6 @@ blockquote {
 
 pre {
     display: block;
-    padding: 10px !important;
     overflow-x: auto;
     font-size: 1em;
     line-height: 1.42857143;
