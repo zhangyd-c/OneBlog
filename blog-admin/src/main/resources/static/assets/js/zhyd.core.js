@@ -103,7 +103,7 @@ var zhyd = window.zhyd || {
                         }
                     });
                 })
-            }, 500);
+            }, 700);
         }
     },
     initTextSlider: function () {
