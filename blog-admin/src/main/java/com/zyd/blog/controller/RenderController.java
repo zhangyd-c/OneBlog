@@ -5,7 +5,7 @@ package com.zyd.blog.controller;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/4/24 14:37
  * @since 1.0
  */
@@ -35,7 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/4/24 14:37
  * @since 1.0
  */

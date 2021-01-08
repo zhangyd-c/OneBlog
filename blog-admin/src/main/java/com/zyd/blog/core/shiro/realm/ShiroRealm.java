@@ -29,7 +29,7 @@ import java.util.Set;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/4/24 14:37
  * @since 1.0
  */
@@ -82,7 +82,7 @@ public class ShiroRealm extends AuthorizingRealm {
             for (Role role : roleList) {
                 info.addRole(role.getName());
             }
-        }        
+        }
 
         // 赋予权限
         List<Resources> resourcesList = null;

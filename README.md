@@ -12,10 +12,10 @@
 
 **看文档！看文档！看文档！**，初次使用， 请先**看文档！**
 
-1. 本项目配有相关[帮助文档](https://gitee.com/yadong.zhang/DBlog/wikis) 。文档中包括**基本的项目说明**、**shiro标签使用**、**七牛云配置**和一些常见的**异常问题解决方案**。使用时碰到问题请**优先**查阅【[帮助文档](https://gitee.com/yadong.zhang/DBlog/wikis)】。因为现在好多朋友问的问题大部分都写在【[帮助文档](https://gitee.com/yadong.zhang/DBlog/wikis)】中了，希望各位朋友能自己翻阅下相关资料，高效提问，避免重复问题！
+1. 本项目配有相关[帮助文档](https://docs.zhyd.me) 。文档中包括**基本的项目说明**、**shiro标签使用**、**七牛云配置**和一些常见的**异常问题解决方案**。使用时碰到问题请**优先**查阅【[帮助文档](https://docs.zhyd.me)】。因为现在好多朋友问的问题大部分都写在【[帮助文档](https://docs.zhyd.me)】中了，希望各位朋友能自己翻阅下相关资料，高效提问，避免重复问题！
 2. **提问题**前请优先阅读【[如何向开源社区提问题](https://github.com/seajs/seajs/issues/545)】&【[提问的智慧](http://www.dianbo.org/9238/stone/tiwendezhihui.htm)】
-3. **提问题**时请优先选择[Gitee Issues](https://gitee.com/yadong.zhang/DBlog/issues)（方便问题追踪和一对一解决），其次[我的博客-留言板](https://www.zhyd.me/guestbook)，再次QQ群（QQ群消息较多，提问请注意节奏、时机），最次加我QQ好友直接提问（不推荐）
-4. 本项目唯一官网：[https://www.zhyd.me](https://www.zhyd.me)  
+3. **提问题**时请优先选择[Gitee Issues](https://gitee.com/yadong.zhang/DBlog/issues)（方便问题追踪和一对一解决），其次[我的博客-留言板](https://docs.zhyd.me/guestbook)，再次QQ群（QQ群消息较多，提问请注意节奏、时机），最次加我QQ好友直接提问（不推荐）
+4. 本项目唯一官网：[https://docs.zhyd.me](https://docs.zhyd.me)  
 5. 本项目开源地址：[Gitee](https://gitee.com/yadong.zhang/DBlog)    | [Github](https://github.com/zhangyd-c/OneBlog)
 6. 本项目修改记录，详情请移步[这里](https://gitee.com/yadong.zhang/DBlog/blob/master/update.md)
 7. 如果你想贡献代码，请先阅读[这篇文章](https://gitee.com/yadong.zhang/DBlog/blob/master/contribution.md)
@@ -43,26 +43,11 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - **评论系统**：自研的评论系统，支持显示用户地址、浏览器和os信息，后台可审核评论、开启匿名评论、回复和邮件通知评论
 - **权限管理**：后台配备完善的权限管理
 - **SEO**：自带robots、sitemap等seo模板，实现自动生成robots和sitemap
-- **实时通讯**：管理员可向在线的用户发送实时消息（需用户授权 - 基于websocket实现，具体参考[DBlog建站之Websocket的使用](https://www.zhyd.me/article/111)）
+- **实时通讯**：管理员可向在线的用户发送实时消息（需用户授权 - 基于websocket实现，具体参考[DBlog建站之Websocket的使用](https://docs.zhyd.me/article/111)）
 - **系统配置支持快速配置**：可通过后台手动修改诸如域名信息、SEO优化、赞赏码、七牛云以及更新维护通知等
 - **多种文件存储**：集成七牛云、阿里云OSS，实现文件云存储，同时支持本地文件存储
 - **文件搬运工**：集成[blog-hunter](https://gitee.com/yadong.zhang/blog-hunter)实现“文章搬运工”功能，支持一键同步imooc、csdn、iteye或者cnblogs上的文章，可抓取列表和单个文章
 - **第三方授权登录**：集成[JustAuth](https://gitee.com/yadong.zhang/JustAuth)实现第三方授权登录
-# Demo 演示
-
-[前台demo](http://dblog-web.zhyd.me/)
-
-[后台demo(root,123456)](http://dblog-admin.zhyd.me)
-
-![admin端首页](https://images.gitee.com/uploads/images/2019/0129/191117_221c6064_784199.png "admin-index.png")
-![admin端文章列表也](https://images.gitee.com/uploads/images/2019/0129/191135_21e4f61c_784199.png "admin-article.png")
-![admin端发布文章页](https://images.gitee.com/uploads/images/2019/0129/191150_0d28d51a_784199.png "admin-publish-article.png")
-![admin端系统配置页](https://images.gitee.com/uploads/images/2019/0129/191203_cc6941e4_784199.png "admin-config.png")
-![admin端文章搬运工](https://images.gitee.com/uploads/images/2019/0129/191214_5e8f3c34_784199.png "admin-spider.png")
-![admin端文章搬运工](https://images.gitee.com/uploads/images/2019/0129/191237_d015fcda_784199.png "admin-spider2.png")
-![web端首页-pc](https://images.gitee.com/uploads/images/2019/0129/191409_d2604f7d_784199.png "web-index-pc.png")
-![web端首页-mobile](https://images.gitee.com/uploads/images/2019/0129/191428_c76317e8_784199.png "web-index.png")
-![web端文章详情页](https://images.gitee.com/uploads/images/2019/0129/191448_a2777443_784199.png "web-article-detail.png")
 
 ----
 
@@ -74,7 +59,6 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 | blog-admin | 后台管理模块 | 该模块作为单独项目打包部署 |
 | blog-web | 前台模块 | 该模块作为单独项目打包部署 |
 | blog-file | 文件存储功能模块 | 支持local、七牛云和阿里云OSS |
-| ~~blog-spider~~ | 爬虫相关代码模块 | 已使用[blog-hunter](https://gitee.com/yadong.zhang/blog-hunter)插件替代 |
 
 
 # 技术栈
@@ -122,7 +106,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 ...
 
 # Who is using?
-- [张亚东博客](https://www.zhyd.me)
+- [张亚东博客](https://docs.zhyd.me)
 - [攻城狮不是猫博客](http://www.jsdblog.com)
 - [小公举的博客](https://loveyatou.top/)
 - [陈晓雷的博客](http://www.aileig.com)
@@ -137,7 +121,21 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - [btmcheck博客](https://btmcheck.com/)
 - [我的博客](http://www.chenyunkeji.com/)
 
-烦请各位使用OneBlog的朋友，能留下你的网址（没别的意思，只是看看有多少人而已） - [点这儿](https://gitee.com/yadong.zhang/DBlog/issues/ILIAQ)
+烦请各位使用OneBlog的朋友，能留下你的网址 - [点这儿](https://gitee.com/yadong.zhang/DBlog/issues/ILIAQ)
+
+----
+
+# 预览
+
+![admin端首页](https://images.gitee.com/uploads/images/2019/0129/191117_221c6064_784199.png "admin端首页")
+![admin端文章列表也](https://images.gitee.com/uploads/images/2019/0129/191135_21e4f61c_784199.png "admin端文章列表也")
+![admin端发布文章页](https://images.gitee.com/uploads/images/2019/0129/191150_0d28d51a_784199.png "admin端发布文章页")
+![admin端系统配置页](https://images.gitee.com/uploads/images/2019/0129/191203_cc6941e4_784199.png "admin端系统配置页")
+![admin端文章搬运工](https://images.gitee.com/uploads/images/2019/0129/191214_5e8f3c34_784199.png "admin端文章搬运工")
+![admin端文章搬运工](https://images.gitee.com/uploads/images/2019/0129/191237_d015fcda_784199.png "admin端文章搬运工")
+![web端首页-pc](https://images.gitee.com/uploads/images/2019/0129/191409_d2604f7d_784199.png "web端首页-pc")
+![web端首页-mobile](https://images.gitee.com/uploads/images/2019/0129/191428_c76317e8_784199.png "web端首页-mobile")
+![web端文章详情页](https://images.gitee.com/uploads/images/2019/0129/191448_a2777443_784199.png "web端文章详情页")
 
 ----
 
@@ -149,8 +147,8 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
  **QQ群** 
 
-1. 1群[![](https://images.gitee.com/uploads/images/2019/0129/191256_a40bceba_784199.png)](https://shang.qq.com/wpa/qunwpa?idkey=3571c554a143eff1e15807de033a240196c6b493b25b903d1d37571cfb6040aa)（ **已升为1000人群** ）
-2. 2群[![](https://images.gitee.com/uploads/images/2019/0129/191256_a40bceba_784199.png)](https://shang.qq.com/wpa/qunwpa?idkey=38594b12fb0ec66459f0dba0316648a5c4bb71ea613289e5b57b8f44ad83ebc9)（ **人很少** ）
+1. 1群[![](https://images.gitee.com/uploads/images/2019/0129/191256_a40bceba_784199.png)](https://shang.qq.com/wpa/qunwpa?idkey=3571c554a143eff1e15807de033a240196c6b493b25b903d1d37571cfb6040aa)
+2. 2群[![](https://images.gitee.com/uploads/images/2019/0129/191256_a40bceba_784199.png)](https://shang.qq.com/wpa/qunwpa?idkey=38594b12fb0ec66459f0dba0316648a5c4bb71ea613289e5b57b8f44ad83ebc9)
 
 # 赞助
 
@@ -162,7 +160,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 
 # 生命不息，折腾不止！ 更多信息，请关注：
- 1. [我的博客](https://www.zhyd.me)
+ 1. [我的博客](https://docs.zhyd.me)
  2. [我的微博](http://weibo.com/211230415)
  3. [我的头条号](http://www.toutiao.com/c/user/3286958681/)
  4. [我的imooc](http://www.imooc.com/u/1175248/articles)

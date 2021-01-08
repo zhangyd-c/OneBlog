@@ -2,7 +2,7 @@
  * 项目核心Js库，主要包含核心工具类和 相关插件
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @version 1.0
  * @date 2017-09-02
  * @since 1.0

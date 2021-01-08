@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/8/27 15:26
  * @since 1.0
  */

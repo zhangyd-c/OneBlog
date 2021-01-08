@@ -292,7 +292,7 @@
                             <ul>
                                 <li>开源项目地址①：<a href="https://gitee.com/yadong.zhang/DBlog" target="_blank">https://gitee.com/yadong.zhang/DBlog</a></li>
                                 <li>开源项目地址②：<a href="https://github.com/zhangyd-c/OneBlog" target="_blank">https://github.com/zhangyd-c/OneBlog</a></li>
-                                <li>博主网站首页：<a href="https://www.zhyd.me" target="_blank">https://www.zhyd.me</a></li>
+                                <li>博主网站首页：<a href="https://docs.zhyd.me" target="_blank">https://docs.zhyd.me</a></li>
                             </ul>
                             <h2>Demo演示</h2>
                             <ul>
@@ -301,9 +301,9 @@
                             </ul>
                             <h2>获取帮助</h2>
                             <ul>
-                                <li>相关Wiki：<a href="https://gitee.com/yadong.zhang/DBlog/wikis" target="_blank">https://gitee.com/yadong.zhang/DBlog/wikis</a></li>
+                                <li>相关Wiki：<a href="https://docs.zhyd.me" target="_blank">https://docs.zhyd.me</a></li>
                                 <li>提issue：<a href="https://gitee.com/yadong.zhang/DBlog/issues" target="_blank">https://gitee.com/yadong.zhang/DBlog/issues</a></li>
-                                <li>留言：<a href="https://www.zhyd.me/guestbook" target="_blank">https://www.zhyd.me/guestbook</a></li>
+                                <li>留言：<a href="https://docs.zhyd.me/guestbook" target="_blank">https://docs.zhyd.me/guestbook</a></li>
                                 <li>加QQ群：<a href="http://shang.qq.com/wpa/qunwpa?idkey=9f986e9b33b1de953e1ef9a96cdeec990affd0ac7855e00ff103514de2027b60" target="_blank">190886500</a></li>
                             </ul>
                             <h2>其他开源作品</h2>
@@ -325,7 +325,7 @@
                                 <li><span><span><strong>评论系统</strong>：自研的评论系统，支持显示用户地址、浏览器和os信息，后台可审核评论、开启匿名评论、回复和邮件通知评论</span></span></li>
                                 <li><span><span><strong>权限管理</strong>：后台配备完善的权限管理</span></span></li>
                                 <li><span><span><strong>SEO</strong>：自带robots、sitemap等seo模板，实现自动生成robots和sitemap</span></span></li>
-                                <li><span><span><strong>实时通讯</strong>：管理员可向在线的用户发送实时消息（需用户授权 - 基于websocket实现，具体参考<a href="https://www.zhyd.me/article/111">DBlog建站之Websocket的使用</a>）</span></span></li>
+                                <li><span><span><strong>实时通讯</strong>：管理员可向在线的用户发送实时消息（需用户授权 - 基于websocket实现，具体参考<a href="https://docs.zhyd.me/article/111">DBlog建站之Websocket的使用</a>）</span></span></li>
                                 <li><span><span><strong>系统配置支持快速配置</strong>：可通过后台手动修改诸如域名信息、SEO优化、赞赏码、七牛云以及更新维护通知等</span></span></li>
                                 <li><span><span><strong><i class="fa fa-fire fa-fw red"></i>多种文件存储</strong>：集成七牛云、阿里云OSS，实现文件云存储，同时支持本地文件存储</span></span></li>
                                 <li><span><span><strong><i class="fa fa-fire fa-fw red"></i>文件搬运工</strong>：集成<a href="https://gitee.com/yadong.zhang/blog-hunter">blog-hunter</a>实现“文章搬运工”功能，支持一键同步imooc、csdn、iteye或者cnblogs上的文章，可抓取列表和单个文章</span></span></li>
