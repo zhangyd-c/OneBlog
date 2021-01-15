@@ -179,6 +179,7 @@ public class SysUserServiceImpl implements SysUserService {
         }
         List<User> users = new ArrayList<>();
         for (SysUser su : sysUsers) {
+            su.setUserType(new User(su).getUserTypeDescEnum().toString());
             users.add(new User(su));
         }
         return users;
