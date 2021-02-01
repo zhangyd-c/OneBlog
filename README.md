@@ -125,7 +125,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - [张亚东博客](https://docs.zhyd.me)
 - [攻城狮不是猫博客](http://www.jsdblog.com)
 - [小公举的博客](https://loveyatou.top/)
-- [陈晓雷的博客](https://aileig.com)
+- [陈晓雷的博客](https://www.aileig.com)
 - [Li Pan's 博客](http://www.lipan.xyz/)
 - [MTR小站](https://www.itmtr.cn/)
 - [怀念时光](https://blog.earic.club/)
