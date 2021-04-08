@@ -287,5 +287,11 @@
             }, 5000);
         }
     });
+    // 搜索查询按钮触发事件
+    $(function() {
+        $("#search-button").click(function () {
+            $('#tablelist').bootstrapTable(('refresh')); // 很重要的一步，刷新url！
+        })
+    })
 </script>
 </@footer>
