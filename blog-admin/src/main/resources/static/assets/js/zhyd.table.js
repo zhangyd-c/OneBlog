@@ -200,7 +200,7 @@ Table.prototype = {
         this.bindEvent("click", selector, callback);
     },
     queryParams: function (params) {
-        var formdata = $(this.formId).serialize();
+        var formdata = decodeURIComponent($(this.formId).serialize());
         var data = formdata.split('&');
         var parameter = {};
         for(var i=0;i<data.length;i++) {
