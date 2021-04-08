@@ -27,5 +27,6 @@ public class ArticleConditionVO extends BaseConditionVO {
 	private Boolean original;
 	private Boolean random;
 	private List<Long> tagIds;
+	private String title;
 }
 

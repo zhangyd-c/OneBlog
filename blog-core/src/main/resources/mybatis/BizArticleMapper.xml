@@ -96,6 +96,11 @@
 				a.keywords LIKE CONCAT('%',#{keywords , jdbcType=VARCHAR},'%')
 			)
 		</if>
+		<if test="title != null and title != '' ">
+			AND (
+			a.title LIKE CONCAT('%',#{title , jdbcType=VARCHAR},'%')
+			)
+		</if>
         GROUP BY a.id
 		<choose>
 			<when test="random != null">
