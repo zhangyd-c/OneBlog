@@ -200,15 +200,6 @@ Table.prototype = {
         this.bindEvent("click", selector, callback);
     },
     queryParams: function (params) {
-        params = $.extend({}, params);
-        params.keywords = params.searchText;
-        return params;
-    },
-    refresh: function () {
-        var options = this.options;
-        $(options.tableBox).bootstrapTable('refresh', {url: options.url});
-    },
-    getSelectedIds: function () {
         var formdata = $(this.formId).serialize();
         var data = formdata.split('&');
         var parameter = {};
@@ -219,6 +210,18 @@ Table.prototype = {
         return {
             ...parameter, ...params
         };
+    },
+    refresh: function () {
+        var options = this.options;
+        $(options.tableBox).bootstrapTable('refresh', {url: options.url});
+    },
+    getSelectedIds: function () {
+        var selectedJson = this.getSelections();
+        var ids = [];
+        $.each(selectedJson, function (i) {
+            ids.push(selectedJson[i].id);
+        });
+        return ids;
     },
     getSelections: function () {
         var options = this.options;
