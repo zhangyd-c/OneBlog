@@ -47,7 +47,7 @@
                 }
                 var op = $.extend({
                     title: "您有一条新消息",
-                    icon: appConfig.staticPath + '/img/notification.png',
+                    icon: appConfig.staticPath + '/img/default.png',
                     delay: 5000,
                     notification: null
                 }, options);

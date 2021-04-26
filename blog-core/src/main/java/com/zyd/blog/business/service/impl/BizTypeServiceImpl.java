@@ -121,8 +121,6 @@ public class BizTypeServiceImpl implements BizTypeService {
         PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
         List<BizType> entityList = bizTypeMapper.selectAll();
 
-        List<Type> list = getTypes(entityList);
-        if (list == null) return null;
-        return list;
+        return getTypes(entityList);
     }
 }

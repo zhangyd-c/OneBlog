@@ -93,12 +93,12 @@
         <div class="col-sm-12 col-md-12" style="float: initial;">
             <#if config.zfbPraiseCode!>
                 <a href="${config.zfbPraiseCode}" class="showImage" title="支付宝收钱码" rel="external nofollow">
-                    <img src="${config.zfbPraiseCode}" alt="支付宝收钱码" class="img-rounded" style="width: 250px;height: auto;">
+                    <img src="${config.zfbPraiseCode}" onerror="this.src='${config.staticWebSite}/img/default.png'" alt="支付宝收钱码" class="img-rounded" style="width: 250px;height: auto;">
                 </a>
             </#if>
             <#if config.wxPraiseCode!>
                 <a href="${config.wxPraiseCode}" class="showImage" title="微信收钱码" rel="external nofollow">
-                    <img src="${config.wxPraiseCode}" alt="微信收钱码" class="img-rounded" style="width: 250px;height: auto;">
+                    <img src="${config.wxPraiseCode}" onerror="this.src='${config.staticWebSite}/img/default.png'" alt="微信收钱码" class="img-rounded" style="width: 250px;height: auto;">
                 </a>
             </#if>
         </div>

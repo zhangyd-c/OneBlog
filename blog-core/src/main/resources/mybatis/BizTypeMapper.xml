@@ -89,7 +89,8 @@
 		LEFT JOIN biz_type parent ON t.pid = parent.id
 		LEFT JOIN biz_type node ON node.pid = t.id
 		WHERE
-			t.pid IS NULL OR t.pid = ''
+		      t.available = 1
+			AND (t.pid IS NULL OR t.pid = '')
 		ORDER BY
 			t.sort ASC
 	</select>

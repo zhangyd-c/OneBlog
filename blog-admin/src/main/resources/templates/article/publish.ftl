@@ -53,7 +53,7 @@
             </div>
         </div>
     </div>
-   <@publishmodal></@publishmodal>
+   <@publishModal></@publishModal>
 </form>
 <@chooseImgModal></@chooseImgModal>
 <@footer>

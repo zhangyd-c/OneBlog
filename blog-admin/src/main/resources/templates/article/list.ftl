@@ -110,7 +110,7 @@
                     align: 'center',
                     editable: false,
                     formatter: function (code, row, index) {
-                        return code ? '<a href="' + code + '" class="showImage" title="' + row.title + '" rel="external nofollow"><img src="' + code + '" alt="' + row.title + '" class="img-rounded" style="width: 30px;height: auto;"></a>' : '-';
+                        return code ? '<a href="' + code + '" class="showImage" title="' + row.title + '" rel="external nofollow"><img src="' + code + '" alt="' + row.title + '" onerror="this.src=\'/assets/images/favicon.ico\'" class="img-rounded" style="width: 30px;height: auto;"></a>' : '-';
                     }
                 }, {
                     field: 'comment',
@@ -162,6 +162,14 @@
                     align: 'center',
                     formatter: function (code) {
                         return code ? code : '-';
+                    }
+                },  {
+                    field: 'private',
+                    title: '私密',
+                    width: '50px',
+                    align: 'center',
+                    formatter: function (code) {
+                        return code ? '<span class="label label-danger"><i class="fa fa-lock fa-fw"></i>私密</span>' : '<span class="label label-success"><i class="fa fa-unlock fa-fw"></i>公开</span>';
                     }
                 }, {
                     field: 'createTime',

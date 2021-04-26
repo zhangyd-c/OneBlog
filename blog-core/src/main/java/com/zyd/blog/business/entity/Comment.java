@@ -1,6 +1,5 @@
 package com.zyd.blog.business.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zyd.blog.business.enums.CommentStatusEnum;
@@ -21,7 +20,9 @@ import java.util.Date;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Comment {
-    private BizComment bizComment;
+    private final BizComment bizComment;
+    private BizComment parent;
+    private BizArticle article;
 
     public Comment() {
         this.bizComment = new BizComment();
@@ -29,6 +30,10 @@ public class Comment {
 
     public Comment(BizComment bizComment) {
         this.bizComment = bizComment;
+        if (null != bizComment) {
+            this.parent = bizComment.getParent();
+            this.article = bizComment.getArticle();
+        }
     }
 
     @JsonIgnore
@@ -70,7 +75,7 @@ public class Comment {
     }
 
     public String getArticleTitle() {
-        BizArticle article = this.getArticle();
+        BizArticle article = this.article;
         String title = null == article ? null : article.getTitle();
         if (title == null) {
             Long sid = getSid();
@@ -277,18 +282,20 @@ public class Comment {
     }
 
     public BizComment getParent() {
-        return this.bizComment.getParent();
+        return this.parent;
     }
 
     public void setParent(BizComment parent) {
+        this.parent = parent;
         this.bizComment.setParent(parent);
     }
 
     public BizArticle getArticle() {
-        return this.bizComment.getArticle();
+        return this.article;
     }
 
     public void getArticle(BizArticle article) {
+        this.article = article;
         this.bizComment.setArticle(article);
     }
 

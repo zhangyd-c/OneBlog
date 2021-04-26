@@ -83,7 +83,7 @@ public class RestTypeController {
 
     @PostMapping("/listAll")
     public ResponseVO listType() {
-        return ResultUtil.success(null, typeService.listTypeForMenu());
+        return ResultUtil.success(null, typeService.listAll());
     }
 
     @PostMapping("/listParent")

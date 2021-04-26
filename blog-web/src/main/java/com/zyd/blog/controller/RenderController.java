@@ -188,6 +188,11 @@ public class RenderController {
         if (article == null || ArticleStatusEnum.UNPUBLISHED.getCode() == article.getStatusEnum().getCode()) {
             return ResultUtil.forward("/error/404");
         }
+        if(article.getPrivate()) {
+            article.setPassword(null);
+            article.setContent(null);
+            article.setContentMd(null);
+        }
         model.addAttribute("article", article);
         // 上一篇下一篇
         model.addAttribute("other", bizArticleService.getPrevAndNextArticles(article.getCreateTime()));

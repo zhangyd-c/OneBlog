@@ -85,6 +85,7 @@ public class BizArticleServiceImpl implements BizArticleService {
         Map<Long, BizArticle> tagMap = listTag.stream().collect(Collectors.toMap(BizArticle::getId, a -> a, (k1, k2) -> k1));
 
         List<Article> boList = new LinkedList<>();
+        Article article = null;
         for (BizArticle bizArticle : list) {
             BizArticle tagArticle = tagMap.get(bizArticle.getId());
             if (null == tagArticle) {
@@ -93,7 +94,9 @@ public class BizArticleServiceImpl implements BizArticleService {
                 bizArticle.setTags(tagArticle.getTags());
             }
             this.subquery(bizArticle);
-            boList.add(new Article(bizArticle));
+            article = new Article(bizArticle);
+            article.setPassword(null);
+            boList.add(article);
         }
         PageInfo bean = new PageInfo<BizArticle>(list);
         bean.setList(boList);

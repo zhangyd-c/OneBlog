@@ -206,9 +206,21 @@
                                             </div>
                                         </div>
                                         <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <small>请按照 <code>http://file.zhyd.me/</code> 格式填写，包含 <code>http://</code> 和末尾的 <code>/</code></small>
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="localFilePath">文件存储路径 <i class="fa fa-question-circle" title="Nginx服务中root后面对应的目录地址"></i> <span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input type="text" class="form-control col-md-7 col-xs-12" name="localFilePath" id="localFilePath" required="required" placeholder="请输入文件存储路径，如：/var/www/oneblog/upload/"/>
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <small>请按照 <code>/var/www/oneblog/upload/</code> 格式填写，包含末尾的 <code>/</code></small>
                                             </div>
                                         </div>
                                         <div class="item form-group">

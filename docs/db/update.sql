@@ -262,3 +262,8 @@ INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_tim
 # 20190705
 INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (0, 'copyright', 'Copyright zhyd.me', now(), now());
 INSERT INTO `dblog`.`sys_config`(`id`, `config_key`, `config_value`, `create_time`, `update_time`) VALUES (0, 'dynamicTitle', '您有一条新消息', now(), now());
+
+
+# 20210423
+ALTER TABLE `dblog`.`biz_article`
+    ADD COLUMN `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '文章私密访问时的密钥' AFTER `comment`;

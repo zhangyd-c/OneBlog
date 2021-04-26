@@ -110,7 +110,7 @@
 </#macro>
 
 <#-- 发布文章填写文章详情的弹窗模板 -->
-<#macro publishmodal>
+<#macro publishModal>
     <div class="modal fade" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="publishLabel" data-backdrop="static">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -177,6 +177,12 @@
                                             <label class="control-label col-md-2 col-sm-2 col-xs-12" for="comment">开启评论 </label>
                                             <div class="col-md-10 col-sm-10 col-xs-12 fixed-radio-checkbox">
                                                 <input type="checkbox" class="square" name="comment" id="comment">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-2 col-sm-2 col-xs-12" for="comment">私密文章 </label>
+                                            <div class="col-md-10 col-sm-10 col-xs-12 fixed-radio-checkbox">
+                                                <input type="text" class="square form-control" name="password" placeholder="请输入文章密码">
                                             </div>
                                         </div>
                                     </div>

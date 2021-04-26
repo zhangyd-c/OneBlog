@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zyd.blog.business.annotation.BussinessLog;
+import com.zyd.blog.business.entity.Article;
 import com.zyd.blog.business.entity.Comment;
 import com.zyd.blog.business.entity.Link;
 import com.zyd.blog.business.enums.CommentStatusEnum;
@@ -155,6 +156,25 @@ public class RestApiController {
     @BussinessLog(value = "公告列表", platform = PlatformEnum.WEB, save = false)
     public ResponseVO listNotice() {
         return ResultUtil.success("", noticeService.listRelease());
+    }
+
+    @PostMapping("/verifyArticlePassword")
+    @BussinessLog(value = "验证文章密码", platform = PlatformEnum.WEB, save = false)
+    public ResponseVO verifyArticlePassword(Long articleId, String password) {
+        if (StringUtils.isEmpty(password)) {
+            return ResultUtil.error("文章密码错误");
+        }
+        Article article = articleService.getByPrimaryKey(articleId);
+        if (null == article) {
+            return ResultUtil.error(String.format("文章【%s】不存在！", articleId));
+        }
+        if (!article.getPrivate() || StringUtils.isEmpty(article.getPassword())) {
+            return ResultUtil.error(String.format("文章【%s】未加密！", articleId));
+        }
+        if (article.getPassword().equals(password)) {
+            return ResultUtil.success("文章密码验证通过", article.getContent());
+        }
+        return ResultUtil.error("文章密码错误");
     }
 
 }

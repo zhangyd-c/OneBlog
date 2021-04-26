@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <@publishmodal></@publishmodal>
+        <@publishModal></@publishModal>
     </form>
 </div>
 <@chooseImgModal></@chooseImgModal>

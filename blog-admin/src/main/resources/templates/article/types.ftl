@@ -152,7 +152,7 @@
                     width: '50px',
                     align: 'center',
                     formatter: function (code) {
-                        return code ? '<span class="label label-success">可用</span>' : '<span class="label label-danger">不可用</span>';
+                        return code ? '<span class="label label-success">可用</span>' : '<span class="label label-danger">禁用</span>';
                     }
                 }, {
                     field: 'icon',

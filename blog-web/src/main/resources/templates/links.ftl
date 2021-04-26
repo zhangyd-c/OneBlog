@@ -241,6 +241,6 @@
             })
         });
     </script>
-    <script src="https://v1.hitokoto.cn/?encode=js&c=d&select=%23hitokoto" defer></script>
+    <script src="https://v1.hitokoto.cn/?encode=js&c=i&select=%23hitokoto" defer></script>
 </@footer>
 </@compress>

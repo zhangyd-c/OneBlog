@@ -122,26 +122,18 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 ...
 
 # Who is using?
-- [张亚东博客](https://docs.zhyd.me)
-- [攻城狮不是猫博客](http://www.jsdblog.com)
-- [小公举的博客](https://loveyatou.top/)
-- [陈晓雷的博客](https://www.aileig.com)
-- [Li Pan's 博客](http://www.lipan.xyz/)
-- [MTR小站](https://www.itmtr.cn/)
-- [怀念时光](https://blog.earic.club/)
-- [Java干货铺子](http://www.itsoku.com/)
-- [介龙平博客](https://www.jlpyyf.com/)
-- [大数据施工现场](http://blog.sev7e0.site/)
-- [fireflyi博客](https://www.fireflyi.com/)
-- [AIAS编程有道](http://www.piqiandong.com/)
-- [btmcheck博客](https://btmcheck.com/)
-- [我的博客](http://www.chenyunkeji.com/)
 
-烦请各位使用OneBlog的朋友，能留下你的网址 - [点这儿](https://gitee.com/yadong.zhang/DBlog/issues/ILIAQ)
+烦请各位使用 OneBlog 的朋友，能留下你的网址 - [点这儿](https://gitee.com/yadong.zhang/DBlog/issues/ILIAQ)
 
 ----
 
 # 预览
+
+![web端首页-pc](docs/_media/1601f937.png)
+![web端文章详情页](docs/_media/e922c529.png)
+![web端文章详情页 - 私密文章](docs/_media/ff9a84a3.png)
+![web端文章详情页 - 私密文章](docs/_media/cd37ba37.png)
+![web端首页-mobile](https://images.gitee.com/uploads/images/2019/0129/191428_c76317e8_784199.png "web端首页-mobile")
 
 ![admin端首页](https://images.gitee.com/uploads/images/2019/0129/191117_221c6064_784199.png "admin端首页")
 ![admin端文章列表也](https://images.gitee.com/uploads/images/2019/0129/191135_21e4f61c_784199.png "admin端文章列表也")
@@ -149,9 +141,6 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 ![admin端系统配置页](https://images.gitee.com/uploads/images/2019/0129/191203_cc6941e4_784199.png "admin端系统配置页")
 ![admin端文章搬运工](https://images.gitee.com/uploads/images/2019/0129/191214_5e8f3c34_784199.png "admin端文章搬运工")
 ![admin端文章搬运工](https://images.gitee.com/uploads/images/2019/0129/191237_d015fcda_784199.png "admin端文章搬运工")
-![web端首页-pc](https://images.gitee.com/uploads/images/2019/0129/191409_d2604f7d_784199.png "web端首页-pc")
-![web端首页-mobile](https://images.gitee.com/uploads/images/2019/0129/191428_c76317e8_784199.png "web端首页-mobile")
-![web端文章详情页](https://images.gitee.com/uploads/images/2019/0129/191448_a2777443_784199.png "web端文章详情页")
 
 ----
 

@@ -40,6 +40,6 @@
     </div>
 </div>
 <@footer>
-<script src="https://v1.hitokoto.cn/?encode=js&c=d&select=.hitokoto" defer></script>
+<script src="https://v1.hitokoto.cn/?encode=js&c=i&select=.hitokoto" defer></script>
 </@footer>
 </@compress>
