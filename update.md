@@ -7,7 +7,7 @@
 
 1. 修改一言类型为诗词
 2. 添加文章默认封面图片
-3. 调整 web 端页面风格，参考：<a href="https://www.dancoder.cn/">蛋码农 - https://www.dancoder.cn</a>
+3. 调整 web 端页面风格，参考：[蛋码农 - https://www.dancoder.cn](https://www.dancoder.cn/)
 4. 文章支持加密，加密后的文章需要验证密码后才能查看详情，默认只能看文章的介绍
 5. 修改 web 端分类菜单的 sql 查询条件，已禁用的分类不再显示
 6. 增加 admin 端系统配置页面部分配置项的说明，请按照说明进行配置
