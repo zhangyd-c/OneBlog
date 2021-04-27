@@ -9,19 +9,18 @@ import com.zyd.blog.framework.property.JustAuthProperties;
 import com.zyd.blog.persistence.beans.SysConfig;
 import com.zyd.blog.util.SessionUtil;
 import lombok.extern.slf4j.Slf4j;
-import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.config.AuthSource;
-import me.zhyd.oauth.utils.AuthChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
 
-import java.lang.reflect.Field;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * 自定义的freemarker标签
@@ -57,6 +56,8 @@ public class CustomTags extends BaseTag {
     private SysTemplateService templateService;
     @Autowired
     private JustAuthProperties authProperties;
+    @Autowired
+    private SysSocialConfigService sysSocialConfigService;
 
     public CustomTags() {
         super(CustomTags.class.getName());
@@ -131,34 +132,7 @@ public class CustomTags extends BaseTag {
      * @return
      */
     public Object listAvailableOAuthPlatforms(Map params) {
-        List<String> list = new ArrayList<>();
-        try {
-            for (Field f : authProperties.getClass().getDeclaredFields()) {
-                f.setAccessible(true);
-                String fieldName = f.getName();
-                AuthSource source = null;
-                if ("tencentCloud".equals(fieldName)) {
-                    source = AuthSource.TENCENT_CLOUD;
-                } else if ("stackoverflow".equals(fieldName)) {
-                    source = AuthSource.STACK_OVERFLOW;
-                } else if ("wechatEnterprise".equals(fieldName)) {
-                    source = AuthSource.WECHAT_ENTERPRISE;
-                } else {
-                    source = AuthSource.valueOf(fieldName.toUpperCase());
-                }
-                AuthConfig authConfig = (AuthConfig) f.get(authProperties);
-                if (null != authConfig) {
-                    if (AuthChecker.isSupportedAuth(authConfig, source)) {
-                        list.add(fieldName);
-                    }
-                }
-
-            }
-        } catch (Exception e) {
-            log.error("获取所有可用的Oauth平台发生异常", e);
-        }
-
-        return list;
+        return sysSocialConfigService.listAvailable();
     }
 
     /**
@@ -181,6 +155,11 @@ public class CustomTags extends BaseTag {
             }
         }
         return list;
+    }
+
+    public Object justAuthSources(Map params) {
+        AuthDefaultSource[] authDefaultSources = AuthDefaultSource.values();
+        return Arrays.stream(authDefaultSources).map(AuthSource::getName).collect(Collectors.toList());
     }
 
 

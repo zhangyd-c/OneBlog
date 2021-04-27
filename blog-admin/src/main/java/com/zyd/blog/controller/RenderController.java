@@ -211,4 +211,11 @@ public class RenderController {
     public ModelAndView files(Model model) {
         return ResultUtil.view("file/list");
     }
+
+    @RequiresPermissions("socials")
+    @BussinessLog("进入社会化登录配置管理页面")
+    @GetMapping("/socials")
+    public ModelAndView socials(Model model) {
+        return ResultUtil.view("social/list");
+    }
 }

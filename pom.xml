@@ -43,15 +43,15 @@
         <shiro.spring.version>1.7.1</shiro.spring.version>
         <shiro.redis.version>2.4.2.1-RELEASE</shiro.redis.version>
         <shiro.freemarker.tags.version>0.1</shiro.freemarker.tags.version>
-        <qiniu.version>7.2.19</qiniu.version>
+        <qiniu.version>7.5.0</qiniu.version>
         <useragentutils.version>1.20</useragentutils.version>
         <braum.version>1.0.0-alpha</braum.version>
-        <hutool.version>4.1.21</hutool.version>
+        <hutool.version>5.5.7</hutool.version>
         <spring.web.version>5.1.4.RELEASE</spring.web.version>
         <aliyun.oss.version>2.8.3</aliyun.oss.version>
         <oneblog.version>2.2.3</oneblog.version>
         <blog-hunter.version>1.0.1</blog-hunter.version>
-        <justauth.version>1.10.0</justauth.version>
+        <jap.version>1.0.1</jap.version>
     </properties>
 
     <dependencyManagement>
@@ -68,6 +68,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
             <optional>true</optional>
         </dependency>
         <dependency>

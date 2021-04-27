@@ -182,6 +182,13 @@ INSERT INTO `dblog`.`sys_resources` VALUES (74, '编辑器', 'menu', '/editor', 
 
 INSERT INTO `dblog`.`sys_resources` VALUES (75, '文件管理', 'menu', '/files', 'files', 40, 6, 0, 1, NULL, now(), now());
 
+# 20210427
+INSERT INTO `dblog`.`sys_resources` VALUES (76, '社会化登录配置管理', 'menu', '/socials', 'socials', 40, 7, 0, 1, '', now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (77, '新增社会化登录配置', 'button', NULL, 'social:add', 76, 2, 0, 1, NULL, now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (78, '批量删除社会化登录配置', 'button', NULL, 'social:batchDelete', 76, 3, 0, 1, NULL, now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (79, '编辑社会化登录配置', 'button', NULL, 'social:edit,social:get', 76, 4, 0, 1, NULL, now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (80, '删除社会化登录配置', 'button', NULL, 'social:delete', 76, 5, 0, 1, NULL, now(), now());
+
 # 清空系统角色
 TRUNCATE TABLE `dblog`.`sys_role`;
 # 初始化系统角色
