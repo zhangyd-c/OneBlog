@@ -121,12 +121,13 @@
                         <div class="clear" style="margin-bottom: 10px"></div>
                         <ul class="list-unstyled list-inline search-hot">
                             <li><strong style="position: relative;top: 2px;color: #999999;">热门搜索：</strong></li>
-                            <li><a class="pointer" rel="external nofollow"><span class="label label-default">Java</span></a></li>
-                            <li><a class="pointer" rel="external nofollow"><span class="label label-primary">Springboot</span></a></li>
-                            <li><a class="pointer" rel="external nofollow"><span class="label label-success">Linux</span></a></li>
-                            <li><a class="pointer" rel="external nofollow"><span class="label label-info">Maven</span></a></li>
-                            <li><a class="pointer" rel="external nofollow"><span class="label label-warning">Bootstrap</span></a></li>
-                            <li><a class="pointer" rel="external nofollow"><span class="label label-danger">阿里云</span></a></li>
+                            <@zhydTag method="searchOptions">
+                                <#if searchOptions?? && (searchOptions?size > 0)>
+                                    <#list searchOptions as item>
+                                        <li><a class="pointer" rel="external nofollow"><span class="label label-info">${item}</span></a></li>
+                                    </#list>
+                                </#if>
+                            </@zhydTag>
                         </ul>
                     </form>
                 </article>
