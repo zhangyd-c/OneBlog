@@ -58,12 +58,13 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - **百度推送**：支持百度推送功能，加速百度搜索引擎收录博文
 - **评论系统**：自研的评论系统，支持显示用户地址、浏览器和os信息，后台可审核评论、开启匿名评论、回复和邮件通知评论
 - **权限管理**：后台配备完善的权限管理
-- **SEO**：自带robots、sitemap等seo模板，实现自动生成robots和sitemap
+- **完善的 SEO 方案**：自带robots、sitemap等seo模板，实现自动生成robots和sitemap
 - **实时通讯**：管理员可向在线的用户发送实时消息（需用户授权 - 基于websocket实现，具体参考[DBlog建站之Websocket的使用](https://docs.zhyd.me/article/111)）
 - **系统配置支持快速配置**：可通过后台手动修改诸如域名信息、SEO优化、赞赏码、七牛云以及更新维护通知等
 - **多种文件存储**：集成七牛云、阿里云OSS，实现文件云存储，同时支持本地文件存储
-- **文件搬运工**：集成[blog-hunter](https://gitee.com/yadong.zhang/blog-hunter)实现“文章搬运工”功能，支持一键同步imooc、csdn、iteye或者cnblogs上的文章，可抓取列表和单个文章
-- **第三方授权登录**：集成[JustAuth](https://gitee.com/yadong.zhang/JustAuth)实现第三方授权登录
+- **文章搬运工**：集成[blog-hunter](https://gitee.com/yadong.zhang/blog-hunter)实现“文章搬运工”功能，支持一键同步imooc、csdn、iteye或者cnblogs上的文章，可抓取列表和单个文章
+- **第三方授权登录**：集成 [JustAuthPlus（JAP）](https://gitee.com/fujieid/jap) 实现第三方授权登录
+- **自定义网站内容**：管理员可自定义“关于本站”、“留言板”、“友情链接”、“免责声明”、“Footer”、“鼠标点击时的气泡文字”、“热门搜索的待选项”等内容
 
 ----
 
