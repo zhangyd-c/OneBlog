@@ -14,11 +14,11 @@
 7. web 端所有图片容易死链的地方，添加了默认图片
 8. 留言板页面添加**正能量**提示
 9. 添加自定义“关于本站”、“留言板”、“友情链接”、“免责声明”、“Footer”、“鼠标点击时的气泡文字”、“热门搜索的待选项”等内容
-9. 去掉 web 端侧边栏中的 Gitee Fork Me 链接
-10. 使用 [JustAuthPlus（JAP）](https://gitee.com/fujieid/jap) 替换 [JustAuth](https://gitee.com/yadong.zhang/JustAuth)
-11. 后台管理系统增加社会化登录的配置，可以在线添加、启用、禁用某个平台的第三方登录功能
-12. 调整部分依赖 JAR 的版本
-13. 其他 BUG 修复
+10. 去掉 web 端侧边栏中的 Gitee Fork Me 链接
+11. 使用 [JustAuthPlus（JAP）](https://gitee.com/fujieid/jap) 替换 [JustAuth](https://gitee.com/yadong.zhang/JustAuth)
+12. 后台管理系统增加社会化登录的配置，可以在线添加、启用、禁用某个平台的第三方登录功能
+13. 调整部分依赖 JAR 的版本
+14. 其他 BUG 修复
 
 ----
 
