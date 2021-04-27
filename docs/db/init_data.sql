@@ -23,8 +23,6 @@ TRUNCATE TABLE `dblog`.`biz_article_tags`;
 # 初始化文章标签
 INSERT INTO `dblog`.`biz_article_tags` VALUES ('1', '5', '1', now(), now());
 INSERT INTO `dblog`.`biz_article_tags` VALUES ('2', '1', '2', now(), now());
-INSERT INTO `dblog`.`biz_article_tags` VALUES ('3', '2', '3', now(), now());
-INSERT INTO `dblog`.`biz_article_tags` VALUES ('4', '2', '4', now(), now());
 
 # 清空文章分类表
 TRUNCATE TABLE `dblog`.`biz_type`;

@@ -44,6 +44,9 @@
                             <li role="presentation" class="">
                                 <a href="#tab_setting" role="tab" id="setting-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-tasks fa-fw"></i> 其他</a>
                             </li>
+                            <li role="presentation" class="">
+                                <a href="#tab_custom" role="tab" id="custom-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-cog fa-fw"></i> 定制页面</a>
+                            </li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
                             <div role="tabpanel" class="tab-pane fade active in" id="tab_basic"
@@ -150,9 +153,9 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="baiduPushToken">百度推送Token <i class="fa fa-question-circle" title="方便百度引擎快速收录"></i> <span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="baiduPushToken">百度推送Token <i class="fa fa-question-circle" title="方便百度引擎快速收录"></i> </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" class="form-control col-md-7 col-xs-12" name="baiduPushToken" id="baiduPushToken" required="required" placeholder="请输入百度推送Token，推送功能能加快百度搜索引擎对博文的索引速度"/>
+                                            <input type="text" class="form-control col-md-7 col-xs-12" name="baiduPushToken" id="baiduPushToken" placeholder="请输入百度推送Token，推送功能能加快百度搜索引擎对博文的索引速度"/>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -162,9 +165,9 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="baiduPushCookie">百度推送Cookie <i class="fa fa-question-circle" title="请求API使用"></i> <span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="baiduPushCookie">百度推送Cookie <i class="fa fa-question-circle" title="请求API使用"></i> </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <textarea class="form-control col-md-7 col-xs-12" name="baiduPushCookie" id="baiduPushCookie" required="required" placeholder="请输入百度推送Cookie" rows="5"></textarea>
+                                            <textarea class="form-control col-md-7 col-xs-12" name="baiduPushCookie" id="baiduPushCookie" placeholder="请输入百度推送Cookie" rows="5"></textarea>
                                         </div>
                                     </div>
                                     <div class="item">
@@ -528,6 +531,82 @@
                                     </div>
                                 </form>
                             </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab_custom" aria-labelledby="custom-tab">
+                                <form class="form-horizontal form-label-left" novalidate>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="aboutMeHtml">自定义“关于本站”的页面内容 <i class="fa fa-question-circle" title="自定义“关于本站”的页面内容"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control col-md-7 col-xs-12" id="aboutMeHtml" name="aboutMeHtml" placeholder="允许自定义“关于本站”的页面内容" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <small>查看模板：<button type="button" class="btn btn-link" data-toggle="modal" data-target="#customTemplateModal">点击查看模板</button></small>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="guestbookHtml">自定义“留言板”的页面内容 <i class="fa fa-question-circle" title="自定义“留言板”的页面内容"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control col-md-7 col-xs-12" id="guestbookHtml" name="guestbookHtml" placeholder="允许自定义“留言板”的页面内容" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <small>查看模板：<button type="button" class="btn btn-link" data-toggle="modal" data-target="#customTemplateModal">点击查看模板</button></small>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="linksHtml">自定义“友情链接”的页面内容 <i class="fa fa-question-circle" title="自定义“友情链接”的页面内容"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control col-md-7 col-xs-12" id="linksHtml" name="linksHtml" placeholder="允许自定义“友情链接”的页面内容" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <small>查看模板：<button type="button" class="btn btn-link" data-toggle="modal" data-target="#customTemplateModal">点击查看模板</button></small>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="disclaimerHtml">自定义“免责声明”内容 <i class="fa fa-question-circle" title="自定义“免责声明”内容"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control col-md-7 col-xs-12" id="disclaimerHtml" name="disclaimerHtml" placeholder="自定义“免责声明”内容" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="footerHtml">自定义 Footer <i class="fa fa-question-circle" title="自定义 Footer 内容。Powered by 内容不可修改"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control col-md-7 col-xs-12" id="footerHtml" name="footerHtml" placeholder="自定义 Footer 内容" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <small>注意：这将会完全替换掉 web 端的 Footer 内容</small>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bubbleWord">自定义气泡文字 <i class="fa fa-question-circle" title="自定义 web 端鼠标点击后弹出的文字，半角逗号分隔"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control col-md-7 col-xs-12" id="bubbleWord" name="bubbleWord" placeholder="自定义 web 端鼠标点击后弹出的文字，半角逗号分隔" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="searchOptions">自定义“热门搜索”的待选项 <i class="fa fa-question-circle" title="自定义 web 端 “热门搜索” 中的待选项，半角逗号分隔"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control col-md-7 col-xs-12" id="searchOptions" name="searchOptions" placeholder="自定义 web 端 “热门搜索” 中的待选项，半角逗号分隔" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -535,6 +614,35 @@
         </div>
     </div>
 </div>
+</div>
+<div class="modal fade" id="customTemplateModal" tabindex="-1" role="dialog"
+     aria-labelledby="storageNginxServerModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="storageNginxServerModalLabel">自定义页面模板</h4>
+            </div>
+            <div class="modal-body">
+                <pre>
+                    <code>
+&lt;div class=&quot;col-sm-12 blog-main&quot;&gt;
+  &lt;div class=&quot;blog-body expansion&quot;&gt;
+    &lt;h5 class=&quot;custom-title&quot;&gt;
+      &lt;i class=&quot;fa fa-user-secret fa-fw&quot;&gt;&lt;/i&gt;&lt;strong&gt;标题&lt;/strong&gt;
+    &lt;/h5&gt;
+    &lt;div class=&quot;info&quot;&gt;内容&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+                    </code>
+                </pre>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="modal fade" id="storageNginxServerModal" tabindex="-1" role="dialog"
      aria-labelledby="storageNginxServerModalLabel">

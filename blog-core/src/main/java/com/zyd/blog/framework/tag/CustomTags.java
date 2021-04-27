@@ -2,9 +2,11 @@ package com.zyd.blog.framework.tag;
 
 import com.zyd.blog.business.entity.Comment;
 import com.zyd.blog.business.entity.User;
+import com.zyd.blog.business.enums.ConfigKeyEnum;
 import com.zyd.blog.business.enums.UserTypeEnum;
 import com.zyd.blog.business.service.*;
 import com.zyd.blog.framework.property.JustAuthProperties;
+import com.zyd.blog.persistence.beans.SysConfig;
 import com.zyd.blog.util.SessionUtil;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.config.AuthConfig;
@@ -156,6 +158,28 @@ public class CustomTags extends BaseTag {
             log.error("获取所有可用的Oauth平台发生异常", e);
         }
 
+        return list;
+    }
+
+    /**
+     * web 端 “热门搜索” 中的待选项
+     *
+     * @param params
+     * @return
+     */
+    public Object searchOptions(Map params) {
+        List<String> list = new ArrayList<>(Arrays.asList("Java", "SpringBoot"));
+        SysConfig sysConfig = configService.getByKey(ConfigKeyEnum.SEARCH_OPTIONS.getKey());
+        if (null != sysConfig) {
+            String value = sysConfig.getConfigValue();
+            if (!StringUtils.isEmpty(value)) {
+                if (value.contains(",")) {
+                    list = Arrays.asList(value.split(","));
+                } else {
+                    list = Collections.singletonList(value);
+                }
+            }
+        }
         return list;
     }
 

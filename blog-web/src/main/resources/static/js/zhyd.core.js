@@ -397,11 +397,15 @@
     /* 鼠标点击向上冒泡弹出提示动画 */
     $.extend({
         bubble: {
-            _tip: ['法制', '爱国', '敬业', '诚信', '友善', '富强', '民主', '文明', '和谐', '自由', '平等', '公正'],
             init: function () {
+                var _tip = appConfig.bubbleWord
+                if (!_tip) {
+                    return false;
+                }
+                _tip = _tip.split(",")
                 var bubbleIndex = 0;
                 $('body').click(function (e) {
-                    bubbleIndex = bubbleIndex >= $.bubble._tip.length ? 0 : bubbleIndex;
+                    bubbleIndex = bubbleIndex >= _tip.length ? 0 : bubbleIndex;
                     if (!e.originalEvent) {
                         return;
                     }
@@ -413,7 +417,7 @@
                         y: -100,
                         className: 'thumb-bubble',
                         fontSize: 0.5,
-                        content: '<i class="fa fa-smile-o"></i>' + $.bubble._tip[bubbleIndex]
+                        content: '<i class="fa fa-smile-o"></i>' + _tip[bubbleIndex]
                     });
                     setTimeout(function () {
                         $box.remove();
@@ -470,7 +474,7 @@
      */
     $.fn.extend({
         pagination: function (opts) {
-            return this.each(function(){
+            return this.each(function () {
                 var self = $(this);
                 var page = new Pagination(opts);
                 var $ul = $('<ul class="pager page-btn"></ul>');
@@ -478,13 +482,13 @@
                 var pageNumFrag = '<li><a class="pointer #active#" data-page="#pageNum#">#pageNum#</a></li>';
                 var interval = page.getInterval();
                 var html = '';
-                if(page.hasPrev()) {
+                if (page.hasPrev()) {
                     html += '<li><a class="pointer" data-page="' + page.opts.pre + '"><i class="fa fa-angle-double-left"></i></a></li>';
                 }
                 for (var i = interval.start; i < interval.end; i++) {
                     html += pageNumFrag.replaceAll("#pageNum#", i).replaceAll("#active#", page.opts.currentPage === i ? 'active' : '');
                 }
-                if(page.hasNext()) {
+                if (page.hasNext()) {
                     html += '<li><a class="pointer" data-page="' + page.opts.next + '"><i class="fa fa-angle-double-right"></i></a></li>';
                 }
                 $ul.html(html);
@@ -506,7 +510,7 @@
         }
     });
 
-    var Pagination = function(opts) {
+    var Pagination = function (opts) {
         this.opts = $.extend({
             // 分页请求路径
             url: '',
@@ -526,7 +530,7 @@
     };
     $.extend(Pagination.prototype, {
         // 获取实际需显示的分页的区间信息
-        getInterval: function() {
+        getInterval: function () {
             var ne_half = Math.ceil(this.opts.showNumPage / 2);
             var totalPage = this.opts.totalPage;
             var upper_limit = totalPage - this.opts.showNumPage;
@@ -537,14 +541,14 @@
                 end: end + 1
             };
         },
-        getCurrentPage: function() {
+        getCurrentPage: function () {
             var currentPage = parseInt(this.opts.currentPage);
             return isNaN(currentPage) ? 1 : currentPage;
         },
-        hasPrev: function() {
+        hasPrev: function () {
             return this.opts.pre && this.opts.pre > 0;
         },
-        hasNext: function() {
+        hasNext: function () {
             return this.opts.next && this.opts.next > 0 && this.opts.next <= this.opts.totalPage;
         }
     });
@@ -585,8 +589,7 @@
             if (options.autohide) {
                 if (scrolling > options.offset) {
                     elem.fadeIn(options.speed);
-                }
-                else elem.fadeOut(options.speed);
+                } else elem.fadeOut(options.speed);
             }
         });
     };
