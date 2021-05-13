@@ -5,7 +5,6 @@ import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.ConfigKeyEnum;
 import com.zyd.blog.business.enums.UserTypeEnum;
 import com.zyd.blog.business.service.*;
-import com.zyd.blog.framework.property.JustAuthProperties;
 import com.zyd.blog.persistence.beans.SysConfig;
 import com.zyd.blog.util.SessionUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -54,8 +53,6 @@ public class CustomTags extends BaseTag {
     private SysConfigService configService;
     @Autowired
     private SysTemplateService templateService;
-    @Autowired
-    private JustAuthProperties authProperties;
     @Autowired
     private SysSocialConfigService sysSocialConfigService;
 
