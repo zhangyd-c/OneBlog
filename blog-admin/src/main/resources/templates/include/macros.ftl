@@ -285,8 +285,8 @@
                     <div class="col col-lg-4 col-sm-4 col-md-4 col-xs-4">
                         <fieldset>
                             <legend>关注公众号</legend>
-                            <a href="https://gitee.com/yadong.zhang/static/raw/master/wx/wechat_account_500x500.jpg" class="showImage" title="关注公众号：码一码" rel="external nofollow" style="display: block;text-align: center">
-                                <img src="https://gitee.com/yadong.zhang/static/raw/master/wx/wechat_account_500x500.jpg" class="img-rounded" alt="关注公众号：码一码" width="300">
+                            <a href="/assets/images/wechat_account_500x500.jpg" class="showImage" title="关注公众号：码一码" rel="external nofollow" style="display: block;text-align: center">
+                                <img src="/assets/images/wechat_account_500x500.jpg" class="img-rounded" alt="关注公众号：码一码" width="300">
                             </a>
                         </fieldset>
                     </div>
