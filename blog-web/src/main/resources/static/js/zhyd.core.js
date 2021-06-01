@@ -406,7 +406,7 @@
                 var bubbleIndex = 0;
                 $('body').click(function (e) {
                     bubbleIndex = bubbleIndex >= _tip.length ? 0 : bubbleIndex;
-                    if (!e.originalEvent) {
+                    if (!e.originalEvent || bubbleIndex === 0) {
                         return;
                     }
                     var x = e.originalEvent.x || e.originalEvent.layerX || 0;

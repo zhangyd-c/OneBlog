@@ -167,7 +167,7 @@
         editorPlaceholder: '${config.editorPlaceholder}',
         editorAlert: '${config.editorAlert}',
         dynamicTitle: '${config.dynamicTitle}',
-        bubbleWord: '${config.bubbleWord}' || '法制,爱国,敬业,诚信,友善,富强,民主,文明,和谐,自由,平等,公正',
+        bubbleWord: '${config.bubbleWord}',
     };
 
     var oauthConfig = {
