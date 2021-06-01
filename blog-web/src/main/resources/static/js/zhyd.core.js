@@ -403,10 +403,13 @@
                     return false;
                 }
                 _tip = _tip.split(",")
+                if(_tip.length === 0 || !_tip[0]) {
+                    return false;
+                }
                 var bubbleIndex = 0;
                 $('body').click(function (e) {
                     bubbleIndex = bubbleIndex >= _tip.length ? 0 : bubbleIndex;
-                    if (!e.originalEvent || bubbleIndex === 0) {
+                    if (!e.originalEvent) {
                         return;
                     }
                     var x = e.originalEvent.x || e.originalEvent.layerX || 0;
