@@ -179,3 +179,6 @@
 <script type="text/javascript" src="${config.staticWebSite}/js/zhyd.core.js"></script>
 <script type="text/javascript" src="${config.staticWebSite}/js/zhyd.comment.js"></script>
 <script type="text/javascript" src="${config.staticWebSite}/js/zhyd.js"></script>
+<script type="text/javascript" id="customJs">
+    ${config.customJs}
+</script>

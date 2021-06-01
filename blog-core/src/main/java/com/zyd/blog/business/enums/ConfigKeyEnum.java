@@ -226,6 +226,11 @@ public enum ConfigKeyEnum {
      * 自定义“免责声明”内容
      */
     DISCLAIMER_HTML("disclaimerHtml"),
+
+    /**
+     * 自定义“js”脚本内容
+     */
+    CUSTOM_JS("customJs"),
     ;
 
     private final String key;
