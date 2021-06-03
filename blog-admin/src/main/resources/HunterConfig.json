@@ -20,22 +20,21 @@
     "domain": "blog.csdn.net",
     "titleRegex": "//h1[@class=title-article]/html()",
     "authorRegex": "//a[@class=follow-nickName]/html()",
-    "releaseDateRegex": "//div[@class=article-bar-top]/span[@class=time]/html()",
+    "releaseDateRegex": "//div[@class=article-bar-top]/div[@class='bar-content']/span[@class=time]/html()",
     "contentRegex": "//div[@id=content_views]/html()",
     "tagRegex": "//span[@class=artic-tag-box]/a[@class=tag-link]/html()",
-    "targetLinksRegex": ".*blog\\.csdn\\.net/{uid}/article/details/[0-9a-zA-Z]{1,15}",
+    "targetLinksRegex": "(((http|ftp|https):\\/\\/[0-9a-zA-Z]{1,15}.blog.csdn.net/article/details/[0-9a-zA-Z]{1,15})|((http|ftp|https):\\/\\/blog.csdn.net/{uid}/article/details/[0-9a-zA-Z]{1,15}))",
     "header": [
       "Host=blog.csdn.net",
       "Referer=https://blog.csdn.net/{uid}/article/list/1"
     ],
-    "cookie": "",
     "entryUrls": [
       "https://blog.csdn.net/{uid}/article/list/1"
     ]
   },
   "iteye": {
     "domain": "{uid}.iteye.com",
-    "titleRegex": "//div[@class=blog_title]/h3/a/html()",
+    "titleRegex": "//div[@class=blog_title]/h3/text()",
     "authorRegex": "//div[@id=blog_owner_name]/html()",
     "releaseDateRegex": "//div[@class=blog_bottom]/ul/li[1]/html()",
     "contentRegex": "//div[@class=iteye-blog-content-contain]/html()",
@@ -97,6 +96,47 @@
     ],
     "entryUrls": [
       "https://www.v2ex.com/member/{uid}"
+    ]
+  },
+  "oschina": {
+    "domain": "oschina.net",
+    "titleRegex": "//h1[@class=article-box__title]/a/text()",
+    "authorRegex": "//div[@class=article-box__meta]/div[@class=item-list]/div[2]/a/html()",
+    "releaseDateRegex": "//div[@class=article-box__meta]/div[@class=item-list]/div[4]/html()",
+    "contentRegex": "//div[@class=content]/html()",
+    "tagRegex": "//div[@class=tags-box]/div[@class=tags-box__inner]/a/html()",
+    "targetLinksRegex": "https://my.oschina.net/.*/blog/[0-9]{1,10}",
+    "header": [
+      "Host=my.oschina.net",
+      "Referer=https://my.oschina.net"
+    ],
+    "entryUrls": [
+      "https://my.oschina.net/{uid}",
+      "https://my.oschina.net/u/{uid}"
+    ]
+  },
+  "jianshu": {
+    "resolver": {
+      "releaseDate": {
+        "type": "regex",
+        "clazz": "java.lang.Long",
+        "operator": "* 1000"
+      }
+    },
+    "domain": "jianshu.com",
+    "titleRegex": "//h1[@class=_1RuRku]/text()",
+    "authorRegex": "//span[@class=_22gUMi]/html()",
+    "releaseDateRegex": ".*\"first_shared_at\":([0-9]+),.*",
+    "contentRegex": "//article[@class=_2rhmJa]/html()",
+    "tagRegex": "//div",
+    "targetLinksRegex": "/p/[0-9a-zA-Z]{1,15}",
+    "header": [
+      "Host=www.jianshu.com",
+      "Referer=https://www.jianshu.com/p/{uid}"
+    ],
+    "entryUrls": [
+      "https://www.jianshu.com/p/{uid}",
+      "https://www.jianshu.com/u/{uid}"
     ]
   }
 }
