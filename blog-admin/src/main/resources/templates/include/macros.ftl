@@ -343,6 +343,7 @@
             </div>
             <div class="modal-footer">
                 <span class="pull-left">tips: 如不想显示该弹窗，可在 <code>index.ftl</code> 中搜索 <code>aboutOneBlog</code> 后删掉相关代码</span>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="neverShowNoticeModal"><i class="fa fa-close"> 不再显示</i></button>
                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"> 关闭</i></button>
             </div>
         </div>

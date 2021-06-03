@@ -68,8 +68,6 @@
         }
     </style>
 </@header>
-<#-- 网站首页的项目介绍内容 -->
-<@aboutOneBlog></@aboutOneBlog>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12 top_tiles">
         <#-- 文章 -->
@@ -250,9 +248,21 @@
     </div>
 </div>
 </div>
+<#-- 网站首页的项目介绍内容 -->
+<@aboutOneBlog></@aboutOneBlog>
 <@footer>
 <script src="https://cdn.jsdelivr.net/npm/echarts@4.1.0/dist/echarts.min.js"></script>
 <script src="/assets/js/zhyd.echarts.js"></script>
+<#-- 显示或者关闭首页的弹窗，当点击“不再显示后”，如果清缓存，这个弹窗仍然会再次显示 -->
+<script type="text/javascript">
+    var neverShowNoticeModal = localStorage.getItem("neverShowNoticeModal");
+    if(!neverShowNoticeModal) {
+        $("#noticeModal").modal('show');
+    }
+    $("#neverShowNoticeModal").click(function (){
+        localStorage.setItem("neverShowNoticeModal", 1);
+    })
+</script>
 <script>
     /* 顶部卡片统计 */
     $.post("/statistics/siteInfo", function (json) {
@@ -300,6 +310,5 @@
         return resultArr;
     }
     init_echarts();
-    $("#noticeModal").modal('show');
 </script>
 </@footer>
