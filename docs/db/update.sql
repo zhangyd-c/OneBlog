@@ -38,3 +38,8 @@ CREATE TABLE `dblog`.`sys_social_config`  (
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录更新时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '社会化登录应用' ROW_FORMAT = Dynamic;
+
+
+# 20210606
+ALTER TABLE `dblog`.`sys_config`
+    MODIFY COLUMN `config_value` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '配置项内容' AFTER `config_key`;
