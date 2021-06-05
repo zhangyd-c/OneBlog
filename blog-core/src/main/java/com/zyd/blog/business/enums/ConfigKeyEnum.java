@@ -231,6 +231,11 @@ public enum ConfigKeyEnum {
      * 自定义“js”脚本内容
      */
     CUSTOM_JS("customJs"),
+
+    /**
+     * 自定义“CSS”内容
+     */
+    CUSTOM_CSS("customCss"),
     ;
 
     private final String key;

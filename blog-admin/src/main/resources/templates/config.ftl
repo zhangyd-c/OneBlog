@@ -606,6 +606,12 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="customCss">自定义“CSS” <i class="fa fa-question-circle" title="自定义 web 端 CSS，不可包含 <style></style> 标签"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control col-md-7 col-xs-12" id="customCss" name="customCss" placeholder="自定义 web 端 CSS，不可包含 <style></style> 标签" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>

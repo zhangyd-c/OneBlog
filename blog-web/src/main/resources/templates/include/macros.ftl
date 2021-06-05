@@ -29,6 +29,10 @@
         <link href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/github.min.css" rel="stylesheet">
     </#if>
     <#nested>
+
+    <style type="text/css">
+        ${config.customCss}
+    </style>
 </head>
 <body>
     <#include "/layout/header.ftl"/>
