@@ -124,7 +124,7 @@
             </div>
         </a>
         <#--总赞数-->
-        <a href="/lookCount" class="statistics-panel">
+        <a href="/articles" class="statistics-panel">
             <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 statistics-zanCount" data-key="zanCount">
                 <div class="tile-stats statistics-box">
                     <div class="icon"><i style="color: #FF6666;" class="fa fa-thumbs-o-up"></i></div>
@@ -363,6 +363,7 @@
                 zhyd.createChart({id:'echart_spider', legendData: getNames(jsonData, 'name'), series:{name:'爬虫访问统计', type: 'pie', seriesData: jsonData}});
             }
         });
+
         function getNames(arr, key) {
             if(!arr){
                 return [];
@@ -375,8 +376,5 @@
         }
 
         init_echarts();
-        $("#noticeModal").modal('show');
-
-
     </script>
 </@footer>

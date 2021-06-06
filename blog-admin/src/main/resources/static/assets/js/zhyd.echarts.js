@@ -26,7 +26,7 @@ zhyd.chartConfig = {
         "#f0805a",
         "#26c0c0"
     ],
-    "backgroundColor": "rgba(254,248,239,1)",
+    // "backgroundColor": "rgba(254,248,239,1)",
     "textStyle": {},
     "title": {
         "textStyle": {
