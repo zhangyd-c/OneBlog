@@ -165,7 +165,7 @@
                             var $parent = row.parent;
                             var parent = $parent ? '<div style="background-color: #f1f1f1;padding: 5px;margin: 5px;border-radius: 4px;"><div style="padding-left: 10px;"><i class="fa fa-quote-left fa-fw"></i><strong>原评：</strong>' + filterXSS($parent.content) + '</div></div>' : '';
                             return '<div style="border-bottom: 1px solid #dcddde;margin-bottom: 10px;">评论自：'+source+'</div>' +
-                                    '<div class="col-md-12">' + content + parent + '</div>';
+                                    '<div class="col-md-12" style="word-break: break-all;">' + content + parent + '</div>';
                         }
                     }, {
                         field: 'support',

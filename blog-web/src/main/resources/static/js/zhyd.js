@@ -1,7 +1,7 @@
 /**
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @version 1.0
  * @date 2017-04-01
  * @since 1.0
@@ -414,4 +414,13 @@ $(function () {
             $.comment.submit($(this));
         });
     }
+
+    /**
+     * 手机端无法 hover，所以针对app端，直接将菜单全部展开
+     */
+    if((navigator.userAgent.toLowerCase().match(/(iphone|ipod|android|ios|symbianos)/i))){
+        $(".nav.navbar-nav li.dropdown").addClass("open")
+        $(".nav.navbar-nav li.dropdown a.menu_a span.dropdown-toggle").attr("aria-expanded", "true")
+    }
+
 });

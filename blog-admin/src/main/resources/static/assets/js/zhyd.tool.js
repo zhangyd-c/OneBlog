@@ -3,7 +3,7 @@
  * 项目工具类
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @version 1.0
  * @date 2017-09-02
  * @since 1.0

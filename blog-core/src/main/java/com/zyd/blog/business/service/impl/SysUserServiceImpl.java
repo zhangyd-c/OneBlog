@@ -32,7 +32,7 @@ import java.util.List;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/4/16 16:26
  * @since 1.0
  */
@@ -179,6 +179,7 @@ public class SysUserServiceImpl implements SysUserService {
         }
         List<User> users = new ArrayList<>();
         for (SysUser su : sysUsers) {
+            su.setUserType(new User(su).getUserTypeDescEnum().toString());
             users.add(new User(su));
         }
         return users;

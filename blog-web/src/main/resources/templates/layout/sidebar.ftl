@@ -8,7 +8,6 @@
         </div>
     <#else>
         <div class="sidebar-module" style="position: relative;">
-            <a href='https://gitee.com/yadong.zhang/DBlog' target="_blank" rel="external nofollow"><img src='https://gitee.com/yadong.zhang/DBlog/widgets/widget_1.svg?color=07b83f' alt='Fork me on Gitee' style="position: absolute;right: 0;"/></a>
             <h5 class="custom-title"><i class="fa fa-home fa-fw icon"></i><strong>关于我</strong><small></small></h5>
             <div class="widget">
                 <div id="feed_widget">
@@ -72,10 +71,25 @@
                 <ul class="list-unstyled list-inline comments">
                 <#list recentComments as item>
                     <li>
-                        <a href="${item.sourceUrl}#comment-${item.id?c}" title="${item.briefContent!}" rel="external nofollow" data-toggle="tooltip" data-placement="bottom">
-                            <img alt="${item.nickname!}" src="${item.avatar!}" class="avatar auto-shake" height="64" width="64" onerror="this.src='${config.staticWebSite}/img/user.png'" />
-                            <span class="comment-author">${item.nickname!}</span> ${item.briefContent!}
-                        </a>
+                        <div class="clearfix" style="display: block;">
+                            <span>
+                                <img alt="${item.nickname!}" src="${item.avatar!}" class="avatar auto-shake" width="50" height="50" onerror="this.src='${config.staticWebSite}/img/user.png'">
+                            </span>
+                            <span class="newest_comment_author">
+                                ${item.nickname!}
+                            </span>
+                            <span class="fr" style="float: right;">
+                                <time style="font-size: 12px;">${item.createTime?string('yyyy-MM-dd HH:mm:ss')}</time>
+                            </span>
+                        </div>
+                        <div style="background-color: #f5f5f5;line-height: 1.7;border-radius: 3px;color: #333;" class="newest_comment_content pd10 mar10-t pos-r mar5-b pjt fs13">
+                            <a href="${item.sourceUrl}#comment-${item.id?c}" title="${item.briefContent!}">
+                                ${item.briefContent!}
+                            </a>
+                        </div>
+                        <span class="gray fs12" style="word-break: break-all;">来自：
+                            <a href="${item.sourceUrl}#comment-${item.id?c}">${item.articleTitle}</a>
+                        </span>
                     </li>
                 </#list>
                 </ul>

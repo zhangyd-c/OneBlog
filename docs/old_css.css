@@ -1,0 +1,123 @@
+/**
+此为原版宽屏的css，如果不喜欢最新版的窄屏风格，可以通过修改后台管理端的【右上角用户名 - 系统配置 - 定制页面 - 自定义“CSS”】的内容，自定义web端的css。
+如需还原为原版宽屏，可以直接将下面的css复制到【自定义“CSS”】文本框中保存。
+ */
+.menu-box {
+    padding-right: 6%;
+    padding-left: 6%;
+}
+.nav-search-box .nav-search-btn, .nav-search, .link-info .auto-link-btn {
+    border-color: #008151;
+}
+.nav-search-box .nav-search-btn:hover, .nav-search:hover, .link-info .auto-link-btn:hover {
+    border-color: #00432a !important;
+}
+.pager > li > a.active, .pager > li > a:hover {
+    background-color: #009a61;
+    border-color: #009a61;
+}
+a {
+    color: #009a61;
+}
+.navbar-default .menu-box .navbar-collapse ul .active a {
+    color: #009a61 !important;
+    border-bottom: unset !important;
+}
+.article-flag .article-original {
+    margin-left: 20px;
+}
+.breadcrumb {
+    font-size: 12px;
+    color: gray;
+    padding: 0;
+    background-color: #f5f5f500;
+}
+::-webkit-scrollbar {
+    width: 7px;
+}
+.sidebar-module .sidebar-tabs {
+    background-color: rgba(0, 0, 0, 0);
+    margin-left: unset;
+    margin-right: unset;
+}
+.sidebar-module .sidebar-tabs li a:hover {
+    color: #008151 !important;
+    font-weight: 700;
+    background-color: rgba(0, 0, 0, 0) !important;
+    border-color: rgba(0, 0, 0, 0) !important;
+}
+#article-menu > ul > li:hover,
+#article-menu > ul > li.active {
+    color: #009a61;
+    border-left: 2px solid #009A61;
+}
+#article-menu > ul > li:hover > a,
+#article-menu > ul > li.active > a {
+    color: #009a61;
+}
+article .thumbnail span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    filter: alpha(opacity=70);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    background: #009a61;
+    color: #fff;
+}
+article .thumbnail span a {
+    color: #fff !important;
+    line-height: 29px;
+    padding: 0 10px;
+}
+article .entry-content .title-l {
+    position: absolute;
+    background: #017E66;
+    top: 20px;
+    left: -1px;
+    width: 5px;
+    height: 30px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+article .entry-more a {
+    background-color: #009a61;
+}
+article .entry-more a:hover, .tag-li a:hover {
+    background-color: #009a61 !important;
+    border-color: #028103 !important;
+}
+.tag-li a {
+    border-radius: 2px;
+}
+#loading .filter {
+    background: url(../img/loading.png) no-repeat fixed;
+}
+.nav-tabs > li > a:hover {
+    background-color: #009a61 !important;
+    border-color: #008151 !important;
+}
+.c-label:hover {
+    background-color: #009a61 !important;
+    border-color: #008151 !important;
+}
+.rating > i.active {
+    color: #009a61;
+}
+@media (min-width: 1200px) {
+    .container {
+        width: 90%;
+    }
+}
+.about-name {
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center
+}
+.comments li {
+    height: 37px;
+}
+.forbidden a {
+    color: #009a61;
+}
+.zyd-carousel-caption {
+    background: #07ad6f;
+}

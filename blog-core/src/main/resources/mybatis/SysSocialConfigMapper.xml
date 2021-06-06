@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zyd.blog.persistence.mapper.SysSocialConfigMapper">
+	<resultMap id="rm" type="com.zyd.blog.persistence.beans.SysSocialConfig">
+		<result property="id" jdbcType="BIGINT" column="id"/>
+		<result property="clientId" jdbcType="VARCHAR" column="client_id"/>
+		<result property="clientSecret" jdbcType="VARCHAR" column="client_secret"/>
+		<result property="redirectUri" jdbcType="VARCHAR" column="redirect_uri"/>
+		<result property="platformName" jdbcType="VARCHAR" column="platform_name"/>
+		<result property="platform" jdbcType="VARCHAR" column="platform"/>
+		<result property="logo" jdbcType="VARCHAR" column="logo"/>
+		<result property="alipayPublicKey" jdbcType="VARCHAR" column="alipay_public_key"/>
+		<result property="unionId" jdbcType="BIT" column="union_id"/>
+		<result property="stackOverflowKey" jdbcType="VARCHAR" column="stack_overflow_key"/>
+		<result property="agentId" jdbcType="VARCHAR" column="agent_id"/>
+		<result property="scope" jdbcType="VARCHAR" column="scope"/>
+		<result property="available" jdbcType="BIT" column="available"/>
+		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+	</resultMap>
+
+	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.SocialConfigConditionVO" resultMap="rm">
+		SELECT
+			t.id,
+			t.client_id,
+			t.client_secret,
+			t.redirect_uri,
+			t.platform_name,
+			t.platform,
+			t.logo,
+			t.alipay_public_key,
+			t.union_id,
+			t.stack_overflow_key,
+			t.agent_id,
+			t.scope,
+			t.available,
+			t.create_time,
+			t.update_time
+		FROM
+			sys_social_config t
+		WHERE
+			1 = 1
+	</select>
+
+	<select id="getByClientId" parameterType="String" resultMap="rm">
+		SELECT
+			t.id,
+			t.client_id,
+			t.client_secret,
+			t.redirect_uri,
+			t.platform_name,
+			t.platform,
+			t.logo,
+			t.alipay_public_key,
+			t.union_id,
+			t.stack_overflow_key,
+			t.agent_id,
+			t.scope,
+			t.available,
+			t.create_time,
+			t.update_time
+		FROM
+			sys_social_config t
+		WHERE
+			t.client_id = #{clientId}
+	</select>
+	<select id="listAvailable" resultMap="rm">
+		SELECT
+			t.id,
+			t.client_id,
+			t.client_secret,
+			t.redirect_uri,
+			t.platform_name,
+			t.platform,
+			t.logo,
+			t.alipay_public_key,
+			t.union_id,
+			t.stack_overflow_key,
+			t.agent_id,
+			t.scope,
+			t.available,
+			t.create_time,
+			t.update_time
+		FROM
+			sys_social_config t
+		WHERE
+			t.available = 1
+	</select>
+</mapper>
+

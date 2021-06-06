@@ -11,6 +11,20 @@
                 </ol>
             </@breadcrumb>
             <div class="x_panel">
+                <form class="form-inline"  id="article1" onclick="return false;">
+                    <div class="form-group">
+                        <label class="control-label">名称和描述:</label>
+                        <input class=" form-control" name="keywords"  placeholder="请输入关键字查询" value="">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">名称:</label>
+                        <input class="form-control" name="title"  placeholder="请输入名称关键字查询" value="">
+                    </div>
+                    <div class="form-group">
+                        <button id="search-button" class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
+                    </div>
+                </form>
+
                 <div class="x_content">
                     <div class="<#--table-responsive-->">
                         <div class="btn-group hidden-xs" id="toolbar">
@@ -68,6 +82,7 @@
     $(function () {
         var options = {
             modalName: "文章",
+            formId: "#article1",
             url: "/article/list",
             getInfoUrl: "/article/get/{id}",
             removeUrl: "/article/remove",
@@ -95,7 +110,7 @@
                     align: 'center',
                     editable: false,
                     formatter: function (code, row, index) {
-                        return code ? '<a href="' + code + '" class="showImage" title="' + row.title + '" rel="external nofollow"><img src="' + code + '" alt="' + row.title + '" class="img-rounded" style="width: 30px;height: auto;"></a>' : '-';
+                        return code ? '<a href="' + code + '" class="showImage" title="' + row.title + '" rel="external nofollow"><img src="' + code + '" alt="' + row.title + '" onerror="this.src=\'/assets/images/favicon.ico\'" class="img-rounded" style="width: 30px;height: auto;"></a>' : '-';
                     }
                 }, {
                     field: 'comment',
@@ -147,6 +162,14 @@
                     align: 'center',
                     formatter: function (code) {
                         return code ? code : '-';
+                    }
+                },  {
+                    field: 'private',
+                    title: '私密',
+                    width: '50px',
+                    align: 'center',
+                    formatter: function (code) {
+                        return code ? '<span class="label label-danger"><i class="fa fa-lock fa-fw"></i>私密</span>' : '<span class="label label-success"><i class="fa fa-unlock fa-fw"></i>公开</span>';
                     }
                 }, {
                     field: 'createTime',
@@ -272,5 +295,11 @@
             }, 5000);
         }
     });
+    // 搜索查询按钮触发事件
+    $(function() {
+        $("#search-button").click(function () {
+            $('#tablelist').bootstrapTable(('refresh')); // 很重要的一步，刷新url！
+        })
+    })
 </script>
 </@footer>

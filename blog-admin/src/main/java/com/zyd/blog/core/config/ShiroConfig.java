@@ -6,7 +6,6 @@ import com.zyd.blog.core.shiro.realm.ShiroRealm;
 import com.zyd.blog.framework.property.RedisProperties;
 import com.zyd.blog.framework.property.ShiroProperties;
 import com.zyd.blog.framework.redis.CustomRedisManager;
-import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -27,6 +26,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.annotation.Order;
 
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 /**
@@ -34,7 +36,7 @@ import java.util.Map;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/4/24 14:37
  * @since 1.0
  */
@@ -225,7 +227,34 @@ public class ShiroConfig {
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         cookieRememberMeManager.setCookie(rememberMeCookie());
         //rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
-        cookieRememberMeManager.setCipherKey(Base64.decode("1QWLxg+NYmxraMoxAXu/Iw=="));
+        cookieRememberMeManager.setCipherKey(GenerateCipherKey.generateNewKey());
         return cookieRememberMeManager;
+    }
+
+    /**
+     * 解决 shiro 反序列化漏洞
+     *
+     * https://blog.csdn.net/qq_34775355/article/details/106643678
+     */
+    public static class GenerateCipherKey {
+
+        /**
+         * 随机生成秘钥，参考org.apache.shiro.crypto.AbstractSymmetricCipherService#generateNewKey(int)
+         *
+         * @return byte[]
+         */
+        public static byte[] generateNewKey() {
+            KeyGenerator kg;
+            try {
+                kg = KeyGenerator.getInstance("AES");
+            } catch (NoSuchAlgorithmException var5) {
+                String msg = "Unable to acquire AES algorithm.  This is required to function.";
+                throw new IllegalStateException(msg, var5);
+            }
+
+            kg.init(128);
+            SecretKey key = kg.generateKey();
+            return key.getEncoded();
+        }
     }
 }

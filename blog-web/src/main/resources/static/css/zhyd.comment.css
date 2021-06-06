@@ -1,7 +1,7 @@
 /**
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @version 1.0
  * @date 2017-04-01
  * @since 1.0
@@ -18,14 +18,14 @@ em {
     margin-bottom: 10px;
     margin-top: 20px;
     color: #fff;
-    background-color: #009a61;
-    border-color: #008151;
+    background-color: #333;
+    /*border-color: #008151;*/
 }
 
 #comment-form-btn:hover {
     color: #fff !important;
-    background-color: #006741 !important;
-    border-color: #00432a !important;
+    background-color: #575757 !important;
+    border-color: #908f8f !important;
 }
 
 /*#comment-box .commentList div, .comment-box .commentList div {
@@ -88,11 +88,11 @@ em {
     position: relative;
 }
 .comment .comment-body .cheader .user-img .author-icon {
-    width: 30px;
-    height: 16px;
+    width: 20px;
+    height: 10px;
     position: absolute;
-    top: -12px;
-    left: -5px;
+    top: -5px;
+    left: 3px;
     transform: rotate(7deg);
     -ms-transform: rotate(7deg);
     -moz-transform: rotate(7deg);
@@ -109,6 +109,10 @@ em {
     padding: 0 0 0 3px;
     margin: 0;
     line-height: initial;
+}
+
+.comment .comment-body .cheader .user-info .nickname .admin-nickname {
+    color: #ffd500;
 }
 
 .comment .comment-body .cheader .user-info .timer {

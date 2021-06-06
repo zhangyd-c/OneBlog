@@ -1,10 +1,26 @@
- **OneBlog** 一个简洁美观、功能强大并且自适应的Java博客。使用springboot开发，前端使用Bootstrap。支持移动端自适应，配有完备的前台和后台管理功能。    
-
-![JDK](https://img.shields.io/badge/JDK-1.8-green.svg)
-![Maven](https://img.shields.io/badge/Maven-3.3.1-green.svg)
-![MySQL](https://img.shields.io/badge/MySQL-5.6.4-green.svg)
-![Redis](https://img.shields.io/badge/Redis-3.0.503-green.svg)
-[![license](https://img.shields.io/badge/license-GPL%20v3-yellow.svg)](https://gitee.com/yadong.zhang/DBlog/blob/master/LICENSE)
+<p align="center">
+	<img src="/docs/_media/logo.png" style="width: 300px"></img>
+</p>
+<p align="center">
+	<strong>OneBlog 一个简洁美观、功能强大并且自适应的Java博客。使用springboot开发，前端使用Bootstrap。支持移动端自适应，配有完备的前台和后台管理功能。</strong>
+</p>
+<p align="center">
+	<img src="https://img.shields.io/badge/Maven-3.3.1-green.svg" ></img>
+	<a target="_blank" href="https://gitee.com/yadong.zhang/DBlog/blob/master/LICENSE">
+		<img src="https://img.shields.io/badge/license-GPL%20v3-yellow.svg" ></img>
+	</a>
+	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
+		<img src="https://img.shields.io/badge/JDK-1.8+-blue.svg" ></img>
+	</a>
+	<img src="https://img.shields.io/badge/MySQL-5.6.4-red.svg" ></img>
+	<img src="https://img.shields.io/badge/Redis-3.0.503-orange.svg" ></img>
+</p>
+<p align="center">
+	<strong>开源地址：</strong> <a target="_blank" href='https://gitee.com/yadong.zhang/DBlog'>Gitee</a> | <a target="_blank" href='https://github.com/zhangyd-c/OneBlog'>Github</a>
+</p>
+<p align="center">
+    <strong>QQ群：</strong>230017570
+</p>
 
 ----
 
@@ -12,10 +28,10 @@
 
 **看文档！看文档！看文档！**，初次使用， 请先**看文档！**
 
-1. 本项目配有相关[帮助文档](https://gitee.com/yadong.zhang/DBlog/wikis) 。文档中包括**基本的项目说明**、**shiro标签使用**、**七牛云配置**和一些常见的**异常问题解决方案**。使用时碰到问题请**优先**查阅【[帮助文档](https://gitee.com/yadong.zhang/DBlog/wikis)】。因为现在好多朋友问的问题大部分都写在【[帮助文档](https://gitee.com/yadong.zhang/DBlog/wikis)】中了，希望各位朋友能自己翻阅下相关资料，高效提问，避免重复问题！
+1. 本项目配有相关[帮助文档](https://docs.zhyd.me) 。文档中包括**基本的项目说明**、**shiro标签使用**、**七牛云配置**和一些常见的**异常问题解决方案**。使用时碰到问题请**优先**查阅【[帮助文档](https://docs.zhyd.me)】。因为现在好多朋友问的问题大部分都写在【[帮助文档](https://docs.zhyd.me)】中了，希望各位朋友能自己翻阅下相关资料，高效提问，避免重复问题！
 2. **提问题**前请优先阅读【[如何向开源社区提问题](https://github.com/seajs/seajs/issues/545)】&【[提问的智慧](http://www.dianbo.org/9238/stone/tiwendezhihui.htm)】
-3. **提问题**时请优先选择[Gitee Issues](https://gitee.com/yadong.zhang/DBlog/issues)（方便问题追踪和一对一解决），其次[我的博客-留言板](https://www.zhyd.me/guestbook)，再次QQ群（QQ群消息较多，提问请注意节奏、时机），最次加我QQ好友直接提问（不推荐）
-4. 本项目唯一官网：[https://www.zhyd.me](https://www.zhyd.me)  
+3. **提问题**时请优先选择[Gitee Issues](https://gitee.com/yadong.zhang/DBlog/issues)（方便问题追踪和一对一解决），其次[我的博客-留言板](https://docs.zhyd.me/guestbook)，再次QQ群（QQ群消息较多，提问请注意节奏、时机），最次加我QQ好友直接提问（不推荐）
+4. 本项目唯一官网：[https://docs.zhyd.me](https://docs.zhyd.me)  
 5. 本项目开源地址：[Gitee](https://gitee.com/yadong.zhang/DBlog)    | [Github](https://github.com/zhangyd-c/OneBlog)
 6. 本项目修改记录，详情请移步[这里](https://gitee.com/yadong.zhang/DBlog/blob/master/update.md)
 7. 如果你想贡献代码，请先阅读[这篇文章](https://gitee.com/yadong.zhang/DBlog/blob/master/contribution.md)
@@ -42,27 +58,14 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - **百度推送**：支持百度推送功能，加速百度搜索引擎收录博文
 - **评论系统**：自研的评论系统，支持显示用户地址、浏览器和os信息，后台可审核评论、开启匿名评论、回复和邮件通知评论
 - **权限管理**：后台配备完善的权限管理
-- **SEO**：自带robots、sitemap等seo模板，实现自动生成robots和sitemap
-- **实时通讯**：管理员可向在线的用户发送实时消息（需用户授权 - 基于websocket实现，具体参考[DBlog建站之Websocket的使用](https://www.zhyd.me/article/111)）
+- **完善的 SEO 方案**：自带robots、sitemap等seo模板，实现自动生成robots和sitemap
+- **实时通讯**：管理员可向在线的用户发送实时消息（需用户授权 - 基于websocket实现，具体参考[DBlog建站之Websocket的使用](https://docs.zhyd.me/article/111)）
 - **系统配置支持快速配置**：可通过后台手动修改诸如域名信息、SEO优化、赞赏码、七牛云以及更新维护通知等
 - **多种文件存储**：集成七牛云、阿里云OSS，实现文件云存储，同时支持本地文件存储
-- **文件搬运工**：集成[blog-hunter](https://gitee.com/yadong.zhang/blog-hunter)实现“文章搬运工”功能，支持一键同步imooc、csdn、iteye或者cnblogs上的文章，可抓取列表和单个文章
-- **第三方授权登录**：集成[JustAuth](https://gitee.com/yadong.zhang/JustAuth)实现第三方授权登录
-# Demo 演示
-
-[前台demo](http://dblog-web.zhyd.me/)
-
-[后台demo(root,123456)](http://dblog-admin.zhyd.me)
-
-![admin端首页](https://images.gitee.com/uploads/images/2019/0129/191117_221c6064_784199.png "admin-index.png")
-![admin端文章列表也](https://images.gitee.com/uploads/images/2019/0129/191135_21e4f61c_784199.png "admin-article.png")
-![admin端发布文章页](https://images.gitee.com/uploads/images/2019/0129/191150_0d28d51a_784199.png "admin-publish-article.png")
-![admin端系统配置页](https://images.gitee.com/uploads/images/2019/0129/191203_cc6941e4_784199.png "admin-config.png")
-![admin端文章搬运工](https://images.gitee.com/uploads/images/2019/0129/191214_5e8f3c34_784199.png "admin-spider.png")
-![admin端文章搬运工](https://images.gitee.com/uploads/images/2019/0129/191237_d015fcda_784199.png "admin-spider2.png")
-![web端首页-pc](https://images.gitee.com/uploads/images/2019/0129/191409_d2604f7d_784199.png "web-index-pc.png")
-![web端首页-mobile](https://images.gitee.com/uploads/images/2019/0129/191428_c76317e8_784199.png "web-index.png")
-![web端文章详情页](https://images.gitee.com/uploads/images/2019/0129/191448_a2777443_784199.png "web-article-detail.png")
+- **文章搬运工**：集成[blog-hunter](https://gitee.com/yadong.zhang/blog-hunter)实现“文章搬运工”功能，支持一键同步imooc、csdn、iteye或者cnblogs上的文章，可抓取列表和单个文章
+- **第三方授权登录**：集成 [JustAuthPlus（JAP）](https://gitee.com/fujieid/jap) 实现第三方授权登录
+- **自定义网站内容**：管理员可自定义“关于本站”、“留言板”、“友情链接”、“免责声明”、“Footer”、“鼠标点击时的气泡文字”、“热门搜索的待选项”等内容
+- **流控**：针对异常IP的连续大量访问，系统会自动封禁该IP。
 
 ----
 
@@ -74,7 +77,6 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 | blog-admin | 后台管理模块 | 该模块作为单独项目打包部署 |
 | blog-web | 前台模块 | 该模块作为单独项目打包部署 |
 | blog-file | 文件存储功能模块 | 支持local、七牛云和阿里云OSS |
-| ~~blog-spider~~ | 爬虫相关代码模块 | 已使用[blog-hunter](https://gitee.com/yadong.zhang/blog-hunter)插件替代 |
 
 
 # 技术栈
@@ -122,22 +124,25 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 ...
 
 # Who is using?
-- [张亚东博客](https://www.zhyd.me)
-- [攻城狮不是猫博客](http://www.jsdblog.com)
-- [小公举的博客](https://loveyatou.top/)
-- [陈晓雷的博客](http://www.csxll.top)
-- [Li Pan's 博客](http://www.lipan.xyz/)
-- [MTR小站](https://www.itmtr.cn/)
-- [怀念时光](https://blog.earic.club/)
-- [Java干货铺子](http://www.itsoku.com/)
-- [介龙平博客](https://www.jlpyyf.com/)
-- [大数据施工现场](http://blog.sev7e0.site/)
-- [fireflyi博客](https://www.fireflyi.com/)
-- [AIAS编程有道](http://www.piqiandong.com/)
-- [btmcheck博客](https://btmcheck.com/)
-- [我的博客](http://www.chenyunkeji.com/)
 
-烦请各位使用OneBlog的朋友，能留下你的网址（没别的意思，只是看看有多少人而已） - [点这儿](https://gitee.com/yadong.zhang/DBlog/issues/ILIAQ)
+烦请各位使用 OneBlog 的朋友，能留下你的网址 - [点这儿](https://gitee.com/yadong.zhang/DBlog/issues/ILIAQ)
+
+----
+
+# 预览
+
+![web端首页-pc](docs/_media/1601f937.png)
+![web端文章详情页](docs/_media/e922c529.png)
+![web端文章详情页 - 私密文章](docs/_media/ff9a84a3.png)
+![web端文章详情页 - 私密文章](docs/_media/cd37ba37.png)
+![web端首页-mobile](https://images.gitee.com/uploads/images/2019/0129/191428_c76317e8_784199.png "web端首页-mobile")
+
+![admin端首页](https://images.gitee.com/uploads/images/2019/0129/191117_221c6064_784199.png "admin端首页")
+![admin端文章列表也](https://images.gitee.com/uploads/images/2019/0129/191135_21e4f61c_784199.png "admin端文章列表也")
+![admin端发布文章页](https://images.gitee.com/uploads/images/2019/0129/191150_0d28d51a_784199.png "admin端发布文章页")
+![admin端系统配置页](https://images.gitee.com/uploads/images/2019/0129/191203_cc6941e4_784199.png "admin端系统配置页")
+![admin端文章搬运工](https://images.gitee.com/uploads/images/2019/0129/191214_5e8f3c34_784199.png "admin端文章搬运工")
+![admin端文章搬运工](https://images.gitee.com/uploads/images/2019/0129/191237_d015fcda_784199.png "admin端文章搬运工")
 
 ----
 
@@ -149,8 +154,8 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
  **QQ群** 
 
-1. 1群[![](https://images.gitee.com/uploads/images/2019/0129/191256_a40bceba_784199.png)](https://shang.qq.com/wpa/qunwpa?idkey=3571c554a143eff1e15807de033a240196c6b493b25b903d1d37571cfb6040aa)（ **已升为1000人群** ）
-2. 2群[![](https://images.gitee.com/uploads/images/2019/0129/191256_a40bceba_784199.png)](https://shang.qq.com/wpa/qunwpa?idkey=38594b12fb0ec66459f0dba0316648a5c4bb71ea613289e5b57b8f44ad83ebc9)（ **人很少** ）
+1. 1群[![](https://images.gitee.com/uploads/images/2019/0129/191256_a40bceba_784199.png)](https://shang.qq.com/wpa/qunwpa?idkey=3571c554a143eff1e15807de033a240196c6b493b25b903d1d37571cfb6040aa)
+2. 2群[![](https://images.gitee.com/uploads/images/2019/0129/191256_a40bceba_784199.png)](https://shang.qq.com/wpa/qunwpa?idkey=38594b12fb0ec66459f0dba0316648a5c4bb71ea613289e5b57b8f44ad83ebc9)
 
 # 赞助
 
@@ -162,7 +167,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 
 # 生命不息，折腾不止！ 更多信息，请关注：
- 1. [我的博客](https://www.zhyd.me)
+ 1. [我的博客](https://docs.zhyd.me)
  2. [我的微博](http://weibo.com/211230415)
  3. [我的头条号](http://www.toutiao.com/c/user/3286958681/)
  4. [我的imooc](http://www.imooc.com/u/1175248/articles)
@@ -176,6 +181,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - [emoji表情列表](https://github.com/caiyongji/emoji-list#nature): emoji表情列表
 - [blog-hunter](https://github.com/zhangyd-c/blog-hunter): 博客猎手，基于webMagic的博客爬取工具，支持慕课、csdn、iteye、cnblogs、掘金和V2EX等各大主流博客平台。
 - [JustAuth](https://gitee.com/yadong.zhang/JustAuth): 史上最全的整合第三方登录的工具,目前已支持Github、Gitee、微博、钉钉、百度、Coding、腾讯云开发者平台、OSChina、支付宝、QQ、微信、淘宝、Google、Facebook、抖音、领英、小米、微软和今日头条等第三方平台的授权登录。 Login, so easy!
+- [JAP](https://gitee.com/fujieid/jap): 一款开源的登录认证中间件，基于模块化设计，并且与业务高度解耦，使用起来非常灵活，开发者可以毫不费力地将 JAP 集成到任何 web 应用程序中，就像集成 JustAuth 一样，简单方便。
 - 待续...
 
 # 开源协议

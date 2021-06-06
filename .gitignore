@@ -21,3 +21,4 @@
 hs_err_pid*
 /.idea/
 *.iml
+/blog-core/src/main/resources/config/application-center-prod.yml

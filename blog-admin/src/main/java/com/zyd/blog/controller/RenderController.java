@@ -5,7 +5,7 @@ package com.zyd.blog.controller;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/4/24 14:37
  * @since 1.0
  */
@@ -35,7 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/4/24 14:37
  * @since 1.0
  */
@@ -210,5 +210,12 @@ public class RenderController {
     @GetMapping("/files")
     public ModelAndView files(Model model) {
         return ResultUtil.view("file/list");
+    }
+
+    @RequiresPermissions("socials")
+    @BussinessLog("进入社会化登录配置管理页面")
+    @GetMapping("/socials")
+    public ModelAndView socials(Model model) {
+        return ResultUtil.view("social/list");
     }
 }

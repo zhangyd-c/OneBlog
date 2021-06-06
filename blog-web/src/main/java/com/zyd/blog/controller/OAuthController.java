@@ -1,29 +1,31 @@
 package com.zyd.blog.controller;
 
-import com.zyd.blog.business.service.AuthService;
-import com.zyd.blog.plugin.oauth.RequestFactory;
-import com.zyd.blog.util.RequestUtil;
+import com.fujieid.jap.core.JapUser;
+import com.fujieid.jap.core.JapUserService;
+import com.fujieid.jap.core.config.JapConfig;
+import com.fujieid.jap.core.context.JapAuthentication;
+import com.fujieid.jap.core.result.JapResponse;
+import com.fujieid.jap.social.SocialStrategy;
+import com.zyd.blog.business.entity.SocialConfig;
+import com.zyd.blog.business.entity.User;
+import com.zyd.blog.business.service.SysSocialConfigService;
+import com.zyd.blog.framework.exception.ZhydException;
+import com.zyd.blog.plugin.oauth.JapUtil;
 import com.zyd.blog.util.ResultUtil;
-import me.zhyd.oauth.model.AuthCallback;
-import me.zhyd.oauth.model.AuthResponse;
-import me.zhyd.oauth.model.AuthToken;
-import me.zhyd.oauth.request.AuthRequest;
-import me.zhyd.oauth.utils.AuthStateUtils;
+import com.zyd.blog.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2019/2/19 9:28
  * @since 1.8
  */
@@ -32,59 +34,38 @@ import java.io.IOException;
 public class OAuthController {
 
     @Autowired
-    private AuthService authService;
+    private SysSocialConfigService sysSocialConfigService;
+    @Autowired
+    private JapUserService japUserService;
 
-    @RequestMapping("/render/{source}")
-    public void renderAuth(@PathVariable("source") String source, HttpServletResponse response, HttpSession session) throws IOException {
-        AuthRequest authRequest = RequestFactory.getInstance(source).getRequest();
-        session.setAttribute("historyUrl", RequestUtil.getReferer());
-        response.sendRedirect(authRequest.authorize(AuthStateUtils.createState()));
-    }
-
-    /**
-     * 授权回调地址
-     *
-     * @param source   授权回调来源
-     * @param callback 回调参数包装类
-     * @return
-     */
-    @RequestMapping("/callback/{source}")
-    public ModelAndView login(@PathVariable("source") String source, AuthCallback callback, HttpSession session) {
-        authService.login(source, callback);
-        String historyUrl = (String) session.getAttribute("historyUrl");
-        session.removeAttribute("historyUrl");
-        if (StringUtils.isEmpty(historyUrl)) {
+    @RequestMapping("/social/{source}")
+    public ModelAndView renderAuth(@PathVariable("source") String source, HttpServletResponse response, HttpServletRequest request) {
+        SocialConfig socialConfig = sysSocialConfigService.getByPlatform(source);
+        if (null == socialConfig) {
+            throw new ZhydException(source + " 平台的配置尚未完成，暂时不支持登录！");
+        }
+        SocialStrategy socialStrategy = new SocialStrategy(japUserService, new JapConfig());
+        JapResponse japResponse = socialStrategy.authenticate(JapUtil.blogSocialConfig2JapSocialConfig(socialConfig, source), request, response);
+        if (!japResponse.isSuccess()) {
+            throw new ZhydException(japResponse.getMessage());
+        }
+        if (japResponse.isRedirectUrl()) {
+            return ResultUtil.redirect((String) japResponse.getData());
+        } else {
+            JapUser japUser = (JapUser) japResponse.getData();
+            User user = (User) japUser.getAdditional();
+            SessionUtil.setUser(user);
             return ResultUtil.redirect("/");
         }
-        return ResultUtil.redirect(historyUrl);
-    }
-
-    /**
-     * 收回授权
-     *
-     * @param source
-     * @param token
-     * @return
-     * @throws IOException
-     */
-    @RequestMapping("/revoke/{source}/{token}")
-    public ModelAndView revokeAuth(@PathVariable("source") String source, @PathVariable("token") String token) throws IOException {
-        AuthRequest authRequest = RequestFactory.getInstance(source).getRequest();
-        AuthResponse response = authRequest.revoke(AuthToken.builder().accessToken(token).build());
-        if (response.getCode() == 2000) {
-            return ResultUtil.redirect("/");
-        }
-        return ResultUtil.redirect("/login");
     }
 
     /**
      * 退出登录
-     *
-     * @throws IOException
      */
     @RequestMapping("/logout")
-    public ModelAndView logout() {
-        authService.logout();
+    public ModelAndView logout(HttpServletResponse response, HttpServletRequest request) {
+        JapAuthentication.logout(request, response);
+        SessionUtil.removeUser();
         return ResultUtil.redirect("/");
     }
 

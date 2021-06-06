@@ -41,7 +41,7 @@
                             <#list recommendedList as item>
                             <div class="item ${(item_index == 0)?string('active','')}">
                                 <a href="${config.siteUrl}/article/${item.id?c}">
-                                    <img src="${item.coverImage}" alt="${item.title}" title="${item.title}">
+                                    <img src="${item.coverImage}" onerror="this.src='${config.staticWebSite}/img/defaultbanner.png'" alt="${item.title}" title="${item.title}">
                                 </a>
                                 <div class="zyd-carousel-caption">${item.title}</div>
                             </div>
@@ -65,12 +65,15 @@
                         <#if item.coverImage?? && (item.coverImage?length > 7)>
                             <figure class="thumbnail">
                                 <a href="${config.siteUrl}/article/${item.id?c}">
-                                    <img width="150" height="150" <#if config.lazyloadPath!>data-original<#else>src</#if>="${item.coverImage}" class="img-responsive lazy-img" alt="${item.title!}">
+                                    <img width="150" height="150" <#if config.lazyloadPath!>data-original<#else>src</#if>="${item.coverImage}" onerror="this.src='${config.staticWebSite}/img/default.png'" class="img-responsive lazy-img" alt="${item.title!}">
                                 </a>
-                                <span class="cat"><a href="${config.siteUrl}/type/${item.typeId?c}">${item.type.name}</a></span>
                             </figure>
                         </#if>
                         <header class="entry-header">
+                            <#if item.private>
+                            <span class="art-type art-type-yellow"><i class="fa fa-lock fa-fw"></i>私密</span>
+                            </#if>
+                            <span class="art-type"><a href="${config.siteUrl}/type/${item.typeId?c}">${item.type.name}</a></span>
                             <h2 class="entry-title">
                                 <a href="${config.siteUrl}/article/${item.id?c}" rel="bookmark" title="${item.title}" data-toggle="tooltip" data-placement="bottom">${item.title}</a>
                             </h2>
@@ -79,7 +82,6 @@
                             <div class="archive-content">
                                 ${item.description!}
                             </div>
-                            <span class="title-l"></span>
                             <span class="entry-meta">
                                 <span class="date" title="文章发表日期" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-clock-o fa-fw"></i>${item.createTime?string('yyyy-MM-dd')}</span>
                                 <span class="views" title="文章阅读次数" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-eye fa-fw"></i>浏览(${item.lookCount!(0)})</span>
@@ -119,12 +121,13 @@
                         <div class="clear" style="margin-bottom: 10px"></div>
                         <ul class="list-unstyled list-inline search-hot">
                             <li><strong style="position: relative;top: 2px;color: #999999;">热门搜索：</strong></li>
-                            <li><a class="pointer" rel="external nofollow"><span class="label label-default">Java</span></a></li>
-                            <li><a class="pointer" rel="external nofollow"><span class="label label-primary">Springboot</span></a></li>
-                            <li><a class="pointer" rel="external nofollow"><span class="label label-success">Linux</span></a></li>
-                            <li><a class="pointer" rel="external nofollow"><span class="label label-info">Maven</span></a></li>
-                            <li><a class="pointer" rel="external nofollow"><span class="label label-warning">Bootstrap</span></a></li>
-                            <li><a class="pointer" rel="external nofollow"><span class="label label-danger">阿里云</span></a></li>
+                            <@zhydTag method="searchOptions">
+                                <#if searchOptions?? && (searchOptions?size > 0)>
+                                    <#list searchOptions as item>
+                                        <li><a class="pointer" rel="external nofollow"><span class="label label-info">${item}</span></a></li>
+                                    </#list>
+                                </#if>
+                            </@zhydTag>
                         </ul>
                     </form>
                 </article>

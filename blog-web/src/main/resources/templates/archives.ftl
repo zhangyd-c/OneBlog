@@ -79,6 +79,6 @@
             })();
         });
     </script>
-    <script src="https://v1.hitokoto.cn/?encode=js&c=d&select=.hitokoto%27);dom=$('.hitokoto');for(var i=0;i<dom.length;i%2B%2B){dom[i].innerText=hitokoto;}})()//" defer></script>
+    <script src="https://v1.hitokoto.cn/?encode=js&c=i&select=.hitokoto%27);dom=$('.hitokoto');for(var i=0;i<dom.length;i%2B%2B){dom[i].innerText=hitokoto;}})()//" defer></script>
 </@footer>
 </@compress>
