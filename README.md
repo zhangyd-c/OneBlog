@@ -65,6 +65,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - **文章搬运工**：集成[blog-hunter](https://gitee.com/yadong.zhang/blog-hunter)实现“文章搬运工”功能，支持一键同步imooc、csdn、iteye或者cnblogs上的文章，可抓取列表和单个文章
 - **第三方授权登录**：集成 [JustAuthPlus（JAP）](https://gitee.com/fujieid/jap) 实现第三方授权登录
 - **自定义网站内容**：管理员可自定义“关于本站”、“留言板”、“友情链接”、“免责声明”、“Footer”、“鼠标点击时的气泡文字”、“热门搜索的待选项”等内容
+- **流控**：针对异常IP的连续大量访问，系统会自动封禁该IP。
 
 ----
 
