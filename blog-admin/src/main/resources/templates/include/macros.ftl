@@ -89,19 +89,17 @@
 <#-- 面包屑导航内容 + 系统通知 -->
 <#macro breadcrumb>
     <div class="row">
-        <div class="col col-md-8">
-            <nav class="breadcrumb">
-                <div class="notify"><i class="fa fa-bullhorn fa-fw"></i></div>
-                <div id="scrolldiv">
-                    <div class="scrolltext">
-                        <ul class="list-unstyled" id="notice-box">
-                            <li class="scrolltext-title">
-                                <a href="javascript:void(0)" rel="bookmark">其实我们可以将所有的问题归结为两种：一种是没饭吃饿出来的；一种是吃饱了撑出来的。</a>
-                            </li>
-                        </ul>
-                    </div>
+        <div class="col col-md-8 col-xs-12">
+            <div class="notify"><i class="fa fa-bullhorn fa-fw"></i></div>
+            <div id="scrolldiv">
+                <div class="scrolltext">
+                    <ul class="list-unstyled" id="notice-box">
+                        <li class="scrolltext-title">
+                           其实我们可以将所有的问题归结为两种：一种是没饭吃饿出来的；一种是吃饱了撑出来的。
+                        </li>
+                    </ul>
                 </div>
-            </nav>
+            </div>
         </div>
         <div class="col col-md-4 text-right">
             <#nested>

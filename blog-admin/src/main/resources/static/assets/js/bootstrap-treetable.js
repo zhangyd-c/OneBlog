@@ -24,7 +24,7 @@
         target.data_list = null; //用于存放格式化后的数据-按父分组
         target.data_obj = null; //用于存放格式化后的数据-按id存对象
         // 在外层包装一下div，样式用的bootstrap-table的
-        var _main_div = $("<div class='bootstrap-tree-table'></div>");
+        var _main_div = $("<div class='bootstrap-tree-table' style='overflow: hidden;overflow-x: auto;'></div>");
         target.before(_main_div);
         _main_div.append(target);
         target.addClass("table table-hover treetable-table");
@@ -36,7 +36,7 @@
         }
         // 工具条在外层包装一下div，样式用的bootstrap-table的
         if (options.toolbar) {
-            var _tool_div = $("<div class='treetable-bars pull-left'></div>");
+            var _tool_div = $("<div class='treetable-bars'></div>");
             _tool_div.append($(options.toolbar));
             _main_div.before(_tool_div);
         }
@@ -183,7 +183,7 @@
             });
             target.append(tbody);
             //动态设置表头宽度
-            thead.css("width", tbody.children(":first").css("width"));
+            thead.css("width", "100%");
             registerExpanderEvent();
             registerRowClickEvent();
         };
