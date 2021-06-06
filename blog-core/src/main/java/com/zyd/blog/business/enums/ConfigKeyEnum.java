@@ -236,6 +236,11 @@ public enum ConfigKeyEnum {
      * 自定义“CSS”内容
      */
     CUSTOM_CSS("customCss"),
+
+    /**
+     * blog-hunter 配置文件，如果没有添加该配置，则默认取 src/main/resources/HunterConfig.json
+     */
+    BLOG_HUNTER_CONFIG("blogHunterConfig"),
     ;
 
     private final String key;

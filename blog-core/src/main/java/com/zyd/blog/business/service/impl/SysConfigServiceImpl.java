@@ -164,7 +164,7 @@ public class SysConfigServiceImpl implements SysConfigService {
     @Override
     @RedisCache(enable = false)
     public String getSpiderConfig() {
-        SysConfig config = this.getByKey("spiderConfig");
+        SysConfig config = this.getByKey(ConfigKeyEnum.BLOG_HUNTER_CONFIG.getKey());
         if (config == null) {
             return "{}";
         }
