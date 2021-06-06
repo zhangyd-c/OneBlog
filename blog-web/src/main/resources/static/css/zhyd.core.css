@@ -442,7 +442,7 @@ a:-webkit-any-link {
     /*background-color: #c40000;
     color: #fff;*/
     color: #333 !important;
-    border-bottom: 4px solid #333 !important;
+    border-bottom: 1px solid #a5a5a5 !important;
     font-weight: 700;
     background-color: initial !important;
 }

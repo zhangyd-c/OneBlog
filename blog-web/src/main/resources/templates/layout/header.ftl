@@ -95,8 +95,8 @@
                         <#list types as item>
                             <#if item.nodes?? && item.nodes?size gt 0>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle menu_a" data-toggle="dropdown" aria-expanded="false">
-                                        <i class="${item.icon!}"></i>${item.name!} <span class="caret"></span>
+                                    <a href="/type/${item.id?c}" class="menu_a">
+                                        <i class="${item.icon!}"></i>${item.name!} <span class="caret dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></span>
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
                                         <#list item.nodes as node>

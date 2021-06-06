@@ -414,4 +414,13 @@ $(function () {
             $.comment.submit($(this));
         });
     }
+
+    /**
+     * 手机端无法 hover，所以针对app端，直接将菜单全部展开
+     */
+    if((navigator.userAgent.toLowerCase().match(/(iphone|ipod|android|ios|symbianos)/i))){
+        $(".nav.navbar-nav li.dropdown").addClass("open")
+        $(".nav.navbar-nav li.dropdown a.menu_a span.dropdown-toggle").attr("aria-expanded", "true")
+    }
+
 });
