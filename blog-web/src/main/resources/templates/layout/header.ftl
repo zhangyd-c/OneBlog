@@ -77,7 +77,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand logo" href="#"></a>
+            <a class="navbar-brand" href="#">
+                <img alt="Brand" src="${config.siteFavicon}">${config.siteName}
+            </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <div class="pull-left site-desc">
