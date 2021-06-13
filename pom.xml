@@ -39,7 +39,7 @@
         <mapper.version>2.1.0</mapper.version>
         <pagehelper.version>1.2.3</pagehelper.version>
         <druid.version>1.1.10</druid.version>
-        <fastjson.version>1.2.73</fastjson.version>
+        <fastjson.version>1.2.76</fastjson.version>
         <shiro.spring.version>1.7.1</shiro.spring.version>
         <shiro.redis.version>2.4.2.1-RELEASE</shiro.redis.version>
         <shiro.freemarker.tags.version>0.1</shiro.freemarker.tags.version>
@@ -49,8 +49,7 @@
         <hutool.version>5.5.7</hutool.version>
         <spring.web.version>5.1.4.RELEASE</spring.web.version>
         <aliyun.oss.version>2.8.3</aliyun.oss.version>
-        <oneblog.version>2.2.4</oneblog.version>
-        <blog-hunter.version>1.0.1</blog-hunter.version>
+        <blog-hunter.version>1.0.4</blog-hunter.version>
         <jap.version>1.0.2</jap.version>
     </properties>
 
@@ -59,7 +58,22 @@
             <dependency>
                 <groupId>com.zyd</groupId>
                 <artifactId>blog-core</artifactId>
-                <version>${project.version}</version>
+                <version>2.2.5</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zyd</groupId>
+                <artifactId>blog-admin</artifactId>
+                <version>2.2.5</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zyd</groupId>
+                <artifactId>blog-web</artifactId>
+                <version>2.2.5</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zyd</groupId>
+                <artifactId>blog-file</artifactId>
+                <version>2.2.5</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -87,12 +101,6 @@
             <version>${hutool.version}</version>
             <scope>compile</scope>
         </dependency>
-        <!--仅用于升级springboot版本时，提供配置迁移建议-->
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.boot</groupId>-->
-        <!--<artifactId>spring-boot-properties-migrator</artifactId>-->
-        <!--<optional>true</optional>-->
-        <!--</dependency>-->
     </dependencies>
 
     <!-- Maven控制Spring Profile -->
