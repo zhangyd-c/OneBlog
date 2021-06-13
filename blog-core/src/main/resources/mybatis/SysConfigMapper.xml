@@ -15,7 +15,7 @@
 				SELECT
 					a.article_count AS articleCount,
 					t.tag_count AS tagCount,
-					type.type_count AS typeCount,
+					ty.type_count AS typeCount,
 					c.comment_count AS commentCount
 				FROM
 					(
@@ -39,7 +39,7 @@
 							biz_type
 						WHERE
 								available = 1
-					) type,
+					) ty,
 					(
 						SELECT
 							COUNT(1) AS comment_count
