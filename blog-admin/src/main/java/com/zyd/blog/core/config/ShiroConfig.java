@@ -225,6 +225,7 @@ public class ShiroConfig {
      */
     public CookieRememberMeManager rememberMeManager() {
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        // 使用自定义的序列化类
         cookieRememberMeManager.setSerializer(new MySecSerializer<>());
         cookieRememberMeManager.setCookie(rememberMeCookie());
         //rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 192 256 位)
