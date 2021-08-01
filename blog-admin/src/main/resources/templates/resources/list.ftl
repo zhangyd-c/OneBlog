@@ -114,7 +114,7 @@
                 }, {
                     field: '-',
                     title: '层级',
-                    width: "60px",
+                    width: "90px",
                     align: "center"
                 }, {
                     field: 'name',
@@ -132,6 +132,7 @@
                 }, {
                     field: 'type',
                     title: '资源类型',
+                    width: '100px',
                     formatter: function (code) {
                         return code == 'menu' ? '菜单' : '按钮';
                     }

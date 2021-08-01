@@ -18,7 +18,7 @@ $.extend({
             toobarTemplate: '<div id="tree-table-toolbar" class="btn-group" role="group" aria-label="..."><button id="add-btn" type="button" class="btn btn-info" title="新增"><i class="fa fa-plus fa-fw"> </i> </button><button id="batch-delete-btn" type="button" class="btn btn-danger" title="批量删除"><i class="fa fa-trash-o fa-fw"> </i> </button></div>',
             oprater: {
                 title: '操作',
-                width: '100px',
+                width: '130px',
                 align: "center",
                 formatter: function (value, row, index) {
                     var curId = row.id;
