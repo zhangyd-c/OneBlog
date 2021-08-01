@@ -225,8 +225,10 @@ public class ShiroConfig {
      */
     public CookieRememberMeManager rememberMeManager() {
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        // 使用自定义的序列化类
+        cookieRememberMeManager.setSerializer(new MySecSerializer<>());
         cookieRememberMeManager.setCookie(rememberMeCookie());
-        //rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
+        //rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 192 256 位)
         cookieRememberMeManager.setCipherKey(GenerateCipherKey.generateNewKey());
         return cookieRememberMeManager;
     }
@@ -251,8 +253,8 @@ public class ShiroConfig {
                 String msg = "Unable to acquire AES algorithm.  This is required to function.";
                 throw new IllegalStateException(msg, var5);
             }
-
-            kg.init(128);
+            // 满足合规应使用256位
+            kg.init(256);
             SecretKey key = kg.generateKey();
             return key.getEncoded();
         }
