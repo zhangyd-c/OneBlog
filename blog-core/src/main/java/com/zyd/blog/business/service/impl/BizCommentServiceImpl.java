@@ -205,8 +205,18 @@ public class BizCommentServiceImpl implements BizCommentService {
         if (StringUtils.isEmpty(content) || "\n".equals(content)) {
             throw new ZhydCommentException("说点什么吧");
         }
+        String url = comment.getUrl();
+        String avatar = comment.getAvatar();
+        if (!StringUtils.isEmpty(url) && !url.toLowerCase().startsWith("http://") && !url.toLowerCase().startsWith("https://")) {
+            throw new ZhydCommentException("链接地址不正确");
+        }
+        if (!StringUtils.isEmpty(avatar) && !avatar.toLowerCase().startsWith("http://") && !avatar.toLowerCase().startsWith("https://")) {
+            throw new ZhydCommentException("链接地址不正确");
+        }
         // 过滤非法属性和无用的空标签
-        if (!XssKillerUtil.isValid(content) || !XssKillerUtil.isValid(comment.getAvatar())) {
+        if (!XssKillerUtil.isValid(content) || !XssKillerUtil.isValid(comment.getAvatar())
+                || !XssKillerUtil.isValid(comment.getUrl()) || !XssKillerUtil.isValid(comment.getNickname())
+                || !XssKillerUtil.isValid(comment.getQq()) || !XssKillerUtil.isValid(comment.getEmail())) {
             throw new ZhydCommentException("请不要使用特殊标签");
         }
         content = XssKillerUtil.clean(content.trim()).replaceAll("(<p><br></p>)|(<p></p>)", "");

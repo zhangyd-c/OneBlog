@@ -51,6 +51,7 @@ public class HtmlUtil {
                 .replaceAll("&#39;", "\'")
                 .replaceAll("&lt;", "<")
                 .replaceAll("&gt;", ">")
+                .replaceAll("javascript:", "")
                 .replaceAll("[ \\f\\t\\v]{2,}", "\t");
 
         String regEx = "<.+?>";
