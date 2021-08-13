@@ -26,15 +26,12 @@
         </layout>
     </appender>
 
-    <logger name="org.springframework.core.env" level="ERROR"/>
-    <logger name="us.codecraft.webmagic.downloader" level="WARN"/>
-    <logger name="com.zyd.blog.framework.runner" level="INFO"/>
+    <logger name="org.springframework.core.env" level="DEBUG"/>
+    <logger name="us.codecraft.webmagic.downloader" level="DEBUG"/>
+    <logger name="com.zyd.blog.framework.runner" level="DEBUG"/>
 
     <!-- 测试环境+开发环境，日志级别为INFO且不写日志文件 -->
-    <springProfile name="test,dev">
-        <logger name="com.zyd.blog" additivity="false">
-            <appender-ref ref="STDOUT"/>
-        </logger>
+    <springProfile name="dev">
         <root level="INFO">
             <appender-ref ref="STDOUT"/>
         </root>
@@ -42,15 +39,10 @@
 
     <!-- 生产环境. 日志级别为WARN且写日志文件-->
     <springProfile name="prod">
-        <logger name="com.zyd.blog" additivity="false">
-            <appender-ref ref="STDOUT"/>
-            <appender-ref ref="FILE" />
-        </logger>
-
         <root level="WARN">
             <appender-ref ref="STDOUT"/>
             <appender-ref ref="FILE" />
         </root>
     </springProfile>
 
-</configuration>  
+</configuration>
