@@ -99,7 +99,11 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - ...
 
 
-# 使用方法(以blog-web项目为例)
+# 快速开始
+
+## 源码方式
+
+> `blog-web` 和 `blog-admin` 的运行方式一样
 
 1. 使用IDE导入本项目
 2. 新建数据库`CREATE DATABASE dblog;`
@@ -109,12 +113,17 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
    1. 数据库链接属性(在`[blog-core]/resources/config/application-center-{env}.yml`配置文件中搜索`datasource`或定位到L.5) 
    2. redis配置(在`[blog-core]/resources/config/application-center-{env}.yml`配置文件中搜索`redis`或定位到L.14)
    3. 以上两个必备的配置项修改完成后就能启动项目了。关于其他配置项，请参考后台“系统配置”页面
-6. 运行项目(三种方式，任选其一)
-   1. 项目根目录下执行`mvn -X clean package -Dmaven.test.skip=true -Ptest`编译打包（注：-Ptest中的test为环境标识），然后cd到blog-web目录下执行`java -jar target/blog-web.jar`
-   2. 在`blog-web`项目根目录下执行`mvn spring-boot:run`(注，如果报依赖错误，可在相关的依赖模块先执行install操作)
-   3. 直接运行`BlogWebApplication.java`
-7. 浏览器访问`http://127.0.0.1:8443`
-8. `blog-admin`项目的启动方式与`blog-web`类似，请参考上面的使用说明
+6. 运行项目：直接运行 `blog-web/src/main/java/com/zyd/blog/BlogWebApplication.java` 或者 `blog-admin/src/main/java/com/zyd/blog/BlogAdminApplication.java`
+7. 浏览器访问`http://127.0.0.1:{port}`
+
+> 后台默认账号密码：root/123456
+
+## Docker Compose
+
+1. 进入 `docs/docker` 目录
+2. 按照注释修改 `.env` 文件
+3. 执行 `deploy.sh`
+
 
 # 后续扩展
 - [ ] 1. 页面缓存
