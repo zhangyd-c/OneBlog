@@ -101,6 +101,18 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 # 快速开始
 
+## Docker Compose（推荐）
+
+1. 在任意位置下分别创建 `.env` 和 `docker-compose.yml`（可以参考或直接复制`docs/docker/docker-compose-prod.yml`的内容） 文件
+2. 执行 `docker-compose -p oneblog up -d`
+
+## Docker Compose
+
+1. 打包项目 `mvn clean package -Dmaven.test.skip=true -Pdev`
+2. 进入 `docs/docker` 目录
+3. 按照注释修改 `.env` 文件
+4. 执行 `docker-compose -p oneblog up -d`
+
 ## 源码方式
 
 > `blog-web` 和 `blog-admin` 的运行方式一样
@@ -117,21 +129,6 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 7. 浏览器访问`http://127.0.0.1:{port}`
 
 > 后台默认账号密码：root/123456
-
-## Docker Compose
-
-1. 打包项目 `mvn clean package -Dmaven.test.skip=true -Pdev`
-2. 进入 `docs/docker` 目录
-3. 按照注释修改 `.env` 文件
-4. 执行 `docker-compose -p oneblog up -d`
-
-
-# 后续扩展
-- [ ] 1. 页面缓存
-- [ ] 2. cc防护
-- [ ] 3. 配套小程序
-- [ ] 4. 待续...
-...
 
 # Who is using?
 

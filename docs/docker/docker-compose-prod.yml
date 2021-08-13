@@ -1,5 +1,5 @@
-# 通过本地编译的形式运行
-# 可以随时修改源代码后 repackage 然后重新构建本地镜像
+# 使用构建好的镜像运行
+# 官方稳定版
 version: '3.3'
 services:
 
@@ -24,7 +24,6 @@ services:
   # MySQL
   blog-mysql:
     image: justauth/blog-mysql
-    build: ./mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${ONEBLOG_DATASOURCE_PASSWORD}
       TZ: Asia/Shanghai
@@ -46,7 +45,6 @@ services:
   # admin 服务
   blog-admin:
     image: justauth/blog-admin
-    build: ../../blog-admin
     restart: always
     container_name: blog-admin
     hostname: blog-admin
@@ -84,7 +82,6 @@ services:
   # admin 服务
   blog-web:
     image: justauth/blog-web
-    build: ../../blog-web
     restart: always
     container_name: blog-web
     hostname: blog-web
