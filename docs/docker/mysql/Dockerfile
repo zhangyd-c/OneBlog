@@ -9,6 +9,6 @@ ADD ./config/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
 
 RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-COPY ../../db/dblog.sql /docker-entrypoint-initdb.d
+COPY ./dblog.sql /docker-entrypoint-initdb.d
 
-COPY ../../db/init_data.sql /docker-entrypoint-initdb.d
+COPY ./init_data.sql /docker-entrypoint-initdb.d

@@ -120,9 +120,10 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 ## Docker Compose
 
-1. 进入 `docs/docker` 目录
-2. 按照注释修改 `.env` 文件
-3. 执行 `deploy.sh`
+1. 打包项目 `mvn clean package -Dmaven.test.skip=true -Pdev`
+2. 进入 `docs/docker` 目录
+3. 按照注释修改 `.env` 文件
+4. 执行 `docker-compose -p oneblog up -d`
 
 
 # 后续扩展
