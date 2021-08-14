@@ -48,7 +48,7 @@
     </#if>
     <div class="sidebar-module article-module hide" style="top: 0;">
         <h5 class="custom-title"><i class="fa fa-book fa-fw icon"></i><strong>本文目录</strong><i class="fa fa-close pull-right close-article-menu hide pointer"></i><small></small></h5>
-        <div id="article-menu">
+        <div id="article-menu" style="overflow:auto">
             <ul class="list-unstyled"></ul>
         </div>
     </div>
