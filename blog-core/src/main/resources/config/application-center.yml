@@ -5,12 +5,12 @@ spring:
     # 指定SMTP server使用的协议，默认为: smtp
     protocol: smtp
     # 指定SMTP server host.
-    host: ${ONEBLOG_MAIL_HOST}
+    host: ${ONEBLOG_MAIL_HOST:x}
     port: ${ONEBLOG_MAIL_PORT:465}
     # 指定SMTP server的用户名.
-    username: ${ONEBLOG_MAIL_USERNAME}
+    username: ${ONEBLOG_MAIL_USERNAME:x}
     # 指定SMTP server登录密码:
-    password: ${ONEBLOG_MAIL_PASSWORD}
+    password: ${ONEBLOG_MAIL_PASSWORD:x}
     # 指定是否在启动时测试邮件服务器连接，默认为false
     test-connection: false
     properties:

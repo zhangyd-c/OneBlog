@@ -32,7 +32,7 @@
 
     <!-- 测试环境+开发环境，日志级别为INFO且不写日志文件 -->
     <springProfile name="dev">
-        <root level="INFO">
+        <root level="DEDBUG">
             <appender-ref ref="STDOUT"/>
         </root>
     </springProfile>
