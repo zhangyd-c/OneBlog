@@ -119,8 +119,8 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 1. 使用IDE导入本项目
 2. 新建数据库`CREATE DATABASE dblog;`
-3. 导入数据库`docs/db/dblog.sql`
-4. 初始化数据库`docs/db/init_data.sql`
+3. 导入数据库`docs/docker/mysql/dblog.sql`
+4. 初始化数据库`docs/docker/mysql/init_data.sql`
 5. 修改配置文件
    1. 数据库链接属性(在`[blog-core]/resources/config/application-center-{env}.yml`配置文件中搜索`datasource`或定位到L.5) 
    2. redis配置(在`[blog-core]/resources/config/application-center-{env}.yml`配置文件中搜索`redis`或定位到L.14)
