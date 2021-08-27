@@ -5,7 +5,7 @@
 
     <groupId>com.zyd</groupId>
     <artifactId>blog</artifactId>
-    <version>2.2.5</version>
+    <version>${oneblog.version}</version>
     <packaging>pom</packaging>
     <modules>
         <module>blog-core</module>
@@ -25,6 +25,7 @@
     </parent>
 
     <properties>
+        <oneblog.version>2.2.7</oneblog.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -58,22 +59,22 @@
             <dependency>
                 <groupId>com.zyd</groupId>
                 <artifactId>blog-core</artifactId>
-                <version>2.2.5</version>
+                <version>${oneblog.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.zyd</groupId>
                 <artifactId>blog-admin</artifactId>
-                <version>2.2.5</version>
+                <version>${oneblog.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.zyd</groupId>
                 <artifactId>blog-web</artifactId>
-                <version>2.2.5</version>
+                <version>${oneblog.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.zyd</groupId>
                 <artifactId>blog-file</artifactId>
-                <version>2.2.5</version>
+                <version>${oneblog.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -116,17 +117,6 @@
             </properties>
             <build>
                 <!-- 产生的构件的文件名，默认值是${artifactId}-${version}-->
-                <finalName>${project.artifactId}</finalName>
-            </build>
-        </profile>
-        <!--生产配置-->
-        <profile>
-            <id>prod</id>
-            <properties>
-                <profileActive>prod</profileActive>
-            </properties>
-            <build>
-                <!-- 产生的构件的文件名-->
                 <finalName>${project.artifactId}</finalName>
             </build>
         </profile>
