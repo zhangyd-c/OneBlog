@@ -4,7 +4,6 @@ import cn.hutool.core.thread.ThreadFactoryBuilder;
 import com.zyd.blog.core.schedule.ArticleLookTask;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -21,8 +20,6 @@ import java.util.concurrent.*;
 @Component
 public class TaskRunner implements ApplicationRunner {
 
-    @Value("${server.port}")
-    private int port;
     @Autowired
     private ArticleLookTask articleLookTask;
 
@@ -35,7 +32,7 @@ public class TaskRunner implements ApplicationRunner {
                 new LinkedBlockingQueue<Runnable>(1024),
                 articleLookThreadFactory, new ThreadPoolExecutor.AbortPolicy());
 
-        singleThreadPool.execute(()-> articleLookTask.save());
+        singleThreadPool.execute(() -> articleLookTask.save());
         singleThreadPool.shutdown();
     }
 }

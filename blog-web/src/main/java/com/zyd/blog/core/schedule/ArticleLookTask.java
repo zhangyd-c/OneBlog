@@ -28,7 +28,7 @@ public class ArticleLookTask {
 
     private final BizArticleLookService articleLookService;
 
-    private BlockingQueue<ArticleLook> queue = new ArrayBlockingQueue<>(1024);
+    private final BlockingQueue<ArticleLook> queue = new ArrayBlockingQueue<>(1024);
 
     /**
      * 保存文章的浏览记录，先进先出
