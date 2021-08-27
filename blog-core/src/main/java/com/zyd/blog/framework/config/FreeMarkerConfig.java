@@ -2,6 +2,7 @@ package com.zyd.blog.framework.config;
 
 import com.jagregory.shiro.freemarker.ShiroTags;
 import com.zyd.blog.business.service.SysConfigService;
+import com.zyd.blog.framework.property.AppProperties;
 import com.zyd.blog.framework.tag.ArticleTags;
 import com.zyd.blog.framework.tag.CustomTags;
 import freemarker.template.TemplateModelException;
@@ -29,6 +30,8 @@ public class FreeMarkerConfig {
     protected ArticleTags articleTags;
     @Autowired
     private SysConfigService configService;
+    @Autowired
+    private AppProperties appProperties;
 
     /**
      * 添加自定义标签
@@ -39,6 +42,7 @@ public class FreeMarkerConfig {
         configuration.setSharedVariable("articleTag", articleTags);
         try {
             configuration.setSharedVariable("config", configService.getConfigs());
+            configuration.setSharedVariable("appInfo", appProperties);
             //shiro标签
             configuration.setSharedVariable("shiro", new ShiroTags());
         } catch (TemplateModelException e) {

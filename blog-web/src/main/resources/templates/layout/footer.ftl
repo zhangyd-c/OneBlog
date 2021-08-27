@@ -131,7 +131,7 @@
         <div class="container">
             <div class="row">
                 <div class="col col-xs-12 col-md-12 col-lg-12">
-                    <p><#if config.copyright!>${config.copyright} |</#if> Powered by <a href="https://gitee.com/yadong.zhang/DBlog" title="OneBlog是一款简洁美观、自适应的Java博客系统..." data-toggle="tooltip" data-placement="right" target="_blank"><i>OneBlog</i></a>  </p>
+                    <p><#if config.copyright!>${config.copyright} |</#if> Powered by <a href="https://gitee.com/yadong.zhang/DBlog" title="OneBlog是一款简洁美观、自适应的Java博客系统..." data-toggle="tooltip" data-placement="right" target="_blank" style="color: #4286ca;font-weight: 600;">OneBlog ${appInfo.version!}</a>  </p>
                     <#if url?? && (url == "index")>
                         <div class="inline external-links">
                             <a>友情链接：</a>

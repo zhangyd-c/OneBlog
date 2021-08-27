@@ -19,6 +19,23 @@ public class AppProperties {
     /**
      * 是否启用验证码
      */
-    public boolean enableKaptcha = false;
+    private boolean enableKaptcha = false;
+
+    /**
+     * 是否在项目启动时，打印配置文件中的 【数据库配置】，包括 mysql、redis，默认关闭，生产环境不建议开启
+     */
+    private boolean enabledPrintConfig;
+
+    /**
+     * 是否启用 redis 切面缓存。
+     * <p>
+     * 优先级高于 {@link com.zyd.blog.business.annotation.RedisCache#enable()} 配置
+     */
+    private boolean enableRedisCache;
+
+    /**
+     * 系统版本，不建议修改。有 OneBlog 作者定时更新
+     */
+    private String version;
 
 }

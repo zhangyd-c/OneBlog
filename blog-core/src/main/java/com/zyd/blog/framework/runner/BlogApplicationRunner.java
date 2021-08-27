@@ -1,5 +1,6 @@
 package com.zyd.blog.framework.runner;
 
+import com.zyd.blog.framework.property.AppProperties;
 import com.zyd.blog.framework.property.RedisProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,8 @@ public class BlogApplicationRunner extends ContextLoaderListener implements Appl
 
     @Value("${server.port}")
     private int port;
-    @Value("${spring.profiles.active}")
-    private String profile;
-    @Value("${app.enabledConfigLog}")
-    private Boolean enabledConfigLog;
+    @Autowired
+    private AppProperties appProperties;
 
     @Autowired
     private DataSourceProperties dataSourceProperties;
@@ -50,8 +49,9 @@ public class BlogApplicationRunner extends ContextLoaderListener implements Appl
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
-        if (null != enabledConfigLog && enabledConfigLog) {
-            log.info("博客关键配置信息：");
+        log.info("博客关键配置信息：");
+        log.info("current version：{}", appProperties.getVersion());
+        if (appProperties.isEnabledConfigLog()) {
             String[] activeProfiles = configurableApplicationContext.getEnvironment().getActiveProfiles();
             if (ObjectUtils.isEmpty(activeProfiles)) {
                 String[] defaultProfiles = configurableApplicationContext.getEnvironment().getDefaultProfiles();
