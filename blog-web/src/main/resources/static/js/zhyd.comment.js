@@ -4,7 +4,7 @@
  *
  * @date 2018-01-05 10:57
  * @author zhyd(yadong.zhang0415#gmail.com)
- * @link https://www.zhyd.me
+ * @link https://docs.zhyd.me
  */
 var _form = {
     valid: function(form){
@@ -126,8 +126,10 @@ $.extend({
                             var userUrl = comment.url || "javascript:void(0)";
                             var parent = comment.parent;
                             var adminIcon = '';
+                            var adminClass = '';
                             if(comment.root){
                                 adminIcon = '<img src="/img/author.png" alt="" class="author-icon" title="管理员">';
+                                adminClass = 'admin-nickname';
                             }
                             var parentQuote = parent ? '<a href="#comment-' + parent.id + '" class="comment-quote">@' + parent.nickname + '</a><div style="background-color: #f5f5f5;padding: 5px;margin: 5px;border-radius: 4px;"><i class="fa fa-quote-left"></i><p></p><div style="padding-left: 10px;">' + filterXSS(parent.content) + '</div></div>' : '';
                             commentListBox += '<li>' +
@@ -136,7 +138,7 @@ $.extend({
                                     '           <div class="user-img">' + adminIcon + '<img class="userImage" src="' + filterXSS(comment.avatar) + '" onerror="this.src=\'' + appConfig.staticPath + '/img/user.png\'"></div>' +
                                     '           <div class="user-info">' +
                                     '              <div class="nickname">' +
-                                    '                 <a target="_blank" href="' + userUrl + '" rel="external nofollow"><strong>' + comment.nickname + '</strong></a>' +
+                                    '                 <a target="_blank" href="' + userUrl + '" rel="external nofollow" class="' + adminClass + '"><strong>' + comment.nickname + '</strong></a>' +
                                     '                <i class="icons os-' + comment.osShortName + '" title="' + comment.os + '"></i>' +
                                     '                <i class="icons browser-' + comment.browserShortName + '" title="' + comment.browser + '"></i>' +
                                     '              </div>            ' +
@@ -146,7 +148,7 @@ $.extend({
                                     '              </div>' +
                                     '          </div>' +
                                     '        </div>' +
-                                    '        <div class="content">' + parentQuote + '<div>' + filterXSS(comment.content) + '</div></div>' +
+                                    '        <div class="content">' + parentQuote + '<div style="word-break: break-all;">' + filterXSS(comment.content) + '</div></div>' +
                                     '        <div class="sign">' +
                                     '            <a href="javascript:void(0);" class="comment-up" onclick="$.comment.praise(' + comment.id + ', this)"><i class="fa fa-thumbs-o-up"></i>赞(<span class="count">' + comment.support + '</span>)<i class="sepa"></i></a>' +
                                     '            <a href="javascript:void(0);" class="comment-down" onclick="$.comment.step(' + comment.id + ', this)"><i class="fa fa-thumbs-o-down"></i>踩(<span class="count">' + comment.oppose + '</span>)<i class="sepa"></i></a>' +

@@ -3,7 +3,7 @@
  * 项目核心Js类，负责项目前端模板方面的初始化等操作
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @version 1.0
  * @date 2018-04-25
  * @since 1.0
@@ -12,7 +12,7 @@ var editor = null, simplemde = null;
 
 var zhyd = window.zhyd || {
     combox: {
-        init: function () {
+        init: function (mockComboxCallback) {
             $('select[target=combox]').each(function (e) {
                 var $this = $(this);
                 var url = $this.data("url");
@@ -47,6 +47,10 @@ var zhyd = window.zhyd || {
                             var liTpl = '{{#data}}<li data-value="{{id}}">{{name}}</li>{{/data}}';
                             var html = Mustache.render(liTpl, json);
                             $this.html(html);
+
+                            if ($.isFunction(mockComboxCallback)) {
+                                mockComboxCallback();
+                            }
                         }
                     }
                 });
@@ -75,11 +79,13 @@ var zhyd = window.zhyd || {
                     function add() {
                         var thisId = $(this).data("value");
                         var thisText = $(this).text().trim();
+                        console.log(thisText);
                         $this.tagsinput('add', {"id": thisId, "name": thisText}, {add: false});
                     }
 
                     $($bindBox).find("li").each(function () {
                         var $li = $(this);
+                        console.log(222222)
                         $li.bind('click', add);
                     });
                     $(".bootstrap-tagsinput input").bind('keydown', function (event) {
@@ -103,7 +109,7 @@ var zhyd = window.zhyd || {
                         }
                     });
                 })
-            }, 500);
+            }, 700);
         }
     },
     initTextSlider: function () {
@@ -562,8 +568,7 @@ $(document).ready(function () {
             });
         }
     });
-    zhyd.combox.init();
-    zhyd.tagsInput.init();
+    zhyd.combox.init(zhyd.tagsInput.init);
     zhyd.mask.init();
 
     /**
@@ -582,7 +587,7 @@ $(document).ready(function () {
     });
 
     var notice = [
-        '<strong>Hi Boy!</strong> 前台首页的 “轮播”只会显示“推荐文章”哦',
+        '<strong class="red">Hi Boy! 前台首页的 “轮播”只会显示“推荐文章”哦</strong>',
         '要想百度搜索引擎快速收录文章，可以试试“推送”功能哦',
         '批量推送文章到百度可以一次提交多篇文章哦',
         '碰到页面显示和数据库内容不一致的情况，可以先考虑清下redis缓存哦',
@@ -592,7 +597,7 @@ $(document).ready(function () {
     ];
     var $noticeBox = $("#notice-box");
     var tpl = '{{#data}}<li class="scrolltext-title">'
-        + '<a href="javascript:void(0)" rel="bookmark">{{&.}}</a>'
+        + '{{&.}}'
         + '</li>{{/data}}';
     var html = Mustache.render(tpl, {"data": $.tool.shuffle(notice)});
     $noticeBox.html(html);

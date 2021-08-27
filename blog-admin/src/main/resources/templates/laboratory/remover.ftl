@@ -98,10 +98,10 @@
                                                     <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
                                                     <div class="col-md-9 col-sm-9 col-xs-9 tips">
                                                         <i class="fa fa-exclamation-circle"></i> 获取方式：
-                                                        <a href="javascript:;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/imooc.png" data-title="慕课网“用户ID”获取方式">慕课网</a> |
-                                                        <a href="javascript:;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/csdn.png" data-title="CSDN“用户ID”获取方式">CSDN</a> |
-                                                        <a href="javascript:;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/iteye.png" data-title="ITeye“用户ID”获取方式">ITeye</a> |
-                                                        <a href="javascript:;" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/cnblogs.png" data-title="博客园“用户ID”获取方式">博客园</a>
+                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/imooc.png" data-title="慕课网“用户ID”获取方式">慕课网</a> |
+                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/csdn.png" data-title="CSDN“用户ID”获取方式">CSDN</a> |
+                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/iteye.png" data-title="ITeye“用户ID”获取方式">ITeye</a> |
+                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#helpModal" data-img="/assets/images/spider/uid/cnblogs.png" data-title="博客园“用户ID”获取方式">博客园</a>
                                                     </div>
                                                 </div>
                                                 <div class="item form-group">

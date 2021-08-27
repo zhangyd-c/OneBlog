@@ -30,7 +30,7 @@ import java.util.Map;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/4/25 14:37
  * @since 1.0
  */
@@ -46,6 +46,7 @@ public class ShiroServiceImpl implements ShiroService {
     /**
      * 初始化权限
      */
+    @Override
     public Map<String, String> loadFilterChainDefinitions() {
         /*
             配置访问权限
@@ -84,6 +85,7 @@ public class ShiroServiceImpl implements ShiroService {
     /**
      * 重新加载权限
      */
+    @Override
     public void updatePermission() {
         ShiroFilterFactoryBean shirFilter = SpringContextHolder.getBean(ShiroFilterFactoryBean.class);
         synchronized (shirFilter) {
@@ -136,6 +138,7 @@ public class ShiroServiceImpl implements ShiroService {
      *
      * @param roleId
      */
+    @Override
     public void reloadAuthorizingByRoleId(Long roleId) {
         List<User> userList = userService.listByRoleId(roleId);
         if (CollectionUtils.isEmpty(userList)) {

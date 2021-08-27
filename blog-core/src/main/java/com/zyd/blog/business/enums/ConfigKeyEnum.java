@@ -3,7 +3,7 @@ package com.zyd.blog.business.enums;
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2019/2/12 9:37
  * @since 1.8
  */
@@ -188,12 +188,62 @@ public enum ConfigKeyEnum {
     INSTALLDATE("installdate"),
 
     /**
-     * 当切换浏览器tab时，在原tab上的标题。比如https://www.zhyd.me上的“麻溜儿回来~~~”
+     * 当切换浏览器tab时，在原tab上的标题。比如https://docs.zhyd.me上的“麻溜儿回来~~~”
      */
     DYNAMIC_TITLE("dynamicTitle"),
+
+    /**
+     * “关于本站”的页面内容
+     */
+    ABOUT_ME_HTML("aboutMeHtml"),
+
+    /**
+     * “留言板”的页面内容
+     */
+    GUESTBOOK_HTML("guestbookHtml"),
+
+    /**
+     * “友情链接”的页面内容
+     */
+    LINKS_HTML("linksHtml"),
+
+    /**
+     * footer 内容
+     */
+    FOOTER_HTML("footerHtml"),
+
+    /**
+     * web 端鼠标点击后弹出的文字，半角逗号分隔
+     */
+    BUBBLE_WORD("bubbleWord"),
+
+    /**
+     * web 端，热门搜索 中的 选项
+     */
+    SEARCH_OPTIONS("searchOptions"),
+
+    /**
+     * 自定义“免责声明”内容
+     */
+    DISCLAIMER_HTML("disclaimerHtml"),
+
+    /**
+     * 自定义“js”脚本内容
+     */
+    CUSTOM_JS("customJs"),
+
+    /**
+     * 自定义“CSS”内容
+     */
+    CUSTOM_CSS("customCss"),
+
+    /**
+     * blog-hunter 配置文件，如果没有添加该配置，则默认取 src/main/resources/HunterConfig.json
+     */
+    BLOG_HUNTER_CONFIG("blogHunterConfig"),
     ;
 
-    private String key;
+    private final String key;
 
     ConfigKeyEnum(String key) {
         this.key = key;

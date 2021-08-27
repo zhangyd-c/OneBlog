@@ -34,7 +34,7 @@ import java.util.Map;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/4/16 16:26
  * @since 1.0
  */
@@ -164,7 +164,7 @@ public class SysConfigServiceImpl implements SysConfigService {
     @Override
     @RedisCache(enable = false)
     public String getSpiderConfig() {
-        SysConfig config = this.getByKey("spiderConfig");
+        SysConfig config = this.getByKey(ConfigKeyEnum.BLOG_HUNTER_CONFIG.getKey());
         if (config == null) {
             return "{}";
         }

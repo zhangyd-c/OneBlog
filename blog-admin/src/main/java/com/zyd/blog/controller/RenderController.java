@@ -5,7 +5,7 @@ package com.zyd.blog.controller;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/4/24 14:37
  * @since 1.0
  */
@@ -14,9 +14,9 @@ import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Article;
 import com.zyd.blog.business.service.BizArticleService;
 import com.zyd.blog.business.service.SysConfigService;
+import com.zyd.blog.core.BlogHunterConfigProvider;
 import com.zyd.blog.core.websocket.server.ZydWebsocketServer;
 import com.zyd.blog.util.ResultUtil;
-import me.zhyd.hunter.config.HunterConfigTemplate;
 import me.zhyd.hunter.config.platform.Platform;
 import me.zhyd.hunter.enums.ExitWayEnum;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -35,7 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/4/24 14:37
  * @since 1.0
  */
@@ -45,9 +45,9 @@ public class RenderController {
     @Autowired
     private BizArticleService articleService;
     @Autowired
-    private SysConfigService configService;
-    @Autowired
     private ZydWebsocketServer websocketServer;
+    @Autowired
+    private BlogHunterConfigProvider blogHunterConfigProvider;
 
     @RequiresAuthentication
     @BussinessLog("进入首页")
@@ -104,7 +104,7 @@ public class RenderController {
     public ModelAndView edit(@PathVariable("id") Long id, Model model) {
         model.addAttribute("id", id);
         Article article = articleService.getByPrimaryKey(id);
-        if(article.getIsMarkdown()){
+        if (article.getIsMarkdown()) {
             return ResultUtil.view("article/publish-md");
         }
         return ResultUtil.view("article/publish");
@@ -200,7 +200,7 @@ public class RenderController {
     @GetMapping("/remover")
     public ModelAndView remover(Model model) {
         model.addAttribute("exitWayList", ExitWayEnum.values());
-        model.addAttribute("spiderConfig", HunterConfigTemplate.configTemplate.toJSONString());
+        model.addAttribute("spiderConfig", blogHunterConfigProvider.getBlogHunterConfig());
         model.addAttribute("platforms", Platform.values());
         return ResultUtil.view("laboratory/remover");
     }
@@ -210,5 +210,12 @@ public class RenderController {
     @GetMapping("/files")
     public ModelAndView files(Model model) {
         return ResultUtil.view("file/list");
+    }
+
+    @RequiresPermissions("socials")
+    @BussinessLog("进入社会化登录配置管理页面")
+    @GetMapping("/socials")
+    public ModelAndView socials(Model model) {
+        return ResultUtil.view("social/list");
     }
 }

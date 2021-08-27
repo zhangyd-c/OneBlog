@@ -28,7 +28,7 @@ import java.util.Map;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/4/18 11:48
  * @since 1.0
  */
@@ -187,6 +187,11 @@ public class RenderController {
         Article article = bizArticleService.getByPrimaryKey(articleId);
         if (article == null || ArticleStatusEnum.UNPUBLISHED.getCode() == article.getStatusEnum().getCode()) {
             return ResultUtil.forward("/error/404");
+        }
+        if(article.getPrivate()) {
+            article.setPassword(null);
+            article.setContent(null);
+            article.setContentMd(null);
         }
         model.addAttribute("article", article);
         // 上一篇下一篇

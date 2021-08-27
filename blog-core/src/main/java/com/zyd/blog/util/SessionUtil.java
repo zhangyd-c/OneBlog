@@ -11,7 +11,7 @@ import java.util.UUID;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/4/18 11:48
  * @since 1.0
  */
@@ -89,7 +89,7 @@ public class SessionUtil {
     }
 
     /**
-     * 保存验证码
+     * 删除验证码
      */
     public static void removeKaptcha() {
         RequestHolder.removeSession(SessionConst.KAPTCHA_SESSION_KEY);

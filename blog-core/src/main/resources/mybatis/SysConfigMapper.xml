@@ -4,61 +4,56 @@
 <mapper namespace="com.zyd.blog.persistence.mapper.SysConfigMapper">
 
     <select id="getSiteInfo" resultType="map">
-		SELECT
-			co.articleCount AS articleCount,
-			co.commentCount AS commentCount,
-			co.tagCount AS tagCount,
-			co.typeCount AS typeCount,
-			da.recorde_time AS lastUpdateTime
-		FROM
-			(
-				SELECT
-					a.article_count AS articleCount,
-					t.tag_count AS tagCount,
-					type.type_count AS typeCount,
-					c.comment_count AS commentCount
-				FROM
-					(
-						SELECT
-							COUNT(1) AS article_count
-						FROM
-							biz_article
-						WHERE
-								`status` = 1
-					) a,
-					(
-						SELECT
-							COUNT(1) AS tag_count
-						FROM
-							biz_tags
-					) t,
-					(
-						SELECT
-							COUNT(1) AS type_count
-						FROM
-							biz_type
-						WHERE
-								available = 1
-					) type,
-					(
-						SELECT
-							COUNT(1) AS comment_count
-						FROM
-							biz_comment
-						WHERE
-								`status` = 'APPROVED'
-					) c
-			) co
-		LEFT JOIN (
-				SELECT
-					DATE_FORMAT( recorde_time, '%Y年%m月%d日%H点') AS recorde_time
-				FROM
-					sys_update_recorde
-				ORDER BY
-					create_time DESC
-				LIMIT 1
-			) da
-		ON 1 = 1;
+
+		SELECT co.articleCount AS articleCount,
+			   co.commentCount AS commentCount,
+			   co.tagCount     AS tagCount,
+			   co.typeCount    AS typeCount,
+			   co.lookCount    AS lookCount,
+			   co.zanCount     AS zanCount,
+			   da.recorde_time AS lastUpdateTime
+
+		FROM (
+				 SELECT a.article_count AS articleCount,
+						t.tag_count     AS tagCount,
+						ty.type_count AS typeCount,
+						c.comment_count AS commentCount,
+						look.look_count AS lookCount,
+						zan.zan_count   AS zanCount
+				 FROM (
+						  SELECT COUNT(1) AS article_count
+						  FROM biz_article
+						  WHERE `status` = 1
+					  ) a,
+					  (
+						  SELECT COUNT(1) AS tag_count
+						  FROM biz_tags
+					  ) t,
+					  (
+						  SELECT COUNT(1) AS type_count
+						  FROM biz_type
+						  WHERE available = 1
+					  ) ty,
+					  (
+						  SELECT COUNT(1) AS comment_count
+						  FROM biz_comment
+						  WHERE `status` = 'APPROVED'
+					  ) c,
+					  (
+						  SELECT COUNT(1) AS look_count
+						  FROM biz_article_look
+					  ) look,
+					  (
+						  SELECT COUNT(1) AS zan_count
+						  FROM biz_article_love
+					  ) zan
+			 ) co
+				 LEFT JOIN (
+			SELECT DATE_FORMAT(recorde_time, '%Y年%m月%d日%H点') AS recorde_time
+			FROM sys_update_recorde
+			ORDER BY create_time DESC LIMIT 1
+		) da
+						   ON 1 = 1;
 	</select>
 </mapper>
 

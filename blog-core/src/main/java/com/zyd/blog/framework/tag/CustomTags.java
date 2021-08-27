@@ -2,31 +2,31 @@ package com.zyd.blog.framework.tag;
 
 import com.zyd.blog.business.entity.Comment;
 import com.zyd.blog.business.entity.User;
+import com.zyd.blog.business.enums.ConfigKeyEnum;
 import com.zyd.blog.business.enums.UserTypeEnum;
 import com.zyd.blog.business.service.*;
-import com.zyd.blog.framework.property.JustAuthProperties;
+import com.zyd.blog.persistence.beans.SysConfig;
 import com.zyd.blog.util.SessionUtil;
 import lombok.extern.slf4j.Slf4j;
-import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.config.AuthSource;
-import me.zhyd.oauth.utils.AuthChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
 
-import java.lang.reflect.Field;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * 自定义的freemarker标签
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/4/16 16:26
  * @modify by zhyd 2018-09-20
  * 调整实现，所有自定义标签只需继承BaseTag后通过构造函数将自定义标签类的className传递给父类即可。
@@ -54,7 +54,7 @@ public class CustomTags extends BaseTag {
     @Autowired
     private SysTemplateService templateService;
     @Autowired
-    private JustAuthProperties authProperties;
+    private SysSocialConfigService sysSocialConfigService;
 
     public CustomTags() {
         super(CustomTags.class.getName());
@@ -129,34 +129,34 @@ public class CustomTags extends BaseTag {
      * @return
      */
     public Object listAvailableOAuthPlatforms(Map params) {
-        List<String> list = new ArrayList<>();
-        try {
-            for (Field f : authProperties.getClass().getDeclaredFields()) {
-                f.setAccessible(true);
-                String fieldName = f.getName();
-                AuthSource source = null;
-                if ("tencentCloud".equals(fieldName)) {
-                    source = AuthSource.TENCENT_CLOUD;
-                } else if ("stackoverflow".equals(fieldName)) {
-                    source = AuthSource.STACK_OVERFLOW;
-                } else if ("wechatEnterprise".equals(fieldName)) {
-                    source = AuthSource.WECHAT_ENTERPRISE;
+        return sysSocialConfigService.listAvailable();
+    }
+
+    /**
+     * web 端 “热门搜索” 中的待选项
+     *
+     * @param params
+     * @return
+     */
+    public Object searchOptions(Map params) {
+        List<String> list = new ArrayList<>(Arrays.asList("Java", "SpringBoot"));
+        SysConfig sysConfig = configService.getByKey(ConfigKeyEnum.SEARCH_OPTIONS.getKey());
+        if (null != sysConfig) {
+            String value = sysConfig.getConfigValue();
+            if (!StringUtils.isEmpty(value)) {
+                if (value.contains(",")) {
+                    list = Arrays.asList(value.split(","));
                 } else {
-                    source = AuthSource.valueOf(fieldName.toUpperCase());
+                    list = Collections.singletonList(value);
                 }
-                AuthConfig authConfig = (AuthConfig) f.get(authProperties);
-                if (null != authConfig) {
-                    if (AuthChecker.isSupportedAuth(authConfig, source)) {
-                        list.add(fieldName);
-                    }
-                }
-
             }
-        } catch (Exception e) {
-            log.error("获取所有可用的Oauth平台发生异常", e);
         }
-
         return list;
+    }
+
+    public Object justAuthSources(Map params) {
+        AuthDefaultSource[] authDefaultSources = AuthDefaultSource.values();
+        return Arrays.stream(authDefaultSources).map(AuthSource::getName).collect(Collectors.toList());
     }
 
 

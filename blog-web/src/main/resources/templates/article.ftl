@@ -2,7 +2,7 @@
 <@header title="${article.title} | ${config.siteName}" keywords="${article.keywords!},${config.siteName}" description="${article.description!}"
     canonical="/article/${article.id}" hasEditor=true></@header>
 <#if article.coverImage??>
-    <img src="${article.coverImage!}" onerror="this.src='${config.staticWebSite}/img/default_article_cover.jpg'" style="display: none;" id="cover-img">
+    <img src="${article.coverImage!}" onerror="this.src='${config.staticWebSite}/img/default.png'" style="display: none;" id="cover-img">
 </#if>
 <div class="container custome-container">
     <nav class="breadcrumb">
@@ -16,8 +16,8 @@
             <div class="blog-body overflow-initial fade-in">
                 <div class="article-flag">
                     <#if article.original?string('true','false') == 'true'>
-                        <span class="article-blockquote article-blockquote-green"></span>
-                        <span class="article-original article-original-green">
+                        <span class="article-blockquote article-blockquote-red"></span>
+                        <span class="article-original article-original-red">
                             <a href="${config.siteUrl}/article/${article.id}">原创</a>
                         </span>
                     <#else>
@@ -39,7 +39,16 @@
                         <strong>${article.title}</strong>
                     </h1>
                     <div class="blog-info-body ${article.isMarkdown?string('markdown-body editor-preview-active-side', '')}">
-                        ${article.content}
+                        <#if article.private>
+                            ${article.description!}
+
+                            <br>
+                            <div class="alert alert-warning alert-dismissible fade in red" role="alert">
+                                <i class="fa fa-lock fa-fw"></i> 文章已被加密，需要 <a href="javascript:void(0)" data-toggle="modal" data-target="#lockModal">输入密码</a> 才能查看文章详情
+                            </div>
+                        <#else >
+                            ${article.content}
+                        </#if>
                     </div>
                     <div class="separateline"><span>正文到此结束</span></div>
                     <div id="social" style="margin-bottom: 45px;">
@@ -56,7 +65,6 @@
                                 <div id="share" style="display: none">
                                     <ul class="bdsharebuttonbox bdshare-button-style1-16" data-bd-bind="1516426362121">
                                         <li><a title="分享到人人网" class="fa fa-renren" data-cmd="renren" onclick="return false;" href="#"></a></li>
-                                        <li><a title="分享到腾讯微博" class="fa fa-pinterest-square" data-cmd="tqq" onclick="return false;" href="#"></a></li>
                                         <li><a title="分享到QQ空间" class="fa fa-qq" data-cmd="qzone" onclick="return false;" href="#"></a></li>
                                         <li><a title="分享到新浪微博" class="fa fa-weibo" data-cmd="tsina" onclick="return false;" href="#"></a></li>
                                         <li><a title="分享到微信" class="fa fa-weixin" data-cmd="weixin" onclick="return false;" href="#"></a></li>
@@ -141,9 +149,9 @@
                                 <div class="line-container">
                                     <div class="line-left">
                                         <#if item.coverImage??>
-                                            <img class="lazy-img" <#if config.lazyloadPath!>data-original<#else>src</#if>="${item.coverImage}" width="50" height="50" rel="external nofollow"/>
+                                            <img class="lazy-img" <#if config.lazyloadPath!>data-original<#else>src</#if>="${item.coverImage}" onerror="this.src='${config.staticWebSite}/img/default.png'"width="50" height="50" rel="external nofollow"/>
                                         <#else>
-                                            <img class="lazy-img" <#if config.lazyloadPath!>data-original<#else>src</#if>="${config.staticWebSite}/img/favicon.ico" width="50" height="50" rel="external nofollow"/>
+                                            <img class="lazy-img" <#if config.lazyloadPath!>data-original<#else>src</#if>="${config.staticWebSite}/img/favicon.ico" onerror="this.src='${config.staticWebSite}/img/default.png'"width="50" height="50" rel="external nofollow"/>
                                         </#if>
                                     </div>
                                     <div class="line-right">
@@ -205,6 +213,22 @@
         <#include "layout/sidebar.ftl"/>
     </div>
 </div>
+<div id="lockModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">输入密码查看文章详情</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" name="password" id="password" class="form-control" placeholder="请输入文章密码">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="verifyPassword">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
 <@footer>
     <script type="text/javascript">
         /*
@@ -213,10 +237,29 @@
          */
         var bdText = $("#meta_description").attr("content")+" - by ${config.domain}";
         // 如果文章没有封面图，则取默认的图片
-        var coverImg = $("#cover-img").attr("src") || "${config.staticWebSite}/img/default_article_cover.jpg";
+        var coverImg = $("#cover-img").attr("src") || "${config.staticWebSite}/img/default.png";
         window._bd_share_config={"common":{"bdSnsKey":{},"bdText":bdText,"bdMini":"2","bdMiniList":["mshare","qzone","tsina","bdysc","weixin","renren","tqq","kaixin001","tqf","tieba","douban","bdhome","sqq","youdao","sdo","qingbiji","mail","isohu","ty","fbook","twi","linkedin","h163","evernotecn","copy","print"],"bdPic":coverImg,"bdStyle":"1","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
     </script>
-    <script src="https://v1.hitokoto.cn/?encode=js&c=d&select=%23hitokoto" defer></script>
+    <script src="https://v1.hitokoto.cn/?encode=js&c=i&select=%23hitokoto" defer></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/lib/highlight.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/simplemde@1.11.2/dist/simplemde.min.js"></script>
+
+    <script>
+        var isPrivate = ${article.private};
+        if(isPrivate || isPrivate == 'true') {
+            $("#lockModal").modal('show')
+        }
+
+        $("#verifyPassword").click(function (){
+            var password = $("#password").val();
+            var articleId = "${article.id}";
+            $.post("/api/verifyArticlePassword", {articleId : articleId, password: password}, function (json) {
+                $.alert.ajaxSuccess(json);
+                if(json.status === 200) {
+                    $(".blog-info-body").html(json.data);
+                    $("#lockModal").modal('hide')
+                }
+            })
+        })
+    </script>
 </@footer>

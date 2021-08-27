@@ -9,8 +9,10 @@ import com.zyd.blog.business.enums.TemplateKeyEnum;
 import com.zyd.blog.business.service.MailService;
 import com.zyd.blog.business.service.SysLinkService;
 import com.zyd.blog.business.vo.LinkConditionVO;
+import com.zyd.blog.framework.exception.ZhydLinkException;
 import com.zyd.blog.framework.object.PageResult;
 import com.zyd.blog.framework.object.ResponseVO;
+import com.zyd.blog.util.RegexUtils;
 import com.zyd.blog.util.ResultUtil;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -25,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/4/24 14:37
  * @since 1.0
  */
@@ -49,6 +51,9 @@ public class RestLinkController {
     @BussinessLog("添加友情链接")
     public ResponseVO add(Link link) {
         link.setSource(LinkSourceEnum.ADMIN);
+        if (!RegexUtils.isUrl(link.getUrl())) {
+            throw new ZhydLinkException("链接地址无效！");
+        }
         linkService.insert(link);
         mailService.send(link, TemplateKeyEnum.TM_LINKS);
         return ResultUtil.success("成功");
@@ -78,6 +83,9 @@ public class RestLinkController {
     @PostMapping("/edit")
     @BussinessLog("编辑友情链接")
     public ResponseVO edit(Link link) {
+        if (!RegexUtils.isUrl(link.getUrl())) {
+            throw new ZhydLinkException("链接地址无效！");
+        }
         try {
             linkService.updateSelective(link);
         } catch (Exception e) {

@@ -42,7 +42,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/4/16 16:26
  * @since 1.0
  */
@@ -205,8 +205,15 @@ public class BizCommentServiceImpl implements BizCommentService {
         if (StringUtils.isEmpty(content) || "\n".equals(content)) {
             throw new ZhydCommentException("说点什么吧");
         }
+        String url = comment.getUrl();
+        String avatar = comment.getAvatar();
+        if ((!StringUtils.isEmpty(avatar) && !RegexUtils.isUrl(avatar)) || (!StringUtils.isEmpty(url) && !RegexUtils.isUrl(url))) {
+            throw new ZhydCommentException("链接地址不正确");
+        }
         // 过滤非法属性和无用的空标签
-        if (!XssKillerUtil.isValid(content) || !XssKillerUtil.isValid(comment.getAvatar())) {
+        if (!XssKillerUtil.isValid(content) || !XssKillerUtil.isValid(comment.getAvatar())
+                || !XssKillerUtil.isValid(comment.getUrl()) || !XssKillerUtil.isValid(comment.getNickname())
+                || !XssKillerUtil.isValid(comment.getQq()) || !XssKillerUtil.isValid(comment.getEmail())) {
             throw new ZhydCommentException("请不要使用特殊标签");
         }
         content = XssKillerUtil.clean(content.trim()).replaceAll("(<p><br></p>)|(<p></p>)", "");

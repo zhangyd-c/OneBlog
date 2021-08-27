@@ -12,28 +12,32 @@
     </nav>
     <div class="row">
         <@blogHeader title="友情链接"></@blogHeader>
-        <div class="col-sm-12 blog-main">
-            <div class="blog-body expansion">
-                <h5 class="custom-title"><i class="fa fa-coffee fa-fw"></i><strong>简单的要求</strong><small> - 简单点，说话的方式简单点</small></h5>
-                <div class="link-info">
-                    <ul class="list-unstyled">
-                        <li>本站定位：个人技术类博客</li>
-                        <li>本站作用：写博客、记日志、闲聊扯淡鼓捣技术</li>
-                        <li>本站 <em>优先</em> 选择<kbd>同类原创、内容相近</kbd>的博客或网站，您的站点内容可以为<kbd>技术类</kbd>、<kbd>IT科技</kbd>、<kbd>互联网</kbd>和<kbd>生活</kbd></li>
-                        <li>特别提醒：<abbr title="禁止友链的网站">任何包含违反国家法律法规内容的网站、盈利类（赌博）网站，还有相亲类、卖表类的网站、垃圾站统统不做！！！</abbr></li>
-                        <li>
-                            <blockquote>
-                                <ul class="list-unstyled">
-                                    <li>复制添加本站链接：<strong>&lt;a href="${config.siteUrl}" title="${config.siteDesc}" target="_blank"&gt;${config.siteName}&lt;/a&gt;</strong></li>
-                                    <li>复制添加本站图标：<strong>${config.siteFavicon}</strong></li>
-                                </ul>
-                            </blockquote>
-                        </li>
-                        <li><a class="btn btn-default btn-sm auto-link-btn" style="margin-top: 10px;" data-toggle="modal" data-target="#auto-link-modal"><i class="fa fa-hand-grab-o"></i>自助申请友链</a></li>
-                    </ul>
+        <#if config.linksHtml?? && (config.linksHtml?length > 0)>
+            ${config.linksHtml!}
+        <#else >
+            <div class="col-sm-12 blog-main">
+                <div class="blog-body expansion">
+                    <h5 class="custom-title"><i class="fa fa-coffee fa-fw"></i><strong>简单的要求</strong><small> - 简单点，说话的方式简单点</small></h5>
+                    <div class="link-info">
+                        <ul class="list-unstyled">
+                            <li>本站定位：个人技术类博客</li>
+                            <li>本站作用：写博客、记日志、闲聊扯淡鼓捣技术</li>
+                            <li>本站 <em>优先</em> 选择<kbd>同类原创、内容相近</kbd>的博客或网站，您的站点内容可以为<kbd>技术类</kbd>、<kbd>IT科技</kbd>、<kbd>互联网</kbd>和<kbd>生活</kbd></li>
+                            <li>特别提醒：<abbr title="禁止友链的网站">任何包含违反国家法律法规内容的网站、盈利类（赌博）网站，还有相亲类、卖表类的网站、垃圾站统统不做！！！</abbr></li>
+                            <li>
+                                <blockquote>
+                                    <ul class="list-unstyled">
+                                        <li>复制添加本站链接：<strong>&lt;a href="${config.siteUrl}" title="${config.siteDesc}" target="_blank"&gt;${config.siteName}&lt;/a&gt;</strong></li>
+                                        <li>复制添加本站图标：<strong>${config.siteFavicon}</strong></li>
+                                    </ul>
+                                </blockquote>
+                            </li>
+                            <li><a class="btn btn-default btn-sm auto-link-btn" style="margin-top: 10px;" data-toggle="modal" data-target="#auto-link-modal"><i class="fa fa-hand-grab-o"></i>自助申请友链</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+        </#if>
         <div class="col-sm-12 zhyd-container">
             <div class="zhyd-box zhyd-os">
                 <div class="category">
@@ -241,6 +245,6 @@
             })
         });
     </script>
-    <script src="https://v1.hitokoto.cn/?encode=js&c=d&select=%23hitokoto" defer></script>
+    <script src="https://v1.hitokoto.cn/?encode=js&c=i&select=%23hitokoto" defer></script>
 </@footer>
 </@compress>

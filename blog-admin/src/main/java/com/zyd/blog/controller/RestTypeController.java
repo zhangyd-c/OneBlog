@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/4/24 14:37
  * @since 1.0
  */
@@ -83,7 +83,7 @@ public class RestTypeController {
 
     @PostMapping("/listAll")
     public ResponseVO listType() {
-        return ResultUtil.success(null, typeService.listTypeForMenu());
+        return ResultUtil.success(null, typeService.listAll());
     }
 
     @PostMapping("/listParent")

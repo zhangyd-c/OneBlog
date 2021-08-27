@@ -16,6 +16,7 @@ import com.zyd.blog.framework.exception.ZhydLinkException;
 import com.zyd.blog.persistence.beans.SysLink;
 import com.zyd.blog.persistence.mapper.SysLinkMapper;
 import com.zyd.blog.util.HtmlUtil;
+import com.zyd.blog.util.RegexUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ import java.util.*;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/4/16 16:26
  * @since 1.0
  */
@@ -136,6 +137,12 @@ public class SysLinkServiceImpl implements SysLinkService {
     @RedisCache(flush = true)
     public boolean autoLink(Link link) throws ZhydLinkException {
         String url = link.getUrl();
+        if(StringUtils.isEmpty(url)) {
+            throw new ZhydLinkException("链接地址为空！");
+        }
+        if(!RegexUtils.isUrl(url)) {
+            throw new ZhydLinkException("链接地址无效！");
+        }
         Link bo = getOneByUrl(url);
         if (bo != null) {
             throw new ZhydLinkException("本站已经添加过贵站的链接！");

@@ -12,13 +12,31 @@
     <parent>
         <groupId>com.zyd</groupId>
         <artifactId>blog</artifactId>
-        <version>2.2.2</version>
+        <version>2.2.5</version>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>com.zyd</groupId>
             <artifactId>blog-core</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>lombok</artifactId>
+                    <groupId>org.projectlombok</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>mybatis-spring-boot-starter</artifactId>
+                    <groupId>org.mybatis.spring.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>kotlin-stdlib-common</artifactId>
+                    <groupId>org.jetbrains.kotlin</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>

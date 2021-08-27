@@ -20,7 +20,7 @@ import javax.servlet.ServletContextEvent;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/6/6 16:07
  * @since 1.0
  */

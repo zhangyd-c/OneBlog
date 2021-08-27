@@ -89,19 +89,17 @@
 <#-- 面包屑导航内容 + 系统通知 -->
 <#macro breadcrumb>
     <div class="row">
-        <div class="col col-md-8">
-            <nav class="breadcrumb">
-                <div class="notify"><i class="fa fa-bullhorn fa-fw"></i></div>
-                <div id="scrolldiv">
-                    <div class="scrolltext">
-                        <ul class="list-unstyled" id="notice-box">
-                            <li class="scrolltext-title">
-                                <a href="javascript:void(0)" rel="bookmark">其实我们可以将所有的问题归结为两种：一种是没饭吃饿出来的；一种是吃饱了撑出来的。</a>
-                            </li>
-                        </ul>
-                    </div>
+        <div class="col col-md-8 col-xs-12">
+            <div class="notify"><i class="fa fa-bullhorn fa-fw"></i></div>
+            <div id="scrolldiv">
+                <div class="scrolltext">
+                    <ul class="list-unstyled" id="notice-box">
+                        <li class="scrolltext-title">
+                           其实我们可以将所有的问题归结为两种：一种是没饭吃饿出来的；一种是吃饱了撑出来的。
+                        </li>
+                    </ul>
                 </div>
-            </nav>
+            </div>
         </div>
         <div class="col col-md-4 text-right">
             <#nested>
@@ -110,7 +108,7 @@
 </#macro>
 
 <#-- 发布文章填写文章详情的弹窗模板 -->
-<#macro publishmodal>
+<#macro publishModal>
     <div class="modal fade" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="publishLabel" data-backdrop="static">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -177,6 +175,12 @@
                                             <label class="control-label col-md-2 col-sm-2 col-xs-12" for="comment">开启评论 </label>
                                             <div class="col-md-10 col-sm-10 col-xs-12 fixed-radio-checkbox">
                                                 <input type="checkbox" class="square" name="comment" id="comment">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-2 col-sm-2 col-xs-12" for="comment">私密文章 </label>
+                                            <div class="col-md-10 col-sm-10 col-xs-12 fixed-radio-checkbox">
+                                                <input type="text" class="square form-control" name="password" placeholder="请输入文章密码">
                                             </div>
                                         </div>
                                     </div>
@@ -279,8 +283,8 @@
                     <div class="col col-lg-4 col-sm-4 col-md-4 col-xs-4">
                         <fieldset>
                             <legend>关注公众号</legend>
-                            <a href="https://gitee.com/yadong.zhang/static/raw/master/wx/wechat_account_500x500.jpg" class="showImage" title="关注公众号：码一码" rel="external nofollow" style="display: block;text-align: center">
-                                <img src="https://gitee.com/yadong.zhang/static/raw/master/wx/wechat_account_500x500.jpg" class="img-rounded" alt="关注公众号：码一码" width="300">
+                            <a href="/assets/images/wechat_account_500x500.jpg" class="showImage" title="关注公众号：码一码" rel="external nofollow" style="display: block;text-align: center">
+                                <img src="/assets/images/wechat_account_500x500.jpg" class="img-rounded" alt="关注公众号：码一码" width="300">
                             </a>
                         </fieldset>
                     </div>
@@ -292,7 +296,7 @@
                             <ul>
                                 <li>开源项目地址①：<a href="https://gitee.com/yadong.zhang/DBlog" target="_blank">https://gitee.com/yadong.zhang/DBlog</a></li>
                                 <li>开源项目地址②：<a href="https://github.com/zhangyd-c/OneBlog" target="_blank">https://github.com/zhangyd-c/OneBlog</a></li>
-                                <li>博主网站首页：<a href="https://www.zhyd.me" target="_blank">https://www.zhyd.me</a></li>
+                                <li>博主网站首页：<a href="https://docs.zhyd.me" target="_blank">https://docs.zhyd.me</a></li>
                             </ul>
                             <h2>Demo演示</h2>
                             <ul>
@@ -301,9 +305,9 @@
                             </ul>
                             <h2>获取帮助</h2>
                             <ul>
-                                <li>相关Wiki：<a href="https://gitee.com/yadong.zhang/DBlog/wikis" target="_blank">https://gitee.com/yadong.zhang/DBlog/wikis</a></li>
+                                <li>相关Wiki：<a href="https://docs.zhyd.me" target="_blank">https://docs.zhyd.me</a></li>
                                 <li>提issue：<a href="https://gitee.com/yadong.zhang/DBlog/issues" target="_blank">https://gitee.com/yadong.zhang/DBlog/issues</a></li>
-                                <li>留言：<a href="https://www.zhyd.me/guestbook" target="_blank">https://www.zhyd.me/guestbook</a></li>
+                                <li>留言：<a href="https://docs.zhyd.me/guestbook" target="_blank">https://docs.zhyd.me/guestbook</a></li>
                                 <li>加QQ群：<a href="http://shang.qq.com/wpa/qunwpa?idkey=9f986e9b33b1de953e1ef9a96cdeec990affd0ac7855e00ff103514de2027b60" target="_blank">190886500</a></li>
                             </ul>
                             <h2>其他开源作品</h2>
@@ -325,7 +329,7 @@
                                 <li><span><span><strong>评论系统</strong>：自研的评论系统，支持显示用户地址、浏览器和os信息，后台可审核评论、开启匿名评论、回复和邮件通知评论</span></span></li>
                                 <li><span><span><strong>权限管理</strong>：后台配备完善的权限管理</span></span></li>
                                 <li><span><span><strong>SEO</strong>：自带robots、sitemap等seo模板，实现自动生成robots和sitemap</span></span></li>
-                                <li><span><span><strong>实时通讯</strong>：管理员可向在线的用户发送实时消息（需用户授权 - 基于websocket实现，具体参考<a href="https://www.zhyd.me/article/111">DBlog建站之Websocket的使用</a>）</span></span></li>
+                                <li><span><span><strong>实时通讯</strong>：管理员可向在线的用户发送实时消息（需用户授权 - 基于websocket实现，具体参考<a href="https://docs.zhyd.me/article/111">DBlog建站之Websocket的使用</a>）</span></span></li>
                                 <li><span><span><strong>系统配置支持快速配置</strong>：可通过后台手动修改诸如域名信息、SEO优化、赞赏码、七牛云以及更新维护通知等</span></span></li>
                                 <li><span><span><strong><i class="fa fa-fire fa-fw red"></i>多种文件存储</strong>：集成七牛云、阿里云OSS，实现文件云存储，同时支持本地文件存储</span></span></li>
                                 <li><span><span><strong><i class="fa fa-fire fa-fw red"></i>文件搬运工</strong>：集成<a href="https://gitee.com/yadong.zhang/blog-hunter">blog-hunter</a>实现“文章搬运工”功能，支持一键同步imooc、csdn、iteye或者cnblogs上的文章，可抓取列表和单个文章</span></span></li>
@@ -337,6 +341,7 @@
             </div>
             <div class="modal-footer">
                 <span class="pull-left">tips: 如不想显示该弹窗，可在 <code>index.ftl</code> 中搜索 <code>aboutOneBlog</code> 后删掉相关代码</span>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="neverShowNoticeModal"><i class="fa fa-close"> 不再显示</i></button>
                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"> 关闭</i></button>
             </div>
         </div>

@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 /**
  * @author yadong.zhang email:yadong.zhang0415(a)gmail.com
  * @version 1.0
- * @website https://www.zhyd.me
+ * @website https://docs.zhyd.me
  * @date 2018/1/19 10:32
  * @since 1.0
  */
@@ -51,6 +51,7 @@ public class HtmlUtil {
                 .replaceAll("&#39;", "\'")
                 .replaceAll("&lt;", "<")
                 .replaceAll("&gt;", ">")
+                .replaceAll("javascript:", "")
                 .replaceAll("[ \\f\\t\\v]{2,}", "\t");
 
         String regEx = "<.+?>";

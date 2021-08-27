@@ -1,0 +1,124 @@
+# 通过本地编译的形式运行
+# 可以随时修改源代码后 repackage 然后重新构建本地镜像
+version: '3.3'
+services:
+
+  # Redis
+  blog-redis:
+    image: redis
+    restart: always
+    container_name: blog-redis
+    hostname: blog-redis
+    command: redis-server --appendonly yes --requirepass ${ONEBLOG_REDIS_PASSWORD} --bind blog-redis
+    ports:
+      - 63799:6379
+    volumes:
+      - ${ONEBLOG_APP_DIR}/redis/:/data/
+    healthcheck:
+      test: [ "CMD", "redis-cli" ]
+      timeout: 20s
+      retries: 10
+    networks:
+      - oneblog
+
+  # MySQL
+  blog-mysql:
+    image: justauth/blog-mysql
+    build: ./mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ONEBLOG_DATASOURCE_PASSWORD}
+      TZ: Asia/Shanghai
+    restart: always
+    container_name: blog-mysql
+    hostname: blog-mysql
+    volumes:
+      - ${ONEBLOG_APP_DIR}/mysql:/var/lib/mysql
+    ports:
+      - 33066:3306
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+    networks:
+      - oneblog
+
+  # admin 服务
+  blog-admin:
+    image: justauth/blog-admin
+    build: ../../blog-admin
+    restart: always
+    container_name: blog-admin
+    hostname: blog-admin
+    environment:
+      ONEBLOG_REDIS_DATABASE_INDEX:
+      ONEBLOG_REDIS_HOST:
+      ONEBLOG_REDIS_PORT:
+      ONEBLOG_REDIS_PASSWORD:
+      ONEBLOG_DATASOURCE_HOST:
+      ONEBLOG_DATASOURCE_PORT:
+      ONEBLOG_DATASOURCE_DATABASE_NAME:
+      ONEBLOG_DATASOURCE_USERNAME:
+      ONEBLOG_DATASOURCE_PASSWORD:
+      ONEBLOG_MAIL_HOST:
+      ONEBLOG_MAIL_PORT:
+      ONEBLOG_MAIL_USERNAME:
+      ONEBLOG_MAIL_PASSWORD:
+      ONEBLOG_APP_ENABLE_KAPTCHA:
+      ONEBLOG_APP_ENABLE_CONFIGLOG:
+    volumes:
+      - ${ONEBLOG_APP_DIR}:/var/tmp/oneblog
+    depends_on:
+      blog-redis:
+        condition: service_healthy
+      blog-mysql:
+        condition: service_healthy
+    links:
+      - blog-redis
+      - blog-mysql
+    ports:
+      - 8085:8085
+    networks:
+      - oneblog
+
+  # admin 服务
+  blog-web:
+    image: justauth/blog-web
+    build: ../../blog-web
+    restart: always
+    container_name: blog-web
+    hostname: blog-web
+    environment:
+      ONEBLOG_REDIS_DATABASE_INDEX:
+      ONEBLOG_REDIS_HOST:
+      ONEBLOG_REDIS_PORT:
+      ONEBLOG_REDIS_PASSWORD:
+      ONEBLOG_DATASOURCE_HOST:
+      ONEBLOG_DATASOURCE_PORT:
+      ONEBLOG_DATASOURCE_DATABASE_NAME:
+      ONEBLOG_DATASOURCE_USERNAME:
+      ONEBLOG_DATASOURCE_PASSWORD:
+      ONEBLOG_MAIL_HOST:
+      ONEBLOG_MAIL_PORT:
+      ONEBLOG_MAIL_USERNAME:
+      ONEBLOG_MAIL_PASSWORD:
+      ONEBLOG_APP_ENABLE_KAPTCHA:
+      ONEBLOG_APP_ENABLE_CONFIGLOG:
+    volumes:
+      - ${ONEBLOG_APP_DIR}:/var/tmp/oneblog
+    depends_on:
+      blog-redis:
+        condition: service_healthy
+      blog-mysql:
+        condition: service_healthy
+    links:
+      - blog-redis
+      - blog-mysql
+    ports:
+      - 8443:8443
+    networks:
+      - oneblog
+
+networks:
+  oneblog:
+    driver: bridge

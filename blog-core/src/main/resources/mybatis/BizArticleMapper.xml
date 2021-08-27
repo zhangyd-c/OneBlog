@@ -21,6 +21,7 @@
 		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
 		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
 		<result property="comment" jdbcType="BIT" column="comment"/>
+		<result property="password" jdbcType="VARCHAR" column="password"/>
 
 		<result property="lookCount" jdbcType="INTEGER" column="look_count"/>
 		<result property="commentCount" jdbcType="INTEGER" column="comment_count"/>
@@ -53,6 +54,7 @@
 			a.description,
 			a.keywords,
 			a.`comment`,
+			a.`password`,
 			a.create_time,
 			a.update_time,
 			btype.id AS btype_id,
@@ -94,6 +96,11 @@
 			(
 				a.description LIKE CONCAT('%',#{keywords , jdbcType=VARCHAR},'%') OR
 				a.keywords LIKE CONCAT('%',#{keywords , jdbcType=VARCHAR},'%')
+			)
+		</if>
+		<if test="title != null and title != '' ">
+			AND (
+			a.title LIKE CONCAT('%',#{title , jdbcType=VARCHAR},'%')
 			)
 		</if>
         GROUP BY a.id
@@ -146,6 +153,7 @@
 			a.description,
 			a.keywords,
 			a.`comment`,
+			a.`password`,
 			a.create_time,
 			a.update_time,
 			btype.id AS btype_id,
@@ -240,7 +248,7 @@
 		ORDER BY
 			l.lookCount DESC
 	</select>
-	
+
 	<select id="isExist" parameterType="Long" resultType="Integer">
 		SELECT
 			COUNT(a.id)

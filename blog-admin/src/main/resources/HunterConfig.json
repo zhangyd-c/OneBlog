@@ -20,22 +20,21 @@
     "domain": "blog.csdn.net",
     "titleRegex": "//h1[@class=title-article]/html()",
     "authorRegex": "//a[@class=follow-nickName]/html()",
-    "releaseDateRegex": "//div[@class=article-bar-top]/span[@class=time]/html()",
+    "releaseDateRegex": "//div[@class=article-bar-top]/div[@class='bar-content']/span[@class=time]/html()",
     "contentRegex": "//div[@id=content_views]/html()",
     "tagRegex": "//span[@class=artic-tag-box]/a[@class=tag-link]/html()",
-    "targetLinksRegex": ".*blog\\.csdn\\.net/{uid}/article/details/[0-9a-zA-Z]{1,15}",
+    "targetLinksRegex": "(((http|ftp|https):\\/\\/[0-9a-zA-Z]{1,15}.blog.csdn.net/article/details/[0-9a-zA-Z]{1,15})|((http|ftp|https):\\/\\/blog.csdn.net/{uid}/article/details/[0-9a-zA-Z]{1,15}))",
     "header": [
       "Host=blog.csdn.net",
       "Referer=https://blog.csdn.net/{uid}/article/list/1"
     ],
-    "cookie": "uuid_tt_dd=10_10331769530-1547536548454-504065; __yadk_uid=eg5NQPFTcIj2VFX6xv3ZJR5C8Q6PVnhm; smidV2=201901161027267de8378708fa178ab707894a70a126f100f32016b8489dd20; UN=u011197448; _ga=GA1.2.1772643969.1548209590; UM_distinctid=16882db136258b-0ce8092de75b71-6655742e-13c680-16882db1363437; gr_user_id=adf433f5-b683-45d5-80dd-caf4b7110360; _dg_id.40e39cb6d36d5282.c482=d846039aa9f3ff23%7C%7C%7C1548746364%7C%7C%7C1%7C%7C%7C1548746364%7C%7C%7C1548746364%7C%7C%7C%7C%7C%7Cf00a97bae3087c52%7C%7C%7Chttps%3A%2F%2Fwww.baidu.com%2Flink%3Furl%3DvtlNP9hvgRV6hAa9E1qaewZSIyCGR03ISdsDpTn-zP6muC9Cyop5IucCWeBKKtany7DrcUXgLmy83PTI98aNbSymNKzXgMUYl_c8xbxdt_W%26wd%3D%26eqid%3D85e43a6f000de5ab000000025c4ffe71%7C%7C%7Chttps%3A%2F%2Fwww.baidu.com%2Flink%3Furl%3DvtlNP9hvgRV6hAa9E1qaewZSIyCGR03ISdsDpTn-zP6muC9Cyop5IucCWeBKKtany7DrcUXgLmy83PTI98aNbSymNKzXgMUYl_c8xbxdt_W%26wd%3D%26eqid%3D85e43a6f000de5ab000000025c4ffe71%7C%7C%7C1%7C%7C%7Cundefined; pt_7cd998c4=uid=XsOJJs2ynt2SEUray9/meA&nid=1&vid=skmHxYQg4a0C8dk8c5hQuA&vn=1&pvn=1&sact=1548746403744&to_flag=0&pl=lW7Wzh7yRjgqeNTTgGYbFw*pt*1548746363475; ADHOC_MEMBERSHIP_CLIENT_ID1.0=c85c851e-bf2b-2e69-9332-5ef1b69d869d; BT=1551156352906; Hm_ct_6bcd52f51e9b3dce32bec4a3997715ac=1788*1*PC_VC!5744*1*u011197448!6525*1*10_10331769530-1547536548454-504065; dc_session_id=10_1553784106452.549598; bdshare_firstime=1555313012400; acw_tc=2760823b15578883310602927e32b811a6a04228c70de517201efc5c6a91ba; SESSION=a5fb6772-59f5-441a-9728-9d485c859155; dc_tos=prksrn; Hm_lvt_6bcd52f51e9b3dce32bec4a3997715ac=1557888343,1557888344,1557910597,1557974435; Hm_lpvt_6bcd52f51e9b3dce32bec4a3997715ac=1557974435; c-login-auto=5; acw_sc__v3=5cdcd164b6b2dd555c665f17642d63ea924e82cf; acw_sc__v2=5cdcd15e0d1889a5308a8f22e3c72110f788dbce",
     "entryUrls": [
       "https://blog.csdn.net/{uid}/article/list/1"
     ]
   },
   "iteye": {
     "domain": "{uid}.iteye.com",
-    "titleRegex": "//div[@class=blog_title]/h3/a/html()",
+    "titleRegex": "//div[@class=blog_title]/h3/text()",
     "authorRegex": "//div[@id=blog_owner_name]/html()",
     "releaseDateRegex": "//div[@class=blog_bottom]/ul/li[1]/html()",
     "contentRegex": "//div[@class=iteye-blog-content-contain]/html()",
@@ -97,6 +96,47 @@
     ],
     "entryUrls": [
       "https://www.v2ex.com/member/{uid}"
+    ]
+  },
+  "oschina": {
+    "domain": "oschina.net",
+    "titleRegex": "//h1[@class=article-box__title]/a/text()",
+    "authorRegex": "//div[@class=article-box__meta]/div[@class=item-list]/div[2]/a/html()",
+    "releaseDateRegex": "//div[@class=article-box__meta]/div[@class=item-list]/div[4]/html()",
+    "contentRegex": "//div[@class=content]/html()",
+    "tagRegex": "//div[@class=tags-box]/div[@class=tags-box__inner]/a/html()",
+    "targetLinksRegex": "https://my.oschina.net/.*/blog/[0-9]{1,10}",
+    "header": [
+      "Host=my.oschina.net",
+      "Referer=https://my.oschina.net"
+    ],
+    "entryUrls": [
+      "https://my.oschina.net/{uid}",
+      "https://my.oschina.net/u/{uid}"
+    ]
+  },
+  "jianshu": {
+    "resolver": {
+      "releaseDate": {
+        "type": "regex",
+        "clazz": "java.lang.Long",
+        "operator": "* 1000"
+      }
+    },
+    "domain": "jianshu.com",
+    "titleRegex": "//h1[@class=_1RuRku]/text()",
+    "authorRegex": "//span[@class=_22gUMi]/html()",
+    "releaseDateRegex": ".*\"first_shared_at\":([0-9]+),.*",
+    "contentRegex": "//article[@class=_2rhmJa]/html()",
+    "tagRegex": "//div",
+    "targetLinksRegex": "/p/[0-9a-zA-Z]{1,15}",
+    "header": [
+      "Host=www.jianshu.com",
+      "Referer=https://www.jianshu.com/p/{uid}"
+    ],
+    "entryUrls": [
+      "https://www.jianshu.com/p/{uid}",
+      "https://www.jianshu.com/u/{uid}"
     ]
   }
 }

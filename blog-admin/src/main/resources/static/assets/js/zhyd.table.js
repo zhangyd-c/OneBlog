@@ -25,7 +25,8 @@ Table.prototype = {
         var $tablelist = $(options.tableBox);
         $tablelist.bootstrapTable('destroy').bootstrapTable({
             url: options.url,
-            method: 'post',                      //请求方式（*）
+            method:  'method' in options ? options.method : 'post',  //请求方式（*）
+            formId:  'formId' in this.options ? this.options.formId : '#form1',
             toolbar: options.showToolbar !== false ? options.toolbar ? options.toolbar : '#toolbar' : '',                //工具按钮用哪个容器
             striped: true,                      //是否显示行间隔色
             cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
@@ -199,9 +200,16 @@ Table.prototype = {
         this.bindEvent("click", selector, callback);
     },
     queryParams: function (params) {
-        params = $.extend({}, params);
-        params.keywords = params.searchText;
-        return params;
+        var formdata = decodeURIComponent($(this.formId).serialize());
+        var data = formdata.split('&');
+        var parameter = {};
+        for(var i=0;i<data.length;i++) {
+            data2 = data[i].split('=');
+            parameter[data2[0]] = data2[1];
+        }
+        return {
+            ...parameter, ...params
+        };
     },
     refresh: function () {
         var options = this.options;
