@@ -5,7 +5,7 @@ server:
 # SPRING PROFILES
 spring:
     profiles:
-        include: [center-dev]
+        include: [center]
 
 # logging settings
 logging:
@@ -26,5 +26,5 @@ app:
     enableKaptcha: ${ONEBLOG_APP_ENABLE_KAPTCHA:false}
     # 启用后，项目在启动时会打印数据库（Mysql和Redis）链接信息（包含密码）
     # 代码请参考
-    enabledConfigLog: ${ONEBLOG_APP_ENABLE_CONFIGLOG:false}
+    enabledPrintConfig: ${ONEBLOG_APP_ENABLE_PRINT_CONFIG:false}
 ####################################自定义配置##########################################
