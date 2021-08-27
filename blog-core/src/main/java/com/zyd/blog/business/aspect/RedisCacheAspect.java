@@ -2,6 +2,7 @@ package com.zyd.blog.business.aspect;
 
 import com.zyd.blog.business.annotation.RedisCache;
 import com.zyd.blog.business.service.RedisService;
+import com.zyd.blog.framework.property.AppProperties;
 import com.zyd.blog.util.AspectUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -31,6 +32,8 @@ public class RedisCacheAspect {
 
     @Autowired
     private RedisService redisService;
+    @Autowired
+    private AppProperties appProperties;
 
     @Pointcut(value = "@annotation(com.zyd.blog.business.annotation.RedisCache)")
     public void pointcut() {
@@ -38,6 +41,9 @@ public class RedisCacheAspect {
 
     @Around("pointcut()")
     public Object handle(ProceedingJoinPoint point) throws Throwable {
+        if (!appProperties.isEnableRedisCache()) {
+            return point.proceed();
+        }
         Method currentMethod = AspectUtil.INSTANCE.getMethod(point);
         //获取操作名称
         RedisCache cache = currentMethod.getAnnotation(RedisCache.class);
