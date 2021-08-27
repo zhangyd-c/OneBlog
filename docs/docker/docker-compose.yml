@@ -65,7 +65,7 @@ services:
       ONEBLOG_MAIL_USERNAME:
       ONEBLOG_MAIL_PASSWORD:
       ONEBLOG_APP_ENABLE_KAPTCHA:
-      ONEBLOG_APP_ENABLE_CONFIGLOG:
+      ONEBLOG_APP_ENABLE_PRINT_CONFIG:
     volumes:
       - ${ONEBLOG_APP_DIR}:/var/tmp/oneblog
     depends_on:
@@ -103,7 +103,7 @@ services:
       ONEBLOG_MAIL_USERNAME:
       ONEBLOG_MAIL_PASSWORD:
       ONEBLOG_APP_ENABLE_KAPTCHA:
-      ONEBLOG_APP_ENABLE_CONFIGLOG:
+      ONEBLOG_APP_ENABLE_PRINT_CONFIG:
     volumes:
       - ${ONEBLOG_APP_DIR}:/var/tmp/oneblog
     depends_on:
