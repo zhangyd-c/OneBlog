@@ -16,14 +16,14 @@
             <div class="blog-body overflow-initial fade-in">
                 <div class="article-flag">
                     <#if article.original?string('true','false') == 'true'>
-                        <span class="article-blockquote article-blockquote-red"></span>
-                        <span class="article-original article-original-red">
-                            <a href="${config.siteUrl}/article/${article.id}">原创</a>
+                        <span class="article-blockquote article-blockquote-green"></span>
+                        <span class="article-original article-original-green">
+                            <a href="${config.siteUrl}/article/${article.id}"><i class="fa fa-check"></i> 原创</a>
                         </span>
                     <#else>
-                        <span class="article-blockquote article-blockquote-red"></span>
-                        <span class="article-original article-original-red">
-                            <a href="${config.siteUrl}/article/${article.id}">转载</a>
+                        <span class="article-blockquote article-blockquote-gray"></span>
+                        <span class="article-original article-original-gray">
+                            <a href="${config.siteUrl}/article/${article.id}"><i class="fa fa-reply"></i> 转载</a>
                         </span>
                     </#if>
                     <div class="blog-info-meta pull-right">
