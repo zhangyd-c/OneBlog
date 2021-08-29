@@ -81,8 +81,10 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 # 技术栈
 
-- Springboot 2.0.8
-- Apache Shiro 1.2.2
+- docker
+- docker-compose
+- Springboot 2.3.4.RELEASE
+- Apache Shiro 1.7.1
 - Logback
 - Redis
 - Lombok
@@ -91,10 +93,12 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - Freemarker
 - Bootstrap 3.3.0
 - wangEditor
+- Markdown
 - jQuery 1.11.1、jQuery Lazyload 1.9.7、fancybox、iCheck
 - 阿里云OSS
+- 七牛云
+- Nginx
 - kaptcha
-- Qiniu
 - webMagic
 - ...
 
@@ -121,10 +125,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 2. 新建数据库`CREATE DATABASE dblog;`
 3. 导入数据库`docs/docker/mysql/dblog.sql`
 4. 初始化数据库`docs/docker/mysql/init_data.sql`
-5. 修改配置文件
-   1. 数据库链接属性(在`[blog-core]/resources/config/application-center-{env}.yml`配置文件中搜索`datasource`或定位到L.5) 
-   2. redis配置(在`[blog-core]/resources/config/application-center-{env}.yml`配置文件中搜索`redis`或定位到L.14)
-   3. 以上两个必备的配置项修改完成后就能启动项目了。关于其他配置项，请参考后台“系统配置”页面
+5. 修改配置文件，mysql、redis、mail配置在`[blog-core]/resources/config/application-center.yml`配置文件中
 6. 运行项目：直接运行 `blog-web/src/main/java/com/zyd/blog/BlogWebApplication.java` 或者 `blog-admin/src/main/java/com/zyd/blog/BlogAdminApplication.java`
 7. 浏览器访问`http://127.0.0.1:{port}`
 
