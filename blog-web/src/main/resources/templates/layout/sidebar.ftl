@@ -174,6 +174,7 @@
                 <li> <i class="fa fa-users fa-fw"></i> 在线人数：<span class="online">1</span>人</li>
                 <li> <i class="fa fa-calendar fa-fw"></i> 运行天数：${siteInfo.installdate!(1)}天</li>
                 <li> <i class="fa fa-pencil-square fa-fw"></i> 最后更新：${siteInfo.lastUpdateTime!("暂无更新记录")}</li>
+                <li> <i class="fa fa-vine fa-fw"></i>  系统版本：<a href="https://gitee.com/yadong.zhang/DBlog/releases/${appInfo.version!}" rel="nofollow" target="_blank" style="color: #4286ca;font-weight: 600;">${appInfo.version!}</a></li>
             </@zhydTag>
         </ul>
     </div>
