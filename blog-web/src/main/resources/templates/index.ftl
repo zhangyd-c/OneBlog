@@ -70,10 +70,18 @@
                             </figure>
                         </#if>
                         <header class="entry-header">
-                            <#if item.private>
-                            <span class="art-type art-type-yellow"><i class="fa fa-lock fa-fw"></i>私密</span>
+                            <#if item.original?string('true','false') == 'true'>
+                                <span class="art art-original"><i class="fa fa-check fa-fw"></i>原创</span>
+                            <#else>
+                                <span class="art art-original-0"><i class="fa fa-reply fa-fw"></i>转载</span>
                             </#if>
-                            <span class="art-type"><a href="${config.siteUrl}/type/${item.typeId?c}">${item.type.name}</a></span>
+                            <#if item.private>
+                                <span class="art art-type art-type-yellow"><i class="fa fa-lock fa-fw"></i>私密</span>
+                            </#if>
+                            <#if item.top>
+                                <span class="art art-top"><i class="fa fa-chevron-circle-up fa-fw"></i>置顶</span>
+                            </#if>
+                            <span class="art art-type"><a href="${config.siteUrl}/type/${item.typeId?c}"><i class="${item.type.icon!} fa-fw"></i> ${item.type.name}</a></span>
                             <h2 class="entry-title">
                                 <a href="${config.siteUrl}/article/${item.id?c}" rel="bookmark" title="${item.title}" data-toggle="tooltip" data-placement="bottom">${item.title}</a>
                             </h2>
