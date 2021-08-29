@@ -12,71 +12,38 @@
     </appender>
 
     <!--按天生成日志-->
-    <!-- 出错日志 appender -->
-    <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${logdir}/error.log</File>
+    <appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Prudent>true</Prudent>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- 按天回滚 daily -->
-            <fileNamePattern>${logdir}/error-%d{yyyy-MM-dd}.log
-            </fileNamePattern>
-            <!-- 日志最大的历史 30天 -->
-            <maxHistory>30</maxHistory>
+            <FileNamePattern>
+                ${logdir}/%d{yyyy-MM-dd}/%d{yyyy-MM-dd}.log
+            </FileNamePattern>
         </rollingPolicy>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%class:%line] %-5level - %msg%n</pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
-            <level>ERROR</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-    </appender>
-    <!-- info日志 appender -->
-    <appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${logdir}/info.log</File>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- 按天回滚 daily -->
-            <fileNamePattern>${logdir}/info-%d{yyyy-MM-dd}.log
-            </fileNamePattern>
-            <!-- 日志最大的历史 30天 -->
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%class:%line] %-5level - %msg%n</pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
-            <level>INFO</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} -%msg%n
+            </Pattern>
+        </layout>
     </appender>
 
-    <logger name="org.springframework.core.env" level="ERROR"/>
-    <logger name="com.zyd.blog.framework.runner" level="INFO"/>
+    <logger name="org.springframework.core.env" level="DEBUG"/>
+    <logger name="us.codecraft.webmagic.downloader" level="DEBUG"/>
+    <logger name="com.zyd.blog.framework.runner" level="DEBUG"/>
+    <logger name="org.crazycake.shiro.RedisCache" level="INFO"/>
 
     <!-- 测试环境+开发环境，日志级别为INFO且不写日志文件 -->
-    <springProfile name="test,dev">
-        <logger name="com.zyd.blog" additivity="false">
-            <appender-ref ref="STDOUT"/>
-        </logger>
-        <root level="INFO">
+    <springProfile name="dev">
+        <root level="DEDBUG">
             <appender-ref ref="STDOUT"/>
         </root>
     </springProfile>
 
     <!-- 生产环境. 日志级别为WARN且写日志文件-->
     <springProfile name="prod">
-        <logger name="com.zyd.blog" additivity="false">
-            <appender-ref ref="STDOUT"/>
-            <appender-ref ref="FILE_ERROR" />
-            <appender-ref ref="FILE_INFO" />
-        </logger>
-
         <root level="WARN">
             <appender-ref ref="STDOUT"/>
-            <appender-ref ref="FILE_ERROR" />
-            <appender-ref ref="FILE_INFO" />
+            <appender-ref ref="FILE" />
         </root>
     </springProfile>
 
-</configuration>  
+</configuration>

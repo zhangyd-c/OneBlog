@@ -3,16 +3,21 @@ server:
     port: 8085
     # HTTP请求和响应头的最大量，以字节为单位，默认值为4096字节,超过此长度的部分不予处理,一般8K。解决java.io.EOFException: null问题
     max-http-header-size: 8192
-    use-forward-headers: true
     compression:
         enabled: true
         min-response-size: 1024
         mime-types: text/plain,text/css,text/xml,text/javascript,application/json,application/javascript,application/xml,application/xml+rss,application/x-javascript,application/x-httpd-php,image/jpeg,image/gif,image/png
     tomcat:
-        remote-ip-header: X-Forwarded-for
-        protocol-header: X-Forwarded-Proto
-        port-header: X-Forwarded-Port
+        remoteip:
+            remote-ip-header: X-Forwarded-for
+            protocol-header: X-Forwarded-Proto
+            port-header: X-Forwarded-Port
         uri-encoding: UTF-8
+    servlet:
+        encoding:
+            enabled: true
+            force: true
+            force-response: true
 # SPRING PROFILES
 spring:
     profiles:
@@ -42,11 +47,6 @@ spring:
         multipart:
             max-file-size: 50MB
             max-request-size: 50MB
-    http:
-        encoding:
-            enabled: true
-            charset: UTF-8
-            force: true
     messages:
         encoding: UTF-8
     jmx:
@@ -60,19 +60,3 @@ spring:
                     paths: /**
     banner:
         charset: UTF-8
-# MyBatis
-mybatis:
-    type-aliases-package: com.zyd.blog.persistence.beans
-    mapper-locations: classpath:/mybatis/*.xml
-# mapper
-mapper:
-    mappers:
-        - com.zyd.blog.plugin.BaseMapper
-    not-empty: false
-    identity: MYSQL
-# pagehelper
-pagehelper:
-    helper-dialect: mysql
-    reasonable: true
-    support-methods-arguments: true
-    params: count=countSql

@@ -9,6 +9,7 @@ public class MySecSerializer<T> implements Serializer<T> {
     public MySecSerializer() {
     }
 
+    @Override
     public byte[] serialize(T o) throws SerializationException {
         if (o == null) {
             String msg = "argument cannot be null.";
@@ -29,6 +30,7 @@ public class MySecSerializer<T> implements Serializer<T> {
         }
     }
 
+    @Override
     public T deserialize(byte[] serialized) throws SerializationException {
         if (serialized == null) {
             String msg = "argument cannot be null.";

@@ -317,7 +317,6 @@ public class BizArticleServiceImpl implements BizArticleService {
     @Override
     public List<Article> listHotArticle(int pageSize) {
         PageHelper.startPage(1, pageSize);
-
         List<BizArticle> entityList = bizArticleMapper.listHotArticle();
         if (CollectionUtils.isEmpty(entityList)) {
             return null;

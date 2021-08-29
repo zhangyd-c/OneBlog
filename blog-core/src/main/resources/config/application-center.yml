@@ -3,9 +3,9 @@ spring:
   datasource:
     druid:
       connection-init-sqls: set names utf8mb4
-      driver-class-name: com.mysql.jdbc.Driver
+      driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://${ONEBLOG_DATASOURCE_HOST:127.0.0.1}:${ONEBLOG_DATASOURCE_PORT:3306}/${ONEBLOG_DATASOURCE_DATABASE_NAME:dblog}?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://${ONEBLOG_DATASOURCE_HOST:127.0.0.1}:${ONEBLOG_DATASOURCE_PORT:3306}/${ONEBLOG_DATASOURCE_DATABASE_NAME:dblog}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true&useLegacyDatetimeCode=false
     username: ${ONEBLOG_DATASOURCE_USERNAME:root}
     password: ${ONEBLOG_DATASOURCE_PASSWORD:root}
 
@@ -61,6 +61,29 @@ spring:
       mail.smtp.connectiontimeout: 50000
       mail.smtp.timeout: 30000
       mail.smtp.writetimeout: 50000
+
+
+# MyBatis
+mybatis:
+  type-aliases-package: com.zyd.blog.persistence.beans
+  mapper-locations: classpath:/mybatis/*.xml
+  configuration:
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+# mapper
+mapper:
+  mappers:
+    - com.zyd.blog.plugin.BaseMapper
+  not-empty: false
+  identity: MYSQL
+  use-simple-type: false
+  enum-as-simple-type: true
+# pagehelper
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
 
 app:
   version: v2.2.7

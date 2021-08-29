@@ -10,7 +10,8 @@ spring:
 # logging settings
 logging:
     config: classpath:logback-spring.xml
-    path: /var/tmp/oneblog/blog-web
+    file:
+      path: /var/tmp/oneblog/blog-web
 
 # braum过滤器，用于过滤恶意请求
 braum:

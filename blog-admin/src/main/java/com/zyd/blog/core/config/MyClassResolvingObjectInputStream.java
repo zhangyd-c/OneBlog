@@ -13,6 +13,7 @@ public class MyClassResolvingObjectInputStream extends ObjectInputStream {
         super(inputStream);
     }
 
+    @Override
     protected Class<?> resolveClass(ObjectStreamClass osc) throws IOException, ClassNotFoundException {
         try {
             String s = osc.getName();

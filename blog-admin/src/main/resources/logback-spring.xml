@@ -29,6 +29,7 @@
     <logger name="org.springframework.core.env" level="DEBUG"/>
     <logger name="us.codecraft.webmagic.downloader" level="DEBUG"/>
     <logger name="com.zyd.blog.framework.runner" level="DEBUG"/>
+    <logger name="org.crazycake.shiro.RedisCache" level="INFO"/>
 
     <!-- 测试环境+开发环境，日志级别为INFO且不写日志文件 -->
     <springProfile name="dev">

@@ -16,7 +16,7 @@
                     <div class="bottom-line title"><i class="fa fa-question-circle-o"></i><strong>为什么会被限制？</strong></div>
                     <ol>
                         <li>1.快速的、频繁的、大量的刷新页面</li>
-                        <li>2.疑是Spider</strong></li>
+                        <li>2.疑是Spider</li>
                         <li>3.系统抽风</li>
                     </ol>
                     <div class="clear"></div>
