@@ -492,32 +492,29 @@ a:-webkit-any-link {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
-.article-blockquote-red {
-    background: #c40000;
+.article-blockquote-gray {
+    background: #7a7a7a !important;
+}
+.article-original-gray {
+    background: #999;
 }
 
 .article-blockquote-green {
-    background: #31d229;
+    background: #427e53;
 }
-
-.article-original-red {
-    background: 0 0 rgba(216, 0, 0, 0.7);
-}
-
 .article-original-green {
-    background: #31708f;
+    background: #5FB878;
 }
-
 .article-flag .article-original {
     border-radius: 0;
-    padding: 0 10px;
+    padding: 0 5px;
     line-height: 2.2;
     display: block;
     color: #fff;
     position: absolute;
     filter: alpha(opacity=70);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-    margin-left: 10px;
+    margin-left: 4px;
 }
 
 .article-flag .article-original a {
@@ -1136,18 +1133,29 @@ article .thumbnail a img {
     max-width: 100%;
     border: 0;
 }
+.art {
+     font-size: 12px;
+     display: inline-block;
+     line-height: 20px;
+     border-radius: 2px;
+     color: #fff;
+     padding: 0 5px;
+     position: inherit;
+     float: left;
+     margin-top: 7px;
+     margin-right: 6px;
+ }
+.art-original {
+    background: #35b871;
+ }
+.art-original-0 {
+    background: #999;
+ }
+.art-top {
+    background: #e63946!important;
+ }
 .art-type {
-    font-size: 12px;
-    display: inline-block;
-    line-height: 20px;
-    background: #5d5d5d;
-    border-radius: 2px;
-    color: #fff;
-    padding: 0 5px;
-    position: inherit;
-    float: left;
-    margin-top: 7px;
-    margin-right: 6px;
+    background: #999;
 }
 .art-type-yellow {
     background: #fbd602!important;
@@ -1181,7 +1189,7 @@ article header h2 {
 
 article header h2 a {
     color: #555 !important;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 24px;
     font-weight: 700;
 }
@@ -3150,6 +3158,10 @@ nav a:first-child .meta-nav {
 
 .archives-box .article-item {
     text-indent: 4em;
+}
+
+.site-desc {
+    padding: 0 8px;
 }
 
 .site-desc h1 {
