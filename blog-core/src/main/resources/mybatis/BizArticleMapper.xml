@@ -29,6 +29,7 @@
 		<association property="bizType" javaType="com.zyd.blog.persistence.beans.BizType">
 			<result property="id" jdbcType="BIGINT" column="btype_id"/>
 			<result property="name" jdbcType="VARCHAR" column="btype_name"/>
+			<result property="icon" jdbcType="VARCHAR" column="btype_icon"/>
 			<result property="description" jdbcType="VARCHAR" column="btype_description"/>
 		</association>
 		<collection property="tags" column="tag_id" javaType="ArrayList" ofType="com.zyd.blog.persistence.beans.BizTags">
@@ -59,6 +60,7 @@
 			a.update_time,
 			btype.id AS btype_id,
 			btype.`name` AS btype_name,
+			btype.`icon` AS btype_icon,
 			btype.description AS btype_description
 		FROM
             biz_article a
