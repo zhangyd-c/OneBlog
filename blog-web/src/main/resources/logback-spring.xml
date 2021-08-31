@@ -7,7 +7,9 @@
     <!-- 控制台 appender -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%class:%line] %-5level - %msg%n</pattern>
+            <pattern>
+                %yellow(%date{yyyy-MM-dd HH:mm:ss}) [%highlight(%-5level)] [%magenta(%thread)] %green(%c.%M\(%F:%L\)) %n%msg%n%n
+            </pattern>
         </encoder>
     </appender>
 
