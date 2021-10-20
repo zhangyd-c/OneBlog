@@ -50,22 +50,8 @@ services:
     restart: always
     container_name: blog-admin
     hostname: blog-admin
-    environment:
-      ONEBLOG_REDIS_DATABASE_INDEX:
-      ONEBLOG_REDIS_HOST:
-      ONEBLOG_REDIS_PORT:
-      ONEBLOG_REDIS_PASSWORD:
-      ONEBLOG_DATASOURCE_HOST:
-      ONEBLOG_DATASOURCE_PORT:
-      ONEBLOG_DATASOURCE_DATABASE_NAME:
-      ONEBLOG_DATASOURCE_USERNAME:
-      ONEBLOG_DATASOURCE_PASSWORD:
-      ONEBLOG_MAIL_HOST:
-      ONEBLOG_MAIL_PORT:
-      ONEBLOG_MAIL_USERNAME:
-      ONEBLOG_MAIL_PASSWORD:
-      ONEBLOG_APP_ENABLE_KAPTCHA:
-      ONEBLOG_APP_ENABLE_PRINT_CONFIG:
+    env_file:
+      - .env
     volumes:
       - ${ONEBLOG_APP_DIR}:/var/tmp/oneblog
     depends_on:
@@ -88,22 +74,8 @@ services:
     restart: always
     container_name: blog-web
     hostname: blog-web
-    environment:
-      ONEBLOG_REDIS_DATABASE_INDEX:
-      ONEBLOG_REDIS_HOST:
-      ONEBLOG_REDIS_PORT:
-      ONEBLOG_REDIS_PASSWORD:
-      ONEBLOG_DATASOURCE_HOST:
-      ONEBLOG_DATASOURCE_PORT:
-      ONEBLOG_DATASOURCE_DATABASE_NAME:
-      ONEBLOG_DATASOURCE_USERNAME:
-      ONEBLOG_DATASOURCE_PASSWORD:
-      ONEBLOG_MAIL_HOST:
-      ONEBLOG_MAIL_PORT:
-      ONEBLOG_MAIL_USERNAME:
-      ONEBLOG_MAIL_PASSWORD:
-      ONEBLOG_APP_ENABLE_KAPTCHA:
-      ONEBLOG_APP_ENABLE_PRINT_CONFIG:
+    env_file:
+      - .env
     volumes:
       - ${ONEBLOG_APP_DIR}:/var/tmp/oneblog
     depends_on:

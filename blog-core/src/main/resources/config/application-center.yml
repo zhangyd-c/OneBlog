@@ -87,4 +87,4 @@ pagehelper:
 
 app:
   version: v2.2.8
-  enableRedisCache: false
+  enableRedisCache: ${ONEBLOG_ENABLE_REDIS_CACHE:false}

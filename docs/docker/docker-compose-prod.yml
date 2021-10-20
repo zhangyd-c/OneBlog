@@ -11,7 +11,7 @@ services:
     hostname: blog-redis
     command: redis-server --appendonly yes --requirepass ${ONEBLOG_REDIS_PASSWORD} --bind blog-redis
     ports:
-      - 63799:6379
+      - ${ONEBLOG_EXPORT_PORT_REDIS}:6379
     volumes:
       - ${ONEBLOG_APP_DIR}/redis/:/data/
     healthcheck:
@@ -33,7 +33,7 @@ services:
     volumes:
       - ${ONEBLOG_APP_DIR}/mysql:/var/lib/mysql
     ports:
-      - 33066:3306
+      - ${ONEBLOG_EXPORT_PORT_MYSQL}:3306
     command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     healthcheck:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
@@ -48,22 +48,8 @@ services:
     restart: always
     container_name: blog-admin
     hostname: blog-admin
-    environment:
-      ONEBLOG_REDIS_DATABASE_INDEX:
-      ONEBLOG_REDIS_HOST:
-      ONEBLOG_REDIS_PORT:
-      ONEBLOG_REDIS_PASSWORD:
-      ONEBLOG_DATASOURCE_HOST:
-      ONEBLOG_DATASOURCE_PORT:
-      ONEBLOG_DATASOURCE_DATABASE_NAME:
-      ONEBLOG_DATASOURCE_USERNAME:
-      ONEBLOG_DATASOURCE_PASSWORD:
-      ONEBLOG_MAIL_HOST:
-      ONEBLOG_MAIL_PORT:
-      ONEBLOG_MAIL_USERNAME:
-      ONEBLOG_MAIL_PASSWORD:
-      ONEBLOG_APP_ENABLE_KAPTCHA:
-      ONEBLOG_APP_ENABLE_PRINT_CONFIG:
+    env_file:
+      - .env
     volumes:
       - ${ONEBLOG_APP_DIR}:/var/tmp/oneblog
     depends_on:
@@ -75,7 +61,7 @@ services:
       - blog-redis
       - blog-mysql
     ports:
-      - 8085:8085
+      - ${ONEBLOG_EXPORT_PORT_ADMIN}:8085
     networks:
       - oneblog
 
@@ -85,22 +71,8 @@ services:
     restart: always
     container_name: blog-web
     hostname: blog-web
-    environment:
-      ONEBLOG_REDIS_DATABASE_INDEX:
-      ONEBLOG_REDIS_HOST:
-      ONEBLOG_REDIS_PORT:
-      ONEBLOG_REDIS_PASSWORD:
-      ONEBLOG_DATASOURCE_HOST:
-      ONEBLOG_DATASOURCE_PORT:
-      ONEBLOG_DATASOURCE_DATABASE_NAME:
-      ONEBLOG_DATASOURCE_USERNAME:
-      ONEBLOG_DATASOURCE_PASSWORD:
-      ONEBLOG_MAIL_HOST:
-      ONEBLOG_MAIL_PORT:
-      ONEBLOG_MAIL_USERNAME:
-      ONEBLOG_MAIL_PASSWORD:
-      ONEBLOG_APP_ENABLE_KAPTCHA:
-      ONEBLOG_APP_ENABLE_PRINT_CONFIG:
+    env_file:
+      - .env
     volumes:
       - ${ONEBLOG_APP_DIR}:/var/tmp/oneblog
     depends_on:
@@ -112,7 +84,7 @@ services:
       - blog-redis
       - blog-mysql
     ports:
-      - 8443:8443
+      - ${ONEBLOG_EXPORT_PORT_WEB}:8443
     networks:
       - oneblog
 
