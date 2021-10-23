@@ -3,6 +3,35 @@
 
 ----
 
+### 2021-10-23
+
+1. 优化页面样式。
+2. 新增【自定义页面】的功能，方便对接第三方的网站验证（比如：百度站长通过文件验证时，需要将验证文件上传到服务器，现在可以直接在后台添加映射）。
+
+比如在使用七牛云的 SSL 证书时，需要[对域名所有权进行验证](https://developer.qiniu.com/ssl/3667/ssl-certificate-of-free-dns-validation-guide)。当使用文件验证时，需要将文件放到项目根目录下，然后重新打包、上传、部署，非常不方便。
+
+![img.png](./docs/_media/img.png)
+
+现在可以通过【自定义页面】功能快速完成文件地址映射：
+
+![img.png](./docs/_media/blog-page.png)
+
+访问 http://localhost:8443/.well-known/pki-validation/fileauth.txt 
+
+![img.png](./docs/_media/blog-page-verify.png)
+
+再比如在百度站长平台添加网站时，一般也需要对域名进行验证，此时也可以选择【文件验证】，如下：
+
+![img.png](./docs/_media/baidu-site.png)
+
+先将该文件下载下来，查看源码后获得授权码，然后通过【自定义页面】功能快速完成文件地址映射：
+
+![img.png](./docs/_media/blog-page-baidu.png)
+
+访问 http://localhost:8443/baidu_verify_code-PHAfH7AwQ4.html
+
+![img.png](./docs/_media/blog-page-verify2.png)
+
 ### 2021-06-06
 
 1. 处理了一批 Issue

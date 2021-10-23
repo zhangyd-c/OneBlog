@@ -19,19 +19,24 @@ public class RestPageController {
     @Autowired
     private BizPageService bizPageService;
 
-    @GetMapping(value = "/{url}.xml", produces = {"application/xml"})
-    public String xml(@PathVariable("url") String url) {
-        return this.getContent(url + ".xml");
+    @GetMapping(value = "/{filename}.xml", produces = {"application/xml"})
+    public String xml(@PathVariable("filename") String filename) {
+        return this.getContent(filename + ".xml");
     }
 
-    @GetMapping(value = "/{url}.txt", produces = {"text/plain"})
-    public String txt(@PathVariable("url") String url) {
-        return this.getContent(url + ".txt");
+    @GetMapping(value = "/{filename}.txt", produces = {"text/plain"})
+    public String txt(@PathVariable("filename") String filename) {
+        return this.getContent(filename + ".txt");
     }
 
-    @GetMapping(value = "/{url}.html", produces = {"text/html"})
-    public String html(@PathVariable("url") String url) {
-        return this.getContent(url + ".html");
+    @GetMapping(value = "/.well-known/{url}/{filename}.txt", produces = {"text/plain"})
+    public String multiPath(@PathVariable("url") String url, @PathVariable("filename") String filename) {
+        return this.getContent(".well-known/" + url + "/" + filename + ".txt");
+    }
+
+    @GetMapping(value = "/{filename}.html", produces = {"text/html"})
+    public String html(@PathVariable("filename") String filename) {
+        return this.getContent(filename + ".html");
     }
 
     private String getContent(String url) {
