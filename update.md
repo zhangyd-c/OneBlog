@@ -32,6 +32,14 @@
 
 ![img.png](./docs/_media/blog-page-verify2.png)
 
+> 注意：目前该功能仅支持以下格式的url映射：
+> 1. http://domain/{x}.xml
+> 2. http://domain/{x}.txt
+> 3. http://domain/{x}.html
+> 4. http://domain/.well-known/{x}/{x}.txt
+> 
+> 对于其他类型的 url 格式，请提交 issue
+
 ### 2021-06-06
 
 1. 处理了一批 Issue
