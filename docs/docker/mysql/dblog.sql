@@ -396,5 +396,18 @@ CREATE TABLE `sys_social_config`  (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '社会化登录应用' ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Table structure for biz_page
+-- ----------------------------
+DROP TABLE IF EXISTS `biz_page`;
+CREATE TABLE `biz_page`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '自定义页面的url（不包含域名部分）',
+  `content` mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '自定义页面的内容',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
 
 SET FOREIGN_KEY_CHECKS = 1;

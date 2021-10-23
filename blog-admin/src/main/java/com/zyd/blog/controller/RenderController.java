@@ -218,4 +218,11 @@ public class RenderController {
     public ModelAndView socials(Model model) {
         return ResultUtil.view("social/list");
     }
+
+    @RequiresPermissions("page")
+    @BussinessLog("进入配置自定义页面")
+    @GetMapping("/page")
+    public ModelAndView page(Model model) {
+        return ResultUtil.view("page/page");
+    }
 }

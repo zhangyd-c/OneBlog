@@ -189,6 +189,13 @@ INSERT INTO `dblog`.`sys_resources` VALUES (78, '批量删除社会化登录配�
 INSERT INTO `dblog`.`sys_resources` VALUES (79, '编辑社会化登录配置', 'button', NULL, 'social:edit,social:get', 76, 4, 0, 1, NULL, now(), now());
 INSERT INTO `dblog`.`sys_resources` VALUES (80, '删除社会化登录配置', 'button', NULL, 'social:delete', 76, 5, 0, 1, NULL, now(), now());
 
+# 20211023
+INSERT INTO `dblog`.`sys_resources` VALUES (81, '自定义页面管理', 'menu', '/page', 'page', 40, 7, 0, 1, '', now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (82, '新增自定义页面', 'button', NULL, 'page:add', 81, 2, 0, 1, NULL, now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (83, '批量删除自定义页面', 'button', NULL, 'page:batchDelete', 81, 3, 0, 1, NULL, now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (84, '编辑自定义页面', 'button', NULL, 'page:edit,page:get', 81, 4, 0, 1, NULL, now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (85, '删除自定义页面', 'button', NULL, 'page:delete', 81, 5, 0, 1, NULL, now(), now());
+
 # 清空系统角色
 TRUNCATE TABLE `dblog`.`sys_role`;
 # 初始化系统角色
