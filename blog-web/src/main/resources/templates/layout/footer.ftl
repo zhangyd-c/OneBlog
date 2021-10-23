@@ -135,6 +135,12 @@
                     <#if url?? && (url == "index")>
                         <div class="inline external-links">
                             <a>友情链接：</a>
+                            <a href="https://justauth.wiki" target="_blank" title="开箱即用的整合第三方登录的开源组件" data-toggle="tooltip" data-placement="right">
+                                JustAuth
+                            </a>
+                            <a href="https://justauth.plus" target="_blank" title="一款开源的登录认证中间件，支持 Form、 OAuth2.0、OIDC、Http Basic、Digest、Bearer、LDAP、SAML、MFA、SSO 等" data-toggle="tooltip" data-placement="right">
+                                JAP
+                            </a>
                             <#if indexLinkList?? && (indexLinkList?size > 0)>
                                 <#list indexLinkList as item>
                                     <a href="${item.url}" target="_blank" title="${item.description!}" data-toggle="tooltip" data-placement="right">
