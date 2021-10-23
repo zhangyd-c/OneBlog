@@ -21,3 +21,4 @@
 hs_err_pid*
 /.idea/
 *.iml
+/logdir_IS_UNDEFINED/
