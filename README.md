@@ -107,7 +107,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 ## Docker Compose（推荐）
 
-1. 在任意位置下分别创建 `.env` 和 `docker-compose.yml`（可以参考或直接复制`docs/docker/docker-compose-prod.yml`的内容） 文件
+1. 在任意位置下分别创建 `.env` 和 `docker-compose.yml`（可以参考或直接复制`docs/docker/docker-compose.yml.template`的内容）
 2. 执行 `docker-compose -p oneblog up -d`
 
 ## Docker Compose
