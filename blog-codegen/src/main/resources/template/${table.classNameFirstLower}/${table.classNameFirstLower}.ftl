@@ -74,7 +74,7 @@
                         checkbox: true
                     },
                     <#list table.columns as column>
-                    <#if column.columnName == "updateTime" || column.columnName == "createTime" || column.columnName == "insertTime">
+                    <#if column.columnNameFirstLower == "updateTime" || column.columnNameFirstLower == "createTime" || column.columnNameFirstLower == "insertTime">
                     {
                         field: '${column.columnNameFirstLower}',
                         title: '${column.remark}',
