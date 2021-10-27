@@ -51,7 +51,7 @@
         <spring.web.version>5.1.4.RELEASE</spring.web.version>
         <aliyun.oss.version>2.8.3</aliyun.oss.version>
         <blog-hunter.version>1.0.4</blog-hunter.version>
-        <jap.version>1.0.4</jap.version>
+        <jap.version>1.0.5</jap.version>
     </properties>
 
     <dependencyManagement>

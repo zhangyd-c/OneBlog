@@ -233,19 +233,12 @@
         <dependency>
             <groupId>com.zyd</groupId>
             <artifactId>blog-file</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>okhttp</artifactId>
-                    <groupId>com.squareup.okhttp3</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
-            <artifactId>okhttp</artifactId>
-            <groupId>com.squareup.okhttp3</groupId>
-            <version>4.9.1</version>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-http</artifactId>
+            <version>${hutool.version}</version>
         </dependency>
-
         <dependency>
             <groupId>me.zhyd.braum.spring.boot</groupId>
             <artifactId>braum-spring-boot-starter</artifactId>

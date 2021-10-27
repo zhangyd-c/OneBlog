@@ -5,6 +5,8 @@ import com.fujieid.jap.core.JapUserService;
 import com.fujieid.jap.core.config.JapConfig;
 import com.fujieid.jap.core.context.JapAuthentication;
 import com.fujieid.jap.core.result.JapResponse;
+import com.fujieid.jap.http.adapter.jakarta.JakartaRequestAdapter;
+import com.fujieid.jap.http.adapter.jakarta.JakartaResponseAdapter;
 import com.fujieid.jap.social.SocialStrategy;
 import com.zyd.blog.business.entity.SocialConfig;
 import com.zyd.blog.business.entity.User;
@@ -45,7 +47,9 @@ public class OAuthController {
             throw new ZhydException(source + " 平台的配置尚未完成，暂时不支持登录！");
         }
         SocialStrategy socialStrategy = new SocialStrategy(japUserService, new JapConfig());
-        JapResponse japResponse = socialStrategy.authenticate(JapUtil.blogSocialConfig2JapSocialConfig(socialConfig, source), request, response);
+        JapResponse japResponse = socialStrategy.authenticate(JapUtil.blogSocialConfig2JapSocialConfig(socialConfig, source),
+                new JakartaRequestAdapter(request),
+                new JakartaResponseAdapter(response));
         if (!japResponse.isSuccess()) {
             throw new ZhydException(japResponse.getMessage());
         }
@@ -64,7 +68,8 @@ public class OAuthController {
      */
     @RequestMapping("/logout")
     public ModelAndView logout(HttpServletResponse response, HttpServletRequest request) {
-        JapAuthentication.logout(request, response);
+        JapAuthentication.logout(new JakartaRequestAdapter(request),
+                new JakartaResponseAdapter(response));
         SessionUtil.removeUser();
         return ResultUtil.redirect("/");
     }
