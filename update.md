@@ -5,8 +5,10 @@
 
 ### 2021-10-27
 
-- 修复第三方登录失败的问题
 - **增加代码生成模块 `blog-codegen`，新业务支持一键生成所有代码**
+
+![img.png](./docs/_media/codegen.png)
+
 - 增加广告位
 
 ![img.png](./docs/_media/ad/img1.png)
@@ -15,6 +17,10 @@
 ![img.png](./docs/_media/ad/img4.png)
 ![img.png](./docs/_media/ad/img5.png)
 
+### 2021-10-26
+
+- 修复第三方登录失败的问题
+- 
 ### 2021-10-23
 
 1. 优化页面样式。
