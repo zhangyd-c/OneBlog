@@ -210,7 +210,7 @@ $(function () {
     console.log("OneBlog，一个简洁美观、功能强大并且自适应的Java博客\n欢迎进QQ交流群（190886500）");
     console.groupEnd();
     console.group("推荐开源");
-    console.log("%c开源不易，所以原谅我在此推一下不算广告的广告！", "color:red;font-size:12px;font-weight:blod");
+    console.log("%c开源不易，在此推一下开源项目！", "color:red;font-size:12px;font-weight:blod");
     console.log("%c① JustAuth，开箱即用的整合第三方登录的开源组件：https://github.com/justauth/JustAuth", "color:green;font-size:12px;font-weight:blod");
     console.log("%c② JAP，一款开源的登录认证中间件，支持 Form、 OAuth2.0、OIDC、Http Basic、Digest、Bearer、LDAP、SAML、MFA、SSO 等：https://gitee.com/fujieid/jap", "color:green;font-size:12px;font-weight:blod");
     console.log("%c欢迎关注、star、推荐", "color:green;font-size:12px;font-weight:blod");
@@ -425,5 +425,60 @@ $(function () {
         $(".nav.navbar-nav li.dropdown").addClass("open")
         $(".nav.navbar-nav li.dropdown a.menu_a span.dropdown-toggle").attr("aria-expanded", "true")
     }
+
+    var adResolver = {
+        IMG: function ($dom, adInfo, position) {
+            if(adInfo.link && adInfo.picture) {
+                var html = '<a href="' + adInfo.link + '" target="_blank" title="' + (adInfo.title || '') + '" rel="external nofollow">' +
+                    '<img src="' + adInfo.picture + '" class="img-responsive" alt="' + (adInfo.title || '') + '" style="width: 100%;">' +
+                    '</a>';
+                $dom.show().html(html);
+            }
+        },
+        JS: function ($dom, adInfo, position) {
+            $dom.show().html(adInfo.content);
+        },
+        TXT: function ($dom, adInfo, position) {
+            $dom.show().html(adInfo.content);
+        },
+        POP: function ($dom, adInfo, position) {
+            var html = '';
+            if(adInfo.link && adInfo.picture) {
+                html = '<a href="' + adInfo.link + '" target="_blank" title="' + (adInfo.title || '') + '" rel="external nofollow">' +
+                    '<img src="' + adInfo.picture + '" class="img-responsive" alt="' + (adInfo.title || '') + '" style="width: 100%;">' +
+                    '</a>';
+            }
+            html = html + '<p>' + adInfo.content + '</p>';
+            $dom.find('#ad-body').html(html);
+            $dom.show().modal('show');
+        }
+    };
+
+    $.ajax({
+        type: "get",
+        url: "/api/ads",
+        success: function (json) {
+            if (json.status == 200 && json.data) {
+                var data = json.data;
+                for(var key in data) {
+                    var $dom = $('#' + key);
+                    // 判断当前页面是否存在该广告位
+                    if ($dom && $dom[0]) {
+                        var adInfo = data[key];
+                        if(adInfo.expired || adInfo.expired === 'true') {
+                            // 广告已经过期
+                            // console.log('广告已经过期', key)
+                        } else {
+                            var adType = adInfo.type;
+                            adResolver[adType]($dom, adInfo, key);
+                        }
+                    }
+                }
+            }
+        },
+        error: function () {
+            $.alert.ajaxError();
+        }
+    });
 
 });

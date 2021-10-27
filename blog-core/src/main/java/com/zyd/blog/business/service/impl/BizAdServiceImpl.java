@@ -3,6 +3,7 @@ package com.zyd.blog.business.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.BizAdBo;
+import com.zyd.blog.business.enums.AdPositionEnum;
 import com.zyd.blog.business.service.BizAdService;
 import com.zyd.blog.business.vo.BizAdConditionVO;
 import com.zyd.blog.persistence.beans.BizAd;
@@ -49,6 +50,17 @@ public class BizAdServiceImpl implements BizAdService {
         PageInfo bean = new PageInfo<BizAd>(list);
         bean.setList(boList);
         return bean;
+    }
+
+    @Override
+    public BizAdBo getByPosition(AdPositionEnum positionEnum) {
+        if (null == positionEnum) {
+            return null;
+        }
+        BizAd ad = new BizAd();
+        ad.setPosition(positionEnum.name());
+        ad = this.bizAdMapper.selectOne(ad);
+        return null == ad ? null : new BizAdBo(ad);
     }
 
     /**

@@ -40,6 +40,10 @@ public class RestBizAdController {
     @RequiresPermissions("bizAd:add")
     @PostMapping(value = "/add")
     public ResponseVO add(BizAdBo bizAd) {
+        BizAdBo entity = bizAdService.getByPosition(bizAd.getPositionEnum());
+        if (null != entity) {
+            return ResultUtil.error("当前广告位已存在广告，一个广告位仅支持一条广告");
+        }
         bizAdService.insert(bizAd);
         return ResultUtil.success("成功");
     }
@@ -66,6 +70,18 @@ public class RestBizAdController {
     @PostMapping("/edit")
     public ResponseVO edit(BizAdBo bizAd) {
         try {
+
+            BizAdBo entity = bizAdService.getByPrimaryKey(bizAd.getId());
+            if (null == entity) {
+                return ResultUtil.error("广告不存在！");
+            }
+            if (!entity.getPosition().equals(bizAd.getPosition())) {
+                entity = bizAdService.getByPosition(bizAd.getPositionEnum());
+                if (null != entity) {
+                    return ResultUtil.error("当前广告位已存在广告，一个广告位仅支持一条广告");
+                }
+            }
+
             bizAdService.updateSelective(bizAd);
         } catch (Exception e) {
             e.printStackTrace();

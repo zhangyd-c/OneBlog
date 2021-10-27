@@ -1,4 +1,6 @@
 <div class="col-sm-3 blog-sidebar">
+    <#-- 广告位 -->
+    <div class="sidebar-module ad-mark" id="SIDEBAR_TOP" style="display: none"></div>
     <#if articleDetail??>
         <div class="sidebar-module">
             <h5 class="custom-title"><i class="fa fa-hand-peace-o fa-fw icon"></i><strong>说给你听</strong><small></small></h5>
@@ -178,4 +180,6 @@
             </@zhydTag>
         </ul>
     </div>
+    <#-- 广告位 -->
+    <div class="sidebar-module ad-mark" id="SIDEBAR_BOTTOM" style="display: none"></div>
 </div>

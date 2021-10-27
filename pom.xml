@@ -12,6 +12,7 @@
         <module>blog-web</module>
         <module>blog-admin</module>
         <module>blog-file</module>
+        <module>blog-codegen</module>
     </modules>
 
     <name>blog</name>
@@ -73,6 +74,11 @@
             <dependency>
                 <groupId>com.zyd</groupId>
                 <artifactId>blog-file</artifactId>
+                <version>2.3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zyd</groupId>
+                <artifactId>blog-codegen</artifactId>
                 <version>2.3.0</version>
             </dependency>
         </dependencies>

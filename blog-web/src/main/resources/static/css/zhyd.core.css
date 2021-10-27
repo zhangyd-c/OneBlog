@@ -3608,3 +3608,18 @@ img {
 .navbar-brand img {
     display: inline-block
 }
+
+/* 广告 */
+.ad-mark {
+    padding: 8px;
+    position: relative;
+}
+
+.ad-mark:after {
+    content: '广告';
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    color: #e8e8e8;
+    font-size: 12px;
+}

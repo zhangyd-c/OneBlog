@@ -13,14 +13,17 @@ if [ "$version" ]; then
 fi
 
 cd $pwd/blog-admin/ || exit
-docker build -t justauth/blog-admin:v${current_version}
+docker build -t justauth/blog-admin:v${current_version} .
 docker push justauth/blog-admin:v${current_version}
 
 cd $pwd/blog-web/ || exit
-docker build -t justauth/blog-web:v${current_version}
+docker build -t justauth/blog-web:v${current_version} .
 docker push justauth/blog-web:v${current_version}
 
-cd $pwd/docs/docker/mysql/ || exit
-docker build -t justauth/blog-mysql:v${current_version}
-docker push justauth/blog-mysql:v${current_version}
+read -p '是否需要重新构建 blog-mysql？[y/n]' repeat
+if [ "${repeat}" = "y" -o "${repeat}" = "Y" ];then
+  cd $pwd/docs/docker/mysql/ || exit
+  docker build -t justauth/blog-mysql:v${current_version} .
+  docker push justauth/blog-mysql:v${current_version}
+fi
 

@@ -144,6 +144,18 @@
         <#include "layout/sidebar.ftl"/>
     </div>
 </div>
-
+<#-- 广告位 -->
+<div id="HOMEPAGE_OPEN_SCREEN" style="display: none" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">站长力荐<i class="fa fa-fire red"></i></h4>
+            </div>
+            <div class="modal-body ad-mark" id="ad-body">
+            </div>
+        </div>
+    </div>
+</div>
 <@footer></@footer>
 </@compress>

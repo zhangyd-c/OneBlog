@@ -102,11 +102,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="blog-body">
-                <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=wylo59db&utm_source=wylo59db" target="_blank" rel="external nofollow">
-                    <img src="${config.staticWebSite}/img/ad/aliyun_sale1000-60.png" alt="阿里云首购8折" class="img-responsive" style="width: 100%;">
-                </a>
-            </div>
+            <#-- 广告位 -->
+            <div class="blog-body ad-mark" id="ARTICLE_BOTTOM" style="display: none"></div>
             <div class="blog-body prev-next">
                 <nav class="nav-single wow" data-wow-delay="0.3s">
                     <#if other.prev>
@@ -199,6 +196,8 @@
                 </ul>
                 <div class="clear"></div>
             </div>
+            <#-- 广告位 -->
+            <div class="blog-body ad-mark" id="COMMENT_BOX_TOP" style="display: none"></div>
             <#--评论-->
             <#if article.comment>
                 <div class="blog-body clear overflow-initial expansion">
@@ -245,7 +244,7 @@
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/simplemde@1.11.2/dist/simplemde.min.js"></script>
 
     <script>
-        var isPrivate = ${article.private};
+        var isPrivate = '${article.private}';
         if(isPrivate || isPrivate == 'true') {
             $("#lockModal").modal('show')
         }

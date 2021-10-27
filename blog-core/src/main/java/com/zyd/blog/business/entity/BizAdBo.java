@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zyd.blog.business.consts.DateConst;
 import com.zyd.blog.business.enums.AdPositionEnum;
+import com.zyd.blog.business.enums.AdTypeEnum;
 import com.zyd.blog.persistence.beans.BizAd;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -64,6 +65,14 @@ public class BizAdBo {
         this.bizAd.setLink(link);
     }
 
+    public String getTitle() {
+        return this.bizAd.getTitle();
+    }
+
+    public void setTitle(String title) {
+        this.bizAd.setTitle(title);
+    }
+
     public String getPosition() {
         return this.bizAd.getPosition();
     }
@@ -78,7 +87,27 @@ public class BizAdBo {
 
     public AdPositionEnum getPositionEnum() {
         try {
-            return AdPositionEnum.valueOf(this.bizAd.getPosition());
+            return AdPositionEnum.valueOf(this.getPosition());
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    public String getType() {
+        return this.bizAd.getType();
+    }
+
+    public void setType(String type) {
+        this.bizAd.setType(type);
+    }
+
+    public void setType(AdTypeEnum type) {
+        this.bizAd.setType(type.name());
+    }
+
+    public AdTypeEnum getTypeEnum() {
+        try {
+            return AdTypeEnum.valueOf(this.getType());
         } catch (IllegalArgumentException e) {
             return null;
         }
@@ -87,6 +116,10 @@ public class BizAdBo {
     @JsonFormat(timezone = "GMT+8", pattern = DateConst.YYYY_MM_DD_HH_MM_SS_EN)
     public Date getExpiringDate() {
         return this.bizAd.getExpiringDate();
+    }
+
+    public boolean getExpired() {
+        return null != this.bizAd.getExpiringDate() && this.bizAd.getExpiringDate().before(new Date());
     }
 
     @DateTimeFormat(pattern = DateConst.YYYY_MM_DD_HH_MM_SS_EN)

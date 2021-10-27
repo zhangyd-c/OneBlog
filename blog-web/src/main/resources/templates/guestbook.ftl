@@ -44,6 +44,10 @@
                 </div>
             </div>
         </#if>
+        <#-- 广告位 -->
+        <div class="col-sm-12 blog-main">
+            <div class="blog-body ad-mark" id="COMMENT_BOX_TOP" style="display: none"></div>
+        </div>
         <#if config.comment! && config.comment == 1>
             <div class="col-sm-12 blog-main">
                 <div class="blog-body expansion">

@@ -21,10 +21,12 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class BizAd extends AbstractDO{
+	private String position;
+	private String type;
 	private String content;
 	private String picture;
 	private String link;
-	private String position;
+	private String title;
 	private Date expiringDate;
 	private Integer showNumber;
 	private Integer clickNumber;

@@ -12,8 +12,9 @@ package com.zyd.blog.controller;
 
 import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Article;
+import com.zyd.blog.business.enums.AdPositionEnum;
+import com.zyd.blog.business.enums.AdTypeEnum;
 import com.zyd.blog.business.service.BizArticleService;
-import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.core.BlogHunterConfigProvider;
 import com.zyd.blog.core.websocket.server.ZydWebsocketServer;
 import com.zyd.blog.util.ResultUtil;
@@ -225,4 +226,14 @@ public class RenderController {
     public ModelAndView page(Model model) {
         return ResultUtil.view("page/page");
     }
+
+    @RequiresPermissions("bizAds")
+    @BussinessLog("进入广告页面")
+    @GetMapping("/bizAd")
+    public ModelAndView bizAd(Model model) {
+        model.addAttribute("positions", AdPositionEnum.toListMap());
+        model.addAttribute("types", AdTypeEnum.toListMap());
+        return ResultUtil.view("bizAd/bizAd");
+    }
+
 }
