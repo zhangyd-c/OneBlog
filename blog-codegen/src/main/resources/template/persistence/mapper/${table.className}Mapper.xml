@@ -1,0 +1,33 @@
+<#include "/blog-codegen/src/main/resources/template/macro.include"/>
+<#assign className = table.className>
+<#assign classNameFirstLower = table.classNameFirstLower>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<#macro mapperEl value>${r"#{"}${value}}</#macro>
+<#macro namespace>${basePackage}.persistence</#macro>
+
+<mapper namespace="${basePackage}.persistence.mapper.${table.className}Mapper">
+	<resultMap id="rm" type="${basePackage}.persistence.beans.${table.className}">
+		<#list table.columns as column>
+		<#if column.columnNameFirstLower == 'insertTime' || column.columnNameFirstLower == 'createTime'
+			|| column.columnNameFirstLower == 'updateTime' || column.jdbcType == 'DATETIME'>
+		<result property="${column.columnNameFirstLower}" jdbcType="TIMESTAMP" column="${column.columnName}"/>
+		<#else>
+		<result property="${column.columnNameFirstLower}" jdbcType="${column.jdbcType}" column="${column.columnName}"/>
+		</#if>
+		</#list>
+	</resultMap>
+
+	<select id="findPageBreakByCondition" parameterType="${basePackage}.business.vo.${table.className}ConditionVO" resultMap="rm">
+		SELECT
+			<#list table.columns as _column>
+			t.${_column.columnName}<#if _column_has_next>,</#if>
+			</#list>
+		FROM
+			${table.tableName} t
+		WHERE
+			1 = 1
+		ORDER BY t.create_time DESC
+	</select>
+</mapper>
+
