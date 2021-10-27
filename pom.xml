@@ -5,7 +5,7 @@
 
     <groupId>com.zyd</groupId>
     <artifactId>blog</artifactId>
-    <version>2.3.0</version>
+    <version>2.3.1</version>
     <packaging>pom</packaging>
     <modules>
         <module>blog-core</module>
@@ -59,27 +59,27 @@
             <dependency>
                 <groupId>com.zyd</groupId>
                 <artifactId>blog-core</artifactId>
-                <version>2.3.0</version>
+                <version>2.3.1</version>
             </dependency>
             <dependency>
                 <groupId>com.zyd</groupId>
                 <artifactId>blog-admin</artifactId>
-                <version>2.3.0</version>
+                <version>2.3.1</version>
             </dependency>
             <dependency>
                 <groupId>com.zyd</groupId>
                 <artifactId>blog-web</artifactId>
-                <version>2.3.0</version>
+                <version>2.3.1</version>
             </dependency>
             <dependency>
                 <groupId>com.zyd</groupId>
                 <artifactId>blog-file</artifactId>
-                <version>2.3.0</version>
+                <version>2.3.1</version>
             </dependency>
             <dependency>
                 <groupId>com.zyd</groupId>
                 <artifactId>blog-codegen</artifactId>
-                <version>2.3.0</version>
+                <version>2.3.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
