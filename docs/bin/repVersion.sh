@@ -21,7 +21,6 @@ fi
 # 替换README.md等文件中的版本
 sed -i "s/${old_version}/${new_version}/g" $pwd/blog-core/src/main/resources/config/application-center.yml
 sed -i "s/${old_version}/${new_version}/g" $pwd/README.md
-sed -i "s/${old_version}/${new_version}/g" $pwd/README.en-US.md
 
 # 替换pom.xml中的版本
 sed -i "s/${old_version}/${new_version}/g" $pwd/pom.xml

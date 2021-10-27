@@ -86,5 +86,5 @@ pagehelper:
   params: count=countSql
 
 app:
-  version: v2.2.9
+  version: v2.3.0
   enableRedisCache: ${ONEBLOG_ENABLE_REDIS_CACHE:false}

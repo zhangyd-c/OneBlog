@@ -9,4 +9,4 @@ fi
 mvn versions:set -DnewVersion=$1
 
 # 替换其它地方的版本
-source $(pwd)/bin/repVersion.sh "$1"
+source $(pwd)/docs/bin/repVersion.sh "$1"
