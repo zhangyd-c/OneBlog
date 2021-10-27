@@ -196,6 +196,13 @@ INSERT INTO `dblog`.`sys_resources` VALUES (83, '批量删除自定义页面', '
 INSERT INTO `dblog`.`sys_resources` VALUES (84, '编辑自定义页面', 'button', NULL, 'page:edit,page:get', 81, 4, 0, 1, NULL, now(), now());
 INSERT INTO `dblog`.`sys_resources` VALUES (85, '删除自定义页面', 'button', NULL, 'page:delete', 81, 5, 0, 1, NULL, now(), now());
 
+# 20211027
+INSERT INTO `dblog`.`sys_resources` VALUES (86, '广告管理', 'menu', '/bizAd', 'bizAds', 40, 7, 0, 1, '', now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (87, '新增广告', 'button', NULL, 'bizAd:add', 86, 2, 0, 1, NULL, now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (88, '批量删除广告', 'button', NULL, 'bizAd:batchDelete', 86, 3, 0, 1, NULL, now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (89, '编辑广告', 'button', NULL, 'bizAd:edit,bizAd:get', 86, 4, 0, 1, NULL, now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (90, '删除广告', 'button', NULL, 'bizAd:delete', 86, 5, 0, 1, NULL, now(), now());
+
 # 清空系统角色
 TRUNCATE TABLE `dblog`.`sys_role`;
 # 初始化系统角色

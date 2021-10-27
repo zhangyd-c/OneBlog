@@ -411,3 +411,23 @@ CREATE TABLE `biz_page`  (
 
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
+-- Table structure for biz_ad
+-- ----------------------------
+DROP TABLE IF EXISTS `biz_ad`;
+CREATE TABLE `biz_ad`  (
+    `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `type` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '广告类型',
+    `position` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告位置',
+    `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告标题',
+    `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '广告内容',
+    `picture` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告图片',
+    `link` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告链接',
+    `expiring_date` datetime(0) NULL DEFAULT NULL COMMENT '广告到期日',
+    `show_number` int(10) UNSIGNED NULL DEFAULT NULL COMMENT '展示次数',
+    `click_number` int(10) UNSIGNED NULL DEFAULT NULL COMMENT '点击次数',
+    `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '广告' ROW_FORMAT = Compact;

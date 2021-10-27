@@ -7,24 +7,29 @@
 ###################################  readme  ###################################
 
 
-# 20211023
+# 20211027
 -- ----------------------------
--- Table structure for biz_page
+-- Table structure for biz_ad
 -- ----------------------------
-DROP TABLE IF EXISTS `biz_page`;
-CREATE TABLE `biz_page`  (
-    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '自定义页面的url（不包含域名部分）',
-    `content` mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '自定义页面的内容',
-    `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-    `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+DROP TABLE IF EXISTS `biz_ad`;
+CREATE TABLE `biz_ad`  (
+   `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+   `type` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '广告类型',
+   `position` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告位置',
+   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告标题',
+   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '广告内容',
+   `picture` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告图片',
+   `link` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告链接',
+   `expiring_date` datetime(0) NULL DEFAULT NULL COMMENT '广告到期日',
+   `show_number` int(10) UNSIGNED NULL DEFAULT NULL COMMENT '展示次数',
+   `click_number` int(10) UNSIGNED NULL DEFAULT NULL COMMENT '点击次数',
+   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+   PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '广告' ROW_FORMAT = Compact;
 
-
-# 20211023
-INSERT INTO `dblog`.`sys_resources` VALUES (81, '自定义页面管理', 'menu', '/page', 'page', 40, 7, 0, 1, '', now(), now());
-INSERT INTO `dblog`.`sys_resources` VALUES (82, '新增自定义页面', 'button', NULL, 'page:add', 81, 2, 0, 1, NULL, now(), now());
-INSERT INTO `dblog`.`sys_resources` VALUES (83, '批量删除自定义页面', 'button', NULL, 'page:batchDelete', 81, 3, 0, 1, NULL, now(), now());
-INSERT INTO `dblog`.`sys_resources` VALUES (84, '编辑自定义页面', 'button', NULL, 'page:edit,page:get', 81, 4, 0, 1, NULL, now(), now());
-INSERT INTO `dblog`.`sys_resources` VALUES (85, '删除自定义页面', 'button', NULL, 'page:delete', 81, 5, 0, 1, NULL, now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (86, '广告管理', 'menu', '/bizAd', 'bizAds', 40, 7, 0, 1, '', now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (87, '新增广告', 'button', NULL, 'bizAd:add', 86, 2, 0, 1, NULL, now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (88, '批量删除广告', 'button', NULL, 'bizAd:batchDelete', 86, 3, 0, 1, NULL, now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (89, '编辑广告', 'button', NULL, 'bizAd:edit,bizAd:get', 86, 4, 0, 1, NULL, now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (90, '删除广告', 'button', NULL, 'bizAd:delete', 86, 5, 0, 1, NULL, now(), now());
