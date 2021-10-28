@@ -6,7 +6,12 @@
 ### 2021-10-29
 
 - wangEditor 升级到 4.7.9
+- 修复【文章搬运工】抓取文章失败的问题
 - 新增 TinyMCE 编辑器 ([#I4FOB0](https://gitee.com/yadong.zhang/DBlog/issues/I4FOB0))
+- 解决后台分页失败的问题 ([#I4FPMK](https://gitee.com/yadong.zhang/DBlog/issues/I4FPMK))
+- fixed [#I165DP](https://gitee.com/yadong.zhang/DBlog/issues/I165DP)
+- fixed [#I11TNT](https://gitee.com/yadong.zhang/DBlog/issues/I11TNT)
+- fixed [#IZ7BD](https://gitee.com/yadong.zhang/DBlog/issues/IZ7BD)
 
 ### 2021-10-27
 
