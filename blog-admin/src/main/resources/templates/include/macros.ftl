@@ -71,7 +71,7 @@
     <#if footerHtml>
         <footer>
             <div class="pull-right">
-                Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                <a href="https://colorlib.com/polygon/gentelella/index.html" target="_blank">Gentelella</a> - Bootstrap Admin Template by <a href="https://colorlib.com" target="_blank">Colorlib</a>
             </div>
             <div class="clearfix"></div>
         </footer>

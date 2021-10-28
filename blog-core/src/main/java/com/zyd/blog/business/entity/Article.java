@@ -76,11 +76,13 @@ public class Article {
         this.bizArticle.setQrcodePath(qrcodePath);
     }
 
+    @Deprecated
     public boolean getIsMarkdown() {
         Boolean value = this.bizArticle.getIsMarkdown();
         return null != value && value;
     }
 
+    @Deprecated
     public void setIsMarkdown(boolean isMarkdown) {
         this.bizArticle.setIsMarkdown(isMarkdown);
     }
@@ -149,13 +151,20 @@ public class Article {
         this.bizArticle.setOriginal(original);
     }
 
-
     public String getDescription() {
         return this.bizArticle.getDescription();
     }
 
     public void setDescription(String description) {
         this.bizArticle.setDescription(description);
+    }
+
+    public String getEditorType() {
+        return this.bizArticle.getEditorType();
+    }
+
+    public void setEditorType(String editorType) {
+        this.bizArticle.setEditorType(editorType);
     }
 
     public String getKeywords() {

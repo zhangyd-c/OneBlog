@@ -181,6 +181,10 @@ public enum ConfigKeyEnum {
      * 文章编辑器
      */
     ARTICLE_EDITOR("articleEditor"),
+    /**
+     * TinyMCE API Key
+     */
+    TINY_MCE_KEY("tinyMCEKey"),
 
     /**
      * 网站安装时间，默认为执行init_data.sql的时间

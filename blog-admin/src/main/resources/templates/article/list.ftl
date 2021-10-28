@@ -29,7 +29,7 @@
                     <div class="<#--table-responsive-->">
                         <div class="btn-group hidden-xs" id="toolbar">
                             <@shiro.hasPermission name="article:publish">
-                                <a class="btn btn-success" title="发表文章" href="${(config.articleEditor! == 'md')?string('/article/publishMd', '/article/publish')}"> <i class="fa fa-pencil fa-fw"></i>  </a>
+                                <a class="btn btn-success" title="发表文章" href="/article/publish-${config.articleEditor!}"> <i class="fa fa-pencil fa-fw"></i>  </a>
                             </@shiro.hasPermission>
                             <@shiro.hasPermission name="article:batchDelete">
                                 <button id="btn_delete_ids" type="button" class="btn btn-danger" title="删除选中">

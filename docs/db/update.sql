@@ -33,3 +33,9 @@ INSERT INTO `dblog`.`sys_resources` VALUES (87, '新增广告', 'button', NULL, 
 INSERT INTO `dblog`.`sys_resources` VALUES (88, '批量删除广告', 'button', NULL, 'bizAd:batchDelete', 86, 3, 0, 1, NULL, now(), now());
 INSERT INTO `dblog`.`sys_resources` VALUES (89, '编辑广告', 'button', NULL, 'bizAd:edit,bizAd:get', 86, 4, 0, 1, NULL, now(), now());
 INSERT INTO `dblog`.`sys_resources` VALUES (90, '删除广告', 'button', NULL, 'bizAd:delete', 86, 5, 0, 1, NULL, now(), now());
+
+# 20211028
+ALTER TABLE `dblog`.`biz_article` ADD COLUMN `editor_type` varchar(10) NULL COMMENT '当前文章适用的编辑器类型' AFTER `cover_image`;
+# 修改旧文章的编辑器类型
+UPDATE `dblog`.`biz_article` SET `editor_type` = 'we' WHERE is_markdown is null || is_markdown = 0;
+UPDATE `dblog`.`biz_article` SET `editor_type` = 'md' WHERE is_markdown = 1;

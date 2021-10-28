@@ -25,9 +25,15 @@
 <script src="https://cdn.jsdelivr.net/npm/@ztree/ztree_v3@3.5.37/js/jquery.ztree.core.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@ztree/ztree_v3@3.5.37/js/jquery.ztree.excheck.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/switchery-npm@0.8.2/index.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/wangeditor@3.1.1/release/wangEditor.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/wangeditor@4.7.9/dist/wangEditor.min.js" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/@adactive/bootstrap-tagsinput@0.8.2/dist/bootstrap-tagsinput.min.js"></script>
 <script src="https://www.layuicdn.com/layui/layui.js"></script>
+<#--<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>-->
+<#if config.tinyMCEKey?exists>
+<script src="https://cdn.tiny.cloud/1/${config.tinyMCEKey!}/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<#else>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
+</#if>
 <#--
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.1/pnotify.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.1/pnotify.buttons.js"></script>

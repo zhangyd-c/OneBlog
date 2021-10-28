@@ -3,6 +3,11 @@
 
 ----
 
+### 2021-10-29
+
+- wangEditor 升级到 4.7.9
+- 新增 TinyMCE 编辑器 ([#I4FOB0](https://gitee.com/yadong.zhang/DBlog/issues/I4FOB0))
+
 ### 2021-10-27
 
 - **增加代码生成模块 `blog-codegen`，新业务支持一键生成所有代码**
