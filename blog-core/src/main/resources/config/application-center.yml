@@ -69,7 +69,7 @@ mybatis:
   mapper-locations: classpath:/mybatis/*.xml
   configuration:
     default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 # mapper
 mapper:
   mappers:
