@@ -40,7 +40,7 @@
             </div>
             <div class="modal-body">
                 <div class="oauth">
-                    <ul class="list-unstyled list-inline oauth-list">
+                    <ul class="list-unstyled list-inline oauth-list" style="text-align: center;">
                         <@zhydTag method="listAvailableOAuthPlatforms">
                             <#if listAvailableOAuthPlatforms?? && listAvailableOAuthPlatforms?size gt 0>
                                 <#list listAvailableOAuthPlatforms as item>
