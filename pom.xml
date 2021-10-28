@@ -31,7 +31,7 @@
         <java.version>1.8</java.version>
         <maven.test.skip>true</maven.test.skip>
         <webmagic.version>0.7.3</webmagic.version>
-        <jsoup.version>1.14.2</jsoup.version>
+        <jsoup.version>1.10.2</jsoup.version>
         <javax.validation.version>2.0.1.Final</javax.validation.version>
         <hibernate.validator.version>7.0.1.Final</hibernate.validator.version>
         <excel4j.version>2.1.4-Final</excel4j.version>
@@ -48,7 +48,7 @@
         <useragentutils.version>1.21</useragentutils.version>
         <braum.version>1.0.0-alpha</braum.version>
         <hutool.version>5.5.7</hutool.version>
-        <spring.web.version>5.1.4.RELEASE</spring.web.version>
+        <spring.web.version>5.1.17.RELEASE</spring.web.version>
         <aliyun.oss.version>2.8.3</aliyun.oss.version>
         <blog-hunter.version>1.0.4</blog-hunter.version>
         <jap.version>1.0.4</jap.version>
