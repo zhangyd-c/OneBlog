@@ -170,25 +170,25 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mustache@2.3.0/mustache.min.js"></script>
 <script type="text/javascript">
     var appConfig = {
-        siteName: '${config.siteName}',
-        wwwPath: '${config.siteUrl}',
-        cmsPath: '${config.cmsUrl}',
-        staticPath: '${config.staticWebSite}',
-        lazyloadPath: '${config.lazyloadPath}',
-        fileStoragePath: '${config.fileStoragePath}',
-        wxPraiseCode: '${config.wxPraiseCode}' || '${config.staticWebSite}/img/default.png',
-        zfbPraiseCode: '${config.zfbPraiseCode}' || '${config.staticWebSite}/img/default.png',
-        anonymous: '${config.anonymous}',
-        editorPlaceholder: '${config.editorPlaceholder}',
-        editorAlert: '${config.editorAlert}',
-        dynamicTitle: '${config.dynamicTitle}',
-        bubbleWord: '${config.bubbleWord}',
+        siteName: "${config.siteName}",
+        wwwPath: "${config.siteUrl}",
+        cmsPath: "${config.cmsUrl}",
+        staticPath: "${config.staticWebSite}",
+        lazyloadPath: "${config.lazyloadPath}",
+        fileStoragePath: "${config.fileStoragePath}",
+        wxPraiseCode: "${config.wxPraiseCode}" || "${config.staticWebSite}/img/default.png",
+        zfbPraiseCode: "${config.zfbPraiseCode}" || "${config.staticWebSite}/img/default.png",
+        anonymous: "${config.anonymous}",
+        editorPlaceholder: "${config.editorPlaceholder}",
+        editorAlert: "${config.editorAlert}",
+        dynamicTitle: "${config.dynamicTitle}",
+        bubbleWord: "${config.bubbleWord}",
     };
 
     var oauthConfig = {
-        loginUserId: '${user.id}',
-        loginUserName: '${user.username}',
-        loginUserAvatar: '${user.avatar}'
+        loginUserId: "${user.id}",
+        loginUserName: "${user.username}",
+        loginUserAvatar: "${user.avatar}"
     }
 </script>
 <script type="text/javascript" src="${config.staticWebSite}/js/zhyd.core.js"></script>
