@@ -77,11 +77,11 @@
     <script type="text/javascript">
         var E = window.wangEditor
         var editor1 = new E('#toolbar', '#div1');
-        editor1.customConfig.zIndex = 10;
+        editor1.config.zIndex = 10;
         editor1.create();
 
         var editor2 = new E('#div2');
-        editor2.customConfig.zIndex = 10;
+        editor2.config.zIndex = 10;
         editor2.create();
         $("#div2").find(".w-e-text-container").css("height","100px");
 
