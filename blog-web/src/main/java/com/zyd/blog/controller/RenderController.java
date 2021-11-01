@@ -3,6 +3,7 @@ package com.zyd.blog.controller;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Article;
+import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.ArticleStatusEnum;
 import com.zyd.blog.business.enums.PlatformEnum;
 import com.zyd.blog.business.service.BizArticleArchivesService;
@@ -11,6 +12,7 @@ import com.zyd.blog.business.service.SysLinkService;
 import com.zyd.blog.business.service.SysUpdateRecordeService;
 import com.zyd.blog.business.vo.ArticleConditionVO;
 import com.zyd.blog.util.ResultUtil;
+import com.zyd.blog.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +21,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -188,10 +189,16 @@ public class RenderController {
         if (article == null || ArticleStatusEnum.UNPUBLISHED.getCode() == article.getStatusEnum().getCode()) {
             return ResultUtil.forward("/error/404");
         }
-        if(article.getPrivate()) {
+        if (article.getPrivate()) {
             article.setPassword(null);
             article.setContent(null);
             article.setContentMd(null);
+        }
+        if (article.getRequiredAuth()) {
+            User sessionUser = SessionUtil.getUser();
+            if (null != sessionUser) {
+                article.setRequiredAuth(false);
+            }
         }
         model.addAttribute("article", article);
         // 上一篇下一篇

@@ -142,6 +142,15 @@ public class Article {
         this.bizArticle.setRecommended(value);
     }
 
+    public boolean getRequiredAuth() {
+        Boolean value = this.bizArticle.getRequiredAuth();
+        return value != null && value;
+    }
+
+    public void setRequiredAuth(Boolean requiredAuth) {
+        this.bizArticle.setRequiredAuth(requiredAuth);
+    }
+
     public boolean isOriginal() {
         Boolean value = this.bizArticle.getOriginal();
         return value != null ? value : false;

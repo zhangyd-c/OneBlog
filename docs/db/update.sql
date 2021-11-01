@@ -39,3 +39,7 @@ ALTER TABLE `dblog`.`biz_article` ADD COLUMN `editor_type` varchar(10) NULL COMM
 # 修改旧文章的编辑器类型
 UPDATE `dblog`.`biz_article` SET `editor_type` = 'we' WHERE is_markdown is null || is_markdown = 0;
 UPDATE `dblog`.`biz_article` SET `editor_type` = 'md' WHERE is_markdown = 1;
+
+
+# 20211101
+ALTER TABLE `dblog`.`biz_article` ADD COLUMN `required_auth` tinyint(1) UNSIGNED NULL DEFAULT NULL COMMENT '该文章是否登录后才可访问' AFTER `password`;

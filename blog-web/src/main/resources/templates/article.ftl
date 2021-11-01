@@ -39,15 +39,21 @@
                         <strong>${article.title}</strong>
                     </h1>
                     <div class="blog-info-body ${article.isMarkdown?string('markdown-body editor-preview-active-side', '')}">
-                        <#if article.private>
-                            ${article.description!}
-
-                            <br>
+                        <#if article.requiredAuth>
                             <div class="alert alert-warning alert-dismissible fade in red" role="alert">
-                                <i class="fa fa-lock fa-fw"></i> 文章已被加密，需要 <a href="javascript:void(0)" data-toggle="modal" data-target="#lockModal">输入密码</a> 才能查看文章详情
+                                <i class="fa fa-lock fa-fw"></i> 该文章已被加密，需要 <a href="javascript:void(0)" data-toggle="modal" data-target="#oauth" rel="nofollow" title="授权登录">登录后</a> 才能查看文章详情
                             </div>
                         <#else >
-                            ${article.content}
+                            <#if article.private>
+                                ${article.description!}
+
+                                <br>
+                                <div class="alert alert-warning alert-dismissible fade in red" role="alert">
+                                    <i class="fa fa-lock fa-fw"></i> 文章已被加密，需要 <a href="javascript:void(0)" data-toggle="modal" data-target="#lockModal">输入密码</a> 才能查看文章详情
+                                </div>
+                            <#else >
+                                ${article.content}
+                            </#if>
                         </#if>
                     </div>
                     <div class="separateline"><span>正文到此结束</span></div>
@@ -198,15 +204,17 @@
             </div>
             <#-- 广告位 -->
             <div class="blog-body ad-mark" id="COMMENT_BOX_TOP" style="display: none"></div>
-            <#--评论-->
-            <#if article.comment>
-                <div class="blog-body clear overflow-initial expansion">
-                    <div id="comment-box" data-id="${article.id?c}"></div>
-                </div>
-            <#else>
-                <div class="blog-body clear overflow-initial expansion gray">
-                    <i class="fa fa-close fa-fw"></i>该篇文章的评论功能已被站长关闭
-                </div>
+            <#if !article.requiredAuth>
+                <#--评论-->
+                <#if article.comment>
+                    <div class="blog-body clear overflow-initial expansion">
+                        <div id="comment-box" data-id="${article.id?c}"></div>
+                    </div>
+                <#else>
+                    <div class="blog-body clear overflow-initial expansion gray">
+                        <i class="fa fa-close fa-fw"></i>该篇文章的评论功能已被站长关闭
+                    </div>
+                </#if>
             </#if>
         </div>
         <#include "layout/sidebar.ftl"/>
