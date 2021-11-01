@@ -184,7 +184,7 @@
                                             </div>
                                         </div>
                                         <div class="item form-group">
-                                            <label class="control-label col-md-2 col-sm-2 col-xs-12" for="comment">登录后才可访问？ </label>
+                                            <label class="control-label col-md-2 col-sm-2 col-xs-12" for="comment">登录后访问？ </label>
                                             <div class="col-md-10 col-sm-10 col-xs-12 fixed-radio-checkbox">
                                                 <ul class="list-unstyled list-inline">
                                                     <li><input type="radio" class="square" name="requiredAuth" value="1"> 是</li>
