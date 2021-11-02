@@ -841,22 +841,19 @@ span.separation:AFTER {
 }
 
 .sidebar-module .sidebar-tabs {
-    background-color: #eee;
+    text-align: center;
+    background-color: unset;
     margin-left: -9px;
     margin-right: -9px;
 }
 
-.sidebar-module .sidebar-tabs li.active {
-    font-weight: 700;
+.sidebar-module .sidebar-tabs li.active, .sidebar-module .sidebar-tabs li.active a {
+    background-color: #eee!important;
 }
 
-.sidebar-module .sidebar-tabs li.hover {
-    background-color: #333;
-}
-
-.sidebar-module .sidebar-tabs li a:hover {
+.sidebar-module .sidebar-tabs li.hover, .sidebar-module .sidebar-tabs li:hover a {
     font-weight: 700;
-    background-color: #333;
+    background-color: #333!important;
 }
 
 .sidebar-module .tab-content .empty-list {
@@ -2479,6 +2476,7 @@ nav a:first-child .meta-nav {
 .about-main {
     font-size: 14px;
     padding: 0 15px;
+    text-align: center;
 }
 
 .about-img {
