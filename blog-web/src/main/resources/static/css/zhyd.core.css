@@ -500,7 +500,7 @@ a:-webkit-any-link {
 }
 
 .article-blockquote-green {
-    background: #427e53;
+    background: #4dab68;
 }
 .article-original-green {
     background: #5FB878;
@@ -1051,10 +1051,10 @@ span.separation:AFTER {
 
 .separateline span {
     position: relative;
-    top: -14px;
+    top: -12px;
     padding: 2px 4px;
     /*border:1px solid #d6d6d6;*/
-    background-color: #ffffff;
+    background-color: #ffffffa3;
     color: #006741 !important;
 }
 
@@ -3622,4 +3622,23 @@ img {
     bottom: 15px;
     color: #e8e8e8;
     font-size: 12px;
+}
+
+
+div.scrollmenu {
+    overflow: auto;
+    white-space: nowrap;
+    background-color: #ffffff!important;
+}
+
+div.scrollmenu a, div.scrollmenu span {
+    display: inline-block;
+    color: #333;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+}
+
+div.scrollmenu a.active, div.scrollmenu a:hover {
+    background-color: #eeeeee!important;
 }

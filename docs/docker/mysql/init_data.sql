@@ -27,9 +27,9 @@ INSERT INTO `dblog`.`biz_article_tags` VALUES ('2', '1', '2', now(), now());
 # 清空文章分类表
 TRUNCATE TABLE `dblog`.`biz_type`;
 # 初始化文章分类
-INSERT INTO `dblog`.`biz_type` VALUES ('1', null, '前端技术', '主要收集、整理的基础前端类文章，包括JS、jQuery和CSS等Web开发所需的基础的文章总结', '1', 'fa fa-css3', '1', now(), now());
-INSERT INTO `dblog`.`biz_type` VALUES ('2', null, '后端技术', '网站中记录的后端类文章，包括Java、SSM、MySQL和其他在日常工作学习中所用的后端技术', '2', 'fa fa-coffee', '1', now(), now());
-INSERT INTO `dblog`.`biz_type` VALUES ('3', null, '其他文章', '记录网站建设以及日常工作、学习中的闲言碎语和个人笔记等文章', '3', 'fa fa-folder-open-o', '1', now(), now());
+INSERT INTO `dblog`.`biz_type` VALUES ('1', null, '前端技术', '主要收集、整理的基础前端类文章，包括JS、jQuery和CSS等Web开发所需的基础的文章总结', '1', 'fa fa-css3', 'nav', '1', now(), now());
+INSERT INTO `dblog`.`biz_type` VALUES ('2', null, '后端技术', '网站中记录的后端类文章，包括Java、SSM、MySQL和其他在日常工作学习中所用的后端技术', '2', 'fa fa-coffee', 'nav', '1', now(), now());
+INSERT INTO `dblog`.`biz_type` VALUES ('3', null, '其他文章', '记录网站建设以及日常工作、学习中的闲言碎语和个人笔记等文章', '3', 'fa fa-folder-open-o', 'nav', '1', now(), now());
 
 # 清空系统配置表
 TRUNCATE TABLE `dblog`.`sys_config`;

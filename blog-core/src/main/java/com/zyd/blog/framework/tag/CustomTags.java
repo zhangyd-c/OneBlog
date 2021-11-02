@@ -64,6 +64,11 @@ public class CustomTags extends BaseTag {
         return bizTypeService.listTypeForMenu();
     }
 
+    public Object scrollmenus(Map params) {
+        String position = getParam(params, "position");
+        return bizTypeService.listTypeByPosition(position);
+    }
+
     public Object tagsList(Map params) {
         return bizTagsService.listAll();
     }

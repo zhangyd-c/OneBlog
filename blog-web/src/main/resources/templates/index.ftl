@@ -59,6 +59,19 @@
                 </div>
                 </#if>
             </@articleTag>
+            <@zhydTag method="scrollmenus" position="scrollmenu">
+                <#if scrollmenus?? && scrollmenus?size gt 0>
+                    <div class="blog-body expansion" style="padding: 0;">
+                        <div class="scrollmenu nav-tags">
+                            <span>更多分类：</span>
+                            <#list scrollmenus as item>
+                                <a href="/type/${item.id?c}" id="scrollmenu-${item.id?c}"><i class="${item.icon!}"></i>${item.name!}</a>
+                            </#list>
+                        </div>
+                    </div>
+                </#if>
+            </@zhydTag>
+<#--            <div class="separateline"><span>以下为最新文章</span></div>-->
             <#if page.list?? && (page.list?size > 0)>
                 <#list page.list as item>
                     <article class="fade-in">
@@ -157,5 +170,13 @@
         </div>
     </div>
 </div>
-<@footer></@footer>
+<@footer>
+    <script>
+        var typeMatch = location.href.match(/\/type\/([0-9]+)/);
+        if(null != typeMatch) {
+            var typeId = typeMatch[1];
+            $("#scrollmenu-" + typeId).addClass("active").attr("href", "javascript:void(0)");
+        }
+    </script>
+</@footer>
 </@compress>

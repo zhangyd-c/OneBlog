@@ -18,7 +18,7 @@ braum:
   limit:
       access:
           type: redis
-          threshold: 15
+          threshold: 30
           interval: 5000
 
 ####################################自定义配置##########################################

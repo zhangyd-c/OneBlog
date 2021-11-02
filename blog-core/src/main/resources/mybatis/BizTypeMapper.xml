@@ -10,6 +10,7 @@
 		<result property="sort" jdbcType="INTEGER" column="sort"/>
 		<result property="available" jdbcType="BIT" column="available"/>
 		<result property="icon" jdbcType="VARCHAR" column="icon"/>
+		<result property="position" jdbcType="VARCHAR" column="position"/>
 		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
 		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
 		<association property="parent" javaType="com.zyd.blog.persistence.beans.BizType">
@@ -19,6 +20,7 @@
 			<result property="description" jdbcType="VARCHAR" column="parent_description"/>
 			<result property="available" jdbcType="BIT" column="parent_available"/>
 			<result property="icon" jdbcType="VARCHAR" column="parent_icon"/>
+			<result property="position" jdbcType="VARCHAR" column="parent_position"/>
 		</association>
 		<collection property="nodes" column="node_id" javaType="ArrayList" ofType="com.zyd.blog.persistence.beans.BizType">
 			<result property="id" jdbcType="BIGINT" column="node_id"/>
@@ -27,6 +29,7 @@
 			<result property="description" jdbcType="VARCHAR" column="node_description"/>
 			<result property="available" jdbcType="BIT" column="node_available"/>
 			<result property="icon" jdbcType="VARCHAR" column="node_icon"/>
+			<result property="position" jdbcType="VARCHAR" column="node_position"/>
 		</collection>
 	</resultMap>
 
@@ -38,7 +41,8 @@
 			parent.`name` parent_name,
 			parent.description parent_description,
 			parent.available parent_available,
-			parent.icon parent_icon
+			parent.icon parent_icon,
+			parent.position parent_position
 		FROM
 			biz_type t
 		LEFT JOIN biz_type parent ON t.pid = parent.id
@@ -83,13 +87,15 @@
 			node.`name` node_name,
 			node.description node_description,
 			node.available node_available,
-			node.icon node_icon
+			node.icon node_icon,
+			node.position node_position
 		FROM
 			biz_type t
 		LEFT JOIN biz_type parent ON t.pid = parent.id
 		LEFT JOIN biz_type node ON node.pid = t.id
 		WHERE
 		      t.available = 1
+			AND t.position = 'nav'
 			AND (t.pid IS NULL OR t.pid = '')
 		ORDER BY
 			t.sort ASC

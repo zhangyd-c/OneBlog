@@ -148,6 +148,7 @@ CREATE TABLE `biz_type`  (
   `description` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类型介绍',
   `sort` int(10) NULL DEFAULT NULL COMMENT '排序',
   `icon` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图标',
+  `position` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分类在web端显示的位置，可选：nav、scrollmenu',
   `available` tinyint(1) UNSIGNED NULL DEFAULT 1 COMMENT '是否可用',
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
