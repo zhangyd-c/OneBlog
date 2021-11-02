@@ -1,11 +1,11 @@
 <div class="col-sm-3 blog-sidebar">
     <#-- 广告位 -->
     <div class="ad-mark" id="SIDEBAR_TOP" style="display: none"></div>
-    <#if articleDetail??>
+    <#if articleDetail?? && (config.enableHitokoto == 1 || config.enableHitokoto == "1")>
         <div class="sidebar-module">
             <h5 class="custom-title"><i class="fa fa-hand-peace-o fa-fw icon"></i><strong>说给你听</strong><small></small></h5>
             <div class="div-quote">
-                <i class="fa fa-quote-left fa-fw"></i><p id="hitokoto" style="margin-left: 15px;"></p>
+                <i class="fa fa-quote-left fa-fw"></i><p class="hitokoto" style="margin-left: 15px;"></p>
             </div>
         </div>
     <#else>

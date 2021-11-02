@@ -43,6 +43,8 @@
 </div>
 
 <@footer>
-    <script src="https://v1.hitokoto.cn/?encode=js&c=i&select=%23hitokoto" defer></script>
+    <#if (config.enableHitokoto == 1 || config.enableHitokoto == "1")>
+        <script src="https://v1.hitokoto.cn/?encode=js&c=i&select=.hitokoto" defer></script>
+    </#if>
 </@footer>
 </@compress>

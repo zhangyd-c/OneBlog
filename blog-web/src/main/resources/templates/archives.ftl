@@ -18,7 +18,9 @@
                         <@zhydTag method="siteInfo">
                             <div class="archives-meta"> 站点统计：${siteInfo.typeCount!(0)}个分类&nbsp;&nbsp; ${siteInfo.tagCount!(0)}个标签&nbsp;&nbsp; ${siteInfo.articleCount!(0)}篇文章&nbsp;&nbsp; ${siteInfo.commentCount!(0)}条留言&nbsp;&nbsp; 最后更新：${siteInfo.lastUpdateTime} </div>
                         </@zhydTag>
-                        <p class="blog-description hitokoto"></p>
+                        <#if (config.enableHitokoto == 1 || config.enableHitokoto == "1")>
+                            <p class="blog-description hitokoto"></p>
+                        </#if>
                     </div>
                     <div class="archives-body">
                         <div class="archives-box overflow-initial">
@@ -48,9 +50,6 @@
                             </#list>
                         </div>
                     </div>
-                    <div class="article-footer overflow-initial">
-                        <span class="blog-description hitokoto num"></span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -79,6 +78,8 @@
             })();
         });
     </script>
-    <script src="https://v1.hitokoto.cn/?encode=js&c=i&select=.hitokoto%27);dom=$('.hitokoto');for(var i=0;i<dom.length;i%2B%2B){dom[i].innerText=hitokoto;}})()//" defer></script>
+    <#if (config.enableHitokoto == 1 || config.enableHitokoto == "1")>
+        <script src="https://v1.hitokoto.cn/?encode=js&c=i&select=.hitokoto" defer></script>
+    </#if>
 </@footer>
 </@compress>
