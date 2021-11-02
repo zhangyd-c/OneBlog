@@ -541,10 +541,11 @@ a:-webkit-any-link {
 
 /* 面包屑导航 */
 .breadcrumb {
-    padding: 4px;
+    padding: 10px;
     margin-bottom: 10px;
     list-style: none;
     background-color: #ffffff;
+    border-radius: 0;
 }
 
 /* 面包屑导航 */
@@ -3639,4 +3640,31 @@ div.scrollmenu a, div.scrollmenu span {
 
 div.scrollmenu a.active, div.scrollmenu a:hover {
     background-color: #eeeeee!important;
+}
+
+
+.ob-alert {
+    background: #fffcef;
+    padding: 15px;
+    color: #db7c22;
+    border: 1px solid #ffbb76;
+}
+
+.ob-alert .title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 500
+}
+
+.ob-alert .title .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px
+}
+
+.ob-alert .content {
+    padding: 0;
+    padding-left: 28px;
 }

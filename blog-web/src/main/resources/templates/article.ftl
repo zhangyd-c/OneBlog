@@ -39,6 +39,19 @@
                         <strong>${article.title}</strong>
                     </h1>
                     <div class="blog-info-body ${article.isMarkdown?string('markdown-body editor-preview-active-side', '')}">
+                        <#-- 文章最后修改日期的判断 -->
+                        <#assign intervalDayNum=((.now?long - article.updateTime?long)?abs / (1000 * 60 * 60 * 24))?int>
+                        <#if intervalDayNum gt 1>
+                            <div class="ob-alert">
+                                <div class="title">
+                                    <i class="fa fa-bullhorn fa-fw"></i>
+                                    <span class="text">温馨提示：</span>
+                                </div>
+                                <div class="content">
+                                    本文最后更新于 ${article.updateTime?string('yyyy年MM月dd日')}，已超过 ${intervalDayNum} 天没有更新。若文章内的图片失效（无法正常加载），请留言反馈或直接<a href="mailto:${config.authorEmail}" target="_blank" title="点击给我发邮件" rel="external nofollow"><i class="fa fa fa-envelope fa-fw"></i>联系我</a>。
+                                </div>
+                            </div>
+                        </#if>
                         <#if article.requiredAuth>
                             <div class="alert alert-warning alert-dismissible fade in red" role="alert">
                                 <i class="fa fa-lock fa-fw"></i> 该文章已被加密，需要 <a href="javascript:void(0)" data-toggle="modal" data-target="#oauth" rel="nofollow" title="授权登录">登录后</a> 才能查看文章详情
@@ -98,9 +111,13 @@
                                 </#if>
                         </li>
                         <li>
+                            <strong>本文链接：</strong>
+                            ${config.siteUrl}/article/${article.id?c}
+                        </li>
+                        <li>
                             <strong>版权声明：</strong>
                             <#if article.original?string('true','false') == 'true'>
-                            本站原创文章，于${article.createTime?string('yyyy年MM月dd日')}由<a href="${config.siteUrl}" target="_blank" data-original-title="${config.siteName}" data-toggle="tooltip" data-placement="bottom"><strong>${config.authorName}</strong></a>发布，转载请注明出处
+                            本文由<a href="${config.siteUrl}" target="_blank" data-original-title="${config.siteName}" data-toggle="tooltip" data-placement="bottom"><strong>${config.authorName}</strong></a>原创发布，转载请遵循《<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0)</a>》许可协议授权
                             <#else>
                             本文为互联网转载文章，出处已在文章中说明(部分除外)。如果侵权，请<a target="_blank" href="mailto:${config.authorEmail}" title="点击给我发邮件" data-toggle="tooltip" data-placement="bottom"><strong>联系本站长</strong></a>删除，谢谢。
                             </#if>

@@ -66,7 +66,7 @@
             </#if>
         </@zhydTag>
     </div>
-    <@zhydTag method="recentComments" pageSize="10">
+    <@zhydTag method="recentComments" pageSize="5">
         <#if recentComments?? && recentComments?size gt 0>
             <div class="sidebar-module">
                 <h5 class="custom-title"><i class="fa fa-comments fa-fw icon"></i><strong>近期评论</strong><small></small></h5>

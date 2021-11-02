@@ -74,6 +74,15 @@
                 </#if>
             </@zhydTag>
 <#--            <div class="separateline"><span>以下为最新文章</span></div>-->
+         <#--   <div class="blog-body expansion" style="padding: 0;margin-bottom: 0;border-bottom: 1px solid #eeeeee;">
+                <div class="scrollmenu nav-tags">
+                    <a href="/type/1" id="scrollmenu-1" class="red" style="color: red">最新文章</a>
+                    <a href="/type/1" id="scrollmenu-1">置顶文章</a>
+                    <a href="/type/1" id="scrollmenu-1">热门文章</a>
+                    <a href="/type/1" id="scrollmenu-1">评论最多</a>
+                    <a href="/type/1" id="scrollmenu-1">点赞最多</a>
+                </div>
+            </div>-->
             <#if page.list?? && (page.list?size > 0)>
                 <#list page.list as item>
                     <article class="fade-in">
