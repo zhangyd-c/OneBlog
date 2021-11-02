@@ -109,7 +109,7 @@
                 </div>
             </div>
             <#-- 广告位 -->
-            <div class="blog-body ad-mark" id="ARTICLE_BOTTOM" style="display: none"></div>
+            <div class="ad-mark" id="ARTICLE_BOTTOM" style="display: none"></div>
             <div class="blog-body prev-next">
                 <nav class="nav-single wow" data-wow-delay="0.3s">
                     <#if other.prev>
@@ -203,7 +203,7 @@
                 <div class="clear"></div>
             </div>
             <#-- 广告位 -->
-            <div class="blog-body ad-mark" id="COMMENT_BOX_TOP" style="display: none"></div>
+            <div class="ad-mark" id="COMMENT_BOX_TOP" style="display: none"></div>
             <#if !article.requiredAuth>
                 <#--评论-->
                 <#if article.comment>

@@ -3609,8 +3609,8 @@ img {
 
 /* 广告 */
 .ad-mark {
-    padding: 8px;
     position: relative;
+    margin-bottom: 10px;
 }
 
 .ad-mark:after {

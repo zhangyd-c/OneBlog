@@ -7,6 +7,8 @@
 </@header>
 
 <div class="container custome-container">
+    <#-- 广告位 -->
+    <div class="ad-mark" id="HOMEPAGE_TOP" style="display: none;margin-bottom: 10px"></div>
     <@prompt></@prompt>
     <nav class="breadcrumb">
         <div class="notify"><i class="fa fa-bullhorn fa-fw"></i></div>

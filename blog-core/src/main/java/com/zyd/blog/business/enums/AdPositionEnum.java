@@ -20,6 +20,10 @@ import java.util.Map;
 public enum AdPositionEnum {
 
     /**
+     * 首页顶部
+     */
+    HOMEPAGE_TOP("首页顶部"),
+    /**
      * 每次刷新页面都弹窗显示，AdType 必须为 POP
      */
     HOMEPAGE_OPEN_SCREEN("首页开屏广告"),
