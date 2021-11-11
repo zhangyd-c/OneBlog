@@ -1,6 +1,8 @@
 <#include "include/macros.ftl">
 <@header title="${article.title} | ${config.siteName}" keywords="${article.keywords!},${config.siteName}" description="${article.description!}"
-    canonical="/article/${article.id}" hasEditor=true></@header>
+    canonical="/article/${article.id}" hasEditor=true>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" />
+</@header>
 <#if article.coverImage??>
     <img src="${article.coverImage!}" onerror="this.src='${config.staticWebSite}/img/default.png'" style="display: none;" id="cover-img">
 </#if>
@@ -82,13 +84,16 @@
                             <div class="share-sd">
                                 <span class="share-s"><a href="javascript:void(0)" id="share-s" title="分享"><i class="fa fa-share-alt"></i>分享</a></span>
                                 <div id="share" style="display: none">
-                                    <ul class="bdsharebuttonbox bdshare-button-style1-16" data-bd-bind="1516426362121">
-                                        <li><a title="分享到人人网" class="fa fa-renren" data-cmd="renren" onclick="return false;" href="#"></a></li>
-                                        <li><a title="分享到QQ空间" class="fa fa-qq" data-cmd="qzone" onclick="return false;" href="#"></a></li>
-                                        <li><a title="分享到新浪微博" class="fa fa-weibo" data-cmd="tsina" onclick="return false;" href="#"></a></li>
-                                        <li><a title="分享到微信" class="fa fa-weixin" data-cmd="weixin" onclick="return false;" href="#"></a></li>
-                                        <li><a title="更多" class="bds_more fa fa-plus-square" data-cmd="more" onclick="return false;" href="#"></a></li>
-                                    </ul>
+                                    <div class="social-share" data-initialized="true">
+                                        <a href="#" class="social-share-icon icon-twitter"></a>
+                                        <a href="#" class="social-share-icon icon-google"></a>
+                                        <a href="#" class="social-share-icon icon-facebook"></a>
+                                        <a href="#" class="social-share-icon icon-douban"></a>
+                                        <a href="#" class="social-share-icon icon-qzone"></a>
+                                        <a href="#" class="social-share-icon icon-wechat"></a>
+                                        <a href="#" class="social-share-icon icon-qq"></a>
+                                        <a href="#" class="social-share-icon icon-weibo"></a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="clear"></div>
@@ -254,21 +259,13 @@
     </div>
 </div>
 <@footer>
-    <script type="text/javascript">
-        /*
-            百度分享
-            建议改成自己的百度分享js，否则你是没法查看分享的统计结果的。
-         */
-        var bdText = $("#meta_description").attr("content")+" - by ${config.domain}";
-        // 如果文章没有封面图，则取默认的图片
-        var coverImg = $("#cover-img").attr("src") || "${config.staticWebSite}/img/default.png";
-        window._bd_share_config={"common":{"bdSnsKey":{},"bdText":bdText,"bdMini":"2","bdMiniList":["mshare","qzone","tsina","bdysc","weixin","renren","tqq","kaixin001","tqf","tieba","douban","bdhome","sqq","youdao","sdo","qingbiji","mail","isohu","ty","fbook","twi","linkedin","h163","evernotecn","copy","print"],"bdPic":coverImg,"bdStyle":"1","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-    </script>
     <#if (config.enableHitokoto == 1 || config.enableHitokoto == "1")>
         <script src="https://v1.hitokoto.cn/?encode=js&c=i&select=.hitokoto" defer></script>
     </#if>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/lib/highlight.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/simplemde@1.11.2/dist/simplemde.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+<#--    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/jquery.share.min.js"></script>-->
 
     <script>
         var isPrivate = '${article.private}';
