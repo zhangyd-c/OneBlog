@@ -207,6 +207,8 @@ Table.prototype = {
             data2 = data[i].split('=');
             parameter[data2[0]] = data2[1];
         }
+        params = $.extend({}, params);
+        params.keywords = params.searchText;
         return {
             ...parameter, ...params
         };
