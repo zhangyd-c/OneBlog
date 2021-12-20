@@ -207,6 +207,7 @@ Table.prototype = {
             data2 = data[i].split('=');
             parameter[data2[0]] = data2[1];
         }
+        // 重置 params 的参数
         params = $.extend({}, params);
         params.keywords = params.searchText;
         return {
