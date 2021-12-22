@@ -111,12 +111,10 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 ## Docker Compose（推荐）
 
-1. 在任意位置下分别创建 `.env` 和 `docker-compose.yml`（可以参考或直接复制`docs/docker/docker-compose.yml.template`的内容）
-2. 执行 `docker-compose -p oneblog up -d`
-
-## Docker Compose
-
-1. 打包项目 `mvn clean package -Dmaven.test.skip=true -Pdev`
+Compose 是用于定义和运行多容器 Docker 应用程序的工具。通过 Compose，您可以使用 YML 文件来配置应用程序需要的所有服务。然后，使用一个命令，就可以从 YML 文件配置中创建并启动所有服务。
+使用之前需要先安装docker环境，建议版本为17.06.0-ce以上版本
+1. 下载源码，安装maven环境，
+打包项目 `mvn clean package -Dmaven.test.skip=true -Pdev`，放到服务器
 2. 进入 `docs/docker` 目录
 3. 按照注释修改 `.env` 文件
 4. 执行 `docker-compose -p oneblog up -d`
