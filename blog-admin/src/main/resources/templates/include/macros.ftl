@@ -22,7 +22,7 @@
     <link href="https://cdn.jsdelivr.net/npm/@ztree/ztree_v3@3.5.37/css/metroStyle/metroStyle.min.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/switchery/0.8.2/switchery.min.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput-typeahead.css" rel="stylesheet">
-    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/switchery-npm@0.8.2/index.min.css" rel="stylesheet">
 <#--
     <link href="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.1/pnotify.css" rel="stylesheet">
