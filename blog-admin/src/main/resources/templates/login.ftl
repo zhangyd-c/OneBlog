@@ -72,9 +72,10 @@
 </div>
 </body>
 
-<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdn.staticfile.org/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
 <script src="/assets/js/zhyd.tool.js"></script>
 <script>
     $("#modal").modal('show');
