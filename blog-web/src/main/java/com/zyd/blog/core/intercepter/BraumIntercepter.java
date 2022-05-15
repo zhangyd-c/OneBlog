@@ -36,7 +36,7 @@ public class BraumIntercepter implements HandlerInterceptor {
         if(br.getCode() == SUCCESS) {
             return true;
         }
-        String errorMsg = String.format("第%s次被限制！", br.getLimitCount());
+        String errorMsg = String.format("[%s] | %s | 第%s次被限制！", RequestUtil.getIp(), RequestUtil.getUa(), br.getLimitCount());
         log.warn(errorMsg);
         if(RequestUtil.isAjax(request)) {
             response.setCharacterEncoding("UTF-8");
