@@ -4,6 +4,7 @@ spring:
     druid:
       connection-init-sqls: set names utf8mb4
       driver-class-name: com.mysql.cj.jdbc.Driver
+      test-while-idle: false
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://${ONEBLOG_DATASOURCE_HOST:127.0.0.1}:${ONEBLOG_DATASOURCE_PORT:3306}/${ONEBLOG_DATASOURCE_DATABASE_NAME:dblog}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true&useLegacyDatetimeCode=false
     username: ${ONEBLOG_DATASOURCE_USERNAME:root}
@@ -86,5 +87,5 @@ pagehelper:
   params: count=countSql
 
 app:
-  version: v2.3.3
+  version: v2.3.4
   enableRedisCache: ${ONEBLOG_ENABLE_REDIS_CACHE:false}

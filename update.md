@@ -3,6 +3,20 @@
 
 ----
 
+### 2022-05-22
+
+- 修改 CDN 资源
+- 增加 CDN 资源引用文件的后台配置，当 CDN 不可用时，可以直接修改（如果没有则需添加）数据库中的下面四个配置：
+  - adminJsCdn（控制台 JS 文件的 CDN）
+  - adminCssCdn（控制台 CSS 文件的 CDN）
+  - webJsCdn（Web 端 JS 文件的 CDN）
+  - webCssCdn（Web 端 CSS 文件的 CDN）
+
+注意：如果是手动操作数据库进行修改配置信息，则必须更改 `update_time`，并且更改后的 `update_time` 一定是晚于之前的 `update_time` 值。
+
+关于如何配置以上四个属性，可以参考 blog-admin/src/main/resources/templates/config.ftl 文件中 `customJsCdnModal`、`customWebJsCdnModal`、`customCssCdnModal`、`customWebCssCdnModal` 提示框下的配置说明。 比如：
+![img.png](./docs/_media/customCdnConfig.png)
+
 ### 2021-11-01
 
 - 增加定时任务：“每晚凌晨12点自动检查友联，对于私自取消友联的网站实行自动封禁”

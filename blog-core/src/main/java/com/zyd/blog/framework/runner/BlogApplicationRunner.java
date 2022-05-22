@@ -49,9 +49,9 @@ public class BlogApplicationRunner extends ContextLoaderListener implements Appl
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
-        log.info("博客关键配置信息：");
-        log.info("current version：{}", appProperties.getVersion());
+        log.info("current oneblog version：{}", appProperties.getVersion());
         if (appProperties.isEnabledPrintConfig()) {
+            log.info("博客关键配置信息：");
             String[] activeProfiles = configurableApplicationContext.getEnvironment().getActiveProfiles();
             if (ObjectUtils.isEmpty(activeProfiles)) {
                 String[] defaultProfiles = configurableApplicationContext.getEnvironment().getDefaultProfiles();
