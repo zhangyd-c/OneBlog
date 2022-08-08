@@ -716,6 +716,18 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="wxGzhAppId">公众号APP_ID <i class="fa fa-question-circle" title="配置微信公众号的appId"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type='text' class="form-control" id="wxGzhAppId" name="wxGzhAppId"  placeholder="请输入信公众号的appId"/>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="wxGzhAppSecret">公众号APP_SECRET <i class="fa fa-question-circle" title="配置微信公众号的appSecret"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type='text' class="form-control" id="wxGzhAppSecret" name="wxGzhAppSecret"  placeholder="请输入信公众号的appSecret"/>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>

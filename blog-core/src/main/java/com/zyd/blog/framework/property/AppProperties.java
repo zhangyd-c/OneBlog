@@ -38,14 +38,4 @@ public class AppProperties {
      */
     private String version;
 
-    /**
-     * 公众号 secret
-     */
-    private String appSecret;
-
-    /**
-     * 公众号 app_id
-     */
-    private String appId;
-
 }

@@ -9,6 +9,7 @@ import com.zyd.blog.business.entity.BizAdBo;
 import com.zyd.blog.business.entity.Comment;
 import com.zyd.blog.business.entity.Link;
 import com.zyd.blog.business.enums.CommentStatusEnum;
+import com.zyd.blog.business.enums.ConfigKeyEnum;
 import com.zyd.blog.business.enums.PlatformEnum;
 import com.zyd.blog.business.service.*;
 import com.zyd.blog.business.vo.CommentConditionVO;
@@ -17,6 +18,7 @@ import com.zyd.blog.framework.exception.ZhydCommentException;
 import com.zyd.blog.framework.exception.ZhydLinkException;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.framework.property.AppProperties;
+import com.zyd.blog.persistence.beans.SysConfig;
 import com.zyd.blog.util.GetAccessTokenComponent;
 import com.zyd.blog.util.JsApiTicketComponent;
 import com.zyd.blog.util.RestClientUtil;
@@ -67,7 +69,7 @@ public class RestApiController {
     @Autowired
     private JsApiTicketComponent jsApiTicketComponent;
     @Autowired
-    private AppProperties appProperties;
+    private SysConfigService sysConfigService;
 
     @PostMapping("/autoLink")
     @BussinessLog(value = "自助申请友链", platform = PlatformEnum.WEB)
@@ -215,7 +217,12 @@ public class RestApiController {
             e.printStackTrace();
         }
 
-        Map<String, String> tokenMap = getAccessTokenComponent.getAccessToken(appProperties.getAppId(), appProperties.getAppSecret());
+        SysConfig configId = sysConfigService.getByKey(ConfigKeyEnum.WX_GZH_APP_ID.getKey());
+        SysConfig configSecret = sysConfigService.getByKey(ConfigKeyEnum.WX_GZH_APP_SECRET.getKey());
+        if (StringUtils.isEmpty(configId) || StringUtils.isEmpty(configSecret)) {
+            return ResultUtil.error("微信公众号appId、AppSecret未配置");
+        }
+        Map<String, String> tokenMap = getAccessTokenComponent.getAccessToken(configId.getConfigValue(), configSecret.getConfigValue());
         String accessToken = tokenMap.get("accessToken");
         if (StringUtils.isEmpty(accessToken)) {
             log.error("accessToken is null");
@@ -242,7 +249,7 @@ public class RestApiController {
         String signature = DigestUtils.sha1Hex(str);
         Map<String, Object> map = new HashMap<>();
 
-        map.put("appid", appProperties.getAppId());
+        map.put("appid", configId.getConfigValue());
         map.put("timestamp", timestamp);
         map.put("noncestr", nonceStr);
         map.put("accessToken", accessToken);

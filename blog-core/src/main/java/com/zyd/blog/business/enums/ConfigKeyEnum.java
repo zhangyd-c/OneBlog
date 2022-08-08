@@ -250,6 +250,14 @@ public enum ConfigKeyEnum {
      * 启用 Hitokoto（一言）。一言，随机显示一句话的插件，该插件部分时候加载较慢，如果不需要请自行关闭
      */
     ENABLE_HITOKOTO("enableHitokoto"),
+    /**
+     * 微信公众号appId
+     */
+    WX_GZH_APP_ID("wxGzhAppId"),
+    /**
+     * 微信公众号AppSecret
+     */
+    WX_GZH_APP_SECRET("wxGzhAppSecret"),
     ;
 
     private final String key;
