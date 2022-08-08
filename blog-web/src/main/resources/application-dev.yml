@@ -28,4 +28,8 @@ app:
     # 启用后，项目在启动时会打印数据库（Mysql和Redis）链接信息（包含密码）
     # 代码请参考
     enabledPrintConfig: ${ONEBLOG_APP_ENABLE_PRINT_CONFIG:false}
+    # 公众号 app_id
+    appId: ${APP_ID}
+    # 公众号 secret
+    appSecret: ${APP_SECRET}
 ####################################自定义配置##########################################

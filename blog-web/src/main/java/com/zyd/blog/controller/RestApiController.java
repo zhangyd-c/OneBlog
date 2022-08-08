@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zyd.blog.business.annotation.BussinessLog;
-import com.zyd.blog.business.consts.WxConst;
 import com.zyd.blog.business.entity.Article;
 import com.zyd.blog.business.entity.BizAdBo;
 import com.zyd.blog.business.entity.Comment;
@@ -17,6 +16,7 @@ import com.zyd.blog.framework.exception.ZhydArticleException;
 import com.zyd.blog.framework.exception.ZhydCommentException;
 import com.zyd.blog.framework.exception.ZhydLinkException;
 import com.zyd.blog.framework.object.ResponseVO;
+import com.zyd.blog.framework.property.AppProperties;
 import com.zyd.blog.util.GetAccessTokenComponent;
 import com.zyd.blog.util.JsApiTicketComponent;
 import com.zyd.blog.util.RestClientUtil;
@@ -66,6 +66,8 @@ public class RestApiController {
     private GetAccessTokenComponent getAccessTokenComponent;
     @Autowired
     private JsApiTicketComponent jsApiTicketComponent;
+    @Autowired
+    private AppProperties appProperties;
 
     @PostMapping("/autoLink")
     @BussinessLog(value = "自助申请友链", platform = PlatformEnum.WEB)
@@ -213,7 +215,7 @@ public class RestApiController {
             e.printStackTrace();
         }
 
-        Map<String, String> tokenMap = getAccessTokenComponent.getAccessToken(WxConst.APP_ID, WxConst.APP_SECRET);
+        Map<String, String> tokenMap = getAccessTokenComponent.getAccessToken(appProperties.getAppId(), appProperties.getAppSecret());
         String accessToken = tokenMap.get("accessToken");
         if (StringUtils.isEmpty(accessToken)) {
             log.error("accessToken is null");
@@ -240,7 +242,7 @@ public class RestApiController {
         String signature = DigestUtils.sha1Hex(str);
         Map<String, Object> map = new HashMap<>();
 
-        map.put("appid", WxConst.APP_ID);
+        map.put("appid", appProperties.getAppId());
         map.put("timestamp", timestamp);
         map.put("noncestr", nonceStr);
         map.put("accessToken", accessToken);
