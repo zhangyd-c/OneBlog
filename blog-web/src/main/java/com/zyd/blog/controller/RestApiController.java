@@ -9,6 +9,7 @@ import com.zyd.blog.business.entity.BizAdBo;
 import com.zyd.blog.business.entity.Comment;
 import com.zyd.blog.business.entity.Link;
 import com.zyd.blog.business.enums.CommentStatusEnum;
+import com.zyd.blog.business.enums.ConfigKeyEnum;
 import com.zyd.blog.business.enums.PlatformEnum;
 import com.zyd.blog.business.service.*;
 import com.zyd.blog.business.vo.CommentConditionVO;
@@ -16,9 +17,14 @@ import com.zyd.blog.framework.exception.ZhydArticleException;
 import com.zyd.blog.framework.exception.ZhydCommentException;
 import com.zyd.blog.framework.exception.ZhydLinkException;
 import com.zyd.blog.framework.object.ResponseVO;
+import com.zyd.blog.framework.property.AppProperties;
+import com.zyd.blog.persistence.beans.SysConfig;
+import com.zyd.blog.util.GetAccessTokenComponent;
+import com.zyd.blog.util.JsApiTicketComponent;
 import com.zyd.blog.util.RestClientUtil;
 import com.zyd.blog.util.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -26,9 +32,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -56,6 +64,12 @@ public class RestApiController {
     private SysNoticeService noticeService;
     @Autowired
     private BizAdService adService;
+    @Autowired
+    private GetAccessTokenComponent getAccessTokenComponent;
+    @Autowired
+    private JsApiTicketComponent jsApiTicketComponent;
+    @Autowired
+    private SysConfigService sysConfigService;
 
     @PostMapping("/autoLink")
     @BussinessLog(value = "自助申请友链", platform = PlatformEnum.WEB)
@@ -186,6 +200,65 @@ public class RestApiController {
             res = list.stream().collect(Collectors.toMap(BizAdBo::getPosition, Function.identity(), (key1, key2) -> key2));
         }
         return ResultUtil.success(res);
+    }
+
+    @PostMapping("/jssdkGetSignature")
+    @BussinessLog(value = "获取jssdk签名", platform = PlatformEnum.WEB, save = false)
+    public ResponseVO jssdkGetSignature(String url) {
+
+        if (StringUtils.isEmpty(url)) {
+            return ResultUtil.error("页面地址为空");
+        }
+
+        String urlN = "";
+        try {
+            urlN = URLDecoder.decode(url, "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        SysConfig configId = sysConfigService.getByKey(ConfigKeyEnum.WX_GZH_APP_ID.getKey());
+        SysConfig configSecret = sysConfigService.getByKey(ConfigKeyEnum.WX_GZH_APP_SECRET.getKey());
+        if (StringUtils.isEmpty(configId) || StringUtils.isEmpty(configSecret)) {
+            return ResultUtil.error("微信公众号appId、AppSecret未配置");
+        }
+        Map<String, String> tokenMap = getAccessTokenComponent.getAccessToken(configId.getConfigValue(), configSecret.getConfigValue());
+        String accessToken = tokenMap.get("accessToken");
+        if (StringUtils.isEmpty(accessToken)) {
+            log.error("accessToken is null");
+            return ResultUtil.error("accessToken is empty");
+        }
+
+        Map<String, String> ticketMap = jsApiTicketComponent.JsapiTicket(accessToken);
+        String ticket = ticketMap.get("ticket");
+        if (StringUtils.isEmpty(ticket)) {
+            log.error("ticket is null");
+            return ResultUtil.error("ticket is empty");
+        }
+
+        //随机字符串
+        String nonceStr = UUID.randomUUID().toString().replaceAll("-", "");
+        //时间戳 微信要求为秒
+        Long timestamp = System.currentTimeMillis() / 1000;
+        //4获取url 根据项目需要获取对应的url地址
+
+        //5、将参数排序并拼接字符串 此处noncestr不能驼峰大写 按key的ascii顺序
+        String str = "jsapi_ticket=" + ticket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + urlN;
+
+        //6、将字符串进行sha1加密
+        String signature = DigestUtils.sha1Hex(str);
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("appid", configId.getConfigValue());
+        map.put("timestamp", timestamp);
+        map.put("noncestr", nonceStr);
+        map.put("accessToken", accessToken);
+        map.put("ticket", ticket);
+        map.put("signature", signature);
+
+//        log.info("str: {}", str);
+//        log.info("urlN: {}, map: {}", urlN, JSONUtils.toJSONString(map));
+        return ResultUtil.success("jssdkGetSignature获取成功", map);
     }
 
 }
