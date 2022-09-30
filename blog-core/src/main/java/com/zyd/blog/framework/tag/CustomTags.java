@@ -56,6 +56,9 @@ public class CustomTags extends BaseTag {
     @Autowired
     private SysSocialConfigService sysSocialConfigService;
 
+    @Autowired
+    private BizArticleLookService bizArticleLookService;
+
     public CustomTags() {
         super(CustomTags.class.getName());
     }
@@ -75,6 +78,11 @@ public class CustomTags extends BaseTag {
     public Object recentComments(Map params) {
         int pageSize = this.getPageSize(params);
         return commentService.listRecentComment(pageSize);
+    }
+
+    public Object recentVisitor(Map params) {
+        int pageSize = this.getPageSize(params);
+        return bizArticleLookService.getRecentArticleLook(pageSize);
     }
 
     public Object siteInfo(Map params) {

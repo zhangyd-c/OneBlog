@@ -1,6 +1,8 @@
 package com.zyd.blog.persistence.mapper;
 
+import com.zyd.blog.business.dto.ArticleLookDto;
 import com.zyd.blog.business.vo.ArticleLookConditionVO;
+import com.zyd.blog.business.vo.CommentConditionVO;
 import com.zyd.blog.persistence.beans.BizArticleLook;
 import com.zyd.blog.plugin.BaseMapper;
 import org.springframework.stereotype.Repository;
@@ -24,4 +26,6 @@ public interface BizArticleLookMapper extends BaseMapper<BizArticleLook>{
      * @return
      */
     List<BizArticleLook> findPageBreakByCondition(ArticleLookConditionVO vo);
+
+    List<ArticleLookDto> findPageRecentLook(CommentConditionVO vo);
 }
