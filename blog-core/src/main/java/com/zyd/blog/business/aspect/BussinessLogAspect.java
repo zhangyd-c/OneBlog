@@ -67,7 +67,8 @@ public class BussinessLogAspect {
             return;
         }
 
-        logService.asyncSaveSystemLog(platform, bussinessName);
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        logService.asyncSaveSystemLog(platform, bussinessName, servletRequestAttributes);
     }
 
 

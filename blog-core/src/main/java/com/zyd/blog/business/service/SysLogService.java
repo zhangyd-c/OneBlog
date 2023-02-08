@@ -6,6 +6,7 @@ import com.zyd.blog.business.entity.Log;
 import com.zyd.blog.business.enums.PlatformEnum;
 import com.zyd.blog.business.vo.LogConditionVO;
 import com.zyd.blog.framework.object.AbstractService;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * @author yadong.zhang email:yadong.zhang0415(a)gmail.com
@@ -23,5 +24,5 @@ public interface SysLogService extends AbstractService<Log, Integer> {
      */
     PageInfo<Log> findPageBreakByCondition(LogConditionVO vo);
 
-    void asyncSaveSystemLog(PlatformEnum platform, String bussinessName);
+    void asyncSaveSystemLog(PlatformEnum platform, String bussinessName, ServletRequestAttributes servletRequestAttributes);
 }
