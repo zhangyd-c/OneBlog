@@ -20,6 +20,9 @@ case "$1" in
   'p')
     docs/bin/push.sh
 	;;
+  'pd')
+    docs/bin/push-dev.sh
+	;;
   'dd')
     read -p '是否重新执行 mvn package？[y/n]' repeat
     if [ "${repeat}" = "y" -o "${repeat}" = "Y" ];then
