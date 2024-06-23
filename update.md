@@ -12,6 +12,8 @@
 - 合并 [Gitee PR#44](https://gitee.com/yadong.zhang/DBlog/pulls/44)
 - 合并 [Gitee PR#42](https://gitee.com/yadong.zhang/DBlog/pulls/42)
 - 合并 [Gitee PR#41](https://gitee.com/yadong.zhang/DBlog/pulls/41)
+- 合并 [Github PR#32](https://github.com/zhangyd-c/OneBlog/pull/32)
+- 合并 [Github PR#31](https://github.com/zhangyd-c/OneBlog/pull/31)
 
 ### 2024-03-24
 
