@@ -262,6 +262,7 @@
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/simplemde@1.11.2/dist/simplemde.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
 <#--    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/jquery.share.min.js"></script>-->
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js" type="text/javascript"></script>
 
     <script>
         var isPrivate = '${article.private}';
@@ -277,6 +278,75 @@
                 if(json.status === 200) {
                     $(".blog-info-body").html(json.data);
                     $("#lockModal").modal('hide')
+                }
+            })
+        })
+
+
+        $(function () {
+            var url = location.href.split("#")[0];
+            //当前页面的url
+            var encodeUrl = encodeURIComponent(url);
+
+            var title = "${article.title}";
+            var desc = "${article.description}";
+            var imgUrl = "${article.coverImage}";
+
+            $.post("/api/jssdkGetSignature", {url: encodeUrl}, function (json) {
+                // $.alert.ajaxSuccess(json);
+
+                if (json.status === 200) {
+                    var signature = json.data.signature;
+                    var timestamp = json.data.timestamp;
+                    var noncestr = json.data.noncestr;
+                    var appid = json.data.appid;
+                    var jsapi_ticket = json.data.ticket;
+
+                    // alert(signature + "---" + timestamp + "---" + noncestr + "---" + appid + "---" + jsapi_ticket);
+                    // console.log(signature + "---" + timestamp + "---" + noncestr + "---" + appid + "---" + jsapi_ticket)
+                    wx.config({
+                        debug: false, // true:开启调试模式,调用的所有 api 的返回值会在客户端 alert 出来，若要查看传入的参数，可以在 pc 端打开，参数信息会通过 log 打出，仅在 pc 端时才会打印。
+                        appId: appid, // 必填，公众号的唯一标识
+                        timestamp: timestamp, // 必填，生成签名的时间戳
+                        nonceStr: noncestr, // 必填，生成签名的随机串
+                        signature: signature,// 必填，签名
+                        jsApiList: ["updateAppMessageShareData", "updateTimelineShareData"] // 必填，需要使用的 JS 接口列表
+                    });
+
+                    wx.error(function (res) {
+                        // alert(JSON.stringify(res));
+                        // config信息验证失败会执行 error 函数，如签名过期导致验证失败，具体错误信息可以打开 config 的debug模式查看，也可以在返回的 res 参数中查看，对于 SPA 可以在这里更新签名。
+                        console.log(JSON.stringify(res))
+                    });
+
+                    var mTitle = title + '| 蜂唤信息公众号';
+                    wx.ready(function () {
+                        //需在用户可能点击分享按钮前就先调用 自定义“分享到朋友圈”及“分享到 QQ 空间”按钮的分享内容
+                        wx.updateTimelineShareData({
+                            title: mTitle, // 分享标题
+                            link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号 JS 安全域名一致
+                            imgUrl: imgUrl, // 分享图标
+                            success: function () {
+                                // 设置成功
+                            }
+                        });
+
+                    });
+
+                    var nTitle = '您有新消息| ' + title + '| 蜂唤信息公众号';
+                    wx.ready(function () {
+                        //需在用户可能点击分享按钮前就先调用 自定义“分享给朋友”及“分享到QQ”按钮的分享内容
+                        wx.updateAppMessageShareData({
+                            title: nTitle, // 分享标题
+                            desc: desc, // 分享描述
+                            link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号 JS 安全域名一致
+                            imgUrl: imgUrl, // 分享图标
+                            success: function () {
+                                // 设置成功
+                            }
+                        });
+                    });
+
                 }
             })
         })
