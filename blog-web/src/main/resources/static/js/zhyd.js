@@ -388,6 +388,9 @@ $(function () {
                         + '</li>{{/data}}';
                     var html = Mustache.render(tpl, json);
                     $("#notice-box").html(html);
+                    $(".notice-container").show();
+                } else {
+                    $(".notice-container").remove();
                 }
             },
             error: function () {

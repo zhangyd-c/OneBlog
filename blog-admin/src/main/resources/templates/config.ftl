@@ -27,28 +27,22 @@
                                 <a href="#tab_storage" id="storage-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-cube fa-fw"></i> 云存储</a>
                             </li>
                             <li role="presentation">
-                                <a href="#tab_auth" id="auth-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-sign-in fa-fw"></i> 登录</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#tab_comment" id="comment-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-commenting-o fa-fw"></i> 评论</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#tab_article_editor" id="article-editor-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-edit fa-fw"></i> 文章编辑器</a>
+                                <a href="#tab_article_editor" id="article-editor-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-edit fa-fw"></i> 文章相关</a>
                             </li>
                             <li role="presentation" class="">
                                 <a href="#tab_contact" role="tab" id="contact-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-id-card-o fa-fw"></i> 联系方式</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#tab_praise" id="praise-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-money fa-fw"></i> 赞赏码</a>
                             </li>
                             <li role="presentation" class="">
                                 <a href="#tab_custom" role="tab" id="custom-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-cog fa-fw"></i> 定制页面</a>
                             </li>
                             <li role="presentation" class="">
-                                <a href="#tab_hunter" role="tab" id="hunter-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-bug fa-fw"></i> Hunter 配置</a>
+                                <a href="#tab_cdn" role="tab" id="cdn-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-plug fa-fw"></i> CDN 资源</a>
                             </li>
                             <li role="presentation" class="">
-                                <a href="#tab_cdn" role="tab" id="cdn-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-plug fa-fw"></i> CDN 资源</a>
+                                <a href="#tab_hunter" role="tab" id="hunter-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-bug fa-fw"></i> Hunter 配置</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#tab_auth" id="auth-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-sign-in fa-fw"></i> 登录</a>
                             </li>
                             <li role="presentation" class="">
                                 <a href="#tab_setting" role="tab" id="setting-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-tasks fa-fw"></i> 其他</a>
@@ -306,40 +300,30 @@
                                     </div>
                                 </form>
                             </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_auth" aria-labelledby="auth-tab">
+                            <div role="tabpanel" class="tab-pane fade" id="tab_article_editor" aria-labelledby="article-editor-tab">
                                 <form class="form-horizontal form-label-left" novalidate>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="loginRetryNum">登录重试次数 <span class="required">*</span></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" class="form-control col-md-7 col-xs-12" name="loginRetryNum" id="loginRetryNum" required="required" placeholder="请输入登录重试次数，默认5"/>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="sessionTimeOut">Session有效期 <span class="required">*</span></label>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            <input type="text" class="form-control col-md-7 col-xs-12" name="sessionTimeOut" id="sessionTimeOut" required="required" placeholder="请输入Session有效期，默认1小时"/>
-                                        </div>
-                                        <div class="col-md-1 col-sm-1 col-xs-1">
-                                            <select name="sessionTimeOutUnit" id="sessionTimeOutUnit" class="form-control" required="required" >
-                                                <@zhydTag method="sessionTimeOutUnit">
-                                                    <option value="">请选择</option>
-                                                    <#list sessionTimeOutUnit as item>
-                                                        <option value="${item}">${item}</option>
-                                                    </#list>
-                                                </@zhydTag>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="articleEditor">默认文章编辑器 <i class="fa fa-question-circle" title="文章编辑器"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
+                                            <select name="articleEditor" id="articleEditor" class="form-control">
+                                                <option value="md">Markdown 编辑器</option>
+                                                <option value="we">WangEditor 编辑器</option>
+                                                <option value="tiny">TinyMCE 编辑器</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tinyMCEKey">TinyMCE API Key</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
+                                            <input type="text" class="form-control col-md-7 col-xs-12" name="tinyMCEKey" id="tinyMCEKey" placeholder="请输入TinyMCE API Key"/>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_comment" aria-labelledby="comment-tab">
-                                <form class="form-horizontal form-label-left" novalidate>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <small>获取地址：<a href="https://www.tiny.cloud/my-account/dashboard/" target="_blank">点击获取 TinyMCE API Key</a></small>
+                                        </div>
+                                    </div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12 aero" for="anonymous">允许匿名评论？
                                             <i class="fa fa-question-circle" title="【暂不可用】是否允许匿名评论，如果为否则必须需要登录。"></i>
@@ -373,40 +357,6 @@
                                             <input type="text" class="form-control col-md-7 col-xs-12" id="editorAlert" name="editorAlert" placeholder="例如：讲文明、要和谐">
                                         </div>
                                     </div>
-
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_article_editor" aria-labelledby="article-editor-tab">
-                                <form class="form-horizontal form-label-left" novalidate>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="articleEditor">默认文章编辑器 <i class="fa fa-question-circle" title="文章编辑器"></i></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
-                                            <select name="articleEditor" id="articleEditor" class="form-control">
-                                                <option value="md">Markdown 编辑器</option>
-                                                <option value="we">WangEditor 编辑器</option>
-                                                <option value="tiny">TinyMCE 编辑器</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tinyMCEKey">TinyMCE API Key</label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" class="form-control col-md-7 col-xs-12" name="tinyMCEKey" id="tinyMCEKey" placeholder="请输入TinyMCE API Key"/>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <small>获取地址：<a href="https://www.tiny.cloud/my-account/dashboard/" target="_blank">点击获取 TinyMCE API Key</a></small>
-                                        </div>
-                                    </div>
-
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -451,34 +401,6 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="github">GitHub</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" class="form-control col-md-7 col-xs-12" name="github" id="github" placeholder="请输入GitHub"/>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_praise" aria-labelledby="praise-tab">
-                                <form class="form-horizontal form-label-left" novalidate>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="homeDesc">微信赞赏码 </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" class="form-control col-md-7 col-xs-12 uploadPreview" data-preview-container="#wxPraiseCodePreview" name="wxPraiseCode" id="wxPraiseCode"/>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <div id="wxPraiseCodePreview" style="width: 200px;height: auto"></div>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="homeKeywords">支付宝赞赏码 </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" class="form-control col-md-7 col-xs-12 uploadPreview" data-preview-container="#zfbPraiseCodePreview" id="zfbPraiseCode" name="zfbPraiseCode"/>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <div id="zfbPraiseCodePreview" style="width: 200px;height: auto"></div>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -570,19 +492,9 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="annotation">自定义站点注解 <i class="fa fa-question-circle" title="自定义站点注解，必须使用 <!--  --> 括起来"></i></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_hunter" aria-labelledby="hunter-tab">
-                                <form class="form-horizontal form-label-left" novalidate>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="blogHunterConfig">Hunter 配置文件 <i class="fa fa-question-circle" title="blog-hunter 配置文件，如果没有添加该配置，则默认取 src/main/resources/HunterConfig.json"></i></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <textarea class="form-control col-md-7 col-xs-12" id="blogHunterConfig" name="blogHunterConfig" placeholder="blog-hunter 配置文件，如果没有添加该配置，则默认取 src/main/resources/HunterConfig.json" rows="20"></textarea>
+                                            <textarea class="form-control col-md-7 col-xs-12" id="annotation" name="annotation" placeholder="自定义站点注解，必须使用 <!--  --> 括起来，比如：<!-- 神龙保佑，永无BUG -->" rows="5"></textarea>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -652,8 +564,66 @@
                                     </div>
                                 </form>
                             </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab_hunter" aria-labelledby="hunter-tab">
+                                <form class="form-horizontal form-label-left" novalidate>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="blogHunterConfig">Hunter 配置文件 <i class="fa fa-question-circle" title="blog-hunter 配置文件，如果没有添加该配置，则默认取 src/main/resources/HunterConfig.json"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control col-md-7 col-xs-12" id="blogHunterConfig" name="blogHunterConfig" placeholder="blog-hunter 配置文件，如果没有添加该配置，则默认取 src/main/resources/HunterConfig.json" rows="20"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab_auth" aria-labelledby="auth-tab">
+                                <form class="form-horizontal form-label-left" novalidate>
+                                    <div class="alert alert-info" role="alert" style="color: white">
+                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                        <i class="fa fa-info-circle fa-fw"></i>注意：该配置目前仅适用于管理端
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="loginRetryNum">登录重试次数 <span class="required">*</span></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" class="form-control col-md-7 col-xs-12" name="loginRetryNum" id="loginRetryNum" required="required" placeholder="请输入登录重试次数，默认5"/>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="sessionTimeOut">Session有效期 <span class="required">*</span></label>
+                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                            <input type="text" class="form-control col-md-7 col-xs-12" name="sessionTimeOut" id="sessionTimeOut" required="required" placeholder="请输入Session有效期，默认1小时"/>
+                                        </div>
+                                        <div class="col-md-1 col-sm-1 col-xs-1">
+                                            <select name="sessionTimeOutUnit" id="sessionTimeOutUnit" class="form-control" required="required" >
+                                                <@zhydTag method="sessionTimeOutUnit">
+                                                    <option value="">请选择</option>
+                                                    <#list sessionTimeOutUnit as item>
+                                                        <option value="${item}">${item}</option>
+                                                    </#list>
+                                                </@zhydTag>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                             <div role="tabpanel" class="tab-pane fade" id="tab_setting" aria-labelledby="setting-tab">
                                 <form class="form-horizontal form-label-left" novalidate>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dynamicTitle">动态标题 <i class="fa fa-question-circle" title="当切换浏览器tab时，在原tab上的标题。比如https://docs.zhyd.me上的“麻溜儿回来~~~”"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type='text' class="form-control" id="dynamicTitle" name="dynamicTitle"  placeholder="请输入切换窗口时想要显示的标题，如：麻溜儿回来~~~"/>
+                                        </div>
+                                    </div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="authorName">百度Api的AK <i class="fa fa-question-circle" title="用于通过百度地址接口获取用户当前的位置"></i></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -669,7 +639,7 @@
                                     <div class="clear"></div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenance">启用 Hitokoto（一言）
-                                            <i class="fa fa-question-circle" title="一言，随机显示一句话的插件，该插件部分时候加载较慢，如果不需要请自行关闭"></i> </label>
+                                            <i class="fa fa-question-circle" title="一言，随机显示一句话的插件，该插件部分时候加载较慢，如果不需要请自行关闭，仅在文章详情页面展示"></i> </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
                                             <ul class="list-unstyled list-inline">
                                                 <li><label for="maintenance" class="pointer"> <input type="radio" class="square" checked name="enableHitokoto" value="1"> 显示 </label> </li>
@@ -710,9 +680,21 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dynamicTitle">动态标题 <i class="fa fa-question-circle" title="当切换浏览器tab时，在原tab上的标题。比如https://docs.zhyd.me上的“麻溜儿回来~~~”"></i></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="homeDesc">微信赞赏码 </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type='text' class="form-control" id="dynamicTitle" name="dynamicTitle"  placeholder="请输入切换窗口时想要显示的标题，如：麻溜儿回来~~~"/>
+                                            <input type="file" class="form-control col-md-7 col-xs-12 uploadPreview" data-preview-container="#wxPraiseCodePreview" name="wxPraiseCode" id="wxPraiseCode"/>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div id="wxPraiseCodePreview" style="width: 200px;height: auto"></div>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="homeKeywords">支付宝赞赏码 </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="file" class="form-control col-md-7 col-xs-12 uploadPreview" data-preview-container="#zfbPraiseCodePreview" id="zfbPraiseCode" name="zfbPraiseCode"/>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div id="zfbPraiseCodePreview" style="width: 200px;height: auto"></div>
                                         </div>
                                     </div>
                                     <div class="item form-group">

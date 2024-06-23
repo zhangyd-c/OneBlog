@@ -87,7 +87,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 
 - docker
 - docker-compose
-- Springboot 2.3.4.RELEASE
+- Springboot 2.3.5.RELEASE
 - Apache Shiro 1.7.1
 - Logback
 - Redis

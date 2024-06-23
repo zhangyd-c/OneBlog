@@ -10,31 +10,40 @@
         </div>
     <#else>
         <div class="sidebar-module" style="position: relative;">
-            <h5 class="custom-title"><i class="fa fa-home fa-fw icon"></i><strong>关于我</strong><small></small></h5>
+            <h5 class="custom-title"><i class="fa fa-home fa-fw icon"></i><strong>关于</strong><small></small></h5>
             <div class="widget">
                 <div id="feed_widget">
                     <div class="feed-about">
                         <div class="about-main">
+                            <#if config.wxCode?? && (config.wxCode?length > 0)>
                             <div class="about-img"><a href="${config.wxCode}" class="showImage" title="微信公众号"><img src="${config.wxCode}" alt="微信公众号"></a></div>
-                            <div class="about-name">${config.siteName}</div>
+                            </#if>
                             <div class="about-the">${config.siteDesc!}</div>
                         </div>
                         <div class="clear"></div>
                         <!-- 方案一：图标展示 -->
                         <ul class="widget-icon">
+                            <#if config.wxCode?? && (config.wxCode?length > 0)>
                             <li class="weixin auto-shake" data-container="body"
                                 data-toggle="popover" data-trigger="hover" data-placement="bottom" data-html="true" data-content="<img src='${config.wxCode}' style='width: 130px;' alt='QR Code'>">
                                 <a class="tag-icon" title="微信" rel="external nofollow"><i class="fa fa-weixin"></i></a>
                             </li>
+                            </#if>
+                            <#if config.qq?? && (config.qq?length > 0)>
                             <li class="tqq auto-shake">
                                 <a class="tag-icon" href="javascript:window.open('tencent://message/?uin=${config.qq}&Site=www.${config.domain}&Menu=yes')" title="点击QQ联系我" target="blank" rel="external nofollow"><i class="fa fa-qq"></i></a>
                             </li>
+                            </#if>
+                            <#if config.weibo?? && (config.weibo?length > 0)>
                             <li class="tsina auto-shake">
                                 <a class="tag-icon" href="${config.weibo}" title="点击查看我的微博" target="_blank" rel="external nofollow"><i class="fa fa-weibo"></i></a>
                             </li>
+                            </#if>
+                            <#if config.github?? && (config.github?length > 0)>
                             <li class="github auto-shake">
                                 <a class="tag-icon" href="${config.github}" title="点击查看我的github" target="_blank" rel="external nofollow"><i class="fa fa-github"></i></a>
                             </li>
+                            </#if>
                         </ul>
                         <!-- 方案二：列表展示 -->
                         <#--<ul class="list-unstyled">

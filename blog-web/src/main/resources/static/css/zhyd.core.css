@@ -2332,6 +2332,7 @@ nav a:first-child .meta-nav {
 
 /* 首页 关于我 */
 .widget ul {
+    display: flex;
     padding: 5px 15px;
     font-size: 16px;
 }
@@ -2379,6 +2380,7 @@ nav a:first-child .meta-nav {
 }
 
 #feed_widget .widget-icon li {
+    flex: 1;
     float: left;
     width: 25%;
     height: 40px;
@@ -2477,7 +2479,7 @@ nav a:first-child .meta-nav {
 .about-main {
     font-size: 14px;
     padding: 0 15px;
-    text-align: center;
+    /*text-align: center;*/
 }
 
 .about-img {

@@ -1,6 +1,6 @@
 <#include "include/macros.ftl">
 <@compress single_line=false>
-<@header title="${config.siteName!} | 一个程序员的个人博客"
+<@header title="${config.siteName!}"
     keywords="${config.homeKeywords!}"
     description="${config.homeDesc!}"
     canonical="/${url!}">
@@ -10,14 +10,11 @@
     <#-- 广告位 -->
     <div class="ad-mark" id="HOMEPAGE_TOP" style="display: none;margin-bottom: 10px"></div>
     <@prompt></@prompt>
-    <nav class="breadcrumb">
+    <nav class="breadcrumb notice-container" style="display: none">
         <div class="notify"><i class="fa fa-bullhorn fa-fw"></i></div>
         <div id="scrolldiv">
             <div class="scrolltext">
                 <ul class="list-unstyled" id="notice-box">
-                    <li class="scrolltext-title">
-                        <a href="javascript:void(0)" rel="bookmark">本站正式启用新域名:<a href="https:/www.zhyd.me" target="_blank"><strong>https:/www.zhyd.me</strong></a></a>
-                    </li>
                     <li class="scrolltext-title">
                         <a href="javascript:void(0)" rel="bookmark">活了二十多年，没能为祖国、为人民做点什么，每思及此，伤心欲绝。</a>
                     </li>
