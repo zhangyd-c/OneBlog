@@ -3,6 +3,16 @@
 
 ----
 
+### 2024-06-23
+
+- 合并 [Gitee PR#48](https://gitee.com/yadong.zhang/DBlog/pulls/48)
+- 合并 [Gitee PR#47](https://gitee.com/yadong.zhang/DBlog/pulls/47)
+- 合并 [Gitee PR#46](https://gitee.com/yadong.zhang/DBlog/pulls/46)
+- 合并 [Gitee PR#45](https://gitee.com/yadong.zhang/DBlog/pulls/45)
+- 合并 [Gitee PR#44](https://gitee.com/yadong.zhang/DBlog/pulls/44)
+- 合并 [Gitee PR#42](https://gitee.com/yadong.zhang/DBlog/pulls/42)
+- 合并 [Gitee PR#41](https://gitee.com/yadong.zhang/DBlog/pulls/41)
+
 ### 2024-03-24
 
 - 调整后台网站设置中的配置项顺序；
@@ -12,10 +22,10 @@
 
 - 修改 CDN 资源
 - 增加 CDN 资源引用文件的后台配置，当 CDN 不可用时，可以直接修改（如果没有则需添加）数据库中的下面四个配置：
-  - adminJsCdn（控制台 JS 文件的 CDN）
-  - adminCssCdn（控制台 CSS 文件的 CDN）
-  - webJsCdn（Web 端 JS 文件的 CDN）
-  - webCssCdn（Web 端 CSS 文件的 CDN）
+	- adminJsCdn（控制台 JS 文件的 CDN）
+	- adminCssCdn（控制台 CSS 文件的 CDN）
+	- webJsCdn（Web 端 JS 文件的 CDN）
+	- webCssCdn（Web 端 CSS 文件的 CDN）
 
 注意：如果是手动操作数据库进行修改配置信息，则必须更改 `update_time`，并且更改后的 `update_time` 一定是晚于之前的 `update_time` 值。
 
@@ -57,7 +67,7 @@
 ### 2021-10-26
 
 - 修复第三方登录失败的问题
-- 
+-
 ### 2021-10-23
 
 1. 优化页面样式。
@@ -71,7 +81,7 @@
 
 ![img.png](./docs/_media/blog-page.png)
 
-访问 http://localhost:8443/.well-known/pki-validation/fileauth.txt 
+访问 http://localhost:8443/.well-known/pki-validation/fileauth.txt
 
 ![img.png](./docs/_media/blog-page-verify.png)
 
@@ -92,19 +102,19 @@
 > 2. http://domain/{x}.txt
 > 3. http://domain/{x}.html
 > 4. http://domain/.well-known/{x}/{x}.txt
-> 
+>
 > 对于其他类型的 url 格式，请提交 issue
 
 ### 2021-06-06
 
 1. 处理了一批 Issue
-    - 解决 Gitee Issue [#I3PIH2]
-    - 解决 Gitee Issue [#I1G3XV]
+	- 解决 Gitee Issue [#I3PIH2]
+	- 解决 Gitee Issue [#I1G3XV]
 	- 解决 Gitee Issue [#I3I8KC]
 	- 等等一些老旧 Issue
 2. blog-hunter 的配置文件（文件搬运工），支持通过 admin 端在线配置
 3. 更新后台首页统计面板
-    - 后台管理员首页增加总访问量和总赞数选项卡
+	- 后台管理员首页增加总访问量和总赞数选项卡
 	- 点击总访问量，提示具体访问量数字，选项卡中只显示大概访问量，例如（2.3w,1.2k等）
 4. 鼠标点击弹出气泡文字，默认不显示，只有在后台配置了弹出文字后才会显示
 5. 将 jap-social 升级到 1.0.2
@@ -174,18 +184,18 @@
 
 ### 2019-06-01
 
-1. 集成JustAuth，修复一些问题  
+1. 集成JustAuth，修复一些问题
 2. 支持开关“匿名评论”，非匿名时，必须登录才能发表评论
-3. 修复其他问题     
+3. 修复其他问题
 
 ----
 
 ### 2019-05-29
 
-1. 修复异步线程中无法获取request的问题;    
-2. 修复文章列表不绑定标签时的NPE问题; 
-3. 修复其他问题     
-    
+1. 修复异步线程中无法获取request的问题;
+2. 修复文章列表不绑定标签时的NPE问题;
+3. 修复其他问题
+
 ----
 
 ### 2019-05-26
@@ -201,7 +211,7 @@
 1. 优化后台zhyd.table.js的实现方式，让插件使用起来更方便；
 2. 修复文章分类添加时，父级分类能选择自己的问题；
 3. type和resource列表页改为父子表；
-4. 调整后台管理页面中的按钮样式，去掉文字说明，改为title形式显示，节省列表空间；  
+4. 调整后台管理页面中的按钮样式，去掉文字说明，改为title形式显示，节省列表空间；
 5. 发布文章时的默认编辑器可以通过右上角“系统配置”-“文章编辑器”设置；
 6. 修改右上角消息通知的实现方式；
 7. 修复zhyd.table.js插件中`clearText`方法的一个小问题；
@@ -211,10 +221,10 @@
 
 ### 2019-03-22
 
-1. 切换cdn;    
-2. 异步记录系统日志;    
-3. 实时保存文章浏览记录改为定时保存，每分钟保存一次    
-    
+1. 切换cdn;
+2. 异步记录系统日志;
+3. 实时保存文章浏览记录改为定时保存，每分钟保存一次
+
 
 
 
@@ -226,8 +236,8 @@
 - 优化“文章搬运工”功能
 - 优化blog-file相关的逻辑
 - init_data.sql中增加Nginx服务器的配置文件
-    
-    
+
+
 
 ----
 
@@ -243,9 +253,9 @@
 	- 文件资源库管理，可删除、批量删除和上传图片等操作
 - 修改
 	- 将发布文章选择封面图片时的素材库由原来的查询文章封面列表改为现在的文件库表，可以选择库中所有的图片记录
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0218/144133_b0c5b189_784199.png "屏幕截图.png")
-    
-    
+	  ![输入图片说明](https://images.gitee.com/uploads/images/2019/0218/144133_b0c5b189_784199.png "屏幕截图.png")
+
+
 
 ----
 
@@ -255,7 +265,7 @@
 	- 文件资源库管理，可删除、批量删除和上传图片等操作
 - 修改
 	- 文章详情页的样式调整
-    
+
     
 ----
 
@@ -271,8 +281,8 @@
 	- jquery-confirm插件升级：v2.5.1 -> v3.3.2
 	- 后台评论管理列表样式修改
 - 其他
-    - 删除一些无用的文件
-	
+	- 删除一些无用的文件
+
 	
 ----
 
@@ -294,7 +304,7 @@
 	- admin项目中，重构wangEditor&simpleMDE编辑器的生成代码
 	- admin项目中，拆分gentelella模板的js代码和自定义的js代码
 	- admin项目中，发表文章时可以新增标签，避免了必须得去标签页添加的问题
-	
+
 	
 ----
 
@@ -306,7 +316,7 @@
 	- sidebar调整“近期评论”、“文章列表”、“网站信息”栏的字体颜色
 	- sidebar中的“文章列表”tabs增加图标，同时增加空数据提示
 	- footer样式调整，删除上方的自定义footer，同时修改footer中的字体
-	“关于”、“友情链接”、“留言板”样式调整
+	  “关于”、“友情链接”、“留言板”样式调整
 	- “文章详情”页面样式调整：标题和文章主题之间的界限调整，去除以前的灰色分割线，使文章标题和内容之前看起来不这么生硬。
 	- “文章详情”-“目录”样式微调
 	- “文章列表”查询优化
@@ -354,8 +364,8 @@
 	- 图片转存功能支持CSDN
 	- “文章搬运工”可选的停止方式：
 		- 默认：不做限制，抓取所有匹配到的文章，慎用
-        - 持续时间：按照爬虫运行的时间，理想状态时1s抓取一条，受实际网速影响
-        - 链接条数：按照指定的条数抓取，满足条数后程序自动停止
+		- 持续时间：按照爬虫运行的时间，理想状态时1s抓取一条，受实际网速影响
+		- 链接条数：按照指定的条数抓取，满足条数后程序自动停止
 	- 日志管理，记录用户的操作日志
 - 修改：
 	- 建站日期提到配置文件中，可手动配置。通过buildWebsiteDate指定建站起始日期，默认2018-01-01
@@ -366,7 +376,7 @@
 - 删除：
 	- 删除CnblogModel等无用的测试实体类
 - 修复其他一些bug
-	
+
 
 ----
 
@@ -423,8 +433,8 @@
 
 **修改功能：**
 
-修改：      
-- config表中新增`cmd_url`字段，存储后台管理系统的地址  
+修改：
+- config表中新增`cmd_url`字段，存储后台管理系统的地址
 - websocket支持移到admin模块
 - 添加了管理员向在线用户端发送消息通知的功能（需用户端授权）
 
@@ -435,14 +445,14 @@
 
 **修改功能：**
 
-优化：      
-- @blogHeader宏标签数据动态获取      
-- 开启websocket的逻辑调优，host从config表中获取    
-- 项目readme文档完善并拆分    
+优化：
+- @blogHeader宏标签数据动态获取
+- 开启websocket的逻辑调优，host从config表中获取
+- 项目readme文档完善并拆分
 - 项目maven版本修改为`2.0.1.Beta`
 
 增加：
-- ISSUE和PR的模板    
+- ISSUE和PR的模板
 
 ----
 
@@ -450,8 +460,8 @@
 
 **修改功能：**
 
-优化：  
-- 升级Spring Boot至2.0.1版本及其他关联版本升级；  
+优化：
+- 升级Spring Boot至2.0.1版本及其他关联版本升级；
 - 使用Maven Profile管理Spring Boot Profiles，支持动态切换profile；
 
 ----
@@ -460,11 +470,11 @@
 
 **修改功能：**
 
-新增：    
-- markdown版的编辑器、评论框    
-- 控制文章的评论框是否显示    
+新增：
+- markdown版的编辑器、评论框
+- 控制文章的评论框是否显示
 - 修改密码功能    
-优化：相关页面进行优化    
+  优化：相关页面进行优化
 
 ----
 
@@ -472,7 +482,7 @@
 
 **修改功能：**
 
-修复： admin用户首页报错的问题    
+修复： admin用户首页报错的问题
 
 优化：
 1. ROOT用户默认拥有所有权限
@@ -507,12 +517,13 @@
 
 1. web端自动申请友链后不显示的问题
 2. config表修改后不能实时刷新的问题
-	
+
 **增加功能：**
 1. 网站赞赏码
 2. 百度推送功能(链接提交到百度站长平台)
-	
+
 **修改功能：**
 1. 百度api的ak和百度推送的token以及七牛云的配置改为通过config表管理
 3. admin模块菜单通过标签实时获取
 3. 弹窗工具类js结构调整
+

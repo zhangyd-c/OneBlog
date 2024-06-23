@@ -294,7 +294,7 @@
                         <#if recentVisitor?? && (recentVisitor?size > 0)>
                             <#list recentVisitor as item>
                                 <tr>
-                                    <th class="title word-prase"><div>${item.articleName}</div></th>
+                                    <th class="title word-prase"><a href="${config.siteUrl!}/article/${item.articleId?c}" target="_blank">${item.articleName}</a></th>
                                     <td class="content"><div class="word-prase">${item.userIp}</div></td>
                                     <td>${item.lookTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                                 </tr>

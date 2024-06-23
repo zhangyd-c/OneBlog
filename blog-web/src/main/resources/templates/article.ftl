@@ -319,7 +319,7 @@
                         console.log(JSON.stringify(res))
                     });
 
-                    var mTitle = title + '| 蜂唤信息公众号';
+                    var mTitle = title;
                     wx.ready(function () {
                         //需在用户可能点击分享按钮前就先调用 自定义“分享到朋友圈”及“分享到 QQ 空间”按钮的分享内容
                         wx.updateTimelineShareData({
@@ -333,7 +333,7 @@
 
                     });
 
-                    var nTitle = '您有新消息| ' + title + '| 蜂唤信息公众号';
+                    var nTitle = '您有新消息| ' + title;
                     wx.ready(function () {
                         //需在用户可能点击分享按钮前就先调用 自定义“分享给朋友”及“分享到QQ”按钮的分享内容
                         wx.updateAppMessageShareData({

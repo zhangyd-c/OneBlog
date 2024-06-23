@@ -22,9 +22,10 @@
 	</select>
 
     <select id="findPageRecentLook" resultType="com.zyd.blog.business.dto.ArticleLookDto">
-		SELECT ba.title AS articleName,
-			   bal.user_ip AS userIp,
-			   bal.look_time AS looktime
+		SELECT ba.id AS articleId,
+		    ba.title AS articleName,
+		   bal.user_ip AS userIp,
+		   bal.look_time AS looktime
 		FROM biz_article_look bal
 		LEFT JOIN biz_article ba ON ba.id = bal.article_id
 		ORDER BY bal.look_time DESC
