@@ -22,6 +22,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -57,7 +59,9 @@ public class SysLogServiceImpl implements SysLogService {
 
     @Async
     @Override
-    public void asyncSaveSystemLog(PlatformEnum platform, String bussinessName) {
+    public void asyncSaveSystemLog(PlatformEnum platform, String bussinessName, ServletRequestAttributes servletRequestAttributes) {
+        RequestContextHolder.setRequestAttributes(servletRequestAttributes);
+
         String ua = RequestUtil.getUa();
         Log sysLog = new Log();
         sysLog.setLogLevel(LogLevelEnum.INFO);
