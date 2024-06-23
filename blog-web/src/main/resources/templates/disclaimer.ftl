@@ -34,9 +34,11 @@
                             </ul>
                         </#if>
                     </div>
-                    <div class="article-footer overflow-initial">
-                        <span class="blog-description hitokoto num"></span>
-                    </div>
+                    <#if (config.enableHitokoto == 1 || config.enableHitokoto == "1")>
+                        <div class="article-footer overflow-initial">
+                            <span class="blog-description hitokoto num"></span>
+                        </div>
+                    </#if>
                 </div>
             </div>
         </div>
@@ -44,6 +46,8 @@
     </div>
 </div>
 <@footer>
-<script src="https://v1.hitokoto.cn/?encode=js&c=i&select=.hitokoto" defer></script>
+    <#if (config.enableHitokoto == 1 || config.enableHitokoto == "1")>
+        <script src="https://v1.hitokoto.cn/?encode=js&c=i&select=.hitokoto" defer></script>
+    </#if>
 </@footer>
 </@compress>

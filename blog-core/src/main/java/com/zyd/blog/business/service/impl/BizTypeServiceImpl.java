@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -61,6 +63,17 @@ public class BizTypeServiceImpl implements BizTypeService {
         vo.setPageSize(100);
         PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
         List<BizType> entityList = bizTypeMapper.listTypeForMenu();
+        return getTypes(entityList);
+    }
+
+    @Override
+    public List<Type> listTypeByPosition(String position) {
+        Example example = new Example(BizType.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("position", StringUtils.isEmpty(position) ? "scrollmenu" : position)
+                .andEqualTo("available", true);
+        example.setOrderByClause("sort ASC");
+        List<BizType> entityList = bizTypeMapper.selectByExample(example);
         return getTypes(entityList);
     }
 

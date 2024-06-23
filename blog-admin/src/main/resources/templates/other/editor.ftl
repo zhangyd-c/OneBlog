@@ -17,14 +17,14 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>wangEditor富文本编辑器用例
-                        <small><a href="http://www.wangeditor.com/" target="_blank">http://www.wangeditor.com/</a></small>
+                    <h2>
+                        编辑器用例
                     </h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
                     <div class="form-group row">
-                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="name">菜单和编辑器区域分开 </label>
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="name">菜单和编辑器区域分开 wangEditor</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                             <div id="toolbar" class="toolbar"></div>
                             <div style="padding: 5px 0; color: #ccc">中间隔离带</div>
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="name">普通的编辑器 </label>
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="name">普通的编辑器 wangEditor</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                             <div id="div2">
                                 <p>第二个 demo（常规）</p>
@@ -43,7 +43,7 @@
                     </div>
                     <br>
                     <div class="form-group row">
-                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="name">oneBlog系统定制的编辑器 </label>
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="name">oneBlog系统定制的编辑器 wangEditor</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                             <div id="editor">
                                 <p>第三个 demo（oneBlog系统单独定制，支持文件上传）</p>
@@ -62,6 +62,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="name">oneBlog系统定制的编辑器 TinyMCE</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <div id="editor3"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -71,11 +77,11 @@
     <script type="text/javascript">
         var E = window.wangEditor
         var editor1 = new E('#toolbar', '#div1');
-        editor1.customConfig.zIndex = 10;
+        editor1.config.zIndex = 10;
         editor1.create();
 
         var editor2 = new E('#div2');
-        editor2.customConfig.zIndex = 10;
+        editor2.config.zIndex = 10;
         editor2.create();
         $("#div2").find(".w-e-text-container").css("height","100px");
 
@@ -92,5 +98,17 @@
                 "max-height": "600px"
             }
         })
+
+        zhyd.tinymce.init({
+            selector: "#editor",
+            uploadUrl: "/api/uploadFile",
+            uploadFileName: "file",
+            textareaName: "content2",
+        })
+
+        setTimeout(function (){
+            console.log(tinymce.activeEditor.getContent())
+            console.log($('textarea[name=content2]').val())
+        }, 10000)
     </script>
 </@footer>

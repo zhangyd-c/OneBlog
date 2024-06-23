@@ -12,10 +12,12 @@ package com.zyd.blog.controller;
 
 import com.zyd.blog.business.annotation.BussinessLog;
 import com.zyd.blog.business.entity.Article;
+import com.zyd.blog.business.enums.AdPositionEnum;
+import com.zyd.blog.business.enums.AdTypeEnum;
 import com.zyd.blog.business.service.BizArticleService;
-import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.core.BlogHunterConfigProvider;
 import com.zyd.blog.core.websocket.server.ZydWebsocketServer;
+import com.zyd.blog.framework.exception.ZhydException;
 import com.zyd.blog.util.ResultUtil;
 import me.zhyd.hunter.config.platform.Platform;
 import me.zhyd.hunter.enums.ExitWayEnum;
@@ -29,6 +31,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Arrays;
 
 /**
  * 页面跳转类
@@ -85,17 +89,13 @@ public class RenderController {
     }
 
     @RequiresPermissions("article:publish")
-    @BussinessLog(value = "进入发表文章页[html]")
-    @GetMapping("/article/publish")
-    public ModelAndView publish() {
-        return ResultUtil.view("article/publish");
-    }
-
-    @RequiresPermissions("article:publish")
-    @BussinessLog(value = "进入发表文章页[markdown]")
-    @GetMapping("/article/publishMd")
-    public ModelAndView publishMd() {
-        return ResultUtil.view("article/publish-md");
+    @BussinessLog(value = "进入发表文章页[{1}]")
+    @GetMapping("/article/publish-{type}")
+    public ModelAndView publish(@PathVariable("type") String type) {
+        if (!Arrays.asList("we", "md", "tiny").contains(type)) {
+            throw new ZhydException("不支持的编辑器类型");
+        }
+        return ResultUtil.view("article/publish-" + type);
     }
 
     @RequiresPermissions("article:publish")
@@ -104,10 +104,11 @@ public class RenderController {
     public ModelAndView edit(@PathVariable("id") Long id, Model model) {
         model.addAttribute("id", id);
         Article article = articleService.getByPrimaryKey(id);
-        if (article.getIsMarkdown()) {
-            return ResultUtil.view("article/publish-md");
+
+        if (!Arrays.asList("we", "md", "tiny").contains(article.getEditorType())) {
+            throw new ZhydException("文章异常，未知的编辑器类型");
         }
-        return ResultUtil.view("article/publish");
+        return ResultUtil.view("article/publish-" + article.getEditorType());
     }
 
     @RequiresPermissions("types")
@@ -218,4 +219,21 @@ public class RenderController {
     public ModelAndView socials(Model model) {
         return ResultUtil.view("social/list");
     }
+
+    @RequiresPermissions("page")
+    @BussinessLog("进入配置自定义页面")
+    @GetMapping("/page")
+    public ModelAndView page(Model model) {
+        return ResultUtil.view("page/page");
+    }
+
+    @RequiresPermissions("bizAds")
+    @BussinessLog("进入广告页面")
+    @GetMapping("/bizAd")
+    public ModelAndView bizAd(Model model) {
+        model.addAttribute("positions", AdPositionEnum.toListMap());
+        model.addAttribute("types", AdTypeEnum.toListMap());
+        return ResultUtil.view("bizAd/bizAd");
+    }
+
 }

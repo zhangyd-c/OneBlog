@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zyd.blog.persistence.mapper.BizAdMapper">
+	<resultMap id="rm" type="com.zyd.blog.persistence.beans.BizAd">
+		<result property="id" jdbcType="BIGINT" column="id"/>
+		<result property="content" jdbcType="VARCHAR" column="content"/>
+		<result property="picture" jdbcType="VARCHAR" column="picture"/>
+		<result property="link" jdbcType="VARCHAR" column="link"/>
+		<result property="title" jdbcType="VARCHAR" column="title"/>
+		<result property="position" jdbcType="VARCHAR" column="position"/>
+		<result property="type" jdbcType="VARCHAR" column="type"/>
+		<result property="expiringDate" jdbcType="TIMESTAMP" column="expiring_date"/>
+		<result property="showNumber" jdbcType="INTEGER" column="show_number"/>
+		<result property="clickNumber" jdbcType="INTEGER" column="click_number"/>
+		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+	</resultMap>
+
+	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.BizAdConditionVO" resultMap="rm">
+		SELECT
+			t.id,
+			t.position,
+			t.type,
+			t.content,
+			t.picture,
+			t.link,
+			t.title,
+			t.expiring_date,
+			t.show_number,
+			t.click_number,
+			t.create_time,
+			t.update_time
+		FROM
+			biz_ad t
+		WHERE
+			1 = 1
+		ORDER BY t.create_time DESC
+	</select>
+</mapper>
+

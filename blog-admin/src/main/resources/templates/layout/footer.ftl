@@ -6,28 +6,38 @@
         staticPath: '${config.staticWebSite}'
     }
 </script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@1.11.1/dist/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.0/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazyload@1.9.3/jquery.lazyload.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-confirm@3.3.2/dist/jquery-confirm.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery.fancybox@2.1.5/source/jquery.fancybox.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mustache@2.3.0/mustache.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/xss@0.3.3/dist/xss.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/toastr@2.0.3/nuget/content/scripts/toastr.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/icheck@1.0.2/icheck.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.11.1/dist/bootstrap-table.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.11.1/dist/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/daterangepicker@2.1.25/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/daterangepicker@2.1.25/daterangepicker.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-datetimepicker-npm@4.17.37-npm/build/js/bootstrap-datetimepicker.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-progressbar@0.9.0/bootstrap-progressbar.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@ztree/ztree_v3@3.5.37/js/jquery.ztree.core.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@ztree/ztree_v3@3.5.37/js/jquery.ztree.excheck.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/switchery-npm@0.8.2/index.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/wangeditor@3.1.1/release/wangEditor.min.js" type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/npm/@adactive/bootstrap-tagsinput@0.8.2/dist/bootstrap-tagsinput.min.js"></script>
+<#if config.adminJsCdn?? && (config.adminJsCdn?length > 0)>
+    ${config.adminJsCdn!}
+<#else >
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/mustache.js/2.3.0/mustache.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/js-xss/0.3.3/xss.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/toastr.js/2.0.3/js/toastr.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/bootstrap-daterangepicker/2.1.25/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/bootstrap-daterangepicker/2.1.25/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/bootstrap-progressbar/0.9.0/bootstrap-progressbar.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/zTree.v3/3.5.37/js/jquery.ztree.core.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/zTree.v3/3.5.37/js/jquery.ztree.excheck.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/wangeditor@4.7.9/dist/wangEditor.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+</#if>
 <script src="https://www.layuicdn.com/layui/layui.js"></script>
+<#if config.tinyMCEKey?exists>
+<script src="https://cdn.tiny.cloud/1/${config.tinyMCEKey!}/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<#else>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
+</#if>
 <#--
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.1/pnotify.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.1/pnotify.buttons.js"></script>

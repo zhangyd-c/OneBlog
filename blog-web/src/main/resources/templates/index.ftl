@@ -1,21 +1,20 @@
 <#include "include/macros.ftl">
 <@compress single_line=false>
-<@header title="${config.siteName!} | 一个程序员的个人博客"
+<@header title="${config.siteName!}"
     keywords="${config.homeKeywords!}"
     description="${config.homeDesc!}"
     canonical="/${url!}">
 </@header>
 
 <div class="container custome-container">
+    <#-- 广告位 -->
+    <div class="ad-mark" id="HOMEPAGE_TOP" style="display: none;margin-bottom: 10px"></div>
     <@prompt></@prompt>
-    <nav class="breadcrumb">
+    <nav class="breadcrumb notice-container" style="display: none">
         <div class="notify"><i class="fa fa-bullhorn fa-fw"></i></div>
         <div id="scrolldiv">
             <div class="scrolltext">
                 <ul class="list-unstyled" id="notice-box">
-                    <li class="scrolltext-title">
-                        <a href="javascript:void(0)" rel="bookmark">本站正式启用新域名:<a href="https:/www.zhyd.me" target="_blank"><strong>https:/www.zhyd.me</strong></a></a>
-                    </li>
                     <li class="scrolltext-title">
                         <a href="javascript:void(0)" rel="bookmark">活了二十多年，没能为祖国、为人民做点什么，每思及此，伤心欲绝。</a>
                     </li>
@@ -59,6 +58,28 @@
                 </div>
                 </#if>
             </@articleTag>
+            <@zhydTag method="scrollmenus" position="scrollmenu">
+                <#if scrollmenus?? && scrollmenus?size gt 0>
+                    <div class="blog-body expansion" style="padding: 0;">
+                        <div class="scrollmenu nav-tags">
+                            <span>更多分类：</span>
+                            <#list scrollmenus as item>
+                                <a href="/type/${item.id?c}" id="scrollmenu-${item.id?c}"><i class="${item.icon!}"></i>${item.name!}</a>
+                            </#list>
+                        </div>
+                    </div>
+                </#if>
+            </@zhydTag>
+<#--            <div class="separateline"><span>以下为最新文章</span></div>-->
+         <#--   <div class="blog-body expansion" style="padding: 0;margin-bottom: 0;border-bottom: 1px solid #eeeeee;">
+                <div class="scrollmenu nav-tags">
+                    <a href="/type/1" id="scrollmenu-1" class="red" style="color: red">最新文章</a>
+                    <a href="/type/1" id="scrollmenu-1">置顶文章</a>
+                    <a href="/type/1" id="scrollmenu-1">热门文章</a>
+                    <a href="/type/1" id="scrollmenu-1">评论最多</a>
+                    <a href="/type/1" id="scrollmenu-1">点赞最多</a>
+                </div>
+            </div>-->
             <#if page.list?? && (page.list?size > 0)>
                 <#list page.list as item>
                     <article class="fade-in">
@@ -144,6 +165,26 @@
         <#include "layout/sidebar.ftl"/>
     </div>
 </div>
-
-<@footer></@footer>
+<#-- 广告位 -->
+<div id="HOMEPAGE_OPEN_SCREEN" style="display: none" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">站长力荐<i class="fa fa-fire red"></i></h4>
+            </div>
+            <div class="modal-body ad-mark" id="ad-body">
+            </div>
+        </div>
+    </div>
+</div>
+<@footer>
+    <script>
+        var typeMatch = location.href.match(/\/type\/([0-9]+)/);
+        if(null != typeMatch) {
+            var typeId = typeMatch[1];
+            $("#scrollmenu-" + typeId).addClass("active").attr("href", "javascript:void(0)");
+        }
+    </script>
+</@footer>
 </@compress>

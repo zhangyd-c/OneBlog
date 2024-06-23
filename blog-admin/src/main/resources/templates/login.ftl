@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${config.siteName}后台管理系统</title>
     <link href="/assets/images/favicon.ico" rel="icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://cdn.jsdelivr.net/npm/jquery-confirm@3.3.2/dist/jquery-confirm.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.bootcdn.net/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
     <link href="/assets/css/zhyd.core.css" rel="stylesheet">
 </head>
 
@@ -59,7 +59,7 @@
                                 <div class="separator">
                                     <div class="clearfix"></div>
                                     <div>
-                                        Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                                        <a href="https://colorlib.com/polygon/gentelella/index.html" target="_blank">Gentelella</a> - Bootstrap Admin Template by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                                     </div>
                                 </div>
                             </form>
@@ -72,9 +72,10 @@
 </div>
 </body>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@1.11.1/dist/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.0/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-confirm@3.3.2/dist/jquery-confirm.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
 <script src="/assets/js/zhyd.tool.js"></script>
 <script>
     $("#modal").modal('show');

@@ -181,6 +181,10 @@ public enum ConfigKeyEnum {
      * 文章编辑器
      */
     ARTICLE_EDITOR("articleEditor"),
+    /**
+     * TinyMCE API Key
+     */
+    TINY_MCE_KEY("tinyMCEKey"),
 
     /**
      * 网站安装时间，默认为执行init_data.sql的时间
@@ -241,6 +245,19 @@ public enum ConfigKeyEnum {
      * blog-hunter 配置文件，如果没有添加该配置，则默认取 src/main/resources/HunterConfig.json
      */
     BLOG_HUNTER_CONFIG("blogHunterConfig"),
+
+    /**
+     * 启用 Hitokoto（一言）。一言，随机显示一句话的插件，该插件部分时候加载较慢，如果不需要请自行关闭
+     */
+    ENABLE_HITOKOTO("enableHitokoto"),
+    /**
+     * 微信公众号appId
+     */
+    WX_GZH_APP_ID("wxGzhAppId"),
+    /**
+     * 微信公众号AppSecret
+     */
+    WX_GZH_APP_SECRET("wxGzhAppSecret"),
     ;
 
     private final String key;

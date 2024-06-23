@@ -31,18 +31,37 @@ if(articleId){
                 if(info['coverImage']){
                     $(".coverImage").attr('src', info['coverImage']);
                 }
-                var contentMd = info['contentMd'];
-                if(contentMd){
-                    $("#contentMd").val(contentMd);
-                    if(simplemde){
-                        simplemde.value(contentMd);
+                var contentHtml = '';
+                if(editorType === 'md') {
+                    var contentMd = info['contentMd'];
+                    if(contentMd){
+                        $("#contentMd").val(contentMd);
+                        if(simplemde){
+                            simplemde.value(contentMd);
+                        }
+                    }
+                    contentHtml = info['content'];
+                    if(contentHtml){
+                        $("#content").val(contentHtml);
+                        if(editor){
+                            editor.txt.html(contentHtml);
+                        }
                     }
                 }
-                var contentHtml = info['content'];
-                if(contentHtml){
-                    $("#content").val(contentHtml);
-                    if(editor){
-                        editor.txt.html(contentHtml);
+                if(editorType === 'tiny') {
+                    contentHtml = info['content'];
+                    if(contentHtml){
+                        $("#content").val(contentHtml);
+                        zhyd.tinymce.setHtml(contentHtml);
+                    }
+                }
+                if(editorType === 'we') {
+                    contentHtml = info['content'];
+                    if(contentHtml){
+                        $("#content").val(contentHtml);
+                        if(editor){
+                            editor.txt.html(contentHtml);
+                        }
                     }
                 }
                 $publishForm.find("input[type!=checkbox], select, textarea").each(function () {
@@ -71,10 +90,16 @@ $(".publishBtn").click(function () {
             $.alert.error("请填写SEO相关的内容，填写后更容易被收录哦");
             return;
         }
-        var isMarkdown = $("input[name=isMarkdown]").val();
-        if(isMarkdown == 1 || isMarkdown == 'true'){
-            $("#contentMd").val(simplemde.value());
-            $("#content").val(simplemde.markdown(simplemde.value()));
+
+        if(editorType === 'md') {
+            var isMarkdown = $("input[name=isMarkdown]").val();
+            if(isMarkdown == 1 || isMarkdown == 'true'){
+                $("#contentMd").val(simplemde.value());
+                $("#content").val(simplemde.markdown(simplemde.value()));
+            }
+        }
+        if(editorType === 'tiny') {
+            $("#content").val(zhyd.tinymce.getHtml());
         }
 
         $publishForm.ajaxSubmit({

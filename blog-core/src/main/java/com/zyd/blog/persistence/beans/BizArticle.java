@@ -25,6 +25,7 @@ public class BizArticle extends AbstractDO {
     private Long userId;
     private String coverImage;
     private String qrcodePath;
+    @Deprecated
     private Boolean isMarkdown;
     private String content;
     private String contentMd;
@@ -37,6 +38,8 @@ public class BizArticle extends AbstractDO {
     private String keywords;
     private Boolean comment;
     private String password;
+    private Boolean requiredAuth;
+    private String editorType;
     @Transient
     private Integer lookCount;
     @Transient

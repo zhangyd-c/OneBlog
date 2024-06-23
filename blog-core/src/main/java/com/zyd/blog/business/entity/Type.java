@@ -90,6 +90,14 @@ public class Type {
         this.bizType.setIcon(icon);
     }
 
+    public String getPosition() {
+        return this.bizType.getPosition();
+    }
+
+    public void setPosition(String position) {
+        this.bizType.setPosition(position);
+    }
+
     public Date getCreateTime() {
         return this.bizType.getCreateTime();
     }

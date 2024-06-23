@@ -44,6 +44,8 @@
                 </div>
             </div>
         </#if>
+        <#-- 广告位 -->
+        <div class="col-sm-12 ad-mark" id="COMMENT_BOX_TOP" style="display: none"></div>
         <#if config.comment! && config.comment == 1>
             <div class="col-sm-12 blog-main">
                 <div class="blog-body expansion">
@@ -59,7 +61,9 @@
 </div>
 
 <@footer>
-    <script src="https://v1.hitokoto.cn/?encode=js&c=i&select=%23hitokoto" defer></script>
+    <#if (config.enableHitokoto == 1 || config.enableHitokoto == "1")>
+        <script src="https://v1.hitokoto.cn/?encode=js&c=i&select=.hitokoto" defer></script>
+    </#if>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/lib/highlight.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/simplemde@1.11.2/dist/simplemde.min.js"></script>

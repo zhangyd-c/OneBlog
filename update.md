@@ -3,6 +3,98 @@
 
 ----
 
+### 2024-03-24
+
+- 调整后台网站设置中的配置项顺序；
+- 调整前台页面内容，留言板调整到顶部菜单中，节省主菜单区空间。
+
+### 2022-05-22
+
+- 修改 CDN 资源
+- 增加 CDN 资源引用文件的后台配置，当 CDN 不可用时，可以直接修改（如果没有则需添加）数据库中的下面四个配置：
+  - adminJsCdn（控制台 JS 文件的 CDN）
+  - adminCssCdn（控制台 CSS 文件的 CDN）
+  - webJsCdn（Web 端 JS 文件的 CDN）
+  - webCssCdn（Web 端 CSS 文件的 CDN）
+
+注意：如果是手动操作数据库进行修改配置信息，则必须更改 `update_time`，并且更改后的 `update_time` 一定是晚于之前的 `update_time` 值。
+
+关于如何配置以上四个属性，可以参考 blog-admin/src/main/resources/templates/config.ftl 文件中 `customJsCdnModal`、`customWebJsCdnModal`、`customCssCdnModal`、`customWebCssCdnModal` 提示框下的配置说明。 比如：
+![img.png](./docs/_media/customCdnConfig.png)
+
+### 2021-11-01
+
+- 增加定时任务：“每晚凌晨12点自动检查友联，对于私自取消友联的网站实行自动封禁”
+- 文章支持设置【登录后可见】
+- 优化web端的分类展示，支持以滚动菜单的形式展示分类，防止因分类太多导致菜单栏溢出的问题
+- 支持禁用一言插件（该插件部分时候加载较慢）
+- 文章长期未修改时，向用户提示
+
+### 2021-10-29
+
+- wangEditor 升级到 4.7.9
+- 修复【文章搬运工】抓取文章失败的问题
+- 新增 TinyMCE 编辑器 ([#I4FOB0](https://gitee.com/yadong.zhang/DBlog/issues/I4FOB0))
+- 解决后台分页失败的问题 ([#I4FPMK](https://gitee.com/yadong.zhang/DBlog/issues/I4FPMK))
+- fixed [#I165DP](https://gitee.com/yadong.zhang/DBlog/issues/I165DP)
+- fixed [#I11TNT](https://gitee.com/yadong.zhang/DBlog/issues/I11TNT)
+- fixed [#IZ7BD](https://gitee.com/yadong.zhang/DBlog/issues/IZ7BD)
+
+### 2021-10-27
+
+- **增加代码生成模块 `blog-codegen`，新业务支持一键生成所有代码**
+
+![img.png](./docs/_media/codegen.png)
+
+- 增加广告位
+
+![img.png](./docs/_media/ad/img1.png)
+![img.png](./docs/_media/ad/img2.png)
+![img.png](./docs/_media/ad/img3.png)
+![img.png](./docs/_media/ad/img4.png)
+![img.png](./docs/_media/ad/img5.png)
+
+### 2021-10-26
+
+- 修复第三方登录失败的问题
+- 
+### 2021-10-23
+
+1. 优化页面样式。
+2. 新增【自定义页面】的功能，方便对接第三方的网站验证（比如：百度站长通过文件验证时，需要将验证文件上传到服务器，现在可以直接在后台添加映射）。
+
+比如在使用七牛云的 SSL 证书时，需要[对域名所有权进行验证](https://developer.qiniu.com/ssl/3667/ssl-certificate-of-free-dns-validation-guide)。当使用文件验证时，需要将文件放到项目根目录下，然后重新打包、上传、部署，非常不方便。
+
+![img.png](./docs/_media/img.png)
+
+现在可以通过【自定义页面】功能快速完成文件地址映射：
+
+![img.png](./docs/_media/blog-page.png)
+
+访问 http://localhost:8443/.well-known/pki-validation/fileauth.txt 
+
+![img.png](./docs/_media/blog-page-verify.png)
+
+再比如在百度站长平台添加网站时，一般也需要对域名进行验证，此时也可以选择【文件验证】，如下：
+
+![img.png](./docs/_media/baidu-site.png)
+
+先将该文件下载下来，查看源码后获得授权码，然后通过【自定义页面】功能快速完成文件地址映射：
+
+![img.png](./docs/_media/blog-page-baidu.png)
+
+访问 http://localhost:8443/baidu_verify_code-PHAfH7AwQ4.html
+
+![img.png](./docs/_media/blog-page-verify2.png)
+
+> 注意：目前该功能仅支持以下格式的url映射：
+> 1. http://domain/{x}.xml
+> 2. http://domain/{x}.txt
+> 3. http://domain/{x}.html
+> 4. http://domain/.well-known/{x}/{x}.txt
+> 
+> 对于其他类型的 url 格式，请提交 issue
+
 ### 2021-06-06
 
 1. 处理了一批 Issue

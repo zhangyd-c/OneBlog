@@ -30,4 +30,6 @@ public interface BizTypeService extends AbstractService<Type, Long> {
     List<Type> listParent();
 
     List<Type> listTypeForMenu();
+
+    List<Type> listTypeByPosition(String position);
 }

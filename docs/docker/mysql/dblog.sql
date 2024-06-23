@@ -29,6 +29,7 @@ CREATE TABLE `biz_article`  (
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '文章标题',
   `user_id` bigint(20) UNSIGNED NOT NULL COMMENT '用户ID',
   `cover_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '文章封面图片',
+  `editor_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '当前文章适用的编辑器类型',
   `qrcode_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '文章专属二维码地址',
   `is_markdown` tinyint(1) UNSIGNED NULL DEFAULT 1,
   `content` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '文章内容',
@@ -42,6 +43,7 @@ CREATE TABLE `biz_article`  (
   `keywords` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '文章关键字，优化搜索',
   `comment` tinyint(1) UNSIGNED NULL DEFAULT 1 COMMENT '是否开启评论',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '文章私密访问时的密钥',
+  `required_auth` tinyint(1) UNSIGNED NULL DEFAULT NULL COMMENT '该文章是否登录后才可访问',
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -146,6 +148,7 @@ CREATE TABLE `biz_type`  (
   `description` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类型介绍',
   `sort` int(10) NULL DEFAULT NULL COMMENT '排序',
   `icon` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图标',
+  `position` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分类在web端显示的位置，可选：nav、scrollmenu',
   `available` tinyint(1) UNSIGNED NULL DEFAULT 1 COMMENT '是否可用',
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -396,5 +399,38 @@ CREATE TABLE `sys_social_config`  (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '社会化登录应用' ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Table structure for biz_page
+-- ----------------------------
+DROP TABLE IF EXISTS `biz_page`;
+CREATE TABLE `biz_page`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '自定义页面的url（不包含域名部分）',
+  `content` mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '自定义页面的内容',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
+-- Table structure for biz_ad
+-- ----------------------------
+DROP TABLE IF EXISTS `biz_ad`;
+CREATE TABLE `biz_ad`  (
+    `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `type` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '广告类型',
+    `position` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告位置',
+    `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告标题',
+    `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '广告内容',
+    `picture` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告图片',
+    `link` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告链接',
+    `expiring_date` datetime(0) NULL DEFAULT NULL COMMENT '广告到期日',
+    `show_number` int(10) UNSIGNED NULL DEFAULT NULL COMMENT '展示次数',
+    `click_number` int(10) UNSIGNED NULL DEFAULT NULL COMMENT '点击次数',
+    `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '广告' ROW_FORMAT = Compact;

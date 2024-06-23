@@ -284,9 +284,11 @@ public class BizCommentServiceImpl implements BizCommentService {
         try {
             String locationJson = RestClientUtil.get(UrlBuildUtil.getLocationByIp(comment.getIp(), (String) config.get(ConfigKeyEnum.BAIDU_API_AK.getKey())));
             JSONObject localtionContent = JSONObject.parseObject(locationJson).getJSONObject("content");
-            JSONObject point = localtionContent.getJSONObject("point");
-            comment.setLat(point.getString("y"));
-            comment.setLng(point.getString("x"));
+            if (localtionContent.containsKey("point")) {
+                JSONObject point = localtionContent.getJSONObject("point");
+                comment.setLat(point.getString("y"));
+                comment.setLng(point.getString("x"));
+            }
 
             if (localtionContent.containsKey("address_detail")) {
                 JSONObject addressDetail = localtionContent.getJSONObject("address_detail");

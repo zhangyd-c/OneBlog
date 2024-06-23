@@ -52,7 +52,7 @@ public class RestCommentController {
     public ResponseVO reply(Comment comment) {
         try {
             commentService.commentForAdmin(comment);
-        } catch (ZhydCommentException e){
+        } catch (ZhydCommentException e) {
             return ResultUtil.error(e.getMessage());
         }
         return ResultUtil.success("成功");
@@ -97,11 +97,11 @@ public class RestCommentController {
     public ResponseVO audit(Comment comment, String contentText, Boolean sendEmail) {
         try {
             commentService.updateSelective(comment);
-            if(!StringUtils.isEmpty(contentText)){
+            if (!StringUtils.isEmpty(contentText)) {
                 comment.setContent(contentText);
                 commentService.commentForAdmin(comment);
             }
-            if(null != sendEmail && sendEmail){
+            if (null != sendEmail && sendEmail) {
                 Comment commentDB = commentService.getByPrimaryKey(comment.getId());
                 mailService.send(commentDB, TemplateKeyEnum.TM_COMMENT_AUDIT, true);
             }

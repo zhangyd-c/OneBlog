@@ -7,39 +7,41 @@
 ###################################  readme  ###################################
 
 
-# 20210423
-ALTER TABLE `dblog`.`biz_article`
-    ADD COLUMN `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '文章私密访问时的密钥' AFTER `comment`;
+# 20211027
+-- ----------------------------
+-- Table structure for biz_ad
+-- ----------------------------
+DROP TABLE IF EXISTS `biz_ad`;
+CREATE TABLE `biz_ad`  (
+   `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+   `type` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '广告类型',
+   `position` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告位置',
+   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告标题',
+   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '广告内容',
+   `picture` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告图片',
+   `link` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告链接',
+   `expiring_date` datetime(0) NULL DEFAULT NULL COMMENT '广告到期日',
+   `show_number` int(10) UNSIGNED NULL DEFAULT NULL COMMENT '展示次数',
+   `click_number` int(10) UNSIGNED NULL DEFAULT NULL COMMENT '点击次数',
+   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+   PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '广告' ROW_FORMAT = Compact;
 
-# 20210427
-INSERT INTO `dblog`.`sys_resources` VALUES (76, '社会化登录配置管理', 'menu', '/socials', 'socials', 40, 7, 0, 1, '', now(), now());
-INSERT INTO `dblog`.`sys_resources` VALUES (77, '新增社会化登录配置', 'button', NULL, 'social:add', 76, 2, 0, 1, NULL, now(), now());
-INSERT INTO `dblog`.`sys_resources` VALUES (78, '批量删除社会化登录配置', 'button', NULL, 'social:batchDelete', 76, 3, 0, 1, NULL, now(), now());
-INSERT INTO `dblog`.`sys_resources` VALUES (79, '编辑社会化登录配置', 'button', NULL, 'social:edit,social:get', 76, 4, 0, 1, NULL, now(), now());
-INSERT INTO `dblog`.`sys_resources` VALUES (80, '删除社会化登录配置', 'button', NULL, 'social:delete', 76, 5, 0, 1, NULL, now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (86, '广告管理', 'menu', '/bizAd', 'bizAds', 40, 7, 0, 1, '', now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (87, '新增广告', 'button', NULL, 'bizAd:add', 86, 2, 0, 1, NULL, now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (88, '批量删除广告', 'button', NULL, 'bizAd:batchDelete', 86, 3, 0, 1, NULL, now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (89, '编辑广告', 'button', NULL, 'bizAd:edit,bizAd:get', 86, 4, 0, 1, NULL, now(), now());
+INSERT INTO `dblog`.`sys_resources` VALUES (90, '删除广告', 'button', NULL, 'bizAd:delete', 86, 5, 0, 1, NULL, now(), now());
+
+# 20211028
+ALTER TABLE `dblog`.`biz_article` ADD COLUMN `editor_type` varchar(10) NULL COMMENT '当前文章适用的编辑器类型' AFTER `cover_image`;
+# 修改旧文章的编辑器类型
+UPDATE `dblog`.`biz_article` SET `editor_type` = 'we' WHERE is_markdown is null || is_markdown = 0;
+UPDATE `dblog`.`biz_article` SET `editor_type` = 'md' WHERE is_markdown = 1;
 
 
-DROP TABLE IF EXISTS `dblog`.`sys_social_config`;
-CREATE TABLE `dblog`.`sys_social_config`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `client_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '应用ID',
-  `client_secret` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '应用密钥',
-  `redirect_uri` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '认证成功后跳转的地址',
-  `platform_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '应用名',
-  `platform` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '第三方平台',
-  `logo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '应用 LOGO',
-  `alipay_public_key` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '支付宝公钥',
-  `union_id` bit(1) NULL DEFAULT NULL COMMENT '是否需要申请unionid',
-  `stack_overflow_key` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Stack Overflow Key',
-  `agent_id` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '授权方的网页应用ID',
-  `scope` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '授权范围',
-  `available` bit(1) NULL DEFAULT b'1' COMMENT '当前配置是否可用',
-  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
-  `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录更新时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '社会化登录应用' ROW_FORMAT = Dynamic;
-
-
-# 20210606
-ALTER TABLE `dblog`.`sys_config`
-    MODIFY COLUMN `config_value` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '配置项内容' AFTER `config_key`;
+# 20211101
+ALTER TABLE `dblog`.`biz_article` ADD COLUMN `required_auth` tinyint(1) UNSIGNED NULL DEFAULT NULL COMMENT '该文章是否登录后才可访问' AFTER `password`;
+ALTER TABLE `dblog`.`biz_type` ADD COLUMN `position` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分类在web端显示的位置，可选：nav、scrollmenu' AFTER `icon`;
+UPDATE `dblog`.`biz_type` SET `position` = 'nav';

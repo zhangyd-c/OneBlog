@@ -23,6 +23,7 @@ public class BizType extends AbstractDO {
     private Integer sort;
     private Boolean available;
     private String icon;
+    private String position;
 
 
     @Transient

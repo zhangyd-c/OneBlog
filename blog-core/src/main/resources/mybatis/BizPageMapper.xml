@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zyd.blog.persistence.mapper.BizPageMapper">
+	<resultMap id="rm" type="com.zyd.blog.persistence.beans.BizPage">
+		<result property="id" jdbcType="BIGINT" column="id"/>
+		<result property="url" jdbcType="VARCHAR" column="url"/>
+		<result property="content" jdbcType="LONGVARCHAR" column="content"/>
+		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,
+		url,
+		content,
+		create_time,
+		update_time
+	</sql>
+
+	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.PageConditionVO" resultMap="rm">
+		SELECT
+			t.id,
+			t.url,
+			t.content,
+			t.create_time,
+			t.update_time
+		FROM
+			biz_page t
+		WHERE
+			1 = 1
+		ORDER BY t.create_time DESC
+	</select>
+</mapper>
+

@@ -12,7 +12,7 @@
     <parent>
         <groupId>com.zyd</groupId>
         <artifactId>blog</artifactId>
-        <version>${oneblog.version}</version>
+        <version>2.3.5</version>
     </parent>
 
     <dependencies>
@@ -27,6 +27,10 @@
                 <exclusion>
                     <artifactId>mybatis-spring-boot-starter</artifactId>
                     <groupId>org.mybatis.spring.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
                 </exclusion>
                 <exclusion>
                     <artifactId>log4j</artifactId>

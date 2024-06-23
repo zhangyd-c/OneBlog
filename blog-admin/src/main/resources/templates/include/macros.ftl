@@ -9,26 +9,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${config.siteName}后台管理系统</title>
     <link href="/assets/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/jquery-confirm@3.3.2/dist/jquery-confirm.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/jquery.fancybox@2.1.5/source/jquery.fancybox.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/toastr@2.0.3/nuget/content/content/toastr.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/icheck@1.0.2/skins/square/green.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.11.1/dist/bootstrap-table.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/daterangepicker@2.1.25/daterangepicker.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-datetimepicker-npm@4.17.37-npm/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@ztree/ztree_v3@3.5.37/css/metroStyle/metroStyle.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/switchery@0.0.2/switchery.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@adactive/bootstrap-tagsinput@0.8.2/dist/bootstrap-tagsinput-typeahead.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@adactive/bootstrap-tagsinput@0.8.2/dist/bootstrap-tagsinput.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/switchery-npm@0.8.2/index.min.css" rel="stylesheet">
-<#--
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.1/pnotify.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.1/pnotify.buttons.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.1/pnotify.nonblock.css" rel="stylesheet">-->
-
+    <#if config.adminCssCdn?? && (config.adminCssCdn?length > 0)>
+        ${config.adminCssCdn!}
+    <#else >
+        <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcdn.net/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcdn.net/ajax/libs/toastr.js/2.0.3/css/toastr.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcdn.net/ajax/libs/iCheck/1.0.2/skins/square/green.css" rel="stylesheet">
+        <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-daterangepicker/2.1.25/daterangepicker.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcdn.net/ajax/libs/zTree.v3/3.5.29/css/metroStyle/metroStyle.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcdn.net/ajax/libs/switchery/0.8.2/switchery.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput-typeahead.css" rel="stylesheet">
+        <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet">
+    </#if>
     <link href="/assets/css/bootstrap-treetable.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/zhyd.core.css" rel="stylesheet">
     <#nested>
@@ -71,7 +69,7 @@
     <#if footerHtml>
         <footer>
             <div class="pull-right">
-                Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                <a href="https://colorlib.com/polygon/gentelella/index.html" target="_blank">Gentelella</a> - Bootstrap Admin Template by <a href="https://colorlib.com" target="_blank">Colorlib</a>
             </div>
             <div class="clearfix"></div>
         </footer>
@@ -181,6 +179,15 @@
                                             <label class="control-label col-md-2 col-sm-2 col-xs-12" for="comment">私密文章 </label>
                                             <div class="col-md-10 col-sm-10 col-xs-12 fixed-radio-checkbox">
                                                 <input type="text" class="square form-control" name="password" placeholder="请输入文章密码">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-2 col-sm-2 col-xs-12" for="comment">登录后可见？ </label>
+                                            <div class="col-md-10 col-sm-10 col-xs-12 fixed-radio-checkbox">
+                                                <ul class="list-unstyled list-inline">
+                                                    <li><input type="radio" class="square" name="requiredAuth" value="1"> 是</li>
+                                                    <li><input type="radio" class="square" checked name="requiredAuth" value="0"> 否</li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>

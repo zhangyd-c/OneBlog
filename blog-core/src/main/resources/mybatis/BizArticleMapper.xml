@@ -17,11 +17,13 @@
 		<result property="recommended" jdbcType="BIT" column="recommended"/>
 		<result property="original" jdbcType="BIT" column="original"/>
 		<result property="description" jdbcType="VARCHAR" column="description"/>
+		<result property="editorType" jdbcType="VARCHAR" column="editor_type"/>
 		<result property="keywords" jdbcType="VARCHAR" column="keywords"/>
 		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
 		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
 		<result property="comment" jdbcType="BIT" column="comment"/>
 		<result property="password" jdbcType="VARCHAR" column="password"/>
+		<result property="requiredAuth" jdbcType="BIT" column="required_auth"/>
 
 		<result property="lookCount" jdbcType="INTEGER" column="look_count"/>
 		<result property="commentCount" jdbcType="INTEGER" column="comment_count"/>
@@ -55,7 +57,9 @@
 			a.description,
 			a.keywords,
 			a.`comment`,
+			a.`editor_type`,
 			a.`password`,
+			a.`required_auth`,
 			a.create_time,
 			a.update_time,
 			btype.id AS btype_id,
@@ -152,10 +156,12 @@
 			a.`status`,
 			a.recommended,
 			a.original,
+			a.editor_type,
 			a.description,
 			a.keywords,
 			a.`comment`,
 			a.`password`,
+			a.`required_auth`,
 			a.create_time,
 			a.update_time,
 			btype.id AS btype_id,
@@ -218,6 +224,7 @@
 			a.`status`,
 			a.recommended,
 			a.original,
+			a.editor_type,
 			a.description,
 			a.keywords,
 			a.`comment`,

@@ -10,19 +10,28 @@
                 <ol class="breadcrumb">
                     <li><a href="/">首页</a></li>
                     <li><a href="/articles">文章列表</a></li>
-                    <li class="active">发布文章-wangEditor编辑器</li>
+                    <li class="active">发布文章-<a href="https://www.wangeditor.com/" target="_blank">wangEditor 编辑器</a></li>
                 </ol>
             </@breadcrumb>
             <div class="x_panel">
                 <div class="x_title">
                     <h2>发布文章 <small>可以通过右上角“系统配置”-“文章编辑器”选择默认的文章发布编辑器</small></h2>
                     <#if !id??>
-                    <div class="pull-right"><small>切换到 <a class="pointer" id="changeEditor" data-href="/article/publishMd">Markdown编辑器</a></small></div>
+                        <ul class="nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a class="changeEditor" data-href="/article/publish-md">Markdown 编辑器</a></li>
+                                    <li><a class="changeEditor" data-href="/article/publish-tiny">TinyMCE 编辑器</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </#if>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
                     <input type="hidden" name="isMarkdown" value="0">
+                    <input type="hidden" name="editorType" value="we">
                     <input type="hidden" name="id">
                     <div class="item form-group">
                         <label class="control-label col-md-1 col-sm-1 col-xs-12" for="title">标题 <span class="required">*</span></label>
@@ -40,7 +49,7 @@
                     <div class="item form-group">
                         <label class="control-label col-md-1 col-sm-1 col-xs-12" for="password">内容 <span class="required">*</span></label>
                         <div class="col-md-11 col-sm-11 col-xs-12">
-                            <div id="editor" style="width: 100%;height: 150px;"></div>
+                            <div id="editor" ></div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -59,6 +68,7 @@
 <@footer>
     <script>
         articleId = '${id}';
+        editorType = 'we';
         $(function () {
             zhyd.wangEditor.init({
                 container: "#editor",
@@ -66,10 +76,6 @@
                 uploadUrl: "/api/uploadFile",
                 uploadFileName: "file",
                 uploadType: "article",
-                customCss: {
-                    "height": "100%",
-                    "max-height": "115px"
-                }
             })
         });
     </script>

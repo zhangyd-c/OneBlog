@@ -28,24 +28,14 @@
         </layout>
     </appender>
 
-    <logger name="org.springframework.core.env" level="DEBUG"/>
-    <logger name="us.codecraft.webmagic.downloader" level="DEBUG"/>
+    <logger name="org.springframework.core.env" level="INFO"/>
+    <logger name="us.codecraft.webmagic.downloader" level="INFO"/>
     <logger name="com.zyd.blog.framework.runner" level="DEBUG"/>
     <logger name="org.crazycake.shiro.RedisCache" level="INFO"/>
 
-    <!-- 测试环境+开发环境，日志级别为INFO且不写日志文件 -->
-    <springProfile name="dev">
-        <root level="DEDBUG">
-            <appender-ref ref="STDOUT"/>
-        </root>
-    </springProfile>
-
-    <!-- 生产环境. 日志级别为WARN且写日志文件-->
-    <springProfile name="prod">
-        <root level="WARN">
-            <appender-ref ref="STDOUT"/>
-            <appender-ref ref="FILE" />
-        </root>
-    </springProfile>
+    <root level="WARN">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE" />
+    </root>
 
 </configuration>

@@ -4,6 +4,7 @@ spring:
     druid:
       connection-init-sqls: set names utf8mb4
       driver-class-name: com.mysql.cj.jdbc.Driver
+      test-while-idle: false
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://${ONEBLOG_DATASOURCE_HOST:127.0.0.1}:${ONEBLOG_DATASOURCE_PORT:3306}/${ONEBLOG_DATASOURCE_DATABASE_NAME:dblog}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true&useLegacyDatetimeCode=false
     username: ${ONEBLOG_DATASOURCE_USERNAME:root}
@@ -69,7 +70,7 @@ mybatis:
   mapper-locations: classpath:/mybatis/*.xml
   configuration:
     default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 # mapper
 mapper:
   mappers:
@@ -86,5 +87,5 @@ pagehelper:
   params: count=countSql
 
 app:
-  version: v2.2.8
-  enableRedisCache: false
+  version: v2.3.5
+  enableRedisCache: ${ONEBLOG_ENABLE_REDIS_CACHE:false}

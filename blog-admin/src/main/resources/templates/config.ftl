@@ -27,28 +27,25 @@
                                 <a href="#tab_storage" id="storage-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-cube fa-fw"></i> 云存储</a>
                             </li>
                             <li role="presentation">
-                                <a href="#tab_auth" id="auth-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-sign-in fa-fw"></i> 登录</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#tab_comment" id="comment-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-commenting-o fa-fw"></i> 评论</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#tab_article_editor" id="article-editor-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-edit fa-fw"></i> 文章编辑器</a>
+                                <a href="#tab_article_editor" id="article-editor-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-edit fa-fw"></i> 文章相关</a>
                             </li>
                             <li role="presentation" class="">
                                 <a href="#tab_contact" role="tab" id="contact-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-id-card-o fa-fw"></i> 联系方式</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#tab_praise" id="praise-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-money fa-fw"></i> 赞赏码</a>
-                            </li>
-                            <li role="presentation" class="">
-                                <a href="#tab_setting" role="tab" id="setting-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-tasks fa-fw"></i> 其他</a>
                             </li>
                             <li role="presentation" class="">
                                 <a href="#tab_custom" role="tab" id="custom-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-cog fa-fw"></i> 定制页面</a>
                             </li>
                             <li role="presentation" class="">
+                                <a href="#tab_cdn" role="tab" id="cdn-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-plug fa-fw"></i> CDN 资源</a>
+                            </li>
+                            <li role="presentation" class="">
                                 <a href="#tab_hunter" role="tab" id="hunter-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-bug fa-fw"></i> Hunter 配置</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#tab_auth" id="auth-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-sign-in fa-fw"></i> 登录</a>
+                            </li>
+                            <li role="presentation" class="">
+                                <a href="#tab_setting" role="tab" id="setting-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-tasks fa-fw"></i> 其他</a>
                             </li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
@@ -303,40 +300,30 @@
                                     </div>
                                 </form>
                             </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_auth" aria-labelledby="auth-tab">
+                            <div role="tabpanel" class="tab-pane fade" id="tab_article_editor" aria-labelledby="article-editor-tab">
                                 <form class="form-horizontal form-label-left" novalidate>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="loginRetryNum">登录重试次数 <span class="required">*</span></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" class="form-control col-md-7 col-xs-12" name="loginRetryNum" id="loginRetryNum" required="required" placeholder="请输入登录重试次数，默认5"/>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="sessionTimeOut">Session有效期 <span class="required">*</span></label>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            <input type="text" class="form-control col-md-7 col-xs-12" name="sessionTimeOut" id="sessionTimeOut" required="required" placeholder="请输入Session有效期，默认1小时"/>
-                                        </div>
-                                        <div class="col-md-1 col-sm-1 col-xs-1">
-                                            <select name="sessionTimeOutUnit" id="sessionTimeOutUnit" class="form-control" required="required" >
-                                                <@zhydTag method="sessionTimeOutUnit">
-                                                    <option value="">请选择</option>
-                                                    <#list sessionTimeOutUnit as item>
-                                                        <option value="${item}">${item}</option>
-                                                    </#list>
-                                                </@zhydTag>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="articleEditor">默认文章编辑器 <i class="fa fa-question-circle" title="文章编辑器"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
+                                            <select name="articleEditor" id="articleEditor" class="form-control">
+                                                <option value="md">Markdown 编辑器</option>
+                                                <option value="we">WangEditor 编辑器</option>
+                                                <option value="tiny">TinyMCE 编辑器</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tinyMCEKey">TinyMCE API Key</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
+                                            <input type="text" class="form-control col-md-7 col-xs-12" name="tinyMCEKey" id="tinyMCEKey" placeholder="请输入TinyMCE API Key"/>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_comment" aria-labelledby="comment-tab">
-                                <form class="form-horizontal form-label-left" novalidate>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <small>获取地址：<a href="https://www.tiny.cloud/my-account/dashboard/" target="_blank">点击获取 TinyMCE API Key</a></small>
+                                        </div>
+                                    </div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12 aero" for="anonymous">允许匿名评论？
                                             <i class="fa fa-question-circle" title="【暂不可用】是否允许匿名评论，如果为否则必须需要登录。"></i>
@@ -370,27 +357,6 @@
                                             <input type="text" class="form-control col-md-7 col-xs-12" id="editorAlert" name="editorAlert" placeholder="例如：讲文明、要和谐">
                                         </div>
                                     </div>
-
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_article_editor" aria-labelledby="article-editor-tab">
-                                <form class="form-horizontal form-label-left" novalidate>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="articleEditor">默认文章编辑器 <i class="fa fa-question-circle" title="文章编辑器"></i></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
-                                            <select name="articleEditor" id="articleEditor" class="form-control">
-                                                <option value="md">Markdown编辑器</option>
-                                                <option value="we">WangEditor编辑器</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -435,95 +401,6 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="github">GitHub</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" class="form-control col-md-7 col-xs-12" name="github" id="github" placeholder="请输入GitHub"/>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_praise" aria-labelledby="praise-tab">
-                                <form class="form-horizontal form-label-left" novalidate>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="homeDesc">微信赞赏码 </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" class="form-control col-md-7 col-xs-12 uploadPreview" data-preview-container="#wxPraiseCodePreview" name="wxPraiseCode" id="wxPraiseCode"/>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <div id="wxPraiseCodePreview" style="width: 200px;height: auto"></div>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="homeKeywords">支付宝赞赏码 </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" class="form-control col-md-7 col-xs-12 uploadPreview" data-preview-container="#zfbPraiseCodePreview" id="zfbPraiseCode" name="zfbPraiseCode"/>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <div id="zfbPraiseCodePreview" style="width: 200px;height: auto"></div>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_setting" aria-labelledby="setting-tab">
-                                <form class="form-horizontal form-label-left" novalidate>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="authorName">百度Api的AK <i class="fa fa-question-circle" title="用于通过百度地址接口获取用户当前的位置"></i></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" class="form-control col-md-7 col-xs-12" name="baiduApiAk" id="baiduApiAk" placeholder="请输入百度Api的AK"/>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <small>获取地址：<a href="http://lbsyun.baidu.com/apiconsole/key" target="_blank">点击获取百度Api AK</a></small>
-                                        </div>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenance">维护通知
-                                            <i class="fa fa-question-circle" title="网站在更新前， 可以通过开启该功能，通知用户"></i> </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
-                                            <ul class="list-unstyled list-inline">
-                                                <li><label for="maintenance" class="pointer"> <input type="radio" class="square" checked name="maintenance" value="1"> 显示 </label> </li>
-                                                <li><label for="maintenance" class="pointer"> <input type="radio" class="square" name="maintenance" value="0"> 关闭 </label></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenanceDate">维护日期</label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <div class='input-group date myDatepicker'>
-                                                <input type='text' class="form-control" readonly="readonly" id="maintenanceDate" name="maintenanceDate"  placeholder="请输入维护日期"/>
-                                                <span class="input-group-addon">
-                                                   <span class="fa fa-calendar"></span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenanceTime">维护用时</label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <div class='input-group'>
-                                                <input type='text' class="form-control" id="maintenanceTime" name="maintenanceTime"  placeholder="请输入维护大约需要的时间"/>
-                                                <span class="input-group-addon">
-                                                   分
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dynamicTitle">动态标题 <i class="fa fa-question-circle" title="当切换浏览器tab时，在原tab上的标题。比如https://docs.zhyd.me上的“麻溜儿回来~~~”"></i></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type='text' class="form-control" id="dynamicTitle" name="dynamicTitle"  placeholder="请输入切换窗口时想要显示的标题，如：麻溜儿回来~~~"/>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -615,6 +492,71 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="annotation">自定义站点注解 <i class="fa fa-question-circle" title="自定义站点注解，必须使用 <!--  --> 括起来"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control col-md-7 col-xs-12" id="annotation" name="annotation" placeholder="自定义站点注解，必须使用 <!--  --> 括起来，比如：<!-- 神龙保佑，永无BUG -->" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab_cdn" aria-labelledby="cdn-tab">
+                                <form class="form-horizontal form-label-left" novalidate>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="adminJsCdn">自定义 ADMIN 模块的 JS CDN <i class="fa fa-question-circle" title="自定义 ADMIN 模块的 JS CDN"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control col-md-7 col-xs-12" id="adminJsCdn" name="adminJsCdn" placeholder="自定义 ADMIN 模块的 JS CDN" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <small>查看模板：<button type="button" class="btn btn-link" data-toggle="modal" data-target="#customJsCdnModal">点击查看模板</button></small>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="adminCssCdn">自定义 ADMIN 模块的 CSS CDN <i class="fa fa-question-circle" title="自定义 ADMIN 模块的 CSS CDN"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control col-md-7 col-xs-12" id="adminCssCdn" name="adminCssCdn" placeholder="自定义 ADMIN 模块的 CSS CDN" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <small>查看模板：<button type="button" class="btn btn-link" data-toggle="modal" data-target="#customCssCdnModal">点击查看模板</button></small>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="webJsCdn">自定义 Web 模块的 JS CDN <i class="fa fa-question-circle" title="自定义 Web 模块的 JS CDN"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control col-md-7 col-xs-12" id="webJsCdn" name="webJsCdn" placeholder="自定义 Web 模块的 JS CDN" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <small>查看模板：<button type="button" class="btn btn-link" data-toggle="modal" data-target="#customWebJsCdnModal">点击查看模板</button></small>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="webCssCdn">自定义 Web 模块的 CSS CDN <i class="fa fa-question-circle" title="自定义 Web 模块的 CSS CDN"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control col-md-7 col-xs-12" id="webCssCdn" name="webCssCdn" placeholder="自定义 Web 模块的 CSS CDN" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <small>查看模板：<button type="button" class="btn btn-link" data-toggle="modal" data-target="#customWebCssCdnModal">点击查看模板</button></small>
+                                        </div>
+                                    </div>
+
+                                    <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
@@ -628,6 +570,143 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="blogHunterConfig">Hunter 配置文件 <i class="fa fa-question-circle" title="blog-hunter 配置文件，如果没有添加该配置，则默认取 src/main/resources/HunterConfig.json"></i></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <textarea class="form-control col-md-7 col-xs-12" id="blogHunterConfig" name="blogHunterConfig" placeholder="blog-hunter 配置文件，如果没有添加该配置，则默认取 src/main/resources/HunterConfig.json" rows="20"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab_auth" aria-labelledby="auth-tab">
+                                <form class="form-horizontal form-label-left" novalidate>
+                                    <div class="alert alert-info" role="alert" style="color: white">
+                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                        <i class="fa fa-info-circle fa-fw"></i>注意：该配置目前仅适用于管理端
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="loginRetryNum">登录重试次数 <span class="required">*</span></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" class="form-control col-md-7 col-xs-12" name="loginRetryNum" id="loginRetryNum" required="required" placeholder="请输入登录重试次数，默认5"/>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="sessionTimeOut">Session有效期 <span class="required">*</span></label>
+                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                            <input type="text" class="form-control col-md-7 col-xs-12" name="sessionTimeOut" id="sessionTimeOut" required="required" placeholder="请输入Session有效期，默认1小时"/>
+                                        </div>
+                                        <div class="col-md-1 col-sm-1 col-xs-1">
+                                            <select name="sessionTimeOutUnit" id="sessionTimeOutUnit" class="form-control" required="required" >
+                                                <@zhydTag method="sessionTimeOutUnit">
+                                                    <option value="">请选择</option>
+                                                    <#list sessionTimeOutUnit as item>
+                                                        <option value="${item}">${item}</option>
+                                                    </#list>
+                                                </@zhydTag>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab_setting" aria-labelledby="setting-tab">
+                                <form class="form-horizontal form-label-left" novalidate>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dynamicTitle">动态标题 <i class="fa fa-question-circle" title="当切换浏览器tab时，在原tab上的标题。比如https://docs.zhyd.me上的“麻溜儿回来~~~”"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type='text' class="form-control" id="dynamicTitle" name="dynamicTitle"  placeholder="请输入切换窗口时想要显示的标题，如：麻溜儿回来~~~"/>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="authorName">百度Api的AK <i class="fa fa-question-circle" title="用于通过百度地址接口获取用户当前的位置"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" class="form-control col-md-7 col-xs-12" name="baiduApiAk" id="baiduApiAk" placeholder="请输入百度Api的AK"/>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <small>获取地址：<a href="http://lbsyun.baidu.com/apiconsole/key" target="_blank">点击获取百度Api AK</a></small>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenance">启用 Hitokoto（一言）
+                                            <i class="fa fa-question-circle" title="一言，随机显示一句话的插件，该插件部分时候加载较慢，如果不需要请自行关闭，仅在文章详情页面展示"></i> </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
+                                            <ul class="list-unstyled list-inline">
+                                                <li><label for="maintenance" class="pointer"> <input type="radio" class="square" checked name="enableHitokoto" value="1"> 显示 </label> </li>
+                                                <li><label for="maintenance" class="pointer"> <input type="radio" class="square" name="enableHitokoto" value="0"> 关闭 </label></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenance">维护通知
+                                            <i class="fa fa-question-circle" title="网站在更新前， 可以通过开启该功能，通知用户"></i> </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
+                                            <ul class="list-unstyled list-inline">
+                                                <li><label for="maintenance" class="pointer"> <input type="radio" class="square" checked name="maintenance" value="1"> 显示 </label> </li>
+                                                <li><label for="maintenance" class="pointer"> <input type="radio" class="square" name="maintenance" value="0"> 关闭 </label></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenanceDate">维护日期</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class='input-group date myDatepicker'>
+                                                <input type='text' class="form-control" readonly="readonly" id="maintenanceDate" name="maintenanceDate"  placeholder="请输入维护日期"/>
+                                                <span class="input-group-addon">
+                                                   <span class="fa fa-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenanceTime">维护用时</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class='input-group'>
+                                                <input type='text' class="form-control" id="maintenanceTime" name="maintenanceTime"  placeholder="请输入维护大约需要的时间"/>
+                                                <span class="input-group-addon">
+                                                   分
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="homeDesc">微信赞赏码 </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="file" class="form-control col-md-7 col-xs-12 uploadPreview" data-preview-container="#wxPraiseCodePreview" name="wxPraiseCode" id="wxPraiseCode"/>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div id="wxPraiseCodePreview" style="width: 200px;height: auto"></div>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="homeKeywords">支付宝赞赏码 </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="file" class="form-control col-md-7 col-xs-12 uploadPreview" data-preview-container="#zfbPraiseCodePreview" id="zfbPraiseCode" name="zfbPraiseCode"/>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div id="zfbPraiseCodePreview" style="width: 200px;height: auto"></div>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="wxGzhAppId">公众号APP_ID <i class="fa fa-question-circle" title="配置微信公众号的appId"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type='text' class="form-control" id="wxGzhAppId" name="wxGzhAppId"  placeholder="请输入信公众号的appId"/>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="wxGzhAppSecret">公众号APP_SECRET <i class="fa fa-question-circle" title="配置微信公众号的appSecret"></i></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type='text' class="form-control" id="wxGzhAppSecret" name="wxGzhAppSecret"  placeholder="请输入信公众号的appSecret"/>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -675,6 +754,189 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="customJsCdnModal" tabindex="-1" role="dialog"
+     aria-labelledby="customJsCdnModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="storageNginxServerModalLabel">自定义 Admin 模块的 JS CDN 文件</h4>
+            </div>
+            <div class="modal-body">
+                <pre>
+                    <code>
+&lt;script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.11.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="https://cdn.staticfile.org/jquery.lazyload/1.9.1/jquery.lazyload.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="https://cdn.staticfile.org/jquery-confirm/3.3.2/jquery-confirm.min.js"&gt;&lt;/script&gt;
+                    </code>
+                </pre>
+                <div class="row">
+                    <div class="col col-md-12 col-sm-12 col-xs-12">
+                        注意，OneBlog Admin 端用到的 js 文件以及版本如下：
+                        <table class="table table-hover table-striped">
+                            <tr><td>插件名</td><td>版本</td></tr>
+                            <tr><td>jquery</td><td><span class="badge">1.11.1</span></td></tr>
+                            <tr><td>bootstrap</td><td><span class="badge">3.3.5</span></td></tr>
+                            <tr><td>jquery.lazyload</td><td><span class="badge">1.9.1</span></td></tr>
+                            <tr><td>jquery-confirm</td><td><span class="badge">3.3.2</span></td></tr>
+                            <tr><td>jquery.fancybox</td><td><span class="badge">2.1.5</span></td></tr>
+                            <tr><td>mustache.js</td><td><span class="badge">2.3.0</span></td></tr>
+                            <tr><td>js-xss</td><td><span class="badge">0.3.3</span></td></tr>
+                            <tr><td>nprogress</td><td><span class="badge">0.2.0</span></td></tr>
+                            <tr><td>toastr.js</td><td><span class="badge">2.0.3</span></td></tr>
+                            <tr><td>iCheck</td><td><span class="badge">1.0.2</span></td></tr>
+                            <tr><td>bootstrap-table</td><td><span class="badge">1.11.1</span></td></tr>
+                            <tr><td>bootstrap-table-zh-CN</td><td><span class="badge">1.11.1</span></td></tr>
+                            <tr><td>bootstrap-daterangepicker/moment</td><td><span class="badge">2.1.25</span></td></tr>
+                            <tr><td>bootstrap-daterangepicker/daterangepicker</td><td><span class="badge">2.1.25</span></td></tr>
+                            <tr><td>bootstrap-datetimepicker</td><td><span class="badge">4.17.37</span></td></tr>
+                            <tr><td>bootstrap-progressbar</td><td><span class="badge">0.9.0</span></td></tr>
+                            <tr><td>zTree.v3/jquery.ztree.core</td><td><span class="badge">3.5.37</span></td></tr>
+                            <tr><td>zTree.v3/jquery.ztree.excheck</td><td><span class="badge">3.5.37</span></td></tr>
+                            <tr><td>switchery</td><td><span class="badge">0.8.2</span></td></tr>
+                            <tr><td>wangeditor</td><td><span class="badge">4.7.9</span></td></tr>
+                            <tr><td>bootstrap-tagsinput</td><td><span class="badge">0.8.0</span></td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="customWebJsCdnModal" tabindex="-1" role="dialog"
+     aria-labelledby="customWebJsCdnModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="storageNginxServerModalLabel">自定义 Web 模块的 JS CDN 文件</h4>
+            </div>
+            <div class="modal-body">
+                <pre>
+                    <code>
+&lt;script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.11.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="https://cdn.staticfile.org/jquery.lazyload/1.9.1/jquery.lazyload.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="https://cdn.staticfile.org/jquery-confirm/3.3.2/jquery-confirm.min.js"&gt;&lt;/script&gt;
+                    </code>
+                </pre>
+                <div class="row">
+                    <div class="col col-md-12 col-sm-12 col-xs-12">
+                        注意，OneBlog Web 端用到的 js 文件以及版本如下：
+                        <table class="table table-hover table-striped">
+                            <tr><td>插件名</td><td>版本</td></tr>
+                            <tr><td>jquery</td><td><span class="badge">1.11.1</span></td></tr>
+                            <tr><td>bootstrap</td><td><span class="badge">3.3.5</span></td></tr>
+                            <tr><td>jquery.lazyload</td><td><span class="badge">1.9.1</span></td></tr>
+                            <tr><td>jquery-confirm</td><td><span class="badge">3.3.2</span></td></tr>
+                            <tr><td>jquery.fancybox</td><td><span class="badge">2.1.5</span></td></tr>
+                            <tr><td>bootstrap-validator</td><td><span class="badge">0.5.3</span></td></tr>
+                            <tr><td>nprogress</td><td><span class="badge">0.2.0</span></td></tr>
+                            <tr><td>js-xss</td><td><span class="badge">0.3.3</span></td></tr>
+                            <tr><td>mustache.js</td><td><span class="badge">2.3.0</span></td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="customCssCdnModal" tabindex="-1" role="dialog"
+     aria-labelledby="customCssCdnModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="storageNginxServerModalLabel">自定义 Admin 模块的 CSS CDN 文件</h4>
+            </div>
+            <div class="modal-body">
+                <pre>
+                    <code>
+&lt;link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"&gt;
+&lt;link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"&gt;
+&lt;link href="https://cdn.bootcdn.net/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css" rel="stylesheet"&gt;
+&lt;link href="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet"&gt;
+                    </code>
+                </pre>
+                <div class="row">
+                    <div class="col col-md-12 col-sm-12 col-xs-12">
+                        注意，OneBlog Admin 端用到的 Css 文件以及版本如下：
+                        <table class="table table-hover table-striped">
+                            <tr><td>插件名</td><td>版本</td></tr>
+                            <tr><td>font-awesome</td><td><span class="badge">4.7.0</span></td></tr>
+                            <tr><td>bootstrap</td><td><span class="badge">3.3.5</span></td></tr>
+                            <tr><td>jquery-confirm</td><td><span class="badge">3.3.2</span></td></tr>
+                            <tr><td>jquery.fancybox</td><td><span class="badge">2.1.5</span></td></tr>
+                            <tr><td>nprogress</td><td><span class="badge">0.2.0</span></td></tr>
+                            <tr><td>toastr</td><td><span class="badge">2.0.3</span></td></tr>
+                            <tr><td>iCheck</td><td><span class="badge">1.0.2</span></td></tr>
+                            <tr><td>bootstrap-table</td><td><span class="badge">1.11.1</span></td></tr>
+                            <tr><td>bootstrap-daterangepicker/daterangepicker</td><td><span class="badge">2.1.25</span></td></tr>
+                            <tr><td>bootstrap-datetimepicker</td><td><span class="badge">4.17.37</span></td></tr>
+                            <tr><td>zTree.v3/metroStyle</td><td><span class="badge">3.5.29</span></td></tr>
+                            <tr><td>switchery</td><td><span class="badge">0.8.2</span></td></tr>
+                            <tr><td>bootstrap-tagsinput</td><td><span class="badge">0.8.0</span></td></tr>
+                            <tr><td>bootstrap-tagsinput/bootstrap-tagsinput-typeahead</td><td><span class="badge">0.8.0</span></td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="customWebCssCdnModal" tabindex="-1" role="dialog"
+     aria-labelledby="customWebCssCdnModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="storageNginxServerModalLabel">自定义 Web 模块的 CSS CDN 文件</h4>
+            </div>
+            <div class="modal-body">
+                <pre>
+                    <code>
+&lt;link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"&gt;
+&lt;link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"&gt;
+&lt;link href="https://cdn.bootcdn.net/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css" rel="stylesheet"&gt;
+&lt;link href="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet"&gt;
+                    </code>
+                </pre>
+                <div class="row">
+                    <div class="col col-md-12 col-sm-12 col-xs-12">
+                        注意，OneBlog Web 端用到的 Css 文件以及版本如下：
+                        <table class="table table-hover table-striped">
+                            <tr><td>插件名</td><td>版本</td></tr>
+                            <tr><td>font-awesome</td><td><span class="badge">4.7.0</span></td></tr>
+                            <tr><td>bootstrap</td><td><span class="badge">3.3.5</span></td></tr>
+                            <tr><td>jquery-confirm</td><td><span class="badge">3.3.2</span></td></tr>
+                            <tr><td>jquery.fancybox</td><td><span class="badge">2.1.5</span></td></tr>
+                            <tr><td>nprogress</td><td><span class="badge">0.2.0</span></td></tr>
+                            <tr><td>bootstrapvalidator</td><td><span class="badge">0.5.3</span></td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="storageNginxServerModal" tabindex="-1" role="dialog"
      aria-labelledby="storageNginxServerModalLabel">
     <div class="modal-dialog" role="document">

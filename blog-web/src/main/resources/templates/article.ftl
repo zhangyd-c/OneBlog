@@ -1,6 +1,8 @@
 <#include "include/macros.ftl">
 <@header title="${article.title} | ${config.siteName}" keywords="${article.keywords!},${config.siteName}" description="${article.description!}"
-    canonical="/article/${article.id}" hasEditor=true></@header>
+    canonical="/article/${article.id}" hasEditor=true>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" />
+</@header>
 <#if article.coverImage??>
     <img src="${article.coverImage!}" onerror="this.src='${config.staticWebSite}/img/default.png'" style="display: none;" id="cover-img">
 </#if>
@@ -39,15 +41,34 @@
                         <strong>${article.title}</strong>
                     </h1>
                     <div class="blog-info-body ${article.isMarkdown?string('markdown-body editor-preview-active-side', '')}">
-                        <#if article.private>
-                            ${article.description!}
-
-                            <br>
+                        <#-- 文章最后修改日期的判断 -->
+                        <#assign intervalDayNum=((.now?long - article.updateTime?long)?abs / (1000 * 60 * 60 * 24))?int>
+                        <#if intervalDayNum gt 1>
+                            <div class="ob-alert">
+                                <div class="title">
+                                    <i class="fa fa-bullhorn fa-fw"></i>
+                                    <span class="text">温馨提示：</span>
+                                </div>
+                                <div class="content">
+                                    本文最后更新于 ${article.updateTime?string('yyyy年MM月dd日')}，已超过 ${intervalDayNum} 天没有更新。若文章内的图片失效（无法正常加载），请留言反馈或直接<a href="mailto:${config.authorEmail}" target="_blank" title="点击给我发邮件" rel="external nofollow"><i class="fa fa fa-envelope fa-fw"></i>联系我</a>。
+                                </div>
+                            </div>
+                        </#if>
+                        <#if article.requiredAuth>
                             <div class="alert alert-warning alert-dismissible fade in red" role="alert">
-                                <i class="fa fa-lock fa-fw"></i> 文章已被加密，需要 <a href="javascript:void(0)" data-toggle="modal" data-target="#lockModal">输入密码</a> 才能查看文章详情
+                                <i class="fa fa-lock fa-fw"></i> 该文章已被加密，需要 <a href="javascript:void(0)" data-toggle="modal" data-target="#oauth" rel="nofollow" title="授权登录">登录后</a> 才能查看文章详情
                             </div>
                         <#else >
-                            ${article.content}
+                            <#if article.private>
+                                ${article.description!}
+
+                                <br>
+                                <div class="alert alert-warning alert-dismissible fade in red" role="alert">
+                                    <i class="fa fa-lock fa-fw"></i> 文章已被加密，需要 <a href="javascript:void(0)" data-toggle="modal" data-target="#lockModal">输入密码</a> 才能查看文章详情
+                                </div>
+                            <#else >
+                                ${article.content}
+                            </#if>
                         </#if>
                     </div>
                     <div class="separateline"><span>正文到此结束</span></div>
@@ -63,13 +84,16 @@
                             <div class="share-sd">
                                 <span class="share-s"><a href="javascript:void(0)" id="share-s" title="分享"><i class="fa fa-share-alt"></i>分享</a></span>
                                 <div id="share" style="display: none">
-                                    <ul class="bdsharebuttonbox bdshare-button-style1-16" data-bd-bind="1516426362121">
-                                        <li><a title="分享到人人网" class="fa fa-renren" data-cmd="renren" onclick="return false;" href="#"></a></li>
-                                        <li><a title="分享到QQ空间" class="fa fa-qq" data-cmd="qzone" onclick="return false;" href="#"></a></li>
-                                        <li><a title="分享到新浪微博" class="fa fa-weibo" data-cmd="tsina" onclick="return false;" href="#"></a></li>
-                                        <li><a title="分享到微信" class="fa fa-weixin" data-cmd="weixin" onclick="return false;" href="#"></a></li>
-                                        <li><a title="更多" class="bds_more fa fa-plus-square" data-cmd="more" onclick="return false;" href="#"></a></li>
-                                    </ul>
+                                    <div class="social-share" data-initialized="true">
+                                        <a href="#" class="social-share-icon icon-twitter"></a>
+                                        <a href="#" class="social-share-icon icon-google"></a>
+                                        <a href="#" class="social-share-icon icon-facebook"></a>
+                                        <a href="#" class="social-share-icon icon-douban"></a>
+                                        <a href="#" class="social-share-icon icon-qzone"></a>
+                                        <a href="#" class="social-share-icon icon-wechat"></a>
+                                        <a href="#" class="social-share-icon icon-qq"></a>
+                                        <a href="#" class="social-share-icon icon-weibo"></a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="clear"></div>
@@ -92,9 +116,13 @@
                                 </#if>
                         </li>
                         <li>
+                            <strong>本文链接：</strong>
+                            ${config.siteUrl}/article/${article.id?c}
+                        </li>
+                        <li>
                             <strong>版权声明：</strong>
                             <#if article.original?string('true','false') == 'true'>
-                            本站原创文章，于${article.createTime?string('yyyy年MM月dd日')}由<a href="${config.siteUrl}" target="_blank" data-original-title="${config.siteName}" data-toggle="tooltip" data-placement="bottom"><strong>${config.authorName}</strong></a>发布，转载请注明出处
+                            本文由<a href="${config.siteUrl}" target="_blank" data-original-title="${config.siteName}" data-toggle="tooltip" data-placement="bottom"><strong>${config.authorName}</strong></a>原创发布，转载请遵循《<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0)</a>》许可协议授权
                             <#else>
                             本文为互联网转载文章，出处已在文章中说明(部分除外)。如果侵权，请<a target="_blank" href="mailto:${config.authorEmail}" title="点击给我发邮件" data-toggle="tooltip" data-placement="bottom"><strong>联系本站长</strong></a>删除，谢谢。
                             </#if>
@@ -102,11 +130,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="blog-body">
-                <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=wylo59db&utm_source=wylo59db" target="_blank" rel="external nofollow">
-                    <img src="${config.staticWebSite}/img/ad/aliyun_sale1000-60.png" alt="阿里云首购8折" class="img-responsive" style="width: 100%;">
-                </a>
-            </div>
+            <#-- 广告位 -->
+            <div class="ad-mark" id="ARTICLE_BOTTOM" style="display: none"></div>
             <div class="blog-body prev-next">
                 <nav class="nav-single wow" data-wow-delay="0.3s">
                     <#if other.prev>
@@ -199,15 +224,15 @@
                 </ul>
                 <div class="clear"></div>
             </div>
-            <#--评论-->
-            <#if article.comment>
-                <div class="blog-body clear overflow-initial expansion">
-                    <div id="comment-box" data-id="${article.id?c}"></div>
-                </div>
-            <#else>
-                <div class="blog-body clear overflow-initial expansion gray">
-                    <i class="fa fa-close fa-fw"></i>该篇文章的评论功能已被站长关闭
-                </div>
+            <#-- 广告位 -->
+            <div class="ad-mark" id="COMMENT_BOX_TOP" style="display: none"></div>
+            <#if !article.requiredAuth>
+                <#--评论-->
+                <#if article.comment>
+                    <div class="blog-body clear overflow-initial expansion">
+                        <div id="comment-box" data-id="${article.id?c}"></div>
+                    </div>
+                </#if>
             </#if>
         </div>
         <#include "layout/sidebar.ftl"/>
@@ -230,22 +255,17 @@
     </div>
 </div>
 <@footer>
-    <script type="text/javascript">
-        /*
-            百度分享
-            建议改成自己的百度分享js，否则你是没法查看分享的统计结果的。
-         */
-        var bdText = $("#meta_description").attr("content")+" - by ${config.domain}";
-        // 如果文章没有封面图，则取默认的图片
-        var coverImg = $("#cover-img").attr("src") || "${config.staticWebSite}/img/default.png";
-        window._bd_share_config={"common":{"bdSnsKey":{},"bdText":bdText,"bdMini":"2","bdMiniList":["mshare","qzone","tsina","bdysc","weixin","renren","tqq","kaixin001","tqf","tieba","douban","bdhome","sqq","youdao","sdo","qingbiji","mail","isohu","ty","fbook","twi","linkedin","h163","evernotecn","copy","print"],"bdPic":coverImg,"bdStyle":"1","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-    </script>
-    <script src="https://v1.hitokoto.cn/?encode=js&c=i&select=%23hitokoto" defer></script>
+    <#if (config.enableHitokoto == 1 || config.enableHitokoto == "1")>
+        <script src="https://v1.hitokoto.cn/?encode=js&c=i&select=.hitokoto" defer></script>
+    </#if>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/lib/highlight.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/simplemde@1.11.2/dist/simplemde.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+<#--    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/jquery.share.min.js"></script>-->
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js" type="text/javascript"></script>
 
     <script>
-        var isPrivate = ${article.private};
+        var isPrivate = '${article.private}';
         if(isPrivate || isPrivate == 'true') {
             $("#lockModal").modal('show')
         }
@@ -258,6 +278,75 @@
                 if(json.status === 200) {
                     $(".blog-info-body").html(json.data);
                     $("#lockModal").modal('hide')
+                }
+            })
+        })
+
+
+        $(function () {
+            var url = location.href.split("#")[0];
+            //当前页面的url
+            var encodeUrl = encodeURIComponent(url);
+
+            var title = "${article.title}";
+            var desc = "${article.description}";
+            var imgUrl = "${article.coverImage}";
+
+            $.post("/api/jssdkGetSignature", {url: encodeUrl}, function (json) {
+                // $.alert.ajaxSuccess(json);
+
+                if (json.status === 200) {
+                    var signature = json.data.signature;
+                    var timestamp = json.data.timestamp;
+                    var noncestr = json.data.noncestr;
+                    var appid = json.data.appid;
+                    var jsapi_ticket = json.data.ticket;
+
+                    // alert(signature + "---" + timestamp + "---" + noncestr + "---" + appid + "---" + jsapi_ticket);
+                    // console.log(signature + "---" + timestamp + "---" + noncestr + "---" + appid + "---" + jsapi_ticket)
+                    wx.config({
+                        debug: false, // true:开启调试模式,调用的所有 api 的返回值会在客户端 alert 出来，若要查看传入的参数，可以在 pc 端打开，参数信息会通过 log 打出，仅在 pc 端时才会打印。
+                        appId: appid, // 必填，公众号的唯一标识
+                        timestamp: timestamp, // 必填，生成签名的时间戳
+                        nonceStr: noncestr, // 必填，生成签名的随机串
+                        signature: signature,// 必填，签名
+                        jsApiList: ["updateAppMessageShareData", "updateTimelineShareData"] // 必填，需要使用的 JS 接口列表
+                    });
+
+                    wx.error(function (res) {
+                        // alert(JSON.stringify(res));
+                        // config信息验证失败会执行 error 函数，如签名过期导致验证失败，具体错误信息可以打开 config 的debug模式查看，也可以在返回的 res 参数中查看，对于 SPA 可以在这里更新签名。
+                        console.log(JSON.stringify(res))
+                    });
+
+                    var mTitle = title + '| 蜂唤信息公众号';
+                    wx.ready(function () {
+                        //需在用户可能点击分享按钮前就先调用 自定义“分享到朋友圈”及“分享到 QQ 空间”按钮的分享内容
+                        wx.updateTimelineShareData({
+                            title: mTitle, // 分享标题
+                            link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号 JS 安全域名一致
+                            imgUrl: imgUrl, // 分享图标
+                            success: function () {
+                                // 设置成功
+                            }
+                        });
+
+                    });
+
+                    var nTitle = '您有新消息| ' + title + '| 蜂唤信息公众号';
+                    wx.ready(function () {
+                        //需在用户可能点击分享按钮前就先调用 自定义“分享给朋友”及“分享到QQ”按钮的分享内容
+                        wx.updateAppMessageShareData({
+                            title: nTitle, // 分享标题
+                            desc: desc, // 分享描述
+                            link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号 JS 安全域名一致
+                            imgUrl: imgUrl, // 分享图标
+                            success: function () {
+                                // 设置成功
+                            }
+                        });
+                    });
+
                 }
             })
         })

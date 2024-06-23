@@ -500,7 +500,7 @@ a:-webkit-any-link {
 }
 
 .article-blockquote-green {
-    background: #427e53;
+    background: #4dab68;
 }
 .article-original-green {
     background: #5FB878;
@@ -541,10 +541,11 @@ a:-webkit-any-link {
 
 /* 面包屑导航 */
 .breadcrumb {
-    padding: 4px;
+    padding: 10px;
     margin-bottom: 10px;
     list-style: none;
     background-color: #ffffff;
+    border-radius: 0;
 }
 
 /* 面包屑导航 */
@@ -841,22 +842,19 @@ span.separation:AFTER {
 }
 
 .sidebar-module .sidebar-tabs {
-    background-color: #eee;
+    text-align: center;
+    background-color: unset;
     margin-left: -9px;
     margin-right: -9px;
 }
 
-.sidebar-module .sidebar-tabs li.active {
-    font-weight: 700;
+.sidebar-module .sidebar-tabs li.active, .sidebar-module .sidebar-tabs li.active a {
+    background-color: #eee!important;
 }
 
-.sidebar-module .sidebar-tabs li.hover {
-    background-color: #333;
-}
-
-.sidebar-module .sidebar-tabs li a:hover {
+.sidebar-module .sidebar-tabs li.hover, .sidebar-module .sidebar-tabs li:hover a {
     font-weight: 700;
-    background-color: #333;
+    background-color: #333!important;
 }
 
 .sidebar-module .tab-content .empty-list {
@@ -1051,10 +1049,10 @@ span.separation:AFTER {
 
 .separateline span {
     position: relative;
-    top: -14px;
+    top: -12px;
     padding: 2px 4px;
     /*border:1px solid #d6d6d6;*/
-    background-color: #ffffff;
+    background-color: #ffffffa3;
     color: #006741 !important;
 }
 
@@ -1152,7 +1150,7 @@ article .thumbnail a img {
     background: #999;
  }
 .art-top {
-    background: #e63946!important;
+    background: #ff9800!important;
  }
 .art-type {
     background: #999;
@@ -2334,6 +2332,7 @@ nav a:first-child .meta-nav {
 
 /* 首页 关于我 */
 .widget ul {
+    display: flex;
     padding: 5px 15px;
     font-size: 16px;
 }
@@ -2381,6 +2380,7 @@ nav a:first-child .meta-nav {
 }
 
 #feed_widget .widget-icon li {
+    flex: 1;
     float: left;
     width: 25%;
     height: 40px;
@@ -2479,6 +2479,7 @@ nav a:first-child .meta-nav {
 .about-main {
     font-size: 14px;
     padding: 0 15px;
+    /*text-align: center;*/
 }
 
 .about-img {
@@ -2689,7 +2690,7 @@ nav a:first-child .meta-nav {
     position: absolute;
     top: -60px;
     right: -29px;
-    width: 302px;
+    width: 390px;
     height: 68px;
     z-index: 999;
 }
@@ -3607,4 +3608,65 @@ img {
 }
 .navbar-brand img {
     display: inline-block
+}
+
+/* 广告 */
+.ad-mark {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.ad-mark:after {
+    content: '广告';
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    color: #e8e8e8;
+    font-size: 12px;
+}
+
+
+div.scrollmenu {
+    overflow: auto;
+    white-space: nowrap;
+    background-color: #ffffff!important;
+}
+
+div.scrollmenu a, div.scrollmenu span {
+    display: inline-block;
+    color: #333;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+}
+
+div.scrollmenu a.active, div.scrollmenu a:hover {
+    background-color: #eeeeee!important;
+}
+
+
+.ob-alert {
+    background: #fffcef;
+    padding: 15px;
+    color: #db7c22;
+    border: 1px solid #ffbb76;
+}
+
+.ob-alert .title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 500
+}
+
+.ob-alert .title .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px
+}
+
+.ob-alert .content {
+    padding: 0;
+    padding-left: 28px;
 }

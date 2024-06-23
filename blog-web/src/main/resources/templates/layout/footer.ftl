@@ -120,7 +120,7 @@
                             <li><a href="${config.siteUrl}/disclaimer" title="免责声明" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-file-o fa-fw"></i>免责声明</a></li>
                         </ul>
                         </p>
-                        <p>托管于<a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=wylo59db" target="_blank" title="阿里云-为了无法计算的价值" data-toggle="tooltip" data-placement="bottom" rel="external nofollow">阿里云</a> & <a href="https://portal.qiniu.com/signup?code=3l8yx2v0f21ci" target="_blank" title="七牛云-国内领先的企业级云服务商" data-toggle="tooltip" data-placement="bottom" rel="external nofollow">七牛云</a><#if config.recordNumber!> · <a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank" title="查看备案信息" data-toggle="tooltip" data-placement="bottom" rel="external nofollow">${config.recordNumber}</a></#if></p>
+                        <p>托管于<a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=wylo59db" target="_blank" title="阿里云-为了无法计算的价值" data-toggle="tooltip" data-placement="bottom" rel="external nofollow">阿里云</a> & <a href="https://portal.qiniu.com/signup?code=3l8yx2v0f21ci" target="_blank" title="七牛云-国内领先的企业级云服务商" data-toggle="tooltip" data-placement="bottom" rel="external nofollow">七牛云</a><#if config.recordNumber!> · <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank" title="查看备案信息" data-toggle="tooltip" data-placement="bottom" rel="external nofollow">${config.recordNumber}</a></#if></p>
                     </div>
                     <div class="col col-md-4"></div>
                 </div>
@@ -135,6 +135,12 @@
                     <#if url?? && (url == "index")>
                         <div class="inline external-links">
                             <a>友情链接：</a>
+                            <a href="https://justauth.wiki" target="_blank" title="开箱即用的整合第三方登录的开源组件" data-toggle="tooltip" data-placement="right">
+                                JustAuth
+                            </a>
+                            <a href="https://justauth.plus" target="_blank" title="一款开源的登录认证中间件，支持 Form、 OAuth2.0、OIDC、Http Basic、Digest、Bearer、LDAP、SAML、MFA、SSO 等" data-toggle="tooltip" data-placement="right">
+                                JAP
+                            </a>
                             <#if indexLinkList?? && (indexLinkList?size > 0)>
                                 <#list indexLinkList as item>
                                     <a href="${item.url}" target="_blank" title="${item.description!}" data-toggle="tooltip" data-placement="right">
@@ -153,36 +159,40 @@
         </div>
     </footer>
 <a class="to-top" title="点击返回顶部" data-toggle="tooltip" data-placement="bottom"></a>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@1.11.1/dist/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.0/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazyload@1.9.3/jquery.lazyload.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-confirm@3.3.2/dist/jquery-confirm.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery.fancybox@2.1.5/source/jquery.fancybox.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrapvalidator@0.5.4/dist/js/bootstrapValidator.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/xss@0.3.3/dist/xss.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mustache@2.3.0/mustache.min.js"></script>
+<#if config.webJsCdn?? && (config.webJsCdn?length > 0)>
+    ${config.webJsCdn!}
+<#else >
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/js-xss/0.3.3/xss.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/mustache.js/2.3.0/mustache.min.js"></script>
+</#if>
 <script type="text/javascript">
     var appConfig = {
-        siteName: '${config.siteName}',
-        wwwPath: '${config.siteUrl}',
-        cmsPath: '${config.cmsUrl}',
-        staticPath: '${config.staticWebSite}',
-        lazyloadPath: '${config.lazyloadPath}',
-        fileStoragePath: '${config.fileStoragePath}',
-        wxPraiseCode: '${config.wxPraiseCode}' || '${config.staticWebSite}/img/default.png',
-        zfbPraiseCode: '${config.zfbPraiseCode}' || '${config.staticWebSite}/img/default.png',
-        anonymous: '${config.anonymous}',
-        editorPlaceholder: '${config.editorPlaceholder}',
-        editorAlert: '${config.editorAlert}',
-        dynamicTitle: '${config.dynamicTitle}',
-        bubbleWord: '${config.bubbleWord}',
+        siteName: "${config.siteName}",
+        wwwPath: "${config.siteUrl}",
+        cmsPath: "${config.cmsUrl}",
+        staticPath: "${config.staticWebSite}",
+        lazyloadPath: "${config.lazyloadPath}",
+        fileStoragePath: "${config.fileStoragePath}",
+        wxPraiseCode: "${config.wxPraiseCode}" || "${config.staticWebSite}/img/default.png",
+        zfbPraiseCode: "${config.zfbPraiseCode}" || "${config.staticWebSite}/img/default.png",
+        anonymous: "${config.anonymous}",
+        editorPlaceholder: "${config.editorPlaceholder}",
+        editorAlert: "${config.editorAlert}",
+        dynamicTitle: "${config.dynamicTitle}",
+        bubbleWord: "${config.bubbleWord}",
     };
 
     var oauthConfig = {
-        loginUserId: '${user.id}',
-        loginUserName: '${user.username}',
-        loginUserAvatar: '${user.avatar}'
+        loginUserId: "${user.id}",
+        loginUserName: "${user.username}",
+        loginUserAvatar: "${user.avatar}"
     }
 </script>
 <script type="text/javascript" src="${config.staticWebSite}/js/zhyd.core.js"></script>
