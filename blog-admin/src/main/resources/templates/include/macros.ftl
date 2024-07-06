@@ -320,7 +320,6 @@
                             <h2>其他开源作品</h2>
                             <ul>
                                 <li><a href="https://gitee.com/yadong.zhang/JustAuth" target="_blank">JustAuth</a>：史上最全的整合第三方登录的工具,目前已支持Github、Gitee、微博、钉钉、百度、Coding、腾讯云开发者平台、OSChina、支付宝、QQ、微信、淘宝、Google、Facebook、抖音、领英、小米、微软和今日头条等第三方平台的授权登录。 Login, so easy!</li>
-                                <li><a href="https://gitee.com/yadong.zhang/blog-hunter" target="_blank">blog-hunter</a>：博客猎手，基于webMagic的博客爬取工具，支持慕课、csdn、iteye、cnblogs、掘金和V2EX等各大主流博客平台。博客千万篇，版权第一条。狩猎不规范，亲人两行泪。</li>
                                 <li><a href="https://gitee.com/yadong.zhang/shiro" target="_blank">springboot-shiro</a>：Springboot + shiro权限管理。这或许是流程最详细、代码最干净、配置最简单的shiro上手项目了。</li>
                                 <li><a href="https://gitee.com/yadong.zhang" target="_blank">查看更多...</a></li>
                             </ul>
@@ -339,7 +338,6 @@
                                 <li><span><span><strong>实时通讯</strong>：管理员可向在线的用户发送实时消息（需用户授权 - 基于websocket实现，具体参考<a href="https://docs.zhyd.me/article/111">DBlog建站之Websocket的使用</a>）</span></span></li>
                                 <li><span><span><strong>系统配置支持快速配置</strong>：可通过后台手动修改诸如域名信息、SEO优化、赞赏码、七牛云以及更新维护通知等</span></span></li>
                                 <li><span><span><strong><i class="fa fa-fire fa-fw red"></i>多种文件存储</strong>：集成七牛云、阿里云OSS，实现文件云存储，同时支持本地文件存储</span></span></li>
-                                <li><span><span><strong><i class="fa fa-fire fa-fw red"></i>文件搬运工</strong>：集成<a href="https://gitee.com/yadong.zhang/blog-hunter">blog-hunter</a>实现“文章搬运工”功能，支持一键同步imooc、csdn、iteye或者cnblogs上的文章，可抓取列表和单个文章</span></span></li>
                                 <li><span><span><strong><i class="fa fa-fire fa-fw red"></i>第三方授权登录</strong>：集成<a href="https://gitee.com/yadong.zhang/JustAuth">JustAuth</a>实现第三方授权登录</span></span></li>
                             </ul>
                         </fieldset></div>

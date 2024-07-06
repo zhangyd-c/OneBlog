@@ -61,11 +61,6 @@ public interface SysConfigService {
     Map<String, Object> getSiteInfo();
 
     /**
-     * 返回 Spider
-     */
-    String getSpiderConfig();
-
-    /**
      * 获取随机的用户头像
      */
     List<String> getRandomUserAvatar();

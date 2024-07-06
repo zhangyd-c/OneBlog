@@ -200,11 +200,6 @@
             <version>${hibernate.validator.version}</version>
         </dependency>
         <dependency>
-            <groupId>me.zhyd.hunter</groupId>
-            <artifactId>blog-hunter</artifactId>
-            <version>${blog-hunter.version}</version>
-        </dependency>
-        <dependency>
             <groupId>com.zyd</groupId>
             <artifactId>blog-file</artifactId>
         </dependency>

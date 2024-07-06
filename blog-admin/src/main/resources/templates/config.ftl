@@ -38,9 +38,6 @@
                             <li role="presentation" class="">
                                 <a href="#tab_cdn" role="tab" id="cdn-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-plug fa-fw"></i> CDN 资源</a>
                             </li>
-                            <li role="presentation" class="">
-                                <a href="#tab_hunter" role="tab" id="hunter-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-bug fa-fw"></i> Hunter 配置</a>
-                            </li>
                             <li role="presentation">
                                 <a href="#tab_auth" id="auth-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-sign-in fa-fw"></i> 登录</a>
                             </li>
@@ -556,22 +553,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_hunter" aria-labelledby="hunter-tab">
-                                <form class="form-horizontal form-label-left" novalidate>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="blogHunterConfig">Hunter 配置文件 <i class="fa fa-question-circle" title="blog-hunter 配置文件，如果没有添加该配置，则默认取 src/main/resources/HunterConfig.json"></i></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <textarea class="form-control col-md-7 col-xs-12" id="blogHunterConfig" name="blogHunterConfig" placeholder="blog-hunter 配置文件，如果没有添加该配置，则默认取 src/main/resources/HunterConfig.json" rows="20"></textarea>
-                                        </div>
-                                    </div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">

@@ -162,16 +162,6 @@ public class SysConfigServiceImpl implements SysConfigService {
     }
 
     @Override
-    @RedisCache(enable = false)
-    public String getSpiderConfig() {
-        SysConfig config = this.getByKey(ConfigKeyEnum.BLOG_HUNTER_CONFIG.getKey());
-        if (config == null) {
-            return "{}";
-        }
-        return StringUtils.isEmpty(config.getConfigValue()) ? "{}" : config.getConfigValue();
-    }
-
-    @Override
     public List<String> getRandomUserAvatar() {
         SysConfig config = this.getByKey("defaultUserAvatar");
         if (config == null) {

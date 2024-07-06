@@ -6,8 +6,6 @@
 ![PC-文章列表页](https://images.gitee.com/uploads/images/2019/0129/191135_21e4f61c_784199.png?v=1.0 "PC-文章列表页")
 ![PC-发布文章页](https://images.gitee.com/uploads/images/2019/0129/191150_0d28d51a_784199.png "PC-发布文章页")
 ![PC-系统配置页](https://images.gitee.com/uploads/images/2019/0129/191203_cc6941e4_784199.png "PC-系统配置页")
-![文章搬运工](https://images.gitee.com/uploads/images/2019/0129/191214_5e8f3c34_784199.png "PC-文章搬运工")
-![文章搬运工](https://images.gitee.com/uploads/images/2019/0129/191237_d015fcda_784199.png "PC-文章搬运工")
 
 
 ## 前台页面

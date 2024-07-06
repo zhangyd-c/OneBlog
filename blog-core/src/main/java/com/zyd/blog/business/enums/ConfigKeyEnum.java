@@ -242,11 +242,6 @@ public enum ConfigKeyEnum {
     CUSTOM_CSS("customCss"),
 
     /**
-     * blog-hunter 配置文件，如果没有添加该配置，则默认取 src/main/resources/HunterConfig.json
-     */
-    BLOG_HUNTER_CONFIG("blogHunterConfig"),
-
-    /**
      * 启用 Hitokoto（一言）。一言，随机显示一句话的插件，该插件部分时候加载较慢，如果不需要请自行关闭
      */
     ENABLE_HITOKOTO("enableHitokoto"),
