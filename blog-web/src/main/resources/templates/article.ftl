@@ -15,6 +15,8 @@
     </nav>
     <div class="row article-body">
         <div class="col-sm-8 blog-main">
+            <#-- 广告位 -->
+            <div class="ad-mark" id="ARTICLE_TOP" style="display: none"></div>
             <div class="blog-body overflow-initial fade-in">
                 <div class="article-flag">
                     <#if article.original?string('true','false') == 'true'>

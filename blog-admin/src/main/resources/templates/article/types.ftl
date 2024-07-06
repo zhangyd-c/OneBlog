@@ -33,6 +33,14 @@
         </div>
     </div>
     <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+        <div class="col-md-9 col-sm-9 col-xs-9 tips">
+            <i class="fa fa-exclamation-circle"></i> 参考示例：
+            <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/article_top_type.png" data-title="顶部菜单位置示例">顶部菜单</a> |
+            <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/article_scroll_type.png" data-title="首页滚动菜单位置示例">首页滚动菜单</a>
+        </div>
+    </div>
+    <div class="item form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">名称 <span class="required">*</span></label>
         <div class="col-md-6 col-sm-6 col-xs-12">
             <input type="text" class="form-control col-md-7 col-xs-12" name="name" id="name" required="required" placeholder="请输入分类名称"/>
@@ -42,6 +50,12 @@
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">父级 </label>
         <div class="col-md-6 col-sm-6 col-xs-6">
             <select id="pid" name="pid" class="form-control col-md-5 col-xs-5" target="combox" data-url="/type/listParent" data-method="post"></select>
+        </div>
+    </div>
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+        <div class="col-md-9 col-sm-9 col-xs-9 tips">
+            <i class="fa fa-exclamation-circle"></i> 特别说明： 首页滚动菜单会忽略菜单层级，全部平铺展示
         </div>
     </div>
     <div class="item form-group">
@@ -84,6 +98,8 @@
         </div>
     </div>
 </@addOrUpdateMOdal>
+
+
 <@footer>
     <script type="text/javascript" src="/assets/js/zhyd.treetable.js"></script>
     <script>

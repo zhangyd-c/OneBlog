@@ -30,6 +30,10 @@ public enum AdPositionEnum {
     SIDEBAR_TOP("侧边栏顶部"),
     SIDEBAR_BOTTOM("侧边栏底部"),
     /**
+     * 文章详情顶部
+     */
+    ARTICLE_TOP("文章详情顶部"),
+    /**
      * 文章详情底部，分页（上一篇下一篇）上方，标签和版权的下方
      */
     ARTICLE_BOTTOM("文章详情底部"),

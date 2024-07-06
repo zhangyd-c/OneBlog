@@ -44,9 +44,20 @@
         </div>
     </div>
     <div class="item form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <small>广告位置为 <code>首页开屏广告 - HOMEPAGE_OPEN_SCREEN</code> 时，广告类型必须为 <code>POP</code></small>
+        <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+        <div class="col-md-7 col-sm-7 col-xs-7 tips">
+            <p><small>广告位置为 <code>首页开屏广告 - HOMEPAGE_OPEN_SCREEN</code> 时，广告类型必须为 <code>POP</code></small></p>
+
+            <p>
+                <i class="fa fa-exclamation-circle"></i> 参考示例：
+                <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/AD_HOMEPAGE_OPEN_SCREEN.png" data-title="首页开屏广告示例">首页开屏广告</a> |
+                <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/AD_HOMEPAGE_TOP.png" data-title="首页顶部广告示例">首页顶部广告</a> |
+                <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/AD_SIDEBAR_TOP.png" data-title="侧边栏顶部广告示例">侧边栏顶部广告</a> |
+                <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/AD_SIDEBAR_BOTTOM.png" data-title="侧边栏底部广告示例">侧边栏底部广告</a> |
+                <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/AD_ARTICLE_TOP.png" data-title="文章详情顶部广告示例">文章详情顶部广告</a> |
+                <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/AD_ARTICLE_BOTTOM.png" data-title="文章详情底部广告示例">文章详情底部广告</a> |
+                <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/AD_COMMENT_BOX_TOP.png" data-title="评论框顶部广告示例">评论框顶部广告</a>
+            </p>
         </div>
     </div>
     <div class="item form-group">

@@ -680,4 +680,15 @@ $(document).ready(function () {
             window.location.href = $this.data("href");
         })
     })
+
+    $('#helpModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var img = button.data('img');
+        var title = button.data('title');
+        var modal = $(this);
+        modal.find('#helpModalTitle').text(title);
+        var $img = modal.find('#helpModalImg');
+        $img.attr("src", img).attr("alt", title);
+        $img.parent().attr("href", img).attr("title", title);
+    })
 });
