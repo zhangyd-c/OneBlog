@@ -419,7 +419,7 @@
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <small>查看模板：<button type="button" class="btn btn-link" data-toggle="modal" data-target="#customTemplateModal">点击查看模板</button></small>
+                                            <i class="fa fa-exclamation-circle"></i> 查看模板：<a data-toggle="modal" data-target="#customTemplateModal">点击查看模板</a>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -431,7 +431,7 @@
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <small>查看模板：<button type="button" class="btn btn-link" data-toggle="modal" data-target="#customTemplateModal">点击查看模板</button></small>
+                                            <i class="fa fa-exclamation-circle"></i> 查看模板：<a data-toggle="modal" data-target="#customTemplateModal">点击查看模板</a>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -443,7 +443,7 @@
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <small>查看模板：<button type="button" class="btn btn-link" data-toggle="modal" data-target="#customTemplateModal">点击查看模板</button></small>
+                                            <i class="fa fa-exclamation-circle"></i> 查看模板：<a data-toggle="modal" data-target="#customTemplateModal">点击查看模板</a>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -461,7 +461,7 @@
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <small>注意：这将会完全替换掉 web 端的 Footer 内容</small>
+                                            <i class="fa fa-exclamation-circle"></i> 注意：这将会完全替换掉 web 端的 Footer 内容
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -471,9 +471,23 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 tips">
+                                            <i class="fa fa-exclamation-circle"></i> 参考示例：
+                                            <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/bubbleWord.gif" data-title="气泡文字示例">点击查看</a>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="searchOptions">自定义“热门搜索”的待选项 <i class="fa fa-question-circle" title="自定义 web 端 “热门搜索” 中的待选项，半角逗号分隔"></i></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <textarea class="form-control col-md-7 col-xs-12" id="searchOptions" name="searchOptions" placeholder="自定义 web 端 “热门搜索” 中的待选项，半角逗号分隔" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 tips">
+                                            <i class="fa fa-exclamation-circle"></i> 参考示例：
+                                            <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/nav_search_word.png" data-title="热门搜索示例">点击查看</a>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -492,6 +506,13 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="annotation">自定义站点注解 <i class="fa fa-question-circle" title="自定义站点注解，必须使用 <!--  --> 括起来"></i></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <textarea class="form-control col-md-7 col-xs-12" id="annotation" name="annotation" placeholder="自定义站点注解，必须使用 <!--  --> 括起来，比如：<!-- 神龙保佑，永无BUG -->" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 tips">
+                                            <i class="fa fa-exclamation-circle"></i> 参考示例：
+                                            <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/site_annotation.png" data-title="站点注解示例">点击查看</a>
                                         </div>
                                     </div>
                                     <div class="item form-group">
