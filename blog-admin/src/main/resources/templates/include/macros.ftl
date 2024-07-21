@@ -26,10 +26,15 @@
         <link href="https://cdn.bootcdn.net/ajax/libs/switchery/0.8.2/switchery.min.css" rel="stylesheet">
         <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput-typeahead.css" rel="stylesheet">
         <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet">
+        <link href="https://unpkg.com/@wangeditor/editor@latest/dist/css/style.css" rel="stylesheet">
+
     </#if>
     <link href="/assets/css/bootstrap-treetable.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/zhyd.core.css" rel="stylesheet">
     <#nested>
+    <style>
+        #toolbar-container { border: 1px solid #ccc; }
+    </style>
 </head>
 <body class="nav-md">
 <div class="container body">

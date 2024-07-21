@@ -29,7 +29,7 @@
     <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/zTree.v3/3.5.37/js/jquery.ztree.core.min.js"></script>
     <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/zTree.v3/3.5.37/js/jquery.ztree.excheck.min.js"></script>
     <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/wangeditor@4.7.9/dist/wangEditor.min.js"></script>
+    <script src="https://unpkg.com/@wangeditor/editor@latest/dist/index.js"></script>
     <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
 </#if>
 <script src="https://www.layuicdn.com/layui/layui.js"></script>

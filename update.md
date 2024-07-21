@@ -3,6 +3,10 @@
 
 ----
 
+### 2024-07-21
+
+- 更新 WangEditor 编辑器为最新版本
+
 ### 2024-06-23
 
 - 合并 [Gitee PR#48](https://gitee.com/yadong.zhang/DBlog/pulls/48)

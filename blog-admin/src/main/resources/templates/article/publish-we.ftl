@@ -1,7 +1,12 @@
 <#include "/include/macros.ftl">
 <#setting number_format="#">
 <@header>
-
+<style>
+    #editor {
+        border: 1px solid #ccc;
+        height: 500px;
+    }
+</style>
 </@header>
 <form id="publishForm" class="form-horizontal form-label-left" novalidate>
     <div class="row">
