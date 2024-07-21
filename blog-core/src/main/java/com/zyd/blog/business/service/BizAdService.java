@@ -8,6 +8,8 @@ import com.zyd.blog.business.entity.BizAdBo;
 import com.zyd.blog.business.vo.BizAdConditionVO;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 /**
  *
  *
@@ -27,4 +29,6 @@ public interface BizAdService extends AbstractService<BizAdBo, Long> {
     PageInfo<BizAdBo> findPageBreakByCondition(BizAdConditionVO vo);
 
     BizAdBo getByPosition(AdPositionEnum positionEnum);
+
+    List<BizAdBo> listArticleAds();
 }

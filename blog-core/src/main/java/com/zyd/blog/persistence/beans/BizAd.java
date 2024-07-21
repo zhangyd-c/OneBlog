@@ -27,6 +27,7 @@ public class BizAd extends AbstractDO{
 	private String picture;
 	private String link;
 	private String title;
+	private String brief;
 	private Date expiringDate;
 	private Integer showNumber;
 	private Integer clickNumber;

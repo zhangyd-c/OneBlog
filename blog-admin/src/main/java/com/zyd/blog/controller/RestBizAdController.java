@@ -3,6 +3,7 @@ package com.zyd.blog.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.entity.BizAdBo;
+import com.zyd.blog.business.enums.AdPositionEnum;
 import com.zyd.blog.business.enums.ResponseStatus;
 import com.zyd.blog.business.service.BizAdService;
 import com.zyd.blog.business.vo.BizAdConditionVO;
@@ -40,9 +41,11 @@ public class RestBizAdController {
     @RequiresPermissions("bizAd:add")
     @PostMapping(value = "/add")
     public ResponseVO add(BizAdBo bizAd) {
-        BizAdBo entity = bizAdService.getByPosition(bizAd.getPositionEnum());
-        if (null != entity) {
-            return ResultUtil.error("当前广告位已存在广告，一个广告位仅支持一条广告");
+        if (AdPositionEnum.ARTICLE != bizAd.getPositionEnum()) {
+            BizAdBo entity = bizAdService.getByPosition(bizAd.getPositionEnum());
+            if (null != entity) {
+                return ResultUtil.error("当前广告位已存在广告，一个广告位仅支持一条广告");
+            }
         }
         bizAdService.insert(bizAd);
         return ResultUtil.success("成功");

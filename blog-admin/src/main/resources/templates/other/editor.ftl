@@ -48,7 +48,7 @@
 </div>
 <@footer>
     <script type="text/javascript">
-        const { createEditor, createToolbar } = window.wangEditor
+        const { createEditor, createToolbar, Boot,IButtonMenu } = window.wangEditor
         const editor1 = createEditor({
             selector: '#editor1',
             html: '<p><br></p>',
@@ -66,8 +66,47 @@
             editor: editor1,
             selector: '#toolbar1',
             config: {
+                insertKeys: {
+                    index: editor1.getAllMenuKeys().length, // 插入的位置，基于当前的 toolbarKeys
+                    keys: ['insertArticleAd']
+                }
             },
             mode: 'default', // or 'simple'
+        })
+
+
+        class ArticleAdButtonMenu {
+            constructor() {
+                this.title = '插入广告' // 自定义菜单标题
+                // this.iconSvg = '<svg>...</svg>' // 可选
+                this.tag = 'button'
+            }
+            // 获取菜单执行时的 value ，用不到则返回空 字符串或 false
+            getValue(editor) {
+                return '{{#custom_article_ad:all:*}}'
+            }
+            // 菜单是否需要激活（如选中加粗文本，“加粗”菜单会激活），用不到则返回 false
+            isActive(editor) {
+                return false
+            }
+            // 菜单是否需要禁用（如选中 H1 ，“引用”菜单被禁用），用不到则返回 false
+            isDisabled(editor) {
+                return false
+            }
+            // 点击菜单时触发的函数
+            exec(editor, value) {
+                if (this.isDisabled(editor)) {
+                    return
+                }
+                $.toastr.success("广告标识插入成功，<span style='color: red;font-size: 700'>该标识内容不可修改</span>！修改会会导致文章内广告显示异常");
+                editor.insertText(value)
+            }
+        }
+        Boot.registerMenu({
+            key: 'insertArticleAd', // 定义 menu key ：要保证唯一、不重复（重要）
+            factory() {
+                return new ArticleAdButtonMenu() // 把 `YourMenuClass` 替换为你菜单的 class
+            }
         })
 
         // oneblog定制版的wangEditor

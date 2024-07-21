@@ -38,6 +38,10 @@ public enum AdPositionEnum {
      */
     ARTICLE_BOTTOM("文章详情底部"),
     /**
+     * 文章详情内，根据插入的标识自动替换
+     */
+    ARTICLE("文章详情内"),
+    /**
      * 适用于文章详情页、留言板、等存在评论框的页面
      */
     COMMENT_BOX_TOP("评论框顶部"),

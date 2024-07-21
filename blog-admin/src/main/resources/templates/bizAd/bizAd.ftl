@@ -83,6 +83,14 @@
         </div>
     </div>
     <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="brief">
+            广告简介
+        </label>
+        <div class="col-md-7 col-sm-7 col-xs-7">
+            <textarea class="form-control col-md-7 col-xs-12" id="brief" name="brief" placeholder="仅作用于 ARTICLE 类型的广告。可以在此输入广告的简介信息。" rows="5"></textarea>
+        </div>
+    </div>
+    <div class="item form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-3" for="picture">
             广告图片
         </label>
@@ -103,7 +111,7 @@
             广告内容
         </label>
         <div class="col-md-7 col-sm-7 col-xs-7">
-            <textarea class="form-control col-md-7 col-xs-12" id="content" name="content" placeholder="仅作用于 JS 类型的广告。可以在此输入 HTML。" rows="10"></textarea>
+            <textarea class="form-control col-md-7 col-xs-12" id="content" name="content" placeholder="仅作用于 JS、POP 和 TXT 类型的广告。可以在此输入 HTML 原文，定制更丰富的广告内容。" rows="10"></textarea>
         </div>
     </div>
     <div class="item form-group">
