@@ -2,6 +2,7 @@ package com.zyd.blog.persistence.mapper;
 
 import com.zyd.blog.business.vo.CommentConditionVO;
 import com.zyd.blog.persistence.beans.BizComment;
+import com.zyd.blog.persistence.beans.BizGroupCount;
 import com.zyd.blog.plugin.BaseMapper;
 import org.springframework.stereotype.Repository;
 
@@ -45,4 +46,12 @@ public interface BizCommentMapper extends BaseMapper<BizComment> {
      * @param id
      */
     BizComment getById(Long id);
+
+
+    /**
+     * 根据id批量获取总数
+     * @param idArr
+     * @return
+     */
+    List<BizGroupCount> countGroupNumByIdArr(Long[] idArr);
 }

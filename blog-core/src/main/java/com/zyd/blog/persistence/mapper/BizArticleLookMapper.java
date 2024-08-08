@@ -4,10 +4,12 @@ import com.zyd.blog.business.dto.ArticleLookDto;
 import com.zyd.blog.business.vo.ArticleLookConditionVO;
 import com.zyd.blog.business.vo.CommentConditionVO;
 import com.zyd.blog.persistence.beans.BizArticleLook;
+import com.zyd.blog.persistence.beans.BizGroupCount;
 import com.zyd.blog.plugin.BaseMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -27,5 +29,13 @@ public interface BizArticleLookMapper extends BaseMapper<BizArticleLook>{
      */
     List<BizArticleLook> findPageBreakByCondition(ArticleLookConditionVO vo);
 
+
     List<ArticleLookDto> findPageRecentLook(CommentConditionVO vo);
+
+    /**
+     * 根据id批量获取总数
+     * @param idArr
+     * @return
+     */
+    List<BizGroupCount> countGroupNumByIdArr(Long[] idArr);
 }

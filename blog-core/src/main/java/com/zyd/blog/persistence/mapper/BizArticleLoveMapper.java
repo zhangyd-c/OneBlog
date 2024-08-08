@@ -2,10 +2,12 @@ package com.zyd.blog.persistence.mapper;
 
 import com.zyd.blog.business.vo.ArticleLoveConditionVO;
 import com.zyd.blog.persistence.beans.BizArticleLove;
+import com.zyd.blog.persistence.beans.BizGroupCount;
 import com.zyd.blog.plugin.BaseMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -24,4 +26,11 @@ public interface BizArticleLoveMapper extends BaseMapper<BizArticleLove>{
      * @return
      */
     List<BizArticleLove> findPageBreakByCondition(ArticleLoveConditionVO vo);
+
+    /**
+     *
+     * @param idArr
+     * @return
+     */
+    List<BizGroupCount> countGroupNumByIdArr(Long[] idArr);
 }
