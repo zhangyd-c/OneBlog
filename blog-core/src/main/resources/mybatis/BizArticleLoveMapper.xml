@@ -12,6 +12,11 @@
 		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
 	</resultMap>
 
+    <resultMap id="groupCount" type="com.zyd.blog.persistence.beans.BizGroupCount">
+        <result property="id" jdbcType="BIGINT" column="id"/>
+        <result property="num" jdbcType="BIGINT" column="num"/>
+    </resultMap>
+
 	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.ArticleLoveConditionVO" resultMap="rm">
 		SELECT
 			t.*
@@ -20,5 +25,20 @@
 		WHERE
 			1 = 1
 	</select>
+
+
+    <select id="countGroupNumByIdArr" parameterType="Long[]" resultMap="groupCount">
+        SELECT
+        COUNT(id) as num,
+        id
+        FROM
+        biz_article_love t
+        WHERE
+        id IN
+        <foreach collection="array" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        GROUP BY id
+    </select>
 </mapper>
 

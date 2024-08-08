@@ -44,6 +44,10 @@
 		</association>
 	</resultMap>
 
+    <resultMap id="groupCount" type="com.zyd.blog.persistence.beans.BizGroupCount">
+        <result property="id" jdbcType="BIGINT" column="id"/>
+        <result property="num" jdbcType="BIGINT" column="num"/>
+    </resultMap>
 	<select id="findPageBreakByCondition" parameterType="com.zyd.blog.business.vo.CommentConditionVO" resultMap="rm">
 		SELECT
 			t.*,
@@ -115,5 +119,20 @@
 	<update id="doOppose" parameterType="Long">
 		UPDATE `biz_comment` SET oppose = oppose + 1 WHERE `id`=#{id}
 	</update>
+
+
+    <select id="countGroupNumByIdArr" parameterType="Long[]" resultMap="groupCount">
+        SELECT
+        COUNT(id) as num,
+        id
+        FROM
+        biz_comment t
+        WHERE
+        id IN
+        <foreach collection="array" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        GROUP BY id
+    </select>
 </mapper>
 
