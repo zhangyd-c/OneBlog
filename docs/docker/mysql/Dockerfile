@@ -1,4 +1,3 @@
-# FROM mysql:8.0.20
 FROM mysql:5.7
 
 MAINTAINER yadong.zhang0415@gmail.com
