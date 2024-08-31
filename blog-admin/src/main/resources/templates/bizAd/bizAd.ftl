@@ -57,6 +57,7 @@
                 <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/AD_ARTICLE_TOP.png" data-title="文章详情顶部广告示例">文章详情顶部广告</a> |
                 <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/AD_ARTICLE_BOTTOM.png" data-title="文章详情底部广告示例">文章详情底部广告</a> |
                 <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/AD_COMMENT_BOX_TOP.png" data-title="评论框顶部广告示例">评论框顶部广告</a>
+                <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/AD_ARTICLE.png" data-title="文章详情内广告示例">文章详情内广告</a>
             </p>
         </div>
     </div>

@@ -45,3 +45,7 @@ UPDATE `dblog`.`biz_article` SET `editor_type` = 'md' WHERE is_markdown = 1;
 ALTER TABLE `dblog`.`biz_article` ADD COLUMN `required_auth` tinyint(1) UNSIGNED NULL DEFAULT NULL COMMENT '该文章是否登录后才可访问' AFTER `password`;
 ALTER TABLE `dblog`.`biz_type` ADD COLUMN `position` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分类在web端显示的位置，可选：nav、scrollmenu' AFTER `icon`;
 UPDATE `dblog`.`biz_type` SET `position` = 'nav';
+
+# 20240721
+# 文章详情页支持内嵌广告
+ALTER TABLE `biz_ad` ADD COLUMN `brief` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '广告简介' AFTER `title`;
