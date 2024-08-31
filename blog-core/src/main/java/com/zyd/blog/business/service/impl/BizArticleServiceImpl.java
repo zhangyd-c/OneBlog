@@ -329,6 +329,20 @@ public class BizArticleServiceImpl implements BizArticleService {
     }
 
     @Override
+    public List<Article> listOfSitemap(int pageSize) {
+        PageHelper.startPage(1, pageSize);
+        List<BizArticle> entityList = bizArticleMapper.listOfSitemap();
+        if (CollectionUtils.isEmpty(entityList)) {
+            return null;
+        }
+        List<Article> list = new ArrayList<>();
+        for (BizArticle entity : entityList) {
+            list.add(new Article(entity));
+        }
+        return list;
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public Article insert(Article entity) {
         Assert.notNull(entity, "Article不可为空！");

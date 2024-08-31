@@ -67,7 +67,7 @@ public class RestWebSiteController {
         Map<String, Object> map = new HashMap<>();
         map.put("articleTypeList", typeService.listAll());
         map.put("articleTagsList", tagsService.listAll());
-        map.put("articleList", articleService.listAll());
+        map.put("articleList", articleService.listOfSitemap(500));
         map.put("config", configService.getConfigs());
         return FreeMarkerUtil.template2String(template.getRefValue(), map, true);
     }

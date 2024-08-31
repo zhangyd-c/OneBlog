@@ -62,6 +62,13 @@ public interface BizArticleService extends AbstractService<Article, Long> {
     List<Article> listHotArticle(int pageSize);
 
     /**
+     * 获取 sitemap 中用到的文章列表
+     *
+     * @return
+     */
+    List<Article> listOfSitemap(int pageSize);
+
+    /**
      * 根据某篇文章获取与该文章相关的文章
      *
      * @return

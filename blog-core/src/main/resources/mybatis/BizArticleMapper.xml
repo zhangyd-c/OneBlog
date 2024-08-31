@@ -277,5 +277,18 @@
 		</foreach>
 		)
 	</update>
+
+	<!-- 获取 sitemap 中用到的文章列表 -->
+	<select id="listOfSitemap" resultMap="rm">
+		SELECT
+			a.id,
+			a.title,
+			a.create_time,
+			a.update_time
+		FROM
+			biz_article a
+		ORDER BY
+			a.update_time DESC
+	</select>
 </mapper>
 
