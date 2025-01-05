@@ -12,22 +12,22 @@
     <#if config.adminCssCdn?? && (config.adminCssCdn?length > 0)>
         ${config.adminCssCdn!}
     <#else >
-        <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/toastr.js/2.0.3/css/toastr.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/iCheck/1.0.2/skins/square/green.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-daterangepicker/2.1.25/daterangepicker.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/zTree.v3/3.5.29/css/metroStyle/metroStyle.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/switchery/0.8.2/switchery.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput-typeahead.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet">
-        <link href="https://unpkg.com/@wangeditor/editor@latest/dist/css/style.css" rel="stylesheet">
+        <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" async>
+        <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/assets/css/jquery-confirm.min.css" rel="stylesheet">
+        <link href="/assets/css/jquery.fancybox.min.css" rel="stylesheet">
+        <link href="/assets/css/nprogress.min.css" rel="stylesheet">
+        <link href="/assets/css/toastr.min.css" rel="stylesheet">
+        <link href="/assets/css/iCheck-green.css" rel="stylesheet">
+        <link href="/assets/css/bootstrap-table.min.css" rel="stylesheet">
+        <link href="/assets/css/daterangepicker.min.css" rel="stylesheet">
+        <link href="/assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <link href="/assets/css/zTree.v3.metroStyle.min.css" rel="stylesheet">
+        <link href="/assets/css/switchery.min.css" rel="stylesheet">
+        <link href="/assets/css/bootstrap-tagsinput-typeahead.css" rel="stylesheet">
+        <link href="/assets/css/bootstrap-tagsinput.css" rel="stylesheet">
 
+        <link href="https://unpkg.com/@wangeditor/editor@latest/dist/css/style.css" rel="stylesheet">
     </#if>
     <link href="/assets/css/bootstrap-treetable.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/zhyd.core.css" rel="stylesheet">

@@ -352,17 +352,6 @@
             $(function () {
                 var num = $("#l_count_mxx").text();
 
-                // var num = 1209;
-                //点击显示访问量
-                $("#fangwen").click(function () {
-                    layui.use('layer', function () {
-                        var layer = layui.layer;
-                        layer.msg("总访问量是：" + $("#fangwen_inp").val(), {
-                            time: 2000  //20s后自动关闭
-
-                        });
-                    });
-                });
                 //转换数字格式，k或者w
                 if (num >= 10000) {
                     num = Math.round(num / 1000) / 10 + 'W';

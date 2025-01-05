@@ -325,7 +325,7 @@ var zhyd = window.zhyd || {
                     if (this.isDisabled(editor)) {
                         return
                     }
-                    $.toastr.success("广告标识插入成功，<span style='color: red;font-size: 700'>该标识内容不可修改</span>！修改会会导致文章内广告显示异常");
+                    $.toastr.success("广告标识插入成功，<span style='color: red;font-size: 700'>该标识内容不可修改</span>！修改会导致文章内广告显示异常");
                     editor.insertText(value)
                 }
             }
