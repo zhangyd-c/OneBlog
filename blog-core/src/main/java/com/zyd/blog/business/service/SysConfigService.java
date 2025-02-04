@@ -65,4 +65,10 @@ public interface SysConfigService {
      */
     List<String> getRandomUserAvatar();
 
+    /**
+     * 获取系统是否开启 WebSocket 的配置
+     * @return true: 开启，false: 关闭
+     */
+    boolean enabledWebSocket();
+
 }

@@ -187,6 +187,7 @@
         editorAlert: "${config.editorAlert}",
         dynamicTitle: "${config.dynamicTitle}",
         bubbleWord: "${config.bubbleWord}",
+        enabledWebSocket: "${config.enabledWebSocket}"
     };
 
     var oauthConfig = {

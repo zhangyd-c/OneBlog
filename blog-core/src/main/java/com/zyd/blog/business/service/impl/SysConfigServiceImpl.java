@@ -3,6 +3,7 @@ package com.zyd.blog.business.service.impl;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.BooleanUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.zyd.blog.business.annotation.RedisCache;
 import com.zyd.blog.business.consts.DateConst;
@@ -173,5 +174,15 @@ public class SysConfigServiceImpl implements SysConfigService {
             log.error("配置项无效！defaultUserAvatar = [" + config.getConfigValue() + "]");
         }
         return null;
+    }
+
+    @Override
+    public boolean enabledWebSocket() {
+        SysConfig sysConfig = this.getByKey(ConfigKeyEnum.ENABLED_WEBSOCKET.getKey());
+        // 默认开启
+        if (null == sysConfig) {
+            return true;
+        }
+        return BooleanUtil.toBoolean(sysConfig.getConfigValue());
     }
 }

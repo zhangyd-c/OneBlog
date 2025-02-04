@@ -253,6 +253,10 @@ public enum ConfigKeyEnum {
      * 微信公众号AppSecret
      */
     WX_GZH_APP_SECRET("wxGzhAppSecret"),
+    /**
+     * 是否开启 webSocket
+     */
+    ENABLED_WEBSOCKET("enabledWebSocket"),
     ;
 
     private final String key;

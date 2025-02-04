@@ -650,6 +650,16 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenance">启用 WebSocket 通知服务
+                                            <i class="fa fa-question-circle" title="当启用时，用户侧会自动链接到服务端的 Websocket 服务上，管理员可以在控制台通过“实验室-推送消息”向用户侧广播消息"></i> </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
+                                            <ul class="list-unstyled list-inline">
+                                                <li><label for="maintenance" class="pointer"> <input type="radio" class="square" checked name="enabledWebSocket" value="1"> 启用 </label> </li>
+                                                <li><label for="maintenance" class="pointer"> <input type="radio" class="square" name="enabledWebSocket" value="0"> 禁用 </label></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenance">维护通知
                                             <i class="fa fa-question-circle" title="网站在更新前， 可以通过开启该功能，通知用户"></i> </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
@@ -700,13 +710,13 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="wxGzhAppId">公众号APP_ID <i class="fa fa-question-circle" title="配置微信公众号的appId"></i></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="wxGzhAppId">公众号APP_ID <i class="fa fa-question-circle" title="如果需要将文章分享到微信侧并要求显示封面，则必须配置"></i></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type='text' class="form-control" id="wxGzhAppId" name="wxGzhAppId"  placeholder="请输入信公众号的appId"/>
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="wxGzhAppSecret">公众号APP_SECRET <i class="fa fa-question-circle" title="配置微信公众号的appSecret"></i></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="wxGzhAppSecret">公众号APP_SECRET <i class="fa fa-question-circle" title="如果需要将文章分享到微信侧并要求显示封面，则必须配置"></i></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type='text' class="form-control" id="wxGzhAppSecret" name="wxGzhAppSecret"  placeholder="请输入信公众号的appSecret"/>
                                         </div>
