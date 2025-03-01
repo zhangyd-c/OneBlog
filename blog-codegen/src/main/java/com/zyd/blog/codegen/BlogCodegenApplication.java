@@ -30,7 +30,7 @@ public class BlogCodegenApplication {
         // 生成单个表的Java文件
 //        g.generate("log");
         // 生成多个表的Java文件
-        g.generate("biz_ad");
+        g.generate("biz_article_content");
         // 生成所有表的Java文件
 //        g.generate();
         // 生成所有表的Java文件

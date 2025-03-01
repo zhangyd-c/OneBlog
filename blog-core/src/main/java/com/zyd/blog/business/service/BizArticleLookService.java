@@ -15,7 +15,4 @@ import com.zyd.blog.business.entity.ArticleLook;
 public interface BizArticleLookService {
 
     ArticleLook insert(ArticleLook articleLook);
-
-    Object getRecentArticleLook(int pageSize);
-
 }

@@ -1,9 +1,7 @@
 package com.zyd.blog.business.service.impl;
 
-import com.github.pagehelper.PageHelper;
 import com.zyd.blog.business.entity.ArticleLook;
 import com.zyd.blog.business.service.BizArticleLookService;
-import com.zyd.blog.business.vo.CommentConditionVO;
 import com.zyd.blog.persistence.mapper.BizArticleLookMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,13 +33,5 @@ public class BizArticleLookServiceImpl implements BizArticleLookService {
         entity.setCreateTime(new Date());
         bizArticleLookMapper.insertSelective(entity.getBizArticleLook());
         return entity;
-    }
-
-    @Override
-    public Object getRecentArticleLook(int pageSize) {
-        CommentConditionVO vo = new CommentConditionVO();
-        vo.setPageSize(pageSize);
-        PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
-        return bizArticleLookMapper.findPageRecentLook(vo);
     }
 }

@@ -56,6 +56,53 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="showArticleInfo" tabindex="-1" role="dialog"
+     aria-labelledby="showArticleInfoModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="showArticleInfoModalLabel">文章详情(<span id="article-info-title" class="text-primary"></span>)</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">文章统计信息</h3>
+                            </div>
+                            <div class="panel-body">
+                                <ul class="list-unstyled list-inline">
+                                    <li><i class="fa fa-clock-o fa-fw"></i>发布于 <span id="article-info-createtime">2025-01-01</span></li>
+                                    <li><i class="fa fa-clock-o fa-fw"></i>修改于 <span id="article-info-updatetime">2025-01-01</span></li>
+                                    <li><i class="fa fa-eye fa-fw"></i>浏览量 (<span id="article-info-lookcount">1</span>)</li>
+                                    <li><i class="fa fa-comments-o fa-fw"></i>评论量 (<span id="article-info-commentcount">1</span>)</li>
+                                    <li><i class="fa fa-thumbs-up fa-fw"></i>点赞量 (<span id="article-info-likecount">1</span>)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">文章预览（<span class="text-muted">仅显示基本内容，广告等动态信息不会显示</span>）</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="article-info-content"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
 <@footer>
 <script>
     /**
@@ -70,6 +117,7 @@
         // var recommended = row.recommended ? '<i class="fa fa-thumbs-o-down"></i>取消推荐' : '<i class="fa fa-thumbs-o-up"></i>推荐';
         // var top = row.top ? '<i class="fa fa-arrow-circle-down"></i>取消置顶' : '<i class="fa fa-arrow-circle-up"></i>置顶';
         var operateBtn = [
+            '<a class="btn btn-sm btn-info btn-showinfo" title="查看统计信息" data-id="' + trId + '"><i class="fa fa-bar-chart-o"></i></a>',
             '<@shiro.hasPermission name="article:push"><a class="btn btn-sm btn-info btn-push" title="推送" data-id="' + trId + '"><i class="fa fa-send-o"></i></a></@shiro.hasPermission>',
             '<@shiro.hasPermission name="article:edit"><a class="btn btn-sm btn-success" href="/article/update/' + trId + '"><i class="fa fa-edit fa-fw"></i></a></@shiro.hasPermission>',
             '<@shiro.hasPermission name="article:delete"><a class="btn btn-sm btn-danger btn-remove" data-id="' + trId + '"><i class="fa fa-trash-o fa-fw"></i></a></@shiro.hasPermission>',
@@ -139,30 +187,6 @@
                         var checked = code ? 'checked' : '';
                         return '<input type="checkbox" name="top" class="js-switch btn-top" data-id="' + row.id + '" data-type="top" ' + checked + '>';
                     }
-                }, {
-                    field: 'lookCount',
-                    title: '浏览',
-                    width: '50px',
-                    align: 'center',
-                    formatter: function (code) {
-                        return code ? code : '-';
-                    }
-                }, {
-                    field: 'commentCount',
-                    title: '评论',
-                    width: '50px',
-                    align: 'center',
-                    formatter: function (code) {
-                        return code ? code : '-';
-                    }
-                }, {
-                    field: 'loveCount',
-                    title: '喜欢',
-                    width: '50px',
-                    align: 'center',
-                    formatter: function (code) {
-                        return code ? code : '-';
-                    }
                 },  {
                     field: 'private',
                     title: '私密',
@@ -183,7 +207,7 @@
                     field: 'operate',
                     title: '操作',
                     align: "center",
-                    width: '100px',
+                    width: '200px',
                     formatter: operateFormatter //自定义方法，添加操作按钮
                 }
             ]
@@ -219,6 +243,35 @@
             var $this = $(this);
             var userId = $this.attr("data-id");
             push(userId);
+        });
+
+        /**
+         * 查看文章信息
+         */
+        table.bindClickEvent('.btn-showinfo', function () {
+            var $this = $(this);
+            var id = $this.attr("data-id");
+            $.ajax({
+                type: "post",
+                url: "/article/get/" + id,
+                traditional: true,
+                success: function (json) {
+                    var info = json.data;
+                    console.log(info)
+
+                    $("#article-info-title").html(info.title);
+                    $("#article-info-createtime").html(info.createTime || '未知');
+                    $("#article-info-updatetime").html(info.updateTime || '未知');
+                    $("#article-info-lookcount").html(info.lookCount || '0');
+                    $("#article-info-commentcount").html(info.commentCount || '0');
+                    $("#article-info-likecount").html(info.loveCount || '0');
+                    $("#article-info-content").html(info.content || '无内容');
+
+                    var $modal = $("#showArticleInfo");
+                    $modal.modal('show');
+                },
+                error: $.alert.ajaxError
+            });
         });
 
         /**
