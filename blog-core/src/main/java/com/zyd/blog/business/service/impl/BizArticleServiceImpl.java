@@ -32,7 +32,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StopWatch;
 import org.springframework.web.multipart.MultipartFile;
 import tk.mybatis.mapper.entity.Example;
 
@@ -58,7 +57,7 @@ public class BizArticleServiceImpl implements BizArticleService {
     @Autowired
     private BizArticleLoveMapper bizArticleLoveMapper;
     @Autowired
-    private BizArticleLookMapper bizArticleLookMapper;
+    private BizArticleLookV2Mapper bizArticleLookV2Mapper;
     @Autowired
     private BizArticleTagsMapper bizArticleTagsMapper;
     @Autowired
@@ -399,10 +398,10 @@ public class BizArticleServiceImpl implements BizArticleService {
         tagsCriteria.andEqualTo("articleId", primaryKey);
         bizArticleTagsMapper.deleteByExample(tagsExample);
         // 删除查看记录
-        Example lookExample = new Example(BizArticleLook.class);
+        Example lookExample = new Example(BizArticleLookV2.class);
         Example.Criteria lookCriteria = lookExample.createCriteria();
         lookCriteria.andEqualTo("articleId", primaryKey);
-        bizArticleLookMapper.deleteByExample(lookExample);
+        bizArticleLookV2Mapper.deleteByExample(lookExample);
         // 删除赞记录
         Example loveExample = new Example(BizArticleLove.class);
         Example.Criteria loveCriteria = loveExample.createCriteria();
@@ -444,9 +443,11 @@ public class BizArticleServiceImpl implements BizArticleService {
     private void subquery(BizArticle entity) {
         Long primaryKey = entity.getId();
         // 查看的次数
-        BizArticleLook look = new BizArticleLook();
-        look.setArticleId(primaryKey);
-        entity.setLookCount(bizArticleLookMapper.selectCount(look));
+        Example lookExample = new Example(BizArticleLookV2.class);
+        Example.Criteria lookCriteria = lookExample.createCriteria();
+        lookCriteria.andEqualTo("articleId", primaryKey);
+        BizArticleLookV2 content = bizArticleLookV2Mapper.selectOneByExample(lookExample);
+        entity.setLookCount(Optional.ofNullable(content.getLookCount()).orElse(0));
 
         // 评论数
         Example example = new Example(BizComment.class);

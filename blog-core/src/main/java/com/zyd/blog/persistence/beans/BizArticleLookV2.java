@@ -4,8 +4,6 @@ import com.zyd.blog.framework.object.AbstractDO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Date;
-
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @website https://docs.zhyd.me
@@ -15,9 +13,7 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class BizArticleLook extends AbstractDO {
+public class BizArticleLookV2 extends AbstractDO {
     private Long articleId;
-    private Long userId;
-    private String userIp;
-    private Date lookTime;
+    private Integer lookCount = 0;
 }

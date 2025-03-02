@@ -36,17 +36,15 @@
 	<select id="listArticleLookCountByArticleIds" parameterType="list" resultMap="rm">
 		SELECT
 			article_id AS 'name',
-			count( * ) AS 'name_value'
+			look_count AS 'name_value'
 		FROM
-			biz_article_look
+			biz_article_look_v2
 		WHERE
 			article_id IN (
 			<foreach collection="list" item="item" separator=",">
 				#{item}
 			</foreach>
 			)
-		GROUP BY
-			article_id
 	</select>
 	<select id="listArticleLoveCountByArticleIds" parameterType="list" resultMap="rm">
 		SELECT

@@ -231,19 +231,11 @@
 			a.`comment`,
 			a.create_time,
 			a.update_time,
-			l.lookCount AS look_count,
+			l.look_count,
 			c.commentCount AS comment_count
 		FROM
 			biz_article a
-		LEFT JOIN (
-			SELECT
-				l.article_id,
-				IFNULL(count(1), 0) AS lookCount
-			FROM
-				biz_article_look l
-			GROUP BY
-				l.article_id
-		) l ON a.id = l.article_id
+		LEFT JOIN biz_article_look_v2 l ON a.id = l.article_id
 		LEFT JOIN (
 			SELECT
 				c.sid,
@@ -256,7 +248,7 @@
 		) c ON a.id = c.sid
 		WHERE a.status = 1
 		ORDER BY
-			l.lookCount DESC
+			l.look_count DESC
 	</select>
 
 	<select id="isExist" parameterType="Long" resultType="Integer">

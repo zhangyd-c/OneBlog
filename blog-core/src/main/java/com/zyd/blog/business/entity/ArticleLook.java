@@ -1,7 +1,7 @@
 package com.zyd.blog.business.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.zyd.blog.persistence.beans.BizArticleLook;
+import com.zyd.blog.persistence.beans.BizArticleLookV2;
 
 import java.util.Date;
 
@@ -14,75 +14,59 @@ import java.util.Date;
  */
 public class ArticleLook {
     private static final long serialVersionUID = 1L;
-    private BizArticleLook bizArticleLook;
+    private BizArticleLookV2 bizArticleLookV2;
 
     public ArticleLook() {
-        this.bizArticleLook = new BizArticleLook();
+        this.bizArticleLookV2 = new BizArticleLookV2();
     }
 
-    public ArticleLook(BizArticleLook bizArticleLook) {
-        this.bizArticleLook = bizArticleLook;
+    public ArticleLook(BizArticleLookV2 bizArticleLookV2) {
+        this.bizArticleLookV2 = bizArticleLookV2;
     }
 
     @JsonIgnore
-    public BizArticleLook getBizArticleLook() {
-        return this.bizArticleLook;
+    public BizArticleLookV2 getBizArticleLook() {
+        return this.bizArticleLookV2;
     }
 
     public Long getId() {
-        return this.bizArticleLook.getId();
+        return this.bizArticleLookV2.getId();
     }
 
     public void setId(Long id) {
-        this.bizArticleLook.setId(id);
+        this.bizArticleLookV2.setId(id);
     }
 
     public long getArticleId() {
-        return this.bizArticleLook.getArticleId();
+        return this.bizArticleLookV2.getArticleId();
     }
 
     public void setArticleId(Long articleId) {
-        this.bizArticleLook.setArticleId(articleId);
+        this.bizArticleLookV2.setArticleId(articleId);
     }
 
-    public Long getUserId() {
-        return this.bizArticleLook.getUserId();
+    public Integer getLookCount() {
+        return this.bizArticleLookV2.getLookCount();
     }
 
-    public void setUserId(long userId) {
-        this.bizArticleLook.setUserId(userId);
-    }
-
-    public String getUserIp() {
-        return this.bizArticleLook.getUserIp();
-    }
-
-    public void setUserIp(String userIp) {
-        this.bizArticleLook.setUserIp(userIp);
-    }
-
-    public Date getLookTime() {
-        return this.bizArticleLook.getLookTime();
-    }
-
-    public void setLookTime(Date lookTime) {
-        this.bizArticleLook.setLookTime(lookTime);
+    public void setLookCount(Integer ookCount) {
+        this.bizArticleLookV2.setLookCount(ookCount);
     }
 
     public Date getCreateTime() {
-        return this.bizArticleLook.getCreateTime();
+        return this.bizArticleLookV2.getCreateTime();
     }
 
     public void setCreateTime(Date createTime) {
-        this.bizArticleLook.setCreateTime(createTime);
+        this.bizArticleLookV2.setCreateTime(createTime);
     }
 
     public Date getUpdateTime() {
-        return this.bizArticleLook.getUpdateTime();
+        return this.bizArticleLookV2.getUpdateTime();
     }
 
     public void setUpdateTime(Date updateTime) {
-        this.bizArticleLook.setUpdateTime(updateTime);
+        this.bizArticleLookV2.setUpdateTime(updateTime);
     }
 
 }

@@ -40,8 +40,8 @@
 						  WHERE `status` = 'APPROVED'
 					  ) c,
 					  (
-						  SELECT COUNT(1) AS look_count
-						  FROM biz_article_look
+						  SELECT sum(look_count) AS look_count
+						  FROM biz_article_look_v2
 					  ) look,
 					  (
 						  SELECT COUNT(1) AS zan_count

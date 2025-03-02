@@ -56,9 +56,6 @@ public class CustomTags extends BaseTag {
     @Autowired
     private SysSocialConfigService sysSocialConfigService;
 
-    @Autowired
-    private BizArticleLookService bizArticleLookService;
-
     public CustomTags() {
         super(CustomTags.class.getName());
     }

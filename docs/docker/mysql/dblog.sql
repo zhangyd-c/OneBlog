@@ -74,19 +74,19 @@ CREATE TABLE `biz_article_content`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Table structure for biz_article_look
+-- Table structure for biz_article_look_v2
 -- ----------------------------
-DROP TABLE IF EXISTS `biz_article_look`;
-CREATE TABLE `biz_article_look`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `article_id` bigint(20) UNSIGNED NOT NULL COMMENT '文章ID',
-  `user_id` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '已登录用户ID',
-  `user_ip` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户IP',
-  `look_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '浏览时间',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE
+DROP TABLE IF EXISTS `biz_article_look_v2`;
+CREATE TABLE `biz_article_look_v2`  (
+    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `article_id` bigint(20) UNSIGNED NOT NULL COMMENT '文章ID',
+    `look_count` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '次数',
+    `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    UNIQUE INDEX `idx_article_id`(`article_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
 
 -- ----------------------------
 -- Table structure for biz_article_love
