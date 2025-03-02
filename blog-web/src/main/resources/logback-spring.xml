@@ -28,13 +28,12 @@
         </layout>
     </appender>
 
-    <logger name="org.springframework.core.env" level="INFO"/>
-    <logger name="us.codecraft.webmagic.downloader" level="INFO"/>
+    <logger name="org.springframework.core.env" level="WARN"/>
+    <logger name="us.codecraft.webmagic.downloader" level="WARN"/>
     <logger name="com.zyd.blog.framework.runner" level="DEBUG"/>
-    <logger name="org.crazycake.shiro.RedisCache" level="INFO"/>
+    <logger name="org.crazycake.shiro.RedisCache" level="WARN"/>
 
     <root level="WARN">
-        <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE" />
     </root>
 
