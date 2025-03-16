@@ -18,7 +18,7 @@
         <Prudent>true</Prudent>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>
-                ${logdir}/%d{yyyy-MM-dd}/%d{yyyy-MM-dd}.log
+                ${logdir}/blog-admin/%d{yyyy-MM-dd}/%d{yyyy-MM-dd}.log
             </FileNamePattern>
         </rollingPolicy>
         <layout class="ch.qos.logback.classic.PatternLayout">

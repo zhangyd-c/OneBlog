@@ -27,7 +27,7 @@
         <link href="/assets/css/bootstrap-tagsinput-typeahead.css" rel="stylesheet">
         <link href="/assets/css/bootstrap-tagsinput.css" rel="stylesheet">
 
-        <link href="https://unpkg.com/@wangeditor/editor@latest/dist/css/style.css" rel="stylesheet">
+        <link href="/assets/css/wangeditor-style.min.css" rel="stylesheet" async>
     </#if>
     <link href="/assets/css/bootstrap-treetable.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/zhyd.core.css" rel="stylesheet">

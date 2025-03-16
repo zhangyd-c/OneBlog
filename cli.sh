@@ -37,7 +37,21 @@ case "$1" in
     else
       docs/bin/deploy-docker.sh
     fi
-
+	;;
+  'db')
+    read -p '是否重新执行 mvn package？[y/n]' repeat
+    if [ "${repeat}" = "y" -o "${repeat}" = "Y" ];then
+      mvn -X clean package -Dmaven.test.skip=true
+      STATUS=$?
+      if [[ $STATUS == 0 ]]; then
+        docs/bin/build-docker.sh
+      else
+        echoError "打包失败"
+        exit 1
+      fi
+    else
+      docs/bin/build-docker.sh
+    fi
 	;;
   *)
     help

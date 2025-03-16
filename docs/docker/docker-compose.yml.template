@@ -1,6 +1,5 @@
-# 使用构建好的镜像运行
-# 官方稳定版
-version: '3.3'
+# 通过本地编译的形式运行
+# 可以随时修改源代码后 repackage 然后重新构建本地镜像
 services:
 
   # Redis
@@ -11,7 +10,7 @@ services:
     hostname: blog-redis
     command: redis-server --appendonly yes --requirepass ${ONEBLOG_REDIS_PASSWORD} --bind blog-redis
     ports:
-      - ${ONEBLOG_EXPORT_PORT_REDIS}:6379
+      - 63799:6379
     volumes:
       - ${ONEBLOG_APP_DIR}/redis/:/data/
     healthcheck:
@@ -23,7 +22,8 @@ services:
 
   # MySQL
   blog-mysql:
-    image: justauth/blog-mysql
+    image: justauth/blog-mysql:v2.3.9
+    #build: ./mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${ONEBLOG_DATASOURCE_PASSWORD}
       TZ: Asia/Shanghai
@@ -44,7 +44,8 @@ services:
 
   # admin 服务
   blog-admin:
-    image: justauth/blog-admin
+    image: justauth/blog-admin:v2.3.9
+    #build: ../../blog-admin
     restart: always
     container_name: blog-admin
     hostname: blog-admin
@@ -61,13 +62,14 @@ services:
       - blog-redis
       - blog-mysql
     ports:
-      - ${ONEBLOG_EXPORT_PORT_ADMIN}:8085
+      - 8085:8085
     networks:
       - oneblog
 
   # admin 服务
   blog-web:
-    image: justauth/blog-web
+    image: justauth/blog-web:v2.3.9
+    #build: ../../blog-web
     restart: always
     container_name: blog-web
     hostname: blog-web
@@ -84,7 +86,7 @@ services:
       - blog-redis
       - blog-mysql
     ports:
-      - ${ONEBLOG_EXPORT_PORT_WEB}:8443
+      - 8443:8443
     networks:
       - oneblog
 

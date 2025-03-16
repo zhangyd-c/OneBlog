@@ -56,7 +56,7 @@ public class BizArticleLookServiceImpl implements BizArticleLookService {
         criteria.andEqualTo("articleId", articleId);
         BizArticleLookV2 content = bizArticleLookV2Mapper.selectOneByExample(example);
         if (null == content) {
-            throw new ZhydException("文章不存在或者已被删除");
+            throw new ZhydException("文章浏览记录已经不存在或者已被删除");
         }
         this.removeByPrimaryKey(content.getId());
     }

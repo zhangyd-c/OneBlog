@@ -13,6 +13,11 @@
 
  Date: 04/01/2019 15:45:01
 */
+
+
+CREATE database `dblog` default character set utf8mb4 collate utf8mb4_unicode_ci;
+use `dblog`;
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -41,21 +46,6 @@ CREATE TABLE `biz_article`  (
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Table structure for biz_article_content
--- ----------------------------
-DROP TABLE IF EXISTS `biz_article_content`;
-CREATE TABLE `biz_article_content`  (
-    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `article_id` bigint(20) NOT NULL COMMENT '管理的文章 ID',
-    `content` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '富文本版的文章内容',
-    `content_md` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT 'markdown 版的文章内容',
-    `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-    `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`) USING BTREE,
-    UNIQUE INDEX `idx_article_id`(`article_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------

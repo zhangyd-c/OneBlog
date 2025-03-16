@@ -383,6 +383,11 @@ public class BizArticleServiceImpl implements BizArticleService {
         bizArticleContentBo.setContent(entity.getContent());
         bizArticleContentBo.setContentMd(entity.getContentMd());
         articleContentService.insert(bizArticleContentBo);
+
+        BizArticleLookV2 bizArticleLookV2 = new BizArticleLookV2();
+        bizArticleLookV2.setArticleId(entity.getId());
+        bizArticleLookV2.setLookCount(0);
+        bizArticleLookV2Mapper.insert(bizArticleLookV2);
         return entity;
     }
 
@@ -447,7 +452,7 @@ public class BizArticleServiceImpl implements BizArticleService {
         Example.Criteria lookCriteria = lookExample.createCriteria();
         lookCriteria.andEqualTo("articleId", primaryKey);
         BizArticleLookV2 content = bizArticleLookV2Mapper.selectOneByExample(lookExample);
-        entity.setLookCount(Optional.ofNullable(content.getLookCount()).orElse(0));
+        entity.setLookCount(null == content ? 0 : Optional.ofNullable(content.getLookCount()).orElse(0));
 
         // 评论数
         Example example = new Example(BizComment.class);

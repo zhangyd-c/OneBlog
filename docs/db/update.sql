@@ -36,9 +36,9 @@ FROM
     biz_article
 
 -- 迁移完成后删除旧字段（如果要求不停服迁移，则需要在新版服务升级后再执行以下脚本）
-ALTER TABLE `biz_article`
+/*ALTER TABLE `biz_article`
     DROP COLUMN `content`,
-    DROP COLUMN `content_md`;
+    DROP COLUMN `content_md`;*/
 
 -- 添加索引
 ALTER TABLE `biz_article`
@@ -68,14 +68,16 @@ CREATE TABLE `biz_article_look_v2`  (
     UNIQUE INDEX `idx_article_id`(`article_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
+
 -- 迁移汇总后的 article_look 表的 SQL
 INSERT INTO biz_article_look_v2 ( id, article_id, look_count, create_time, update_time ) SELECT
     0,
     article_id,
     count( id ),
-    create_time,
-    update_time
+    now(),
+    now()
 FROM
     biz_article_look
 GROUP BY
     article_id
+

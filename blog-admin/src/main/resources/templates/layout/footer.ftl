@@ -29,7 +29,7 @@
     <script type="text/javascript" src="/assets/js/jquery.ztree.core.min.js"></script>
     <script type="text/javascript" src="/assets/js/jquery.ztree.excheck.min.js"></script>
     <script type="text/javascript" src="/assets/js/switchery.min.js"></script>
-    <script src="https://unpkg.com/@wangeditor/editor@latest/dist/index.js"></script>
+    <script type="text/javascript" src="/assets/js/wangeditor-index.min.js" async></script>
     <script type="text/javascript" src="/assets/js/bootstrap-tagsinput.min.js"></script>
 </#if>
 <#if config.tinyMCEKey?exists>
