@@ -60,7 +60,7 @@ if(articleId){
                     if(contentHtml){
                         $("#content").val(contentHtml);
                         if(editor){
-                            editor.txt.html(contentHtml);
+                            editor.setHtml(contentHtml);
                         }
                     }
                 }

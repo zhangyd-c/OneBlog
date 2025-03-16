@@ -3619,8 +3619,8 @@ img {
 .ad-mark:after {
     content: '广告';
     position: absolute;
-    right: 15px;
-    bottom: 15px;
+    right: 10px;
+    bottom: 10px;
     color: #e8e8e8;
     font-size: 12px;
 }
@@ -3669,4 +3669,61 @@ div.scrollmenu a.active, div.scrollmenu a:hover {
 .ob-alert .content {
     padding: 0;
     padding-left: 28px;
+}
+
+/* 文章详情广告 */
+.article_detail_ad {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #f3f5f7;
+    min-height: 110px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    display: flex;
+    min-width: 150px;
+    position: relative;
+    overflow: hidden;
+    font-size: 12px;
+}
+
+.article_detail_ad:after {
+    content: '广告';
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    color: #cccccc;
+    font-size: 12px;
+}
+
+.article_detail_ad .article_detail_ad_icon {
+    margin: 5px;
+    height: 100%!important;
+    padding: 5px!important;
+}
+
+.article_detail_ad .article_detail_ad_content {
+    margin: 5px;
+    flex: 130px;
+    text-align: left;
+    font-size: 14px;
+    padding: 5px;
+}
+
+.article_detail_ad .article_detail_ad_content .article_detail_ad_title {
+    line-height: 1.4;
+    color: #0e1011;
+    -webkit-font-smoothing: antialiased;
+    word-break: break-word;
+}
+
+.article_detail_ad .article_detail_ad_content .article_detail_ad_desc {
+    color: #777;
+    line-height: 1.6;
+    white-space: initial;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }

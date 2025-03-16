@@ -5,7 +5,6 @@ import com.zyd.blog.persistence.beans.BizArticle;
 import com.zyd.blog.plugin.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
@@ -58,6 +57,13 @@ public interface BizArticleMapper extends BaseMapper<BizArticle> {
      * @return
      */
     List<BizArticle> listHotArticle();
+
+    /**
+     * 获取 sitemap 中用到的文章列表
+     *
+     * @return
+     */
+    List<BizArticle> listOfSitemap();
 
     /**
      * 是否存在文章

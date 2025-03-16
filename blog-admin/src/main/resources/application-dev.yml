@@ -11,7 +11,7 @@ spring:
 logging:
     config: classpath:logback-spring.xml
     file:
-      path: /var/tmp/oneblog/blog-admin
+      path: /var/tmp/oneblog/logs
 
 ####################################自定义配置##########################################
 app:

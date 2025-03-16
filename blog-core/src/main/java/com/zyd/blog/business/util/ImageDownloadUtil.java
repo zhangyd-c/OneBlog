@@ -7,11 +7,11 @@ import com.zyd.blog.file.exception.GlobalFileException;
 import com.zyd.blog.file.util.FileUtil;
 import com.zyd.blog.plugin.file.GlobalFileUploader;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.springframework.util.StringUtils;
 
 import java.io.*;
 import java.util.UUID;
@@ -49,9 +49,8 @@ public class ImageDownloadUtil {
     @Deprecated
     public static String download(String imgUrl, String referer, String localPath) {
 
-        String fileName = localPath + File.separator + UUID.randomUUID().toString() + FileUtil.getSuffixByUrl(imgUrl);
-        try (InputStream is = getInputStreamByUrl(imgUrl, referer);
-             FileOutputStream fos = new FileOutputStream(fileName)) {
+        String fileName = localPath + File.separator + UUID.randomUUID() + FileUtil.getSuffixByUrl(imgUrl);
+        try (InputStream is = getInputStreamByUrl(imgUrl, referer); FileOutputStream fos = new FileOutputStream(fileName)) {
             if (null == is) {
                 return null;
             }
@@ -74,7 +73,7 @@ public class ImageDownloadUtil {
     private static InputStream getInputStreamByUrl(String url, String referer) {
         HttpGet httpGet = new HttpGet(checkUrl(url));
         httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36");
-        if (StringUtils.isNotEmpty(referer)) {
+        if (!StringUtils.isEmpty(referer)) {
             httpGet.setHeader("referer", referer);
         }
         CloseableHttpClient httpclient = HttpClients.createDefault();

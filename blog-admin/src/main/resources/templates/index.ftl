@@ -270,43 +270,6 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-6 col-sm-6 col-xs-12">
-        <div class="x_panel statistics-box">
-            <div class="x_title">
-                <h2>访问来源 <small> </small></h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                </ul>
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <table class="table table-bordered recentVisitor">
-                    <thead>
-                    <tr>
-                        <th><div>文章标题</div></th>
-                        <th class="content"><div class="word-prase">访问IP</div></th>
-                        <th class="source"><div class="word-prase">访问时间</div></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <@zhydTag method="recentVisitor" pageSize="5">
-                        <#if recentVisitor?? && (recentVisitor?size > 0)>
-                            <#list recentVisitor as item>
-                                <tr>
-                                    <th class="title word-prase"><a href="${config.siteUrl!}/article/${item.articleId?c}" target="_blank">${item.articleName}</a></th>
-                                    <td class="content"><div class="word-prase">${item.userIp}</div></td>
-                                    <td>${item.lookTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                                </tr>
-                            </#list>
-                        </#if>
-                    </@zhydTag>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 </div>
 <#-- 网站首页的项目介绍内容 -->
 <@aboutOneBlog></@aboutOneBlog>
@@ -352,17 +315,6 @@
             $(function () {
                 var num = $("#l_count_mxx").text();
 
-                // var num = 1209;
-                //点击显示访问量
-                $("#fangwen").click(function () {
-                    layui.use('layer', function () {
-                        var layer = layui.layer;
-                        layer.msg("总访问量是：" + $("#fangwen_inp").val(), {
-                            time: 2000  //20s后自动关闭
-
-                        });
-                    });
-                });
                 //转换数字格式，k或者w
                 if (num >= 10000) {
                     num = Math.round(num / 1000) / 10 + 'W';

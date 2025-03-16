@@ -12,13 +12,19 @@ if [ "$version" ]; then
   echo ">> 当前版本已更正为：$current_version"
 fi
 
-cd $pwd/blog-admin/ || exit
-docker build -t justauth/blog-admin:v${current_version} .
-docker push justauth/blog-admin:v${current_version}
+read -p '是否需要重新构建 blog-admin？[y/n]' repeat
+if [ "${repeat}" = "y" -o "${repeat}" = "Y" ];then
+	cd $pwd/blog-admin/ || exit
+	docker build -t justauth/blog-admin:v${current_version} .
+	docker push justauth/blog-admin:v${current_version}
+fi
 
-cd $pwd/blog-web/ || exit
-docker build -t justauth/blog-web:v${current_version} .
-docker push justauth/blog-web:v${current_version}
+read -p '是否需要重新构建 blog-web？[y/n]' repeat
+if [ "${repeat}" = "y" -o "${repeat}" = "Y" ];then
+	cd $pwd/blog-web/ || exit
+	docker build -t justauth/blog-web:v${current_version} .
+	docker push justauth/blog-web:v${current_version}
+fi
 
 read -p '是否需要重新构建 blog-mysql？[y/n]' repeat
 if [ "${repeat}" = "y" -o "${repeat}" = "Y" ];then

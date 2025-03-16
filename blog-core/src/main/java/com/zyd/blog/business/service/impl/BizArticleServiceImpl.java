@@ -4,11 +4,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyd.blog.business.annotation.RedisCache;
 import com.zyd.blog.business.entity.Article;
+import com.zyd.blog.business.entity.BizArticleContentBo;
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.ArticleStatusEnum;
 import com.zyd.blog.business.enums.CommentStatusEnum;
 import com.zyd.blog.business.enums.FileUploadType;
 import com.zyd.blog.business.enums.ResponseStatus;
+import com.zyd.blog.business.service.BizArticleContentService;
 import com.zyd.blog.business.service.BizArticleService;
 import com.zyd.blog.business.service.BizArticleTagsService;
 import com.zyd.blog.business.vo.ArticleConditionVO;
@@ -55,7 +57,7 @@ public class BizArticleServiceImpl implements BizArticleService {
     @Autowired
     private BizArticleLoveMapper bizArticleLoveMapper;
     @Autowired
-    private BizArticleLookMapper bizArticleLookMapper;
+    private BizArticleLookV2Mapper bizArticleLookV2Mapper;
     @Autowired
     private BizArticleTagsMapper bizArticleTagsMapper;
     @Autowired
@@ -64,6 +66,10 @@ public class BizArticleServiceImpl implements BizArticleService {
     private BizArticleTagsService articleTagsService;
     @Autowired
     private BizCommentMapper commentMapper;
+    @Autowired
+    private BizArticleContentService articleContentService;
+    @Autowired
+    private BizStatisticsMapper bizStatisticsMapper;
 
     /**
      * 分页查询
@@ -79,21 +85,29 @@ public class BizArticleServiceImpl implements BizArticleService {
             return null;
         }
         List<Long> ids = list.stream().map(BizArticle::getId).collect(Collectors.toList());
-
         List<BizArticle> listTag = bizArticleMapper.listTagsByArticleId(ids);
 
         Map<Long, BizArticle> tagMap = listTag.stream().collect(Collectors.toMap(BizArticle::getId, a -> a, (k1, k2) -> k1));
-
+        List<BizStatistics> articleLookCountByArticleIds = Optional.ofNullable(bizStatisticsMapper.listArticleLookCountByArticleIds(ids)).orElse(new ArrayList<>());
+        List<BizStatistics> articleCommentCountByArticleIds = Optional.ofNullable(bizStatisticsMapper.listArticleCommentCountByArticleIds(ids)).orElse(new ArrayList<>());
+        List<BizStatistics> articleLoveCountByArticleIds = Optional.ofNullable(bizStatisticsMapper.listArticleLoveCountByArticleIds(ids)).orElse(new ArrayList<>());
+        Map<String, Integer> lookMap = articleLookCountByArticleIds.stream().collect(Collectors.toMap(BizStatistics::getName, BizStatistics::getValue));
+        Map<String, Integer> commentMap = articleCommentCountByArticleIds.stream().collect(Collectors.toMap(BizStatistics::getName, BizStatistics::getValue));
+        Map<String, Integer> loveMap = articleLoveCountByArticleIds.stream().collect(Collectors.toMap(BizStatistics::getName, BizStatistics::getValue));
         List<Article> boList = new LinkedList<>();
         Article article = null;
         for (BizArticle bizArticle : list) {
-            BizArticle tagArticle = tagMap.get(bizArticle.getId());
+            Long articleId = bizArticle.getId();
+            BizArticle tagArticle = tagMap.get(articleId);
             if (null == tagArticle) {
                 log.warn("文章[{}] 未绑定标签信息，或者已绑定的标签不存在！", bizArticle.getTitle());
             } else {
                 bizArticle.setTags(tagArticle.getTags());
             }
-            this.subquery(bizArticle);
+
+            bizArticle.setLookCount(lookMap.get(String.valueOf(articleId)));
+            bizArticle.setCommentCount(commentMap.get(String.valueOf(articleId)));
+            bizArticle.setLoveCount(loveMap.get(String.valueOf(articleId)));
             article = new Article(bizArticle);
             article.setPassword(null);
             boList.add(article);
@@ -101,6 +115,22 @@ public class BizArticleServiceImpl implements BizArticleService {
         PageInfo bean = new PageInfo<BizArticle>(list);
         bean.setList(boList);
         return bean;
+    }
+
+    private List<Article> convert(ArticleConditionVO vo){
+        PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
+        List<BizArticle> list = bizArticleMapper.findPageBreakByCondition(vo);
+        if (CollectionUtils.isEmpty(list)) {
+            return null;
+        }
+        List<Article> boList = new LinkedList<>();
+        Article article = null;
+        for (BizArticle bizArticle : list) {
+            article = new Article(bizArticle);
+            article.setPassword(null);
+            boList.add(article);
+        }
+        return boList;
     }
 
     /**
@@ -115,8 +145,7 @@ public class BizArticleServiceImpl implements BizArticleService {
         vo.setRecommended(true);
         vo.setStatus(ArticleStatusEnum.PUBLISHED.getCode());
         vo.setPageSize(pageSize);
-        PageInfo pageInfo = this.findPageBreakByCondition(vo);
-        return null == pageInfo ? null : pageInfo.getList();
+        return this.convert(vo);
     }
 
     /**
@@ -130,8 +159,7 @@ public class BizArticleServiceImpl implements BizArticleService {
         ArticleConditionVO vo = new ArticleConditionVO();
         vo.setPageSize(pageSize);
         vo.setStatus(ArticleStatusEnum.PUBLISHED.getCode());
-        PageInfo pageInfo = this.findPageBreakByCondition(vo);
-        return null == pageInfo ? null : pageInfo.getList();
+        return this.convert(vo);
     }
 
     /**
@@ -146,8 +174,7 @@ public class BizArticleServiceImpl implements BizArticleService {
         vo.setRandom(true);
         vo.setStatus(ArticleStatusEnum.PUBLISHED.getCode());
         vo.setPageSize(pageSize);
-        PageInfo pageInfo = this.findPageBreakByCondition(vo);
-        return null == pageInfo ? null : pageInfo.getList();
+        return this.convert(vo);
     }
 
     /**
@@ -175,8 +202,7 @@ public class BizArticleServiceImpl implements BizArticleService {
         }
         vo.setTypeId(article.getTypeId());
         vo.setPageSize(pageSize);
-        PageInfo pageInfo = this.findPageBreakByCondition(vo);
-        return null == pageInfo ? null : pageInfo.getList();
+        return this.convert(vo);
     }
 
     /**
@@ -329,6 +355,20 @@ public class BizArticleServiceImpl implements BizArticleService {
     }
 
     @Override
+    public List<Article> listOfSitemap(int pageSize) {
+        PageHelper.startPage(1, pageSize);
+        List<BizArticle> entityList = bizArticleMapper.listOfSitemap();
+        if (CollectionUtils.isEmpty(entityList)) {
+            return null;
+        }
+        List<Article> list = new ArrayList<>();
+        for (BizArticle entity : entityList) {
+            list.add(new Article(entity));
+        }
+        return list;
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public Article insert(Article entity) {
         Assert.notNull(entity, "Article不可为空！");
@@ -337,6 +377,17 @@ public class BizArticleServiceImpl implements BizArticleService {
         entity.setOriginal(entity.isOriginal());
         entity.setComment(entity.isComment());
         bizArticleMapper.insertSelective(entity.getBizArticle());
+
+        BizArticleContentBo bizArticleContentBo = new BizArticleContentBo();
+        bizArticleContentBo.setArticleId(entity.getId());
+        bizArticleContentBo.setContent(entity.getContent());
+        bizArticleContentBo.setContentMd(entity.getContentMd());
+        articleContentService.insert(bizArticleContentBo);
+
+        BizArticleLookV2 bizArticleLookV2 = new BizArticleLookV2();
+        bizArticleLookV2.setArticleId(entity.getId());
+        bizArticleLookV2.setLookCount(0);
+        bizArticleLookV2Mapper.insert(bizArticleLookV2);
         return entity;
     }
 
@@ -344,16 +395,18 @@ public class BizArticleServiceImpl implements BizArticleService {
     @Transactional(rollbackFor = Exception.class)
     public boolean removeByPrimaryKey(Long primaryKey) {
         boolean result = bizArticleMapper.deleteByPrimaryKey(primaryKey) > 0;
+        // 删除文章内容
+        articleContentService.removeByArticleId(primaryKey);
         // 删除标签记录
         Example tagsExample = new Example(BizArticleTags.class);
         Example.Criteria tagsCriteria = tagsExample.createCriteria();
         tagsCriteria.andEqualTo("articleId", primaryKey);
         bizArticleTagsMapper.deleteByExample(tagsExample);
         // 删除查看记录
-        Example lookExample = new Example(BizArticleLook.class);
+        Example lookExample = new Example(BizArticleLookV2.class);
         Example.Criteria lookCriteria = lookExample.createCriteria();
         lookCriteria.andEqualTo("articleId", primaryKey);
-        bizArticleLookMapper.deleteByExample(lookExample);
+        bizArticleLookV2Mapper.deleteByExample(lookExample);
         // 删除赞记录
         Example loveExample = new Example(BizArticleLove.class);
         Example.Criteria loveCriteria = loveExample.createCriteria();
@@ -369,7 +422,16 @@ public class BizArticleServiceImpl implements BizArticleService {
         entity.setUpdateTime(new Date());
         entity.setOriginal(entity.isOriginal());
         entity.setComment(entity.isComment());
-        return bizArticleMapper.updateByPrimaryKeySelective(entity.getBizArticle()) > 0;
+        boolean success = bizArticleMapper.updateByPrimaryKeySelective(entity.getBizArticle()) > 0;
+        if (!success) {
+            return false;
+        }
+        BizArticleContentBo bizArticleContentBo = new BizArticleContentBo();
+        bizArticleContentBo.setArticleId(entity.getId());
+        bizArticleContentBo.setContent(entity.getContent());
+        bizArticleContentBo.setContentMd(entity.getContentMd());
+        articleContentService.updateSelective(bizArticleContentBo);
+        return true;
     }
 
     @Override
@@ -386,9 +448,11 @@ public class BizArticleServiceImpl implements BizArticleService {
     private void subquery(BizArticle entity) {
         Long primaryKey = entity.getId();
         // 查看的次数
-        BizArticleLook look = new BizArticleLook();
-        look.setArticleId(primaryKey);
-        entity.setLookCount(bizArticleLookMapper.selectCount(look));
+        Example lookExample = new Example(BizArticleLookV2.class);
+        Example.Criteria lookCriteria = lookExample.createCriteria();
+        lookCriteria.andEqualTo("articleId", primaryKey);
+        BizArticleLookV2 content = bizArticleLookV2Mapper.selectOneByExample(lookExample);
+        entity.setLookCount(null == content ? 0 : Optional.ofNullable(content.getLookCount()).orElse(0));
 
         // 评论数
         Example example = new Example(BizComment.class);

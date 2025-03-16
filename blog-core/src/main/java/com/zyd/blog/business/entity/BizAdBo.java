@@ -101,6 +101,14 @@ public class BizAdBo {
         this.bizAd.setType(type);
     }
 
+    public String getBrief() {
+        return this.bizAd.getBrief();
+    }
+
+    public void setBrief(String brief) {
+        this.bizAd.setBrief(brief);
+    }
+
     public void setType(AdTypeEnum type) {
         this.bizAd.setType(type.name());
     }

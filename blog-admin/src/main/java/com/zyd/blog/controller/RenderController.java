@@ -15,12 +15,9 @@ import com.zyd.blog.business.entity.Article;
 import com.zyd.blog.business.enums.AdPositionEnum;
 import com.zyd.blog.business.enums.AdTypeEnum;
 import com.zyd.blog.business.service.BizArticleService;
-import com.zyd.blog.core.BlogHunterConfigProvider;
 import com.zyd.blog.core.websocket.server.ZydWebsocketServer;
 import com.zyd.blog.framework.exception.ZhydException;
 import com.zyd.blog.util.ResultUtil;
-import me.zhyd.hunter.config.platform.Platform;
-import me.zhyd.hunter.enums.ExitWayEnum;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -50,8 +47,6 @@ public class RenderController {
     private BizArticleService articleService;
     @Autowired
     private ZydWebsocketServer websocketServer;
-    @Autowired
-    private BlogHunterConfigProvider blogHunterConfigProvider;
 
     @RequiresAuthentication
     @BussinessLog("进入首页")
@@ -194,16 +189,6 @@ public class RenderController {
     public ModelAndView notice(Model model) {
         model.addAttribute("online", websocketServer.getOnlineUserCount());
         return ResultUtil.view("laboratory/notification");
-    }
-
-    @RequiresUser
-    @BussinessLog("进入搬运工页面")
-    @GetMapping("/remover")
-    public ModelAndView remover(Model model) {
-        model.addAttribute("exitWayList", ExitWayEnum.values());
-        model.addAttribute("spiderConfig", blogHunterConfigProvider.getBlogHunterConfig());
-        model.addAttribute("platforms", Platform.values());
-        return ResultUtil.view("laboratory/remover");
     }
 
     @RequiresPermissions("files")

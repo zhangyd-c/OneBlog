@@ -19,10 +19,7 @@ import com.zyd.blog.framework.exception.ZhydLinkException;
 import com.zyd.blog.framework.object.ResponseVO;
 import com.zyd.blog.framework.property.AppProperties;
 import com.zyd.blog.persistence.beans.SysConfig;
-import com.zyd.blog.util.GetAccessTokenComponent;
-import com.zyd.blog.util.JsApiTicketComponent;
-import com.zyd.blog.util.RestClientUtil;
-import com.zyd.blog.util.ResultUtil;
+import com.zyd.blog.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -187,7 +184,8 @@ public class RestApiController {
             return ResultUtil.error(String.format("文章【%s】未加密！", articleId));
         }
         if (article.getPassword().equals(password)) {
-            return ResultUtil.success("文章密码验证通过", article.getContent());
+            String content = ArticleUtil.insertAdsIntoArticle(article.getContent());
+            return ResultUtil.success("文章密码验证通过", content);
         }
         return ResultUtil.error("文章密码错误");
     }

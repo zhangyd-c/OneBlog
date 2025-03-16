@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zyd.blog.persistence.mapper.BizArticleContentMapper">
+	<resultMap id="rm" type="com.zyd.blog.persistence.beans.BizArticleContent">
+		<result property="id" jdbcType="BIGINT" column="id"/>
+		<result property="articleId" jdbcType="BIGINT" column="article_id"/>
+		<result property="content" jdbcType="VARCHAR" column="content"/>
+		<result property="contentMd" jdbcType="VARCHAR" column="content_md"/>
+		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+	</resultMap>
+</mapper>
+

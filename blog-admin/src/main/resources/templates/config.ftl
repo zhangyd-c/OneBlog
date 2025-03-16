@@ -38,9 +38,6 @@
                             <li role="presentation" class="">
                                 <a href="#tab_cdn" role="tab" id="cdn-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-plug fa-fw"></i> CDN 资源</a>
                             </li>
-                            <li role="presentation" class="">
-                                <a href="#tab_hunter" role="tab" id="hunter-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-bug fa-fw"></i> Hunter 配置</a>
-                            </li>
                             <li role="presentation">
                                 <a href="#tab_auth" id="auth-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-sign-in fa-fw"></i> 登录</a>
                             </li>
@@ -422,7 +419,7 @@
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <small>查看模板：<button type="button" class="btn btn-link" data-toggle="modal" data-target="#customTemplateModal">点击查看模板</button></small>
+                                            <i class="fa fa-exclamation-circle"></i> 查看模板：<a data-toggle="modal" data-target="#customTemplateModal">点击查看模板</a>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -434,7 +431,7 @@
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <small>查看模板：<button type="button" class="btn btn-link" data-toggle="modal" data-target="#customTemplateModal">点击查看模板</button></small>
+                                            <i class="fa fa-exclamation-circle"></i> 查看模板：<a data-toggle="modal" data-target="#customTemplateModal">点击查看模板</a>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -446,7 +443,7 @@
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <small>查看模板：<button type="button" class="btn btn-link" data-toggle="modal" data-target="#customTemplateModal">点击查看模板</button></small>
+                                            <i class="fa fa-exclamation-circle"></i> 查看模板：<a data-toggle="modal" data-target="#customTemplateModal">点击查看模板</a>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -464,7 +461,7 @@
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <small>注意：这将会完全替换掉 web 端的 Footer 内容</small>
+                                            <i class="fa fa-exclamation-circle"></i> 注意：这将会完全替换掉 web 端的 Footer 内容
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -474,9 +471,23 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 tips">
+                                            <i class="fa fa-exclamation-circle"></i> 参考示例：
+                                            <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/bubbleWord.gif" data-title="气泡文字示例">点击查看</a>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="searchOptions">自定义“热门搜索”的待选项 <i class="fa fa-question-circle" title="自定义 web 端 “热门搜索” 中的待选项，半角逗号分隔"></i></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <textarea class="form-control col-md-7 col-xs-12" id="searchOptions" name="searchOptions" placeholder="自定义 web 端 “热门搜索” 中的待选项，半角逗号分隔" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 tips">
+                                            <i class="fa fa-exclamation-circle"></i> 参考示例：
+                                            <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/nav_search_word.png" data-title="热门搜索示例">点击查看</a>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -495,6 +506,13 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="annotation">自定义站点注解 <i class="fa fa-question-circle" title="自定义站点注解，必须使用 <!--  --> 括起来"></i></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <textarea class="form-control col-md-7 col-xs-12" id="annotation" name="annotation" placeholder="自定义站点注解，必须使用 <!--  --> 括起来，比如：<!-- 神龙保佑，永无BUG -->" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 tips">
+                                            <i class="fa fa-exclamation-circle"></i> 参考示例：
+                                            <a data-toggle="modal" data-target="#helpModal" data-img="/assets/images/other/site_annotation.png" data-title="站点注解示例">点击查看</a>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -556,22 +574,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <button type="button" class="btn btn-primary saveBtn"><i class="fa fa-save"> 保存</i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_hunter" aria-labelledby="hunter-tab">
-                                <form class="form-horizontal form-label-left" novalidate>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="blogHunterConfig">Hunter 配置文件 <i class="fa fa-question-circle" title="blog-hunter 配置文件，如果没有添加该配置，则默认取 src/main/resources/HunterConfig.json"></i></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <textarea class="form-control col-md-7 col-xs-12" id="blogHunterConfig" name="blogHunterConfig" placeholder="blog-hunter 配置文件，如果没有添加该配置，则默认取 src/main/resources/HunterConfig.json" rows="20"></textarea>
-                                        </div>
-                                    </div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment"></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -648,6 +650,16 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenance">启用 WebSocket 通知服务
+                                            <i class="fa fa-question-circle" title="当启用时，用户侧会自动链接到服务端的 Websocket 服务上，管理员可以在控制台通过“实验室-推送消息”向用户侧广播消息"></i> </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
+                                            <ul class="list-unstyled list-inline">
+                                                <li><label for="maintenance" class="pointer"> <input type="radio" class="square" checked name="enabledWebSocket" value="1"> 启用 </label> </li>
+                                                <li><label for="maintenance" class="pointer"> <input type="radio" class="square" name="enabledWebSocket" value="0"> 禁用 </label></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="maintenance">维护通知
                                             <i class="fa fa-question-circle" title="网站在更新前， 可以通过开启该功能，通知用户"></i> </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12 fixed-radio-checkbox">
@@ -698,13 +710,13 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="wxGzhAppId">公众号APP_ID <i class="fa fa-question-circle" title="配置微信公众号的appId"></i></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="wxGzhAppId">公众号APP_ID <i class="fa fa-question-circle" title="如果需要将文章分享到微信侧并要求显示封面，则必须配置"></i></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type='text' class="form-control" id="wxGzhAppId" name="wxGzhAppId"  placeholder="请输入信公众号的appId"/>
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="wxGzhAppSecret">公众号APP_SECRET <i class="fa fa-question-circle" title="配置微信公众号的appSecret"></i></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="wxGzhAppSecret">公众号APP_SECRET <i class="fa fa-question-circle" title="如果需要将文章分享到微信侧并要求显示封面，则必须配置"></i></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type='text' class="form-control" id="wxGzhAppSecret" name="wxGzhAppSecret"  placeholder="请输入信公众号的appSecret"/>
                                         </div>

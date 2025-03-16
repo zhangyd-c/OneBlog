@@ -14,7 +14,8 @@
  Date: 04/01/2019 15:45:01
 */
 
-CREATE database if NOT EXISTS `dblog` default character set utf8mb4 collate utf8mb4_unicode_ci;
+
+CREATE database `dblog` default character set utf8mb4 collate utf8mb4_unicode_ci;
 use `dblog`;
 
 SET NAMES utf8mb4;
@@ -32,8 +33,6 @@ CREATE TABLE `biz_article`  (
   `editor_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '当前文章适用的编辑器类型',
   `qrcode_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '文章专属二维码地址',
   `is_markdown` tinyint(1) UNSIGNED NULL DEFAULT 1,
-  `content` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '文章内容',
-  `content_md` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT 'markdown版的文章内容',
   `top` tinyint(1) NULL DEFAULT 0 COMMENT '是否置顶',
   `type_id` bigint(20) UNSIGNED NOT NULL COMMENT '类型',
   `status` tinyint(1) UNSIGNED NULL DEFAULT NULL COMMENT '状态',
@@ -50,19 +49,34 @@ CREATE TABLE `biz_article`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Table structure for biz_article_look
+-- Table structure for biz_article_content
 -- ----------------------------
-DROP TABLE IF EXISTS `biz_article_look`;
-CREATE TABLE `biz_article_look`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `article_id` bigint(20) UNSIGNED NOT NULL COMMENT '文章ID',
-  `user_id` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '已登录用户ID',
-  `user_ip` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户IP',
-  `look_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '浏览时间',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE
+DROP TABLE IF EXISTS `biz_article_content`;
+CREATE TABLE `biz_article_content`  (
+    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `article_id` bigint(20) NOT NULL COMMENT '管理的文章 ID',
+    `content` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '富文本版的文章内容',
+    `content_md` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT 'markdown 版的文章内容',
+    `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    UNIQUE INDEX `idx_article_id`(`article_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for biz_article_look_v2
+-- ----------------------------
+DROP TABLE IF EXISTS `biz_article_look_v2`;
+CREATE TABLE `biz_article_look_v2`  (
+    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `article_id` bigint(20) UNSIGNED NOT NULL COMMENT '文章ID',
+    `look_count` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '次数',
+    `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    UNIQUE INDEX `idx_article_id`(`article_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
 
 -- ----------------------------
 -- Table structure for biz_article_love
@@ -424,6 +438,7 @@ CREATE TABLE `biz_ad`  (
     `type` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '广告类型',
     `position` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告位置',
     `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告标题',
+    `brief` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告简介',
     `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '广告内容',
     `picture` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告图片',
     `link` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '广告链接',

@@ -92,7 +92,7 @@
             _initialized: false,
             init: function (options) {
                 if (!this.isSupported()) {
-                    // console.error('Not support websocket');
+                    console.log('Not supported websocket');
                     return;
                 }
                 var op = $.extend({
@@ -159,7 +159,7 @@
                 }
             },
             isSupported: function () {
-                return 'WebSocket' in window;
+                return '1' === appConfig.enabledWebSocket && 'WebSocket' in window;
             },
             send: function (message) {
                 if (!this._this) {

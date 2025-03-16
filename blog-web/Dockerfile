@@ -1,5 +1,5 @@
 # 环境版本
-FROM anapsix/alpine-java:8_server-jre_unlimited
+FROM anolis-registry.cn-zhangjiakou.cr.aliyuncs.com/openanolis/openjdk:8-8.6
 
 MAINTAINER yadong.zhang0415@gmail.com
 

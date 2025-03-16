@@ -9,30 +9,29 @@
 <#if config.adminJsCdn?? && (config.adminJsCdn?length > 0)>
     ${config.adminJsCdn!}
 <#else >
-    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.11.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdn.staticfile.org/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-    <script type="text/javascript" src="https://cdn.staticfile.org/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-    <script type="text/javascript" src="https://cdn.staticfile.org/fancybox/2.1.5/jquery.fancybox.min.js"></script>
-    <script type="text/javascript" src="https://cdn.staticfile.org/mustache.js/2.3.0/mustache.min.js"></script>
-    <script type="text/javascript" src="https://cdn.staticfile.org/js-xss/0.3.3/xss.min.js"></script>
-    <script type="text/javascript" src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js"></script>
-    <script type="text/javascript" src="https://cdn.staticfile.org/toastr.js/2.0.3/js/toastr.min.js"></script>
-    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
-    <script type="text/javascript" src="https://cdn.staticfile.org/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
-    <script type="text/javascript" src="https://cdn.staticfile.org/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.lazyload.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery-confirm.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="/assets/js/mustache.min.js"></script>
+    <script type="text/javascript" src="/assets/js/xss.min.js"></script>
+    <script type="text/javascript" src="/assets/js/nprogress.min.js"></script>
+    <script type="text/javascript" src="/assets/js/toastr.min.js"></script>
+    <script type="text/javascript" src="/assets/js/icheck.min.js"></script>
+    <script type="text/javascript" src="/assets/js/bootstrap-table.min.js"></script>
+    <script type="text/javascript" src="/assets/js/bootstrap-table-zh-CN.min.js"></script>
 
-    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/bootstrap-daterangepicker/2.1.25/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/bootstrap-daterangepicker/2.1.25/daterangepicker.min.js"></script>
-    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/bootstrap-progressbar/0.9.0/bootstrap-progressbar.min.js"></script>
-    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/zTree.v3/3.5.37/js/jquery.ztree.core.min.js"></script>
-    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/zTree.v3/3.5.37/js/jquery.ztree.excheck.min.js"></script>
-    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/wangeditor@4.7.9/dist/wangEditor.min.js"></script>
-    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+    <script type="text/javascript" src="/assets/js/moment.min.js"></script>
+    <script type="text/javascript" src="/assets/js/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="/assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="/assets/js/bootstrap-progressbar.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.ztree.core.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.ztree.excheck.min.js"></script>
+    <script type="text/javascript" src="/assets/js/switchery.min.js"></script>
+    <script type="text/javascript" src="/assets/js/wangeditor-index.min.js" async></script>
+    <script type="text/javascript" src="/assets/js/bootstrap-tagsinput.min.js"></script>
 </#if>
-<script src="https://www.layuicdn.com/layui/layui.js"></script>
 <#if config.tinyMCEKey?exists>
 <script src="https://cdn.tiny.cloud/1/${config.tinyMCEKey!}/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <#else>

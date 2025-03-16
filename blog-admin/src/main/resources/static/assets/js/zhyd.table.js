@@ -48,7 +48,7 @@ Table.prototype = {
             // showColumns: true,                  //是否显示 内容列下拉框
             showRefresh: true,                  //是否显示刷新按钮
             // showToggle: true,                   //是否显示详细视图和列表视图的切换按钮
-            iconsPrefix: 'fa', // glyphicon of fa (font awesome)
+            iconsPrefix: 'fa', // fa (font awesome)
             icons: {
                 refresh: 'fa-refresh icon-refresh',
                 toggle: 'fa-list-alt icon-list-alt',

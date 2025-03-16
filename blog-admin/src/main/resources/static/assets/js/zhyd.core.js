@@ -158,89 +158,197 @@ var zhyd = window.zhyd || {
             uploadUrl: "",
             uploadFileName: "file",
             uploadType: "",
-            customCss: {}
+            customCss: {
+                border: "1px solid #ccc;",
+                height: "300px"
+            },
+            defaultHtml: "<p><br></p>"
 
         },
         init: function (options) {
             var config = $.extend(zhyd.wangEditor.defaultConfig, options);
-            var E = window.wangEditor;
-            editor = new E(config.container);
-            // 配置编辑器 start
-            // 关闭粘贴样式的过滤
-            editor.config.pasteFilterStyle = false;
-            editor.config.zIndex = 100;
-            editor.config.withCredentials = true;
+            $(config.container).before($('<div id="toolbar-container"></div>'));
             if (config.textareaName) {
                 $('<textarea class="wangeditor-textarea" id="' + config.textareaName + '" name="' + config.textareaName + '" style="display: none" required="required"></textarea>').insertAfter($(config.container));
             }
             var $contentBox = $('textarea[name=' + config.textareaName + ']');
-            editor.config.onchange = function (html) {
-                // 监控变化，同步更新到 textarea
-                $contentBox.val(html);
-            };
-            // 注册上传文件插件
-            zhyd.wangEditor.plugins.registerUpload(editor, config.uploadUrl, config.uploadFileName, config.uploadType, function (result, curEditor) {
-                // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
-                // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
-                if (result.status == 200) {
-                    var imgFullPath = result.data;
-                    curEditor.txt.append('<img src="' + imgFullPath + '" alt="" style="max-width: 100%;height: auto;border-radius: 6px;"/>');
-                    // 解决上传完图片如果未进行其他操作，则不会触发编辑器的“change”事件，导致实际文章内容中缺少最后上传的图片文件 2018-07-13
-                    $contentBox.val(editor.txt.html());
-                } else {
-                    $.alert.error(result.message);
-                }
-            });
-            // 配置编辑器 end
-            editor.create();
-            // 注册全屏插件
-            // 注册图片资源库
-            zhyd.wangEditor.plugins.registerMaterial(editor, $contentBox);
 
             if (config.customCss) {
                 // 自定义编辑器的样式
                 for (var key in config.customCss) {
                     var value = config.customCss[key];
-                    editor.$textContainerElem.css(key, value);
+                    $(config.container).css(key, value);
                 }
             }
+
+            const { createEditor, createToolbar, Boot,IButtonMenu } = window.wangEditor
+
+            const editorConfig = {
+                placeholder: 'Type here...',
+                onChange(editor) {
+                    const html = editor.getHtml()
+                    // 监控变化，同步更新到 textarea
+                    $contentBox.val(html);
+                    console.log('changed editor content', html)
+                },
+                customAlert(msg, type){
+                    switch (type) {
+                        case 'success':
+                            $.alert.info(msg);
+                            break
+                        case 'info':
+                            $.alert.info(msg);
+                            break
+                        case 'warning':
+                            $.alert.error(msg);
+                            break
+                        case 'error':
+                            $.alert.error(msg);
+                            break
+                        default:
+                            $.alert.info(msg);
+                            break
+                    }
+                },
+                MENU_CONF: {
+                    uploadImage: {
+                        server: config.uploadUrl,
+                        // form-data fieldName ，默认值 'wangeditor-uploaded-image'
+                        fieldName: config.uploadFileName,
+
+                        // 单个文件的最大体积限制，默认为 5M
+                        maxFileSize: 5 * 1024 * 1024, // 5M
+
+                        // 最多可上传几个文件，默认为 100
+                        maxNumberOfFiles: 1,
+
+                        // 选择文件时的类型限制，默认为 ['image/*'] 。如不想限制，则设置为 []
+                        allowedFileTypes: ['image/*'],
+
+                        // 自定义上传参数，例如传递验证的 token 等。参数会被添加到 formData 中，一起上传到服务端。
+                        meta: {
+                            uploadType: config.uploadType,
+                        },
+
+                        // 将 meta 拼接到 url 参数中，默认 false
+                        metaWithUrl: false,
+
+                        // 自定义增加 http  header
+                        headers: {
+                        },
+
+                        // 跨域是否传递 cookie ，默认为 false
+                        withCredentials: true,
+
+                        // 超时时间，默认为 10 秒
+                        timeout: 10 * 1000,
+
+                        // 单个文件上传失败
+                        onFailed(file, res) {   // TS 语法
+                            console.log(`${file.name} 上传失败`, res)
+                            $.alert.error(`${file.name} 上传失败`);
+                        },
+
+                        // 上传错误，或者触发 timeout 超时
+                        onError(file, err, res) {  // TS 语法
+                            console.log(`${file.name} 上传出错`, err, res)
+                            $.alert.error(`${file.name} 上传出错, ${err}`);
+                        },
+                        // 自定义插入图片
+                        customInsert(result, insertFn) {
+                            // customInsert(res, insertFn) {                  // JS 语法
+                            // res 即服务端的返回结果
+
+                            // 从 res 中找到 url alt href ，然后插入图片
+                            console.log('upload callback：', result);
+                            // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+                            // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+                            if (result.status === 200) {
+                                var imgFullPath = result.data;
+                                const html = '<img src="' + imgFullPath + '" alt="" style="max-width: 100%;height: auto;border-radius: 6px;"/>';
+                                editor.dangerouslyInsertHtml(html);
+                            } else {
+                                $.alert.error(result.message);
+                            }
+                        },
+                    },
+                    uploadVideo: {
+                        server: '/api/unsupported_upload_video',
+                        fieldName: 'unsupported',
+                        timeout: 0, // 5 秒
+                        onBeforeUpload(file) {
+                            $.alert.error('不支持在线上传视频，请使用插入视频');
+                            return false
+                        }
+                    }
+                }
+            }
+            editor = createEditor({
+                selector: config.container,
+                html: config.defaultHtml,
+                config: editorConfig,
+                mode: 'default', // or 'simple'
+            })
+
+            const toolbar = createToolbar({
+                editor,
+                selector: '#toolbar-container',
+                config: {
+                    insertKeys: {
+                        index: editor.getAllMenuKeys().length, // 插入的位置，基于当前的 toolbarKeys
+                        keys: ['insertArticleAd']
+                    }
+                },
+                mode: 'default', // or 'simple'
+            })
+
+            class ArticleAdButtonMenu {
+                constructor() {
+                    this.title = '插入广告' // 自定义菜单标题
+                    // this.iconSvg = '<svg>...</svg>' // 可选
+                    this.tag = 'button'
+                }
+                // 获取菜单执行时的 value ，用不到则返回空 字符串或 false
+                getValue(editor) {
+                    return '#CUSTOM_AD_PLACEHOLDER#'
+                }
+                // 菜单是否需要激活（如选中加粗文本，“加粗”菜单会激活），用不到则返回 false
+                isActive(editor) {
+                    return false
+                }
+                // 菜单是否需要禁用（如选中 H1 ，“引用”菜单被禁用），用不到则返回 false
+                isDisabled(editor) {
+                    return false
+                }
+                // 点击菜单时触发的函数
+                exec(editor, value) {
+                    if (this.isDisabled(editor)) {
+                        return
+                    }
+                    $.toastr.success("广告标识插入成功，<span style='color: red;font-size: 700'>该标识内容不可修改</span>！修改会导致文章内广告显示异常");
+                    editor.insertText(value)
+                }
+            }
+            Boot.registerMenu({
+                key: 'insertArticleAd', // 定义 menu key ：要保证唯一、不重复（重要）
+                factory() {
+                    return new ArticleAdButtonMenu() // 把 `YourMenuClass` 替换为你菜单的 class
+                }
+            })
+
+            // 注册全屏插件
+            // 注册图片资源库
+            zhyd.wangEditor.plugins.registerMaterial(editor, $contentBox);
+            //
+            // if (config.customCss) {
+            //     // 自定义编辑器的样式
+            //     for (var key in config.customCss) {
+            //         var value = config.customCss[key];
+            //         editor.$textContainerElem.css(key, value);
+            //     }
+            // }
         },
         plugins: {
-            registerUpload: function (editor, uploadUrl, uploadFileName, uploadType, callback) {
-                if (uploadUrl) {
-                    // 上传图片到服务器
-                    editor.config.uploadImgServer = uploadUrl;
-                    editor.config.uploadFileName = uploadFileName;
-                    // 将图片大小限制为 50M
-                    editor.config.uploadImgMaxSize = 50 * 1024 * 1024;
-                    // 超时时间
-                    editor.config.uploadImgTimeout = 10000;
-                    // 自定义上传参数
-                    editor.config.uploadImgParams = {
-                        // 如果版本 <=v3.1.0 ，属性值会自动进行 encode ，此处无需 encode
-                        // 如果版本 >=v3.1.1 ，属性值不会自动 encode ，如有需要自己手动 encode
-                        uploadType: uploadType
-                    };
-                    editor.config.customAlert = function (msg) {
-                        $.alert.error(msg);
-                    };
-                    editor.config.uploadImgHooks = {
-                        error: function (xhr, editor) {
-                            $.alert.error("图片上传出错");
-                        },
-                        timeout: function (xhr, editor) {
-                            $.alert.error("请求超时");
-                        },
-                        customInsert: function (insertImg, result, editor) {
-                            if (callback) {
-                                callback(result, editor);
-                            } else {
-                                console.log('upload callback：' + insertImg, result, editor);
-                            }
-                        }
-                    };
-                }
-            },
             registerMaterial: function (editor, $contentBox) {
                 $("div[id^='w-e-img']").unbind("click").click(function () {
                     setTimeout(function () {
@@ -661,7 +769,6 @@ $(document).ready(function () {
         '要想百度搜索引擎快速收录文章，可以试试“推送”功能哦',
         '批量推送文章到百度可以一次提交多篇文章哦',
         '碰到页面显示和数据库内容不一致的情况，可以先考虑清下redis缓存哦',
-        '不可以随便用“文章搬运工”去爬取别人未授权的文章哈',
         '使用过程中如果有不能解决的问题，请去提issue哈，在群里消息太多，有时候会看不到消息记录',
         '可以通过右上角“系统配置”-“文章编辑器”选择默认的文章发布编辑器'
     ];
@@ -680,5 +787,16 @@ $(document).ready(function () {
         $.alert.confirm("确定要切换编辑器吗？切换后本页内容将可能会丢失？", function () {
             window.location.href = $this.data("href");
         })
+    })
+
+    $('#helpModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var img = button.data('img');
+        var title = button.data('title');
+        var modal = $(this);
+        modal.find('#helpModalTitle').text(title);
+        var $img = modal.find('#helpModalImg');
+        $img.attr("src", img).attr("alt", title);
+        $img.parent().attr("href", img).attr("title", title);
     })
 });

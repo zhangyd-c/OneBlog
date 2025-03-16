@@ -6,11 +6,9 @@ import com.zyd.blog.business.entity.Article;
 import com.zyd.blog.business.entity.User;
 import com.zyd.blog.business.enums.ArticleStatusEnum;
 import com.zyd.blog.business.enums.PlatformEnum;
-import com.zyd.blog.business.service.BizArticleArchivesService;
-import com.zyd.blog.business.service.BizArticleService;
-import com.zyd.blog.business.service.SysLinkService;
-import com.zyd.blog.business.service.SysUpdateRecordeService;
+import com.zyd.blog.business.service.*;
 import com.zyd.blog.business.vo.ArticleConditionVO;
+import com.zyd.blog.util.ArticleUtil;
 import com.zyd.blog.util.ResultUtil;
 import com.zyd.blog.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -193,6 +191,9 @@ public class RenderController {
             article.setPassword(null);
             article.setContent(null);
             article.setContentMd(null);
+        } else {
+            String content = article.getContent();
+            article.setContent(ArticleUtil.insertAdsIntoArticle(content));
         }
         if (article.getRequiredAuth()) {
             User sessionUser = SessionUtil.getUser();

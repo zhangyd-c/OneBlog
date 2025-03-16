@@ -14,8 +14,9 @@ import com.zyd.blog.business.entity.ArticleLook;
  */
 public interface BizArticleLookService {
 
-    ArticleLook insert(ArticleLook articleLook);
+    void increment(Long articleId);
 
-    Object getRecentArticleLook(int pageSize);
+    void removeByArticleId(Long articleId);
 
+    boolean removeByPrimaryKey(Long primaryKey);
 }

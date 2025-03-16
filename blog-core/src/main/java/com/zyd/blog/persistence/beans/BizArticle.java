@@ -27,7 +27,9 @@ public class BizArticle extends AbstractDO {
     private String qrcodePath;
     @Deprecated
     private Boolean isMarkdown;
+    @Transient
     private String content;
+    @Transient
     private String contentMd;
     private Boolean top;
     private Long typeId;

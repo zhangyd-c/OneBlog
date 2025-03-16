@@ -54,7 +54,7 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 # 功能简介
 
 - **Docker一键部署**：支持 Docker 的方式一键启动服务
-- **广告位管理**：支持五种广告位：首页开屏广告、侧边栏顶部、侧边栏底部、文章详情底部、评论框顶部，站长可以随时随意更换自己的广告链接，赚外快不成问题！
+- **广告位管理**：支持五种广告位：首页开屏广告、侧边栏顶部、侧边栏底部、文章详情底部、评论框顶部、文章详情页顶部、**文章详情内，站长可以随时随意更换自己的广告链接，赚外快不成问题！
 - **多种编辑器**：支持 wangEditor、Markdown 和 TinyMCE 等多种文章编辑器，可以自行选择
 - **自动申请友情链接**：在线申请友情链接，无需站长手动配置，只需申请方添加完站长的连接后自行申请即可
 - **百度推送**：支持百度推送功能，加速百度搜索引擎收录博文
@@ -64,7 +64,6 @@ ps: 虽然我知道，大部分人都是来了**直接下载源代码**后就潇
 - **实时通讯**：管理员可向在线的用户实时发送消息
 - **系统配置支持快速配置**：可通过后台手动修改诸如域名信息、SEO 优化、赞赏码、七牛云以及更新维护通知等
 - **多种文件存储**：集成七牛云、阿里云OSS，实现文件云存储，同时支持本地文件存储
-- **文章搬运工**：集成[blog-hunter](https://gitee.com/yadong.zhang/blog-hunter) 实现“文章搬运工”功能，支持一键同步imooc、csdn、iteye或者cnblogs上的文章，可抓取列表和单个文章
 - **第三方授权登录**：集成 [JustAuthPlus（JAP）](https://gitee.com/fujieid/jap) 实现第三方授权登录
 - **自定义网站内容**：管理员可自定义“关于本站”、“留言板”、“友情链接”、“免责声明”、“Footer”、“鼠标点击时的气泡文字”、“热门搜索的待选项”等内容
 - **自定义页面**：管理员可添加自定义的页面
@@ -151,8 +150,6 @@ Compose 是用于定义和运行多容器 Docker 应用程序的工具。通过 
 ![admin端文章列表也](https://images.gitee.com/uploads/images/2019/0129/191135_21e4f61c_784199.png "admin端文章列表也")
 ![admin端发布文章页](https://images.gitee.com/uploads/images/2019/0129/191150_0d28d51a_784199.png "admin端发布文章页")
 ![admin端系统配置页](https://images.gitee.com/uploads/images/2019/0129/191203_cc6941e4_784199.png "admin端系统配置页")
-![admin端文章搬运工](https://images.gitee.com/uploads/images/2019/0129/191214_5e8f3c34_784199.png "admin端文章搬运工")
-![admin端文章搬运工](https://images.gitee.com/uploads/images/2019/0129/191237_d015fcda_784199.png "admin端文章搬运工")
 
 ----
 
@@ -189,7 +186,6 @@ Compose 是用于定义和运行多容器 Docker 应用程序的工具。通过 
 - [gentelella](https://github.com/puikinsh/gentelella): 一款开源的Bootstrap3后台管理模板
 - [七牛云](https://portal.qiniu.com/signup?code=3l8yx2v0f21ci): 强大的对象存储、CDN等服务提供商
 - [emoji表情列表](https://github.com/caiyongji/emoji-list#nature): emoji表情列表
-- [blog-hunter](https://github.com/zhangyd-c/blog-hunter): 博客猎手，基于webMagic的博客爬取工具，支持慕课、csdn、iteye、cnblogs、掘金和V2EX等各大主流博客平台。
 - [JustAuth](https://gitee.com/yadong.zhang/JustAuth): 史上最全的整合第三方登录的工具,目前已支持Github、Gitee、微博、钉钉、百度、Coding、腾讯云开发者平台、OSChina、支付宝、QQ、微信、淘宝、Google、Facebook、抖音、领英、小米、微软和今日头条等第三方平台的授权登录。 Login, so easy!
 - [JAP](https://gitee.com/fujieid/jap): 一款开源的登录认证中间件，基于模块化设计，并且与业务高度解耦，使用起来非常灵活，开发者可以毫不费力地将 JAP 集成到任何 web 应用程序中，就像集成 JustAuth 一样，简单方便。
 - 待续...

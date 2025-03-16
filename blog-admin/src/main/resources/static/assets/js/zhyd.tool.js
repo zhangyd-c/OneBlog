@@ -270,7 +270,7 @@
                         closeButton: true,
                         debug: false,
                         progressBar: true,
-                        positionClass: "toast-top-right",
+                        positionClass: "toast-bottom-right",
                         onclick: null,
                         showDuration: "300",//显示动作时间
                         hideDuration: "1000",//隐藏动作时间

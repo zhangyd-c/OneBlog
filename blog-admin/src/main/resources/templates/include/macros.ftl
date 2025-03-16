@@ -12,24 +12,29 @@
     <#if config.adminCssCdn?? && (config.adminCssCdn?length > 0)>
         ${config.adminCssCdn!}
     <#else >
-        <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/toastr.js/2.0.3/css/toastr.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/iCheck/1.0.2/skins/square/green.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-daterangepicker/2.1.25/daterangepicker.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/zTree.v3/3.5.29/css/metroStyle/metroStyle.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/switchery/0.8.2/switchery.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput-typeahead.css" rel="stylesheet">
-        <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet">
+        <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" async>
+        <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/assets/css/jquery-confirm.min.css" rel="stylesheet">
+        <link href="/assets/css/jquery.fancybox.min.css" rel="stylesheet">
+        <link href="/assets/css/nprogress.min.css" rel="stylesheet">
+        <link href="/assets/css/toastr.min.css" rel="stylesheet">
+        <link href="/assets/css/iCheck-green.css" rel="stylesheet">
+        <link href="/assets/css/bootstrap-table.min.css" rel="stylesheet">
+        <link href="/assets/css/daterangepicker.min.css" rel="stylesheet">
+        <link href="/assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <link href="/assets/css/zTree.v3.metroStyle.min.css" rel="stylesheet">
+        <link href="/assets/css/switchery.min.css" rel="stylesheet">
+        <link href="/assets/css/bootstrap-tagsinput-typeahead.css" rel="stylesheet">
+        <link href="/assets/css/bootstrap-tagsinput.css" rel="stylesheet">
+
+        <link href="/assets/css/wangeditor-style.min.css" rel="stylesheet" async>
     </#if>
     <link href="/assets/css/bootstrap-treetable.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/zhyd.core.css" rel="stylesheet">
     <#nested>
+    <style>
+        #toolbar-container { border: 1px solid #ccc; }
+    </style>
 </head>
 <body class="nav-md">
 <div class="container body">
@@ -76,10 +81,26 @@
     </#if>
     </div>
     </div>
+
+
+    <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="helpModalTitle"></h4>
+                </div>
+                <div class="modal-body">
+                    <a href="" class="showImage" title="" rel="external nofollow">
+                        <img src="" alt="" id="helpModalImg" class="img-responsive img-rounded">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
     <#include "/layout/footer.ftl"/>
 
     <#nested>
-
     </body>
 </html>
 </#macro>
@@ -320,7 +341,6 @@
                             <h2>其他开源作品</h2>
                             <ul>
                                 <li><a href="https://gitee.com/yadong.zhang/JustAuth" target="_blank">JustAuth</a>：史上最全的整合第三方登录的工具,目前已支持Github、Gitee、微博、钉钉、百度、Coding、腾讯云开发者平台、OSChina、支付宝、QQ、微信、淘宝、Google、Facebook、抖音、领英、小米、微软和今日头条等第三方平台的授权登录。 Login, so easy!</li>
-                                <li><a href="https://gitee.com/yadong.zhang/blog-hunter" target="_blank">blog-hunter</a>：博客猎手，基于webMagic的博客爬取工具，支持慕课、csdn、iteye、cnblogs、掘金和V2EX等各大主流博客平台。博客千万篇，版权第一条。狩猎不规范，亲人两行泪。</li>
                                 <li><a href="https://gitee.com/yadong.zhang/shiro" target="_blank">springboot-shiro</a>：Springboot + shiro权限管理。这或许是流程最详细、代码最干净、配置最简单的shiro上手项目了。</li>
                                 <li><a href="https://gitee.com/yadong.zhang" target="_blank">查看更多...</a></li>
                             </ul>
@@ -339,7 +359,6 @@
                                 <li><span><span><strong>实时通讯</strong>：管理员可向在线的用户发送实时消息（需用户授权 - 基于websocket实现，具体参考<a href="https://docs.zhyd.me/article/111">DBlog建站之Websocket的使用</a>）</span></span></li>
                                 <li><span><span><strong>系统配置支持快速配置</strong>：可通过后台手动修改诸如域名信息、SEO优化、赞赏码、七牛云以及更新维护通知等</span></span></li>
                                 <li><span><span><strong><i class="fa fa-fire fa-fw red"></i>多种文件存储</strong>：集成七牛云、阿里云OSS，实现文件云存储，同时支持本地文件存储</span></span></li>
-                                <li><span><span><strong><i class="fa fa-fire fa-fw red"></i>文件搬运工</strong>：集成<a href="https://gitee.com/yadong.zhang/blog-hunter">blog-hunter</a>实现“文章搬运工”功能，支持一键同步imooc、csdn、iteye或者cnblogs上的文章，可抓取列表和单个文章</span></span></li>
                                 <li><span><span><strong><i class="fa fa-fire fa-fw red"></i>第三方授权登录</strong>：集成<a href="https://gitee.com/yadong.zhang/JustAuth">JustAuth</a>实现第三方授权登录</span></span></li>
                             </ul>
                         </fieldset></div>

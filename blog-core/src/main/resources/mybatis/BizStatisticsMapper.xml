@@ -33,5 +33,48 @@
 		ORDER BY
 			name_value DESC
 	</select>
+	<select id="listArticleLookCountByArticleIds" parameterType="list" resultMap="rm">
+		SELECT
+			article_id AS 'name',
+			look_count AS 'name_value'
+		FROM
+			biz_article_look_v2
+		WHERE
+			article_id IN (
+			<foreach collection="list" item="item" separator=",">
+				#{item}
+			</foreach>
+			)
+	</select>
+	<select id="listArticleLoveCountByArticleIds" parameterType="list" resultMap="rm">
+		SELECT
+			article_id AS 'name',
+			count( * ) AS 'name_value'
+		FROM
+			biz_article_love
+		WHERE
+			article_id IN (
+			<foreach collection="list" item="item" separator=",">
+				#{item}
+			</foreach>
+			)
+		GROUP BY
+			article_id
+	</select>
+	<select id="listArticleCommentCountByArticleIds" parameterType="list" resultMap="rm">
+		SELECT
+			sid AS 'name',
+			count( * ) AS 'name_value'
+		FROM
+			biz_comment
+		WHERE
+			sid IN (
+			<foreach collection="list" item="item" separator=",">
+				#{item}
+			</foreach>
+			)
+		GROUP BY
+			sid
+	</select>
 </mapper>
 

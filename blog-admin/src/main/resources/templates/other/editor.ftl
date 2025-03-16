@@ -1,10 +1,6 @@
 <#include "/include/macros.ftl">
 <@header>
     <style type="text/css">
-        .toolbar {
-            background-color: #f1f1f1;
-            border: 1px solid #ccc;
-        }
         .text {
             border: 1px solid #ccc;
             height: 200px;
@@ -24,41 +20,18 @@
                 </div>
                 <div class="x_content">
                     <div class="form-group row">
-                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="name">菜单和编辑器区域分开 wangEditor</label>
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="name">原生 wangEditor</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                            <div id="toolbar" class="toolbar"></div>
-                            <div style="padding: 5px 0; color: #ccc">中间隔离带</div>
-                            <div id="div1" class="text" style="height: 100px">
-                                <p>第一个 demo（菜单和编辑器区域分开）</p>
+                            <div id="toolbar1" style="border: 1px solid #ccc;"></div>
+                            <div id="editor1" class="text" style="height: 500px">
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="name">普通的编辑器 wangEditor</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                            <div id="div2">
-                                <p>第二个 demo（常规）</p>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group row">
-                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="name">oneBlog系统定制的编辑器 wangEditor</label>
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="name">oneBlog系统定制的 wangEditor</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                             <div id="editor">
-                                <p>第三个 demo（oneBlog系统单独定制，支持文件上传）</p>
-                                <p>
-                                    使用方式：
-                                <pre><code># html<br>&lt;div id="editor"&gt;&lt;/div&gt;<br><br># js<br>$.wangEditor.init({<br>	container: "#editor",<br>	textareaName: "content",<br>	uploadUrl: "/api/uploadFile",<br>	uploadFileName: "file",<br>	uploadType: "goods",<br>	customCss: {<br>		"overflow-y": "scroll",<br>		"height": "100%",<br>		"max-height": "125px"<br>	}<br>})</code></pre>
-                                </p>
-                                <ul>
-                                    <li>container: 编辑器的id，默认为editor</li>
-                                    <li>textareaName: 自动生成的textarea组件的name，默认为content。可以自定义为表单中实际的参数name</li>
-                                    <li>uploadUrl: 文件上传的api路径。如果不为空，则开启上传文件的功能</li>
-                                    <li>uploadFileName: 文件上传时后台接收文件的参数名，默认为file</li>
-                                    <li>uploadType: 当前上传文件的场景类型，<strong>最好根据实际业务取名</strong>，它会决定最终上传完成后的文件路径，比如在商品信息管理页中指定了uploadType = goods,那么最终上传完成后的文件路径就是：<code>oneblog/goods/{filename}.png</code>，默认为空</li>
-                                    <li>customCss: 自定义的css，可以修改编辑器大小，默认为空。注：如果是修改高度，必须通过<code>max-height</code>参数修改，并且一定要加上：<code>"overflow-y": "scroll"</code>, <code>"height": "100%"</code>这两项配置，否则可能会使编辑器显示不正确</li>
-                                </ul>
+
                             </div>
                         </div>
                     </div>
@@ -75,15 +48,66 @@
 </div>
 <@footer>
     <script type="text/javascript">
-        var E = window.wangEditor
-        var editor1 = new E('#toolbar', '#div1');
-        editor1.config.zIndex = 10;
-        editor1.create();
+        const { createEditor, createToolbar, Boot,IButtonMenu } = window.wangEditor
+        const editor1 = createEditor({
+            selector: '#editor1',
+            html: '<p><br></p>',
+            config: {
+                placeholder: 'Type here...',
+                onChange(editor) {
+                    const html = editor.getHtml()
+                    console.log('changed editor content', html)
+                    // 也可以同步到 <textarea>
+                }
+            },
+            mode: 'default', // or 'simple'
+        })
+        createToolbar({
+            editor: editor1,
+            selector: '#toolbar1',
+            config: {
+                insertKeys: {
+                    index: editor1.getAllMenuKeys().length, // 插入的位置，基于当前的 toolbarKeys
+                    keys: ['insertArticleAd']
+                }
+            },
+            mode: 'default', // or 'simple'
+        })
 
-        var editor2 = new E('#div2');
-        editor2.config.zIndex = 10;
-        editor2.create();
-        $("#div2").find(".w-e-text-container").css("height","100px");
+
+        class ArticleAdButtonMenu {
+            constructor() {
+                this.title = '插入广告' // 自定义菜单标题
+                // this.iconSvg = '<svg>...</svg>' // 可选
+                this.tag = 'button'
+            }
+            // 获取菜单执行时的 value ，用不到则返回空 字符串或 false
+            getValue(editor) {
+                return '{{#custom_article_ad:all:*}}'
+            }
+            // 菜单是否需要激活（如选中加粗文本，“加粗”菜单会激活），用不到则返回 false
+            isActive(editor) {
+                return false
+            }
+            // 菜单是否需要禁用（如选中 H1 ，“引用”菜单被禁用），用不到则返回 false
+            isDisabled(editor) {
+                return false
+            }
+            // 点击菜单时触发的函数
+            exec(editor, value) {
+                if (this.isDisabled(editor)) {
+                    return
+                }
+                $.toastr.success("广告标识插入成功，<span style='color: red;font-size: 700'>该标识内容不可修改</span>！修改会导致文章内广告显示异常");
+                editor.insertText(value)
+            }
+        }
+        Boot.registerMenu({
+            key: 'insertArticleAd', // 定义 menu key ：要保证唯一、不重复（重要）
+            factory() {
+                return new ArticleAdButtonMenu() // 把 `YourMenuClass` 替换为你菜单的 class
+            }
+        })
 
         // oneblog定制版的wangEditor
         zhyd.wangEditor.init({
@@ -92,15 +116,15 @@
             uploadUrl: "/api/uploadFile",
             uploadFileName: "file",
             uploadType: "goods",
+            defaultHtml: '',
             customCss: {
-                "overflow-y": "scroll",
-                "height": "100%",
-                "max-height": "600px"
+                "border": "1px solid #ccc",
+                "height": "300px"
             }
         })
 
         zhyd.tinymce.init({
-            selector: "#editor",
+            selector: "#editor3",
             uploadUrl: "/api/uploadFile",
             uploadFileName: "file",
             textareaName: "content2",

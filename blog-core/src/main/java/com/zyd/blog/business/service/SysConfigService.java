@@ -61,13 +61,14 @@ public interface SysConfigService {
     Map<String, Object> getSiteInfo();
 
     /**
-     * 返回 Spider
-     */
-    String getSpiderConfig();
-
-    /**
      * 获取随机的用户头像
      */
     List<String> getRandomUserAvatar();
+
+    /**
+     * 获取系统是否开启 WebSocket 的配置
+     * @return true: 开启，false: 关闭
+     */
+    boolean enabledWebSocket();
 
 }

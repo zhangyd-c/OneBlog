@@ -75,6 +75,7 @@
             </#if>
         </@zhydTag>
     </div>
+    <#if config.comment! && config.comment == 1>
     <@zhydTag method="recentComments" pageSize="5">
         <#if recentComments?? && recentComments?size gt 0>
             <div class="sidebar-module">
@@ -107,6 +108,7 @@
             </div>
         </#if>
     </@zhydTag>
+    </#if>
     <div class="sidebar-module">
         <ul class="nav nav-tabs sidebar-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list"></i>近期文章</a></li>

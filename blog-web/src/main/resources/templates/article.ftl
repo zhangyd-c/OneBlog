@@ -15,6 +15,8 @@
     </nav>
     <div class="row article-body">
         <div class="col-sm-8 blog-main">
+            <#-- 广告位 -->
+            <div class="ad-mark" id="ARTICLE_TOP" style="display: none"></div>
             <div class="blog-body overflow-initial fade-in">
                 <div class="article-flag">
                     <#if article.original?string('true','false') == 'true'>
@@ -262,7 +264,7 @@
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/simplemde@1.11.2/dist/simplemde.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
 <#--    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/jquery.share.min.js"></script>-->
-    <script src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js" type="text/javascript"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js" type="text/javascript"></script>
 
     <script>
         var isPrivate = '${article.private}';

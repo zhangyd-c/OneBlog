@@ -1,6 +1,8 @@
 package com.zyd.blog.core.websocket.server;
 
+import com.zyd.blog.business.service.SysConfigService;
 import com.zyd.blog.core.websocket.util.WebSocketUtil;
+import com.zyd.blog.framework.holder.SpringContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -38,9 +40,15 @@ public class ZydWebsocketServer {
      */
     @OnOpen
     public void onOpen(Session session) {
+        SysConfigService sysConfigService = SpringContextHolder.getBean(SysConfigService.class);
+        if (!sysConfigService.enabledWebSocket()) {
+            webSocketSet.clear();
+            onlineCount.set(0);
+            return;
+        }
         webSocketSet.add(session);
         int count = onlineCount.incrementAndGet();
-        log.info("[Socket] 有链接加入，当前在线人数为: {}", count);
+        log.debug("[Socket] 有链接加入，当前在线人数为: {}", count);
 
         WebSocketUtil.sendOnlineMsg(Integer.toString(count), webSocketSet);
     }
@@ -50,8 +58,14 @@ public class ZydWebsocketServer {
      */
     @OnClose
     public void onClose() {
+        SysConfigService sysConfigService = SpringContextHolder.getBean(SysConfigService.class);
+        if (!sysConfigService.enabledWebSocket()) {
+            webSocketSet.clear();
+            onlineCount.set(0);
+            return;
+        }
         int count = onlineCount.decrementAndGet();
-        log.info("[Socket] 有链接关闭,当前在线人数为: {}", count);
+        log.debug("[Socket] 有链接关闭,当前在线人数为: {}", count);
         WebSocketUtil.sendOnlineMsg(Integer.toString(count), webSocketSet);
     }
 
@@ -63,7 +77,13 @@ public class ZydWebsocketServer {
      */
     @OnMessage
     public void onMessage(String message, Session session) {
-        log.info("[Socket] {}来自客户端的消息:{}", session.getId(), message);
+        SysConfigService sysConfigService = SpringContextHolder.getBean(SysConfigService.class);
+        if (!sysConfigService.enabledWebSocket()) {
+            webSocketSet.clear();
+            onlineCount.set(0);
+            return;
+        }
+        log.debug("[Socket] {}来自客户端的消息:{}", session.getId(), message);
     }
 
     /**

@@ -53,9 +53,6 @@
                 </div>
             </div>
         <#else>
-            <div class="blog-body clear overflow-initial expansion gray">
-                <i class="fa fa-close fa-fw"></i>评论功能已被站长关闭
-            </div>
         </#if>
     </div>
 </div>

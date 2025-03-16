@@ -28,29 +28,29 @@ public class ArticleLookTask {
 
     private final BizArticleLookService articleLookService;
 
-    private final BlockingQueue<ArticleLook> queue = new ArrayBlockingQueue<>(1024);
+    private final BlockingQueue<Long> queue = new ArrayBlockingQueue<>(1024);
 
     /**
      * 保存文章的浏览记录，先进先出
      */
-    public void addLookRecordToQueue(ArticleLook articleLook) {
-        if (null == articleLook) {
+    public void addLookRecordToQueue(Long articleId) {
+        if (null == articleId) {
             return;
         }
-        queue.offer(articleLook);
+        queue.offer(articleId);
     }
 
     public void save() {
-        List<ArticleLook> bufferList = new ArrayList<>();
+        List<Long> bufferList = new ArrayList<>();
         while (true) {
             try {
                 bufferList.add(queue.take());
-                for (ArticleLook articleLook : bufferList) {
-                    if (!bizArticleService.isExist(articleLook.getArticleId())) {
-                        log.warn("{}-该文章不存在！", articleLook.getArticleId());
+                for (Long articleId : bufferList) {
+                    if (!bizArticleService.isExist(articleId)) {
+                        log.warn("{}-该文章不存在！", articleId);
                         continue;
                     }
-                    articleLookService.insert(articleLook);
+                    articleLookService.increment(articleId);
                 }
             } catch (InterruptedException e) {
                 log.error("保存文章浏览记录失败--->[{}]", e.getMessage());

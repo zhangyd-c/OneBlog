@@ -29,6 +29,7 @@ public enum AdTypeEnum {
      */
     JS("JS"),
     TXT("纯文本"),
+    ARTICLE("文章")
     ;
 
     private String desc;

@@ -7,12 +7,15 @@ import com.zyd.blog.business.enums.AdPositionEnum;
 import com.zyd.blog.business.service.BizAdService;
 import com.zyd.blog.business.vo.BizAdConditionVO;
 import com.zyd.blog.persistence.beans.BizAd;
+import com.zyd.blog.persistence.beans.BizType;
 import com.zyd.blog.persistence.mapper.BizAdMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -61,6 +64,24 @@ public class BizAdServiceImpl implements BizAdService {
         ad.setPosition(positionEnum.name());
         ad = this.bizAdMapper.selectOne(ad);
         return null == ad ? null : new BizAdBo(ad);
+    }
+
+    @Override
+    public List<BizAdBo> listArticleAds() {
+        Example example = new Example(BizAd.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("position", AdPositionEnum.ARTICLE.name());
+
+        Example.Criteria criteria2 = example.createCriteria();
+        criteria2.andGreaterThan("expiringDate", new Date()).orIsNull("expiringDate");
+        example.and(criteria2);
+        example.setOrderByClause("RAND()");
+        List<BizAd> ads = bizAdMapper.selectByExample(example);
+        List<BizAdBo> list = new ArrayList<>();
+        for (BizAd entity : ads) {
+            list.add(new BizAdBo(entity));
+        }
+        return list;
     }
 
     /**
